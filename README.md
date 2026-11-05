@@ -9,7 +9,7 @@ festgelegtes Urteil nach einer bestimmten Zahl von Trades.
 | Workflow | Was | Wann |
 |---|---|---|
 | `gold-bot.yml` | Gold-Bot (Strategien C und B aus `gold/strategies/`, Stop 1 x ATR) und Gold-Bot 2.0 im Schatten (ohne Order) | jede Stunde zur Minute 11 |
-| `demo-bots.yml` | Vortag EUR/USD und GBP/USD, US500- und US100-Rücksetzer, Nasdaq Noise-Band Long, Prüfung nach 15/40 Trades | Montag bis Freitag 10 bis 22 Uhr Berlin, alle 15 Minuten |
+| `demo-bots.yml` | Kern-, Labor- und Mess-Bots (Vortag-Bots, US-Index-Rücksetzer, Nasdaq Noise-Band Long, Brent, London, Noise USD/JPY), Prüfung nach 15/40 Trades, Rutsch-Regel und Frist | jeden Tag rund um die Uhr, alle 15 Minuten |
 | `tests.yml` | alle Tests | bei jedem Pull Request |
 
 Angestoßen werden die Läufe von außen über [cron-job.org](https://cron-job.org) (workflow_dispatch). GitHubs eigene

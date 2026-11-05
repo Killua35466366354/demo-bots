@@ -5,12 +5,14 @@ name: Demo-Bots (Strategie-Suche, nur Demokonto)
 # Nasdaq Noise-Band Long; suche/us500_bot.py, suche/r7_nasdaq_bot.py). Die alten Runde-3-Bots in suche/demo_bots.py
 # sind alle abgelöst und öffnen nichts mehr.
 #
-# Uhr: Kirons cron-job.org-Auftrag "Demo-Bots", Minute 1, 16, 31 und 46. Kosten sparen (05.11.2026): nur Montag bis
-# Freitag 10 bis 22 Uhr Berlin. Früher braucht kein Bot einen Lauf (Vortag legt seine Orders um 4:30 New York =
-# 10:30 Berlin, die US-Bots handeln 9:30 bis 16:00 New York), und der letzte Vortag-Ausstieg ist um 16:45 New York =
-# 22:45 Berlin. Achtung im März: Vom 14.03. bis 27.03.2027 ist New York nur 5 Stunden hinter Berlin, dann muss das
-# Fenster eine Stunde früher anfangen und enden. Jeder Lauf soll unter einer Minute bleiben (GitHub rechnet je
-# angefangene Minute ab). Offene Positionen haben ihren Stop beim Broker.
+# Uhr: Kirons cron-job.org-Auftrag "Demo-Bots", Minute 1, 16, 31 und 46, seit Kirons Wunsch vom 05.11.2026 17:33 UTC
+# jeden Tag rund um die Uhr. Im öffentlichen Repo kostet ein Lauf keine Minuten, das Fenster 10 bis 22 Uhr Berlin
+# (Sparen vom 05.11.2026 morgens) brauchte es nicht mehr. Davon hatten zwei Bots weniger als ihre Regel erlaubt: Brent
+# (30-Minuten-Signale rund um die Uhr, Backtest ohne Uhrzeit-Grenze) verlor jedes Nachtsignal, Noise USD/JPY
+# (Sitzung ab 8 Uhr London = 9 Uhr Berlin) seine erste Stunde. Wann ein Bot handeln darf, steht allein in seinen
+# Regeln (Vortag 4:30 bis 16:45 New York, US-Bots in der US-Sitzung, London-Bot am Londoner Morgen); außerhalb davon
+# rechnet ein Lauf nur und öffnet nichts. Jeder Lauf soll unter einer Minute bleiben. Offene Positionen haben ihren
+# Stop beim Broker.
 #
 # Getrennt vom Gold-Bot-Lauf: Dieser Lauf schreibt nur journal/demo-bots* und journal/konten.json, der Gold-Bot nur seine eigenen Dateien. So
 # kann ein Fehler hier nie das Journal des Gold-Bots stören. Gleiche Gruppe wie der Gold-Bot: Beide laufen nie

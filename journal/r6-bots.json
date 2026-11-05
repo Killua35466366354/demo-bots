@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-05T15:01:40.340632",
+ "stand_utc": "2026-11-05T15:16:45.381115",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -128,7 +128,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:01:40.340632",
+    "zeit": "2026-11-05T15:16:45.381115",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -231,7 +231,7 @@
    "kontostand": 999.96,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "wartet auf das nächste Signal",
+   "status": "Fehler: PUT /session -> 500: {\"errorCode\":\"error.internal\"}",
    "offen": null,
    "orders": null,
    "position": null,
@@ -379,7 +379,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:01:40.340632",
+    "zeit": "2026-11-05T15:16:45.381115",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -494,7 +494,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:01:40.340632",
+    "zeit": "2026-11-05T15:16:45.381115",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -609,7 +609,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:01:40.340632",
+    "zeit": "2026-11-05T15:16:45.381115",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

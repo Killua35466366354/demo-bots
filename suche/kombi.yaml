@@ -1,0 +1,22 @@
+# Mehrere Strategien auf einem gemeinsamen Capital.com-Demokonto (suche/london_bot.py). Nur Demo, nie echtes Geld.
+#
+# Kirons Wunsch vom 04.11.2026, 12:09 UTC, nach der Seite "Die besten drei zusammen auf einem Konto": "lasse es live im
+# demo laufen,.... kombiniere es in einen trading bot/strategie die mit einem demo account alle 3 strategien gleichzeitig
+# handelt". Die besten 3 der Bewertung 2025-2026 (suche/VORAB_bewertung.yaml): Trend-Rücksetzer US500 (PF 5,82),
+# Nasdaq Noise Long (3,54), Trend-Rücksetzer US100 (1,91). Zusammen 2025-2026: 68 Trades, +102 € mit 1.000 € bei 1 %
+# Risiko bis zum Stop, größter Rückgang 18 € (korrigiert 04.11.2026; vorher +258 €, weil R in ATR statt bis zum Stop).
+#
+# So geht es: Jede Strategie bleibt ein eigener Bot mit eigenen Regeln, eigenen Trades und eigener Prüfung nach 15/40
+# Trades (suche/VORAB_wechsel.yaml), aber alle handeln auf dem Konto des Ankers. Die anderen ziehen um, sobald sie keine
+# Position mehr haben; ihr altes Konto wird frei (journal/konten.json "frei") und geht an die nächste Strategie, die die
+# Regel besteht. Jeder Bot kennt seine Positionen an der Deal-ID (journal/konten.json "deals"). Nasdaq Long und
+# US100-Rücksetzer handeln beide US100: gleiche Richtung geht (zwei getrennte Positionen), eine Gegenposition wird nicht
+# eröffnet, weil das Konto ohne Hedging die andere Position schließen würde. 2025-2026 lagen 4 Trades gleichzeitig
+# offen, alle in derselben Richtung (long); eine Gegenposition gab es nie.
+format: 1
+kombi:
+  top3:
+    name: "Top 3 auf einem Konto"
+    seit: "2026-11-04"
+    anker: us500-ruecksetzer        # dessen Konto ("US500") teilen sich alle
+    bots: [us500-ruecksetzer, r7-nasdaq-noise-long, r5-ruecksetzer-us100]

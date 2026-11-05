@@ -1,0 +1,30 @@
+{"time": "2026-11-03T07:14:21.451786", "event": "start", "ende_utc": "2026-11-09T07:14:21.451786"}
+{"time": "2026-11-03T10:16:28.908733", "event": "ende verschoben", "von": "2026-11-09T07:14:21.451786", "auf": "2026-11-10T09:45:00"}
+{"time": "2026-11-03T10:16:28.908733", "event": "hauptkonto", "konto": "…3150"}
+{"time": "2026-11-03T10:16:28.908733", "event": "konto zugeordnet", "bot": "oil-brent", "konto": "…5310", "name": "Account 1", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:16:28.908733", "event": "konto zugeordnet", "bot": "j225", "konto": "…2606", "name": "Account 2", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:16:28.908733", "event": "konto zugeordnet", "bot": "us30", "konto": "…4494", "name": "Account 3", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:16:28.908733", "event": "konto zugeordnet", "bot": "copper", "konto": "…1790", "name": "Account 4", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:16:28.908733", "event": "konto zugeordnet", "bot": "intc", "konto": "…9086", "name": "Account 5", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:16:28.908733", "event": "konto zugeordnet", "bot": "gold2", "konto": "…3678", "name": "Account 6", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:46:39.952209", "event": "konto zugeordnet", "bot": "dax", "konto": "…6542", "name": "Account 7", "wie": "Reihenfolge"}
+{"time": "2026-11-03T10:46:39.952209", "bot": "us30", "bar": "2026-11-03 10:30:00", "side": "short", "konto": "…4494", "size": 0.001, "stop_dist": 52.9, "tp_dist": null, "stop_breiter": false, "ziel_weiter": false, "risk_eur": 0.05, "margin_eur": 2.31, "event": "eröffnet", "entry": 51713.0, "dealId": "00000000-7082-64ad-049c-701d0015549e"}
+{"time": "2026-11-03T13:31:34.905159", "bot": "us30", "event": "vom Broker geschlossen", "exit": 51713.0, "r": -0.0, "reason": "von Hand geschlossen"}
+{"time": "2026-11-03T14:16:34.507820", "bot": "us30", "bar": "2026-11-03 14:00:00", "side": "short", "konto": "…4494", "size": 0.001, "stop_dist": 80.6, "tp_dist": null, "stop_breiter": false, "ziel_weiter": false, "risk_eur": 0.07, "margin_eur": 2.31, "event": "eröffnet", "entry": 51791.5, "dealId": "00000000-7083-b14a-049c-701d0015549e"}
+{"time": "2026-11-03T16:01:36.883121", "bot": "us30", "event": "vom Broker geschlossen", "exit": 51791.5, "r": -0.0, "reason": "von Hand geschlossen"}
+{"time": "2026-11-03T16:46:36.668395", "bot": "us30", "bar": "2026-11-03 16:30:00", "side": "short", "konto": "…4494", "size": 0.001, "stop_dist": 95.4, "tp_dist": null, "stop_breiter": false, "ziel_weiter": false, "risk_eur": 0.09, "margin_eur": 2.31, "event": "eröffnet", "entry": 51772.6, "dealId": "00000000-7084-96a5-049c-701d0015549e"}
+{"time": "2026-11-03T18:16:50.544978", "bot": "us30", "event": "vom Broker geschlossen", "exit": 51772.6, "r": -0.0, "reason": "von Hand geschlossen"}
+{"time": "2026-11-03T18:16:50.544978", "bot": "dax", "bar": "2026-11-03 18:00:00", "side": "long", "konto": "…6542", "size": 0.001, "stop_dist": 41.3, "tp_dist": null, "stop_breiter": false, "ziel_weiter": false, "risk_eur": 0.04, "margin_eur": 1.29, "event": "eröffnet", "entry": 25860.5, "dealId": "00000000-7097-d314-049c-70750015549e"}
+{"time": "2026-11-03T19:46:38.242178", "bot": "dax", "event": "vom Broker geschlossen", "exit": 25860.5, "r": 0.0, "reason": "von Hand geschlossen"}
+{"time": "2026-11-03T20:16:52.614788", "bot": "us30", "event": "nachgebucht", "dealId": "00000000-7082-64ad-049c-701d0015549e", "exit": 51766.0, "r": -1.002, "reason": "Stop beim Broker"}
+{"time": "2026-11-03T20:16:52.614788", "bot": "us30", "event": "nachgebucht", "dealId": "00000000-7083-b14a-049c-701d0015549e", "exit": 51872.1, "r": -1.0, "reason": "Stop beim Broker"}
+{"time": "2026-11-03T20:16:52.614788", "bot": "us30", "event": "nachgebucht", "dealId": "00000000-7084-96a5-049c-701d0015549e", "exit": 51868.2, "r": -1.002, "reason": "Stop beim Broker"}
+{"time": "2026-11-03T20:16:52.614788", "bot": "dax", "event": "nachgebucht", "dealId": "00000000-7097-d314-049c-70750015549e", "exit": 25819.0, "r": -1.005, "reason": "Stop beim Broker"}
+{"time": "2026-11-04T11:46:39.499621", "event": "ende verschoben", "von": "2026-11-10T09:45:00", "auf": "2027-01-29T21:00:00"}
+{"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "j225", "an": "r7-nasdaq-noise-long", "konto": "…2606", "name": "Account 2", "kontostand": 1000.0}
+{"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "us30", "an": "r5-ruecksetzer-us100", "konto": "…4494", "name": "Account 3", "kontostand": 999.79}
+{"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "copper", "an": "r6-vortag-eurusd", "konto": "…1790", "name": "Account 4", "kontostand": 1000.0}
+{"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "intc", "an": "r5-ruecksetzer-us30", "konto": "…9086", "name": "Account 5", "kontostand": 1000.0}
+{"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "gold2", "an": "r6-london-gbpusd", "konto": "…3678", "name": "Account 6", "kontostand": 1000.0}
+{"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "dax", "an": "r6-noise-usdjpy", "konto": "…6542", "name": "Account 7", "kontostand": 999.96}
+{"time": "2026-11-04T13:01:29.986068", "event": "konto frei", "bot": "oil-brent", "an": null, "konto": "…5310", "name": "Account 1", "kontostand": 1000.0}

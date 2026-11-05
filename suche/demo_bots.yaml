@@ -1,0 +1,147 @@
+# Demo-Bots der Strategie-Suche Runde 3 (suche/demo_bots.py). Nur Capital.com-DEMO, nie echtes Geld.
+# Die Bots kommen aus dem Backtest März bis Oktober 2026 (suche/VORAB_runde3.yaml, Kirons Regel: die besten 5 nach
+# Gewinnfaktor über 1,2, je Markt einer, kein Gold). Ergebnis vom 03.11.2026, suche/PROTOKOLL.md (Runde 3).
+# Ehrlich: 43 Varianten kamen über die Regel, reiner Zufall schaffte im Schnitt 53. Die 5 können Glück sein.
+aktiv: true
+handelstage: 4
+# Kirons Wunsch vom 03.11.2026, 09:45 UTC: alle Bots eine Woche live auf Capital.com (Demo), jeder auf einem eigenen
+# Konto. Das Testende rückt deshalb von Mo 09.11. 07:14 auf Di 10.11. 09:45 UTC (10:45 Uhr Berlin).
+wochentest_ende_utc: "2026-11-10T09:45:00"   # Ende des Wochen-Tests (12-h-Bericht und Auswertung am 10.11.)
+# 04.11.2026: Brent hat die gleiche Bewertung 2025-2026 bestanden und behält Account 1 (suche/VORAB_bewertung.yaml).
+# Damit das Konto nach dem Wochen-Test nicht leer steht, handelt er weiter bis Ende Januar 2027; dann prüfen wir alle
+# Demo-Bots wie den Gold-Bot (Demo gegen Backtest). Die abgelösten Bots unten öffnen ohnehin nichts Neues mehr.
+ende_utc: "2027-01-29T21:00:00"
+eigene_konten: true            # jeder Bot ein eigenes Demokonto, sobald Kiron es angelegt hat (gold/bot/konten.py)
+reserve_margin_eur: 400        # so viel Margin bleibt auf dem Hauptkonto immer frei, damit der Gold-Bot handeln kann
+reserve_margin_eigen_eur: 0    # auf einem eigenen Konto muss nur die Margin der eigenen Order frei sein
+max_risiko_eur: 10             # mehr Risiko je Trade bei der kleinsten Größe: dann kein Einstieg
+max_tagesverlust_r: 6          # haben die Demo-Bots heute zusammen 6 R verloren, öffnet keiner mehr
+# Kirons Wunsch vom 04.11.2026: die Demokonten sind am Maximum, also bekommen die besten Strategien der gleichen
+# Bewertung 2025-2026 (suche/VORAB_bewertung.yaml, Ergebnis in journal/portfolio.json) die Konten der schwächeren. Ein
+# abgelöster Bot öffnet keinen neuen Trade; seine offene Position läuft nach seinen Regeln zu Ende, dann schreibt der
+# Lauf sein Konto in journal/konten.json auf den Nachfolger um (us500_bot, r7_nasdaq_bot und r6_bots lesen es dort).
+# Vortag USD/JPY (Konto "Vortag USDJPY") gibt sein Konto an Vortag GBP/USD ab; das macht der Lauf der Runde-6-Bots.
+abgeloest:
+  j225: {an: r7-nasdaq-noise-long, seit: "2026-11-04", grund: "Bewertung 2025-2026: Japan 225 PF 1,26, 2025 unter 1 (0,80), nicht bestanden. Nasdaq Noise Long PF 3,54, bestanden (Rang 2)."}
+  us30: {an: r5-ruecksetzer-us100, seit: "2026-11-04", grund: "Bewertung 2025-2026: Dow 15 Min. Short PF 1,19, nicht bestanden. Trend-Rücksetzer US100 PF 1,91, bestanden (Rang 3)."}
+  copper: {an: r6-vortag-eurusd, seit: "2026-11-04", grund: "Bewertung 2025-2026: Kupfer PF 1,02, nicht bestanden. Vortag EUR/USD PF 1,67, bestanden (Rang 4)."}
+  intc: {an: r5-ruecksetzer-us30, seit: "2026-11-04", grund: "Bewertung 2025-2026: Intel PF 1,13, nicht bestanden. Trend-Rücksetzer Dow PF 1,48, bestanden (Rang 6)."}
+  gold2: {an: r6-london-gbpusd, seit: "2026-11-04", grund: "Bewertung 2025-2026: Gold-Bot 2.0 PF 1,04, nicht bestanden. London GBP/USD PF 1,45, bestanden (Rang 7)."}
+  dax: {an: r6-noise-usdjpy, seit: "2026-11-04", grund: "Bewertung 2025-2026: DAX PF 1,01, nicht bestanden. Noise USD/JPY PF 1,39, bestanden (Rang 8)."}
+regel_text: "Backtest März bis Oktober 2026, die 5 besten Varianten nach Gewinnfaktor (über 1,2, mindestens 30 Trades, je Markt eine). 4 Handelstage Demo mit der kleinsten Ordergröße. Gut = Summe R über 0 und Gewinnfaktor ab 1,2 bei mindestens 3 Trades."
+bots:
+- id: oil-brent
+  epic: OIL_BRENT
+  name: Brent-Öl
+  konto_namen: [brent, öl, oil]     # passt ein Kontoname, bekommt dieser Bot das Konto
+  typ: COMMODITIES
+  zeitrahmen: 30min
+  logik: gold
+  seiten: nur C
+  backtest:
+    trades: 56
+    pf_r: 2.12
+    win_pct: 30.4
+    sum_r: 43.8
+    zufall_gleich_gut_pct: 3.5
+  hinweis: Nur Long (C). Ohne die 3 besten Trades Gewinnfaktor 1,33. Zufall gleich gut in 3,5 % der Läufe.
+- id: j225
+  epic: J225
+  name: Japan 225
+  konto_namen: [japan, '225', nikkei]     # passt ein Kontoname, bekommt dieser Bot das Konto
+  typ: INDICES
+  zeitrahmen: 60min
+  logik: gold2
+  seiten: C+B
+  backtest:
+    trades: 44
+    pf_r: 2.12
+    win_pct: 81.8
+    sum_r: 7.0
+    zufall_gleich_gut_pct: 3.0
+  hinweis: 'Gold-Bot 2.0: viele kleine Gewinne (Ziel 0,5 ATR), nur +7 R in 8 Monaten. Ohne die 3 besten Trades 1,74.'
+- id: us30
+  epic: US30
+  name: Dow Jones (US Wall Street 30)
+  konto_namen: [dow, us30, wall street]     # passt ein Kontoname, bekommt dieser Bot das Konto
+  typ: INDICES
+  zeitrahmen: 15min
+  logik: gold
+  seiten: nur B
+  backtest:
+    trades: 106
+    pf_r: 2.1
+    win_pct: 26.4
+    sum_r: 89.7
+    zufall_gleich_gut_pct: 0.0
+  hinweis: Nur Short (B). Der September allein brachte +57 R. Ohne die 3 besten Trades 1,47.
+- id: copper
+  epic: COPPER
+  name: Kupfer
+  konto_namen: [kupfer, copper]     # passt ein Kontoname, bekommt dieser Bot das Konto
+  typ: COMMODITIES
+  zeitrahmen: 30min
+  logik: gold
+  seiten: nur C
+  backtest:
+    trades: 63
+    pf_r: 1.75
+    win_pct: 25.4
+    sum_r: 35.2
+    zufall_gleich_gut_pct: 0.5
+  hinweis: Nur Long (C). Der April allein brachte +28,6 R. Ohne die 3 besten Trades nur 1,03.
+- id: intc
+  epic: INTC
+  name: Intel
+  konto_namen: [intel, intc]     # passt ein Kontoname, bekommt dieser Bot das Konto
+  typ: SHARES
+  zeitrahmen: 60min
+  logik: gold
+  seiten: C+B
+  backtest:
+    trades: 30
+    pf_r: 1.69
+    win_pct: 23.3
+    sum_r: 16.3
+    zufall_gleich_gut_pct: 21.0
+  hinweis: Genau 30 Trades, die Mindestzahl. Ohne die 3 besten Trades 0,57. Zufall gleich gut in 21 % der Läufe.
+
+# Extra-Bots außerhalb der Runde-3-Regel (die gilt nur für "bots" oben und für die Auswertung der Strategie-Suche).
+# Kirons Wunsch vom 03.11.2026: auch Gold-Bot 2.0 handelt eine Woche echt auf dem Demokonto statt nur im Schatten. Auf
+# Gold, darum nur mit eigenem Konto: auf dem Hauptkonto handelt der Gold-Bot (C und B) Gold. Gleiche Regeln wie der
+# Schattenlauf (gold/v2/schatten.py), der unverändert weiterläuft; kleinste Ordergröße.
+extra_regel_text: "Gold-Bot 2.0 und DAX haben Runde 3 nicht bestanden. Sie handeln hier nur, weil Kiron alle Bots eine Woche live sehen will, jeder auf einem eigenen Demokonto."
+extra_bots:
+- id: gold2
+  epic: GOLD
+  name: Gold-Bot 2.0
+  typ: COMMODITIES
+  zeitrahmen: 60min
+  logik: gold2
+  seiten: C+B
+  eigenes_konto: true          # nie auf dem Hauptkonto (dort handelt der Gold-Bot C und B auf Gold)
+  konto_namen: ['2.0', gold2, gold 2]
+  backtest:                    # Runde 3, GOLD 60 Min., März bis Oktober 2026 (strategie-suche/runde3/runde3.json)
+    trades: 46
+    pf_r: 1.32
+    win_pct: 78.3
+    sum_r: 2.9
+  hinweis: Viele kleine Gewinne (Ziel 0,5 ATR), seltene große Verluste (Stop 1,5 ATR). Hat die Gold-Runde 3 nicht bestanden.
+# Kirons Wunsch vom 03.11.2026, 10:24 UTC: "alle ausgewählten + DAX". Die beste DAX-Variante aus Runde 3 (Germany 40,
+# 15 Min., nur C) hat die Regel NICHT bestanden (Gewinnfaktor 1,17, Regel über 1,2). Sie handelt trotzdem mit, weil
+# Kiron sie sehen will, und nur auf einem eigenen Demokonto (Kiron hat dafür am 03.11. ein 7. Demokonto angelegt).
+- id: dax
+  epic: DE40
+  name: DAX (Germany 40)
+  typ: INDICES
+  zeitrahmen: 15min
+  logik: gold
+  seiten: nur C
+  eigenes_konto: true           # Kiron hat am 03.11. ein 7. Demokonto dafür angelegt; das Hauptkonto bleibt Gold C/B
+  konto_namen: [dax, de40, germany]
+  backtest:                    # Runde 3, DE40 15 Min. nur C, März bis Oktober 2026 (beste DAX-Variante)
+    trades: 140
+    pf_r: 1.17
+    win_pct: 25.0
+    sum_r: 17.7
+  hinweis: Nur Long (C). Beste DAX-Variante, hat die Regel nicht bestanden (Gewinnfaktor 1,17). Mai -13,9 R und Oktober -11,7 R.

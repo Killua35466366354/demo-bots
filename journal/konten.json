@@ -1,0 +1,263 @@
+{
+ "format": 1,
+ "zuordnung": {
+  "us500-ruecksetzer": "332317231899038878",
+  "r7-nasdaq-noise-long": "332317231899038878",
+  "r5-ruecksetzer-us100": "332317231899038878",
+  "r6-vortag-eurusd": "332263746671301790",
+  "r6-vortag-gbpusd": "332325912027944094"
+ },
+ "start": {
+  "332117868107093150": 995.17,
+  "332263725196465310": 1000.0,
+  "332263729491432606": 1000.0,
+  "332263742376334494": 999.79,
+  "332263746671301790": 1000.0,
+  "332263750966269086": 1000.0,
+  "332263759556203678": 1000.0,
+  "332264120333456542": 999.96,
+  "332325912027944094": 1000.0
+ },
+ "haupt": "332117868107093150",
+ "konten": [
+  {
+   "id": "…3150",
+   "name": "Account",
+   "waehrung": "EUR",
+   "balance": 995.17,
+   "frei": 995.17,
+   "bevorzugt": false,
+   "fuer": "gold"
+  },
+  {
+   "id": "…5310",
+   "name": "Account 1",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 1000.0,
+   "bevorzugt": true,
+   "fuer": null
+  },
+  {
+   "id": "…2606",
+   "name": "Account 2",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 1000.0,
+   "bevorzugt": false,
+   "fuer": null
+  },
+  {
+   "id": "…4494",
+   "name": "Account 3",
+   "waehrung": "EUR",
+   "balance": 999.79,
+   "frei": 999.79,
+   "bevorzugt": false,
+   "fuer": null
+  },
+  {
+   "id": "…1790",
+   "name": "Account 4",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 501.52,
+   "bevorzugt": false,
+   "fuer": "r6-vortag-eurusd"
+  },
+  {
+   "id": "…9086",
+   "name": "Account 5",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 1000.0,
+   "bevorzugt": false,
+   "fuer": null
+  },
+  {
+   "id": "…3678",
+   "name": "Account 6",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 1000.0,
+   "bevorzugt": false,
+   "fuer": null
+  },
+  {
+   "id": "…6542",
+   "name": "Account 7",
+   "waehrung": "EUR",
+   "balance": 999.96,
+   "frei": 999.96,
+   "bevorzugt": false,
+   "fuer": null
+  },
+  {
+   "id": "…8878",
+   "name": "US500",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 1000.0,
+   "bevorzugt": false,
+   "fuer": "r5-ruecksetzer-us100"
+  },
+  {
+   "id": "…4094",
+   "name": "Vortag USDJPY",
+   "waehrung": "EUR",
+   "balance": 1000.0,
+   "frei": 499.08,
+   "bevorzugt": false,
+   "fuer": "r6-vortag-gbpusd"
+  }
+ ],
+ "stand_utc": "2026-11-05T09:46:36.561995",
+ "uebergaben": [
+  {
+   "zeit": "2026-11-04T11:46:39.499621",
+   "konto": "…2606",
+   "konto_id": "332263729491432606",
+   "name": "Account 2",
+   "von": "j225",
+   "an": "r7-nasdaq-noise-long",
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T11:46:39.499621",
+   "konto": "…4494",
+   "konto_id": "332263742376334494",
+   "name": "Account 3",
+   "von": "us30",
+   "an": "r5-ruecksetzer-us100",
+   "kontostand": 999.79
+  },
+  {
+   "zeit": "2026-11-04T11:46:39.499621",
+   "konto": "…1790",
+   "konto_id": "332263746671301790",
+   "name": "Account 4",
+   "von": "copper",
+   "an": "r6-vortag-eurusd",
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T11:46:39.499621",
+   "konto": "…9086",
+   "konto_id": "332263750966269086",
+   "name": "Account 5",
+   "von": "intc",
+   "an": "r5-ruecksetzer-us30",
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T11:46:39.499621",
+   "konto": "…3678",
+   "konto_id": "332263759556203678",
+   "name": "Account 6",
+   "von": "gold2",
+   "an": "r6-london-gbpusd",
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T11:46:39.499621",
+   "konto": "…6542",
+   "konto_id": "332264120333456542",
+   "name": "Account 7",
+   "von": "dax",
+   "an": "r6-noise-usdjpy",
+   "kontostand": 999.96
+  },
+  {
+   "zeit": "2026-11-04T12:02:20.662505",
+   "konto": "…4094",
+   "konto_id": "332325912027944094",
+   "name": "Vortag USDJPY",
+   "von": "r6-vortag-usdjpy",
+   "an": "r6-vortag-gbpusd",
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T13:01:29.986068",
+   "konto": "…5310",
+   "konto_id": "332263725196465310",
+   "name": "Account 1",
+   "von": "oil-brent",
+   "an": null,
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T13:02:07.262595",
+   "konto": "…4494",
+   "konto_id": "332263742376334494",
+   "von": "r5-ruecksetzer-us100",
+   "an": null,
+   "kombi": "top3"
+  },
+  {
+   "zeit": "2026-11-04T13:02:12.146033",
+   "konto": "…3678",
+   "konto_id": "332263759556203678",
+   "name": "Account 6",
+   "von": "r6-london-gbpusd",
+   "an": null,
+   "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-04T13:02:12.146033",
+   "konto": "…6542",
+   "konto_id": "332264120333456542",
+   "name": "Account 7",
+   "von": "r6-noise-usdjpy",
+   "an": null,
+   "kontostand": 999.96
+  },
+  {
+   "zeit": "2026-11-04T13:02:21.910709",
+   "konto": "…2606",
+   "konto_id": "332263729491432606",
+   "von": "r7-nasdaq-noise-long",
+   "an": null,
+   "kombi": "top3"
+  },
+  {
+   "zeit": "2026-11-04T13:32:55.609314",
+   "konto": "…9086",
+   "konto_id": "332263750966269086",
+   "name": "Account 5",
+   "von": "r5-ruecksetzer-us30",
+   "an": null,
+   "kontostand": 1000.0
+  }
+ ],
+ "abgeloest": {
+  "oil-brent": {
+   "an": null,
+   "seit": "2026-11-04T13:01:29",
+   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): 2025 -180 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 258 €"
+  },
+  "r5-ruecksetzer-us30": {
+   "an": null,
+   "seit": "2026-11-04T13:01:29",
+   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): +57 € aus 23 Trades, kaum vom Zufall zu unterscheiden"
+  },
+  "r6-london-gbpusd": {
+   "an": null,
+   "seit": "2026-11-04T13:01:29",
+   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden"
+  },
+  "r6-noise-usdjpy": {
+   "an": null,
+   "seit": "2026-11-04T13:01:29",
+   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden"
+  }
+ },
+ "frei": [
+  "332263725196465310",
+  "332263742376334494",
+  "332263759556203678",
+  "332264120333456542",
+  "332263729491432606",
+  "332263750966269086"
+ ],
+ "deals": {}
+}

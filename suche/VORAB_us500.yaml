@@ -1,0 +1,47 @@
+# Vorwärtstest Trend-Rücksetzer US500 auf einem eigenen Capital.com-DEMOKONTO.
+# Vorab festgelegt am 04.11.2026, bevor der Bot den ersten Trade macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: suche/us500_bot.py. Nie echtes Geld.
+#
+# Herkunft: Runde 5 und 5b (suche/PROTOKOLL.md). Die Regel "trend_ruecksetzer" hat Runde 5 als Ganzes (alle 41 Märkte)
+# nicht bestanden, hielt aber auf den US-Indizes in Auswahl 2011-2016 (Gewinnfaktor 1,26) und Prüfung 2017-2021 (1,37).
+# Runde 5b hat genau diese Regel vorab festgelegt auf dem nie geöffneten Siegel 2022-2026 geprüft: S&P 500 und Nasdaq 100
+# zusammen 131 Trades, Gewinnfaktor 1,73, Zufall 99,8 %, mit 1,5-fachen Kosten 1,62, 3 von 5 Jahren über 1 (2022 bei
+# 1,0, 2023 bei 0,73). US500 allein: 66 Trades, Gewinnfaktor 1,62. Laut Runde 5b folgt daraus ein Demo-Bot auf dem
+# besseren der beiden Märkte aus Auswahl und Prüfung: US500 (1,26 und 1,38 gegen 1,25 und 1,36 beim Nasdaq).
+# Runde 5c (Gegenprobe, vorab festgelegt): Capital.com-Tageskerzen 2005 bis Oktober 2010, Jahre ohne jede Rechnung,
+# US500 und US100: 97 Trades, Gewinnfaktor 1,42, Zufall 98,9 %, mit 1,5-fachen Kosten 1,31, bestanden.
+# Echte Capital.com-Übernachtsätze vom 04.11.2026: US500 Long -0,0224 % je Tag (etwa 8,2 % im Jahr), Short +0,0002 %.
+
+us500_vorwaerts:
+  markt: US500
+  konto: eigenes neues Demokonto (Name mit "US500" bevorzugt; nie das Hauptkonto, nie das Konto eines anderen Bots)
+  groesse: kleinste Ordergröße des Markts (0,01), höchstens 10 Euro Risiko bis zum Notstop
+  regeln: >-
+    Genau suche/runde5.py sig_trend_ruecksetzer mit trend 200, unter 10, stop_atr 3, max_tage 5 (VORAB_runde5.yaml).
+    Tageskerze = 24 Stunden Bid bis 15:00 New York (Capital.com-Stundenkerzen). Entscheidung im ersten Lauf ab 15:00
+    New York, spätestens bis 16:00, sonst ist der Tag verpasst. Long über SMA 200 bei RSI(2) < 10, Short unter SMA 200
+    bei RSI(2) > 90, Marktorder. Raus zum Tagesschluss über/unter SMA 5, beim Gegensignal oder nach 5 Handelstagen.
+    Notstop 3 x ATR(20) beim Broker, kein Ziel.
+  lauf: Workflow "Demo-Bots", von cron-job.org Mo-Fr alle 15 Minuten angestoßen (Minute 1, 16, 31, 46)
+
+  messung: >-
+    Jeder abgeschlossene Trade zählt. R = Ergebnis / Abstand zum Notstop (3 ATR), wie im Backtest bis auf den Faktor 3,
+    der den Gewinnfaktor nicht ändert; dazu Prozent vom Kurs und Euro (mit echter Übernachtgebühr auf dem Konto).
+    Zusätzlich je Trade: Hätte der Backtest-Motor auf denselben Capital.com-Kerzen am selben Tag dasselbe getan?
+
+  erwartung: >-
+    Im Siegel etwa 14 Trades pro Jahr auf US500. Ein Vorwärtstest mit so wenig Trades beweist nichts in wenigen Monaten;
+    er zeigt vor allem, ob der Bot genau wie der Backtest handelt und ob Spread und Übernachtgebühr passen.
+
+  zwischencheck:
+    nach_trades: 15
+    vorschlag_stopp_wenn_pf_unter: 0.6      # dann schlage ich Kiron vor, den Test zu beenden; der Bot ändert sich nie selbst
+    vorschlag_stopp_wenn_abweichung: "mehr als 2 Trades, die der Backtest-Motor an dem Tag nicht gemacht hätte"
+
+  urteil:
+    nach_trades: 40                         # rund 3 Jahre bei 14 Trades im Jahr; Zwischenstand jeden Monat
+    bestanden_wenn:
+      pf_min: 1.2
+      summe_r_ueber: 0.0
+    sonst: durchgefallen
+    hinweis: "Echtes Geld nur mit Kirons ausdrücklichem Wort, frühestens nach dem Urteil."

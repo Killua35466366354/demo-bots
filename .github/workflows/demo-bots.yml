@@ -1,0 +1,240 @@
+name: Demo-Bots (Strategie-Suche, nur Demokonto)
+
+# Alle Demo-Bots außer dem Gold-Bot in EINEM Lauf (nur Capital.com-DEMO, nie echtes Geld). Stand 05.11.2026 handeln:
+# Vortag EUR/USD und GBP/USD (suche/r6_bots.py) und die Top 3 auf dem Konto "US500" (US500-Rücksetzer, US100-Rücksetzer,
+# Nasdaq Noise-Band Long; suche/us500_bot.py, suche/r7_nasdaq_bot.py). Die alten Runde-3-Bots in suche/demo_bots.py
+# sind alle abgelöst und öffnen nichts mehr.
+#
+# Uhr: Kirons cron-job.org-Auftrag "Demo-Bots", Minute 1, 16, 31 und 46. Kosten sparen (05.11.2026): nur Montag bis
+# Freitag 10 bis 22 Uhr Berlin. Früher braucht kein Bot einen Lauf (Vortag legt seine Orders um 4:30 New York =
+# 10:30 Berlin, die US-Bots handeln 9:30 bis 16:00 New York), und der letzte Vortag-Ausstieg ist um 16:45 New York =
+# 22:45 Berlin. Achtung im März: Vom 14.03. bis 27.03.2027 ist New York nur 5 Stunden hinter Berlin, dann muss das
+# Fenster eine Stunde früher anfangen und enden. Jeder Lauf soll unter einer Minute bleiben (GitHub rechnet je
+# angefangene Minute ab). Offene Positionen haben ihren Stop beim Broker.
+#
+# Getrennt vom Gold-Bot-Lauf: Dieser Lauf schreibt nur journal/demo-bots* und journal/konten.json, der Gold-Bot nur seine eigenen Dateien. So
+# kann ein Fehler hier nie das Journal des Gold-Bots stören. Gleiche Gruppe wie der Gold-Bot: Beide laufen nie
+# gleichzeitig, der Gold-Bot hat damit immer seine eigene Sitzung bei Capital.com.
+# Öffentliches Repo seit November 2026: keine Actions-Minuten, die Uhr bleibt cron-job.org.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nur rechnen, keine Order"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gold-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    # Immer GitHubs Rechner: In einem öffentlichen Repo kostet das keine Minuten, und ein eigener Rechner wäre hier
+    # ein Sicherheitsrisiko.
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      # Mit dem Namen des Zweigs statt des festen Stands beim Anstoßen: Wartete der Lauf hinter dem Gold-Bot, holt er
+      # so trotzdem den neuesten Stand der Demo-Bots.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # Tests nur nach einer Code-Änderung und einmal am Tag (Minuten sparen, 05.11.2026): Die Tests brauchten gut die
+      # Hälfte jedes 15-Minuten-Laufs, obwohl sich der Code zwischen zwei Läufen fast nie ändert. Der Schlüssel ist der
+      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle fünf Testgruppen mit genau diesem Stand
+      # heute schon grün, springt jede Gruppe darüber. Sonst gilt wie immer: ohne grüne Tests kein Lauf.
+      - name: Code-Stand für die Tests
+        id: code
+        run: |
+          mkdir -p .tests-ok
+          stand=$(git ls-tree -r HEAD | awk -F'\t' '$2 !~ /^(journal|inbox)\//' | sha256sum | cut -c1-16)
+          echo "key=demo-tests-$(date -u +%F)-$stand" >> "$GITHUB_OUTPUT"
+
+      - name: Heute mit diesem Stand schon grün?
+        id: tests_ok
+        uses: actions/cache/restore@v4
+        with:
+          path: .tests-ok
+          key: ${{ steps.code.outputs.key }}
+          lookup-only: true
+
+      - name: Tests (ohne grüne Tests kein Lauf)
+        env:
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_demo_bots.py tests/test_konten.py
+            touch .tests-ok/demo
+          fi
+
+      - name: Prüfung nach 15/40 Demo-Trades (deutlich schlechtere Bots wechseln, suche/VORAB_wechsel.yaml)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_demo_pruefung.py
+            touch .tests-ok/pruefung
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.demo_pruefung --dry-run
+          else
+            python -m suche.demo_pruefung
+          fi
+
+      - name: Demo-Bots
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.demo_bots --dry-run
+          else
+            python -m suche.demo_bots
+          fi
+
+      # Trend-Rücksetzer US500 (Runde 5b bestanden, Kirons Regel: gute Strategien auf eigene Demo-Konten): eigener
+      # Vorwärtstest auf einem eigenen neuen Demokonto (Name "US500"), Entscheidung einmal am Tag um 15 Uhr New York
+      # (suche/us500_bot.py, suche/VORAB_us500.yaml). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: Trend-Rücksetzer US500
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_us500_bot.py tests/test_suche_runde5.py
+            touch .tests-ok/us500
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.us500_bot --dry-run
+          else
+            python -m suche.us500_bot
+          fi
+
+      # Runde 6 (Kirons Wahl vom 04.11.2026): Vortageshoch/-tief USD/JPY (bestanden), London-Stunde GBP/USD und
+      # Noise-Band USD/JPY (knapp nicht bestanden, Kirons Wunsch), jeder nur auf einem eigenen Demokonto mit passendem
+      # Namen ("Vortag", "London"/"GBPUSD", "Noise"). Dazu der Zwilling: Backtest-Motor auf den Capital.com-Kerzen jedes
+      # fertigen Tages, mit EUR/USD und GBP/USD als Schatten (suche/r6_bots.py, suche/VORAB_r6_demo.yaml). Ein Fehler hier
+      # hält die anderen Bots und das Journal nie auf.
+      - name: Runde-6-Bots (Vortag USD/JPY, EUR/USD, GBP/USD; London GBP/USD; Noise USD/JPY)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_r6_bots.py
+            touch .tests-ok/r6
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.r6_bots --dry-run
+          else
+            python -m suche.r6_bots
+          fi
+
+      # Runde 7 (Kirons Wahl vom 04.11.2026 "Nur Nasdaq Noise-Band Long"): Noise-Band nur Long auf US100, Notstop 5 x
+      # Tages-ATR, raus am 5. Handelstag um 16 Uhr New York, nur auf einem eigenen Demokonto mit "Nasdaq" im Namen
+      # (suche/r7_nasdaq_bot.py, suche/VORAB_r7_nasdaq.yaml). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: Noise-Band Long Nasdaq (Runde 7)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_r7_nasdaq_bot.py
+            touch .tests-ok/r7
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.r7_nasdaq_bot --dry-run
+          else
+            python -m suche.r7_nasdaq_bot
+          fi
+
+      # London-Breakout EUR/USD und Asien-ORB GBP/NZD: beendet am 04.11.2026, Kirons Entscheidung nach der
+      # Langzeit-Prüfung 2015-2025 (suche/VORAB_langzeit.yaml, Gewinnfaktor 0,93 und 0,77, beide unter 1,0). Beide hatten
+      # noch kein eigenes Konto und keinen Trade. Der Code (suche/london_bot.py, suche/asien_bot.py) bleibt im Repo,
+      # läuft aber nicht mehr. Dieser Schritt hält nur ihren Stand im Journal richtig.
+      - name: Beendete Vorwärtstests markieren (London, Asien)
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        continue-on-error: true
+        run: |
+          python - <<'EOF'
+          import json, pathlib
+          neu = "beendet am 04.11.2026 (Kirons Entscheidung nach der Langzeit-Prüfung 2015-2025)"
+          for name in ("london-bot", "asien-bot"):
+              p = pathlib.Path("journal") / f"{name}.json"
+              if p.exists():
+                  d = json.loads(p.read_text(encoding="utf-8"))
+                  if d.get("status") != neu:
+                      d["status"] = neu
+                      p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+          EOF
+
+      # Nur wenn alle fünf Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
+      - name: Alle Testgruppen grün?
+        id: alle
+        if: ${{ !cancelled() && steps.tests_ok.outputs.cache-hit != 'true' }}
+        run: |
+          n=$(ls .tests-ok | wc -l)
+          if [ "$n" -ge 5 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 5 Testgruppen grün"; fi
+
+      - name: Grünen Stand merken
+        if: ${{ !cancelled() && steps.alle.outputs.gruen == 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: .tests-ok
+          key: ${{ steps.code.outputs.key }}
+
+      - name: Journal sichern
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        run: |
+          git config user.name "demo-bots"
+          git config user.email "demo-bots@users.noreply.github.com"
+          git add journal/
+          if git diff --cached --quiet; then
+            echo "Nichts Neues im Journal"
+          else
+            git commit -m "Demo-Bots: $(date -u +%Y-%m-%dT%H:%MZ)"
+            # Bis zu 5 Versuche: am 04.11.2026 gingen 3 von 5 Läufen verloren (zweimal "Internal Server Error" von
+            # GitHub, einmal ein Merge genau zwischen Pull und Push).
+            for i in 1 2 3 4 5; do
+              if git pull --rebase origin "${GITHUB_REF_NAME}" && git push; then
+                exit 0
+              fi
+              git rebase --abort 2>/dev/null || true
+              echo "Push fehlgeschlagen (Versuch $i), neuer Versuch in $((i * 5)) s"
+              sleep $((i * 5))
+            done
+            exit 1
+          fi

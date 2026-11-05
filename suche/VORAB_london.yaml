@@ -1,0 +1,44 @@
+# Vorwärtstest London-Breakout EUR/USD auf einem eigenen Capital.com-DEMOKONTO.
+# Vorab festgelegt am 04.11.2026, bevor der Bot den ersten Trade macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: suche/london_bot.py. Nie echtes Geld.
+#
+# Herkunft (ehrlich): Runde 4 (suche/PROTOKOLL.md). Die Strategie "vorbereich" hat Runde 4 NICHT bestanden. Auf EUR/USD,
+# dem Markt aus dem Strategy-Court-Video, lag sie in drei Zeiträumen bei Gewinnfaktor 0,88 (Dezember bis Februar),
+# 1,62 (März bis August) und 1,65 (September/Oktober 2026). Das habe ich erst nach dem Siegel gesehen, also war es nicht
+# vorab festgelegt. Nur ein Test mit neuen Daten kann zeigen, ob da etwas ist.
+# Kiron hat am 04.11.2026 (05:16 UTC) gewählt: "Ja, sofort mit neuem Demo-Konto".
+
+london_vorwaerts:
+  markt: EURUSD
+  konto: eigenes neues Demokonto (nie das Hauptkonto des Gold-Bots, nie das Konto eines anderen Demo-Bots)
+  groesse: kleinste Ordergröße des Markts
+  regeln: >-
+    Bereich = alle 15-Minuten-Kerzen von 0:00 bis 8:00 Uhr London (mindestens 16). Ab 8:00 Uhr gibt die erste fertige
+    Kerze, die über das Bereichshoch oder unter das Bereichstief geht, die Richtung; geht eine Kerze über beide Seiten,
+    gibt es an dem Tag keinen Trade. Einstieg per Marktorder im Lauf direkt nach dieser Kerze (Ausbruchskerze beginnt
+    spätestens 16:15 Uhr), Stop andere Seite des Bereichs, Ziel Ausbruchsmarke plus eine Bereichsbreite, beides beim
+    Broker. Raus spätestens 17:00 Uhr London. Höchstens ein Trade pro Tag, Montag bis Freitag.
+  lauf: Workflow "Demo-Bots", von cron-job.org Mo-Fr alle 15 Minuten angestoßen (Minute 1, 16, 31, 46)
+
+  messung: >-
+    Jeder abgeschlossene Trade zählt (auch verpasste oder abgelehnte Signale werden im Log festgehalten, zählen aber
+    nicht als Trade). Rendite je Trade in Prozent vom Kurs nach echtem Spread (wie im Backtest), dazu R und Euro.
+    Gewinnfaktor = Summe der Gewinne / Summe der Verluste in Prozent vom Kurs.
+
+  zwischencheck:
+    nach_trades: 30
+    vorschlag_stopp_wenn_pf_unter: 0.8      # dann schlage ich Kiron vor, den Test zu beenden; der Bot ändert sich nie selbst
+
+  urteil:
+    nach_trades: 60                         # bei etwa einem Trade pro Handelstag rund drei Monate (bis etwa Ende Januar 2027)
+    bestanden_wenn:
+      pf_min: 1.2
+      summe_pct_ueber: 0.0
+    sonst: durchgefallen
+    hinweis: >-
+      60 Trades sind wenig: Auch eine Strategie mit echtem Gewinnfaktor 1,3 landet nach 60 Trades öfter unter 1,0.
+      "Bestanden" heißt deshalb nur: Kandidat für einen längeren Test. Echtes Geld nur mit Kirons ausdrücklichem Wort.
+
+  vergleich: >-
+    Zur Kontrolle der Ausführung rechne ich jeden Handelstag zusätzlich mit den Kerzen nach (suche/runde4.py, gleiche
+    Regel). Große Abweichungen zwischen Bot und Nachrechnung werden gemeldet, ändern aber das Urteil nicht.

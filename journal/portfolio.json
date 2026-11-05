@@ -1,0 +1,3107 @@
+{
+ "format": 1,
+ "stand_utc": "2026-11-04T11:34:03+00:00",
+ "zeitraum": "2025-01-01 bis 2026-10-30",
+ "regel": "Alle 17 Strategien gleich gerechnet: Einstiege 01.01.2025 bis 30.10.2026, Ergebnis in Prozent vom Kurs nach Spread und Übernachtkosten. Bestanden: mindestens 20 Trades, Gewinnfaktor ab 1,2, 2025 und 2026 je über 1,0 (suche/VORAB_bewertung.yaml).",
+ "ehrlich": [
+  "Die Runde-3-Bots wurden auf März bis Oktober 2026 ausgesucht. Ihr 2026 ist deshalb geschönt; 2025 ist für sie neu.",
+  "Der Nasdaq-Bot wurde gewählt, weil er 2021-2026 bestand; 2025-2026 ist für ihn nicht unberührt.",
+  "Die Runde-6-Bedingungen wurden vor 2021 gelernt; 2025-2026 ist für sie neu.",
+  "Der Trend-Rücksetzer bestand 2022-2026 (HistData) und 2005-2010 (Capital.com); 2025-2026 lag in seinem Siegel.",
+  "Zwei Jahre sind wenig für Strategien mit 10 bis 20 Trades im Jahr. Die Rangliste ist die beste Wahl, die wir heute haben, kein Beweis."
+ ],
+ "bots": [
+  {
+   "rang": 1,
+   "id": "us500-ruecksetzer",
+   "name": "Trend-Rücksetzer US500",
+   "markt": "US500",
+   "zeitrahmen": null,
+   "konto": "US500",
+   "rolle": "aktiv",
+   "ersetzt": null,
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 25,
+   "pf": 5.821,
+   "summe_pct": 18.69,
+   "summe_r": 16.5,
+   "treffer_pct": 84.0,
+   "max_rueckgang_pct": 1.83,
+   "eur_1000": 55.0,
+   "eur_1000_rueckgang": 4.0,
+   "j2025": {
+    "trades": 13,
+    "pf": 4.644,
+    "summe_pct": 10.55,
+    "summe_r": 9.3,
+    "treffer_pct": 84.6,
+    "eur_1000": 31.0
+   },
+   "j2026": {
+    "trades": 12,
+    "pf": 9.291,
+    "summe_pct": 8.14,
+    "summe_r": 7.1,
+    "treffer_pct": 83.3,
+    "eur_1000": 24.0
+   },
+   "zufall_pct": null,
+   "warum": "Bester Gewinnfaktor (5,82), beide Jahre klar im Plus. Mit 1.000 €: +165 €, größter Rückgang 11 €. Behält sein Konto.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 1,
+     "summe_pct": 2.22,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-02",
+     "trades": 1,
+     "summe_pct": -1.26,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 1,
+     "summe_pct": 1.07,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-04",
+     "trades": 1,
+     "summe_pct": -1.63,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-05",
+     "trades": 2,
+     "summe_pct": 2.07,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-06",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-07",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-08",
+     "trades": 2,
+     "summe_pct": 2.96,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-09",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-10",
+     "trades": 1,
+     "summe_pct": 2.43,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-11",
+     "trades": 2,
+     "summe_pct": 1.37,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-12",
+     "trades": 2,
+     "summe_pct": 1.33,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-01",
+     "trades": 1,
+     "summe_pct": 0.25,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 1,
+     "summe_pct": 2.56,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-03",
+     "trades": 1,
+     "summe_pct": 1.08,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-04",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-05",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-06",
+     "trades": 2,
+     "summe_pct": 1.24,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 1,
+     "summe_pct": 0.76,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-08",
+     "trades": 1,
+     "summe_pct": -0.43,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-09",
+     "trades": 2,
+     "summe_pct": 2.21,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 3,
+     "summe_pct": 0.45,
+     "gewinner": 2
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   },
+   "konto_geteilt_mit": [
+    "Nasdaq Noise Long",
+    "Trend-Rücksetzer US100"
+   ]
+  },
+  {
+   "rang": 2,
+   "id": "r7-nasdaq-noise-long",
+   "name": "Nasdaq Noise Long",
+   "markt": "US100",
+   "zeitrahmen": null,
+   "konto": "US500",
+   "rolle": "aktiv",
+   "ersetzt": "Japan 225 60 min (2.0)",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 20,
+   "pf": 3.537,
+   "summe_pct": 14.84,
+   "summe_r": 2.3,
+   "treffer_pct": 70.0,
+   "max_rueckgang_pct": 1.77,
+   "eur_1000": 23.0,
+   "eur_1000_rueckgang": 3.0,
+   "j2025": {
+    "trades": 14,
+    "pf": 2.548,
+    "summe_pct": 7.4,
+    "summe_r": 1.3,
+    "treffer_pct": 71.4,
+    "eur_1000": 13.0
+   },
+   "j2026": {
+    "trades": 6,
+    "pf": 7.943,
+    "summe_pct": 7.44,
+    "summe_r": 1.0,
+    "treffer_pct": 66.7,
+    "eur_1000": 10.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 3,54, aber nur 20 Trades und wenig Geld: +23 € mit 1.000 € (Rückgang 3 €). Bekommt Account 2.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-05",
+     "trades": 2,
+     "summe_pct": -0.84,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-06",
+     "trades": 3,
+     "summe_pct": 2.39,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 3,
+     "summe_pct": 1.55,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-08",
+     "trades": 4,
+     "summe_pct": 1.35,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-09",
+     "trades": 2,
+     "summe_pct": 2.94,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-10",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-11",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-12",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-01",
+     "trades": 1,
+     "summe_pct": 0.72,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-04",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-05",
+     "trades": 1,
+     "summe_pct": 4.46,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-06",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-07",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-08",
+     "trades": 1,
+     "summe_pct": -0.85,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-09",
+     "trades": 3,
+     "summe_pct": 3.1,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   },
+   "konto_geteilt_mit": [
+    "Trend-Rücksetzer US100",
+    "Trend-Rücksetzer US500"
+   ]
+  },
+  {
+   "rang": 3,
+   "id": "r5-ruecksetzer-us100",
+   "name": "Trend-Rücksetzer US100",
+   "markt": "US100",
+   "zeitrahmen": null,
+   "konto": "US500",
+   "rolle": "aktiv",
+   "ersetzt": "Dow 15 min Short",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 23,
+   "pf": 1.91,
+   "summe_pct": 11.57,
+   "summe_r": 7.0,
+   "treffer_pct": 69.6,
+   "max_rueckgang_pct": 7.42,
+   "eur_1000": 23.0,
+   "eur_1000_rueckgang": 15.0,
+   "j2025": {
+    "trades": 12,
+    "pf": 1.194,
+    "summe_pct": 1.99,
+    "summe_r": 1.9,
+    "treffer_pct": 66.7,
+    "eur_1000": 6.0
+   },
+   "j2026": {
+    "trades": 11,
+    "pf": 4.898,
+    "summe_pct": 9.58,
+    "summe_r": 5.1,
+    "treffer_pct": 72.7,
+    "eur_1000": 17.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,91, 2025 knapp (1,19), 2026 stark. +70 € mit 1.000 € (Rückgang 44 €). Bekommt Account 3.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 2,
+     "summe_pct": 3.72,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-02",
+     "trades": 2,
+     "summe_pct": -7.42,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 1,
+     "summe_pct": 2.26,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-04",
+     "trades": 1,
+     "summe_pct": -2.07,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-05",
+     "trades": 1,
+     "summe_pct": 1.29,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-06",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-07",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-08",
+     "trades": 1,
+     "summe_pct": 0.66,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-09",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-10",
+     "trades": 1,
+     "summe_pct": 3.06,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-11",
+     "trades": 1,
+     "summe_pct": 0.72,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-12",
+     "trades": 2,
+     "summe_pct": -0.22,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 1,
+     "summe_pct": 0.7,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 1,
+     "summe_pct": 4.12,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-04",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-05",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-06",
+     "trades": 2,
+     "summe_pct": 3.5,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 2,
+     "summe_pct": 2.24,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-08",
+     "trades": 1,
+     "summe_pct": -1.13,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-09",
+     "trades": 2,
+     "summe_pct": 1.48,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 2,
+     "summe_pct": -1.33,
+     "gewinner": 0
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   },
+   "konto_geteilt_mit": [
+    "Nasdaq Noise Long",
+    "Trend-Rücksetzer US500"
+   ]
+  },
+  {
+   "rang": 4,
+   "id": "r6-vortag-eurusd",
+   "name": "Vortag EUR/USD",
+   "markt": "EURUSD",
+   "zeitrahmen": null,
+   "konto": "Account 4",
+   "rolle": "aktiv",
+   "ersetzt": "Kupfer 30 min Long",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 133,
+   "pf": 1.671,
+   "summe_pct": 3.1,
+   "summe_r": 52.2,
+   "treffer_pct": 44.4,
+   "max_rueckgang_pct": 0.36,
+   "eur_1000": 426.0,
+   "eur_1000_rueckgang": 46.0,
+   "j2025": {
+    "trades": 77,
+    "pf": 1.819,
+    "summe_pct": 2.35,
+    "summe_r": 35.3,
+    "treffer_pct": 45.5,
+    "eur_1000": 309.0
+   },
+   "j2026": {
+    "trades": 56,
+    "pf": 1.429,
+    "summe_pct": 0.75,
+    "summe_r": 16.9,
+    "treffer_pct": 42.9,
+    "eur_1000": 116.0
+   },
+   "zufall_pct": null,
+   "warum": "Am meisten Geld: +522 € mit 1.000 € in 133 Trades, beide Jahre stabil (Rückgang 77 €). Bekommt Account 4.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 6,
+     "summe_pct": 0.4,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-02",
+     "trades": 3,
+     "summe_pct": -0.01,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-03",
+     "trades": 7,
+     "summe_pct": 0.19,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-04",
+     "trades": 4,
+     "summe_pct": 0.56,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-05",
+     "trades": 4,
+     "summe_pct": 0.18,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-06",
+     "trades": 7,
+     "summe_pct": -0.13,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 11,
+     "summe_pct": 0.3,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-08",
+     "trades": 8,
+     "summe_pct": 0.13,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-09",
+     "trades": 8,
+     "summe_pct": 0.46,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-10",
+     "trades": 8,
+     "summe_pct": 0.29,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-11",
+     "trades": 5,
+     "summe_pct": 0.07,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-12",
+     "trades": 6,
+     "summe_pct": -0.12,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 2,
+     "summe_pct": 0.1,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 3,
+     "summe_pct": 0.02,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-03",
+     "trades": 3,
+     "summe_pct": -0.02,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-04",
+     "trades": 7,
+     "summe_pct": -0.12,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-05",
+     "trades": 5,
+     "summe_pct": 0.14,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-06",
+     "trades": 8,
+     "summe_pct": 0.47,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-07",
+     "trades": 7,
+     "summe_pct": 0.23,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-08",
+     "trades": 8,
+     "summe_pct": 0.2,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-09",
+     "trades": 9,
+     "summe_pct": -0.24,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-10",
+     "trades": 4,
+     "summe_pct": -0.04,
+     "gewinner": 1
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   }
+  },
+  {
+   "rang": 5,
+   "id": "oil-brent",
+   "name": "Brent 30 min Long",
+   "markt": "OIL_BRENT",
+   "zeitrahmen": "30min",
+   "konto": "Account 1",
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 148,
+   "pf": 1.491,
+   "summe_pct": 26.24,
+   "summe_r": 28.6,
+   "treffer_pct": 23.0,
+   "max_rueckgang_pct": 8.63,
+   "eur_1000": 289.0,
+   "eur_1000_rueckgang": 256.0,
+   "j2025": {
+    "trades": 75,
+    "pf": 1.006,
+    "summe_pct": 0.12,
+    "summe_r": -18.0,
+    "treffer_pct": 17.3,
+    "eur_1000": -177.0
+   },
+   "j2026": {
+    "trades": 73,
+    "pf": 1.771,
+    "summe_pct": 26.12,
+    "summe_r": 46.6,
+    "treffer_pct": 28.8,
+    "eur_1000": 466.0
+   },
+   "zufall_pct": null,
+   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): 2025 -180 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 258 €. Konto wird frei",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 11,
+     "summe_pct": -2.61,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-02",
+     "trades": 3,
+     "summe_pct": 0.26,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-03",
+     "trades": 5,
+     "summe_pct": -1.24,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 4,
+     "summe_pct": 0.17,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-05",
+     "trades": 8,
+     "summe_pct": 0.95,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-06",
+     "trades": 11,
+     "summe_pct": 8.82,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-07",
+     "trades": 6,
+     "summe_pct": -0.79,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-08",
+     "trades": 3,
+     "summe_pct": 0.91,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-09",
+     "trades": 8,
+     "summe_pct": -1.38,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-10",
+     "trades": 3,
+     "summe_pct": -1.12,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-11",
+     "trades": 7,
+     "summe_pct": -2.21,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-12",
+     "trades": 6,
+     "summe_pct": -1.64,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-01",
+     "trades": 4,
+     "summe_pct": 0.71,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 13,
+     "summe_pct": 0.14,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-03",
+     "trades": 6,
+     "summe_pct": 9.81,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-04",
+     "trades": 4,
+     "summe_pct": -1.21,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-05",
+     "trades": 4,
+     "summe_pct": 1.19,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-06",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-07",
+     "trades": 11,
+     "summe_pct": -1.33,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-08",
+     "trades": 6,
+     "summe_pct": 8.75,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-09",
+     "trades": 11,
+     "summe_pct": 2.48,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-10",
+     "trades": 14,
+     "summe_pct": 5.57,
+     "gewinner": 4
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   }
+  },
+  {
+   "rang": 6,
+   "id": "r5-ruecksetzer-us30",
+   "name": "Trend-Rücksetzer Dow",
+   "markt": "US30",
+   "zeitrahmen": null,
+   "konto": "Account 5",
+   "rolle": "abgeloest",
+   "ersetzt": "Intel 60 min",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 23,
+   "pf": 1.479,
+   "summe_pct": 5.11,
+   "summe_r": 5.7,
+   "treffer_pct": 69.6,
+   "max_rueckgang_pct": 4.21,
+   "eur_1000": 19.0,
+   "eur_1000_rueckgang": 10.0,
+   "j2025": {
+    "trades": 10,
+    "pf": 1.283,
+    "summe_pct": 1.3,
+    "summe_r": 2.3,
+    "treffer_pct": 70.0,
+    "eur_1000": 8.0
+   },
+   "j2026": {
+    "trades": 13,
+    "pf": 1.627,
+    "summe_pct": 3.81,
+    "summe_r": 3.4,
+    "treffer_pct": 69.2,
+    "eur_1000": 11.0
+   },
+   "zufall_pct": null,
+   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): +57 € aus 23 Trades, kaum vom Zufall zu unterscheiden. Konto wird frei",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 1,
+     "summe_pct": 1.37,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-02",
+     "trades": 1,
+     "summe_pct": -2.25,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 1,
+     "summe_pct": -1.5,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-05",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-06",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-07",
+     "trades": 1,
+     "summe_pct": 0.16,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-08",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-09",
+     "trades": 2,
+     "summe_pct": 1.49,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-10",
+     "trades": 1,
+     "summe_pct": 2.23,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-11",
+     "trades": 2,
+     "summe_pct": -0.75,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-12",
+     "trades": 1,
+     "summe_pct": 0.56,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 1,
+     "summe_pct": 1.27,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 2,
+     "summe_pct": -3.87,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-04",
+     "trades": 1,
+     "summe_pct": 2.15,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-05",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-06",
+     "trades": 1,
+     "summe_pct": 2.25,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-07",
+     "trades": 1,
+     "summe_pct": 0.04,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-08",
+     "trades": 1,
+     "summe_pct": -0.2,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-09",
+     "trades": 4,
+     "summe_pct": 1.67,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-10",
+     "trades": 2,
+     "summe_pct": 0.5,
+     "gewinner": 1
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   }
+  },
+  {
+   "rang": 7,
+   "id": "r6-london-gbpusd",
+   "name": "London GBP/USD",
+   "markt": "GBPUSD",
+   "zeitrahmen": null,
+   "konto": "Account 6",
+   "rolle": "abgeloest",
+   "ersetzt": "Gold-Bot 2.0",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 53,
+   "pf": 1.448,
+   "summe_pct": 1.64,
+   "summe_r": 5.9,
+   "treffer_pct": 49.1,
+   "max_rueckgang_pct": 0.86,
+   "eur_1000": 59.0,
+   "eur_1000_rueckgang": 31.0,
+   "j2025": {
+    "trades": 18,
+    "pf": 1.36,
+    "summe_pct": 0.66,
+    "summe_r": 2.5,
+    "treffer_pct": 55.6,
+    "eur_1000": 25.0
+   },
+   "j2026": {
+    "trades": 35,
+    "pf": 1.535,
+    "summe_pct": 0.98,
+    "summe_r": 3.4,
+    "treffer_pct": 45.7,
+    "eur_1000": 34.0
+   },
+   "zufall_pct": null,
+   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden. Konto wird frei",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 4,
+     "summe_pct": -0.04,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-04",
+     "trades": 2,
+     "summe_pct": 0.36,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-05",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-06",
+     "trades": 3,
+     "summe_pct": 0.38,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 2,
+     "summe_pct": -0.19,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-08",
+     "trades": 5,
+     "summe_pct": -0.4,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-09",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-10",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-11",
+     "trades": 1,
+     "summe_pct": 0.44,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-12",
+     "trades": 1,
+     "summe_pct": 0.11,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 3,
+     "summe_pct": -0.28,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-04",
+     "trades": 1,
+     "summe_pct": 0.35,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-05",
+     "trades": 2,
+     "summe_pct": 0.22,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-06",
+     "trades": 8,
+     "summe_pct": 0.54,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-07",
+     "trades": 5,
+     "summe_pct": 0.06,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-08",
+     "trades": 9,
+     "summe_pct": 0.32,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-09",
+     "trades": 7,
+     "summe_pct": -0.23,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   }
+  },
+  {
+   "rang": 8,
+   "id": "r6-noise-usdjpy",
+   "name": "Noise USD/JPY",
+   "markt": "USDJPY",
+   "zeitrahmen": null,
+   "konto": "Account 7",
+   "rolle": "abgeloest",
+   "ersetzt": "DAX 15 min Long",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 254,
+   "pf": 1.389,
+   "summe_pct": 4.52,
+   "summe_r": 4.9,
+   "treffer_pct": 33.9,
+   "max_rueckgang_pct": 2.57,
+   "eur_1000": 49.0,
+   "eur_1000_rueckgang": 16.0,
+   "j2025": {
+    "trades": 141,
+    "pf": 1.04,
+    "summe_pct": 0.31,
+    "summe_r": 0.2,
+    "treffer_pct": 35.5,
+    "eur_1000": 2.0
+   },
+   "j2026": {
+    "trades": 113,
+    "pf": 2.144,
+    "summe_pct": 4.21,
+    "summe_r": 4.6,
+    "treffer_pct": 31.9,
+    "eur_1000": 46.0
+   },
+   "zufall_pct": null,
+   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden. Konto wird frei",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 33,
+     "summe_pct": -1.43,
+     "gewinner": 8
+    },
+    {
+     "monat": "2025-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 4,
+     "summe_pct": -0.31,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 4,
+     "summe_pct": 0.2,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-05",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-06",
+     "trades": 17,
+     "summe_pct": -0.38,
+     "gewinner": 7
+    },
+    {
+     "monat": "2025-07",
+     "trades": 31,
+     "summe_pct": 1.31,
+     "gewinner": 11
+    },
+    {
+     "monat": "2025-08",
+     "trades": 17,
+     "summe_pct": 0.11,
+     "gewinner": 8
+    },
+    {
+     "monat": "2025-09",
+     "trades": 29,
+     "summe_pct": 0.61,
+     "gewinner": 12
+    },
+    {
+     "monat": "2025-10",
+     "trades": 3,
+     "summe_pct": 0.28,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-11",
+     "trades": 3,
+     "summe_pct": -0.08,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-12",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-01",
+     "trades": 17,
+     "summe_pct": -0.08,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 1,
+     "summe_pct": 0.19,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-04",
+     "trades": 18,
+     "summe_pct": 2.59,
+     "gewinner": 9
+    },
+    {
+     "monat": "2026-05",
+     "trades": 8,
+     "summe_pct": -0.01,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-06",
+     "trades": 33,
+     "summe_pct": -0.93,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-07",
+     "trades": 18,
+     "summe_pct": 3.04,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-08",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-09",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-10",
+     "trades": 18,
+     "summe_pct": -0.59,
+     "gewinner": 6
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   }
+  },
+  {
+   "rang": 9,
+   "id": "r6-vortag-gbpusd",
+   "name": "Vortag GBP/USD",
+   "markt": "GBPUSD",
+   "zeitrahmen": null,
+   "konto": "Vortag USDJPY",
+   "rolle": "aktiv",
+   "ersetzt": "Vortag USD/JPY",
+   "ersetzt_durch": null,
+   "bestanden": true,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": true,
+    "jahr_2026": true
+   },
+   "trades": 130,
+   "pf": 1.215,
+   "summe_pct": 1.14,
+   "summe_r": 24.5,
+   "treffer_pct": 38.5,
+   "max_rueckgang_pct": 0.55,
+   "eur_1000": 165.0,
+   "eur_1000_rueckgang": 69.0,
+   "j2025": {
+    "trades": 61,
+    "pf": 1.211,
+    "summe_pct": 0.59,
+    "summe_r": 12.0,
+    "treffer_pct": 39.3,
+    "eur_1000": 100.0
+   },
+   "j2026": {
+    "trades": 69,
+    "pf": 1.22,
+    "summe_pct": 0.55,
+    "summe_r": 12.5,
+    "treffer_pct": 37.7,
+    "eur_1000": 65.0
+   },
+   "zufall_pct": null,
+   "warum": "Knapp bestanden (1,22), aber +245 € mit 1.000 € (Rückgang 82 €). Bekommt das Konto „Vortag USDJPY“.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 8,
+     "summe_pct": 0.18,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-02",
+     "trades": 5,
+     "summe_pct": 0.3,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-03",
+     "trades": 6,
+     "summe_pct": -0.09,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-04",
+     "trades": 4,
+     "summe_pct": -0.18,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-05",
+     "trades": 3,
+     "summe_pct": 0.12,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-06",
+     "trades": 6,
+     "summe_pct": 0.01,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 4,
+     "summe_pct": -0.02,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-08",
+     "trades": 7,
+     "summe_pct": 0.29,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-09",
+     "trades": 5,
+     "summe_pct": 0.04,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-10",
+     "trades": 5,
+     "summe_pct": 0.09,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-11",
+     "trades": 3,
+     "summe_pct": 0.03,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-12",
+     "trades": 5,
+     "summe_pct": -0.18,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 5,
+     "summe_pct": 0.04,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-02",
+     "trades": 3,
+     "summe_pct": 0.04,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-03",
+     "trades": 4,
+     "summe_pct": -0.1,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-04",
+     "trades": 5,
+     "summe_pct": 0.08,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-05",
+     "trades": 7,
+     "summe_pct": 0.2,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-06",
+     "trades": 11,
+     "summe_pct": -0.13,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 10,
+     "summe_pct": 0.1,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-08",
+     "trades": 8,
+     "summe_pct": 0.34,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-09",
+     "trades": 11,
+     "summe_pct": -0.24,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 5,
+     "summe_pct": 0.21,
+     "gewinner": 3
+    }
+   ],
+   "demo": {
+    "trades": 0,
+    "pf": null,
+    "summe_r": 0,
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+   }
+  },
+  {
+   "rang": 10,
+   "id": "j225",
+   "name": "Japan 225 60 min (2.0)",
+   "markt": "J225",
+   "zeitrahmen": "60min",
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "Nasdaq Noise Long",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": true,
+    "jahr_2025": false,
+    "jahr_2026": true
+   },
+   "trades": 113,
+   "pf": 1.255,
+   "summe_pct": 3.97,
+   "summe_r": 4.1,
+   "treffer_pct": 72.6,
+   "max_rueckgang_pct": 3.32,
+   "eur_1000": 41.0,
+   "eur_1000_rueckgang": 59.0,
+   "j2025": {
+    "trades": 57,
+    "pf": 0.803,
+    "summe_pct": -1.78,
+    "summe_r": -1.5,
+    "treffer_pct": 68.4,
+    "eur_1000": -15.0
+   },
+   "j2026": {
+    "trades": 56,
+    "pf": 1.89,
+    "summe_pct": 5.75,
+    "summe_r": 5.7,
+    "treffer_pct": 76.8,
+    "eur_1000": 57.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,26, aber 2025 im Minus (0,80). Gibt Account 2 ab, sobald seine Position zu ist.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 5,
+     "summe_pct": -0.61,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-02",
+     "trades": 9,
+     "summe_pct": 0.66,
+     "gewinner": 7
+    },
+    {
+     "monat": "2025-03",
+     "trades": 7,
+     "summe_pct": -1.15,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-04",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-05",
+     "trades": 5,
+     "summe_pct": 0.09,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-06",
+     "trades": 6,
+     "summe_pct": 0.1,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-07",
+     "trades": 8,
+     "summe_pct": -0.09,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-08",
+     "trades": 2,
+     "summe_pct": 0.33,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-09",
+     "trades": 6,
+     "summe_pct": 0.86,
+     "gewinner": 6
+    },
+    {
+     "monat": "2025-10",
+     "trades": 5,
+     "summe_pct": -0.65,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-11",
+     "trades": 1,
+     "summe_pct": -0.63,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-12",
+     "trades": 3,
+     "summe_pct": -0.7,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 4,
+     "summe_pct": -0.72,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 8,
+     "summe_pct": 0.24,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-03",
+     "trades": 7,
+     "summe_pct": 1.44,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-04",
+     "trades": 4,
+     "summe_pct": -0.03,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-05",
+     "trades": 6,
+     "summe_pct": 0.4,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-06",
+     "trades": 2,
+     "summe_pct": 0.55,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 5,
+     "summe_pct": 1.26,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-08",
+     "trades": 4,
+     "summe_pct": -0.46,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-09",
+     "trades": 5,
+     "summe_pct": 2.07,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-10",
+     "trades": 11,
+     "summe_pct": 1.01,
+     "gewinner": 9
+    }
+   ]
+  },
+  {
+   "rang": 11,
+   "id": "us30",
+   "name": "Dow 15 min Short",
+   "markt": "US30",
+   "zeitrahmen": "15min",
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "Trend-Rücksetzer US100",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": false,
+    "jahr_2026": true
+   },
+   "trades": 255,
+   "pf": 1.194,
+   "summe_pct": 6.02,
+   "summe_r": 52.1,
+   "treffer_pct": 21.2,
+   "max_rueckgang_pct": 6.38,
+   "eur_1000": 255.0,
+   "eur_1000_rueckgang": 400.0,
+   "j2025": {
+    "trades": 125,
+    "pf": 0.992,
+    "summe_pct": -0.14,
+    "summe_r": -21.2,
+    "treffer_pct": 18.4,
+    "eur_1000": -164.0
+   },
+   "j2026": {
+    "trades": 130,
+    "pf": 1.461,
+    "summe_pct": 6.16,
+    "summe_r": 73.4,
+    "treffer_pct": 23.8,
+    "eur_1000": 419.0
+   },
+   "zufall_pct": null,
+   "warum": "+521 € mit 1.000 €, aber Gewinnfaktor nur 1,19, 2025 leicht im Minus und Rückgang 449 €. Gibt Account 3 ab.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 7,
+     "summe_pct": -0.51,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-02",
+     "trades": 17,
+     "summe_pct": -0.58,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-03",
+     "trades": 24,
+     "summe_pct": -1.08,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-04",
+     "trades": 14,
+     "summe_pct": 1.92,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-05",
+     "trades": 3,
+     "summe_pct": -0.05,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-06",
+     "trades": 10,
+     "summe_pct": 0.61,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 7,
+     "summe_pct": -0.7,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-08",
+     "trades": 8,
+     "summe_pct": -0.59,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-09",
+     "trades": 5,
+     "summe_pct": -0.03,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-10",
+     "trades": 7,
+     "summe_pct": -1.32,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-11",
+     "trades": 19,
+     "summe_pct": 2.13,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-12",
+     "trades": 4,
+     "summe_pct": 0.06,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 9,
+     "summe_pct": -0.99,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 15,
+     "summe_pct": -1.42,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-03",
+     "trades": 28,
+     "summe_pct": 2.44,
+     "gewinner": 7
+    },
+    {
+     "monat": "2026-04",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-05",
+     "trades": 11,
+     "summe_pct": -0.71,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-06",
+     "trades": 8,
+     "summe_pct": 1.22,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 17,
+     "summe_pct": -0.04,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-08",
+     "trades": 12,
+     "summe_pct": 0.08,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-09",
+     "trades": 23,
+     "summe_pct": 4.14,
+     "gewinner": 10
+    },
+    {
+     "monat": "2026-10",
+     "trades": 7,
+     "summe_pct": 1.43,
+     "gewinner": 3
+    }
+   ]
+  },
+  {
+   "rang": 12,
+   "id": "gold-cb",
+   "name": "Gold-Bot C/B",
+   "markt": "GOLD",
+   "zeitrahmen": "60min",
+   "konto": "Account (Hauptkonto)",
+   "rolle": "aktiv",
+   "ersetzt": null,
+   "ersetzt_durch": null,
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": true,
+    "jahr_2026": false
+   },
+   "trades": 139,
+   "pf": 1.171,
+   "summe_pct": 7.52,
+   "summe_r": 29.8,
+   "treffer_pct": 24.5,
+   "max_rueckgang_pct": 8.63,
+   "eur_1000": 298.0,
+   "eur_1000_rueckgang": 131.0,
+   "j2025": {
+    "trades": 72,
+    "pf": 1.476,
+    "summe_pct": 8.81,
+    "summe_r": 32.8,
+    "treffer_pct": 27.8,
+    "eur_1000": 328.0
+   },
+   "j2026": {
+    "trades": 67,
+    "pf": 0.949,
+    "summe_pct": -1.3,
+    "summe_r": -3.0,
+    "treffer_pct": 20.9,
+    "eur_1000": -30.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,17 und 2026 leicht im Minus (0,95), +298 € mit 1.000 €. Bleibt auf dem Hauptkonto (eigener Plan bis Ende Januar).",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 7,
+     "summe_pct": 2.51,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-02",
+     "trades": 4,
+     "summe_pct": 3.44,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-03",
+     "trades": 2,
+     "summe_pct": -0.63,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 6,
+     "summe_pct": 1.67,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-05",
+     "trades": 7,
+     "summe_pct": 4.1,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-06",
+     "trades": 6,
+     "summe_pct": -2.31,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-07",
+     "trades": 9,
+     "summe_pct": 0.67,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-08",
+     "trades": 7,
+     "summe_pct": -0.26,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-09",
+     "trades": 8,
+     "summe_pct": -0.35,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-10",
+     "trades": 7,
+     "summe_pct": 0.23,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-11",
+     "trades": 3,
+     "summe_pct": -1.43,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-12",
+     "trades": 6,
+     "summe_pct": 1.17,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-01",
+     "trades": 6,
+     "summe_pct": -3.93,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-02",
+     "trades": 1,
+     "summe_pct": -0.48,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 7,
+     "summe_pct": 3.84,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-04",
+     "trades": 6,
+     "summe_pct": 1.66,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-05",
+     "trades": 8,
+     "summe_pct": -1.33,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-06",
+     "trades": 4,
+     "summe_pct": 3.41,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 9,
+     "summe_pct": -1.66,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-08",
+     "trades": 4,
+     "summe_pct": 0.07,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-09",
+     "trades": 12,
+     "summe_pct": -1.74,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 10,
+     "summe_pct": -1.14,
+     "gewinner": 2
+    }
+   ]
+  },
+  {
+   "rang": 13,
+   "id": "intc",
+   "name": "Intel 60 min",
+   "markt": "INTC",
+   "zeitrahmen": "60min",
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "Trend-Rücksetzer Dow",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": false,
+    "jahr_2026": true
+   },
+   "trades": 74,
+   "pf": 1.131,
+   "summe_pct": 11.31,
+   "summe_r": 3.1,
+   "treffer_pct": 17.6,
+   "max_rueckgang_pct": 27.59,
+   "eur_1000": 31.0,
+   "eur_1000_rueckgang": 255.0,
+   "j2025": {
+    "trades": 38,
+    "pf": 0.41,
+    "summe_pct": -23.7,
+    "summe_r": -24.0,
+    "treffer_pct": 10.5,
+    "eur_1000": -240.0
+   },
+   "j2026": {
+    "trades": 36,
+    "pf": 1.763,
+    "summe_pct": 35.01,
+    "summe_r": 27.0,
+    "treffer_pct": 25.0,
+    "eur_1000": 270.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,13, 2025 deutlich im Minus (0,41), Rückgang 255 €. Gibt Account 5 ab.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 4,
+     "summe_pct": 3.52,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-02",
+     "trades": 3,
+     "summe_pct": -4.78,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 4,
+     "summe_pct": -5.27,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 2,
+     "summe_pct": 1.31,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-05",
+     "trades": 4,
+     "summe_pct": -3.33,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-06",
+     "trades": 1,
+     "summe_pct": -0.9,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-07",
+     "trades": 2,
+     "summe_pct": -1.31,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-08",
+     "trades": 3,
+     "summe_pct": -3.11,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-09",
+     "trades": 1,
+     "summe_pct": -0.91,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-10",
+     "trades": 4,
+     "summe_pct": -6.42,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-11",
+     "trades": 5,
+     "summe_pct": 0.37,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-12",
+     "trades": 5,
+     "summe_pct": -2.86,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 4,
+     "summe_pct": 17.08,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-02",
+     "trades": 2,
+     "summe_pct": -3.21,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 3,
+     "summe_pct": -3.92,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-04",
+     "trades": 2,
+     "summe_pct": 6.89,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-05",
+     "trades": 2,
+     "summe_pct": -4.16,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-06",
+     "trades": 5,
+     "summe_pct": -11.33,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-07",
+     "trades": 8,
+     "summe_pct": 13.76,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-08",
+     "trades": 1,
+     "summe_pct": -1.15,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-09",
+     "trades": 5,
+     "summe_pct": 15.66,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-10",
+     "trades": 4,
+     "summe_pct": 5.39,
+     "gewinner": 2
+    }
+   ]
+  },
+  {
+   "rang": 14,
+   "id": "gold2",
+   "name": "Gold-Bot 2.0",
+   "markt": "GOLD",
+   "zeitrahmen": "60min",
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "London GBP/USD",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": true,
+    "jahr_2026": false
+   },
+   "trades": 105,
+   "pf": 1.044,
+   "summe_pct": 0.63,
+   "summe_r": 3.5,
+   "treffer_pct": 75.2,
+   "max_rueckgang_pct": 3.14,
+   "eur_1000": 35.0,
+   "eur_1000_rueckgang": 51.0,
+   "j2025": {
+    "trades": 55,
+    "pf": 1.113,
+    "summe_pct": 0.66,
+    "summe_r": 2.9,
+    "treffer_pct": 76.4,
+    "eur_1000": 29.0
+   },
+   "j2026": {
+    "trades": 50,
+    "pf": 0.997,
+    "summe_pct": -0.03,
+    "summe_r": 0.6,
+    "treffer_pct": 74.0,
+    "eur_1000": 6.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,04, 2026 bei 1,00. Gibt Account 6 ab; der Schattenlauf ohne Order läuft weiter.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 7,
+     "summe_pct": 0.39,
+     "gewinner": 6
+    },
+    {
+     "monat": "2025-02",
+     "trades": 4,
+     "summe_pct": 0.56,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-04",
+     "trades": 5,
+     "summe_pct": -0.87,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-05",
+     "trades": 4,
+     "summe_pct": -0.49,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-06",
+     "trades": 4,
+     "summe_pct": -0.63,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 7,
+     "summe_pct": -0.77,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-08",
+     "trades": 5,
+     "summe_pct": 0.48,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-09",
+     "trades": 9,
+     "summe_pct": 0.83,
+     "gewinner": 8
+    },
+    {
+     "monat": "2025-10",
+     "trades": 6,
+     "summe_pct": 0.5,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-11",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-12",
+     "trades": 4,
+     "summe_pct": 0.65,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-01",
+     "trades": 4,
+     "summe_pct": -1.55,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-03",
+     "trades": 6,
+     "summe_pct": -0.5,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-04",
+     "trades": 3,
+     "summe_pct": 0.59,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-05",
+     "trades": 5,
+     "summe_pct": -0.32,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-06",
+     "trades": 6,
+     "summe_pct": 0.57,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-07",
+     "trades": 4,
+     "summe_pct": -0.57,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-08",
+     "trades": 8,
+     "summe_pct": 0.73,
+     "gewinner": 7
+    },
+    {
+     "monat": "2026-09",
+     "trades": 7,
+     "summe_pct": -0.12,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-10",
+     "trades": 7,
+     "summe_pct": 1.15,
+     "gewinner": 7
+    }
+   ]
+  },
+  {
+   "rang": 15,
+   "id": "copper",
+   "name": "Kupfer 30 min Long",
+   "markt": "COPPER",
+   "zeitrahmen": "30min",
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "Vortag EUR/USD",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": false,
+    "jahr_2026": true
+   },
+   "trades": 190,
+   "pf": 1.022,
+   "summe_pct": 1.1,
+   "summe_r": 14.6,
+   "treffer_pct": 21.1,
+   "max_rueckgang_pct": 13.08,
+   "eur_1000": 142.0,
+   "eur_1000_rueckgang": 310.0,
+   "j2025": {
+    "trades": 109,
+    "pf": 0.83,
+    "summe_pct": -5.02,
+    "summe_r": -10.8,
+    "treffer_pct": 20.2,
+    "eur_1000": -99.0
+   },
+   "j2026": {
+    "trades": 81,
+    "pf": 1.314,
+    "summe_pct": 6.11,
+    "summe_r": 25.4,
+    "treffer_pct": 22.2,
+    "eur_1000": 241.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,02, 2025 im Minus (0,83), Rückgang 319 €. Gibt Account 4 ab.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 10,
+     "summe_pct": -1.15,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-02",
+     "trades": 7,
+     "summe_pct": 1.51,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-03",
+     "trades": 7,
+     "summe_pct": -1.26,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-04",
+     "trades": 11,
+     "summe_pct": -0.74,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-05",
+     "trades": 10,
+     "summe_pct": -1.56,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-06",
+     "trades": 7,
+     "summe_pct": -0.34,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 10,
+     "summe_pct": 0.03,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-08",
+     "trades": 2,
+     "summe_pct": -0.35,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-09",
+     "trades": 14,
+     "summe_pct": -1.31,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-10",
+     "trades": 12,
+     "summe_pct": -2.68,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-11",
+     "trades": 6,
+     "summe_pct": 1.32,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-12",
+     "trades": 13,
+     "summe_pct": 1.5,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-01",
+     "trades": 10,
+     "summe_pct": -2.56,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-02",
+     "trades": 8,
+     "summe_pct": -1.6,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-03",
+     "trades": 1,
+     "summe_pct": -0.39,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-04",
+     "trades": 16,
+     "summe_pct": 8.0,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-05",
+     "trades": 8,
+     "summe_pct": 1.32,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-06",
+     "trades": 3,
+     "summe_pct": 1.77,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-07",
+     "trades": 13,
+     "summe_pct": 0.88,
+     "gewinner": 3
+    },
+    {
+     "monat": "2026-08",
+     "trades": 5,
+     "summe_pct": 1.5,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-09",
+     "trades": 10,
+     "summe_pct": -1.58,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-10",
+     "trades": 7,
+     "summe_pct": -1.23,
+     "gewinner": 1
+    }
+   ]
+  },
+  {
+   "rang": 16,
+   "id": "dax",
+   "name": "DAX 15 min Long",
+   "markt": "DE40",
+   "zeitrahmen": "15min",
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "Noise USD/JPY",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": false,
+    "jahr_2026": true
+   },
+   "trades": 410,
+   "pf": 1.005,
+   "summe_pct": 0.22,
+   "summe_r": -54.4,
+   "treffer_pct": 20.7,
+   "max_rueckgang_pct": 10.37,
+   "eur_1000": -370.0,
+   "eur_1000_rueckgang": 804.0,
+   "j2025": {
+    "trades": 236,
+    "pf": 0.891,
+    "summe_pct": -2.7,
+    "summe_r": -61.9,
+    "treffer_pct": 19.1,
+    "eur_1000": -475.0
+   },
+   "j2026": {
+    "trades": 174,
+    "pf": 1.164,
+    "summe_pct": 2.92,
+    "summe_r": 7.5,
+    "treffer_pct": 23.0,
+    "eur_1000": 105.0
+   },
+   "zufall_pct": null,
+   "warum": "Gewinnfaktor 1,01 in 410 Trades, −544 € mit 1.000 €. Gibt Account 7 ab.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 20,
+     "summe_pct": 0.28,
+     "gewinner": 5
+    },
+    {
+     "monat": "2025-02",
+     "trades": 17,
+     "summe_pct": -0.1,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-03",
+     "trades": 19,
+     "summe_pct": -0.59,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-04",
+     "trades": 15,
+     "summe_pct": 4.79,
+     "gewinner": 8
+    },
+    {
+     "monat": "2025-05",
+     "trades": 37,
+     "summe_pct": -0.82,
+     "gewinner": 7
+    },
+    {
+     "monat": "2025-06",
+     "trades": 15,
+     "summe_pct": -0.99,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-07",
+     "trades": 31,
+     "summe_pct": -2.76,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-08",
+     "trades": 18,
+     "summe_pct": -1.42,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-09",
+     "trades": 7,
+     "summe_pct": 0.09,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-10",
+     "trades": 19,
+     "summe_pct": -0.54,
+     "gewinner": 4
+    },
+    {
+     "monat": "2025-11",
+     "trades": 13,
+     "summe_pct": 0.09,
+     "gewinner": 3
+    },
+    {
+     "monat": "2025-12",
+     "trades": 25,
+     "summe_pct": -0.72,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-01",
+     "trades": 12,
+     "summe_pct": 1.06,
+     "gewinner": 4
+    },
+    {
+     "monat": "2026-02",
+     "trades": 22,
+     "summe_pct": -2.08,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-03",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-04",
+     "trades": 22,
+     "summe_pct": 2.9,
+     "gewinner": 6
+    },
+    {
+     "monat": "2026-05",
+     "trades": 22,
+     "summe_pct": -1.74,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-06",
+     "trades": 17,
+     "summe_pct": 0.87,
+     "gewinner": 5
+    },
+    {
+     "monat": "2026-07",
+     "trades": 22,
+     "summe_pct": 2.81,
+     "gewinner": 9
+    },
+    {
+     "monat": "2026-08",
+     "trades": 28,
+     "summe_pct": 0.26,
+     "gewinner": 8
+    },
+    {
+     "monat": "2026-09",
+     "trades": 6,
+     "summe_pct": 0.39,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 23,
+     "summe_pct": -1.56,
+     "gewinner": 3
+    }
+   ]
+  },
+  {
+   "rang": 17,
+   "id": "r6-vortag-usdjpy",
+   "name": "Vortag USD/JPY",
+   "markt": "USDJPY",
+   "zeitrahmen": null,
+   "konto": null,
+   "rolle": "abgeloest",
+   "ersetzt": null,
+   "ersetzt_durch": "Vortag GBP/USD",
+   "bestanden": false,
+   "tests": {
+    "trades": true,
+    "pf": false,
+    "jahr_2025": true,
+    "jahr_2026": false
+   },
+   "trades": 78,
+   "pf": 0.949,
+   "summe_pct": -0.21,
+   "summe_r": -2.4,
+   "treffer_pct": 32.1,
+   "max_rueckgang_pct": 0.68,
+   "eur_1000": 24.0,
+   "eur_1000_rueckgang": 68.0,
+   "j2025": {
+    "trades": 31,
+    "pf": 1.018,
+    "summe_pct": 0.04,
+    "summe_r": 8.2,
+    "treffer_pct": 38.7,
+    "eur_1000": 67.0
+   },
+   "j2026": {
+    "trades": 47,
+    "pf": 0.882,
+    "summe_pct": -0.25,
+    "summe_r": -10.6,
+    "treffer_pct": 27.7,
+    "eur_1000": -43.0
+   },
+   "zufall_pct": null,
+   "warum": "In 2025 bis 2026 nur Gewinnfaktor 0,95 (2026: 0,88), −24 €. Gibt sein Konto an Vortag GBP/USD ab.",
+   "monate": [
+    {
+     "monat": "2025-01",
+     "trades": 3,
+     "summe_pct": 0.05,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-02",
+     "trades": 2,
+     "summe_pct": -0.17,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-03",
+     "trades": 2,
+     "summe_pct": 0.06,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-04",
+     "trades": 4,
+     "summe_pct": -0.31,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-05",
+     "trades": 2,
+     "summe_pct": 0.05,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-06",
+     "trades": 3,
+     "summe_pct": 0.28,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-07",
+     "trades": 3,
+     "summe_pct": -0.06,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-08",
+     "trades": 5,
+     "summe_pct": -0.13,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-09",
+     "trades": 2,
+     "summe_pct": 0.06,
+     "gewinner": 1
+    },
+    {
+     "monat": "2025-10",
+     "trades": 0,
+     "summe_pct": 0.0,
+     "gewinner": 0
+    },
+    {
+     "monat": "2025-11",
+     "trades": 3,
+     "summe_pct": 0.19,
+     "gewinner": 2
+    },
+    {
+     "monat": "2025-12",
+     "trades": 2,
+     "summe_pct": 0.02,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-01",
+     "trades": 1,
+     "summe_pct": -0.13,
+     "gewinner": 0
+    },
+    {
+     "monat": "2026-02",
+     "trades": 2,
+     "summe_pct": 0.1,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-03",
+     "trades": 6,
+     "summe_pct": -0.12,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-04",
+     "trades": 3,
+     "summe_pct": -0.01,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-05",
+     "trades": 5,
+     "summe_pct": 0.09,
+     "gewinner": 1
+    },
+    {
+     "monat": "2026-06",
+     "trades": 7,
+     "summe_pct": -0.09,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-07",
+     "trades": 5,
+     "summe_pct": -0.04,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-08",
+     "trades": 8,
+     "summe_pct": -0.14,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-09",
+     "trades": 4,
+     "summe_pct": 0.25,
+     "gewinner": 2
+    },
+    {
+     "monat": "2026-10",
+     "trades": 6,
+     "summe_pct": -0.17,
+     "gewinner": 1
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,222 @@
+# Vorwärtstest der drei Runde-6-Bots, je auf einem eigenen Capital.com-DEMOKONTO. Nie echtes Geld.
+# Vorab festgelegt am 04.11.2026, bevor einer der Bots einen Trade macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: suche/r6_bots.py (Broker), suche/r6_regeln.py (Regeln),
+# suche/r6_zwilling.py (Backtest-Motor auf den Capital.com-Kerzen jedes Tages).
+#
+# Herkunft: Runde 6 (suche/VORAB_runde6.yaml, suche/PROTOKOLL.md). Von 21 YouTube-Strategien hat eine bestanden:
+# Vortageshoch/-tief mit Stop-Orders auf USD/JPY mit der gelernten Bedingung "Ausbruch ab 4:30 New York". Platz 2 und 3
+# haben knapp nicht bestanden. Kiron am 04.11.2026: 08:52 UTC "Ja, plus EUR/GBP-USD mitschreiben" (USD/JPY-Regel auf
+# eigenem Demokonto, EUR/USD und GBP/USD nur mitschreiben), 08:56 UTC "lasse 2 und 3 auch bestehen".
+#
+# Nachspiel (suche/r6_nachspiel.py, HistData 2021 bis Oktober 2026, Lauf alle 15 Minuten wie im Workflow): Die Regeln
+# der Bots treffen jeden Trade des Backtests (269 von 269, 144 von 144, 474 von 474). Zusätzliche Bot-Trades gibt es nur
+# an Tagen, die der Backtest wegen Lücken in den HistData-Kerzen nicht zählt (6, 22 und 15 Tage).
+
+r6_demo:
+  regeln_sha256: abfe7b06656a746dd67b2e2a87432dc54241f474b4e605efe733b8000d94d1dd   # suche/r6_regeln.py, so wie hier festgelegt
+  bots:
+    r6-vortag-usdjpy:
+      strategie: vortag_stop_oco
+      markt: USDJPY
+      konto: eigenes Demokonto mit "Vortag" im Namen (Vorschlag "Vortag USDJPY")
+      regel: >-
+        Handelstag 18 bis 17 Uhr New York. Ab dem Lauf um 4:31 New York, wenn bis dahin keine fertige Kerze über das
+        Vortageshoch oder unter das Vortagestief ging und die erste solche Kerze nicht vor 4:30 New York begann:
+        Kauf-Stop am Vortageshoch plus aktuellem Spread, Verkauf-Stop am Vortagestief, beide gültig bis 16:30 New York.
+        Stop 10 % und Ziel 25 % der Vortagesspanne als feste Kurse beim Broker (Bid für Long, Ask für Short, wie im
+        Backtest). Löst eine Order aus, löscht der Bot im nächsten Lauf die andere. Raus im Lauf um 16:46 New York.
+      erwartung_backtest: {trades_pro_jahr: 46, gewinnfaktor: 1.242, treffer_pct: 37.2, jahre_im_plus: "5 von 6"}
+      schatten: [EURUSD, GBPUSD]           # nur der Zwilling schreibt mit, keine Order
+    r6-london-gbpusd:
+      strategie: london_stunde_long
+      markt: GBPUSD
+      konto: eigenes Demokonto mit "London" oder "GBPUSD" im Namen (Vorschlag "London GBPUSD")
+      regel: >-
+        Bereich = Hoch und Tief der Stundenkerzen 4 bis 8 Uhr London. Ab der 9-Uhr-Kerze: die erste Stundenkerze, die
+        unter dem Bereichshoch eröffnet, darüber schließt und 1 bis 2,5 x ATR(14) der Stunde davor groß ist. Long per
+        Marktorder im Lauf eine Minute nach dem Schluss dieser Kerze, Stop am Bereichstief, Ziel 1,5 x Risiko vom
+        Bid beim Einstieg, raus um 17 Uhr London. Nur wenn ATR(14)/ATR(100) der Tageskerzen bis gestern höchstens
+        0,8765 ist. Ein Trade am Tag.
+      erwartung_backtest: {trades_pro_jahr: 25, gewinnfaktor: 1.222, zufall_pct: 92.5, bestanden: false}
+    r6-noise-usdjpy:
+      strategie: noise_band
+      markt: USDJPY
+      konto: eigenes Demokonto mit "Noise" im Namen (Vorschlag "Noise USDJPY")
+      regel: >-
+        Sitzung 8 bis 17 Uhr London, Band aus den letzten 14 vollständigen Sitzungen. Prüfung eine Minute nach jeder
+        halben Stunde: Schluss über dem Band long, darunter short, per Marktorder; raus, wenn der Schluss wieder unter
+        max(Band, VWAP) bzw. über min(Band, VWAP) liegt, sonst um 17 Uhr London. Mehrere Trades am Tag möglich. Nur wenn
+        ATR(14)/ATR(100) der Tageskerzen bis gestern höchstens 0,8658 ist. Im Backtest ohne Stop; beim Broker liegt ein
+        Notstop von 2 x ATR(14) der Tageskerzen (trifft er, zählt der Trade normal und gilt als Abweichung).
+      erwartung_backtest: {trades_pro_jahr: 81, gewinnfaktor: 1.193, zufall_pct: 94.9, bestanden: false}
+
+  groesse: >-
+    Risiko bis zum Stop (Noise: Notstop) höchstens 1 % des Kontostands und höchstens 10 Euro, mindestens die kleinste
+    Ordergröße, wenn die nicht mehr als 10 Euro riskiert. Die Margin braucht höchstens die Hälfte des freien Gelds.
+  konto_regeln: >-
+    Nur ein Konto mit passendem Namen, nie das Hauptkonto des Gold-Bots, nie ein Konto eines anderen Bots
+    (journal/konten.json). Ohne Konto wartet der Bot; der Zwilling schreibt trotzdem mit.
+  lauf: Workflow "Demo-Bots", von cron-job.org Mo-Fr alle 15 Minuten angestoßen (Minute 1, 16, 31, 46)
+  bekannte_abweichungen_vom_backtest:
+    - "Vortag: raus um 16:46 statt 17:00 New York (der letzte Lauf vor dem Tagesschluss)."
+    - "Vortag: Kauf-Stop liegt um den Spread beim Legen über dem Hoch; im Backtest zählt der Spread der Einstiegskerze."
+    - "London und Noise: Einstieg eine Minute nach dem Kerzenschluss zum dann gültigen Kurs statt zur Eröffnung."
+    - "Noise: Notstop beim Broker (im Backtest keiner)."
+
+  messung: >-
+    Jeder abgeschlossene Trade zählt, in Prozent vom Kurs wie im Backtest (Gewinnfaktor = Summe der Gewinne / Summe der
+    Verluste), dazu R (Vortag, London) und Euro. Nach jedem fertigen Tag rechnet der Zwilling den Backtest-Motor auf den
+    Capital.com-Kerzen dieses Tages (journal/r6-bots/zwilling.jsonl); ein Tag zählt als Abweichung, wenn Richtung oder
+    Einstiegskerze des Bots nicht zum Zwilling passen.
+
+  zwischencheck:
+    nach_trades: 15                        # je Bot
+    vorschlag_stopp_wenn_pf_unter: 0.6     # dann schlage ich Kiron vor, den Bot zu beenden; der Bot ändert sich nie selbst
+    vorschlag_stopp_wenn_abweichung: "mehr als 2 Tage mit Abweichung vom Zwilling, die keine bekannte Abweichung erklärt"
+
+  urteil:
+    nach_trades: 40                        # je Bot; Vortag etwa 10 Monate, Noise etwa 6 Monate, London etwa 1,6 Jahre
+    spaetestens: "2028-04-30"              # dann Urteil mit den Trades, die es bis dahin gibt
+    bestanden_wenn:
+      pf_min: 1.2
+      summe_pct_ueber: 0.0
+    sonst: durchgefallen
+    schatten: "EUR/USD und GBP/USD zählen nicht fürs Urteil, nur zur Info."
+    hinweis: "Echtes Geld nur mit Kirons ausdrücklichem Wort, frühestens nach dem Urteil."
+
+  nachtrag_konten_2026_11_04: >-
+    11:05 UTC, bevor einer der Bots einen Trade gemacht hat. Kiron hat auf capital.com die Höchstzahl an Demokonten
+    erreicht (10:55 UTC: "i have created the maximum of accounts,... sort it your selfe"). Darum gibt es keine Konten mit
+    "Vortag", "London" oder "Noise" im Namen. Ein Bot bekommt stattdessen ein frei gewordenes Konto eines beendeten Bots:
+    der Lauf der Demo-Bots (suche/demo_bots.py) trägt es in journal/konten.json unter zuordnung ein, sobald dort keine
+    Position mehr offen ist. Welche Bots Konten bekommen, entscheidet Kiron nach einem Vergleich aller Strategien mit
+    demselben Backtest 2025 bis heute (Kiron 10:58 UTC: "tue alle strategien gleich auswerten ... und dann wählen").
+    Ein so übergebenes Konto gilt als "eigenes Demokonto" im Sinn von konto_regeln, es gehört danach nur diesem Bot.
+    Regeln, Größe, Messung und Urteil bleiben unverändert; der Kontostand zum Start zählt ab der Übernahme.
+
+  nachtrag_vortag_eurusd_gbpusd_2026_11_04:
+    zeit: "11:35 UTC, bevor einer der Bots einen Trade gemacht hat"
+    grund: >-
+      Kiron 10:58 UTC: "tue alle strategien gleich auswerten mit backtest von diesem und letztem jahr... und dann
+      wählen". Beim einheitlichen Vergleich 2025 bis Oktober 2026 (Wochen-Test-Thread, suche/VORAB_bewertung.yaml)
+      bestehen Vortag EUR/USD (PF 1,67) und Vortag GBP/USD (PF 1,22), Vortag USD/JPY nicht (PF 0,95). Darum gibt es
+      zwei echte Bots auf diesen Märkten. Sie handeln nur, wenn ein Konto in journal/konten.json unter zuordnung
+      eingetragen ist; ein Konto über den Namen nehmen sie sich nie. Ohne Konto bleibt der Zwilling dort Schatten wie
+      bisher. r6-vortag-usdjpy läuft unverändert weiter.
+    bots:
+      r6-vortag-eurusd:
+        strategie: vortag_stop_oco
+        markt: EURUSD
+        regel: "genau die Regel von r6-vortag-usdjpy (derselbe Code), nur auf EUR/USD"
+        erwartung_backtest: {trades_pro_jahr: 75, gewinnfaktor: 1.264, treffer_pct: 38.1, jahre_im_plus: "5 von 6",
+                             zeitraum: "2021 bis 2026-10"}
+        nachspiel: "438 von 438 Backtest-Trades getroffen, dazu 6 nur an Tagen mit Lücken in den HistData-Kerzen"
+      r6-vortag-gbpusd:
+        strategie: vortag_stop_oco
+        markt: GBPUSD
+        regel: "genau die Regel von r6-vortag-usdjpy (derselbe Code), nur auf GBP/USD"
+        erwartung_backtest: {trades_pro_jahr: 68, gewinnfaktor: 1.187, treffer_pct: 36.1, jahre_im_plus: "5 von 6",
+                             zeitraum: "2021 bis 2026-10"}
+        nachspiel: "399 von 399 Backtest-Trades getroffen, dazu 3 nur an Tagen mit Lücken in den HistData-Kerzen"
+    groesse_messung_zwischencheck: "wie oben (groesse, messung, zwischencheck), je Bot"
+    urteil_je_bot: "wie oben: nach 40 Trades, spätestens 2028-04-30; bestanden bei PF ab 1,2 und Summe über 0"
+    schatten: >-
+      Die Zeilen des Zwillings auf EUR/USD und GBP/USD aus der Zeit ohne Konto zählen nicht fürs Urteil, nur die Trades
+      des Bots ab dem Tag, an dem er sein Konto hat.
+
+  nachtrag_vortag_usdjpy_beendet_2026_11_04:
+    zeit: "11:50 UTC, bevor r6-vortag-usdjpy einen Trade gemacht hat (Konto „Vortag USDJPY“ seit 11:02 UTC, keine Order)"
+    grund: >-
+      Kirons einheitlicher Vergleich aller Strategien 2025 bis heute (suche/VORAB_bewertung.yaml, Rangliste
+      /mnt/project-files/strategie-suche/bewertung/): Vortag USD/JPY besteht nicht (78 Trades, Gewinnfaktor 0,95, 2026:
+      0,88), Vortag GBP/USD besteht (130 Trades, 1,22). Mit dem Merge entscheidet Kiron.
+    folge: >-
+      r6-vortag-usdjpy legt keine neuen Stop-Orders mehr, löscht noch liegende, führt eine offene Position zu Ende und
+      gibt sein Konto dann an r6-vortag-gbpusd (journal/konten.json: zuordnung, start, uebergaben). Ohne Trade gibt es
+      für ihn kein Urteil. Der Zwilling auf USD/JPY schreibt weiter mit, nur als Schatten.
+
+  nachtrag_automatischer_wechsel_2026_11_04:
+    zeit: "12:16 UTC, bevor ein Runde-6-Bot einen Trade gemacht hat"
+    grund: >-
+      Kiron 04.11.2026 11:55 UTC: "okay mach das und stelle es dann im demo live und stelle sicher mit strategien zu
+      wechseln die deutlich schlechter sind". Daraus wurde der automatische Wechsel in suche/VORAB_wechsel.yaml
+      (festgelegt 11:57 UTC, suche/demo_pruefung.py): nach 15 Demo-Trades Wechsel bei Gewinnfaktor auf R unter 0,6,
+      nach 40 Trades unter 1,0 (1,0 bis 1,2 nur, wenn ein bestandener Ersatz bereitsteht).
+    folge: >-
+      Der zwischencheck oben (Vorschlag an Kiron nach 15 Trades) wird für r6-london-gbpusd, r6-noise-usdjpy,
+      r6-vortag-eurusd und r6-vortag-gbpusd durch diesen automatischen Wechsel ersetzt; die Abweichung vom Zwilling
+      bleibt ein Vorschlag an Kiron. Steht ein Bot in journal/konten.json unter abgeloest, behandelt suche/r6_bots.py ihn
+      wie einen beendeten Bot: kein neuer Einstieg (Vortag legt keine Stop-Orders mehr und löscht liegende), eine offene
+      Position läuft nach seinen Regeln zu Ende (Vortag: Stop, Ziel oder 16:46 New York; London: Stop, Ziel oder 17 Uhr
+      London; Noise: Gegensignal, Notstop oder 17 Uhr London), danach geht das Konto an den Nachfolger oder, ohne
+      Nachfolger, in kont["frei"]. Ein Bot nimmt sich nie ein Konto aus kont["frei"]; die vergibt nur die Prüfung.
+    unveraendert: >-
+      Regeln, Größe, Messung, Zwilling und das Urteil nach 40 Trades (spätestens 2028-04-30) für jeden Bot, der bis dahin
+      nicht abgelöst wurde. Ein abgelöster Bot bekommt kein Urteil mehr; seine Trades bis zum Wechsel bleiben im Journal.
+
+  nachtrag_vortag_stop_2026_11_04:
+    zeit: "13:20 UTC, bevor r6-vortag-eurusd oder r6-vortag-gbpusd einen Trade gemacht hat (beide ohne Order bis jetzt)"
+    grund: >-
+      Kiron 12:38 UTC: "probiere es so das es nur für profite zielt und ändere den stoploss belibig und sage mir welche
+      am besten mit welcher art von stoploss ist". Stop-Wahl für 15 Bots (suche/VORAB_stopwahl.yaml, suche/stopwahl.py,
+      Ergebnis /mnt/project-files/strategie-suche/stopwahl/): bei Vortag EUR/USD und GBP/USD ist 0,5 x ATR(14) der
+      Viertelstunden der beste Stop, in 2025-2026 (gewählt) und vor 2025 (Gegenprobe) mit mehr Euro und höherem
+      Gewinnfaktor. Kirons Entscheidungskarte 13:05 UTC: "Vortag + London im Demo testen". London GBP/USD ist seit
+      Kirons Auswahl von 12:27 UTC abgeschaltet (journal/konten.json abgeloest); er bleibt aus und behält seinen Stop.
+    regel_neu: >-
+      r6-vortag-eurusd und r6-vortag-gbpusd: Stop 0,5 x ATR(14) nach Wilder der fertigen 15-Minuten-Bid-Kerzen, Wert
+      der letzten fertigen Kerze beim Legen der Stop-Orders (erster Lauf ab 4:30 New York), hinter der Marke (Long: Hoch
+      des Vortags minus Abstand, Short: Tief plus Abstand). Vorher 10 % der Vortagesspanne. Ziel 25 % der
+      Vortagesspanne, Einstieg, Tagesende, Größe (1 % Risiko bis zum Stop, höchstens 10 Euro, Margin höchstens halbes
+      freies Geld) und alles andere bleiben. Ist der Stop näher an der Order als der Mindestabstand des Brokers, rückt
+      er auf 1,05 x Mindestabstand (steht im Log als stop_erweitert). Zwilling (suche/r6_zwilling.py) rechnet denselben
+      Stop. Code: suche/r6_regeln.py vt_stop_abstand, suche/r6_bots.py lauf_vortag.
+    umsetzung_atr: >-
+      In der Stop-Wahl wurde die ATR der Kerze vor dem Ausbruch genommen. Die Stop-Orders liegen aber schon ab 4:30 New
+      York beim Broker, darum nimmt der Bot die ATR beim Legen. Nachgerechnet vor dieser Festlegung (gleicher Motor,
+      1.000 Euro, 1 % Risiko, Hebelgrenze): EUR/USD 2025-2026 486 Euro (PF 2,33) mit ATR beim Legen gegen 504 Euro (PF
+      2,21) mit ATR beim Ausbruch und 426 Euro (PF 1,67) heute; vor 2025 1.582 gegen 1.281 und 828 Euro. GBP/USD
+      2025-2026 263 Euro (PF 1,61) gegen 280 (1,57) und 165 (1,22); vor 2025 2.055 gegen 1.610 und 1.098 Euro.
+    erwartung_backtest:
+      r6-vortag-eurusd: {zeitraum: "2025-01 bis 2026-10-30", trades: 133, euro: 486, gewinnfaktor: 2.33, treffer_pct: 33.1,
+                         stop_median_pct: 0.0226, vor_2025: {trades: 738, euro: 1582, gewinnfaktor: 1.66}}
+      r6-vortag-gbpusd: {zeitraum: "2025-01 bis 2026-10-30", trades: 130, euro: 263, gewinnfaktor: 1.61, treffer_pct: 26.9,
+                         stop_median_pct: 0.0245, vor_2025: {trades: 695, euro: 2055, gewinnfaktor: 1.71}}
+    risiko: >-
+      Der Stop ist nur 2 bis 4 Pips weit. Rutschen ist im Backtest nicht drin. Nachgerechnet mit 0,5 Pip schlechter beim
+      Einstieg und nochmal beim Stop: EUR/USD 2025-2026 341 statt 292 Euro (PF 1,71 statt 1,42), GBP/USD 137 statt 55
+      Euro (1,25 statt 1,06); bei 1 Pip EUR/USD vor 2025 -133 statt -571 Euro. Der neue Stop bleibt vorn, aber das
+      Rutschen frisst einen großen Teil. Das Log schreibt je Trade rutschen_pips mit.
+    messung: >-
+      Gezählt fürs Urteil werden nur Trades mit dem neuen Stop, also ab dem ersten Lauf nach dem Merge dieses Nachtrags.
+      Bis dahin gab es keine Trades dieser beiden Bots. Urteil wie oben (nach 40 Trades, spätestens 2028-04-30,
+      bestanden bei PF ab 1,2 und Summe über 0) und automatischer Wechsel aus VORAB_wechsel unverändert. Zusätzlich
+      nach 40 Trades: mittleres Rutschen in Pips beim Einstieg und beim Stop gegen den Zwilling.
+    unveraendert: "r6-vortag-usdjpy (beendet), r6-london-gbpusd und r6-noise-usdjpy (abgelöst) und alle anderen Bots"
+
+  nachtrag_vortag_nachholen_2026_11_04:
+    zeit: "14:00 UTC, bevor r6-vortag-eurusd oder r6-vortag-gbpusd einen Trade gemacht hat"
+    grund: >-
+      Kiron 13:53 UTC: "sicher, dass du 24/7 läufst, also dass du jetzt keine Trades verpassen kannst, also dass du halt
+      wirklich jeden Trade nimmst. Und wenn du einen verpasst, oder halt ein bisschen ... zu spät nimmst, dann nimm den
+      halt einfach ... zu spät, das ist nicht schlimm." Die Stop-Orders liegen ab dem ersten Lauf ab 4:30 New York beim
+      Broker und lösen dort sofort aus. Verpasst werden konnte ein Trade nur, wenn der Ausbruch kam, bevor die Orders
+      lagen (Lauf ausgefallen, z. B. abgelehnter Push wie am 04.11. um 10:31 und 10:46 UTC, oder Konto erst später da).
+    regel_neu: >-
+      Lagen beim Ausbruch (erste Kerze ab 4:30 New York über dem Vortageshoch oder unter dem Vortagestief) noch keine
+      Stop-Orders, eröffnet der Bot im nächsten Lauf eine Marktorder in Ausbruchsrichtung, höchstens 65 Minuten nach
+      Beginn der Ausbruchskerze. Stop und Ziel sind dieselben Kurse wie bei den Stop-Orders (Marke -/+ 0,5 x ATR beim
+      Legen um 4:30 New York, Ziel 25 % der Vortagesspanne), Stop mindestens 1,05 x Mindestabstand vom Kurs. Nur
+      solange der Trade nach der Regel noch liefe: Ziel seit dem Ausbruch nicht erreicht, Stop nicht getroffen, der
+      Kurs jetzt noch zwischen Stop und Ziel. Größe nach dem Abstand vom Kurs jetzt bis zum Stop (wie immer höchstens 1 %
+      und 10 Euro Risiko). Ausstieg wie immer (Stop, Ziel oder 16:46 New York). Code: suche/r6_regeln.py vt_nachholen,
+      suche/r6_bots.py vortag_nachholen.
+    messung: >-
+      Ein nachgeholter Trade zählt wie jeder andere fürs Urteil nach 40 Trades und für den automatischen Wechsel. Er
+      steht im Journal mit nachgeholt: true, der Verspätung in Minuten und dem Rutschen gegen die Marke. Die
+      Einstiegskerze ist die Ausbruchskerze, damit der Zwilling ihn als denselben Trade erkennt. Beim Urteil wird
+      zusätzlich gezeigt, wie viele Trades nachgeholt wurden und was sie gebracht haben.
+    backtest: >-
+      Der Backtest kennt kein Nachholen (dort liegen die Orders immer). Nachgeholte Trades steigen schlechter ein als die
+      Marke; sie sind darum im Mittel etwas schwächer als im Backtest. Bei Läufen alle 15 Minuten sollte das selten
+      sein.

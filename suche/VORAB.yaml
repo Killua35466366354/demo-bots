@@ -1,0 +1,86 @@
+# Strategie-Suche, Runde 1: Kirons Strategien auf anderen Märkten, mäßiges Scalping.
+# Festgelegt am 02.11.2026, BEVOR auch nur ein Signal auf einem dieser Märkte gerechnet wurde.
+#
+# Kirons Wunsch (02.11.2026): "wo man diese Strategie verwenden kann, auf welche Währung oder Aktie, um 1,2 bis 1,5
+# Gewinnfaktor zu bekommen", "ein bisschen mäßig Scalping", eigenes Projekt im Cockpit.
+# Die Strategie sind Kirons Pine-Skripte C (Long) und B (Short) mit Trendfilter, unverändert (gold/backtest/pine_port.py).
+#
+# Was vorher schon bekannt war und deshalb nicht als Beweis zählt:
+# - Gold: 2023 bis Oktober 2026 wurde in den Gold-Runden 1 bis 4 angesehen. Gold läuft hier nur als Vergleich mit
+#   und kann nie Finalist werden.
+# - US Tech 100 (Nasdaq 100): Kiron hatte früher Tester-Bilder von TradingView auf diesem Markt geschickt
+#   (Zeitraum und Einstellungen unbekannt). Der Markt bleibt drin, das steht aber im Ergebnis dabei.
+# - Allgemeines Wissen: Der Vix Fix wurde für den S&P 500 erfunden; Aktienindizes steigen langfristig, deshalb ist
+#   "nur Long" auf Indizes die Erwartung mit der besten Chance. Kurze Charts kosten viel Spread.
+#
+# Gegen Glückstreffer bei vielen Versuchen (19 Märkte x 3 Zeitrahmen x 3 Seiten x 2 Führungen = 342 Kombinationen):
+# drei getrennte Zeitfenster. Auswahl nur auf 2015-2020, je Markt höchstens EINE Kombination weiter in die Prüfung
+# 2021-2023, und nur wer beide besteht, darf in das versiegelte Fenster 2024 bis Oktober 2026, genau einmal.
+# Besteht niemand die Prüfung, bleibt das Siegel zu und steht für eine spätere Runde bereit.
+
+format: 1
+runde_1:
+  daten:
+    quelle: HistData.com, 1-Minuten-Kerzen (Bid), ASCII, Zeit EST ohne Sommerzeit (UTC-5)
+    ordner: strategie-suche/daten      # Projektdateien, 5-Minuten-Kerzen je Markt, nicht im Repo
+    von: "2015-01-01"
+    bis: "2026-10-31 23:59"
+    aufwaermen: Die ersten Wochen ab 01.01.2015 geben keine Signale, bis EMA 200 (60 min) und Vix Fix gefüllt sind.
+  fenster:
+    auswahl: ["2015-01-01", "2020-12-31 23:59"]
+    pruefung: ["2021-01-01", "2023-12-31 23:59"]
+    versiegelt: ["2024-01-01", "2026-10-31 23:59"]   # Prüfsummen der Kerzen ins Journal, bevor gerechnet wird
+  # Spread in Kurs-Einheiten, vorsichtig gewählt (über den beworbenen Mindest-Spreads von Capital.com; beim Gold
+  # war der gemessene Spread 0,50 $ statt beworben 0,30 $). Dazu ein Lauf mit 1,5-fachem Spread.
+  # Einstiege nur in den liquiden Stunden (UTC), weil HistData keine Spreads hat und sie nachts breiter werden.
+  # Die Fenster liegen so, dass sie im Sommer und im Winter in der Haupthandelszeit liegen. Ausstiege jederzeit.
+  maerkte:
+    - {symbol: EURUSD, name: "EUR/USD", art: Währung, spread: 0.00010, stunden: [7, 20]}
+    - {symbol: GBPUSD, name: "GBP/USD", art: Währung, spread: 0.00015, stunden: [7, 20]}
+    - {symbol: USDJPY, name: "USD/JPY", art: Währung, spread: 0.012, stunden: [7, 20]}
+    - {symbol: AUDUSD, name: "AUD/USD", art: Währung, spread: 0.00010, stunden: [7, 20]}
+    - {symbol: USDCAD, name: "USD/CAD", art: Währung, spread: 0.00015, stunden: [7, 20]}
+    - {symbol: USDCHF, name: "USD/CHF", art: Währung, spread: 0.00015, stunden: [7, 20]}
+    - {symbol: NZDUSD, name: "NZD/USD", art: Währung, spread: 0.00015, stunden: [7, 20]}
+    - {symbol: EURGBP, name: "EUR/GBP", art: Währung, spread: 0.00015, stunden: [7, 20]}
+    - {symbol: EURJPY, name: "EUR/JPY", art: Währung, spread: 0.020, stunden: [7, 20]}
+    - {symbol: GBPJPY, name: "GBP/JPY", art: Währung, spread: 0.030, stunden: [7, 20]}
+    - {symbol: EURCHF, name: "EUR/CHF", art: Währung, spread: 0.00020, stunden: [7, 20]}
+    - {symbol: XAGUSD, name: "Silber", art: Rohstoff, spread: 0.030, stunden: [7, 20]}
+    - {symbol: WTIUSD, name: "Öl (WTI)", art: Rohstoff, spread: 0.04, stunden: [13, 19]}
+    - {symbol: SPXUSD, name: "S&P 500", art: Index, spread: 0.6, stunden: [14.5, 20]}
+    - {symbol: NSXUSD, name: "Nasdaq 100", art: Index, spread: 1.8, stunden: [14.5, 20], schon_gesehen: "Kirons TradingView-Bilder"}
+    - {symbol: GRXEUR, name: "DAX", art: Index, spread: 1.5, stunden: [8, 15.5]}
+    - {symbol: UKXGBP, name: "FTSE 100", art: Index, spread: 1.2, stunden: [8, 15.5]}
+    - {symbol: JPXJPY, name: "Nikkei 225", art: Index, spread: 10.0, stunden: [0, 6]}
+    - {symbol: XAUUSD, name: "Gold", art: Rohstoff, spread: 0.50, stunden: [7, 20], nur_vergleich: true}
+  spread_faktor_robust: 1.5
+  swap_pct_jahr: 5.0          # Übernachtkosten auf den Kurswert, für alle Märkte gleich, beide Seiten
+  zeitrahmen: ["5min", "15min", "60min"]
+  signale: Pine C (Long) und B (Short), Standard-Eingaben, Trendfilter an (EMA 200 auf 60 min), wie in Gold-Runde 2
+  seiten: ["C+B", "nur C", "nur B"]
+  fuehrungen:
+    runde2: {stop_atr: 1.0, ausstieg_signal: immer}                                    # Gold-Runde 2, bester Stop bisher
+    v2: {stop_atr: 1.5, ziel_atr: 0.5, max_kerzen: 8, ausstieg_signal: nur_im_plus}     # Führung von Gold-Bot 2.0
+  # ATR(14) des jeweiligen Zeitrahmens. Eine Position je Markt. Füllung zur nächsten Eröffnung, Stop und Ziel in
+  # derselben Kerze: der Stop zählt. Alles in R (Ergebnis geteilt durch Risiko beim Einstieg), feste Größe.
+  zufall: {seed: 20261104, laeufe: 200}    # gematchte Zwillinge: gleiche Seite, zufällige Kerze im Trend und in den Handelsstunden, gleiche Führung
+  auswahl_schwellen:
+    min_trades: 150
+    min_gewinnfaktor_r: 1.3
+    max_zufall_gleich_gut_pct: 5.0
+    min_gewinnfaktor_r_robust: 1.15     # mit 1,5-fachem Spread
+    min_jahre_im_plus: 4                # von 6 Jahren, Summe R > 0
+  auswahl_regel: Je Markt die bestandene Kombination mit dem höchsten Gewinnfaktor in der Auswahl, bei Gleichstand mehr Trades.
+  pruef_schwellen:
+    min_trades: 50
+    min_gewinnfaktor_r: 1.2
+    summe_r_ueber: 0.0
+    min_gewinnfaktor_r_robust: 1.05
+  finalisten_max: 6                     # nach Summe R in der Prüfung, Gold nie
+  siegel_schwellen:
+    min_gewinnfaktor_r: 1.2
+    summe_r_ueber: 0.0
+    summe_r_robust_ueber: 0.0
+  bericht: Zahl der bestandenen Kombinationen gegen die Zahl, die reiner Zufall erwarten lässt (5 % je Stufe).
+  danach: Verbesserungen nur mit neuer VORAB-Zeile und Daten nach dem Siegel (Vorwärtstest auf dem Capital.com-Demo).

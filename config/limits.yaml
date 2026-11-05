@@ -1,0 +1,16 @@
+# Nur der gold:-Abschnitt aus Kirons privatem config/limits.yaml. Ändern nur per PR mit Kirons Ja.
+gold:
+  stage: 1
+  epic: GOLD
+  size: 1.0
+  stop_usd: 5.6
+  stop_atr: 1.0
+  risk_per_trade_pct: 2.0
+  day_loss_pct: 4.0
+  week_loss_pct: 8.0
+  kill_dd_pct: 25.0
+  conflict: first
+  sides:
+  - long
+  - short
+  max_spread_usd: 1.0

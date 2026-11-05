@@ -1,0 +1,6 @@
+pandas>=2.2
+numpy>=1.26
+requests>=2.31
+PyYAML>=6.0
+pytest>=8.0
+tzdata>=2024.1      # Börsenzeiten der Jagd (zoneinfo), falls das System keine Zeitzonen mitbringt

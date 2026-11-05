@@ -1,0 +1,128 @@
+# Strategie-Suche Runde 4: Day-Trading-Strategien aus der YouTube-Sammlung auf allen Capital.com-Märkten.
+# Vorab festgelegt am 03.11.2026, BEVOR gerechnet wird (Prüfsumme im Journal journal/strategie-suche-protokoll.md).
+# Code: suche/runde4.py. Daten: 15-Minuten-Kerzen (Bid und Ask) aller Märkte aus Runde 3, 01.12.2025 bis 02.11.2026.
+#
+# Kirons Auftrag (03.11.2026, 20:37 UTC): große YouTube-Sammlung, viele Strategien abschreiben und wirklich nutzen,
+# um die Day-Trading-Strategien klar zu verbessern. Wenn es viele sind: auf eigene Demo-Konten verteilen, jedes Konto
+# auf den einen Markt mit dem besten Backtest-Faktor der letzten Monate beschränkt, "so mäßig halt".
+#
+# Ehrliche Hinweise vorab:
+# - Regeln: Standardfassung der jeweiligen Strategie, wie sie in Titel, Beschreibung und der bekannten Literatur steht
+#   (wissen/youtube/sammlung/YOUTUBE_STRATEGIEN.md). Die Untertitel der Videos liegen noch nicht vor (YouTube sperrt
+#   Abrufe aus der Cloud; der Abruf über Kirons Mac ist nicht fertig). Weichen die Videos später deutlich ab, bekommt
+#   die Fassung aus dem Video eine eigene, wieder vorab festgelegte Runde 4b. An dieser Datei wird nichts geändert.
+# - Parameter sind feste, übliche Werte ohne Optimierung. Für die Mechanik wurde nur Dezember 2025 bis Februar 2026
+#   angesehen (Zahl der Trades und Ausstiegsgründe, keine Gewinnfaktoren). Auswahl und Siegel sind unberührt.
+# - noise_band_long stammt aus der Diagnose von TikTok-Teil A (Nasdaq 5 Minuten bis 2026). Für US100 ist es deshalb
+#   nicht ganz unabhängig, und das Siegel-Fenster lag dort schon in den Daten. Wird US100 dort Sieger, zählt das nur
+#   eingeschränkt.
+# - Warnung aus Runde 3: 43 Treffer gegen 53 bei reinem Zufall. Deshalb zählt hier nur der Glückstest gegen den BESTEN
+#   Markt der Zufallsläufe (Max-Statistik), nicht der einzelne Markt.
+# - 12 Strategien heißen 12 Chancen auf Glück. Mit allen drei Hürden (Glück 95 %, robust, Siegel) erwarte ich im
+#   Schnitt etwa 0,3 falsche Treffer (12 x 5 % x etwa 50 % fürs Siegel). Ein einzelner Treffer ist also ein Kandidat
+#   für die Demo, kein Beweis.
+#
+# Was "Gewinnfaktor" hier heißt: Summe der Gewinne / Summe der Verluste, jeder Trade in Prozent vom Kurs bei fester
+# Größe (so handeln die Demo-Bots mit der kleinsten Ordergröße). Kauf zum Ask, Verkauf zum Bid (echter Spread je
+# Kerze). Alle Trades sind spätestens zum Sitzungsschluss flach, also ohne Übernachtkosten. Stop-Orders: Auslösung,
+# wenn die Bid-Kerze die Marke überschreitet, Füllung an der Marke oder zur Eröffnung, wenn der Kurs darüber springt.
+# Liegen Stop und Ziel in derselben Kerze, zählt der Stop (vorsichtig).
+
+runde_4:
+  auswahl: ["2026-03-01", "2026-08-31"]       # hier wird der beste Markt je Strategie gesucht
+  siegel: ["2026-09-01", "2026-10-31"]        # danach unangetastet: muss halten
+
+  zufall:
+    laeufe: 1000                              # je Markt und Strategie: zufällige Richtung, gleiche Zeitpunkte und Abstände
+    seed: 20261104
+
+  kosten:
+    spread_faktor_robust: 1.5                 # Gegenprobe mit 1,5-fachem Spread
+
+  regel:
+    min_trades: 30                            # im Auswahlfenster (6 Monate)
+    min_pf: 1.2                               # Kirons Regel: bester Markt je Strategie, Gewinnfaktor über 1,2
+    nie: []
+    min_perzentil_bester_markt: 95            # Sieger besser als der beste Markt in 95 % der Zufallsläufe
+    min_pf_robust: 1.1                        # Gewinnfaktor mit 1,5-fachem Spread
+    siegel_min_trades: 10
+    siegel_min_pf: 1.0                        # September und Oktober 2026 im Plus
+
+  ohne: [USDCNH, MZN3]                        # keine Kerzen in Runde 3
+
+  # Sitzungen (suche/runde4.py SITZUNGEN): US-Werte, Rohstoffe, Krypto 9:30-16:00 New York; europäische Aktien und
+  # Indizes 9:00-17:30 Berlin; London 8:00-16:30; Devisen 8:00-17:00 London; Japan 9:00-15:30 Tokio usw.
+  strategien:
+    orb_15:
+      logik: orb
+      quelle: "Edge or Myth (15-Min ORB, NQ und Gold), QuantCrawler (ES ORB 9:30-9:45), Bull Barbie, Prosperity Algo (DAX), mindfulfx (DAX), Trading Strategie Analyse"
+      regel: "Bereich = erste 15-Minuten-Kerze der Sitzung. Erster Ausbruch per Stop-Order, Stop andere Seite, Ziel 2 x Risiko, sonst raus zum Sitzungsschluss. Einstieg nur, solange noch 2 Kerzen bleiben."
+      parameter: {kerzen: 1, stop: gegenseite, ziel_r: 2.0}
+
+    initial_balance:
+      logik: orb
+      quelle: "edgeful (Initial Balance Breakout Report), Cory Mitchell (Initial Balance Gold 9:30-10:30 ET)"
+      regel: "Bereich = erste Stunde der Sitzung. Erster Ausbruch per Stop-Order, Stop in der Mitte des Bereichs, Ziel 2 x Risiko (eine Bereichsbreite), sonst Sitzungsschluss."
+      parameter: {kerzen: 4, stop: mitte, ziel_r: 2.0}
+
+    asien_orb:
+      logik: orb
+      sitzung: TOKIO
+      maerkte: [COMMODITIES, CURRENCIES, CRYPTOCURRENCIES]
+      quelle: "QuantCrawler (Asia Gold Opening Range, PF 7,29), Chantelle - Lach Quant (Asian Session ORB), FX Replay (ORB Asien)"
+      regel: "Wie orb_15, aber in der Tokio-Sitzung 9:00-15:30 Ortszeit, nur Rohstoffe, Devisen, Krypto."
+      parameter: {kerzen: 1, stop: gegenseite, ziel_r: 2.0}
+
+    orb_richtung:
+      logik: orb_richtung
+      quelle: "Zarattini/Aziz (ORB-Studie), TikTok @thequantbuilder, Trading Steady (ORB-Zeitfenster)"
+      regel: "Richtung der ersten 15-Minuten-Kerze, Einstieg zur Eröffnung der zweiten, Stop andere Seite der ersten Kerze, Ziel 10 x Risiko, sonst Sitzungsschluss."
+      parameter: {ziel_r: 10}
+
+    vorbereich:
+      logik: vorbereich
+      quelle: "Trading Steady (London Breakout), Strategy Court (London Breakout 547 Trades), QuantCrawler (4-8 Uhr ET Bereich)"
+      regel: "Bereich = alle Kerzen von Mitternacht bis Sitzungsbeginn (Ortszeit der Sitzung; bei Devisen 0-8 Uhr London = Asien-Sitzung), mindestens 16 Kerzen. Erster Ausbruch während der Sitzung per Stop-Order, Stop andere Seite, Ziel 1 x Bereichsbreite, sonst Sitzungsschluss."
+      parameter: {min_kerzen: 16, stop: gegenseite, ziel_r: 1.0}
+
+    vortag_ausbruch:
+      logik: vortag_ausbruch
+      quelle: "Trading Steady (Previous Day High/Low auf XAUUSD und S&P-Futures)"
+      regel: "Nur wenn die Sitzung innerhalb der Vortagesspanne eröffnet. Erster Ausbruch über Vortageshoch oder unter Vortagestief per Stop-Order, Stop 25 % der Vortagesspanne hinter der Marke, Ziel 2 x Risiko, sonst Sitzungsschluss."
+      parameter: {stop_anteil: 0.25, ziel_r: 2.0}
+
+    fehlausbruch_vortag:
+      logik: fehlausbruch_vortag
+      quelle: "Strange ICT (Original Turtle Soup), Matt Schoeneberger (Opening Range Reversal, skeptisch), ICT-Liquiditäts-Idee"
+      regel: "Sitzung eröffnet innerhalb der Vortagesspanne. Die erste Kerze, die über das Vortageshoch (unter das Vortagestief) sticht, schließt wieder darunter (darüber): Gegenrichtung zur Eröffnung der nächsten Kerze, Stop am Extrem dieser Kerze, Ziel 2 x Risiko, sonst Sitzungsschluss. Schließt sie jenseits (echter Ausbruch): kein Trade."
+      parameter: {ziel_r: 2.0}
+
+    gap_fill:
+      logik: gap_fill
+      quelle: "Cory Mitchell (Gap Fill ES, 71 % Treffer), Tradingdusche (DAX Gap), Backtest Verdict (Gap-Fade)"
+      regel: "Lücke zwischen Vortagesschluss und Sitzungseröffnung zwischen 10 % und 60 % der mittleren Tagesspanne (14 Sitzungen). Einstieg zur Eröffnung gegen die Lücke, Ziel = Vortagesschluss, Stop gleich weit auf der anderen Seite, sonst Sitzungsschluss."
+      parameter: {min_adr: 0.1, max_adr: 0.6, stop_r: 1.0}
+
+    larry_williams:
+      logik: larry_williams
+      quelle: "YuRa Trading (Larry Williams Breakout auf Gold), QuantProgram (Pine), Trading Strategie Analyse (100 Trades)"
+      regel: "Stop-Order bei Sitzungseröffnung +/- 0,5 x Vortagesspanne, erster Ausbruch des Tages, Stop zurück an der Eröffnung, kein Ziel, raus zum Sitzungsschluss."
+      parameter: {k: 0.5}
+
+    intraday_momentum:
+      logik: intraday_momentum
+      quelle: "Quantified Strategies (SPY Closing Hour), Gao/Han/Li/Zhou 2018 (Market Intraday Momentum)"
+      regel: "Rendite vom Vortagesschluss bis 30 Minuten nach Sitzungsbeginn gibt die Richtung; Einstieg 30 Minuten vor Sitzungsschluss, raus zum Schluss."
+      parameter: {}
+
+    noise_band:
+      logik: noise_band
+      quelle: "WaveLabs (Noise Area), Zarattini/Aziz/Barbon 2024, TikTok @thequantbuilder"
+      regel: "Band = Eröffnung (bzw. Vortagesschluss) +/- mittlere Bewegung bis zu dieser Uhrzeit der letzten 14 Tage. Prüfung jede halbe Stunde: Schluss über dem oberen Band long, unter dem unteren short; raus, wenn der Kurs unter max(Band, VWAP) bzw. über min(Band, VWAP) schließt, sonst Sitzungsschluss."
+      parameter: {vm: 1.0}
+
+    noise_band_long:
+      logik: noise_band_long
+      quelle: "wie noise_band, nur Long (Diagnose aus TikTok-Teil A, siehe Hinweis oben)"
+      regel: "Wie noise_band, aber nur Long-Trades."
+      parameter: {vm: 1.0}

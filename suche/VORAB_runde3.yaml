@@ -1,0 +1,67 @@
+# Strategie-Suche, Runde 3: beide Gold-Logiken auf rund 170 Capital.com-Märkten, nur die letzten 8 Monate.
+# Festgelegt am 02.11.2026, BEVOR eine Kerze dieser Runde geladen oder gerechnet wurde.
+#
+# Kirons Wunsch (02.11.2026, 23:19 und 23:26 Uhr Berlin): beide Gold-Strategien (der Gold-Bot mit C und B und
+# Gold-Bot 2.0) auf möglichst vielen Märkten (Aktien, Währungen, Rohstoffe, Indizes, Krypto) und mehreren
+# Zeitrahmen ansehen, nur die letzten 8 Monate ("alles davor zählt nicht mehr"), nach Gewinnfaktor ordnen und nur
+# die besten etwa 5 als zusätzliche Bots 3 bis 4 Tage auf dem Capital.com-DEMO handeln lassen, live im Cockpit.
+# "Gibt es viele über 1,5, dann die; sonst über 1,2." Nie echtes Geld.
+#
+# Was vorher schon bekannt war: Runden 1 und 2 (gleiche Signale auf 19 Märkten 2015-2020 und 18 Aktien bis 2024)
+# fanden nichts; auf 5 und 15 Minuten fraßen die Spreads alles. Gold 2023-2026 wurde in den Gold-Runden gründlich
+# angesehen und läuft hier nur als Vergleich mit. Die 8 Monate (März bis Oktober 2026) lagen bei Währungen, Indizes und
+# Aktien bisher im versiegelten Fenster der Runden 1 und 2 und wurden nie gerechnet. Mit dieser Runde werden sie zur
+# Auswahl benutzt; die einzige echte Prüfung ist danach der Demo-Test auf neuen Kerzen.
+#
+# Ehrlich zu Glückstreffern: rund 170 Märkte x 3 Zeitrahmen x 2 Logiken x 3 Seiten sind etwa 3.000 Varianten auf nur
+# 8 Monaten. Da sehen viele zufällig gut aus. Deshalb rechnet der Lauf dieselbe Suche noch einmal mit zufälligen
+# Einstiegen (gleich viele, gleiche Seite, gleiche Filter, gleiche Führung) und berichtet, wie viele Varianten dann
+# dieselbe Regel geschafft hätten.
+
+format: 1
+runde_3:
+  daten:
+    quelle: Capital.com Demo-API, GET /prices MINUTE_15 (Bid und Ask), Lauf kerzen.yml modus runde3
+    liste: suche/maerkte_r3.yaml
+    ordner: strategie-suche/runde3/kerzen   # Projektdateien
+    vorlauf_ab: "2025-12-01"                 # nur für Durchschnitte und EMA, keine Trades
+  fenster: ["2026-03-01", "2026-10-31 23:59"]
+  zeitrahmen: ["15min", "30min", "60min"]    # 30 und 60 aus den Viertelstunden zusammengesetzt (Beginn zur vollen Zeit, UTC)
+  # 5 Minuten nicht: In Runde 1 und 2 lag der Gewinnfaktor dort im Median bei 0,34 bis 0,50, und ein Demo-Test müsste
+  # alle 5 Minuten laufen, das sprengt die freien GitHub-Minuten. 4 Stunden nicht: in 8 Monaten zu wenige Trades.
+  kosten:
+    spread: echt                             # Ask minus Bid zur Eröffnung der Kerze, in der gefüllt wird
+    spread_faktor_robust: 1.5                # nur Bericht
+    swap_pct_jahr: {CURRENCIES: 3.0, INDICES: 6.0, COMMODITIES: 6.0, SHARES: 8.0, CRYPTOCURRENCIES: 20.0}
+  signale: Pine C (Long) und B (Short), Standard-Eingaben, Trendfilter an (EMA 200 auf 60 min), unverändert
+  seiten: ["C+B", "nur C", "nur B"]
+  logiken:
+    gold:                                    # der Gold-Bot mit der Führung aus Gold-Runde 2 (bester Stop bisher)
+      filter: []
+      fuehrung: {stop_atr: 1.0, ausstieg_signal: immer}
+    gold2:                                   # Gold-Bot 2.0 genau wie im Schattenlauf (Gold-Runde 3)
+      filter: [richtung, news]               # Tag-SMA 50 und 4-Stunden-EMA 50 aus Stundenkerzen; US-Termine aus gold/v2/termine.yaml
+      news: {pause_vorher_h: 2, pause_nachher_h: 2, flach_vorher_min: 30, schock_atr: 3.0, schock_pause_kerzen: 3}
+      fuehrung: {stop_atr: 1.5, ziel_atr: 0.5, max_kerzen: 8, ausstieg_signal: nur_im_plus, raus_bei_richtungswechsel: true,
+                 raus_vor_termin: true}
+  # ATR(14) des Zeitrahmens. Eine Position je Markt und Variante. Füllung zur nächsten Eröffnung, Stop und Ziel in
+  # derselben Kerze: der Stop zählt. Alles in R (Ergebnis nach Spread und Übernachtkosten geteilt durch das Risiko).
+  regel_demo:                                # Kirons Regel
+    min_trades: 30                           # darunter sagt ein Gewinnfaktor über 8 Monate fast nichts
+    min_gewinnfaktor_r: 1.2                  # strikt darüber
+    je_markt: 1                              # nur die beste Variante je Markt (eine Position je Markt beim Broker)
+    reihenfolge: Gewinnfaktor in R, bei Gleichstand mehr Trades
+    anzahl: 5                                # die 5 besten; gibt es mindestens 5 ab 1,5, sind das automatisch nur solche
+    nie: [GOLD]                              # Gold handelt schon der Gold-Bot
+  zufall:
+    null_suche: {laeufe: 20, seed: 20261103} # ganze Suche mit zufälligen Einstiegen: wie viele Varianten schaffen die Regel?
+    kandidaten: {laeufe: 200, seed: 20261104} # je Demo-Kandidat: wie oft sind Zufalls-Einstiege mindestens so gut?
+  demo:
+    dauer_handelstage: 4                     # ab dem ersten Lauf nach dem Zusammenführen, Samstag und Sonntag zählen nicht
+    groesse: kleinste Ordergröße des Marktes
+    gold_bot_vorrang: Ein Demo-Bot öffnet nur, wenn danach noch mindestens 400 EUR Margin frei sind und das Konto
+      heute nicht mehr als 15 EUR durch Demo-Bots verloren hat.
+    bewertung:
+      gut: Summe R > 0 und Gewinnfaktor ab 1,2, bei mindestens 3 Trades
+      zu_wenig: weniger als 3 Trades, dann entscheidet Kiron über Verlängern
+      schlecht: sonst

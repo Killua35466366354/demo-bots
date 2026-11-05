@@ -1,0 +1,683 @@
+{
+ "stand_utc": "2026-11-05T09:46:41.603257",
+ "titel": "Runde-6-Bots (Demo)",
+ "bots": [
+  {
+   "bot": "r6-vortag-usdjpy",
+   "titel": "Vortageshoch/-tief mit Stop-Orders (USD/JPY)",
+   "epic": "USDJPY",
+   "regel": "Ab 10:30 Uhr deutscher Zeit (4:30 New York): Kauf-Stop am Vortageshoch, Verkauf-Stop am Vortagestief. Stop 10 %, Ziel 25 % der Vortagesspanne, raus spätestens 22:45 Uhr deutscher Zeit (16:45 New York). Bricht der Kurs schon vor 10:30 Uhr aus, gibt es an dem Tag keinen Trade.",
+   "backtest": "Runde 6 bestanden: Prüfjahre 2021 bis Oktober 2026 mit 269 Trades, Gewinnfaktor 1,24, Treffer 37 %, 5 von 6 Jahren im Plus, besser als 97 % der Zufallsläufe. 2026 bisher im Minus.",
+   "konto_vorschlag": "Konto folgt",
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
+   "start_kontostand": 1000.0,
+   "start_utc": "2026-11-04T11:02:02.608117",
+   "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
+   "offen": null,
+   "orders": null,
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-04T11:47:05.194282",
+    "action": "none",
+    "why": [
+     "heute erledigt"
+    ],
+    "bar": null
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 2,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 0,
+     "treffer_pct": null,
+     "pf": null,
+     "summe_pct": 0.0,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-03",
+      "strategie": "vortag_stop_oco",
+      "markt": "USDJPY",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-03 09:00:00",
+        "side": "long",
+        "einstieg": 158.004,
+        "pct": 0.079,
+        "grund": "ziel",
+        "ausstieg_kerze": "2026-11-03 09:30:00",
+        "uhrzeit": 600,
+        "bedingung": false,
+        "zaehlt": false
+       }
+      ],
+      "berechnet_utc": "2026-11-04T10:17:12.512033",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     },
+     {
+      "tag": "2026-11-04",
+      "strategie": "vortag_stop_oco",
+      "markt": "USDJPY",
+      "schatten": true,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-04 01:30:00",
+        "side": "short",
+        "einstieg": 157.748,
+        "pct": -0.044,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-04 01:45:00",
+        "uhrzeit": 150,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.069472
+       }
+      ],
+      "berechnet_utc": "2026-11-04T22:02:59.196522",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "bot": "r6-london-gbpusd",
+   "titel": "London-Stunde, nur Long (GBP/USD)",
+   "epic": "GBPUSD",
+   "regel": "Bereich = Hoch/Tief der Stunden 4 bis 8 Uhr London. Ab der 9-Uhr-Kerze: die erste Stundenkerze, die unter dem Bereichshoch eröffnet, darüber schließt und 1 bis 2,5 Stunden-ATR groß ist: Long zur nächsten vollen Stunde, Stop am Bereichstief, Ziel 1,5 x Risiko, raus um 17 Uhr London. Nur wenn der Markt ruhiger ist als sonst.",
+   "backtest": "Runde 6 knapp nicht bestanden (Kirons Wunsch: trotzdem auf Demo): 144 Trades, Gewinnfaktor 1,22, Zufall 92,5 % statt 95 %.",
+   "konto_vorschlag": "Konto folgt",
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
+   "start_kontostand": 1000.0,
+   "start_utc": "2026-11-04T11:47:05.194282",
+   "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden); Konto freigegeben",
+   "offen": null,
+   "orders": null,
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-04T12:47:26.616947",
+    "action": "none",
+    "why": [
+     "heute erledigt"
+    ]
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 2,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 0,
+     "treffer_pct": null,
+     "pf": null,
+     "summe_pct": 0.0,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-03",
+      "strategie": "london_stunde_long",
+      "markt": "GBPUSD",
+      "schatten": false,
+      "schwankung": 1.0733985783286986,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-03 15:00:00",
+        "side": "long",
+        "einstieg": 1.34339,
+        "pct": -0.1258,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-03 16:45:00",
+        "uhrzeit": 900,
+        "bedingung": false,
+        "zaehlt": false
+       }
+      ],
+      "berechnet_utc": "2026-11-04T10:17:12.512033",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     },
+     {
+      "tag": "2026-11-04",
+      "strategie": "london_stunde_long",
+      "markt": "GBPUSD",
+      "schatten": true,
+      "schwankung": 0.9715611686563068,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-04 13:00:00",
+        "side": "long",
+        "einstieg": 1.3498,
+        "pct": -0.3178,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-04 16:45:00",
+        "uhrzeit": 780,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.005
+       }
+      ],
+      "berechnet_utc": "2026-11-04T17:02:32.432892",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "bot": "r6-noise-usdjpy",
+   "titel": "Noise-Band (USD/JPY)",
+   "epic": "USDJPY",
+   "regel": "Sitzung 8 bis 17 Uhr London. Schluss über dem Band: Long, darunter: Short (Prüfung jede halbe Stunde). Raus, wenn der Schluss wieder hinter Band bzw. VWAP fällt, sonst um 17 Uhr London. Nur wenn der Markt ruhiger ist als sonst. Notstop beim Broker 2 x Tages-ATR (im Backtest kein Stop).",
+   "backtest": "Runde 6 knapp nicht bestanden (Kirons Wunsch: trotzdem auf Demo): 474 Trades, Gewinnfaktor 1,19, 3 von 6 Jahren im Plus, Zufall 94,9 % statt 95 %.",
+   "konto_vorschlag": "Konto folgt",
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
+   "start_kontostand": 999.96,
+   "start_utc": "2026-11-04T11:47:05.194282",
+   "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden); Konto freigegeben",
+   "offen": null,
+   "orders": null,
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-04T12:47:26.616947",
+    "action": "none",
+    "why": [
+     "kein Signal"
+    ]
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 2,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 2,
+     "treffer_pct": 100.0,
+     "pf": null,
+     "summe_pct": 0.299,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-03",
+      "strategie": "noise_band",
+      "markt": "USDJPY",
+      "schatten": false,
+      "schwankung": 0.7968936995613713,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-03 09:00:00",
+        "side": "long",
+        "einstieg": 157.99,
+        "pct": 0.0684,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-03 13:30:00",
+        "uhrzeit": 540,
+        "bedingung": true,
+        "zaehlt": true
+       },
+       {
+        "einstieg_kerze": "2026-11-03 14:00:00",
+        "side": "long",
+        "einstieg": 158.137,
+        "pct": 0.2308,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-03 16:45:00",
+        "uhrzeit": 840,
+        "bedingung": true,
+        "zaehlt": true
+       }
+      ],
+      "berechnet_utc": "2026-11-04T10:17:12.512033",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": false,
+       "nur_zwilling": [
+        [
+         "2026-11-03 09:00:00",
+         "long"
+        ],
+        [
+         "2026-11-03 14:00:00",
+         "long"
+        ]
+       ],
+       "nur_bot": [],
+       "zwilling_pct": 0.2992,
+       "bot_pct": 0.0
+      }
+     },
+     {
+      "tag": "2026-11-04",
+      "strategie": "noise_band",
+      "markt": "USDJPY",
+      "schatten": true,
+      "schwankung": 0.8001694067984924,
+      "tag_gezaehlt": true,
+      "trades": [],
+      "berechnet_utc": "2026-11-04T17:02:32.432892",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "bot": "r6-vortag-eurusd",
+   "titel": "Vortageshoch/-tief mit Stop-Orders (EUR/USD)",
+   "epic": "EURUSD",
+   "regel": "Ab 10:30 Uhr deutscher Zeit (4:30 New York): Kauf-Stop am Vortageshoch, Verkauf-Stop am Vortagestief. Stop 0,5 x ATR der Viertelstunden-Kerzen beim Legen der Orders (seit 04.11.2026, vorher 10 % der Vortagesspanne), Ziel 25 % der Vortagesspanne, raus spätestens 22:45 Uhr deutscher Zeit (16:45 New York). Bricht der Kurs schon vor 10:30 Uhr aus, gibt es an dem Tag keinen Trade. Verpasst der Bot einen Ausbruch, steigt er bis gut eine Stunde später per Marktorder ein, solange Stop und Ziel noch nicht erreicht sind.",
+   "backtest": "Gleiche Regel wie USD/JPY, in Runde 6 nur mitgeschrieben: Prüfjahre 2021 bis Oktober 2026 mit 438 Trades, Gewinnfaktor 1,26. Mit dem neuen Stop (Stop-Wahl 04.11.2026, 1.000 Euro, 1 % Risiko): 2025 bis Oktober 2026 133 Trades, 486 statt 426 Euro, Gewinnfaktor 2,33 statt 1,67, Treffer 33 statt 44 %; 2015 bis 2024 1.582 statt 828 Euro. Rutschen ist nicht eingerechnet (0,5 Pip je Einstieg und Stop: 341 statt 292 Euro).",
+   "konto_vorschlag": "Konto folgt",
+   "konto": "…1790",
+   "konto_name": "Account 4",
+   "kontostand": 1000.0,
+   "start_kontostand": 1000.0,
+   "start_utc": "2026-11-04T11:47:05.194282",
+   "status": "Stop-Orders liegen",
+   "offen": null,
+   "orders": {
+    "tag": "2026-11-05",
+    "ph": 1.1273,
+    "pl": 1.11831,
+    "gelegt_utc": "2026-11-05T09:31:33.439609",
+    "bis_utc": "2026-11-05 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.123955,
+    "konto_kurz": "…1790",
+    "long": {
+     "dealId": "00000000-7140-1c8a-049c-701e0015549e",
+     "level": 1.12737,
+     "marke": 1.1273,
+     "stop": 1.12699,
+     "ziel": 1.12955,
+     "size": 14900.0
+    },
+    "short": {
+     "dealId": "00000000-7140-1c92-049c-701e0015549e",
+     "level": 1.11831,
+     "marke": 1.11831,
+     "stop": 1.11862,
+     "ziel": 1.11606,
+     "size": 14900.0
+    },
+    "stop_abstand": 0.00030807021413905336,
+    "atr15": 0.0006161404282781067
+   },
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-05T09:46:41.603257",
+    "action": "none",
+    "why": [
+     "Stop-Orders liegen"
+    ]
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 2,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 0,
+     "treffer_pct": null,
+     "pf": null,
+     "summe_pct": 0.0,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-03",
+      "strategie": "vortag_stop_oco",
+      "markt": "EURUSD",
+      "schatten": true,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [],
+      "berechnet_utc": "2026-11-04T10:17:12.512033"
+     },
+     {
+      "tag": "2026-11-04",
+      "strategie": "vortag_stop_oco",
+      "markt": "EURUSD",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-03 23:45:00",
+        "side": "long",
+        "einstieg": 1.12072,
+        "pct": -0.0528,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-04 00:00:00",
+        "uhrzeit": 45,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.000512
+       }
+      ],
+      "berechnet_utc": "2026-11-04T22:02:59.196522",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "bot": "r6-vortag-gbpusd",
+   "titel": "Vortageshoch/-tief mit Stop-Orders (GBP/USD)",
+   "epic": "GBPUSD",
+   "regel": "Ab 10:30 Uhr deutscher Zeit (4:30 New York): Kauf-Stop am Vortageshoch, Verkauf-Stop am Vortagestief. Stop 0,5 x ATR der Viertelstunden-Kerzen beim Legen der Orders (seit 04.11.2026, vorher 10 % der Vortagesspanne), Ziel 25 % der Vortagesspanne, raus spätestens 22:45 Uhr deutscher Zeit (16:45 New York). Bricht der Kurs schon vor 10:30 Uhr aus, gibt es an dem Tag keinen Trade. Verpasst der Bot einen Ausbruch, steigt er bis gut eine Stunde später per Marktorder ein, solange Stop und Ziel noch nicht erreicht sind.",
+   "backtest": "Gleiche Regel wie USD/JPY, in Runde 6 nur mitgeschrieben: Prüfjahre 2021 bis Oktober 2026 mit 399 Trades, Gewinnfaktor 1,19. Mit dem neuen Stop (Stop-Wahl 04.11.2026, 1.000 Euro, 1 % Risiko): 2025 bis Oktober 2026 130 Trades, 263 statt 165 Euro, Gewinnfaktor 1,61 statt 1,22, Treffer 27 statt 39 %; 2015 bis 2024 2.055 statt 1.098 Euro. Rutschen ist nicht eingerechnet (0,5 Pip je Einstieg und Stop: 137 statt 55 Euro).",
+   "konto_vorschlag": "Konto folgt",
+   "konto": "…4094",
+   "konto_name": "Vortag USDJPY",
+   "kontostand": 1000.0,
+   "start_kontostand": 1000.0,
+   "start_utc": "2026-11-04T12:02:20.662505",
+   "status": "Stop-Orders liegen",
+   "offen": null,
+   "orders": {
+    "tag": "2026-11-05",
+    "ph": 1.35028,
+    "pl": 1.34062,
+    "gelegt_utc": "2026-11-05T09:31:33.439609",
+    "bis_utc": "2026-11-05 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.123955,
+    "konto_kurz": "…4094",
+    "long": {
+     "dealId": "00000000-716d-d326-049c-a8a80015549e",
+     "level": 1.35041,
+     "marke": 1.35028,
+     "stop": 1.34993,
+     "ziel": 1.35269,
+     "size": 12500.0
+    },
+    "short": {
+     "dealId": "00000000-716d-d32e-049c-a8a80015549e",
+     "level": 1.34062,
+     "marke": 1.34062,
+     "stop": 1.34097,
+     "ziel": 1.3382,
+     "size": 12500.0
+    },
+    "stop_abstand": 0.0003546674335701615,
+    "atr15": 0.000709334867140323
+   },
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-05T09:46:41.603257",
+    "action": "none",
+    "why": [
+     "Stop-Orders liegen"
+    ]
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 2,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 0,
+     "treffer_pct": null,
+     "pf": null,
+     "summe_pct": 0.0,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-03",
+      "strategie": "vortag_stop_oco",
+      "markt": "GBPUSD",
+      "schatten": true,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [],
+      "berechnet_utc": "2026-11-04T10:17:12.512033"
+     },
+     {
+      "tag": "2026-11-04",
+      "strategie": "vortag_stop_oco",
+      "markt": "GBPUSD",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-03 23:45:00",
+        "side": "long",
+        "einstieg": 1.34332,
+        "pct": -0.047,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-04 00:00:00",
+        "uhrzeit": 45,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.000501
+       }
+      ],
+      "berechnet_utc": "2026-11-04T22:02:59.196522",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "schatten": [
+  {
+   "markt": "EURUSD",
+   "strategie": "vortag_stop_oco",
+   "tage": 2,
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte": [
+    {
+     "tag": "2026-11-03",
+     "strategie": "vortag_stop_oco",
+     "markt": "EURUSD",
+     "schatten": true,
+     "schwankung": null,
+     "tag_gezaehlt": true,
+     "trades": [],
+     "berechnet_utc": "2026-11-04T10:17:12.512033"
+    },
+    {
+     "tag": "2026-11-04",
+     "strategie": "vortag_stop_oco",
+     "markt": "EURUSD",
+     "schatten": false,
+     "schwankung": null,
+     "tag_gezaehlt": true,
+     "trades": [
+      {
+       "einstieg_kerze": "2026-11-03 23:45:00",
+       "side": "long",
+       "einstieg": 1.12072,
+       "pct": -0.0528,
+       "grund": "stop",
+       "ausstieg_kerze": "2026-11-04 00:00:00",
+       "uhrzeit": 45,
+       "bedingung": false,
+       "zaehlt": false,
+       "stop_abst": 0.000512
+      }
+     ],
+     "berechnet_utc": "2026-11-04T22:02:59.196522",
+     "bot_trades": [],
+     "konto": true,
+     "vergleich": {
+      "gleich": true,
+      "nur_zwilling": [],
+      "nur_bot": [],
+      "zwilling_pct": 0.0,
+      "bot_pct": 0.0
+     }
+    }
+   ]
+  },
+  {
+   "markt": "GBPUSD",
+   "strategie": "vortag_stop_oco",
+   "tage": 2,
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte": [
+    {
+     "tag": "2026-11-03",
+     "strategie": "vortag_stop_oco",
+     "markt": "GBPUSD",
+     "schatten": true,
+     "schwankung": null,
+     "tag_gezaehlt": true,
+     "trades": [],
+     "berechnet_utc": "2026-11-04T10:17:12.512033"
+    },
+    {
+     "tag": "2026-11-04",
+     "strategie": "vortag_stop_oco",
+     "markt": "GBPUSD",
+     "schatten": false,
+     "schwankung": null,
+     "tag_gezaehlt": true,
+     "trades": [
+      {
+       "einstieg_kerze": "2026-11-03 23:45:00",
+       "side": "long",
+       "einstieg": 1.34332,
+       "pct": -0.047,
+       "grund": "stop",
+       "ausstieg_kerze": "2026-11-04 00:00:00",
+       "uhrzeit": 45,
+       "bedingung": false,
+       "zaehlt": false,
+       "stop_abst": 0.000501
+      }
+     ],
+     "berechnet_utc": "2026-11-04T22:02:59.196522",
+     "bot_trades": [],
+     "konto": true,
+     "vergleich": {
+      "gleich": true,
+      "nur_zwilling": [],
+      "nur_bot": [],
+      "zwilling_pct": 0.0,
+      "bot_pct": 0.0
+     }
+    }
+   ]
+  }
+ ],
+ "vorab": "suche/VORAB_r6_demo.yaml"
+}

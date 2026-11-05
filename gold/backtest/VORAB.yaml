@@ -1,0 +1,197 @@
+# Vorab festgelegt am 30.10.2026, bevor ein höherer Zeitrahmen getestet wurde (Hygieneregeln 1 und 2 in
+# wissen/youtube/SYNTHESE.md 4.6). Jede spätere Änderung braucht einen Grund im Journal:
+#   python -m gold.backtest.protocol <daten> <ergebnisse> --neue-vorab "Grund"
+# Die Prüfsumme dieser Datei steht in journal/gold-backtest-protokoll.md.
+
+daten: HistData.com XAUUSD 1 Minute, nur Bid, Zeit UTC
+
+fenster:
+  entwicklung: ["2023-01-01", "2025-12-31 23:59"]
+  versiegelt: ["2026-01-01", "2026-10-23 23:59"]   # wird höchstens einmal geöffnet
+
+kosten:
+  spread_usd: 0.50          # gemessen am Capital.com-Demokonto am 30.10.2026 um 18:45 UTC
+  swap_pct_jahr: 5.0        # Annahme für die Übernachtkosten, Long und Short zahlen
+  eurusd: 1.117
+
+konto:                      # dieselben Regeln wie der Bot (run_live)
+  start_eur: 250.0
+  size_oz: 1.0
+  conflict: first
+  tag_pct: 4
+  woche_pct: 8
+  not_aus_pct: 25
+
+varianten:                  # jede Zeile ist ein Versuch und zählt für die Mehrfachtests
+  # 60min ist schon über die ganze Zeit angesehen (Phase 0, 29.10.2026). Sein Ergebnis ist kein
+  # Vorabtest, es steht nur zum Vergleich im Bericht.
+  - {zeitrahmen: 60min, trend: 60min, stop_usd: 5.6, schon_gesehen: true}
+  - {zeitrahmen: 240min, trend: 240min, stop_usd: 5.6}
+  - {zeitrahmen: 240min, trend: 240min, stop_usd: 20.0}
+  - {zeitrahmen: 240min, trend: 240min, stop_usd: null}
+  - {zeitrahmen: 1D, trend: 1D, stop_usd: 5.6}
+  - {zeitrahmen: 1D, trend: 1D, stop_usd: 20.0}
+  - {zeitrahmen: 1D, trend: 1D, stop_usd: null}
+  # Trend-EMA immer 200 (Standard der Pine-Skripte). Der Trend-Zeitrahmen ist der Chart-Zeitrahmen,
+  # weil Pine keinen kleineren erlaubt ("must be >= chart timeframe").
+
+zufall:                     # gematchte Zufalls-Zwillinge: gleiche Seite, gleiche Haltedauer, Einstieg in Trendrichtung
+  laeufe: 300
+  seed: 20261030
+
+schwellen_entwicklung:      # alle müssen erfüllt sein, sonst bleibt das versiegelte Fenster für die Variante zu
+  min_trades: 100
+  min_gewinnfaktor: 1.5
+  max_zufall_gleich_gut_pct: 5.0      # höchstens so viel Prozent der Zufallsläufe enden mindestens so gut
+  besser_als_buy_and_hold: true       # Rendite über der von Gold im selben Fenster (250 € ohne Hebel)
+  max_drawdown_start_pct: 25.0        # größter Rückgang vom Höchststand, bezogen auf das Startkapital
+
+schwellen_versiegelt:
+  min_trades: 25
+  min_gewinnfaktor: 1.5
+  min_netto_eur: 0.0
+  max_drawdown_start_pct: 25.0
+
+# Runde 2, festgelegt am 31.10.2026 nach der Verlust-Analyse (MAE/MFE, ATR je Jahr) und BEVOR eine dieser Varianten
+# gerechnet wurde. Gründe: Der feste Stop von 5,60 $ lag 2023 bei 1,3 ATR(14, 60 min), 2025 nur noch bei 0,5 ATR
+# (Trefferquote 31 % -> 17 %); B (Short) verlor in jedem Jahr; Kiron startet den Gold-Bot mit 50 € plus 50 € alle
+# zwei Monate, 1 Unze passt dann nicht, die Größe muss nach Risiko gerechnet werden (gold/backtest/sizing.py).
+# Auch 2025 wurde für diese Analyse angesehen. Der saubere Test bleibt das versiegelte Fenster und das Demokonto.
+runde_2:
+  zeitrahmen: 60min
+  trend: 60min
+  groesse: {risiko_pct: 2.0, schritt_oz: 0.01}      # Kirons Regel: höchstens 2 % des Kontos pro Trade
+  risiko_bericht_pct: [1.0]                         # nur berichtet, keine Schwelle
+  stop_atr_auswahl: [1.0, 1.5, 2.0, 3.0]            # Walk-Forward: höchster Gewinnfaktor in R im Auswahlfenster
+  auswahl_fenster: ["2023-01-01", "2024-12-31 23:59"]
+  test_fenster: ["2025-01-01", "2025-12-31 23:59"]
+  varianten:
+    - {name: "C+B, Stop 5,60 $", seiten: [long, short], stop_usd: 5.6}     # heutige Regeln, Größe nach Risiko
+    - {name: "nur C, Stop 5,60 $", seiten: [long], stop_usd: 5.6}
+    - {name: "C+B, Stop k x ATR", seiten: [long, short], stop_atr: auswahl}
+    - {name: "nur C, Stop k x ATR", seiten: [long], stop_atr: auswahl}
+  zufall: {laeufe: 300, seed: 20261031}             # Zwillinge in R: gleiche Seite, Haltedauer und Stop-Regel
+  schwellen:                                        # im ganzen Entwicklungsfenster 2023 bis 2025
+    min_trades: 100
+    min_gewinnfaktor_r: 1.5
+    max_zufall_gleich_gut_pct: 5.0
+    besser_als_buy_and_hold: true                   # 250 € Start, keine Einzahlungen
+    max_drawdown_hoch_pct: 25.0                     # vom Höchststand, weil die Größe mit dem Konto wächst (= Not-Aus)
+    test_fenster_gewinnfaktor_r_ueber: 1.0          # Walk-Forward: 2025 allein muss im Plus sein
+  schwellen_versiegelt:                             # festgelegt am 31.10.2026, bevor das Fenster geöffnet wurde
+    min_trades: 25
+    min_gewinnfaktor_r: 1.5
+    min_netto_eur: 0.0
+    max_drawdown_hoch_pct: 25.0
+  kleines_konto:                                    # nur Bericht
+    start_eur: 50.0
+    einzahlung_eur: 50.0
+    alle_monate: 2
+    monte_carlo: {laeufe: 2000, seed: 20261031}
+
+# Runde 3, festgelegt am 02.11.2026 BEVOR eine dieser Varianten gerechnet wurde: "Gold-Bot 2.0" nach Kirons Wunsch
+# (Markt-Richtungs-Check, News-Check, Trade-Führung mit realistischem Ziel und Zeitgrenze) und Kirons Frage nach einem
+# besseren Stop für den heutigen Bot ("Stop aus Bestätigungen, damit wenige Verlierer nicht den Gewinn zerstören").
+# Gründe aus den früheren Runden: Gewinn 2023-25 kam vor allem vom Gold-Anstieg, 2026 (Gold -7,6 %) verloren die Longs;
+# 133 von 225 Verlierern scheiterten am zu engen Stop; ganz ohne Stop war es schlechter (-1.209 $).
+# Daten: Stundenkerzen (Bid) 2023 bis 23.10.2026 aus den HistData-Minuten, dieselben wie im Chart-Review (die 275 Trades
+# des Bots von heute kommen damit exakt wieder heraus). Alle Jahre wurden in früheren Runden schon angesehen. 2023-24 dient
+# zur Auswahl, 2025 als Prüfjahr, 2026 nur zur Info (dort schon geöffnet). Der saubere Test ist der Vorwärtstest danach.
+runde_3:
+  zeitrahmen: 60min                                 # Signale C (Long) und B (Short) mit Trendfilter, Pine unverändert
+  groesse: {risiko_pct: 2.0, schritt_oz: 0.01}
+  richtung:                                         # Markt-Richtungs-Check, nur fertige Kerzen (Handelstag ab 22:00 UTC)
+    tag_sma: 50                                     # Tagesschluss über/unter seinem 50-Tage-Durchschnitt
+    vier_stunden_ema: 50                            # 4-Stunden-Schluss über/unter seiner EMA 50
+    regel: "beide oben = nur Long, beide unten = nur Short, sonst kein Einstieg; dreht beides gegen die Position: raus"
+  news:                                             # News-Check
+    termine: gold/v2/termine.yaml                   # Fed-Zinsentscheid 14:00 New York, US-Inflation (CPI) und US-Arbeitsmarkt (NFP) 08:30
+    pause_vorher_h: 2                               # kein Einstieg mit Füllung 2 h vor bis 2 h nach einem Termin
+    pause_nachher_h: 2
+    flach_vorher_min: 30                            # offene Position wird zur letzten Füllung mindestens 30 min vor dem Termin geschlossen
+    schock_atr: 3.0                                 # Kerze mit Spanne über 3 x ATR(14) der Kerze davor = Schock (unerwartete Nachricht)
+    schock_pause_kerzen: 3                          # dann kein Einstieg auf dieser und den 2 folgenden Kerzen
+  bestaetigungs_stop:                               # Kirons Stop-Frage: harter Notfall-Stop weit weg, dazu früher Ausstieg aus Bestätigungen
+    hart_atr: 3.0                                   # Stop-Order beim Broker, Basis für die Größe (2 % Risiko)
+    min_warnungen: 2                                # im Minus und mindestens 2 von 3 Warnungen auf dem Schluss: raus zur nächsten Eröffnung
+    warnungen: ["Dip-Tief gebrochen (Schluss unter dem tiefsten Tief der Signalkerze und der 4 davor, Short gespiegelt)",
+                "Schluss auf der falschen Seite der EMA 200 (60 min, Linie des Trendfilters)",
+                "Markt-Richtung nicht mehr für die Seite"]
+  fuehrung_auswahl:                                 # Trade-Führung von 2.0, Auswahl nur mit 2023-24 nach Gewinnfaktor in R
+    ziel_atr: [0.5, 1.0]                            # realistisches Ziel als Limit-Order beim Broker, x ATR(14) der Signalkerze
+    max_kerzen: [4, 8]                              # Zeitgrenze: nach so vielen Stunden raus zur nächsten Eröffnung
+    stop: ["atr 1.5", "atr 3.0", "bestaetigung"]    # fester Stop x ATR, oder der Bestätigungs-Stop oben
+    ausstieg_signal: nur_im_plus                    # Ausstiegssignal der eigenen Strategie schließt nur im Plus (früher Gewinn)
+    stop_und_ziel_in_einer_kerze: stop              # unbekannte Reihenfolge in der Stunde: Stop zählt (vorsichtig)
+  auswahl_fenster: ["2023-01-01", "2024-12-31 23:59"]
+  test_fenster: ["2025-01-01", "2025-12-31 23:59"]
+  info_fenster: ["2026-01-01", "2026-10-23 23:59"]  # schon angesehen, nur Info, entscheidet nichts
+  kandidaten:                                       # nur diese zwei werden an den Schwellen gemessen (Mehrfachtests: 2 + 12 Auswahl-Kombinationen)
+    - {name: "Bot heute + Bestätigungs-Stop", signale: "C+B", filter: [], ausstieg: "eigenes Signal immer", stop: bestaetigung}
+    - {name: "Gold-Bot 2.0", signale: "C+B", filter: [richtung, news], fuehrung: auswahl}
+  vergleich:                                        # nur berichtet
+    - "Bot heute: C+B, Stop 5,60 $"
+    - "Runde 2: C+B, Stop 1 x ATR"
+    - "2.0 Stufe 1: nur Trade-Führung (ohne Richtung, ohne News)"
+    - "2.0 Stufe 2: Trade-Führung + Richtung (ohne News)"
+    - "Halten bis Plus ohne Stop: Ziel und Zeitgrenze von 2.0, kein Stop (zeigt, warum es einen Stop braucht)"
+  zufall: {laeufe: 300, seed: 20261102}             # Zwillinge in R: gleiche Seite, zufällige Einstiegskerze, die Filter und Trendfilter erlauben, gleiche Führung
+  weglassen_zufall: {laeufe: 300, seed: 20261102}   # je Baustein (Richtung, News): gleich viele Signale zufällig weglassen, nur Bericht
+  schwellen:                                        # im ganzen Entwicklungsfenster 2023 bis 2025, wie Runde 2
+    min_trades: 100
+    min_gewinnfaktor_r: 1.5
+    max_zufall_gleich_gut_pct: 5.0
+    besser_als_buy_and_hold: true                   # 250 € Start, 2 % Risiko, keine Einzahlungen
+    max_drawdown_hoch_pct: 25.0
+    test_fenster_gewinnfaktor_r_ueber: 1.0          # 2025 allein muss im Plus sein
+  trefferquote: nur_bericht                         # Kirons Wunsch "mehr Gewinner als Verlierer": berichtet, neben der Trefferquote der Zwillinge
+  vorwaerts:                                        # nur für einen bestandenen Kandidaten, mit Kirons Ja
+    art: "Schattenlauf auf den Capital.com-Demokerzen ab dem Start, ohne Order, Journal je Kerze"
+    auswertung: "nach 30 Trades; Zwischenstand beim Demo-Rückblick am 29.01.2027"
+    bestanden: {summe_r_ueber: 0.0, min_gewinnfaktor_r: 1.2}
+  kleines_konto: {start_eur: 50.0, einzahlung_eur: 50.0, alle_monate: 2, risiko_pct: [1.0, 2.0]}   # nur Bericht
+
+# Runde 4, festgelegt am 02.11.2026 nach Runde 3 und BEVOR eine dieser Varianten gerechnet wurde. Kiron hat am
+# 02.11.2026 FRED als neue Datenquelle erlaubt ("Beide ja"). Idee: Gold reagiert auf den Dollar und die realen US-Zinsen;
+# der Richtungs-Check aus Runde 3 sah nur den Goldkurs selbst. Angesehen wurden vorher nur die letzten Werte der Reihen,
+# kein Zusammenhang mit Gold. Bekannt ist aber aus allgemeinem Wissen, dass Gold 2022-2025 trotz hoher realer Zinsen
+# stieg (Notenbankkäufe); die Erwartung ist deshalb niedrig. Grundlage sind die Regeln aus Runde 2 (C+B, Stop 1 x ATR,
+# eigene Ausstiege), die 2023-25 bestanden und 2026 knapp bei null lagen. Daten: FRED-CSV vom 02.11.2026, Prüfsummen im Journal.
+runde_4:
+  daten:
+    reale_zinsen: DFII10          # 10-jährige inflationsgeschützte US-Anleihe (TIPS), täglich
+    dollar: DTWEXBGS              # breiter Dollar-Index der Fed (H.10), täglich, erscheint wöchentlich
+    ordner: gold-bot/data/fred    # Projektdateien, nicht im Repo
+  verfuegbar:                     # kein Blick in die Zukunft: ab wann der Wert eines Tages benutzt werden darf
+    reale_zinsen: "ab 00:00 UTC des zweiten Geschäftstags nach dem Datum"
+    dollar: "ab Dienstag 00:00 UTC nach der Woche des Datums (H.10 erscheint montags)"
+  makro:
+    sma_tage: 50                  # Wert unter seinem 50-Tage-Durchschnitt = fallend (gut für Gold) = +1, darüber = -1
+    regel: "beide +1 = Rückenwind Long (+1), beide -1 = Rückenwind Short (-1), sonst 0"
+  basis: {signale: "C+B", stop_atr: 1.0, ausstieg: "eigenes Signal immer", groesse: {risiko_pct: 2.0, schritt_oz: 0.01}}
+  kandidat: {name: "Runde 2 + Makro-Gegenwind-Sperre", regel: "kein Long bei Makro -1, kein Short bei Makro +1, sonst wie Runde 2"}
+  vergleich:                      # nur berichtet
+    - "Runde 2: C+B, Stop 1 x ATR"
+    - "Runde 2 + nur mit Makro-Rückenwind (Long nur bei +1, Short nur bei -1)"
+    - "Runde 2 + Gold-Richtung aus Runde 3 (Tag + 4 Stunden)"
+  test_fenster: ["2025-01-01", "2025-12-31 23:59"]
+  info_fenster: ["2026-01-01", "2026-10-23 23:59"]
+  zufall: {laeufe: 300, seed: 20261103}             # Zwillinge in R, Einstieg auf Kerzen, die Trendfilter und Makro-Sperre erlauben
+  weglassen_zufall: {laeufe: 300, seed: 20261103}   # gleich viele Signale zufällig weglassen, nur Bericht
+  schwellen:                                        # wie Runde 2 und 3, im Entwicklungsfenster 2023 bis 2025
+    min_trades: 100
+    min_gewinnfaktor_r: 1.5
+    max_zufall_gleich_gut_pct: 5.0
+    besser_als_buy_and_hold: true
+    max_drawdown_hoch_pct: 25.0
+    test_fenster_gewinnfaktor_r_ueber: 1.0
+    weglassen_zufall_max_gleich_gut_pct: 20.0       # neu: die Sperre muss besser sein als zufälliges Weglassen in 80 % der Läufe
+  vorwaerts: "nur wenn bestanden: Schattenlauf wie 2.0, Auswertung nach 30 Trades, Summe R über 0 und Gewinnfaktor mindestens 1,2"
+
+demo_stop_atr:                    # Kirons Entscheidung 03.11.2026 08:20 UTC: "Stop 1 ATR (passt sich an)" auf dem Demokonto
+  regel: "Bot von heute (C+B mit Trendfilter, 1 Unze, conflict first), Stop = 1 x ATR(14) der Signalkerze statt 5,60 $ (wie Runde 2, sizing.atr_rma)"
+  start: "erster Einstieg, nachdem Kiron stop_atr: 1.0 in config/limits.yaml eingetragen hat"
+  konto: Capital.com Demo, kein echtes Geld
+  vergleich: "für jeden Demo-Trade nachgerechnet: was der alte Stop von 5,60 $ mit denselben Kursen gemacht hätte (Lernjournal)"
+  auswertung: "nach 30 Demo-Trades: Summe R über 0 und Gewinnfaktor in R mindestens 1,2, sonst nicht bestanden"
+  hinweis: "Ein Vorwärtstest auf dem Demokonto, kein Beweis für echtes Geld. 2026 kam 1 x ATR im Rückblick nur auf PF_R 1,04."

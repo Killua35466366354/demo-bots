@@ -1,0 +1,39 @@
+# Strategie-Suche Runde 5c: Gegenprobe des Trend-Rücksetzers (bestanden in Runde 5b) auf einer zweiten Datenquelle und
+# auf Jahren, die keine Rechnung je gesehen hat. Vorab festgelegt am 04.11.2026, BEVOR gerechnet wird (Prüfsumme im
+# Journal journal/strategie-suche-protokoll.md). Code: suche/runde5c.py (Motor suche/runde5.py). Nie echtes Geld.
+#
+# Warum: Runde 5b hat trend_ruecksetzer auf den US-Indizes bestanden (HistData, Siegel 2022-2026). Die HistData-Indizes
+# beginnen erst im November 2010. Die Capital.com-Tageskerzen (Kerzen-Lauf Modus "tag" vom 04.11.2026, nur lesend)
+# reichen für US500 und US100 bis Januar 2005 zurück. 2005 bis Oktober 2010 (mit der Finanzkrise 2008) ist damit ein
+# echtes, unberührtes Prüffenster, und zugleich eine andere Datenquelle (die Kerzen des Brokers, auf dem der Bot handelt).
+
+runde_5c:
+  basis: VORAB_runde5.yaml                     # Regel trend_ruecksetzer, Parameter, Kosten (Übernacht 6,5 / 2,0 %, x 1,5 robust)
+  daten: >-
+    Capital.com-Tageskerzen (Bid), Dateien <EPIC>_DAY.csv.gz aus dem Artefakt "aktien-kerzen-tag" (Lauf 41786315891).
+    Die kurze Sonntagskerze zählt zum Montag (wie in Runde 5). Entscheidung und Ausführung zum Tagesschluss
+    (22:00 UTC angenommen, für die Übernachtgebühr). Der Notstop wird auf Tageshoch/-tief geprüft (keine Stundenkerzen;
+    Lücke: Füllung zur Eröffnung). Spread: Median des Schluss-Spreads der Capital.com-Tageskerzen ab 2019 (davor stehen
+    dort 0), über alle Jahre gleich angenommen.
+  test_maerkte: [US500, US100]
+  info_maerkte: [US30, RTY]                    # Dow Jones und Russell 2000: nur zur Information
+  fenster: ["2005-01-01", "2010-10-31"]        # vor dem Beginn der HistData-Indizes, nie gerechnet
+  info_fenster:                                # gleiche Jahre wie Runde 5/5b, nur zum Vergleich der Datenquellen
+    auswahl: ["2010-11-01", "2016-12-31"]
+    pruefung: ["2017-01-01", "2021-12-31"]
+    siegel: ["2022-01-01", "2026-10-30"]
+  vorlauf_tage: 400
+
+  huerden:                                     # im Test-Fenster, US500 und US100 zusammen; alle müssen halten
+    min_trades: 60
+    min_pf: 1.2
+    min_zufall_perzentil: 95
+    min_pf_robust: 1.1
+    min_jahre_pf_ueber_1: 3                    # von 2006 bis 2010 (5 Jahre; 2005 ist Vorlauf)
+    zufall_laeufe: 1000
+    zufall_seed: 20261107
+
+  folgen: >-
+    Besteht die Regel: der Demo-Bot US500 (VORAB_us500.yaml) startet wie geplant, mit mehr Vertrauen. Gewinnfaktor im
+    Test-Fenster unter 1,0: ich schlage Kiron vor, den Bot nicht zu starten (Kiron entscheidet). Dazwischen: der Bot
+    startet wie geplant, ich sage Kiron ehrlich, dass die Gegenprobe nicht überzeugt. An der Regel ändere ich nichts.

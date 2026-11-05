@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-05T15:46:44.333409",
+   "stand_utc": "2026-11-05T16:02:07.907643",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,7 +24,7 @@
   },
   "r6-london-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-05T15:46:44.333409",
+   "stand_utc": "2026-11-05T16:02:07.907643",
    "konto_id": "332263759556203678",
    "konto": "…3678",
    "konto_name": "Account 6",
@@ -33,7 +33,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:46:44.333409",
+    "zeit": "2026-11-05T16:02:07.907643",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -44,8 +44,8 @@
    "uebergeben_an": null
   },
   "r6-noise-usdjpy": {
-   "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-05T15:46:44.333409",
+   "status": "Position offen",
+   "stand_utc": "2026-11-05T16:02:07.907643",
    "konto_id": "332264120333456542",
    "konto": "…6542",
    "konto_name": "Account 7",
@@ -96,18 +96,45 @@
     "vortag_schluss": 158.443
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:46:44.333409",
-    "action": "none",
+    "zeit": "2026-11-05T16:02:07.907643",
+    "action": "open",
     "why": [
-     "kein Signal"
+     "Schluss 157.874 unter dem Band (157.949)"
     ]
    },
-   "position": null,
-   "uebergeben_an": null
+   "position": {
+    "upl": -0.11,
+    "stop": 159.559,
+    "ziel": null
+   },
+   "uebergeben_an": null,
+   "linien": {
+    "zeit": "2026-11-05T16:02:07.907643",
+    "oben": 158.67463,
+    "unten": 157.94876,
+    "vwap": 158.29147
+   },
+   "open": {
+    "dealId": "00000000-7144-5b1e-049c-70750015549e",
+    "side": -1,
+    "tag": "2026-11-05",
+    "signal_bar": "2026-11-05 15:45:00",
+    "einstieg_kerze": "2026-11-05 16:00:00",
+    "entry": 157.83,
+    "stop_level": 159.559,
+    "ziel_level": null,
+    "notstop": true,
+    "size": 1000.0,
+    "lot": 1.0,
+    "currency": "JPY",
+    "eur_rate": 177.19400000000002,
+    "opened_utc": "2026-11-05T16:02:17.559",
+    "konto_kurz": "…6542"
+   }
   },
   "r6-vortag-eurusd": {
    "status": "Stop-Orders liegen",
-   "stand_utc": "2026-11-05T15:46:44.333409",
+   "stand_utc": "2026-11-05T16:02:07.907643",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
@@ -116,7 +143,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:46:44.333409",
+    "zeit": "2026-11-05T16:02:07.907643",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -159,7 +186,7 @@
   },
   "r6-vortag-gbpusd": {
    "status": "Stop-Orders liegen",
-   "stand_utc": "2026-11-05T15:46:44.333409",
+   "stand_utc": "2026-11-05T16:02:07.907643",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
@@ -168,7 +195,7 @@
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:46:44.333409",
+    "zeit": "2026-11-05T16:02:07.907643",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -218,7 +245,7 @@
    "start_utc": "2026-11-05T11:46:51.956368",
    "start_kontostand": 999.79,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T15:46:44.333409",
+    "zeit": "2026-11-05T16:02:07.907643",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -258,7 +285,7 @@
    },
    "status": "Stop-Orders liegen",
    "position": null,
-   "stand_utc": "2026-11-05T15:46:44.333409"
+   "stand_utc": "2026-11-05T16:02:07.907643"
   }
  },
  "zwilling": {
@@ -315,5 +342,5 @@
    }
   }
  },
- "stand_utc": "2026-11-05T15:46:44.333409"
+ "stand_utc": "2026-11-05T16:02:07.907643"
 }

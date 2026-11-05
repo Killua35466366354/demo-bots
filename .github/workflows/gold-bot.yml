@@ -97,3 +97,19 @@ jobs:
             git commit -m "Gold-Bot: $(date -u +%Y-%m-%dT%H:%MZ)"
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push
           fi
+
+      # Alarm von außen (healthchecks.io): Bleibt diese Meldung aus, bekommt Kiron eine E-Mail. Zeitplan und Wartezeit
+      # richtet takt.yml im privaten Repo ein (ops/lebenszeichen.py). Ohne das Secret HC_PING_KEY passiert nichts.
+      # Der Schlüssel ist ein Secret und erscheint im Protokoll nur als ***.
+      - name: Lebenszeichen
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          HC_PING_KEY: ${{ secrets.HC_PING_KEY }}
+          ERGEBNIS: ${{ job.status }}
+        run: |
+          if [ -z "$HC_PING_KEY" ]; then echo "Kein HC_PING_KEY: kein Lebenszeichen"; exit 0; fi
+          pfad=""
+          if [ "$ERGEBNIS" != "success" ]; then pfad="/fail"; fi
+          curl -fsS -m 10 --retry 3 -o /dev/null "https://hc-ping.com/${HC_PING_KEY}/gold-bot${pfad}?create=1"
+          echo "Lebenszeichen gold-bot gesendet ($ERGEBNIS)"

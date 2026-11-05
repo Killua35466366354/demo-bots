@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-05T11:31:35.040916",
+ "stand_utc": "2026-11-05T11:46:51.956368",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -128,7 +128,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T11:31:35.040916",
+    "zeit": "2026-11-05T11:46:51.956368",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -236,7 +236,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T11:31:35.040916",
+    "zeit": "2026-11-05T11:46:51.956368",
     "action": "none",
     "why": [
      "kein Signal"
@@ -379,7 +379,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T11:31:35.040916",
+    "zeit": "2026-11-05T11:46:51.956368",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -494,7 +494,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T11:31:35.040916",
+    "zeit": "2026-11-05T11:46:51.956368",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -551,6 +551,112 @@
        }
       ],
       "berechnet_utc": "2026-11-04T22:02:59.196522",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "bot": "r6-vortag-gbpjpy",
+   "titel": "Vortageshoch/-tief mit Stop-Orders (GBP/JPY)",
+   "epic": "GBPJPY",
+   "regel": "Ab 10:30 Uhr deutscher Zeit (4:30 New York): Kauf-Stop am Vortageshoch, Verkauf-Stop am Vortagestief. Stop 0,5 x ATR der Viertelstunden-Kerzen beim Legen der Orders (seit 04.11.2026, vorher 10 % der Vortagesspanne), Ziel 25 % der Vortagesspanne, raus spätestens 22:45 Uhr deutscher Zeit (16:45 New York). Bricht der Kurs schon vor 10:30 Uhr aus, gibt es an dem Tag keinen Trade. Verpasst der Bot einen Ausbruch, steigt er bis gut eine Stunde später per Marktorder ein, solange Stop und Ziel noch nicht erreicht sind.",
+   "backtest": "Kirons Auswahl vom 04.11.2026 (verbessern: Vortag auf weiteren Paaren), vorab festgelegter Test vom 05.11.2026 (Prüfsumme 7e19dbe7 im Protokoll des privaten Repos): 9 Paare, gewählt auf 2015 bis 2024, geurteilt nur auf 2025 bis Oktober 2026, nur GBP/JPY bestanden. 2025 bis Oktober 2026 (1.000 Euro, 1 % Risiko, Stop 0,5 x ATR beim Legen): 94 Trades, 190 Euro, Gewinnfaktor 1,45, Treffer 25 %, besser als 99 % der Zufallsläufe. Aber 2026 nur +0,5 Euro und größter Rückgang 150 Euro (EUR/USD: 36 Euro). Mit 9 Paaren kann eines zufällig bestehen.",
+   "konto_vorschlag": "Konto folgt",
+   "konto": "…4494",
+   "konto_name": "Account 3",
+   "kontostand": 999.79,
+   "start_kontostand": 999.79,
+   "start_utc": "2026-11-05T11:46:51.956368",
+   "status": "Stop-Orders liegen",
+   "offen": null,
+   "orders": {
+    "tag": "2026-11-05",
+    "ph": 213.763,
+    "pl": 212.067,
+    "gelegt_utc": "2026-11-05T11:46:51.956368",
+    "bis_utc": "2026-11-05 21:30:00",
+    "lot": 1.0,
+    "currency": "JPY",
+    "eur_rate": 177.7215,
+    "konto_kurz": "…4494",
+    "long": {
+     "dealId": "00000000-7131-49f9-049c-701d0015549e",
+     "level": 213.786,
+     "marke": 213.763,
+     "stop": 213.706,
+     "ziel": 214.187,
+     "size": 12500.0
+    },
+    "short": {
+     "dealId": "00000000-7131-4a02-049c-701d0015549e",
+     "level": 212.067,
+     "marke": 212.067,
+     "stop": 212.124,
+     "ziel": 211.643,
+     "size": 12500.0
+    },
+    "stop_abstand": 0.05686271047141892,
+    "atr15": 0.11372542094283784
+   },
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-05T11:46:51.956368",
+    "action": "orders",
+    "why": [
+     "kein Ausbruch bis jetzt, Stop-Orders an 213.763 und 212.067"
+    ],
+    "bar": "2026-11-05 11:30:00"
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 1,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 0,
+     "treffer_pct": null,
+     "pf": null,
+     "summe_pct": 0.0,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-04",
+      "strategie": "vortag_stop_oco",
+      "markt": "GBPJPY",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-04 07:30:00",
+        "side": "long",
+        "einstieg": 213.059,
+        "pct": -0.0528,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-04 07:45:00",
+        "uhrzeit": 510,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.087444
+       }
+      ],
+      "berechnet_utc": "2026-11-05T11:46:51.956368",
       "bot_trades": [],
       "konto": true,
       "vergleich": {

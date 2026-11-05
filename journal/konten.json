@@ -9,7 +9,8 @@
   "oil-brent": "332263725196465310",
   "r5-ruecksetzer-us30": "332263750966269086",
   "r6-london-gbpusd": "332263759556203678",
-  "r6-noise-usdjpy": "332264120333456542"
+  "r6-noise-usdjpy": "332264120333456542",
+  "r6-vortag-gbpjpy": "332263742376334494"
  },
  "start": {
   "332117868107093150": 995.17,
@@ -58,14 +59,14 @@
    "balance": 999.79,
    "frei": 999.79,
    "bevorzugt": false,
-   "fuer": null
+   "fuer": "r6-vortag-gbpjpy"
   },
   {
    "id": "…1790",
    "name": "Account 4",
    "waehrung": "EUR",
    "balance": 1000.0,
-   "frei": 501.12,
+   "frei": 500.97,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd"
   },
@@ -110,12 +111,12 @@
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
    "balance": 1000.0,
-   "frei": 498.68,
+   "frei": 498.52,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-05T11:31:27.948080",
+ "stand_utc": "2026-11-05T11:46:31.058739",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",
@@ -263,11 +264,17 @@
    "von": null,
    "an": "r6-noise-usdjpy",
    "labor": true
+  },
+  {
+   "zeit": "2026-11-05T11:46:30",
+   "konto": "…4494",
+   "konto_id": "332263742376334494",
+   "von": null,
+   "an": "r6-vortag-gbpjpy"
   }
  ],
  "abgeloest": {},
  "frei": [
-  "332263742376334494",
   "332263729491432606"
  ],
  "deals": {},

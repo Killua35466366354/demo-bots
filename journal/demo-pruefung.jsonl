@@ -6,3 +6,4 @@
 {"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "r5-ruecksetzer-us30", "konto": "…9086", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}
 {"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "r6-london-gbpusd", "konto": "…3678", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}
 {"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "r6-noise-usdjpy", "konto": "…6542", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}
+{"time": "2026-11-05T11:46:30", "event": "freies Konto vergeben", "an": "r6-vortag-gbpjpy", "konto": "…4494"}

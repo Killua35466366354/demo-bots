@@ -3109,7 +3109,7 @@
    "name": "Vortag GBP/JPY",
    "markt": "GBPJPY",
    "zeitrahmen": null,
-   "konto": null,
+   "konto": "Account 3",
    "rolle": "aktiv",
    "ersetzt": null,
    "ersetzt_durch": null,

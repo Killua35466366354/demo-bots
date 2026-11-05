@@ -5,7 +5,11 @@
   "r7-nasdaq-noise-long": "332317231899038878",
   "r5-ruecksetzer-us100": "332317231899038878",
   "r6-vortag-eurusd": "332263746671301790",
-  "r6-vortag-gbpusd": "332325912027944094"
+  "r6-vortag-gbpusd": "332325912027944094",
+  "oil-brent": "332263725196465310",
+  "r5-ruecksetzer-us30": "332263750966269086",
+  "r6-london-gbpusd": "332263759556203678",
+  "r6-noise-usdjpy": "332264120333456542"
  },
  "start": {
   "332117868107093150": 995.17,
@@ -36,7 +40,7 @@
    "balance": 1000.0,
    "frei": 1000.0,
    "bevorzugt": true,
-   "fuer": null
+   "fuer": "oil-brent"
   },
   {
    "id": "…2606",
@@ -61,7 +65,7 @@
    "name": "Account 4",
    "waehrung": "EUR",
    "balance": 1000.0,
-   "frei": 501.33,
+   "frei": 501.32,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd"
   },
@@ -72,7 +76,7 @@
    "balance": 1000.0,
    "frei": 1000.0,
    "bevorzugt": false,
-   "fuer": null
+   "fuer": "r5-ruecksetzer-us30"
   },
   {
    "id": "…3678",
@@ -81,7 +85,7 @@
    "balance": 1000.0,
    "frei": 1000.0,
    "bevorzugt": false,
-   "fuer": null
+   "fuer": "r6-london-gbpusd"
   },
   {
    "id": "…6542",
@@ -90,7 +94,7 @@
    "balance": 999.96,
    "frei": 999.96,
    "bevorzugt": false,
-   "fuer": null
+   "fuer": "r6-noise-usdjpy"
   },
   {
    "id": "…8878",
@@ -106,12 +110,12 @@
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
    "balance": 1000.0,
-   "frei": 498.89,
+   "frei": 498.88,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-05T11:01:33.788973",
+ "stand_utc": "2026-11-05T11:16:36.878002",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",
@@ -227,37 +231,62 @@
    "von": "r5-ruecksetzer-us30",
    "an": null,
    "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-05T11:16:36",
+   "konto": "…5310",
+   "konto_id": "332263725196465310",
+   "von": null,
+   "an": "oil-brent",
+   "labor": true
+  },
+  {
+   "zeit": "2026-11-05T11:16:36",
+   "konto": "…9086",
+   "konto_id": "332263750966269086",
+   "von": null,
+   "an": "r5-ruecksetzer-us30",
+   "labor": true
+  },
+  {
+   "zeit": "2026-11-05T11:16:36",
+   "konto": "…3678",
+   "konto_id": "332263759556203678",
+   "von": null,
+   "an": "r6-london-gbpusd",
+   "labor": true
+  },
+  {
+   "zeit": "2026-11-05T11:16:36",
+   "konto": "…6542",
+   "konto_id": "332264120333456542",
+   "von": null,
+   "an": "r6-noise-usdjpy",
+   "labor": true
   }
  ],
- "abgeloest": {
+ "abgeloest": {},
+ "frei": [
+  "332263742376334494",
+  "332263729491432606"
+ ],
+ "deals": {},
+ "labor": {
   "oil-brent": {
-   "an": null,
-   "seit": "2026-11-04T13:01:29",
-   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): 2025 -180 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 258 €"
+   "seit": "2026-11-05T11:16:36",
+   "konto": "…5310"
   },
   "r5-ruecksetzer-us30": {
-   "an": null,
-   "seit": "2026-11-04T13:01:29",
-   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): +57 € aus 23 Trades, kaum vom Zufall zu unterscheiden"
+   "seit": "2026-11-05T11:16:36",
+   "konto": "…9086"
   },
   "r6-london-gbpusd": {
-   "an": null,
-   "seit": "2026-11-04T13:01:29",
-   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden"
+   "seit": "2026-11-05T11:16:36",
+   "konto": "…3678"
   },
   "r6-noise-usdjpy": {
-   "an": null,
-   "seit": "2026-11-04T13:01:29",
-   "grund": "Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden"
+   "seit": "2026-11-05T11:16:36",
+   "konto": "…6542"
   }
- },
- "frei": [
-  "332263725196465310",
-  "332263742376334494",
-  "332263759556203678",
-  "332264120333456542",
-  "332263729491432606",
-  "332263750966269086"
- ],
- "deals": {}
+ }
 }

@@ -1,6 +1,6 @@
 {
  "format": 1,
- "stand_utc": "2026-11-05T11:01:33.788973",
+ "stand_utc": "2026-11-05T11:16:36.878002",
  "phase": "laeuft",
  "start_utc": "2026-11-03T07:14:21.451786",
  "ende_utc": "2027-01-29T21:00:00",
@@ -26,17 +26,25 @@
     "sum_r": 43.8,
     "zufall_gleich_gut_pct": 3.5
    },
-   "status": "abgelöst, Konto wird frei",
+   "status": "wartet auf Signal",
    "position": null,
    "trades": 0,
    "win_pct": null,
    "pf_r": null,
    "sum_r": 0.0,
    "pnl_eur": 0.0,
-   "letzte_kerze": "2026-11-04 12:00:00",
+   "letzte_kerze": "2026-11-05 10:30:00",
    "bewertung": null,
    "hinweis": "Nur Long (C). Ohne die 3 besten Trades Gewinnfaktor 1,33. Zufall gleich gut in 3,5 % der Läufe.",
-   "konto": null,
+   "konto": {
+    "id": "…5310",
+    "name": "Account 1",
+    "waehrung": "EUR",
+    "eigen": true,
+    "balance": 1000.0,
+    "start": 1000.0,
+    "seit_start": 0.0
+   },
    "extra": false,
    "abgeloest": null
   },

@@ -1,0 +1,467 @@
+{
+ "format": 1,
+ "tag": "2026-11-05",
+ "letzter_trade_utc": "2026-11-03T19:46:38.242178",
+ "regel_aufstieg": "festgelegt",
+ "rangliste": [
+  {
+   "id": "us500-ruecksetzer",
+   "name": "Trend-Rücksetzer US500",
+   "markt": "US500",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "US500",
+   "seit": "2026-11-04T00:00:00",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.1,
+    "trades": 0.0,
+    "summe_r": 0.01
+   },
+   "abweichung_r": -0.01,
+   "bewertung": {
+    "rang": 1,
+    "pf": 5.821,
+    "eur_1000": 55.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 1
+  },
+  {
+   "id": "r7-nasdaq-noise-long",
+   "name": "Nasdaq Noise Long",
+   "markt": "US100",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "US500",
+   "seit": "2026-11-04T11:46:39.499621",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.1,
+    "trades": 0.0,
+    "summe_r": 0.0
+   },
+   "abweichung_r": 0.0,
+   "bewertung": {
+    "rang": 2,
+    "pf": 3.537,
+    "eur_1000": 23.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 2
+  },
+  {
+   "id": "r5-ruecksetzer-us100",
+   "name": "Trend-Rücksetzer US100",
+   "markt": "US100",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "US500",
+   "seit": "2026-11-04T11:46:39.499621",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.1,
+    "trades": 0.0,
+    "summe_r": 0.0
+   },
+   "abweichung_r": 0.0,
+   "bewertung": {
+    "rang": 3,
+    "pf": 1.91,
+    "eur_1000": 23.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 3
+  },
+  {
+   "id": "r6-vortag-eurusd",
+   "name": "Vortag EUR/USD",
+   "markt": "EURUSD",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "Account 4",
+   "seit": "2026-11-04T11:46:39.499621",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.1,
+    "trades": 0.1,
+    "summe_r": 0.03
+   },
+   "abweichung_r": -0.03,
+   "bewertung": {
+    "rang": 4,
+    "pf": 1.671,
+    "eur_1000": 426.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 4
+  },
+  {
+   "id": "oil-brent",
+   "name": "Brent 30 min Long",
+   "markt": "OIL_BRENT",
+   "gruppe": "labor",
+   "aktiv": true,
+   "konto": "Account 1",
+   "seit": "2026-11-05T11:16:36",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.0,
+    "trades": 0.0,
+    "summe_r": 0.0
+   },
+   "abweichung_r": 0.0,
+   "bewertung": {
+    "rang": 5,
+    "pf": 1.491,
+    "eur_1000": 289.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 5
+  },
+  {
+   "id": "r5-ruecksetzer-us30",
+   "name": "Trend-Rücksetzer Dow",
+   "markt": "US30",
+   "gruppe": "labor",
+   "aktiv": true,
+   "konto": "Account 5",
+   "seit": "2026-11-05T11:16:36",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.0,
+    "trades": 0.0,
+    "summe_r": 0.0
+   },
+   "abweichung_r": 0.0,
+   "bewertung": {
+    "rang": 6,
+    "pf": 1.479,
+    "eur_1000": 19.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 6
+  },
+  {
+   "id": "r6-london-gbpusd",
+   "name": "London GBP/USD",
+   "markt": "GBPUSD",
+   "gruppe": "labor",
+   "aktiv": true,
+   "konto": "Account 6",
+   "seit": "2026-11-05T11:16:36",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.0,
+    "trades": 0.0,
+    "summe_r": 0.0
+   },
+   "abweichung_r": 0.0,
+   "bewertung": {
+    "rang": 7,
+    "pf": 1.448,
+    "eur_1000": 59.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 7
+  },
+  {
+   "id": "r6-noise-usdjpy",
+   "name": "Noise USD/JPY",
+   "markt": "USDJPY",
+   "gruppe": "labor",
+   "aktiv": true,
+   "konto": "Account 7",
+   "seit": "2026-11-05T11:16:36",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.0,
+    "trades": 0.0,
+    "summe_r": 0.0
+   },
+   "abweichung_r": 0.0,
+   "bewertung": {
+    "rang": 8,
+    "pf": 1.389,
+    "eur_1000": 49.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 8
+  },
+  {
+   "id": "r6-vortag-gbpusd",
+   "name": "Vortag GBP/USD",
+   "markt": "GBPUSD",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "Vortag USDJPY",
+   "seit": "2026-11-04T12:02:20.662505",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.1,
+    "trades": 0.1,
+    "summe_r": 0.01
+   },
+   "abweichung_r": -0.01,
+   "bewertung": {
+    "rang": 9,
+    "pf": 1.215,
+    "eur_1000": 165.0,
+    "bestanden": true
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 9
+  },
+  {
+   "id": "gold-cb",
+   "name": "Gold-Bot C/B",
+   "markt": "GOLD",
+   "gruppe": "verbessern",
+   "aktiv": true,
+   "konto": "Hauptkonto",
+   "seit": "2026-11-03T07:14:21",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": {
+    "wochen": 0.2,
+    "trades": 0.4,
+    "summe_r": 0.08
+   },
+   "abweichung_r": -0.08,
+   "bewertung": {
+    "rang": 12,
+    "pf": 1.171,
+    "eur_1000": 298.0,
+    "bestanden": false
+   },
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 10
+  },
+  {
+   "id": "dax",
+   "name": "DAX 15 min Long",
+   "markt": "DE40",
+   "gruppe": "abgeloest",
+   "aktiv": false,
+   "konto": null,
+   "seit": "2026-11-04T00:00:00",
+   "ist": {
+    "trades": 1,
+    "gewonnen": 0,
+    "treffer_pct": 0.0,
+    "summe_r": -1.0,
+    "pf_r": 0.0,
+    "eur": -0.04,
+    "rueckgang_r": 1.0
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": {
+    "rang": 16,
+    "pf": 1.005,
+    "eur_1000": -370.0,
+    "bestanden": false
+   },
+   "monate": {
+    "2026-11": {
+     "trades": 1,
+     "summe_r": -1.0,
+     "eur": -0.04
+    }
+   },
+   "aufstieg": null,
+   "rang": 11
+  },
+  {
+   "id": "us30",
+   "name": "Dow 15 min Short",
+   "markt": "US30",
+   "gruppe": "abgeloest",
+   "aktiv": false,
+   "konto": null,
+   "seit": "2026-11-04T00:00:00",
+   "ist": {
+    "trades": 3,
+    "gewonnen": 0,
+    "treffer_pct": 0.0,
+    "summe_r": -3.0,
+    "pf_r": 0.0,
+    "eur": -0.21,
+    "rueckgang_r": 3.0
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": {
+    "rang": 11,
+    "pf": 1.194,
+    "eur_1000": 255.0,
+    "bestanden": false
+   },
+   "monate": {
+    "2026-11": {
+     "trades": 3,
+     "summe_r": -3.0,
+     "eur": -0.21
+    }
+   },
+   "aufstieg": null,
+   "rang": 12
+  }
+ ],
+ "kombi": {
+  "mitglieder": [
+   "r6-vortag-eurusd",
+   "r6-vortag-gbpusd",
+   "us500-ruecksetzer",
+   "r5-ruecksetzer-us100",
+   "r7-nasdaq-noise-long"
+  ],
+  "draussen": [],
+  "ist": {
+   "trades": 0,
+   "gewonnen": 0,
+   "treffer_pct": null,
+   "summe_r": 0,
+   "pf_r": null,
+   "eur": 0,
+   "rueckgang_r": 0.0
+  },
+  "monate": {},
+  "soll": {
+   "trades": 0.2,
+   "summe_r": 0.05
+  },
+  "aufstieg": {
+   "status": "sammelt",
+   "text": "0 von 60 Demo-Trades"
+  }
+ },
+ "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung 2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast nichts; über echtes Geld entscheidet immer Kiron (suche/VORAB_aufstieg.yaml)."
+}

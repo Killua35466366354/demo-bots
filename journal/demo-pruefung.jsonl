@@ -2,3 +2,7 @@
 {"time": "2026-11-04T13:01:29", "event": "Bot abgeschaltet", "bot": "r5-ruecksetzer-us30", "an": null, "why": "Kirons Auswahl vom 04.11.2026 (abschalten): +57 € aus 23 Trades, kaum vom Zufall zu unterscheiden"}
 {"time": "2026-11-04T13:01:29", "event": "Bot abgeschaltet", "bot": "r6-london-gbpusd", "an": null, "why": "Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden"}
 {"time": "2026-11-04T13:01:29", "event": "Bot abgeschaltet", "bot": "r6-noise-usdjpy", "an": null, "why": "Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden"}
+{"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "oil-brent", "konto": "…5310", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}
+{"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "r5-ruecksetzer-us30", "konto": "…9086", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}
+{"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "r6-london-gbpusd", "konto": "…3678", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}
+{"time": "2026-11-05T11:16:36", "event": "Labor-Konto vergeben", "bot": "r6-noise-usdjpy", "konto": "…6542", "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"}

@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-05T11:01:38.717208",
+ "stand_utc": "2026-11-05T11:17:04.775747",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -118,20 +118,20 @@
    "regel": "Bereich = Hoch/Tief der Stunden 4 bis 8 Uhr London. Ab der 9-Uhr-Kerze: die erste Stundenkerze, die unter dem Bereichshoch eröffnet, darüber schließt und 1 bis 2,5 Stunden-ATR groß ist: Long zur nächsten vollen Stunde, Stop am Bereichstief, Ziel 1,5 x Risiko, raus um 17 Uhr London. Nur wenn der Markt ruhiger ist als sonst.",
    "backtest": "Runde 6 knapp nicht bestanden (Kirons Wunsch: trotzdem auf Demo): 144 Trades, Gewinnfaktor 1,22, Zufall 92,5 % statt 95 %.",
    "konto_vorschlag": "Konto folgt",
-   "konto": null,
-   "konto_name": null,
-   "kontostand": null,
+   "konto": "…3678",
+   "konto_name": "Account 6",
+   "kontostand": 1000.0,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden); Konto freigegeben",
+   "status": "wartet auf das nächste Signal",
    "offen": null,
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-04T12:47:26.616947",
+    "zeit": "2026-11-05T11:17:04.775747",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "Markt nicht ruhiger als sonst (Schwankung 0.983 > 0,876): heute kein Trade"
     ]
    },
    "zusammenfassung": {
@@ -226,17 +226,17 @@
    "regel": "Sitzung 8 bis 17 Uhr London. Schluss über dem Band: Long, darunter: Short (Prüfung jede halbe Stunde). Raus, wenn der Schluss wieder hinter Band bzw. VWAP fällt, sonst um 17 Uhr London. Nur wenn der Markt ruhiger ist als sonst. Notstop beim Broker 2 x Tages-ATR (im Backtest kein Stop).",
    "backtest": "Runde 6 knapp nicht bestanden (Kirons Wunsch: trotzdem auf Demo): 474 Trades, Gewinnfaktor 1,19, 3 von 6 Jahren im Plus, Zufall 94,9 % statt 95 %.",
    "konto_vorschlag": "Konto folgt",
-   "konto": null,
-   "konto_name": null,
-   "kontostand": null,
+   "konto": "…6542",
+   "konto_name": "Account 7",
+   "kontostand": 999.96,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden); Konto freigegeben",
+   "status": "wartet auf das nächste Signal",
    "offen": null,
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-04T12:47:26.616947",
+    "zeit": "2026-11-05T11:17:04.775747",
     "action": "none",
     "why": [
      "kein Signal"
@@ -379,7 +379,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T11:01:38.717208",
+    "zeit": "2026-11-05T11:17:04.775747",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -494,7 +494,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T11:01:38.717208",
+    "zeit": "2026-11-05T11:17:04.775747",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

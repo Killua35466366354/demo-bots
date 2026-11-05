@@ -766,7 +766,7 @@
    "markt": "OIL_BRENT",
    "zeitrahmen": "30min",
    "konto": "Account 1",
-   "rolle": "abgeloest",
+   "rolle": "labor",
    "ersetzt": null,
    "ersetzt_durch": null,
    "bestanden": true,
@@ -801,7 +801,7 @@
     "eur_1000": 466.0
    },
    "zufall_pct": null,
-   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): 2025 -180 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 258 €. Konto wird frei",
+   "warum": "Labor-Vorwärtstest seit 2026-11-05 (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml); nicht im Kern und nicht in der Kombi",
    "monate": [
     {
      "monat": "2025-01",
@@ -950,7 +950,7 @@
    "markt": "US30",
    "zeitrahmen": null,
    "konto": "Account 5",
-   "rolle": "abgeloest",
+   "rolle": "labor",
    "ersetzt": "Intel 60 min",
    "ersetzt_durch": null,
    "bestanden": true,
@@ -985,7 +985,7 @@
     "eur_1000": 11.0
    },
    "zufall_pct": null,
-   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): +57 € aus 23 Trades, kaum vom Zufall zu unterscheiden. Konto wird frei",
+   "warum": "Labor-Vorwärtstest seit 2026-11-05 (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml); nicht im Kern und nicht in der Kombi",
    "monate": [
     {
      "monat": "2025-01",
@@ -1134,7 +1134,7 @@
    "markt": "GBPUSD",
    "zeitrahmen": null,
    "konto": "Account 6",
-   "rolle": "abgeloest",
+   "rolle": "labor",
    "ersetzt": "Gold-Bot 2.0",
    "ersetzt_durch": null,
    "bestanden": true,
@@ -1169,7 +1169,7 @@
     "eur_1000": 34.0
    },
    "zufall_pct": null,
-   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden. Konto wird frei",
+   "warum": "Labor-Vorwärtstest seit 2026-11-05 (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml); nicht im Kern und nicht in der Kombi",
    "monate": [
     {
      "monat": "2025-01",
@@ -1318,7 +1318,7 @@
    "markt": "USDJPY",
    "zeitrahmen": null,
    "konto": "Account 7",
-   "rolle": "abgeloest",
+   "rolle": "labor",
    "ersetzt": "DAX 15 min Long",
    "ersetzt_durch": null,
    "bestanden": true,
@@ -1353,7 +1353,7 @@
     "eur_1000": 46.0
    },
    "zufall_pct": null,
-   "warum": "Demo: Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden. Konto wird frei",
+   "warum": "Labor-Vorwärtstest seit 2026-11-05 (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml); nicht im Kern und nicht in der Kombi",
    "monate": [
     {
      "monat": "2025-01",

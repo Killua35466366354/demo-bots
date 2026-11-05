@@ -268,7 +268,18 @@ def test_vortag_eurusd_gbpusd_nur_ueber_die_zuordnung():
     assert rb.VORTAG_EURUSD.regel == rb.VORTAG_GBPUSD.regel == rb.VORTAG_ATR_REGEL and "0,5 x ATR" in rb.VORTAG_ATR_REGEL
     assert rb.VORTAG_GBPUSD.strategie == "vortag_stop_oco"
     assert [b.bot_id for b in rb.BOTS] == ["r6-vortag-usdjpy", "r6-london-gbpusd", "r6-noise-usdjpy",
-                                           "r6-vortag-eurusd", "r6-vortag-gbpusd"]
+                                           "r6-vortag-eurusd", "r6-vortag-gbpusd", "r6-vortag-gbpjpy"]
+
+
+def test_vortag_gbpjpy_gleiche_regel_und_nur_ueber_die_zuordnung():
+    """GBP/JPY (Test vom 05.11.2026) nutzt genau die Regel von EUR/USD und GBP/USD und nimmt sich kein Konto selbst."""
+    acc = accounts({HAUPT: "Account", "4494": "Account 2", "2606": "Account 3", "1111": "GBPJPY"})
+    assert rb.VORTAG_GBPJPY.regel == rb.VORTAG_ATR_REGEL and rb.VORTAG_GBPJPY.strategie == "vortag_stop_oco"
+    assert rb.VORTAG_GBPJPY.epic == "GBPJPY" and rb.VORTAG_GBPJPY.konto_namen == ()
+    assert rb.konto_fuer(rb.VORTAG_GBPJPY, acc, {"zuordnung": {}}, HAUPT, lambda a: True) is None
+    kont = {"zuordnung": {"r6-vortag-gbpjpy": "4494"}}
+    assert rb.konto_fuer(rb.VORTAG_GBPJPY, acc, kont, HAUPT, lambda a: True) == "4494"
+    assert rb.pip("GBPJPY") == 0.01
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -304,9 +315,11 @@ def test_zwilling_eurusd_gbpusd_schatten_bis_zum_konto(monkeypatch):
     rows = rb.zwillinge(lauf, {"bots": {}}, [])
     keys = sorted((r["strategie"], r["markt"]) for r in rows)
     assert keys == sorted([("vortag_stop_oco", "USDJPY"), ("london_stunde_long", "GBPUSD"), ("noise_band", "USDJPY"),
-                           ("vortag_stop_oco", "EURUSD"), ("vortag_stop_oco", "GBPUSD")])
+                           ("vortag_stop_oco", "EURUSD"), ("vortag_stop_oco", "GBPUSD"),
+                           ("vortag_stop_oco", "GBPJPY")])
     by = {(r["strategie"], r["markt"]): r for r in rows}
     assert by[("vortag_stop_oco", "EURUSD")]["schatten"] and not by[("vortag_stop_oco", "EURUSD")]["konto"]
+    assert not by[("vortag_stop_oco", "GBPJPY")]["konto"]          # GBP/JPY ohne Konto: Zwilling schreibt nur mit
     assert not by[("london_stunde_long", "GBPUSD")]["schatten"] and not by[("noise_band", "USDJPY")]["schatten"]
     assert by[("vortag_stop_oco", "USDJPY")]["schatten"]                  # beendet: nur noch Schatten
     lauf2 = rb.Lauf(None, utc("2026-11-05", "17:30", NY), {}, True)

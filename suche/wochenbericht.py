@@ -47,6 +47,7 @@ WEITERE = [
     ("r6-noise-usdjpy", "Noise USD/JPY", "USDJPY", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
     ("r6-vortag-eurusd", "Vortag EUR/USD", "EURUSD", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
     ("r6-vortag-gbpusd", "Vortag GBP/USD", "GBPUSD", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
+    ("r6-vortag-gbpjpy", "Vortag GBP/JPY", "GBPJPY", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
 ]
 
 

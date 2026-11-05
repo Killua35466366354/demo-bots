@@ -1,4 +1,5 @@
 """Vergleich der Demo-Profite und Aufstiegs-Check (suche/vergleich.py, suche/VORAB_aufstieg.yaml)."""
+import json
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -49,7 +50,9 @@ def test_report_ranks_live_bots_and_kombi_only_holds_kept_strategies():
     v = vg.vergleich(datetime(2026, 11, 7, 8, 0, tzinfo=timezone.utc))
     aus = yaml.safe_load(open("suche/auswahl.yaml", encoding="utf-8"))["auswahl"]
     ids = [b["id"] for b in v["rangliste"]]
-    assert vg.GOLD in ids and set(aus["behalten"]) <= set(ids)
+    zu = json.load(open("journal/konten.json", encoding="utf-8")).get("zuordnung") or {}
+    # Eine neu behaltene Strategie steht erst in der Rangliste, wenn ersatz() ihr ein Konto gegeben hat (nächster Lauf).
+    assert vg.GOLD in ids and {b for b in aus["behalten"] if b in zu} <= set(ids)
     assert [b["rang"] for b in v["rangliste"]] == list(range(1, len(ids) + 1))
     aktiv = [b["aktiv"] for b in v["rangliste"]]
     assert aktiv == sorted(aktiv, reverse=True)                 # aktive Bots zuerst

@@ -116,7 +116,7 @@ def _soll(p: dict, seit: pd.Timestamp, tag: pd.Timestamp) -> dict | None:
 
 
 def _gruppe(bid: str, aus: dict, abgeloest: set) -> str:
-    for g in ("behalten", "verbessern", "abschalten"):
+    for g in ("behalten", "verbessern", "labor", "abschalten"):
         if bid in (aus.get(g) or {}):
             return g
     return "abgeloest" if bid in abgeloest else "labor"

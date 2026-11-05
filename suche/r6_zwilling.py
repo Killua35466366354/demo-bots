@@ -32,13 +32,15 @@ STRATEGIE = {      # Name in Runde 6 -> (Familie, Logik, Sitzung, Parameter), wi
 }
 
 
-def vortag_atr_stops(m, su: list) -> list:
+def vortag_atr_stops(m, su: list, stop_atr: float | None = None) -> list:
     """Vortags-Regel seit 04.11.2026 (VORAB_r6_demo.yaml nachtrag_vortag_stop_2026_11_04): Stop stop_atr x ATR(14) der
     15-Minuten-Kerzen beim Legen der Stop-Orders statt 10 % der Vortagesspanne. Gelegt wird zur ersten Kerze des
     Handelstags ab 4:30 New York (630 Minuten nach 18 Uhr); es zählt die ATR der Kerze davor (letzte fertige Kerze).
-    Ziel und alles andere bleiben. m: Markt aus runde4b.baue_markt (Sitzung TAG24, m.lokal = New York + 6 h)."""
+    Ziel und alles andere bleiben. m: Markt aus runde4b.baue_markt (Sitzung TAG24, m.lokal = New York + 6 h).
+    stop_atr: nur für den Mess-Bot mit 1 x ATR (suche/VORAB_messbots.yaml), sonst VORTAG["stop_atr"]."""
     if not su:
         return su
+    faktor = rg.VORTAG["stop_atr"] if stop_atr is None else float(stop_atr)
     a = r4b.atr_rma(np.asarray(m.h, float), np.asarray(m.l, float), np.asarray(m.c, float), rg.VORTAG["atr_n"])
     lok = pd.DatetimeIndex(m.lokal)
     minute = np.asarray(lok.hour * 60 + lok.minute)
@@ -54,7 +56,7 @@ def vortag_atr_stops(m, su: list) -> list:
             while k + 1 < len(minute) and tag[k + 1] == tag[s.i] and minute[k] < ab:
                 k += 1
         w = a[k - 1] if k >= 1 else np.nan
-        out.append(dataclasses.replace(s, stop_abst=float(rg.VORTAG["stop_atr"] * w)) if np.isfinite(w) else s)
+        out.append(dataclasses.replace(s, stop_abst=float(faktor * w)) if np.isfinite(w) else s)
     return out
 
 
@@ -80,7 +82,7 @@ def bedingung(name: str, uhrzeit: int, schwankung: float | None) -> bool | None:
 
 
 def zwilling_tag(name: str, epic: str, bars: pd.DataFrame, spread: pd.Series, tag: str,
-                 schwankung: float | None = None) -> dict:
+                 schwankung: float | None = None, stop_atr: float | None = None) -> dict:
     """Was der Backtest am Tag `tag` (Datum der Sitzung wie im Backtest: Vortags-Regel = Handelstag 18 bis 17 Uhr New
     York, sonst London-Datum) mit diesen Kerzen getan hätte. Rückgabe: {"tag_gezaehlt": bool, "trades": [...]};
     tag_gezaehlt False heißt: Der Backtest zählt den Tag nicht (zu wenige Kerzen oder die erste fehlt)."""
@@ -99,7 +101,7 @@ def zwilling_tag(name: str, epic: str, bars: pd.DataFrame, spread: pd.Series, ta
             su = r4b.STRATEGIEN_B[logik](m, p)
             sim = r4b.simuliere
             if name == "vortag_stop_oco":
-                su = vortag_atr_stops(m, su)
+                su = vortag_atr_stops(m, su, stop_atr)
     gezaehlt = any(t.datum == tag for t in m.tage)
     out = []
     for s in su:

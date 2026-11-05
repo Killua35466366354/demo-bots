@@ -30,11 +30,16 @@ Stand: 05.11.2026.
 | Trend-Rücksetzer Dow | Account 5 | Labor | 1,48, +19 € |
 | London-Stunde GBP/USD | Account 6 | Labor | 1,45, +59 € |
 | Noise-Band USD/JPY | Account 7 | Labor | 1,39, +49 € |
+| Vortag GBP/JPY | Account 3 | behalten | 1,45, +190 € (Test vom 05.11.2026, 2026 allein +0,5 €) |
+| Vortag EUR/USD mit 1 x ATR | Account 2 | Mess-Bot | kein eigener Test: misst gegen Vortag EUR/USD, ob der breitere Stop das Rutschen besser verkraftet |
+| Gold nur Long (Teil C) | Hauptkonto, nur gezählt | Mess-Zeile | die C-Trades des Gold-Bots, Urteil mit dem Gold-Bot Ende Januar 2027 |
 
 Labor heißt: Vorwärtstest auf sonst leeren Demokonten nach Kirons Entscheidung vom 05.11.2026
 (`suche/VORAB_labor.yaml`), getrennt vom Kern, nicht in der Kombi. Die Konten bekommen sie beim ersten Lauf nach dem
-Merge. Frei bleiben 2 Demokonten (Account 2 und 3) für neue Strategien. Der Vergleich aller Bots steht nach jedem Lauf
-in `journal/vergleich.md`.
+Merge. Account 3 bekam am 05.11. Vortag GBP/JPY, Account 2 bekommt der Mess-Bot (`suche/VORAB_messbots.yaml`, Kirons
+Ja vom 05.11.2026 17:07 UTC). Für alle gilt seit 05.11. zusätzlich eine feste Frist von 6 Monaten
+(`suche/VORAB_frist.yaml`), für die Vortag-Bots die Rutsch-Regel (`suche/VORAB_rutschen.yaml`). Der Vergleich aller
+Bots steht nach jedem Lauf in `journal/vergleich.md`.
 
 ## 2. Kirons Vorschläge und was daraus wurde
 

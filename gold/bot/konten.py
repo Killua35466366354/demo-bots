@@ -99,7 +99,10 @@ def zuordnen(alt: dict, accounts: list[dict], bots: list[dict], frei: dict[str, 
         if aid not in by_id:                       # Konto gibt es nicht mehr
             del k["zuordnung"][bot_id]
             log.append({"time": stamp, "event": "konto weg", "bot": bot_id, "konto": kurz(aid)})
-    vergeben = {haupt, *k["zuordnung"].values()}
+    for aid in k["zuordnung"].values():            # Startstand fehlt (z. B. früh zugeordnetes Konto): heutiger Stand
+        if aid not in k["start"]:
+            k["start"][aid] = (by_id[aid].get("balance") or {}).get("balance")
+    vergeben ={haupt, *k["zuordnung"].values()}
     frei_konten = [aid for aid in sorted(by_id, key=_id_key)
                    if aid not in vergeben and frei.get(aid) and str(by_id[aid].get("status") or "").upper() not in AUS]
     offen = [b for b in bots if b["id"] not in k["zuordnung"] and b["id"] not in gesperrt]

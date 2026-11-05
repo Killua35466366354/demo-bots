@@ -7,9 +7,9 @@ handelstage: 4
 # Kirons Wunsch vom 03.11.2026, 09:45 UTC: alle Bots eine Woche live auf Capital.com (Demo), jeder auf einem eigenen
 # Konto. Das Testende rückt deshalb von Mo 09.11. 07:14 auf Di 10.11. 09:45 UTC (10:45 Uhr Berlin).
 wochentest_ende_utc: "2026-11-10T09:45:00"   # Ende des Wochen-Tests (12-h-Bericht und Auswertung am 10.11.)
-# 04.11.2026: Brent hat die gleiche Bewertung 2025-2026 bestanden und behält Account 1 (suche/VORAB_bewertung.yaml).
-# Damit das Konto nach dem Wochen-Test nicht leer steht, handelt er weiter bis Ende Januar 2027; dann prüfen wir alle
-# Demo-Bots wie den Gold-Bot (Demo gegen Backtest). Die abgelösten Bots unten öffnen ohnehin nichts Neues mehr.
+# Brent: am 04.11.2026 mit Kirons Auswahl (suche/auswahl.yaml) abgeschaltet, seit 05.11.2026 als Labor-Bot wieder auf
+# Account 1 (suche/VORAB_labor.yaml, Kirons Ja vom 05.11. 11:07 UTC). ende_utc ist das Ende seines Laufs; geprüft wird
+# er wie alle Demo-Bots nach suche/VORAB_wechsel.yaml. Die abgelösten Bots unten öffnen nichts Neues mehr.
 ende_utc: "2027-01-29T21:00:00"
 eigene_konten: true            # jeder Bot ein eigenes Demokonto, sobald Kiron es angelegt hat (gold/bot/konten.py)
 reserve_margin_eur: 400        # so viel Margin bleibt auf dem Hauptkonto immer frei, damit der Gold-Bot handeln kann

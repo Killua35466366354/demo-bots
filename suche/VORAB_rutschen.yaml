@@ -1,0 +1,31 @@
+# Rutsch-Regel für die Vortag-Bots (suche/demo_pruefung.py, rutsch_grund). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kritik D3 vom 05.11.2026 ("Portfolio-Manager: große Kritik mit Verbesserungsplan"): Der Stop der Vortag-Bots ist nur
+# 2 bis 4 Pips weit, Rutschen ist im Backtest nicht drin. Nachgerechnet (suche/VORAB_r6_demo.yaml, risiko): mit 0,5 Pip
+# schlechter beim Einstieg und nochmal beim Stop bleibt EUR/USD vorn (PF 1,71 statt 2,33 in der Stop-Wahl), GBP/USD fällt
+# auf PF 1,25; bei 1 Pip kippt EUR/USD vor 2025 ins Minus. Kirons Antwort vom 05.11.2026, 17:07 UTC: "4. ja" (die
+# Rutsch-Regel vorab festlegen).
+#
+# Festgelegt am 05.11.2026, bevor einer der Vortag-Bots einen geschlossenen Demo-Trade hatte.
+
+format: 1
+rutschen:
+  gilt_fuer:                                 # Bot-ID: Grenze in Pips (Median des Rutschens beim Einstieg)
+    r6-vortag-eurusd: 0.5
+    r6-vortag-gbpusd: 0.5
+    r6-vortag-gbpjpy: 1.0                    # gleicher Anteil am Kurs: 0,5 Pip EUR/USD ~ 0,46 Basispunkte, 1 Pip GBP/JPY ~ 0,5
+  nicht_fuer: >-
+    Der Mess-Bot r6-vortag-eurusd-1atr (suche/VORAB_messbots.yaml): er misst gerade, ob ein breiterer Stop das Rutschen
+    verkraftet. Alle anderen Bots (keine Stop-Order-Einstiege mit so engem Stop).
+  messung: >-
+    rutschen_pips aus journal/r6-bots/trades.jsonl: Einstiegskurs minus Orderkurs in Pips, in Handelsrichtung (positiv =
+    schlechter als die Order). Nur geschlossene Demo-Trades seit der Bot sein jetziges Konto hat und nur Einstiege über
+    die Stop-Orders; nachgeholte Trades (nachgeholt: true) zählen nicht, weil sie absichtlich später einsteigen.
+  ab_trades: 10                              # erste Prüfung, sobald 10 solche Trades da sind
+  fenster: 10                                # gemessen wird immer der Median der letzten 10
+  folge: >-
+    Liegt der Median über der Grenze, wird der Bot abgelöst wie nach suche/VORAB_wechsel.yaml: keine neuen Orders, eine
+    offene Position läuft nach ihren Regeln zu Ende, das Konto geht an den Nachfolger aus der Rangliste oder wird frei.
+    Grund in journal/konten.json (abgeloest) und journal/demo-pruefung.jsonl, Kiron sieht ihn im nächsten 12-Stunden-
+    oder Samstags-Bericht. Einen breiteren Stop gibt es nur über einen neuen PR mit Kirons Ja, wenn der Mess-Bot mit
+    1 x ATR (suche/VORAB_messbots.yaml) zeigt, dass er besser ist. Kein Bot ändert seine Regeln selbst.

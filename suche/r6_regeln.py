@@ -113,20 +113,21 @@ def vt_vortag(tage: dict, tag: pd.Timestamp) -> tuple[float, float] | None:
     return None
 
 
-def vt_stop_abstand(bars: pd.DataFrame) -> tuple[float, float] | None:
+def vt_stop_abstand(bars: pd.DataFrame, faktor: float | None = None) -> tuple[float, float] | None:
     """Stop-Abstand der Vortags-Regel seit 04.11.2026: stop_atr x ATR(14) nach Wilder der fertigen 15-Minuten-Bid-Kerzen,
-    Wert der letzten fertigen Kerze (beim Legen der Stop-Orders). Rückgabe (Abstand, ATR) oder None (zu wenig Kerzen)."""
+    Wert der letzten fertigen Kerze (beim Legen der Stop-Orders). Rückgabe (Abstand, ATR) oder None (zu wenig Kerzen).
+    faktor: nur für den Mess-Bot mit 1 x ATR (suche/VORAB_messbots.yaml); sonst VORTAG["stop_atr"]."""
     if len(bars) < 5 * VORTAG["atr_n"]:
         return None
     a = atr_rma(bars["high"].to_numpy(float), bars["low"].to_numpy(float), bars["close"].to_numpy(float),
                 VORTAG["atr_n"])[-1]
     if not (np.isfinite(a) and a > 0):
         return None
-    return VORTAG["stop_atr"] * float(a), float(a)
+    return (VORTAG["stop_atr"] if faktor is None else float(faktor)) * float(a), float(a)
 
 
 def vt_nachholen(bars: pd.DataFrame, tag: pd.Timestamp, t_aus: pd.Timestamp, d: int, ph: float, pl: float,
-                 jetzt: pd.Timestamp) -> dict:
+                 jetzt: pd.Timestamp, stop_atr: float | None = None) -> dict:
     """Kirons Wunsch vom 04.11.2026 13:53 UTC ("wenn du einen verpasst ... dann nimm den halt einfach ... zu spät"):
     Lagen beim Ausbruch noch keine Stop-Orders (Lauf ausgefallen oder zu spät), steigt der Bot per Marktorder nach,
     höchstens VORTAG["nachholen_min"] Minuten nach Beginn der Ausbruchskerze und nur, solange der Trade nach der Regel
@@ -141,7 +142,7 @@ def vt_nachholen(bars: pd.DataFrame, tag: pd.Timestamp, t_aus: pd.Timestamp, d: 
     ab = VORTAG["uhrzeit_ueber"] + 15
     heute_ab = (v.normalize() == tag) & (np.asarray(v.hour * 60 + v.minute) >= ab)
     cut = int(np.argmax(heute_ab)) if heute_ab.any() else len(bars)
-    sa = vt_stop_abstand(bars.iloc[:cut])
+    sa = vt_stop_abstand(bars.iloc[:cut], stop_atr)
     if sa is None:
         out["why"].append("ATR der Viertelstunden unbekannt (zu wenig Kerzen)")
         return out
@@ -163,7 +164,7 @@ def vt_nachholen(bars: pd.DataFrame, tag: pd.Timestamp, t_aus: pd.Timestamp, d: 
 
 
 def vt_entscheide(bars: pd.DataFrame, jetzt, zustand: dict) -> dict:
-    """Platz 1. zustand: {"open": ..., "orders": ..., "tag_erledigt": "YYYY-MM-DD"}.
+    """Platz 1. zustand: {"open": ..., "orders": ..., "tag_erledigt": "YYYY-MM-DD", "stop_atr": nur beim Mess-Bot}.
     action: none | orders (Stop-Orders legen) | cancel (offene Orders löschen) | close (Position schließen)."""
     jetzt = _utc(jetzt)
     v = ortszeit([jetzt], NY)[0] + VERSCH
@@ -220,13 +221,13 @@ def vt_entscheide(bars: pd.DataFrame, jetzt, zustand: dict) -> dict:
             elif beginn <= VORTAG["uhrzeit_ueber"]:
                 out.update(erledigt=True, why=[f"schon um {ny:%H:%M} New York ausgebrochen (vor 4:30): heute kein Trade"])
             else:
-                n = vt_nachholen(bars, tag, t, 1 if hoch else -1, ph, pl, jetzt)
+                n = vt_nachholen(bars, tag, t, 1 if hoch else -1, ph, pl, jetzt, zustand.get("stop_atr"))
                 if n["action"] == "nachholen":
                     out.update(n, why=[f"Ausbruch um {ny:%H:%M} New York verpasst, wird nachgeholt"])
                 else:
                     out.update(erledigt=True, why=[f"Ausbruch um {ny:%H:%M} New York verpasst"] + n["why"])
             return out
-    sa = vt_stop_abstand(bars)
+    sa = vt_stop_abstand(bars, zustand.get("stop_atr"))
     if sa is None:
         out["why"].append("ATR der Viertelstunden unbekannt (zu wenig Kerzen)")
         return out

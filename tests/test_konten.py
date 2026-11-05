@@ -42,6 +42,16 @@ def test_busy_accounts_and_bots_with_open_positions_wait():
     assert k2["zuordnung"] == {} and any(e["event"] == "konto weg" for e in log)
 
 
+def test_every_assigned_account_gets_a_start_balance():
+    """Kritik D7 (05.11.2026): das US500-Konto stand in zuordnung, aber ohne start. Fehlt er, gilt der heutige Stand."""
+    accounts = [acc("1001", preferred=True), acc("1002", "US500", 1000.0)]
+    alt = {"haupt": "1001", "zuordnung": {"oil-brent": "1002"}, "start": {"1001": 995.17}}
+    k, _ = konten.zuordnen(alt, accounts, BOTS, {}, "1001", set(), STAMP)
+    assert k["start"] == {"1001": 995.17, "1002": 1000.0}
+    k2, _ = konten.zuordnen(k, [acc("1001", preferred=True), acc("1002", "US500", 990.0)], BOTS, {}, "1001", set(), STAMP)
+    assert k2["start"]["1002"] == 1000.0                 # einmal gesetzt, bleibt der Startstand
+
+
 def test_client_switches_only_when_needed():
     class Resp:
         ok, status_code, headers = True, 200, {"X-SECURITY-TOKEN": "neu"}
@@ -177,8 +187,8 @@ def test_weekly_report_reads_the_journal_and_names_every_bot(monkeypatch, tmp_pa
     s = wb.stand(datetime(2026, 11, 3, 19, 0, tzinfo=timezone.utc), seit=wb._ts("2026-11-03T08:00"))
     ids = [b["id"] for b in s["bots"]]
     assert ids[:2] == ["gold", "oil-brent"] and {"gold2", "dax"} <= set(ids)
-    assert s["bots"][0]["live"]["trades"] == 0            # der Gold-Trade von vor dem Start zählt nicht
-    assert s["gesamt"] == {"trades": 1, "gewonnen": 1, "sum_r": 2.0, "pf_r": None, "eur": 4.0}
+    assert s["bots"][0]["live"]["trades"] == 1            # Gold zählt jeden Demo-Trade seit 31.10. (Kritik D7)
+    assert s["gesamt"] == {"trades": 2, "gewonnen": 1, "sum_r": 0.99, "pf_r": 1.98, "eur": -0.83}
     assert [e["art"] for e in s["neu"]] == ["zu", "auf"]
     t = wb.text(s)
     assert "Dow Jones (US30 15-Min.) | eigenes …1002, -3,50 € |" in t and "Verkauf offen" in t

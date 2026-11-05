@@ -33,6 +33,9 @@ WOCHEN_BT = 35.0                         # März bis Oktober 2026
 CHART = {"15min": "15-Min.", "30min": "30-Min.", "60min": "1-Std."}
 # Gold-Bot C und B so, wie er jetzt handelt (Stop 1 x ATR, Ausstieg auf eigenes Signal): Runde 3, GOLD 60 Min., C+B
 GOLD_REF = {"trades": 60, "pf_r": 1.09, "win_pct": 23.3, "sum_r": 4.1}
+# Der Gold-Bot handelt seit dem 31.10.2026 auf dem Demo-Hauptkonto (gold/bot/konten.py), also schon vor dem Wochen-Test.
+# Er zählt alle seine Demo-Trades, sonst stünde dort "0 Trades", obwohl er einen hatte (Kritik D7 vom 05.11.2026).
+GOLD_DEMO_START = pd.Timestamp("2026-10-31 12:00:00")
 # Bots aus anderen Runden, die seit Kirons Wunsch vom 04.11.2026 ("alle Strategien gleich auswerten, dann wählen",
 # suche/VORAB_bewertung.yaml) die Konten abgelöster Wochen-Test-Bots bekommen: (Bot-ID, Name, Markt, Chart,
 # Cockpit-Datei, Trade-Datei). Im Bericht stehen sie, sobald sie ein Konto haben.
@@ -48,6 +51,8 @@ WEITERE = [
     ("r6-vortag-eurusd", "Vortag EUR/USD", "EURUSD", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
     ("r6-vortag-gbpusd", "Vortag GBP/USD", "GBPUSD", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
     ("r6-vortag-gbpjpy", "Vortag GBP/JPY", "GBPJPY", "15-Min.", "r6-bots.json", "r6-bots/trades.jsonl"),
+    ("r6-vortag-eurusd-1atr", "Vortag EUR/USD 1 x ATR (Mess-Bot)", "EURUSD", "15-Min.", "r6-bots.json",
+     "r6-bots/trades.jsonl"),
 ]
 
 
@@ -151,12 +156,12 @@ def stand(now: datetime | None = None, seit: pd.Timestamp | None = None) -> dict
     gt = [{"r": t.get("r"), "eur": t.get("pnl_eur"), "side": t.get("side"), "zu": t.get("closed_utc"),
            "auf": t.get("opened_utc"), "grund": t.get("reason"), "entry": t.get("entry"), "exit": t.get("exit")}
           for t in _lines(J / "gold-trades.jsonl")]
-    gt = [t for t in gt if (_ts(t["zu"]) or start) >= start]
+    gt = [t for t in gt if (_ts(t["zu"]) or start) >= GOLD_DEMO_START]   # Gold zählt alle seine Demo-Trades
     gc = _read(J / "gold-chart.json", {})
     pos = gc.get("position")
     haupt = next((k for k in kont.get("konten") or [] if k.get("fuer") == "gold"), None)
     h_start = (kont.get("start") or {}).get(str(kont.get("haupt"))) if kont.get("haupt") else None
-    bots.append({"id": "gold", "name": "Gold C/B", "markt": "Gold", "chart": "1-Std.", "seiten": "C+B",
+    bots.append({"id": "gold", "name": "Gold C/B", "markt": "Gold", "chart": "1-Std., Demo seit 31.10.", "seiten": "C+B",
                  "konto": None if not haupt else {"id": haupt.get("id"), "name": haupt.get("name"), "eigen": False,
                                                   "balance": haupt.get("balance"), "start": h_start,
                                                   "seit_start": None if haupt.get("balance") is None or h_start is None

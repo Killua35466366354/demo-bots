@@ -16,6 +16,10 @@ Capital.com-Demo. Die Prüfung liest nur Dateien (kein Broker) und läuft im Wor
 6. Labor (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml): vier abgeschaltete, aber bestandene Strategien
    bekommen einmal ein freies Konto zurück, solange danach noch genug Konten frei bleiben. Danach gilt für sie die
    Prüfung nach 15/40 Trades wie für alle.
+7. Mess-Bots (Kirons Ja vom 05.11.2026 17:07 UTC, suche/VORAB_messbots.yaml): Vortag EUR/USD mit 1 x ATR bekommt einmal
+   Account 2. Rutsch-Regel (Kirons Ja vom selben Zeitpunkt, suche/VORAB_rutschen.yaml): rutscht ein Vortag-Bot beim
+   Einstieg im Median der letzten 10 Trades mehr als seine Grenze, wird er abgelöst wie in Schritt 2.
+8. Feste Frist (Kritik D1, suche/VORAB_frist.yaml): alle 6 Monate auf dem Konto ein Urteil, auch ohne 40 Trades.
 
     python -m suche.demo_pruefung             # prüfen und speichern
     python -m suche.demo_pruefung --dry-run   # nur ausgeben
@@ -36,6 +40,12 @@ HAUPT_BOT = "gold-cb"            # das Hauptkonto gehört dem Gold-Bot, er wird 
 AUSWAHL = ROOT / "suche" / "auswahl.yaml"
 LABOR = ROOT / "suche" / "VORAB_labor.yaml"
 LABOR_KEY = "VORAB_labor sha256 "
+MESS = ROOT / "suche" / "VORAB_messbots.yaml"
+MESS_KEY = "VORAB_messbots sha256 "
+RUTSCH = ROOT / "suche" / "VORAB_rutschen.yaml"
+RUTSCH_KEY = "VORAB_rutschen sha256 "
+FRIST = ROOT / "suche" / "VORAB_frist.yaml"
+FRIST_KEY = "VORAB_frist sha256 "
 
 
 def regel() -> dict | None:
@@ -48,16 +58,106 @@ def regel() -> dict | None:
     return yaml.safe_load(text)["wechsel"]
 
 
-def labor_regel() -> dict | None:
-    """Die Regel aus VORAB_labor.yaml, nur wenn ihre Prüfsumme im Journal steht (sonst kein Labor)."""
+def _versiegelt(path: Path, key: str, feld: str) -> dict | None:
+    """Inhalt `feld` einer VORAB-Datei, nur wenn ihre Prüfsumme im Journal steht (sonst gilt die Datei nicht)."""
     from suche.runde1 import journal_lines, last_value
     from suche.runde3 import sha256_text
-    if not LABOR.exists():
+    if not path.exists():
         return None
-    text = LABOR.read_text(encoding="utf-8")
-    if last_value(journal_lines(), LABOR_KEY) != sha256_text(text):
+    text = path.read_text(encoding="utf-8")
+    if last_value(journal_lines(), key) != sha256_text(text):
         return None
-    return yaml.safe_load(text)["labor"]
+    return yaml.safe_load(text)[feld]
+
+
+def labor_regel() -> dict | None:
+    """Die Regel aus VORAB_labor.yaml, nur wenn ihre Prüfsumme im Journal steht (sonst kein Labor)."""
+    return _versiegelt(LABOR, LABOR_KEY, "labor")
+
+
+def mess_regel() -> dict | None:
+    """Die Mess-Bots aus VORAB_messbots.yaml, nur wenn ihre Prüfsumme im Journal steht."""
+    return _versiegelt(MESS, MESS_KEY, "messbots")
+
+
+def rutsch_regel() -> dict | None:
+    """Die Rutsch-Regel aus VORAB_rutschen.yaml, nur wenn ihre Prüfsumme im Journal steht."""
+    return _versiegelt(RUTSCH, RUTSCH_KEY, "rutschen")
+
+
+def frist_regel() -> dict | None:
+    """Die feste Frist aus VORAB_frist.yaml, nur wenn ihre Prüfsumme im Journal steht."""
+    return _versiegelt(FRIST, FRIST_KEY, "frist")
+
+
+def frist_grund(kont: dict, bot_id: str, k: dict, rg: dict, fr: dict | None, stamp: str) -> str | None:
+    """Feste Frist (VORAB_frist.yaml): an jeder Frist (alle fr["monate"] Monate ab dem Start) mit weniger als 40 Trades
+    wird ein Bot abgelöst, wenn seine Summe R unter 0 liegt oder er keinen Trade hatte. Jede Frist wird nur einmal
+    geprüft (kont["frist"][bot_id] = Nummer der zuletzt geprüften Frist)."""
+    import pandas as pd
+    if not fr:
+        return None
+    start = max(pd.Timestamp(seit_wann(kont, bot_id) or fr["ab_datum"]), pd.Timestamp(fr["ab_datum"]))
+    jetzt, n = pd.Timestamp(stamp), 0
+    while jetzt >= start + pd.DateOffset(months=int(fr["monate"]) * (n + 1)):
+        n += 1
+    schon = int((kont.get("frist") or {}).get(bot_id, {}).get("nr", 0))
+    if n <= schon:
+        return None
+    kont.setdefault("frist", {})[bot_id] = {"nr": n, "zeit": stamp, "start": str(start), **k}
+    if k["trades"] >= rg["urteil"]["ab_trades"]:
+        return None
+    if k["trades"] == 0 or k["summe_r"] < 0:
+        return (f"Frist nach {int(fr['monate']) * n} Monaten (suche/VORAB_frist.yaml): {k['trades']} Demo-Trades, Summe "
+                f"{k['summe_r']:+.2f} R")
+    return None
+
+
+def mess_vergeben(kont: dict, mb: dict | None, lauf_ids, stamp: str) -> list[dict]:
+    """Mess-Bots (VORAB_messbots.yaml): ein Mess-Bot mit festem Konto bekommt es genau einmal, wenn es frei ist und danach
+    noch vergabe["frei_lassen"] Konten frei bleiben. Ändert `kont` (zuordnung, frei, uebergaben, messung)."""
+    if not mb:
+        return []
+    zu = kont.setdefault("zuordnung", {})
+    schon = kont.get("messung") or {}
+    halten = int((mb.get("vergabe") or {}).get("frei_lassen", 0))
+    log = []
+    for bot_id, m in mb.items():
+        aid = str((m or {}).get("konto") or "") if isinstance(m, dict) else ""
+        frei = [str(x) for x in kont.get("frei") or []]
+        if (not aid or bot_id in schon or bot_id in zu or bot_id not in lauf_ids or bot_id == HAUPT_BOT
+                or bot_id in (kont.get("abgeloest") or {}) or aid not in frei or len(frei) - 1 < halten):
+            continue
+        zu[bot_id] = aid
+        kont["frei"] = [x for x in kont.get("frei") or [] if str(x) != aid]
+        kont.setdefault("messung", {})[bot_id] = {"seit": stamp, "konto": _kurz(aid)}
+        kont.setdefault("uebergaben", []).append({"zeit": stamp, "konto": _kurz(aid), "konto_id": aid, "von": None,
+                                                  "an": bot_id, "messung": True})
+        log.append({"time": stamp, "event": "Mess-Konto vergeben", "bot": bot_id, "konto": _kurz(aid),
+                    "why": "Kirons Ja vom 05.11.2026 17:07 UTC (suche/VORAB_messbots.yaml)"})
+    return log
+
+
+def rutsch_messung(trades: list[dict], ru: dict) -> dict:
+    """Rutschen beim Einstieg über die Stop-Orders (ohne nachgeholte und übernommene Trades): Anzahl und Median der
+    letzten ru["fenster"] Trades in Pips."""
+    import statistics
+    r = [float(t["rutschen_pips"]) for t in trades
+         if t.get("rutschen_pips") is not None and not t.get("nachgeholt") and not t.get("uebernommen")]
+    letzte = r[-int(ru.get("fenster", 10)):]
+    return {"trades": len(r), "median_pips": round(statistics.median(letzte), 2) if letzte else None}
+
+
+def rutsch_grund(bot_id: str, trades: list[dict], ru: dict | None) -> str | None:
+    """Grund für die Ablösung nach VORAB_rutschen.yaml, sonst None."""
+    grenze = ((ru or {}).get("gilt_fuer") or {}).get(bot_id)
+    if grenze is None:
+        return None
+    m = rutsch_messung(trades, ru)
+    if m["trades"] < int(ru.get("ab_trades", 10)) or m["median_pips"] is None or m["median_pips"] <= float(grenze):
+        return None
+    return (f"Rutschen beim Einstieg im Median {m['median_pips']:.1f} Pips (letzte {min(m['trades'], int(ru.get('fenster', 10)))} "
+            f"Trades), über der Grenze von {grenze} Pips (suche/VORAB_rutschen.yaml)")
 
 
 def labor_vergeben(kont: dict, lb: dict | None, lauf_ids, demo_abl: dict, stamp: str) -> list[dict]:
@@ -195,7 +295,8 @@ def ersatz(kont: dict, pf: dict, lauf_ids, demo_abl: dict) -> str | None:
 
 def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | None = None,
             dateien: dict[str, Path] | None = None, aus: dict | None = None,
-            lb: dict | None = None) -> tuple[list[dict], dict]:
+            lb: dict | None = None, mb: dict | None = None, ru: dict | None = None,
+            fr: dict | None = None) -> tuple[list[dict], dict]:
     """Eine Prüfung (reine Funktion bis auf das Lesen der Trade-Dateien). Ändert `kont` (abgeloest, zuordnung für
     freie Konten). Rückgabe: Ereignisse fürs Log und Demo-Stand je Bot."""
     rg = rg or regel()
@@ -208,6 +309,8 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
     log, stand = [], {}
     # Labor (suche/VORAB_labor.yaml): abgeschaltete, aber bestandene Strategien bekommen einmal ein freies Konto
     log += labor_vergeben(kont, lb, dateien, demo_abl, stamp)
+    # Mess-Bots (suche/VORAB_messbots.yaml): Vortag EUR/USD mit 1 x ATR bekommt einmal sein festes freies Konto
+    log += mess_vergeben(kont, mb, dateien, stamp)
     # Kirons Auswahl (suche/auswahl.yaml): abschalten ohne Nachfolger, das Konto wird frei
     for bot_id, warum in sorted((abschalten() if aus is None else aus).items()):
         if (bot_id in zu and bot_id != HAUPT_BOT and bot_id not in abl and bot_id not in demo_abl
@@ -218,10 +321,19 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
     for bot_id in sorted(zu):
         if bot_id == HAUPT_BOT or bot_id in abl or bot_id in demo_abl or bot_id not in dateien:
             continue
-        k = kennzahl(demo_trades(dateien[bot_id], bot_id, seit_wann(kont, bot_id)))
+        tr = demo_trades(dateien[bot_id], bot_id, seit_wann(kont, bot_id))
+        k = kennzahl(tr)
         stand[bot_id] = {**k, "pruefung": stand_text(k, rg)}
+        if bot_id in ((ru or {}).get("gilt_fuer") or {}):
+            stand[bot_id]["rutschen"] = rutsch_messung(tr, ru)
         nach = None if _kombi(bot_id) else ersatz(kont, pf, dateien, demo_abl)   # gemeinsames Konto bleibt den anderen
-        grund = entscheide(k, rg, nach is not None)
+        alte_frist = ((kont.get("frist") or {}).get(bot_id) or {}).get("nr")
+        grund = (entscheide(k, rg, nach is not None) or rutsch_grund(bot_id, tr, ru)
+                 or frist_grund(kont, bot_id, k, rg, fr, stamp))
+        neue_frist = ((kont.get("frist") or {}).get(bot_id) or {}).get("nr")
+        if not grund and neue_frist != alte_frist:          # Frist bestanden: festhalten, damit sie nur einmal zählt
+            log.append({"time": stamp, "event": "Frist bestanden", "bot": bot_id, "nr": neue_frist,
+                        "trades": k["trades"], "summe_r": k["summe_r"]})
         if grund:
             abl[bot_id] = {"an": nach, "seit": stamp, "grund": grund, "messung": k}
             stand[bot_id]["pruefung"] = "abgelöst: " + grund
@@ -288,7 +400,8 @@ def main(argv: list[str]) -> int:
     pf_path = J / "portfolio.json"
     pf = json.loads(pf_path.read_text(encoding="utf-8")) if pf_path.exists() else None
     demo_cfg = yaml.safe_load((ROOT / "suche" / "demo_bots.yaml").read_text(encoding="utf-8"))
-    log, stand = pruefen(kont, pf, demo_cfg, stamp, lb=labor_regel())
+    log, stand = pruefen(kont, pf, demo_cfg, stamp, lb=labor_regel(), mb=mess_regel(), ru=rutsch_regel(),
+                         fr=frist_regel())
     print(json.dumps({"log": log, "stand": stand}, ensure_ascii=False, indent=1))
     if "--dry-run" in argv:
         return 0

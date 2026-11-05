@@ -1,0 +1,40 @@
+# Zwei Mess-Bots (suche/demo_pruefung.py mess_vergeben, suche/r6_bots.py VORTAG_EURUSD_1ATR, suche/vergleich.py).
+# Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kritik F2 vom 05.11.2026 ("Portfolio-Manager: große Kritik mit Verbesserungsplan"): zwei Mess-Bots beantworten offene
+# Fragen der laufenden Bots, ohne neue Suche. Kirons Antwort vom 05.11.2026, 17:07 UTC: "5. ja".
+# Ein Mess-Bot ist kein Kandidat für echtes Geld. Er liefert nur den Vergleich; eine Regeländerung am Kern-Bot gibt es
+# danach nur über einen PR mit Kirons Ja.
+#
+# Festgelegt am 05.11.2026, bevor einer der beiden Mess-Bots einen Trade hatte.
+
+format: 1
+messbots:
+  r6-vortag-eurusd-1atr:
+    frage: "Verkraftet ein Stop von 1 x ATR das Rutschen besser als 0,5 x ATR (Kritik D3)?"
+    regel: >-
+      Genau wie Vortag EUR/USD (r6-vortag-eurusd, suche/VORAB_r6_demo.yaml mit den Nachträgen vom 04.11.2026), nur der
+      Stop-Abstand ist 1 x ATR(14) der Viertelstunden-Kerzen beim Legen statt 0,5 x ATR. Gleiche Größe nach Risiko
+      (1 %, höchstens 10 Euro), gleiches Ziel, gleiches Tagesende, gleiches Nachholen. Eigener Zwilling mit 1 x ATR.
+    konto: "332263729491432606"            # Account 2, das einzige freie Demokonto am 05.11.2026
+    vergleich_mit: r6-vortag-eurusd
+    urteil: >-
+      Sobald beide Bots seit dem Start des Mess-Bots je 40 geschlossene Demo-Trades haben, spätestens am 2027-05-05
+      (6 Monate): Summe R, Gewinnfaktor und Median des Rutschens beider Bots im selben Zeitraum. Der breitere Stop gilt
+      als besser, wenn seine Summe R höher ist und sein Gewinnfaktor mindestens so hoch. Dann schlage ich Kiron einen
+      PR vor (Kern-Bot auf 1 x ATR); sonst endet der Mess-Bot und Account 2 wird wieder frei. Kiron entscheidet.
+    pruefung: "Wie alle Demo-Bots nach suche/VORAB_wechsel.yaml (15/40 Trades). Nicht unter suche/VORAB_rutschen.yaml."
+  gold-cb-long:
+    frage: "Wäre der Gold-Bot nur mit Teil C (Long) besser als mit C und B (Kritik D4, die Shorts verloren)?"
+    messung: >-
+      Kein eigenes Konto (es ist keins mehr frei, und der Gold-Bot handelt auf dem Hauptkonto). Gemessen werden die
+      C-Trades (strategy C) des Gold-Bots auf dem Hauptkonto mit der jetzigen Regel (1-ATR-Stop seit 03.11.2026 09:05
+      UTC, wie gold/bot/VORAB_sicherheit.yaml), als eigene Zeile
+      "Gold nur Long" in journal/vergleich.md. Grenze: Während eine B-Position offen ist, verpasst Teil C Signale, die
+      ein reiner Long-Bot genommen hätte. Das steht als Hinweis neben der Zeile.
+    urteil: >-
+      Zusammen mit dem Urteil über den Gold-Bot (Demo gegen Backtest Ende Januar 2027): C allein gegen C und B, Summe R
+      und Gewinnfaktor. Kiron entscheidet, ob der Gold-Bot Teil B behält.
+  vergabe:
+    frei_lassen: 0                           # der Mess-Bot darf das letzte freie Konto nehmen
+    einmal: true                             # wird der Mess-Bot abgelöst, bekommt er nie wieder ein Konto

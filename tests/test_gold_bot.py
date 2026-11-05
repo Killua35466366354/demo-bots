@@ -593,3 +593,54 @@ def test_stop_atr_must_be_sensible(tmp_path):
     bad.write_text("gold:\n  stop_atr: 7\n", encoding="utf-8")
     with pytest.raises(ValueError):
         GoldLimits.load(bad)
+
+
+def losing_trades(tmp_path, n):
+    rows = [{"dealId": f"v{i}", "side": "short", "r": -1.0, "opened_utc": "2026-11-04T10:11:00",
+             "closed_utc": "2026-11-04T12:11:00+00:00"} for i in range(n)]
+    (tmp_path / "gold-trades.jsonl").write_text("".join(runner.json.dumps(r) + "\n" for r in rows), encoding="utf-8")
+
+
+def test_safety_switch_blocks_the_entry_and_tells_kiron_once(tmp_path, monkeypatch):
+    force_long_signal(monkeypatch)
+    losing_trades(tmp_path, 8)
+    msgs = []
+    client = FakeClient(hourly_bars(5, n=400, start="2026-10-13 18:00"))
+    rec = runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=msgs.append)
+    assert rec["action"] == "none" and client.orders == []
+    assert rec["reasons"][0].startswith("Sicherheitsschalter") and rec["schalter"]["pause"] is True
+    assert rec["schalter"]["trades"] == 8 and rec["schalter"]["summe_r"] == -8.0
+    assert sum("Sicherheitsschalter" in m and "Einstiegssignal" not in m for m in msgs) == 1
+    state = runner.json.loads((tmp_path / "gold-state.json").read_text(encoding="utf-8"))
+    assert state["schalter_pause"].startswith("Sicherheitsschalter")
+
+
+def test_safety_switch_message_is_not_repeated_on_the_next_run(tmp_path, monkeypatch):
+    force_long_signal(monkeypatch)
+    losing_trades(tmp_path, 8)
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    (tmp_path / "gold-state.json").write_text(runner.json.dumps({"last_bar": str(bars.index[-2]),
+                                                                 "schalter_pause": "Sicherheitsschalter: alt"}),
+                                              encoding="utf-8")
+    msgs = []
+    runner.run(FakeClient(bars), GoldLimits(stage=1), tmp_path, NOW, notify=msgs.append)
+    assert not any("Offene Positionen laufen" in m for m in msgs)
+
+
+def test_seven_losses_still_trade_and_the_record_shows_the_count(tmp_path, monkeypatch):
+    force_long_signal(monkeypatch)
+    losing_trades(tmp_path, 7)
+    client = FakeClient(hourly_bars(5, n=400, start="2026-10-13 18:00"))
+    rec = runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    assert rec["action"] == "open" and len(client.orders) == 1
+    assert rec["schalter"] == {"pause": False, "grund": None, "trades": 7, "summe_r": -7.0, "pf_r": 0.0,
+                               "hinweise": []}
+
+
+def test_safety_switch_never_stops_the_exit(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch, exit_long=True)
+    losing_trades(tmp_path, 8)
+    client = BrokerClient(bars, position=open_long_state(tmp_path, bars))
+    rec = runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    assert client.orders == [("close", "d1")] and rec["trades_closed"] == 1

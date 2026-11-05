@@ -2,7 +2,8 @@
 
 Die Regeln sind dieselben wie in `gold/backtest/engine.py::run_live` (Schritt 3, Signale auf dem
 Schlusskurs): eine Position gleichzeitig, kein Nachkaufen, Gegensignal nach `conflict`, Tages-,
-Wochen- und Not-Aus-Limit sperren nur neue Einstiege. Der Notfall-Stop liegt als Stop-Order beim Broker.
+Wochen- und Not-Aus-Limit sperren nur neue Einstiege, ebenso der Sicherheitsschalter (gold/bot/schalter.py).
+Der Notfall-Stop liegt als Stop-Order beim Broker.
 
 Limits kommen aus dem Abschnitt `gold:` in config/limits.yaml. Den Abschnitt schreibt nur Kiron.
 Fehlt er, läuft der Bot in Stufe 0: er rechnet und schreibt ins Journal, sendet aber keine Order.
@@ -143,8 +144,10 @@ def entry_blocks(limits: GoldLimits, account: Account, quote: Quote, side: int) 
     return blocks
 
 
-def decide(sig: Signals, position: int, limits: GoldLimits, account: Account, quote: Quote) -> Decision:
-    """position: +1 long, -1 short, 0 flach (laut Broker). Abgeschaltete Seiten zählen nicht als Signal."""
+def decide(sig: Signals, position: int, limits: GoldLimits, account: Account, quote: Quote,
+           pause: str | None = None) -> Decision:
+    """position: +1 long, -1 short, 0 flach (laut Broker). Abgeschaltete Seiten zählen nicht als Signal.
+    pause: Grund des Sicherheitsschalters (gold/bot/schalter.py), sperrt wie die Limits nur neue Einstiege."""
     sig = Signals(sig.long_entry and "long" in limits.sides, sig.long_exit,
                   sig.short_entry and "short" in limits.sides, sig.short_exit)
     if position == 0:
@@ -153,7 +156,7 @@ def decide(sig: Signals, position: int, limits: GoldLimits, account: Account, qu
         if not (sig.long_entry or sig.short_entry):
             return Decision("none")
         want = 1 if sig.long_entry else -1
-        blocks = entry_blocks(limits, account, quote, want)
+        blocks = ([pause] if pause else []) + entry_blocks(limits, account, quote, want)
         return Decision("none", reasons=blocks) if blocks else Decision("open", want)
 
     own_exit = sig.long_exit if position > 0 else sig.short_exit
@@ -162,7 +165,7 @@ def decide(sig: Signals, position: int, limits: GoldLimits, account: Account, qu
     if own_exit:
         return Decision("close", reasons=["Ausstiegssignal der eigenen Strategie"])
     if other_in and limits.conflict == "reverse":
-        blocks = entry_blocks(limits, account, quote, -position)
+        blocks = ([pause] if pause else []) + entry_blocks(limits, account, quote, -position)
         if not blocks:
             return Decision("reverse", -position, ["Gegensignal, Regel reverse"])
         return Decision("none", reasons=["Gegensignal, Umdrehen gesperrt"] + blocks)

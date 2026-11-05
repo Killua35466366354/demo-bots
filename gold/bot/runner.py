@@ -20,6 +20,10 @@ Jeder abgeschlossene Trade landet in journal/gold-trades.jsonl (Format bei `trad
 Notfall-Stop beim Broker zwischen zwei Läufen auslöst: Dann fehlt die Position, die in gold-state.json
 (`open_trade`) stand, und der Lauf liest den Schlusskurs aus der Kontoaktivität des Brokers.
 
+Vor jeder Entscheidung prüft `schalter.pruefen` den Sicherheitsschalter (Kritik D4): Steht die Summe R seit dem
+Start des 1-ATR-Tests bei -8 oder tiefer, oder bestehen die ersten 30 Trades das Urteil nicht, gibt es keine neuen
+Einstiege mehr, bis Kiron per PR einen neuen Start einträgt. Ausstiege und Stops laufen weiter.
+
 Zugangsdaten nur aus Umgebungsvariablen (GitHub-Secrets): CAPITAL_API_KEY, CAPITAL_IDENTIFIER,
 CAPITAL_API_PASSWORD. Live-Handel gibt es hier nicht.
 """
@@ -37,7 +41,7 @@ import pandas as pd
 
 from gold.backtest.pine_port import signals_b_short, signals_c_long
 from gold.backtest.sizing import atr_rma
-from gold.bot import konten
+from gold.bot import konten, schalter
 from gold.bot.capital import CapitalClient, CapitalError
 from gold.bot.rules import (Account, GoldLimits, Quote, Signals, bars_from_prices, catch_up, decide,
                             last_bar_is_current, roll_account_marks, stop_level)
@@ -285,14 +289,22 @@ def run(client: CapitalClient, limits: GoldLimits, journal_dir: Path, now: datet
                   peak_eur=state["peak_eur"], day_start_eur=state["day_start_eur"],
                   week_start_eur=state["week_start_eur"])
     quote = quote_for(client, limits.epic, currency)
-    decision = decide(sig, position, limits, acc, quote)
+    # Sicherheitsschalter (Kritik D4, gold/bot/VORAB_sicherheit.yaml): rechnet jedes Mal neu aus dem Trade-Journal,
+    # einschließlich der Trades, die der Broker seit dem letzten Lauf geschlossen hat.
+    stand = schalter.pruefen(schalter.lese_trades(journal_dir / "gold-trades.jsonl") + trades,
+                             schalter.gesiegelte_regel())
+    decision = decide(sig, position, limits, acc, quote, pause=stand.grund)
     decision.reasons = notes + decision.reasons
+    if send_orders:
+        if stand.pause and not previous.get("schalter_pause"):
+            notify(f"Gold-Bot: {stand.grund}. Offene Positionen laufen mit ihrem Stop weiter.")
+        state["schalter_pause"] = stand.grund
 
     record = {"time": now.isoformat(timespec="seconds"), "bar": str(last), "close_bid": bars["close"].iloc[-1],
               "spread": round(float(spread.iloc[-1]), 3), "signals": sig.__dict__, "position": position,
               "missed_bars": len(missed), "equity": round(acc.equity_eur, 2), "currency": currency,
               "stage": limits.stage, "action": decision.action, "side": decision.side, "reasons": decision.reasons,
-              "stop_usd": limits.stop_usd, "atr14": round(atr14, 2)}
+              "stop_usd": limits.stop_usd, "atr14": round(atr14, 2), "schalter": stand.journal()}
     if decision.action != "none":
         if limits.stage >= 1 and send_orders:
             record["results"] = execute(client, decision, deal_id, limits, quote)

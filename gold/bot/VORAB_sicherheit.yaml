@@ -1,0 +1,49 @@
+# Sicherheitsschalter für den Gold-Demo-Bot C/B (Kritik D4). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kirons Entscheidung vom 05.11.2026, 17:07 UTC: "3. ja" auf D4 ("Für den Gold-Bot wird vorab ein Sicherheitsschalter
+# festgelegt, zum Beispiel eine Pause nach einer festen Verlustgrenze"). Grund aus der großen Kritik vom 05.11.2026:
+# Der Gold-Bot hat die Bewertung 2025-2026 nicht bestanden (Gewinnfaktor 1,17), ist aber aktiv und von der
+# Wechselregel der anderen Demo-Bots ausgenommen (suche/VORAB_wechsel.yaml). Ein vorab festgelegtes Abbruch-Kriterium
+# fehlte, und das Urteil des Stop-Tests nach 30 Trades (demo_stop_atr in gold/backtest/VORAB.yaml) hatte keine Folge.
+#
+# Festgelegt am 05.11.2026 um 17:13 UTC, bevor der Bot einen Trade mit dem 1-ATR-Stop gemacht hat (0 Trades seit start).
+# Vorher angesehen, nur Rückschau, Bot von heute auf HistData 5 min (Projektdateien gold-bot/sicherheit/):
+# Drawdown vom Höchststand trennt gute und schlechte Zeiten kaum (auch 2023-25 fiel der Bot bis 13 R und verlor
+# 12 Trades in Folge). Die Summe R seit Teststart trennt besser. Ein Zwischencheck nach 15 Trades (Gewinnfaktor unter
+# 0,6 wie in der Wechselregel) brachte fast nichts dazu und ist deshalb nicht dabei.
+
+format: 1
+sicherheitsschalter:
+  gilt_fuer: >-
+    Gold-Bot C+B (gold/bot/runner.py) auf dem Hauptkonto im Capital.com-Demo, Stop 1 x ATR. Gilt im öffentlichen Repo
+    demo-bots. Wird der private Ersatzlauf eingeschaltet, muss der Schalter vorher dorthin.
+  start: "2026-11-03T09:05:00Z"          # Beginn des Tests demo_stop_atr (Kiron setzte stop_atr: 1.0)
+  zaehlt: >-
+    Abgeschlossene Trades in journal/gold-trades.jsonl, eröffnet ab start (opened_utc, sonst entry_bar, sonst
+    closed_utc), mit einem Wert in r. R = Ergebnis in Dollar geteilt durch Abstand zum Stop beim Einstieg mal Größe.
+    Ein Trade ohne r zählt nicht und steht als Hinweis im Journal.
+  pause_wenn:
+    summe_r_hoechstens: -8.0             # jederzeit: Summe R seit start ist -8 oder tiefer (etwa 110 bis 140 Euro)
+    urteil_nach_trades: 30               # Urteil von demo_stop_atr auf den ersten 30 Trades seit start wird bindend:
+    urteil_summe_r_ueber: 0.0            #   Pause, wenn die Summe R nicht über 0 liegt
+    urteil_pf_r_mindestens: 1.2          #   oder der Gewinnfaktor in R unter 1,2 liegt (ohne Verlust-Trade: hoch)
+  pause: >-
+    Keine neuen Einstiege mehr, auch kein Umdrehen. Eine offene Position läuft mit ihrem Stop und ihrem
+    Ausstiegssignal zu Ende. Der Bot rechnet weiter und schreibt jedes Einstiegssignal, das er ohne Pause genommen
+    hätte, mit dem Grund "Sicherheitsschalter" in journal/gold-decisions.jsonl, damit das Lernjournal zählen kann,
+    was die Pause gekostet oder gespart hat. Beim Auslösen eine Nachricht an Kiron.
+  zurueck: >-
+    Nur Kiron, mit einer Entscheidungskarte und einem PR, der hier einen neuen start einträgt und eine Zeile ins
+    Protokoll schreibt. Gezählt wird dann ab null. Der Bot setzt sich nie selbst zurück.
+  nie: >-
+    config/limits.yaml bleibt unberührt, Tages-, Wochen- und Not-Aus-Grenze gelten weiter. Keine Regel der Strategie
+    ändert sich. Kein echtes Geld.
+  rueckschau: >-
+    Für jede Startstelle die nächsten 30 Trades. 2023-25 (208 Trades, +109,7 R, die gute Zeit): Pause in 29 % der
+    Strecken (18 % durch -8 R, Median nach 11 Trades; der Rest durch das Urteil nach 30), danach wären im Median
+    noch +13,8 R gekommen. 2015-22 (536 Trades, -199,5 R, die schlechte Zeit): Pause in 94 %, Median nach 13 Trades,
+    danach im Median -9,6 R gespart. 2015 bis Oktober 2026: Pause in 75 %.
+  ehrlich: >-
+    Auch ein guter Bot fällt manchmal auf -8 R. In guter Zeit kostet eine Pause viel, in schlechter spart sie viel.
+    Die Schwelle ist so gewählt, dass eine Pause in schlechter Zeit früh kommt und in guter Zeit selten ist. Ein
+    Beweis ist das nicht: 30 Trades sind wenig, und die Rückschau kennt die Kurse schon.

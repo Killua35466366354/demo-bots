@@ -135,7 +135,15 @@ VORTAG_GBPUSD = Bot(
     "Gewinnfaktor 1,19. Mit dem neuen Stop (Stop-Wahl 04.11.2026, 1.000 Euro, 1 % Risiko): 2025 bis Oktober 2026 "
     "130 Trades, 263 statt 165 Euro, Gewinnfaktor 1,61 statt 1,22, Treffer 27 statt 39 %; 2015 bis 2024 2.055 statt "
     "1.098 Euro. Rutschen ist nicht eingerechnet (0,5 Pip je Einstieg und Stop: 137 statt 55 Euro).")
-BOTS = (VORTAG, LONDON, NOISE, VORTAG_EURUSD, VORTAG_GBPUSD)
+VORTAG_GBPJPY = Bot(
+    "r6-vortag-gbpjpy", "vortag_stop_oco", "GBPJPY", (), "Konto folgt",
+    "Vortageshoch/-tief mit Stop-Orders (GBP/JPY)", VORTAG_ATR_REGEL,
+    "Kirons Auswahl vom 04.11.2026 (verbessern: Vortag auf weiteren Paaren), vorab festgelegter Test vom 05.11.2026 "
+    "(Prüfsumme 7e19dbe7 im Protokoll des privaten Repos): 9 Paare, gewählt auf 2015 bis 2024, geurteilt nur auf 2025 "
+    "bis Oktober 2026, nur GBP/JPY bestanden. 2025 bis Oktober 2026 (1.000 Euro, 1 % Risiko, Stop 0,5 x ATR beim "
+    "Legen): 94 Trades, 190 Euro, Gewinnfaktor 1,45, Treffer 25 %, besser als 99 % der Zufallsläufe. Aber 2026 nur "
+    "+0,5 Euro und größter Rückgang 150 Euro (EUR/USD: 36 Euro). Mit 9 Paaren kann eines zufällig bestehen.")
+BOTS = (VORTAG, LONDON, NOISE, VORTAG_EURUSD, VORTAG_GBPUSD, VORTAG_GBPJPY)
 # Beendete Bots und wer ihr Konto bekommt. Kirons einheitlicher Vergleich vom 04.11.2026 (Backtest 2025 bis heute,
 # suche/VORAB_bewertung.yaml): Vortag USD/JPY besteht nicht (Gewinnfaktor 0,95, 2026: 0,88), Vortag GBP/USD schon (1,22).
 # Ein beendeter Bot legt nichts Neues mehr, löscht noch liegende Stop-Orders, führt eine offene Position zu Ende und gibt

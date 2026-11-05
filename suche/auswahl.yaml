@@ -15,6 +15,9 @@
 # verbessern: läuft weiter, daran wird gearbeitet (eigene Threads, neue Tests vorab festgelegt).
 # abschalten: öffnet keinen neuen Trade mehr. Eine offene Position läuft nach ihren Regeln zu Ende, dann wird das Konto
 #   frei (journal/konten.json "frei") und geht an die nächste Strategie, die die Regel in VORAB_wechsel.yaml besteht.
+# Vortag auf weiteren Paaren (verbessern bis 05.11.2026): vorab festgelegter Test vom 05.11.2026 auf 9 Paaren, gewählt
+#   auf 2015-2024, geurteilt nur auf 2025-2026. Nur GBP/JPY bestanden, knapp (2026 fast null, Rückgang 150 €). Erst
+#   ab Kirons Merge steht GBP/JPY unter behalten und damit auch in der Kombi (VORAB_aufstieg.yaml).
 # labor: Kirons Entscheidung vom 05.11.2026, 11:07 UTC (suche/VORAB_labor.yaml): die vier am 04.11.2026 abgeschalteten,
 #   aber bestandenen Strategien laufen als Vorwärtstest auf freien Demokonten, getrennt vom Kern (nicht in der Kombi,
 #   nicht im Wochen-Check der Kern-Strategien). Die Gründe fürs Abschalten gelten weiter und stehen dabei.
@@ -27,14 +30,11 @@ auswahl:
     us500-ruecksetzer: "2025 +31 €, 2026 +24 €, Rückgang 4 €, Gewinnfaktor 5,8 (Top 3 auf einem Konto)"
     r5-ruecksetzer-us100: "2025 +6 €, 2026 +17 €, Rückgang 15 €, Gewinnfaktor 1,9 (Top 3 auf einem Konto)"
     r7-nasdaq-noise-long: "2025 +13 €, 2026 +10 €, Rückgang 3 €, Gewinnfaktor 3,5 (Top 3 auf einem Konto)"
+    r6-vortag-gbpjpy: "2025 +189 €, 2026 +0,5 €, Rückgang 150 €, Gewinnfaktor 1,45 (Test vom 05.11.2026, Stop 0,5 ATR)"
   verbessern:
     gold-cb: >-
       2025 +328 €, 2026 -30 €. Kirons Pine auf dem Hauptkonto, eigener Plan bis Ende Januar 2027; jeden Morgen eine
       neue Idee im Gold-Lernjournal.
-    vortag-weitere-paare: >-
-      Die Vortag-Regel auf weiteren Währungspaaren. Sie hat auf EUR/USD und GBP/USD in beiden Jahren verdient, auf
-      USD/JPY nicht. Mehr Paare heißt mehr Trades im Monat bei gleichem Risiko je Trade. Nur mit einem vorab
-      festgelegten Test (lernen bis 2024, prüfen 2025-2026); was besteht, bekommt ein freies Konto.
   labor:
     oil-brent: "2025 -177 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 256 €"
     r6-noise-usdjpy: "+49 € aus 254 Trades (2025 +2 €), Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"

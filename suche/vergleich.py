@@ -39,7 +39,11 @@ AUSWAHL = ROOT / "suche" / "auswahl.yaml"
 WOCHEN_BEWERTUNG = (pd.Timestamp("2026-10-30") - pd.Timestamp("2025-01-01")).days / 7   # Fenster der Bewertung
 EUR_JE_R = 10.0                     # 1 % Risiko auf 1.000 €
 GOLD = dp.HAUPT_BOT                 # Gold-Bot C/B auf dem Hauptkonto
-GOLD_START = "2026-11-03T07:14:21"  # Beginn des Demo-Vergleichs (journal/demo-bots.json start_utc)
+GOLD_LONG = "gold-cb-long"           # Mess-Zeile: nur die C-Trades des Gold-Bots (suche/VORAB_messbots.yaml)
+MESS_TEXT = {"status": "messung", "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"}
+# Gold fürs Urteil: nur Trades mit der jetzigen Regel (Stop 1 x ATR seit 03.11.2026 09:05 UTC, gleicher Start wie
+# gold/bot/VORAB_sicherheit.yaml). Der Wochenbericht zeigt zusätzlich alle Demo-Trades seit 31.10. (Kritik D7).
+GOLD_START = "2026-11-03T09:05:00"
 
 
 def regel() -> dict | None:
@@ -115,7 +119,9 @@ def _soll(p: dict, seit: pd.Timestamp, tag: pd.Timestamp) -> dict | None:
             else round(p["eur_1000"] / EUR_JE_R / WOCHEN_BEWERTUNG * wochen, 2)}
 
 
-def _gruppe(bid: str, aus: dict, abgeloest: set) -> str:
+def _gruppe(bid: str, aus: dict, abgeloest: set, mess: set = frozenset()) -> str:
+    if bid in mess:
+        return "messung"                            # Mess-Bot (suche/VORAB_messbots.yaml), kein Kandidat für echtes Geld
     for g in ("behalten", "verbessern", "labor", "abschalten"):
         if bid in (aus.get(g) or {}):
             return g
@@ -142,6 +148,7 @@ def vergleich(now: datetime | None = None) -> dict:
     konto_name = {str(k.get("id")): k.get("name") for k in kont.get("konten") or []}
     zu = kont.get("zuordnung") or {}
     abgeloest = set(kont.get("abgeloest") or {}) | set(cfg.get("abgeloest") or {}) | set(dp._r6_beendet())
+    mess = set(kont.get("messung") or {})
 
     laeufe = {GOLD: J / "gold-trades.jsonl", **dp.laeufe()}
     zeilen, alle_trades = [], {}
@@ -168,15 +175,24 @@ def vergleich(now: datetime | None = None) -> dict:
         name, markt = namen.get(bid, (p.get("name") or ("Gold C/B" if bid == GOLD else bid), p.get("markt")))
         zeilen.append({
             "id": bid, "name": p.get("name") or name, "markt": p.get("markt") or markt or ("Gold" if bid == GOLD else None),
-            "gruppe": _gruppe(bid, aus, abgeloest), "aktiv": aktiv,
+            "gruppe": _gruppe(bid, aus, abgeloest, mess), "aktiv": aktiv,
             "konto": "Hauptkonto" if bid == GOLD else konto_name.get("…" + str(zu.get(bid, ""))[-4:]) if aktiv else None,
             "seit": None if start is None else start.isoformat(), "ist": z, "soll": soll,
             "abweichung_r": None if not soll or soll["summe_r"] is None else round(z["summe_r"] - soll["summe_r"], 2),
             "bewertung": None if not p else {"rang": p.get("rang"), "pf": p.get("pf"), "eur_1000": p.get("eur_1000"),
                                              "bestanden": p.get("bestanden")},
             "monate": _monate(trades),
-            "aufstieg": None if not aktiv else ({"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"}
-                                                if rg is None else pruefe(trades, rg["einzeln"], rueck_max))})
+            "aufstieg": None if not aktiv else MESS_TEXT if bid in mess else (
+                {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"}
+                if rg is None else pruefe(trades, rg["einzeln"], rueck_max))})
+    # ---- Mess-Zeile "Gold nur Long" (Kritik F2/D4, suche/VORAB_messbots.yaml): die C-Trades des Hauptkontos ----
+    if GOLD in alle_trades:
+        lt = [t for t in alle_trades[GOLD] if (t.get("strategy") or ("C" if t.get("side") == "long" else "B")) == "C"]
+        zeilen.append({"id": GOLD_LONG, "name": "Gold nur Long (Teil C)", "markt": "Gold", "gruppe": "messung",
+                       "aktiv": True, "konto": "Hauptkonto (aus Gold C/B)", "seit": GOLD_START, "ist": kennzahlen(lt),
+                       "soll": None, "abweichung_r": None, "bewertung": None, "monate": _monate(lt),
+                       "aufstieg": {"status": "messung", "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem "
+                                    "Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"}})
     zeilen.sort(key=lambda b: (not b["aktiv"], -b["ist"]["summe_r"], (b["bewertung"] or {}).get("rang") or 999))
     for i, b in enumerate(zeilen, 1):
         b["rang"] = i

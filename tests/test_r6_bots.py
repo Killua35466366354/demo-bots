@@ -268,7 +268,13 @@ def test_vortag_eurusd_gbpusd_nur_ueber_die_zuordnung():
     assert rb.VORTAG_EURUSD.regel == rb.VORTAG_GBPUSD.regel == rb.VORTAG_ATR_REGEL and "0,5 x ATR" in rb.VORTAG_ATR_REGEL
     assert rb.VORTAG_GBPUSD.strategie == "vortag_stop_oco"
     assert [b.bot_id for b in rb.BOTS] == ["r6-vortag-usdjpy", "r6-london-gbpusd", "r6-noise-usdjpy",
-                                           "r6-vortag-eurusd", "r6-vortag-gbpusd", "r6-vortag-gbpjpy"]
+                                           "r6-vortag-eurusd", "r6-vortag-gbpusd", "r6-vortag-gbpjpy",
+                                           "r6-vortag-eurusd-1atr"]
+    # Mess-Bot (suche/VORAB_messbots.yaml): Konto nur über die Zuordnung, Stop 1 x ATR, sonst dieselbe Regel
+    assert rb.konto_fuer(rb.VORTAG_EURUSD_1ATR, accounts({HAUPT: "Account", "2606": "Account 2"}), {"zuordnung": {}},
+                         HAUPT, lambda a: True) is None
+    assert rb.VORTAG_EURUSD_1ATR.stop_atr == 1.0 and rb.VORTAG_EURUSD.stop_atr is None
+    assert "Stop 1 x ATR" in rb.VORTAG_EURUSD_1ATR.regel and "0,5 x ATR" not in rb.VORTAG_EURUSD_1ATR.regel.split("(")[0]
 
 
 def test_vortag_gbpjpy_gleiche_regel_und_nur_ueber_die_zuordnung():
@@ -305,6 +311,26 @@ def test_zwilling_findet_den_vortags_trade_und_vergleicht():
     assert abs(t["stop_abst"] - sa) < 1e-6
 
 
+def test_mess_bot_stop_ist_1_atr_bei_bot_und_zwilling():
+    """Mess-Bot (suche/VORAB_messbots.yaml): gleicher Tag, Stop doppelt so weit wie beim Kern-Bot, Zwilling ebenso."""
+    bis = utc("2026-11-04", "17:00", NY)
+    bars = vt_bars(bis)
+    bars.loc[utc("2026-11-04", "06:00", NY)] = [150.3, 150.6, 150.25, 150.5]
+    bars.loc[utc("2026-11-04", "06:15", NY):utc("2026-11-04", "16:45", NY)] = [150.5, 150.55, 150.45, 150.5]
+    vor = bars.loc[:utc("2026-11-04", "04:15", NY)]
+    halb, a = rg.vt_stop_abstand(vor)
+    ganz, a2 = rg.vt_stop_abstand(vor, 1.0)
+    assert a == a2 and abs(ganz - 2 * halb) < 1e-12 and abs(halb - rg.VORTAG["stop_atr"] * a) < 1e-12
+    d0 = rg.vt_entscheide(vor, utc("2026-11-04", "04:31", NY), {})
+    d1 = rg.vt_entscheide(vor, utc("2026-11-04", "04:31", NY), {"stop_atr": 1.0})
+    assert d0["action"] == d1["action"] == "orders" and abs(d1["stop_abstand"] - 2 * d0["stop_abstand"]) < 1e-12
+    sp = pd.Series(0.01, index=bars.index)
+    z0 = zw.zwilling_tag("vortag_stop_oco", "USDJPY", bars, sp, "2026-11-04")
+    z1 = zw.zwilling_tag("vortag_stop_oco", "USDJPY", bars, sp, "2026-11-04", stop_atr=1.0)
+    assert len(z0["trades"]) == len(z1["trades"]) == 1
+    assert abs(z1["trades"][0]["stop_abst"] - 2 * z0["trades"][0]["stop_abst"]) < 1e-9
+
+
 def test_zwilling_eurusd_gbpusd_schatten_bis_zum_konto(monkeypatch):
     """Ohne Konto bleiben EUR/USD und GBP/USD Schatten wie bisher; mit Konto vergleicht der Zwilling mit dem Bot."""
     monkeypatch.setattr(rb, "kerzen", lambda *a, **k: (pd.DataFrame(), pd.Series(dtype=float)))
@@ -316,15 +342,17 @@ def test_zwilling_eurusd_gbpusd_schatten_bis_zum_konto(monkeypatch):
     keys = sorted((r["strategie"], r["markt"]) for r in rows)
     assert keys == sorted([("vortag_stop_oco", "USDJPY"), ("london_stunde_long", "GBPUSD"), ("noise_band", "USDJPY"),
                            ("vortag_stop_oco", "EURUSD"), ("vortag_stop_oco", "GBPUSD"),
-                           ("vortag_stop_oco", "GBPJPY")])
-    by = {(r["strategie"], r["markt"]): r for r in rows}
+                           ("vortag_stop_oco", "GBPJPY"), ("vortag_stop_oco", "EURUSD")])
+    mess = [r for r in rows if r.get("stop_atr")]
+    assert [(r["bot"], r["stop_atr"]) for r in mess] == [("r6-vortag-eurusd-1atr", 1.0)]   # eigener Zwilling, 1 x ATR
+    by = {(r["strategie"], r["markt"]): r for r in rows if not r.get("stop_atr")}
     assert by[("vortag_stop_oco", "EURUSD")]["schatten"] and not by[("vortag_stop_oco", "EURUSD")]["konto"]
     assert not by[("vortag_stop_oco", "GBPJPY")]["konto"]          # GBP/JPY ohne Konto: Zwilling schreibt nur mit
     assert not by[("london_stunde_long", "GBPUSD")]["schatten"] and not by[("noise_band", "USDJPY")]["schatten"]
     assert by[("vortag_stop_oco", "USDJPY")]["schatten"]                  # beendet: nur noch Schatten
     lauf2 = rb.Lauf(None, utc("2026-11-05", "17:30", NY), {}, True)
     rows2 = rb.zwillinge(lauf2, {"bots": {"r6-vortag-eurusd": {"konto_id": "3678"}}}, [])
-    eu = next(r for r in rows2 if r["markt"] == "EURUSD")
+    eu = next(r for r in rows2 if r["markt"] == "EURUSD" and not r.get("stop_atr"))
     assert eu["konto"] and not eu["schatten"] and eu["vergleich"]["gleich"]
 
 

@@ -132,3 +132,73 @@ def test_euro_respects_leverage_and_stop_unit():
     assert bw.euro(0.1, 2.0, "FX") == 15.0                             # Stop 0,05 %: Position auf 15.000 € begrenzt
     assert bw.euro(3.0, 3.0, "INDICES", je_stop=3.0) == 10.0           # R in ATR, Stop 3 x ATR: ein R bis zum Stop
     assert bw.euro(-0.5, -1.0, "COMMODITIES") == -10.0 and bw.euro(1.0, None, "FX") is None
+
+
+# ---------- Mess-Bots und Rutsch-Regel (Kritik F2/D3, Kirons Ja vom 05.11.2026 17:07 UTC) ----------
+
+def test_mess_and_rutsch_rules_are_journaled():
+    mb, ru = dp.mess_regel(), dp.rutsch_regel()
+    assert mb is not None and ru is not None, "Prüfsumme von VORAB_messbots.yaml oder VORAB_rutschen.yaml fehlt"
+    assert mb["r6-vortag-eurusd-1atr"]["konto"] == "332263729491432606"            # Account 2
+    assert set(ru["gilt_fuer"]) == {"r6-vortag-eurusd", "r6-vortag-gbpusd", "r6-vortag-gbpjpy"}
+    assert "r6-vortag-eurusd-1atr" not in ru["gilt_fuer"] and ru["ab_trades"] == ru["fenster"] == 10
+    from suche.r6_bots import BOTS
+    assert "r6-vortag-eurusd-1atr" in {b.bot_id for b in BOTS} and "r6-vortag-eurusd-1atr" in dp.laeufe()
+
+
+def test_mess_bot_gets_its_free_account_exactly_once(tmp_path):
+    mb = {"m1": {"konto": "2606"}, "vergabe": {"frei_lassen": 0}}
+    kont = {"zuordnung": {"b1": "1001"}, "frei": ["2606"]}
+    log = dp.mess_vergeben(kont, mb, {"m1": tmp_path / "t.jsonl"}, "2026-11-05T17:30:00")
+    assert kont["zuordnung"]["m1"] == "2606" and kont["frei"] == [] and kont["messung"]["m1"]["konto"] == "…2606"
+    assert log[0]["event"] == "Mess-Konto vergeben" and kont["uebergaben"][-1]["messung"]
+    # abgelöst und Konto wieder frei: nie ein zweites Mal
+    del kont["zuordnung"]["m1"]
+    kont["frei"] = ["2606"]
+    assert dp.mess_vergeben(kont, mb, {"m1": tmp_path / "t.jsonl"}, "2026-12-01T10:00:00") == []
+    # Konto nicht frei (gehört einem anderen Bot) oder kein Lauf: nichts
+    k2 = {"zuordnung": {"b1": "2606"}, "frei": []}
+    assert dp.mess_vergeben(k2, mb, {"m1": tmp_path / "t.jsonl"}, "2026-11-05T17:30:00") == [] and "m1" not in k2["zuordnung"]
+    assert dp.mess_vergeben({"frei": ["2606"]}, mb, {}, "2026-11-05T17:30:00") == []
+
+
+def test_rutsch_rule_counts_only_stop_order_entries_and_uses_the_median_of_the_last_10():
+    ru = {"gilt_fuer": {"v1": 0.5}, "ab_trades": 10, "fenster": 10}
+    t = lambda p, **k: {"bot": "v1", "r": 1.0, "rutschen_pips": p, **k}      # noqa: E731
+    assert dp.rutsch_grund("v1", [t(2.0)] * 9, ru) is None                        # erst ab 10 Trades
+    assert dp.rutsch_grund("v1", [t(0.5)] * 10, ru) is None                       # genau an der Grenze: bleibt
+    assert "Median 0.6" in dp.rutsch_grund("v1", [t(0.6)] * 10, ru)
+    nach = [t(5.0, nachgeholt=True)] * 10 + [t(None)] * 3                          # nachgeholt/ohne Messung zählen nicht
+    assert dp.rutsch_grund("v1", nach + [t(0.0)] * 9, ru) is None
+    assert dp.rutsch_grund("v1", [t(3.0)] * 10 + [t(0.1)] * 10, ru) is None       # nur die letzten 10 zählen
+    assert dp.rutsch_grund("anderer", [t(3.0)] * 10, ru) is None                  # gilt nur für die genannten Bots
+
+
+def test_rutsch_rule_replaces_the_bot_like_the_switch_rule(tmp_path):
+    tr = [{"bot": "b1", "r": 1.0 if i % 2 else -0.5, "rutschen_pips": 0.9, "closed_utc": f"2026-11-20T10:{i:02d}:00"}
+          for i in range(10)]
+    kont, pf, dateien = _setup(tmp_path, tr)
+    ru = {"gilt_fuer": {"b1": 0.5}, "ab_trades": 10, "fenster": 10}
+    log, stand = dp.pruefen(kont, pf, {}, "2026-12-01T10:00:00", RG, dateien, ru=ru)
+    assert "Rutschen" in kont["abgeloest"]["b1"]["grund"] and kont["abgeloest"]["b1"]["an"] is None
+    assert stand["b1"]["rutschen"] == {"trades": 10, "median_pips": 0.9} and log[0]["event"] == "Bot abgelöst"
+
+
+def test_fixed_deadline_judges_slow_bots_every_6_months(tmp_path):
+    """Kritik D1 (suche/VORAB_frist.yaml): an der Frist mit unter 40 Trades ab, wenn Summe R unter 0 oder kein Trade."""
+    fr = dp.frist_regel()
+    assert fr is not None and fr["monate"] == 6, "Prüfsumme von VORAB_frist.yaml fehlt"
+    tr = [{"bot": "b1", "r": r, "closed_utc": f"2027-0{m}-10T10:00:00"} for m, r in ((1, 1.0), (2, -1.0), (3, 0.5))]
+    kont, pf, dateien = _setup(tmp_path, tr)
+    assert dp.pruefen(kont, pf, {}, "2027-05-04T10:00:00", RG, dateien, fr=fr)[0] == []    # vor der Frist: nichts
+    log, _ = dp.pruefen(kont, pf, {}, "2027-05-05T10:00:00", RG, dateien, fr=fr)
+    assert [(e["event"], e["bot"]) for e in log] == [("Frist bestanden", "b1"), ("Bot abgelöst", "b2")]
+    assert kont["frist"]["b1"]["nr"] == 1
+    assert kont["frist"]["b2"]["nr"] == 1 and "b2" in kont["abgeloest"]                  # b2: kein Trade in 6 Monaten
+    assert "Frist nach 6 Monaten" in kont["abgeloest"]["b2"]["grund"] and "b1" not in kont["abgeloest"]
+    assert dp.pruefen(kont, pf, {}, "2027-06-01T10:00:00", RG, dateien, fr=fr)[0] == []    # zwischen den Fristen: nichts
+    (tmp_path / "t.jsonl").write_text("".join(json.dumps(t) + "\n" for t in tr + [
+        {"bot": "b1", "r": -1.0, "closed_utc": "2027-07-01T10:00:00"}]))
+    log, _ = dp.pruefen(kont, pf, {}, "2027-11-05T10:00:00", RG, dateien, fr=fr)
+    assert "Frist nach 12 Monaten" in kont["abgeloest"]["b1"]["grund"] and log[0]["event"] == "Bot abgelöst"
+    assert dp.frist_grund({}, "x", {"trades": 0, "summe_r": 0}, RG, None, "2030-01-01T00:00:00") is None

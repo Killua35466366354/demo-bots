@@ -1,0 +1,28 @@
+# Feste Frist für jeden Demo-Bot (suche/demo_pruefung.py, frist_grund). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kritik D1 vom 05.11.2026 ("Portfolio-Manager: große Kritik mit Verbesserungsplan"): Die Prüfung nach 15/40 Trades
+# (suche/VORAB_wechsel.yaml) kommt bei langsamen Bots nie. Der US500-Rücksetzer macht etwa einen Trade im Monat; bis
+# 40 Trades belegt er ein Konto bis 2029, auch wenn er nur durch Zufall durch den Backtest kam. Vorschlag: feste Frist
+# von 6 Monaten. Kirons Antwort vom 05.11.2026, 17:03 UTC: alle Kritik-Punkte so umsetzen, wie sie gemacht werden sollen.
+#
+# Festgelegt am 05.11.2026, bevor einer der Bots eine Frist erreicht hat.
+
+format: 1
+frist:
+  gilt_fuer: >-
+    Alle Demo-Bots mit eigenem Konto (journal/konten.json zuordnung), auch Labor- und Mess-Bots. Nicht der Gold-Bot C/B
+    auf dem Hauptkonto (eigener Plan: Demo gegen Backtest Ende Januar 2027).
+  monate: 6
+  start: >-
+    Die letzte Übergabe des Kontos an den Bot (journal/konten.json uebergaben), frühestens 2026-11-05. Die erste Frist
+    ist also frühestens am 2027-05-05.
+  ab_datum: "2026-11-05T00:00:00"
+  regel: >-
+    An jeder Frist (6, 12, 18 ... Monate nach dem Start) mit weniger als 40 geschlossenen Demo-Trades seit dem Start:
+    Summe R unter 0 oder kein einziger Trade, dann wird der Bot abgelöst wie nach suche/VORAB_wechsel.yaml (keine neuen
+    Orders, offene Position läuft zu Ende, Konto an den Nachfolger oder frei). Sonst bleibt er bis zur nächsten Frist.
+    Ab 40 Trades gilt allein das Urteil aus VORAB_wechsel.yaml. Geprüft wird nur an der Frist, nicht dazwischen.
+  zwilling: >-
+    Wo es einen Zwilling gibt (Runde-6-Bots, suche/r6_zwilling.py), steht im Bericht an der Frist zusätzlich, wie oft der
+    Bot vom Zwilling abwich. Zwillinge für die übrigen Bots (US-Index-Rücksetzer, Nasdaq Noise, Brent) kommen mit dem
+    gemeinsamen Motor (Kritik D5) in einem eigenen PR.

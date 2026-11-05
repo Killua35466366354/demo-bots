@@ -58,6 +58,13 @@ def test_report_ranks_live_bots_and_kombi_only_holds_kept_strategies():
     assert aktiv == sorted(aktiv, reverse=True)                 # aktive Bots zuerst
     assert set(v["kombi"]["mitglieder"]) | {d["id"] for d in v["kombi"]["draussen"]} <= set(aus["behalten"])
     assert v["regel_aufstieg"] == "festgelegt"
-    assert all(b["aufstieg"]["status"] in ("sammelt", "nicht_reif", "reif") for b in v["rangliste"] if b["aktiv"])
+    assert all(b["aufstieg"]["status"] in ("sammelt", "nicht_reif", "reif") for b in v["rangliste"]
+               if b["aktiv"] and b["gruppe"] != "messung")
+    # Mess-Zeile "Gold nur Long" (suche/VORAB_messbots.yaml): nur C-Trades, nie ein Aufstieg, nie in der Kombi
+    gl = next(b for b in v["rangliste"] if b["id"] == vg.GOLD_LONG)
+    g = next(b for b in v["rangliste"] if b["id"] == vg.GOLD)
+    assert gl["gruppe"] == "messung" and gl["aufstieg"]["status"] == "messung" and gl["ist"]["trades"] <= g["ist"]["trades"]
+    assert vg.GOLD_LONG not in v["kombi"]["mitglieder"]
+    assert vg.GOLD_START == "2026-11-03T09:05:00"               # fürs Urteil zählt nur die jetzige Regel (1-ATR-Stop)
     assert all(b["aufstieg"] is None for b in v["rangliste"] if not b["aktiv"])
     assert "| # | Strategie |" in vg.text(v) and v["tag"] == "2026-11-07"

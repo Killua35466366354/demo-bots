@@ -88,6 +88,7 @@ class Bot:
     regel: str
     backtest: str
     schatten: tuple = ()          # Märkte, auf denen der Zwilling nur mitschreibt (solange es dort keinen Bot mit Konto gibt)
+    stop_atr: float | None = None  # nur Mess-Bot (suche/VORAB_messbots.yaml): eigener Stop-Faktor, sonst VORTAG["stop_atr"]
 
 
 VORTAG = Bot(
@@ -143,7 +144,20 @@ VORTAG_GBPJPY = Bot(
     "bis Oktober 2026, nur GBP/JPY bestanden. 2025 bis Oktober 2026 (1.000 Euro, 1 % Risiko, Stop 0,5 x ATR beim "
     "Legen): 94 Trades, 190 Euro, Gewinnfaktor 1,45, Treffer 25 %, besser als 99 % der Zufallsläufe. Aber 2026 nur "
     "+0,5 Euro und größter Rückgang 150 Euro (EUR/USD: 36 Euro). Mit 9 Paaren kann eines zufällig bestehen.")
-BOTS = (VORTAG, LONDON, NOISE, VORTAG_EURUSD, VORTAG_GBPUSD, VORTAG_GBPJPY)
+# Mess-Bot (Kritik F2/D3, Kirons Ja vom 05.11.2026 17:07 UTC, suche/VORAB_messbots.yaml): dieselbe Regel wie Vortag
+# EUR/USD, nur der Stop 1 x ATR statt 0,5 x ATR. Er misst, ob der breitere Stop das Rutschen beim Einstieg besser
+# verkraftet. Ein Konto bekommt er nur über suche/demo_pruefung.py mess_vergeben (Account 2), nie über einen Namen.
+VORTAG_EURUSD_1ATR = Bot(
+    "r6-vortag-eurusd-1atr", "vortag_stop_oco", "EURUSD", (), "Account 2 (Mess-Bot)",
+    "Vortageshoch/-tief mit Stop-Orders (EUR/USD, Stop 1 x ATR, Mess-Bot)",
+    VORTAG_ATR_REGEL.replace("Stop 0,5 x ATR der Viertelstunden-Kerzen beim Legen der Orders (seit 04.11.2026, vorher "
+                             "10 % der Vortagesspanne)", "Stop 1 x ATR der Viertelstunden-Kerzen beim Legen der Orders "
+                             "(Mess-Bot, der Kern-Bot nimmt 0,5 x ATR)"),
+    "Mess-Bot ohne eigenen Backtest-Sieg: gleiche Regel wie Vortag EUR/USD (0,5 x ATR: 2025 bis Oktober 2026 133 Trades, "
+    "486 Euro, Gewinnfaktor 2,33 ohne Rutschen). Mit 1 x ATR halbiert sich bei gleichem Euro-Risiko die Größe, also "
+    "auch der Anteil des Rutschens am Risiko. Verglichen wird nur Demo gegen Demo (suche/VORAB_messbots.yaml).",
+    stop_atr=1.0)
+BOTS = (VORTAG, LONDON, NOISE, VORTAG_EURUSD, VORTAG_GBPUSD, VORTAG_GBPJPY, VORTAG_EURUSD_1ATR)
 # Beendete Bots und wer ihr Konto bekommt. Kirons einheitlicher Vergleich vom 04.11.2026 (Backtest 2025 bis heute,
 # suche/VORAB_bewertung.yaml): Vortag USD/JPY besteht nicht (Gewinnfaktor 0,95, 2026: 0,88), Vortag GBP/USD schon (1,22).
 # Ein beendeter Bot legt nichts Neues mehr, löscht noch liegende Stop-Orders, führt eine offene Position zu Ende und gibt
@@ -538,7 +552,7 @@ def lauf_vortag(lauf: Lauf, bot: Bot, st: dict, aid: str, q, neu: bool = True) -
     braucht = (v.weekday() < 5 and st.get("tag_erledigt") != tag
                and rg.VORTAG["uhrzeit_ueber"] + 15 <= minute < rg.VORTAG["tag_ende"] - 30)
     bars = kerzen(c, bot.epic, "MINUTE_15", 700, now)[0] if braucht else LEER
-    d = rg.vt_entscheide(bars, now, {"tag_erledigt": st.get("tag_erledigt")})
+    d = rg.vt_entscheide(bars, now, {"tag_erledigt": st.get("tag_erledigt"), "stop_atr": bot.stop_atr})
     st["letzte_entscheidung"] = {"zeit": lauf.stamp, "action": d["action"], "why": d["why"],
                                  "bar": str(bars.index[-1]) if len(bars) else None}
     if d.get("erledigt"):
@@ -896,7 +910,7 @@ def zwillinge(lauf: Lauf, state: dict, alle_trades: list[dict]) -> list[dict]:
     jobs = [(b, b.epic, False) for b in BOTS] + [(VORTAG, m, True) for m in VORTAG.schatten
                                                   if (VORTAG.strategie, m) not in echte]
     for bot, epic, schatten in jobs:
-        key = f"{bot.strategie}|{epic}"
+        key = f"{bot.strategie}|{epic}" + (f"|{bot.bot_id}" if bot.stop_atr else "")   # Mess-Bot: eigener Zwilling
         tag = fertiger_tag(bot.strategie, lauf.now)
         if tag is None or zst.get(key, "") >= tag:
             continue
@@ -909,12 +923,14 @@ def zwillinge(lauf: Lauf, state: dict, alle_trades: list[dict]) -> list[dict]:
             if bot.strategie != "vortag_stop_oco":
                 w = tageswerte(lauf, state, epic, str(rg.handelstag_ny17(pd.Timestamp(tag) + pd.Timedelta(hours=12)).date()))
                 schw = w and w["schwankung"]
-            z = zw.zwilling_tag(bot.strategie, epic, bars, sp, tag, schw)
+            z = zw.zwilling_tag(bot.strategie, epic, bars, sp, tag, schw, stop_atr=bot.stop_atr)
         except Exception as err:        # noqa: BLE001 - der Zwilling hält die Bots nie auf
             lauf.ereignis(bot, "Zwilling fehlgeschlagen", markt=epic, why=str(err)[:200])
             continue
         rec = {"tag": tag, "strategie": bot.strategie, "markt": epic, "schatten": schatten, "schwankung": schw,
                "tag_gezaehlt": z["tag_gezaehlt"], "trades": z["trades"], "berechnet_utc": lauf.stamp}
+        if bot.stop_atr:
+            rec.update(bot=bot.bot_id, stop_atr=bot.stop_atr)
         if not schatten:
             bt = [t for t in alle_trades if t.get("bot") == bot.bot_id and t.get("tag") == tag]
             rec["bot_trades"] = [{k: t.get(k) for k in ("einstieg_kerze", "side", "pct", "reason")} for t in bt]
@@ -1009,7 +1025,8 @@ def cockpit(state: dict, trades: list[dict], zwilling: list[dict]) -> dict:
     for bot in BOTS:
         st = (state.get("bots") or {}).get(bot.bot_id, {})
         tr = [t for t in trades if t.get("bot") == bot.bot_id]
-        zw = [z for z in zwilling if z.get("strategie") == bot.strategie and z.get("markt") == bot.epic]
+        zw = [z for z in zwilling if z.get("strategie") == bot.strategie and z.get("markt") == bot.epic
+              and z.get("stop_atr") == bot.stop_atr]
         abw = [z for z in zw if z.get("konto") and not (z.get("vergleich") or {}).get("gleich", True)]
         bots.append({"bot": bot.bot_id, "titel": bot.titel, "epic": bot.epic, "regel": bot.regel,
                      "backtest": bot.backtest, "konto_vorschlag": bot.konto_vorschlag, "konto": st.get("konto"),
@@ -1023,7 +1040,8 @@ def cockpit(state: dict, trades: list[dict], zwilling: list[dict]) -> dict:
                          "letzte": zw[-5:]}})
     schatten = []
     for m in VORTAG.schatten:
-        zw = [z for z in zwilling if z.get("strategie") == VORTAG.strategie and z.get("markt") == m]
+        zw = [z for z in zwilling if z.get("strategie") == VORTAG.strategie and z.get("markt") == m
+              and not z.get("stop_atr")]
         schatten.append({"markt": m, "strategie": VORTAG.strategie, "tage": len(zw),
                          "zusammenfassung": zusammenfassung([{"pct": t["pct"]} for z in zw for t in z.get("trades", [])
                                                              if t.get("zaehlt")]), "letzte": zw[-5:]})

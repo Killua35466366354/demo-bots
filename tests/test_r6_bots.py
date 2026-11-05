@@ -521,6 +521,94 @@ def test_vortag_ausgeloest_und_zwischen_zwei_laeufen_ausgestoppt(monkeypatch):
     assert neu == [] and not [r for r in fb.requests if r[2] == "/workingorders" and r[1] == "POST"][2:]
 
 
+def test_vortag_beide_orders_weg_einer_ausgeloest_und_zu_wird_gebucht(monkeypatch):
+    """Fehler vom 05.11.2026 (GBP/JPY): Die Verkaufs-Order löst kurz vor 21:30 UTC aus und wird ausgestoppt, die
+    Kauf-Order läuft um 21:30 ab. Beide sind beim nächsten Lauf weg; der Trade muss trotzdem aus der Kontoaktivität
+    gebucht werden, mit echtem Einstieg, Rutschen und Schlusszeit."""
+    ohne_zwilling(monkeypatch)
+    vortag_usdjpy_aktiv(monkeypatch)
+    fb = FakeBroker()
+    monkeypatch.setattr(rb, "kerzen", lambda c, e, r, n, t: (vt_bars(t - pd.Timedelta(minutes=1)), pd.Series(dtype=float)))
+    monkeypatch.setattr(rb, "entscheidung_markt", lambda *a: {"action": "none", "tag": "2026-11-04", "why": ["test"]})
+    kont = {"haupt": HAUPT, "zuordnung": {}}
+    st, _, _, _ = rb.run(fb, {}, kont, utc("2026-11-04", "04:31", NY))
+    o = st["bots"]["r6-vortag-usdjpy"]["orders"]
+    fb.wo[VT] = []
+    fb.activities = [
+        {"epic": "USDJPY", "dateUTC": "2026-11-04T21:29:10", "source": "SL", "type": "POSITION", "status": "ACCEPTED",
+         "details": {"level": 149.62, "direction": "SELL", "actions": [{"actionType": "POSITION_CLOSED"}]}},
+        {"epic": "USDJPY", "dateUTC": "2026-11-04T21:30:00", "source": "SYSTEM", "type": "WORKING_ORDER",
+         "status": "ACCEPTED", "details": {"level": 150.51, "actions": [{"actionType": "WORKING_ORDER_DELETED"}]}},
+        {"epic": "USDJPY", "dateUTC": "2026-11-04T21:22:40", "source": "SYSTEM", "type": "POSITION", "status": "ACCEPTED",
+         "details": {"level": 149.493, "direction": "SELL", "actions": [{"actionType": "POSITION_OPENED"}]}}]
+    st, neu, log, _ = rb.run(fb, st, kont, utc("2026-11-04", "16:31", NY))
+    assert len(neu) == 1
+    t = neu[0]
+    assert t["side"] == "short" and t["entry"] == 149.493 and t["exit"] == 149.62 and t["reason"] == "Stop beim Broker"
+    assert t["stop_level"] == o["short"]["stop"] and t["rutschen_pips"] == 0.7 and not t["einstieg_geschaetzt"]
+    assert t["einstieg_kerze"] == "2026-11-04 21:15:00" and t["closed_utc"].startswith("2026-11-04T21:29:10")
+    assert any(e["event"] == "ausgelöst und schon wieder zu" for e in log)
+    s = st["bots"]["r6-vortag-usdjpy"]
+    assert s["orders"] is None and s["tag_erledigt"] == "2026-11-04"
+
+
+def test_vortag_beide_orders_abgelaufen_ohne_trade():
+    """Normalfall um 21:30 UTC: beide Orders abgelaufen, in der Aktivität nur Order-Zeilen, kein Trade."""
+    fb = FakeBroker()
+    fb.activities = [{"epic": "USDJPY", "dateUTC": "2026-11-04T21:30:00", "source": "SYSTEM", "type": "WORKING_ORDER",
+                      "status": "ACCEPTED", "details": {"level": 150.51, "actions": [{"actionType": "WORKING_ORDER_DELETED"}]}}]
+    lauf = rb.Lauf(fb, utc("2026-11-04", "16:31", NY), {}, True)
+    orders = {"tag": "2026-11-04", "gelegt_utc": "2026-11-04T09:31:00",
+              "long": {"level": 150.51, "stop": 150.45, "ziel": 150.75, "size": 1000.0},
+              "short": {"level": 149.5, "stop": 149.56, "ziel": 149.25, "size": 1000.0}}
+    assert rb._gefuellt_und_zu(lauf, next(b for b in rb.BOTS if b.bot_id == "r6-vortag-usdjpy"), orders, ["long", "short"]) is None
+
+
+def test_seite_ohne_richtung_nach_dem_naechsten_kurs():
+    orders = {"long": {"level": 150.51, "stop": 150.45, "ziel": 150.75},
+              "short": {"level": 149.5, "stop": 149.56, "ziel": 149.25}}
+    assert rb._seite(orders, ["long", "short"], [{"level": 150.513}], {"level": 150.45}) == "long"
+    assert rb._seite(orders, ["long", "short"], [], {"level": 149.57}) == "short"
+    assert rb._seite(orders, ["short"], [{"level": 150.513}], {"level": 150.45}) == "short"
+
+
+def test_nachpruefen_bucht_den_fehlenden_trade_einmal(monkeypatch):
+    """Der GBP/JPY-Short vom 05.11.2026 (NACHPRUEFEN): einmal aus der Kontoaktivität buchen, danach nie wieder."""
+    fb = FakeBroker()
+    o = rb.NACHPRUEFEN["r6-vortag-gbpjpy"]
+    fb.activities = [
+        {"epic": "GBPJPY", "dateUTC": "2026-11-05T21:18:02", "source": "SYSTEM", "type": "POSITION", "status": "ACCEPTED",
+         "details": {"level": 212.061, "direction": "SELL", "actions": [{"actionType": "POSITION_OPENED"}]}},
+        {"epic": "GBPJPY", "dateUTC": "2026-11-05T21:26:41", "source": "SL", "type": "POSITION", "status": "ACCEPTED",
+         "details": {"level": 212.127, "actions": [{"actionType": "POSITION_CLOSED"}]}}]
+    gbpjpy = next(b for b in rb.BOTS if b.bot_id == "r6-vortag-gbpjpy")
+    lauf = rb.Lauf(fb, utc("2026-11-06", "05:01", NY), {}, True)
+    st = {"konto": "…4494"}
+    rb.nachpruefen(lauf, gbpjpy, st)
+    assert len(lauf.neu) == 1
+    t = lauf.neu[0]
+    assert t["tag"] == "2026-11-05" and t["side"] == "short" and t["entry"] == 212.061 and t["exit"] == 212.127
+    assert t["stop_level"] == o["short"]["stop"] and t["rutschen_pips"] == 0.6 and t["nachgebucht"]
+    assert t["closed_utc"].startswith("2026-11-05T21:26:41") and round(t["pnl_eur"], 2) == -4.64
+    assert st["nachgeprueft"] == ["2026-11-05"] and lauf.log[-1]["event"] == "nachgebucht"
+    rb.nachpruefen(lauf, gbpjpy, st)                       # schon nachgeprüft: nichts mehr
+    assert len(lauf.neu) == 1
+    st2 = {"konto": "…9999"}                               # anderes Konto: nicht anfassen
+    rb.nachpruefen(lauf, gbpjpy, st2)
+    assert "nachgeprueft" not in st2 and len(lauf.neu) == 1
+
+
+def test_nachpruefen_versucht_es_wieder_wenn_die_aktivitaet_fehlt():
+    class Kaputt(FakeBroker):
+        def _get(self, path, **params):
+            raise RuntimeError("500")
+    gbpjpy = next(b for b in rb.BOTS if b.bot_id == "r6-vortag-gbpjpy")
+    lauf = rb.Lauf(Kaputt(), utc("2026-11-06", "05:01", NY), {}, True)
+    st = {"konto": "…4494"}
+    rb.nachpruefen(lauf, gbpjpy, st)
+    assert lauf.neu == [] and "nachgeprueft" not in st and lauf.log[-1]["event"] == "Kontoaktivität nicht lesbar"
+
+
 def test_markt_bots_oeffnen_mit_stop_ziel_und_notstop(monkeypatch):
     ohne_zwilling(monkeypatch)
     fb = FakeBroker()

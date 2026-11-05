@@ -436,35 +436,102 @@ def _vom_broker_zu(lauf: Lauf, bot: Bot, st: dict, op: dict, q) -> None:
 # ---------------------------------------------------------------------------------------------------------------------
 # Platz 1: Stop-Orders
 
-def _gefuellt_und_zu(lauf: Lauf, bot: Bot, orders: dict, seite: str) -> dict | None:
-    """Eine Stop-Order ist weg und es gibt keine Position: Hat sie ausgelöst und Stop oder Ziel schon zwischen zwei
-    Läufen getroffen? Aus der Kontoaktivität seit dem Legen. None, wenn dort kein Schluss steht."""
-    from gold.bot.runner import close_activity
+def _aktivitaet(lauf: Lauf, bot: Bot, von: pd.Timestamp, bis: pd.Timestamp) -> list[dict] | None:
+    """Positions-Zeilen der Kontoaktivität des aktiven Kontos in diesem Markt (nur lesen). None, wenn nicht lesbar."""
     try:
-        since = utc(orders.get("gelegt_utc") or lauf.now) - pd.Timedelta(minutes=5)
-        acts = lauf.client._get("/history/activity", **{"from": since.strftime(FMT), "to": lauf.now.strftime(FMT),
+        acts = lauf.client._get("/history/activity", **{"from": von.strftime(FMT), "to": bis.strftime(FMT),
                                                         "detailed": "true"}).get("activities", [])
     except Exception as err:            # noqa: BLE001
         lauf.ereignis(bot, "Kontoaktivität nicht lesbar", why=str(err)[:200])
         return None
-    rows = [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"), "status": a.get("status"),
-             "level": (a.get("details") or {}).get("level"),
+    return [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"), "status": a.get("status"),
+             "level": (a.get("details") or {}).get("level"), "direction": (a.get("details") or {}).get("direction"),
              "actions": [x.get("actionType") for x in (a.get("details") or {}).get("actions", [])]}
             for a in acts if a.get("epic") == bot.epic]
+
+
+def _seite(orders: dict, weg: list[str], auf: list[dict], zu: dict) -> str:
+    """Welche der weggefallenen Stop-Orders ausgelöst hat: bei einer diese, sonst die Richtung der Eröffnung, sonst die
+    Order, deren Kurs (Einstieg, sonst Stop oder Ziel beim Schluss) am nächsten liegt."""
+    if len(weg) == 1:
+        return weg[0]
+    d = str((auf[0].get("direction") if auf else None) or "").upper()
+    if d in ("BUY", "SELL"):
+        return "long" if d == "BUY" else "short"
+    if auf:
+        return min(weg, key=lambda s: abs(float(orders[s]["level"]) - float(auf[0]["level"])))
+    lvl = float(zu["level"])
+    return min(weg, key=lambda s: min(abs(float(orders[s][k]) - lvl) for k in ("stop", "ziel", "level")
+                                      if orders[s].get(k) is not None))
+
+
+def _gefuellt_und_zu(lauf: Lauf, bot: Bot, orders: dict, weg: list[str], rows: list[dict] | None = None) -> dict | None:
+    """Stop-Orders sind weg und es gibt keine Position: Hat eine ausgelöst und Stop oder Ziel schon zwischen zwei Läufen
+    getroffen? Aus der Kontoaktivität seit dem Legen. Auch wenn beide weg sind (eine ausgelöst und zu, die andere um
+    21:30 UTC abgelaufen). Bis 05.11.2026 wurde dann nicht nachgesehen, und der GBP/JPY-Short vom 05.11. fehlte im
+    Journal (siehe NACHPRUEFEN). None, wenn dort kein Schluss steht."""
+    from gold.bot.runner import close_activity
+    if rows is None:
+        since = utc(orders.get("gelegt_utc") or lauf.now) - pd.Timedelta(minutes=5)
+        rows = _aktivitaet(lauf, bot, since, lauf.now)
+    if not rows:
+        return None
     zu = close_activity(rows, None)
     if zu is None or (zu.get("source") not in ("SL", "TP", "CLOSE_OUT")
                       and "POSITION_CLOSED" not in (zu.get("actions") or [])):
         return None
-    auf = [r for r in rows if "POSITION_OPENED" in (r.get("actions") or []) and r.get("level") is not None]
-    o = orders[seite]
-    op = {"dealId": None, "side": 1 if seite == "long" else -1, "tag": orders["tag"],
-          "entry": float(auf[0]["level"]) if auf else float(o["level"]), "stop_level": o["stop"], "ziel_level": o["ziel"],
-          "size": o["size"], "lot": orders.get("lot", 1), "currency": orders.get("currency"),
-          "eur_rate": orders.get("eur_rate"), "opened_utc": orders.get("gelegt_utc"), "konto_kurz": orders.get("konto_kurz"),
-          "einstieg_kerze": None}
-    tr = buche(bot, op, float(zu["level"]), lauf.now, str(zu.get("source") or "SL"), None)
+    auf = sorted((r for r in rows if "POSITION_OPENED" in (r.get("actions") or []) and r.get("level") is not None),
+                 key=lambda r: str(r.get("dateUTC") or ""))
+    seite = _seite(orders, weg, auf, zu)
+    o, side = orders[seite], 1 if seite == "long" else -1
+    entry = float(auf[0]["level"]) if auf else float(o["level"])
+    opened = utc(auf[0]["dateUTC"]) if auf and auf[0].get("dateUTC") else None
+    op = {"dealId": None, "side": side, "tag": orders["tag"], "entry": entry, "stop_level": o["stop"],
+          "ziel_level": o["ziel"], "size": o["size"], "lot": orders.get("lot", 1), "currency": orders.get("currency"),
+          "eur_rate": orders.get("eur_rate"), "konto_kurz": orders.get("konto_kurz"),
+          "opened_utc": str(opened) if opened is not None else orders.get("gelegt_utc"),
+          "einstieg_kerze": str(opened.floor("15min")) if opened is not None else None,
+          # Rutschen wie bei jedem Einstieg über die Stop-Order (suche/VORAB_rutschen.yaml), nur mit echtem Einstiegskurs
+          "rutschen_pips": round((entry - float(o["level"])) * side / pip(bot.epic), 1) if auf else None}
+    closed = utc(zu["dateUTC"]) if zu.get("dateUTC") else lauf.now
+    tr = buche(bot, op, float(zu["level"]), closed, str(zu.get("source") or "SL"), None)
     tr["einstieg_geschaetzt"] = not auf
     return tr
+
+
+# Einmal nachprüfen (Fehler bis 05.11.2026, siehe _gefuellt_und_zu): Beim Lauf um 21:31 UTC waren beide GBP/JPY-Orders
+# weg, das Konto aber 4,52 € kleiner (journal/konten.json), und der Zwilling sah den Short ab der 21:15-Kerze, um 21:30
+# ausgestoppt. Die Orders wie in journal/r6-bots/state.json bis 21:16 UTC. Der Lauf bucht den Trade aus der Kontoaktivität
+# (echte Kurse) und merkt sich den Tag unter "nachgeprueft".
+NACHPRUEFEN: dict[str, dict] = {
+    "r6-vortag-gbpjpy": {
+        "tag": "2026-11-05", "gelegt_utc": "2026-11-05T11:46:51.956368", "bis_utc": "2026-11-05 21:30:00", "lot": 1.0,
+        "currency": "JPY", "eur_rate": 177.7215, "konto_kurz": "…4494",
+        "long": {"dealId": "00000000-7131-49f9-049c-701d0015549e", "level": 213.786, "marke": 213.763, "stop": 213.706,
+                 "ziel": 214.187, "size": 12500.0},
+        "short": {"dealId": "00000000-7131-4a02-049c-701d0015549e", "level": 212.067, "marke": 212.067, "stop": 212.124,
+                  "ziel": 211.643, "size": 12500.0}},
+}
+
+
+def nachpruefen(lauf: Lauf, bot: Bot, st: dict) -> None:
+    """Orders aus NACHPRUEFEN einmal in der Kontoaktivität nachsehen und einen dort geschlossenen Trade buchen. Ist die
+    Aktivität nicht lesbar, versucht es der nächste Lauf wieder."""
+    o = NACHPRUEFEN.get(bot.bot_id)
+    if not o or o["tag"] in (st.get("nachgeprueft") or []) or st.get("konto") != o["konto_kurz"]:
+        return
+    von = utc(o["gelegt_utc"]) - pd.Timedelta(minutes=5)
+    rows = _aktivitaet(lauf, bot, von, min(lauf.now, utc(o["bis_utc"]) + pd.Timedelta(hours=1)))
+    if rows is None:
+        return
+    tr = _gefuellt_und_zu(lauf, bot, o, ["long", "short"], rows)
+    if tr:
+        tr["nachgebucht"] = lauf.stamp
+        lauf.neu.append(tr)
+        lauf.ereignis(bot, "nachgebucht", **{k: tr[k] for k in ("tag", "side", "entry", "exit", "r", "pnl_eur", "reason")})
+    else:
+        lauf.ereignis(bot, "nachgeprüft, kein Trade", tag=o["tag"])
+    st["nachgeprueft"] = [*(st.get("nachgeprueft") or []), o["tag"]]
 
 
 def lauf_vortag(lauf: Lauf, bot: Bot, st: dict, aid: str, q, neu: bool = True) -> None:
@@ -477,6 +544,7 @@ def lauf_vortag(lauf: Lauf, bot: Bot, st: dict, aid: str, q, neu: bool = True) -
     wos = arbeitsorders(c, bot.epic)
     wo_ids = {str(w.get("dealId")) for w in wos}
     op, orders = st.get("open"), st.get("orders")
+    nachpruefen(lauf, bot, st)
 
     if orders and not op:                                       # hat eine Stop-Order ausgelöst?
         if mine:
@@ -501,7 +569,7 @@ def lauf_vortag(lauf: Lauf, bot: Bot, st: dict, aid: str, q, neu: bool = True) -
         else:
             weg = [s for s in ("long", "short") if orders.get(s) and str(orders[s]["dealId"]) not in wo_ids]
             if weg:
-                tr = _gefuellt_und_zu(lauf, bot, orders, weg[0]) if len(weg) == 1 else None
+                tr = _gefuellt_und_zu(lauf, bot, orders, weg)
                 if tr:
                     lauf.neu.append(tr)
                     lauf.ereignis(bot, "ausgelöst und schon wieder zu", **{k: tr[k] for k in ("side", "exit", "pct", "reason")})

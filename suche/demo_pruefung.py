@@ -13,6 +13,9 @@ Capital.com-Demo. Die Prüfung liest nur Dateien (kein Broker) und läuft im Wor
    (kont["frei"]). Ein freies Konto vergibt diese Prüfung an die nächste bestandene Strategie mit Bot-Lauf.
 4. journal/portfolio.json bekommt je Bot den Demo-Stand ("demo") und die Rolle (aktiv, wartet, abgeloest).
 5. Kirons Auswahl (suche/auswahl.yaml, "abschalten"): diese Bots werden abgelöst wie in Schritt 2, ohne Nachfolger.
+6. Labor (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml): vier abgeschaltete, aber bestandene Strategien
+   bekommen einmal ein freies Konto zurück, solange danach noch genug Konten frei bleiben. Danach gilt für sie die
+   Prüfung nach 15/40 Trades wie für alle.
 
     python -m suche.demo_pruefung             # prüfen und speichern
     python -m suche.demo_pruefung --dry-run   # nur ausgeben
@@ -31,6 +34,8 @@ VORAB = ROOT / "suche" / "VORAB_wechsel.yaml"
 KEY = "VORAB_wechsel sha256 "
 HAUPT_BOT = "gold-cb"            # das Hauptkonto gehört dem Gold-Bot, er wird hier nie geprüft
 AUSWAHL = ROOT / "suche" / "auswahl.yaml"
+LABOR = ROOT / "suche" / "VORAB_labor.yaml"
+LABOR_KEY = "VORAB_labor sha256 "
 
 
 def regel() -> dict | None:
@@ -41,6 +46,49 @@ def regel() -> dict | None:
     if last_value(journal_lines(), KEY) != sha256_text(text):
         return None
     return yaml.safe_load(text)["wechsel"]
+
+
+def labor_regel() -> dict | None:
+    """Die Regel aus VORAB_labor.yaml, nur wenn ihre Prüfsumme im Journal steht (sonst kein Labor)."""
+    from suche.runde1 import journal_lines, last_value
+    from suche.runde3 import sha256_text
+    if not LABOR.exists():
+        return None
+    text = LABOR.read_text(encoding="utf-8")
+    if last_value(journal_lines(), LABOR_KEY) != sha256_text(text):
+        return None
+    return yaml.safe_load(text)["labor"]
+
+
+def labor_vergeben(kont: dict, lb: dict | None, lauf_ids, demo_abl: dict, stamp: str) -> list[dict]:
+    """Labor-Vorwärtstest (VORAB_labor.yaml): jeder Labor-Bot bekommt einmal ein freies Konto, am liebsten sein altes,
+    solange danach noch lb["frei_lassen"] Konten frei sind. Nur Bots, die Kirons Auswahl abgeschaltet hat, nie einen,
+    den die Prüfung nach 15/40 Trades abgelöst hat. Ändert `kont` (abgeloest, zuordnung, frei, uebergaben, labor)."""
+    if not lb:
+        return []
+    zu = kont.setdefault("zuordnung", {})
+    abl = kont.setdefault("abgeloest", {})
+    schon = kont.get("labor") or {}
+    log = []
+    for bot_id, wunsch in (lb.get("bots") or {}).items():
+        a = abl.get(bot_id) or {}
+        if (bot_id in schon or bot_id in zu or bot_id not in lauf_ids or bot_id in demo_abl or bot_id == HAUPT_BOT
+                or a.get("messung") or a.get("an") or (bot_id in abl and "Kirons Auswahl" not in str(a.get("grund")))):
+            continue
+        frei = [str(x) for x in kont.get("frei") or []]
+        if len(frei) <= int(lb.get("frei_lassen", 2)):
+            break
+        alt = str((wunsch or {}).get("konto") or "")
+        aid = alt if alt in frei else frei[0]
+        abl.pop(bot_id, None)
+        zu[bot_id] = aid
+        kont["frei"] = [x for x in kont.get("frei") or [] if str(x) != aid]
+        kont.setdefault("labor", {})[bot_id] = {"seit": stamp, "konto": _kurz(aid)}
+        kont.setdefault("uebergaben", []).append({"zeit": stamp, "konto": _kurz(aid), "konto_id": aid, "von": None,
+                                                  "an": bot_id, "labor": True})
+        log.append({"time": stamp, "event": "Labor-Konto vergeben", "bot": bot_id, "konto": _kurz(aid),
+                    "why": "Kirons Entscheidung vom 05.11.2026 (suche/VORAB_labor.yaml)"})
+    return log
 
 
 def laeufe() -> dict[str, Path]:
@@ -146,7 +194,8 @@ def ersatz(kont: dict, pf: dict, lauf_ids, demo_abl: dict) -> str | None:
 
 
 def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | None = None,
-            dateien: dict[str, Path] | None = None, aus: dict | None = None) -> tuple[list[dict], dict]:
+            dateien: dict[str, Path] | None = None, aus: dict | None = None,
+            lb: dict | None = None) -> tuple[list[dict], dict]:
     """Eine Prüfung (reine Funktion bis auf das Lesen der Trade-Dateien). Ändert `kont` (abgeloest, zuordnung für
     freie Konten). Rückgabe: Ereignisse fürs Log und Demo-Stand je Bot."""
     rg = rg or regel()
@@ -157,9 +206,12 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
     zu = kont.setdefault("zuordnung", {})
     abl = kont.setdefault("abgeloest", {})
     log, stand = [], {}
+    # Labor (suche/VORAB_labor.yaml): abgeschaltete, aber bestandene Strategien bekommen einmal ein freies Konto
+    log += labor_vergeben(kont, lb, dateien, demo_abl, stamp)
     # Kirons Auswahl (suche/auswahl.yaml): abschalten ohne Nachfolger, das Konto wird frei
     for bot_id, warum in sorted((abschalten() if aus is None else aus).items()):
-        if bot_id in zu and bot_id != HAUPT_BOT and bot_id not in abl and bot_id not in demo_abl:
+        if (bot_id in zu and bot_id != HAUPT_BOT and bot_id not in abl and bot_id not in demo_abl
+                and bot_id not in (kont.get("labor") or {})):
             grund = f"Kirons Auswahl vom 04.11.2026 (abschalten): {warum}"
             abl[bot_id] = {"an": None, "seit": stamp, "grund": grund}
             log.append({"time": stamp, "event": "Bot abgeschaltet", "bot": bot_id, "an": None, "why": grund})
@@ -195,6 +247,7 @@ def portfolio_stand(pf: dict, kont: dict, stand: dict) -> bool:
     konto_name = {e.get("id"): e.get("name") for e in kont.get("konten") or []}
     vorher = json.dumps(pf, sort_keys=True, ensure_ascii=False)
     nachfolger = {n["an"]: alt for alt, n in abl.items() if n and n.get("an")}
+    labor = kont.get("labor") or {}
     for b in pf.get("bots") or []:
         bid = b.get("id")
         if bid in stand:
@@ -203,6 +256,11 @@ def portfolio_stand(pf: dict, kont: dict, stand: dict) -> bool:
             b["rolle"], b["ersetzt_durch"] = "abgeloest", namen.get((abl[bid] or {}).get("an"))
             b["warum"] = "Demo: " + (abl[bid] or {}).get("grund", "") + (
                 "" if (abl[bid] or {}).get("an") else ". Konto wird frei")
+        elif bid in labor and bid in zu:
+            b["rolle"], b["ersetzt_durch"] = "labor", None
+            b["konto"] = konto_name.get(_kurz(zu[bid])) or b.get("konto")
+            b["warum"] = (f"Labor-Vorwärtstest seit {str(labor[bid].get('seit'))[:10]} (Kirons Entscheidung vom "
+                          "05.11.2026, suche/VORAB_labor.yaml); nicht im Kern und nicht in der Kombi")
         elif bid in nachfolger and bid not in zu:
             alt = nachfolger[bid]
             b["rolle"], b["ersetzt"] = "wartet", namen.get(alt)
@@ -230,7 +288,7 @@ def main(argv: list[str]) -> int:
     pf_path = J / "portfolio.json"
     pf = json.loads(pf_path.read_text(encoding="utf-8")) if pf_path.exists() else None
     demo_cfg = yaml.safe_load((ROOT / "suche" / "demo_bots.yaml").read_text(encoding="utf-8"))
-    log, stand = pruefen(kont, pf, demo_cfg, stamp)
+    log, stand = pruefen(kont, pf, demo_cfg, stamp, lb=labor_regel())
     print(json.dumps({"log": log, "stand": stand}, ensure_ascii=False, indent=1))
     if "--dry-run" in argv:
         return 0

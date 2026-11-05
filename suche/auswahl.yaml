@@ -15,6 +15,9 @@
 # verbessern: läuft weiter, daran wird gearbeitet (eigene Threads, neue Tests vorab festgelegt).
 # abschalten: öffnet keinen neuen Trade mehr. Eine offene Position läuft nach ihren Regeln zu Ende, dann wird das Konto
 #   frei (journal/konten.json "frei") und geht an die nächste Strategie, die die Regel in VORAB_wechsel.yaml besteht.
+# labor: Kirons Entscheidung vom 05.11.2026, 11:07 UTC (suche/VORAB_labor.yaml): die vier am 04.11.2026 abgeschalteten,
+#   aber bestandenen Strategien laufen als Vorwärtstest auf freien Demokonten, getrennt vom Kern (nicht in der Kombi,
+#   nicht im Wochen-Check der Kern-Strategien). Die Gründe fürs Abschalten gelten weiter und stehen dabei.
 format: 1
 auswahl:
   seit: "2026-11-04"
@@ -32,8 +35,9 @@ auswahl:
       Die Vortag-Regel auf weiteren Währungspaaren. Sie hat auf EUR/USD und GBP/USD in beiden Jahren verdient, auf
       USD/JPY nicht. Mehr Paare heißt mehr Trades im Monat bei gleichem Risiko je Trade. Nur mit einem vorab
       festgelegten Test (lernen bis 2024, prüfen 2025-2026); was besteht, bekommt ein freies Konto.
-  abschalten:
+  labor:
     oil-brent: "2025 -177 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 256 €"
     r6-noise-usdjpy: "+49 € aus 254 Trades (2025 +2 €), Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"
     r6-london-gbpusd: "+59 € aus 53 Trades, Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"
     r5-ruecksetzer-us30: "+19 € aus 23 Trades, Gewinnfaktor 1,5, kaum vom Zufall zu unterscheiden"
+  abschalten: {}

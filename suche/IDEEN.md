@@ -26,9 +26,15 @@ Stand: 05.11.2026.
 | Trend-Rücksetzer US100 | "US500" (Top 3) | behalten | 1,91, +23 € |
 | Gold C/B mit 1-ATR-Stop | Hauptkonto | verbessern | 1,17, +298 € (2026 allein 0,95) |
 | Gold-Bot 2.0 | kein Konto, nur Schatten | | |
+| Brent-Öl | Account 1 | Labor | 1,49, +289 € (2025 allein -177 €) |
+| Trend-Rücksetzer Dow | Account 5 | Labor | 1,48, +19 € |
+| London-Stunde GBP/USD | Account 6 | Labor | 1,45, +59 € |
+| Noise-Band USD/JPY | Account 7 | Labor | 1,39, +49 € |
 
-Frei: 6 Demokonten (Account 1, 2, 3, 5, 6, 7). Der Vergleich aller Bots steht nach jedem Lauf in
-`journal/vergleich.md`.
+Labor heißt: Vorwärtstest auf sonst leeren Demokonten nach Kirons Entscheidung vom 05.11.2026
+(`suche/VORAB_labor.yaml`), getrennt vom Kern, nicht in der Kombi. Die Konten bekommen sie beim ersten Lauf nach dem
+Merge. Frei bleiben 2 Demokonten (Account 2 und 3) für neue Strategien. Der Vergleich aller Bots steht nach jedem Lauf
+in `journal/vergleich.md`.
 
 ## 2. Kirons Vorschläge und was daraus wurde
 
@@ -90,13 +96,13 @@ Frei: 6 Demokonten (Account 1, 2, 3, 5, 6, 7). Der Vergleich aller Bots steht na
 | N3 | Vortag-Regel auf weiteren Währungspaaren | Mehr Trades im Monat bei gleichem Risiko je Trade | mittel; macht der Wochen-Check-Thread am Samstag |
 | N4 | Vortag-Regel auf Indizes, Gold und Öl | Die Regel verdient auf EUR/USD und GBP/USD; vielleicht auch woanders. Lernen bis 2024, prüfen 2025-2026 | mittel: ein Workflow-Lauf |
 | N5 | Monatswechsel bei Indizes: um den Monatswechsel long US500/US100 | Bekannter Kalender-Effekt bei Aktienindizes; das Monatsende bei Devisen (Runde 9) ist durchgefallen, bei Indizes noch nie gerechnet | mittel: ein Workflow-Lauf |
-| N6 | Vorwärtstest der 4 abgeschalteten, aber bestandenen Strategien auf freien Konten (Brent, Dow-Rücksetzer, London GBP/USD, Noise USD/JPY) | Nur Demo-Geld; echte Trades zeigen, ob sie mehr als Zufall sind | klein, braucht aber Kirons Ja |
+| N6 | Vorwärtstest der 4 abgeschalteten, aber bestandenen Strategien auf freien Konten (Brent, Dow-Rücksetzer, London GBP/USD, Noise USD/JPY) | Nur Demo-Geld; echte Trades zeigen, ob sie mehr als Zufall sind | **Kiron hat am 05.11.2026 Ja gesagt**, läuft als Labor |
 
 ## 4. Nächste Tests in dieser Reihenfolge
 
 1. N3 am Samstag im Wochen-Check-Thread, damit nichts doppelt läuft.
 2. N2 und N1 zusammen, in einer vorab festgelegten Datei, lokal auf den Trades der Bewertung.
-3. N6, wenn Kiron Ja sagt.
+3. N6 läuft seit Kirons Ja vom 05.11.2026 als Labor; Urteil nach 15/40 Trades wie bei allen.
 4. N4 und N5 zusammen als nächste Runde, einmal als Workflow in diesem Repo.
 
 ## 5. So kommt eine Strategie zu echtem Geld

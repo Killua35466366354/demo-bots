@@ -1,0 +1,39 @@
+# Labor-Vorwärtstest auf freien Demokonten (suche/demo_pruefung.py, labor_vergeben). Nur Capital.com-DEMO, nie echtes
+# Geld.
+#
+# Kirons Entscheidung vom 05.11.2026, 11:07 UTC (Entscheidungskarte "Sollen die 4 abgeschalteten Strategien freie
+# Demokonten zum Testen bekommen?", Antwort "Ja, als Labor-Test"). Hintergrund: Kirons Wunsch vom 05.11.2026, 10:17 UTC,
+# das öffentliche Repo zum Testen von allem zu nutzen und alle Bots die nächsten Wochen live auf den Demokonten laufen
+# zu lassen. 6 Demokonten lagen leer.
+#
+# Diese vier hatten die Bewertung 2025-2026 bestanden (suche/VORAB_bewertung.yaml) und wurden am 04.11.2026 mit Kirons
+# Auswahl (suche/auswahl.yaml) abgeschaltet, bevor sie einen Demo-Trade hatten. Die Gründe gelten weiter:
+# - Brent: 2025 -177 €, die +466 € von 2026 nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 256 €.
+# - Dow-Rücksetzer, London GBP/USD, Noise USD/JPY: Gewinnfaktor 1,4 bis 1,5, laut Bewertung kaum vom Zufall zu
+#   unterscheiden.
+# Nur echte Demo-Trades zeigen, ob mehr dahinter steckt. Das ist eine Ausnahme von "Ein abgelöster Bot bekommt nie
+# wieder ein Konto" in VORAB_wechsel.yaml, nur für diese vier und nur einmal, weil Kiron es so entschieden hat.
+#
+# Festgelegt am 05.11.2026, bevor einer der vier ein Konto zurückbekommen hat.
+
+format: 1
+labor:
+  bots:                                      # Bot-ID: sein altes Konto, wenn es noch frei ist (sonst ein anderes freies)
+    oil-brent: {konto: "332263725196465310"}               # Account 1
+    r5-ruecksetzer-us30: {konto: "332263750966269086"}     # Account 5
+    r6-london-gbpusd: {konto: "332263759556203678"}        # Account 6
+    r6-noise-usdjpy: {konto: "332264120333456542"}         # Account 7
+  frei_lassen: 2                             # so viele Konten bleiben frei für neue Strategien (z. B. weitere Vortag-Paare)
+  regeln: >-
+    Jeder Bot handelt mit genau den Regeln, die er vor dem Abschalten hatte; kein Bot ändert seine Regeln. Gezählt wird
+    ab der Labor-Übergabe (journal/konten.json uebergaben mit labor: true).
+  pruefung: >-
+    Wie alle Demo-Bots nach VORAB_wechsel.yaml (nach 15 Trades unter 0,6, nach 40 unter 1,0). Wer dort abgelöst wird,
+    bekommt nie wieder ein Konto, auch nicht über diese Datei.
+  rolle: >-
+    Labor, nicht Kern: nicht in "behalten" von suche/auswahl.yaml, nicht in der Kombi und nicht im Wochen-Check der
+    Kern-Strategien. Im Demo-Vergleich (journal/vergleich.md) stehen sie mit Gruppe "labor". Echtes Geld nur über
+    suche/VORAB_aufstieg.yaml (einzeln, ab 40 Trades) und Kirons Ja.
+  nicht_vergeben_wenn: >-
+    Der Bot hat schon ein Konto, war schon einmal im Labor, wurde von der Prüfung nach 15/40 Trades abgelöst (nicht nur
+    durch Kirons Auswahl), oder es wären danach weniger als frei_lassen Konten frei.

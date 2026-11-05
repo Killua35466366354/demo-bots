@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-05T09:46:41.603257",
+   "stand_utc": "2026-11-05T10:16:56.324845",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,7 +24,7 @@
   },
   "r6-london-gbpusd": {
    "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden); Konto freigegeben",
-   "stand_utc": "2026-11-05T09:46:41.603257",
+   "stand_utc": "2026-11-05T10:16:56.324845",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -45,7 +45,7 @@
   },
   "r6-noise-usdjpy": {
    "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden); Konto freigegeben",
-   "stand_utc": "2026-11-05T09:46:41.603257",
+   "stand_utc": "2026-11-05T10:16:56.324845",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -107,7 +107,7 @@
   },
   "r6-vortag-eurusd": {
    "status": "Stop-Orders liegen",
-   "stand_utc": "2026-11-05T09:46:41.603257",
+   "stand_utc": "2026-11-05T10:16:56.324845",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
@@ -116,7 +116,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T09:46:41.603257",
+    "zeit": "2026-11-05T10:16:56.324845",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -159,7 +159,7 @@
   },
   "r6-vortag-gbpusd": {
    "status": "Stop-Orders liegen",
-   "stand_utc": "2026-11-05T09:46:41.603257",
+   "stand_utc": "2026-11-05T10:16:56.324845",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
@@ -168,7 +168,7 @@
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T09:46:41.603257",
+    "zeit": "2026-11-05T10:16:56.324845",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -251,5 +251,5 @@
    }
   }
  },
- "stand_utc": "2026-11-05T09:46:41.603257"
+ "stand_utc": "2026-11-05T10:16:56.324845"
 }

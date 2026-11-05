@@ -1,0 +1,72 @@
+# Gleiche Bewertung aller Demo-Strategien, 2025 und 2026 (suche/bewertung.py). Nur Demo, nie echtes Geld.
+#
+# Kirons Wunsch vom 04.11.2026: "ersetze die schlechtesten live Demo-Bots mit den besten Strategien" und, als ich die
+# schwächsten nach den alten Belegen aussortieren wollte (10:58 UTC): "nicht einfach so aussortieren, tue alle Strategien
+# gleich auswerten mit Backtest von diesem und letztem Jahr ... und dann wählen". Dazu: Kiron hat das Maximum an
+# Capital.com-Demokonten erreicht. Es gibt also 10 Konten: das Hauptkonto (Gold-Bot) und 9 weitere (siehe Korrektur unten).
+#
+# Festgelegt am 04.11.2026 um etwa 11:05 UTC, BEVOR die Pine-C/B-Strategien und die Trend-Rücksetzer auf diesem Fenster
+# gerechnet wurden. Ehrlich: Die Zahlen der Runde-6-Bots und des Nasdaq-Bots für 2025-2026 kannte ich schon (ihre Threads
+# haben sie um 10:59 UTC geschickt). Die Regel unten habe ich danach geschrieben, sie ist aber dieselbe wie Kirons alte
+# Regel (Gewinnfaktor über 1,2) plus "in beiden Jahren über 1".
+
+format: 1
+bewertung:
+  fenster: ["2025-01-01", "2026-10-30"]      # Einstiege; HistData endet am 30.10.2026, deshalb für alle dasselbe Ende
+  jahre: ["2025", "2026"]
+  mass: >-
+    Ergebnis je Trade in Prozent vom Kurs nach Spread und Übernachtkosten (pct). Gewinnfaktor (PF) = Summe der Gewinne
+    durch Summe der Verluste in pct. R (Ergebnis durch Risiko bis zum Stop) steht dabei, wo es einen Stop gibt.
+    Der Gewinnfaktor ist für alle gleich vergleichbar, auch wenn Stop und Haltedauer sehr verschieden sind.
+  regel:                                      # alle müssen halten
+    min_trades: 20                           # im ganzen Fenster
+    min_pf: 1.2                              # Kirons Regel aus Runde 3
+    je_jahr: {min_trades: 5, min_pf: 1.0}    # 2025 und 2026 je mindestens 5 Trades und PF über 1,0
+  reihenfolge: bestandene zuerst, dann Gewinnfaktor, bei Gleichstand mehr Trades
+  konten:
+    hauptkonto: gold-cb                      # der Gold-Bot (Kirons Pine) bleibt auf dem Hauptkonto, er hat einen eigenen
+                                             # Plan bis Ende Januar 2027; er steht trotzdem ehrlich in der Rangliste
+    anzahl: 9                                # Account 1 bis 7, US500 und "Vortag USDJPY"
+    # Korrektur 04.11.2026 ~11:15 UTC, vor dem Rechnen der Pine-Strategien: Kiron hatte um 11:01 UTC noch das Konto
+    # "Vortag USDJPY" (…4094) angelegt, das der Runde-6-Bot gleich genommen hat. Es sind also 9 Konten neben dem
+    # Hauptkonto, nicht 8. Die Regel selbst ist unverändert.
+    vergabe: >-
+      Die 9 Konten bekommen die besten bestandenen Strategien. Ein Bot, der schon ein Konto hat und gewählt ist, behält
+      es. Ein Bot, der nicht gewählt ist, öffnet keine neuen Trades mehr; seine offene Position läuft nach seinen Regeln
+      zu Ende, erst dann bekommt der Nachfolger das Konto. Bestehen weniger als 9, behalten die übrigen Wochen-Test-Bots
+      ihr Konto bis zum Testende am 10.11.2026, danach schlage ich Kiron etwas vor.
+
+  strategien:
+    # Kirons Pine C (Long) und B (Short), unverändert, Trendfilter EMA 200 auf 60 min, Code suche/runde3.py.
+    # Daten: Capital.com-Viertelstunden (Bid und Ask, echter Spread) ab 01.09.2024 (kerzen.yml modus bewertung).
+    - {id: gold-cb, name: "Gold-Bot C/B", gruppe: pine, epic: GOLD, typ: COMMODITIES, zeitrahmen: 60min, logik: gold, seiten: C+B}
+    - {id: oil-brent, name: "Brent 30 min Long", gruppe: pine, epic: OIL_BRENT, typ: COMMODITIES, zeitrahmen: 30min, logik: gold, seiten: nur C}
+    - {id: j225, name: "Japan 225 60 min (2.0)", gruppe: pine, epic: J225, typ: INDICES, zeitrahmen: 60min, logik: gold2, seiten: C+B}
+    - {id: us30, name: "Dow 15 min Short", gruppe: pine, epic: US30, typ: INDICES, zeitrahmen: 15min, logik: gold, seiten: nur B}
+    - {id: copper, name: "Kupfer 30 min Long", gruppe: pine, epic: COPPER, typ: COMMODITIES, zeitrahmen: 30min, logik: gold, seiten: nur C}
+    - {id: intc, name: "Intel 60 min", gruppe: pine, epic: INTC, typ: SHARES, zeitrahmen: 60min, logik: gold, seiten: C+B}
+    - {id: gold2, name: "Gold-Bot 2.0", gruppe: pine, epic: GOLD, typ: COMMODITIES, zeitrahmen: 60min, logik: gold2, seiten: C+B}
+    - {id: dax, name: "DAX 15 min Long", gruppe: pine, epic: DE40, typ: INDICES, zeitrahmen: 15min, logik: gold, seiten: nur C}
+    # Runde 6 (HistData 15 min mit Capital.com-Spread, gelernte Bedingung wie im Bot), Trades vom Runde-6-Thread:
+    # Projektdateien strategie-suche/runde6/auswertung-2025/r6_trades_2025_bis_2026-10-30.csv
+    - {id: r6-vortag-usdjpy, name: "Vortag USD/JPY", gruppe: r6, markt: USDJPY}
+    - {id: r6-london-gbpusd, name: "London GBP/USD", gruppe: r6, markt: GBPUSD}
+    - {id: r6-noise-usdjpy, name: "Noise USD/JPY", gruppe: r6, markt: USDJPY}
+    - {id: r6-vortag-eurusd, name: "Vortag EUR/USD", gruppe: r6, markt: EURUSD, schatten: true}
+    - {id: r6-vortag-gbpusd, name: "Vortag GBP/USD", gruppe: r6, markt: GBPUSD, schatten: true}
+    # Runde 7 (HistData NSXUSD 15 min mit US100-Spread), Trades vom Runde-7-Thread:
+    # Projektdateien strategie-suche/runde7/nasdaq_noise_long_trades_2025_bis_jetzt.csv
+    - {id: r7-nasdaq-noise-long, name: "Nasdaq Noise Long", gruppe: r7, markt: US100}
+    # Trend-Rücksetzer (Runde 5b/5c), Motor suche/runde5.py, Capital.com-Tageskerzen (Artefakt aktien-kerzen-tag,
+    # Lauf 41786315891), genau wie die Gegenprobe Runde 5c.
+    - {id: us500, name: "Trend-Rücksetzer US500", gruppe: r5, epic: US500}
+    - {id: r5-ruecksetzer-us100, name: "Trend-Rücksetzer US100", gruppe: r5, epic: US100}
+    - {id: r5-ruecksetzer-us30, name: "Trend-Rücksetzer Dow", gruppe: r5, epic: US30}
+
+  ehrlich:
+    - Die Runde-3-Bots wurden auf März bis Oktober 2026 ausgesucht. Ihr 2026 ist deshalb geschönt; 2025 ist für sie neu.
+    - Der Nasdaq-Bot wurde gewählt, weil er 2021-2026 bestand; 2025-2026 ist für ihn nicht unberührt.
+    - Die Runde-6-Bedingungen wurden vor 2021 gelernt; 2025-2026 ist für sie neu.
+    - Der Trend-Rücksetzer bestand 2022-2026 (HistData) und 2005-2010 (Capital.com); 2025-2026 lag in seinem Siegel.
+    - Zwei Jahre sind wenig für Strategien mit 10 bis 20 Trades im Jahr. Die Rangliste ist die beste Wahl, die wir heute
+      haben, kein Beweis.

@@ -1,0 +1,255 @@
+{
+ "bots": {
+  "r6-vortag-usdjpy": {
+   "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
+   "stand_utc": "2026-11-05T09:46:41.603257",
+   "konto_id": null,
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
+   "waehrung": "EUR",
+   "start_utc": "2026-11-04T11:02:02.608117",
+   "start_kontostand": 1000.0,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-04T11:47:05.194282",
+    "action": "none",
+    "why": [
+     "heute erledigt"
+    ],
+    "bar": null
+   },
+   "tag_erledigt": "2026-11-04",
+   "position": null,
+   "uebergeben_an": "r6-vortag-gbpusd"
+  },
+  "r6-london-gbpusd": {
+   "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +59 € aus 53 Trades, kaum vom Zufall zu unterscheiden); Konto freigegeben",
+   "stand_utc": "2026-11-05T09:46:41.603257",
+   "konto_id": null,
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
+   "waehrung": "EUR",
+   "start_utc": "2026-11-04T11:47:05.194282",
+   "start_kontostand": 1000.0,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-04T12:47:26.616947",
+    "action": "none",
+    "why": [
+     "heute erledigt"
+    ]
+   },
+   "tag_erledigt": "2026-11-04",
+   "position": null,
+   "uebergeben_an": null
+  },
+  "r6-noise-usdjpy": {
+   "status": "abgelöst (Kirons Auswahl vom 04.11.2026 (abschalten): +49 € aus 254 Trades (2025 +2 €), kaum vom Zufall zu unterscheiden); Konto freigegeben",
+   "stand_utc": "2026-11-05T09:46:41.603257",
+   "konto_id": null,
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
+   "waehrung": "EUR",
+   "start_utc": "2026-11-04T11:47:05.194282",
+   "start_kontostand": 999.96,
+   "band": {
+    "tag": "2026-11-04",
+    "sig": [
+     0.0003416754138945076,
+     0.000558135825672831,
+     0.0005555033157622148,
+     0.0007313579258738814,
+     0.0007724498107048926,
+     0.0007571764132222444,
+     0.000882139107016487,
+     0.0009005137048952212,
+     0.0010616175800861288,
+     0.0010986652849480638,
+     0.001306911950553031,
+     0.0012701794175230938,
+     0.0013133302108166275,
+     0.0013261586999005323,
+     0.00116879720678263,
+     0.001334689765085836,
+     0.0012682475854835745,
+     0.0012521502618763614,
+     0.0009904825174234205,
+     0.0011078811275516767,
+     0.0011859062608930912,
+     0.0012172916491856192,
+     0.0012980857260444512,
+     0.0013822958045135922,
+     0.0013868066011511946,
+     0.0015251325511404037,
+     0.001529705197505544,
+     0.0015571099647993683,
+     0.0014258115074705488,
+     0.0015520497013779158,
+     0.0014563672012929407,
+     0.001364362820273484,
+     0.0014155618588785335,
+     0.001288181583757367,
+     0.0012452831809884085,
+     0.0013031044666841271
+    ],
+    "vortag_schluss": 158.502
+   },
+   "letzte_entscheidung": {
+    "zeit": "2026-11-04T12:47:26.616947",
+    "action": "none",
+    "why": [
+     "kein Signal"
+    ]
+   },
+   "position": null,
+   "uebergeben_an": null
+  },
+  "r6-vortag-eurusd": {
+   "status": "Stop-Orders liegen",
+   "stand_utc": "2026-11-05T09:46:41.603257",
+   "konto_id": "332263746671301790",
+   "konto": "…1790",
+   "konto_name": "Account 4",
+   "kontostand": 1000.0,
+   "waehrung": "EUR",
+   "start_utc": "2026-11-04T11:47:05.194282",
+   "start_kontostand": 1000.0,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-05T09:46:41.603257",
+    "action": "none",
+    "why": [
+     "Stop-Orders liegen"
+    ]
+   },
+   "tag_erledigt": "2026-11-04",
+   "position": null,
+   "versuche": {
+    "2026-11-05": 1
+   },
+   "orders": {
+    "tag": "2026-11-05",
+    "ph": 1.1273,
+    "pl": 1.11831,
+    "gelegt_utc": "2026-11-05T09:31:33.439609",
+    "bis_utc": "2026-11-05 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.123955,
+    "konto_kurz": "…1790",
+    "long": {
+     "dealId": "00000000-7140-1c8a-049c-701e0015549e",
+     "level": 1.12737,
+     "marke": 1.1273,
+     "stop": 1.12699,
+     "ziel": 1.12955,
+     "size": 14900.0
+    },
+    "short": {
+     "dealId": "00000000-7140-1c92-049c-701e0015549e",
+     "level": 1.11831,
+     "marke": 1.11831,
+     "stop": 1.11862,
+     "ziel": 1.11606,
+     "size": 14900.0
+    },
+    "stop_abstand": 0.00030807021413905336,
+    "atr15": 0.0006161404282781067
+   }
+  },
+  "r6-vortag-gbpusd": {
+   "status": "Stop-Orders liegen",
+   "stand_utc": "2026-11-05T09:46:41.603257",
+   "konto_id": "332325912027944094",
+   "konto": "…4094",
+   "konto_name": "Vortag USDJPY",
+   "kontostand": 1000.0,
+   "waehrung": "EUR",
+   "start_utc": "2026-11-04T12:02:20.662505",
+   "start_kontostand": 1000.0,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-05T09:46:41.603257",
+    "action": "none",
+    "why": [
+     "Stop-Orders liegen"
+    ]
+   },
+   "tag_erledigt": "2026-11-04",
+   "position": null,
+   "versuche": {
+    "2026-11-05": 1
+   },
+   "orders": {
+    "tag": "2026-11-05",
+    "ph": 1.35028,
+    "pl": 1.34062,
+    "gelegt_utc": "2026-11-05T09:31:33.439609",
+    "bis_utc": "2026-11-05 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.123955,
+    "konto_kurz": "…4094",
+    "long": {
+     "dealId": "00000000-716d-d326-049c-a8a80015549e",
+     "level": 1.35041,
+     "marke": 1.35028,
+     "stop": 1.34993,
+     "ziel": 1.35269,
+     "size": 12500.0
+    },
+    "short": {
+     "dealId": "00000000-716d-d32e-049c-a8a80015549e",
+     "level": 1.34062,
+     "marke": 1.34062,
+     "stop": 1.34097,
+     "ziel": 1.3382,
+     "size": 12500.0
+    },
+    "stop_abstand": 0.0003546674335701615,
+    "atr15": 0.000709334867140323
+   }
+  }
+ },
+ "zwilling": {
+  "vortag_stop_oco|USDJPY": "2026-11-04",
+  "london_stunde_long|GBPUSD": "2026-11-04",
+  "noise_band|USDJPY": "2026-11-04",
+  "vortag_stop_oco|EURUSD": "2026-11-04",
+  "vortag_stop_oco|GBPUSD": "2026-11-04"
+ },
+ "maerkte": {
+  "GBPUSD": {
+   "tageswerte": {
+    "2026-11-03": {
+     "atr14": 0.007511428571428566,
+     "atr100": 0.0069977999999999985,
+     "schwankung": 1.0733985783286986,
+     "bis": "2026-11-02"
+    },
+    "2026-11-04": {
+     "atr14": 0.006782857142857138,
+     "atr100": 0.006981399999999998,
+     "schwankung": 0.9715611686563068,
+     "bis": "2026-11-03"
+    }
+   }
+  },
+  "USDJPY": {
+   "tageswerte": {
+    "2026-11-03": {
+     "atr14": 0.8152142857142864,
+     "atr100": 1.022989999999999,
+     "schwankung": 0.7968936995613713,
+     "bis": "2026-11-02"
+    },
+    "2026-11-04": {
+     "atr14": 0.8232142857142881,
+     "atr100": 1.028799999999999,
+     "schwankung": 0.8001694067984924,
+     "bis": "2026-11-03"
+    }
+   }
+  }
+ },
+ "stand_utc": "2026-11-05T09:46:41.603257"
+}

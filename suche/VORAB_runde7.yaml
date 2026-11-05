@@ -1,0 +1,119 @@
+# Runde 7 (04.11.2026): dieselben Einstiege wie Runde 6, aber Trades mit weitem Stop tagelang halten.
+# Vorab festgelegt, BEVOR gerechnet wird (Prüfsumme im Journal). Code: suche/runde7.py.
+#
+# Kirons Wunsch (04.11.2026, 09:09 UTC): "die trades können auch für tage gehalten werden ... die strategie angepasst
+# extra dafür, dass man mehr risk nimmt (viel mehr) ... aber dafür zu fast 99 % sicher sein, dass es nicht ins
+# stoploss läuft, bzw. vorher verkauft wird oder nach langem einfach ins plus läuft ... abwarten/geduld".
+#
+# Was vorher gesehen wurde (ehrlich): Runde 6 hat alle 21 Strategien mit ihren eigenen Ausstiegen (enger Stop, Ziel,
+# raus zum Tagesende) auf 2015-2026 gerechnet und auf 2021-2026 beurteilt. Die drei Demo-Kandidaten (vortag_stop_oco
+# USDJPY, london_stunde_long GBPUSD, noise_band USDJPY) wurden WEGEN ihrer Ergebnisse 2021-2026 ausgesucht. Für ihre
+# Einstiege sind die Prüf-Jahre also nicht mehr unberührt; ein Bestehen in Teil B ist ein schwächerer Beleg als in
+# Runde 6. Neu sind nur die Ausstiege: weiter Stop, kleines oder kein Ziel, mehrere Tage halten. Keine dieser
+# Ausstiegsregeln wurde je auf diesen Einstiegen gerechnet. Der Gold-Bot (Pine C/B) ist nicht Teil dieser Runde
+# (dafür gibt es den 15-Minuten-Kurscheck).
+#
+# Was man vorher weiß: Mit weitem Stop und kleinem Ziel ist eine hohe Trefferquote fast geschenkt. Bei reinem Zufall
+# (Kurs ohne Richtung) trifft das Ziel zuerst mit Wahrscheinlichkeit Stop / (Stop + Ziel), z. B. 5 ATR Stop und
+# 0,1 ATR Ziel: 98 %. Dafür kostet ein Verlust so viel wie viele Gewinne. Über Geld entscheiden Gewinnfaktor, Summe,
+# größter Einzelverlust und Rückgang, nicht die Trefferquote. Darum wird die Trefferquote hier immer neben der
+# Zufalls-Trefferquote berichtet.
+
+runde_7:
+  daten: Wie Runde 6 (suche/VORAB_runde6.yaml, daten), HistData-15-Minuten-Bid-Kerzen mit Capital.com-Spread-Profil.
+  maerkte: Die 20 Märkte aus suche/VORAB_runde6.yaml (maerkte).
+  vorlauf_ab: "2014-12-01"
+  lernen: ["2015-11-01", "2020-12-31"]        # Auswahl NUR hier
+  pruefen: ["2021-01-01", "2026-10-30"]       # Urteil nur hier
+  zuordnung: >-
+    Ein Trade gehört zu dem Zeitraum, in dem er eröffnet wird. Setups, deren Zeitausstieg hinter dem Datenende liegt,
+    fallen für diese Haltedauer weg.
+
+  einstiege: >-
+    Die Setups aller 21 Strategien genau wie in Runde 6 (runde4.STRATEGIEN, runde4b.STRATEGIEN_B, runde4.passt, gleiche
+    Sitzungen und Parameter): Zeitpunkt (Einstiegskerze), Richtung und Bezugskurs. Dazu die in Runde 6 auf den
+    Lern-Jahren gewählten Bedingungen je Strategie (runde6.json: auswahl.bedingungen, Drittel-Grenzen aus
+    fehltrades.<merkmal>.grenzen), Merkmale gerechnet wie runde6.tagesmerkmale / runde6._markt. Die eigenen Ausstiege
+    der Strategien (Stop, Ziel, Tagesende) werden durch die Ausstiege unten ersetzt.
+  familien:
+    A: Runde-6-Bedingungen
+    B: >-
+      Runde-6-Bedingungen und zusätzlich trend200 = mit (nur in Richtung des 200-Tage-Trends; die eine Anpassung, die
+      für tagelanges Halten naheliegt, nicht gegen den großen Trend warten)
+
+  ausstieg:
+    atr: ATR(14) der Tageskerzen, Stand Ende des Vortags (runde6.tagesmerkmale atr14), in Kurs-Einheiten
+    stop_atr: [2, 3, 5]                       # Stop = Bezugskurs -/+ stop_atr x ATR
+    ziel_atr: [0.1, 0.25, 0.5, 1.0, null]     # Ziel = Bezugskurs +/- ziel_atr x ATR; null = kein Ziel (nur Stop und Zeit)
+    halten_tage: [1, 3, 5, 10]                # Handelstage; der Tag des Einstiegs ist Tag 1
+    zeitausstieg: >-
+      Zum Schluss der Kerze 15:45-16:00 New York am letzten Haltetag (Handelstag endet 17:00 New York, nur Tage mit
+      mindestens 20 Kerzen; fehlt die Kerze, die letzte Kerze davor an diesem Tag). Einstieg nach 15:45 New York:
+      Tag 1 ist der nächste Handelstag.
+    pruefung_in_der_kerze: >-
+      Long: Stop, wenn Bid-Tief <= Stop; Ziel, wenn Bid-Hoch >= Ziel. Short: Stop, wenn Ask-Hoch >= Stop; Ziel, wenn
+      Ask-Tief <= Ziel. Stop und Ziel in derselben Kerze: Stop. Stop oder Ziel in der letzten Kerze: vor dem Zeitausstieg.
+      Lücke über Stop oder Ziel: Füllung zur Eröffnung. Setups mit Stop-Order (Einstieg in der Kerze): die
+      Einstiegskerze zählt nicht für Stop und Ziel. Long kauft zum Ask, Short verkauft zum Bid (wie Runde 4b/6).
+    ein_trade_gleichzeitig: >-
+      Je Strategie und Markt höchstens ein offener Trade. Ein Setup zählt nur, wenn seine Einstiegskerze nach der
+      Ausstiegskerze des vorigen Trades liegt.
+    varianten: 3 x 5 x 4 = 60 je Familie, 120 je Strategie
+
+  kosten:
+    spread: wie Runde 6 (Median-Spread von Capital.com je 15-Minuten-Fenster in New Yorker Zeit)
+    uebernacht: >-
+      Je Rollover 22:00 UTC zwischen Einstieg und Ausstieg (Wochenende zählt dreifach, runde5.naechte), in Prozent im
+      Jahr vom Einstiegskurs, geteilt durch 365. Satz aus dem Einstiegsmonat. Index und Rohstoff: Long zahlt Zins der
+      Kurswährung + 2,5, Short zahlt 2,5 - Zins der Kurswährung (negativ = Gutschrift). Devisen Basis/Kurs: Long zahlt
+      2,0 - (Zins Basis - Zins Kurs), Short zahlt 2,0 + (Zins Basis - Zins Kurs).
+    zinsen: >-
+      3-Monats-Interbankenzins je Währung, monatlich (FRED IR3TIB01{US,EZ,GB,JP,AU,CA,CH,NZ}M156N, Stand 04.11.2026),
+      letzter Wert nach vorn fortgeschrieben bis 2026-10. Datei Projektdateien strategie-suche/runde7/zinsen_monat.csv
+      (Prüfsumme im Journal).
+    kurswaehrung: {SPXUSD: USD, NSXUSD: USD, XAUUSD: USD, XAGUSD: USD, WTIUSD: USD, GRXEUR: EUR, UKXGBP: GBP, JPXJPY: JPY}
+    robust: Spread x 1,5 und Aufschlag (2,5 bzw. 2,0) x 1,5; Zinsdifferenz unverändert
+
+  normierung: Wie Runde 6 (Ergebnis in Prozent vom Kurs / mittlere Tagesspanne des Marktes in den Lern-Jahren).
+
+  teil_a:                                     # alle 21 Strategien, alle passenden Märkte
+    auswahl: >-
+      Nur Lern-Jahre. Je Strategie, Familie und Variante: alle Märkte zusammen (normiert, je Markt ein Trade
+      gleichzeitig), Gewinnfaktor und Trefferquote. Mindestens 200 Lern-Trades.
+    wahl_frei: höchster Lern-Gewinnfaktor
+    wahl_kiron: höchster Lern-Gewinnfaktor unter den Varianten mit Lern-Trefferquote >= 90 %
+    gleichstand: weniger Haltetage, dann kleinerer Stop, dann kleineres Ziel, dann Familie A
+    markt: >-
+      Danach der Markt mit dem höchsten Lern-Gewinnfaktor (Prozent vom Kurs) mit dieser Variante, mindestens 50
+      Lern-Trades.
+
+  teil_b:                                     # die drei Demo-Kandidaten aus Runde 6, Markt fest
+    kandidaten: {vortag_stop_oco: USDJPY, london_stunde_long: GBPUSD, noise_band: USDJPY}
+    auswahl: >-
+      Nur Lern-Jahre, nur dieser Markt: wahl_frei und wahl_kiron wie in Teil A, mindestens 50 Lern-Trades.
+    wechsel: >-
+      Dem Demo-Bot wird der neue Ausstieg nur vorgeschlagen, wenn die Variante in den Prüf-Jahren besteht UND ihr
+      Gewinnfaktor über dem des heutigen Ausstiegs (Runde 6, gleicher Markt, gleiche Bedingungen) liegt UND ihr
+      Verhältnis Summe / größter Rückgang (beides Prozent vom Kurs) über dem heutigen liegt. Kiron entscheidet.
+
+  pruefung:
+    zufall_laeufe: 1000
+    zufall_seed: 20261121
+    zufall_art: >-
+      Gleiche Setups, je Setup zufällig Long oder Short mit denselben Ausstiegsregeln, ein Trade gleichzeitig wie echt.
+    bestanden_alle:                           # auf dem gewählten Markt, Prüf-Jahre
+      trades_min: 60
+      pf_min: 1.2
+      pf_robust_min: 1.05
+      jahre_pf_ueber_1_min: 4                 # von 6 (2021 bis 2026)
+      zufall_richtung_perzentil_min: 95
+    bericht: >-
+      Trefferquote und Zufalls-Trefferquote Stop / (Stop + Ziel); größter Einzelverlust in R und Prozent vom Kurs;
+      größter Rückgang; längste Verlustserie; R je Trade und Jahr (R = Stopabstand); Konto bei 1 % und 5 % Risiko je
+      Trade; Anteile Stop / Ziel / Zeit; mittlere Haltedauer; Anteil der Übernachtkosten. Zur Ansicht (keine Auswahl):
+      für die drei Kandidaten alle 120 Varianten auf den Prüf-Jahren (Trefferquote gegen Gewinnfaktor); und wie viele
+      Strategie-Markt-Varianten in den Lern-Jahren >= 99 % Treffer erreichen und welchen Gewinnfaktor sie haben.
+      Mehrfachtest: Teil A beurteilt bis zu 42 Wahlen, Teil B bis zu 6; ein einzelnes Bestehen kann Glück sein.
+    demo: >-
+      Nur Demo, nie Echtgeld. Besteht eine Variante, wird sie Kiron vorgeschlagen (Teil B: Wechsel beim bestehenden
+      Demo-Bot; Teil A: eigenes Demokonto). Start erst nach seinem Ja. Der Bot ändert seine Regeln nie selbst.

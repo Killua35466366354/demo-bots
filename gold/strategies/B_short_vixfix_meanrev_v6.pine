@@ -1,0 +1,188 @@
+/@version=6
+// Vix Fix Mean Reversion SHORT v6
+// Mirror image of "Vix Fix Mean Reversion v6" (long). Every rule is reversed for short trades.
+//
+//   Long version                                  Short version (this script)
+//   WVF  = (highest close - low) / highest close   Inverse WVF = (high - lowest close) / lowest close
+//          -> fear spike after a sell-off                 -> greed spike after a run-up
+//   low > low[1] and close > high[1]               high < high[1] and close < low[1]
+//   close > close[1] and green candle              close < close[1] and red candle
+//   close > close[x], below older closes           close < close[x], above older closes
+//   Stoch %K crosses ABOVE %D while %K > 80        Stoch %K crosses BELOW %D while %K < 20
+//   add-ons below the last entry, stop below       add-ons above the last entry, stop above
+//   trend filter: only above HTF EMA               trend filter: only below HTF EMA
+//
+// With all defaults this is the exact mirror of the long defaults (no stop, up to 9 entries).
+// A short position without a stop has no upper loss limit. Test with a stop before going live.
+//
+// Costs cannot be set through inputs in Pine. Set commission and slippage in
+// Settings > Properties before every serious test.
+strategy("Vix Fix Mean Reversion SHORT v6", overlay = false,
+     pyramiding = 9,
+     initial_capital = 1000000,
+     default_qty_type = strategy.percent_of_equity,
+     default_qty_value = 3)
+
+// ───────── Inverse Williams Vix Fix ─────────
+g1 = "Inverse Williams Vix Fix"
+wvfLen   = input.int(22, "Lookback for lowest close", minval = 1, group = g1)
+bbLen    = input.int(20, "Bollinger length", minval = 1, group = g1)
+bbMult   = input.float(2.0, "Bollinger std dev", minval = 1, maxval = 5, step = 0.1, group = g1)
+pctLen   = input.int(50, "Percentile lookback", minval = 1, group = g1)
+pctHigh  = input.float(0.85, "Highest percentile (0.85 = 85%)", minval = 0.5, maxval = 1, step = 0.01, group = g1)
+
+// ───────── Entry signals ─────────
+g2 = "Entry signals"
+useFilt  = input.bool(true, "Use FILTERED short (spike has ended)", group = g2)
+useAggr  = input.bool(true, "Use AGGRESSIVE short (spike still active)", group = g2)
+ltLB     = input.int(40, "Long-term lookback", minval = 25, maxval = 99, group = g2)
+mtLB     = input.int(14, "Medium-term lookback", minval = 10, maxval = 20, group = g2)
+strBars  = input.int(3, "Entry weakness (close < close[x])", minval = 1, maxval = 9, group = g2)
+
+// ───────── Stochastic exit ─────────
+g3 = "Stochastic exit"
+stochLen = input.int(14, "Stochastic length", minval = 1, group = g3)
+smoothK  = input.int(3, "%K smoothing", minval = 1, group = g3)
+smoothD  = input.int(3, "%D smoothing", minval = 1, group = g3)
+osLevel  = input.float(20, "Oversold level", minval = 0, maxval = 50, group = g3)
+
+// ───────── Position building ─────────
+g4 = "Position building"
+maxEntries  = input.int(9, "Max entries per position", minval = 1, maxval = 9, group = g4)
+spacingMode = input.string("Off", "Add-on spacing", options = ["Off", "Percent", "ATR"], group = g4,
+     tooltip = "New short entries only if close is ABOVE the last entry price by this distance. Percent with 0 = only add at a higher price.")
+spacingVal  = input.float(0.3, "Spacing (% or ATR multiple)", minval = 0, step = 0.05, group = g4)
+
+// ───────── Risk management ─────────
+g5 = "Risk management"
+stopMode     = input.string("Off", "Stop loss", options = ["Off", "Percent", "ATR"], group = g5)
+stopRef      = input.string("Average price", "Stop reference", options = ["Average price", "First entry"], group = g5,
+     tooltip = "Average price moves the stop UP with every add-on. First entry fixes the total risk zone.")
+stopVal      = input.float(1.0, "Stop distance above (% or ATR multiple)", minval = 0.05, step = 0.05, group = g5)
+tpPct        = input.float(0.0, "Take profit below average price in % (0 = off)", minval = 0, step = 0.05, group = g5)
+timeStopBars = input.int(0, "Time stop in bars after first entry (0 = off)", minval = 0, group = g5)
+atrLen       = input.int(14, "ATR length", minval = 1, group = g5)
+
+// ───────── Regime filters ─────────
+g6 = "Regime filters"
+useTrend   = input.bool(false, "Only enter below higher-timeframe EMA", group = g6)
+trendTF    = input.timeframe("60", "Trend timeframe (must be >= chart timeframe)", group = g6)
+trendLen   = input.int(200, "Trend EMA length", minval = 1, group = g6)
+useSession = input.bool(false, "Only enter inside session", group = g6)
+sess       = input.session("1200-1800", "Entry session", group = g6)
+tzChoice   = input.string("Exchange", "Session time zone", options = ["Exchange", "Europe/Berlin", "America/New_York", "Etc/UTC"], group = g6)
+
+// ───────── Backtest window ─────────
+g7 = "Backtest window (entries only)"
+useWindow = input.bool(false, "Restrict entries to window", group = g7,
+     tooltip = "Use for in-sample / out-of-sample splits. Open positions are still exited after the window ends.")
+startT    = input.time(timestamp("01 Jan 2025 00:00 +0000"), "Start", group = g7)
+endT      = input.time(timestamp("31 Dec 2026 00:00 +0000"), "End", group = g7)
+
+// ═════════ Calculations (all stateful functions at global scope) ═════════
+lc        = ta.lowest(close, wvfLen)
+wvf       = (high - lc) / lc * 100                  // inverse Vix Fix, rises when price spikes above recent closes
+bbDev     = bbMult * ta.stdev(wvf, bbLen)
+midLine   = ta.sma(wvf, bbLen)
+upperBand = midLine + bbDev
+rangeHigh = ta.highest(wvf, pctLen) * pctHigh
+
+spikeNow  = wvf >= upperBand or wvf >= rangeHigh
+spikePrev = wvf[1] >= upperBand[1] or wvf[1] >= rangeHigh[1]
+
+dnRange     = high < high[1] and close < low[1]
+dnRangeAggr = close < close[1] and close < open[1]
+priceCtx    = close < close[strBars] and (close > close[ltLB] or close > close[mtLB])
+
+filtSig = dnRange and priceCtx and spikePrev and not spikeNow
+aggrSig = dnRangeAggr and priceCtx and spikePrev and spikeNow
+
+k         = ta.sma(ta.stoch(close, high, low, stochLen), smoothK)
+d         = ta.sma(k, smoothD)
+crossDown = ta.crossunder(k, d)
+exitSig   = crossDown and k < osLevel
+
+atr = ta.atr(atrLen)
+
+// Non-repainting higher-timeframe EMA (previous completed HTF bar)
+htfEma  = request.security(syminfo.tickerid, trendTF, ta.ema(close, trendLen)[1], lookahead = barmerge.lookahead_on)
+trendOk = not useTrend or close < htfEma
+
+tz       = tzChoice == "Exchange" ? syminfo.timezone : tzChoice
+inSess   = not na(time(timeframe.period, sess, tz))
+sessOk   = not useSession or inSess
+inWindow = not useWindow or (time >= startT and time <= endT)
+
+// ═════════ Position state ═════════
+openCount   = strategy.opentrades
+lastEntryPx = openCount > 0 ? strategy.opentrades.entry_price(openCount - 1) : na
+
+spacingOk = switch spacingMode
+    "Percent" => openCount == 0 or close >= lastEntryPx * (1 + spacingVal / 100)
+    "ATR"     => openCount == 0 or close >= lastEntryPx + spacingVal * atr
+    => true
+
+canEnter = openCount < maxEntries and spacingOk and trendOk and sessOk and inWindow
+
+// ═════════ Orders (same order as the long version: entries first, then exit) ═════════
+if canEnter and useFilt and filtSig
+    strategy.entry("Filt S", strategy.short)
+if canEnter and useAggr and aggrSig
+    strategy.entry("Aggr S", strategy.short)
+
+if exitSig
+    strategy.close_all(comment = "Stoch OS")
+
+// ATR is frozen at the bar the position opens
+var float posAtr = na
+if strategy.position_size < 0 and nz(strategy.position_size[1]) == 0
+    posAtr := atr
+if strategy.position_size == 0
+    posAtr := na
+
+if strategy.position_size < 0
+    float refPx = stopRef == "First entry" ? strategy.opentrades.entry_price(0) : strategy.position_avg_price
+    float stopPx = switch stopMode
+        "Percent" => refPx * (1 + stopVal / 100)
+        "ATR"     => refPx + stopVal * posAtr
+        => na
+    float tpPx = tpPct > 0 ? strategy.position_avg_price * (1 - tpPct / 100) : na
+    if not na(stopPx) or not na(tpPx)
+        strategy.exit("Risk", stop = stopPx, limit = tpPx, comment_loss = "Stop", comment_profit = "TP")
+    if timeStopBars > 0 and bar_index - strategy.opentrades.entry_bar_index(0) >= timeStopBars
+        strategy.close_all(comment = "Time stop")
+
+// ═════════ Position-level statistics (the report counts every add-on as a trade) ═════════
+var float npBase = 0.0
+var int   posN   = 0
+var int   posW   = 0
+var float posGP  = 0.0
+var float posGL  = 0.0
+if nz(strategy.position_size[1]) != 0 and strategy.position_size == 0
+    float posPnl = strategy.netprofit - npBase
+    posN  += 1
+    posW  += posPnl > 0 ? 1 : 0
+    posGP += math.max(posPnl, 0)
+    posGL += math.max(-posPnl, 0)
+if strategy.position_size == 0
+    npBase := strategy.netprofit
+
+var table stats = table.new(position.top_right, 2, 4, bgcolor = color.new(color.black, 15), border_width = 1)
+if barstate.islast
+    float pf = posGL > 0 ? posGP / posGL : na
+    table.cell(stats, 0, 0, "Closed positions", text_color = color.white)
+    table.cell(stats, 1, 0, str.tostring(posN), text_color = color.white)
+    table.cell(stats, 0, 1, "Position win rate", text_color = color.white)
+    table.cell(stats, 1, 1, posN > 0 ? str.tostring(100.0 * posW / posN, "#.0") + " %" : "n/a", text_color = color.white)
+    table.cell(stats, 0, 2, "Position profit factor", text_color = color.white)
+    table.cell(stats, 1, 2, na(pf) ? "n/a" : str.tostring(pf, "#.00"), text_color = color.white)
+    table.cell(stats, 0, 3, "Entries per position", text_color = color.white)
+    table.cell(stats, 1, 3, posN > 0 ? str.tostring(float(strategy.closedtrades) / posN, "#.0") : "n/a", text_color = color.white)
+
+// ═════════ Plots ═════════
+plot(wvf, "Inverse WVF", style = plot.style_columns, color = spikeNow ? color.red : color.gray)
+plot(upperBand, "Upper band", color = color.aqua)
+plot(rangeHigh, "Range high", color = color.orange)
+plotshape(filtSig, "Filtered short signal", shape.triangledown, location.top, color.fuchsia, size = size.tiny)
+plotshape(aggrSig, "Aggressive short signal", shape.triangledown, location.top, color.orange, size = size.tiny)
+plotshape(exitSig, "Stoch exit", shape.xcross, location.bottom, color.lime, size = size.tiny)

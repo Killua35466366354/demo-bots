@@ -1,0 +1,39 @@
+# Kirons Auswahl der Demo-Strategien (suche/demo_pruefung.py). Nur Capital.com-Demo, nie echtes Geld.
+#
+# Kirons Wunsch vom 04.11.2026, 12:27 UTC: "jetzt reduziere auf die profitabelsten oder auf die an denen ich noch
+# arbeiten kann um sie zu verbessern damit ich diese profite innerhalb eines jahres oder ein paar monaten erzielen kann".
+#
+# Grundlage: dieselben Trades wie die Bewertung 2025-2026 (Projektdateien strategie-suche/bewertung/trades.csv),
+# Euro mit 1 % Risiko je Trade (10 € bis zum Stop bei 1.000 €) und Hebelgrenze (suche/bewertung.py euro(), korrigiert
+# 04.11.2026 13:20 UTC). Entscheidend ist 2025: Die Runde-3-Bots (Brent, Dow-Short, Kupfer,
+# Intel, Japan 225, DAX) wurden auf März bis Oktober 2026 ausgesucht, ihr 2026 ist geschönt. 2025 haben alle sechs
+# verloren. Alle 17 zusammen: 2025 -251 €, 2026 +1.816 €, größter Rückgang 969 €.
+#
+# behalten: in beiden Jahren im Plus und entweder viel Gewinn (Vortag EUR/USD, GBP/USD) oder ein sehr hoher
+#   Gewinnfaktor auf einem gemeinsamen Konto, das kein weiteres Konto kostet (Top 3). Zusammen 2025-2026 +693 €
+#   (2025 +460 €, 2026 +232 €), größter Rückgang 95 €, 18 von 22 Monaten im Plus.
+# verbessern: läuft weiter, daran wird gearbeitet (eigene Threads, neue Tests vorab festgelegt).
+# abschalten: öffnet keinen neuen Trade mehr. Eine offene Position läuft nach ihren Regeln zu Ende, dann wird das Konto
+#   frei (journal/konten.json "frei") und geht an die nächste Strategie, die die Regel in VORAB_wechsel.yaml besteht.
+format: 1
+auswahl:
+  seit: "2026-11-04"
+  behalten:
+    r6-vortag-eurusd: "2025 +309 €, 2026 +116 €, Rückgang 46 €"
+    r6-vortag-gbpusd: "2025 +100 €, 2026 +65 €, Rückgang 69 €"
+    us500-ruecksetzer: "2025 +31 €, 2026 +24 €, Rückgang 4 €, Gewinnfaktor 5,8 (Top 3 auf einem Konto)"
+    r5-ruecksetzer-us100: "2025 +6 €, 2026 +17 €, Rückgang 15 €, Gewinnfaktor 1,9 (Top 3 auf einem Konto)"
+    r7-nasdaq-noise-long: "2025 +13 €, 2026 +10 €, Rückgang 3 €, Gewinnfaktor 3,5 (Top 3 auf einem Konto)"
+  verbessern:
+    gold-cb: >-
+      2025 +328 €, 2026 -30 €. Kirons Pine auf dem Hauptkonto, eigener Plan bis Ende Januar 2027; jeden Morgen eine
+      neue Idee im Gold-Lernjournal.
+    vortag-weitere-paare: >-
+      Die Vortag-Regel auf weiteren Währungspaaren. Sie hat auf EUR/USD und GBP/USD in beiden Jahren verdient, auf
+      USD/JPY nicht. Mehr Paare heißt mehr Trades im Monat bei gleichem Risiko je Trade. Nur mit einem vorab
+      festgelegten Test (lernen bis 2024, prüfen 2025-2026); was besteht, bekommt ein freies Konto.
+  abschalten:
+    oil-brent: "2025 -177 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 256 €"
+    r6-noise-usdjpy: "+49 € aus 254 Trades (2025 +2 €), Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"
+    r6-london-gbpusd: "+59 € aus 53 Trades, Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"
+    r5-ruecksetzer-us30: "+19 € aus 23 Trades, Gewinnfaktor 1,5, kaum vom Zufall zu unterscheiden"

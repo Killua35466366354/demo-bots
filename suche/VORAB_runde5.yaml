@@ -1,0 +1,164 @@
+# Strategie-Suche Runde 5: Swing auf Tageskerzen, einzeln und kombiniert. Vorab festgelegt am 04.11.2026, BEVOR gerechnet
+# wird (Prüfsumme im Journal journal/strategie-suche-protokoll.md). Code: suche/runde5.py. Nie echtes Geld.
+#
+# Warum: Kirons Wunsch vom 04.11.2026 (große Recherche zu Scalping, Daytrading, Swing; logisch verbinden; eigene
+# Strategien bauen und ehrlich testen; Gewinnfaktor über 1, am besten 1,2 bis 1,5). Alle bisherigen Runden waren intraday
+# (5/15/1 Minute) und ohne Vorteil, die Langzeit-Prüfung hat London/Asien widerlegt. Swing auf Tageskerzen wurde noch nie
+# getestet. Die Recherche (wissen/strategie-recherche/, Berichte Swing, Kombinieren, Daytrading/Scalping, YouTube, Reddit)
+# sagt übereinstimmend: Die besten Belege haben (1) Trendfolge über viele Märkte, (2) kurze Rücksetzer auf Aktienindizes
+# über dem langen Trend, (3) der Monatswechsel bei Aktienindizes. Scalping mit CFD-Spreads ist aussichtslos, Filter auf
+# Minutenkerzen sind nicht messbar. Die Strategien unten sind genau diese Familien, mit den Regeln aus den Quellen, ohne
+# eigene Feinabstimmung. Alle Parameter sind die veröffentlichten Standardwerte.
+
+runde_5:
+  maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, FRXEUR, ETXEUR, JPXJPY, HKXHKD, AUXAUD, XAUUSD, XAGUSD, WTIUSD, BCOUSD,
+            EURUSD, GBPUSD, USDJPY, AUDUSD, USDCAD, USDCHF, NZDUSD, EURGBP, EURJPY, GBPJPY, EURCHF, AUDJPY, CADJPY,
+            CHFJPY, NZDJPY, EURAUD, EURCAD, EURNZD, GBPAUD, GBPCAD, GBPCHF, GBPNZD, AUDCAD, AUDCHF, AUDNZD, CADCHF,
+            NZDCAD, NZDCHF]
+
+  daten: >-
+    HistData-Stundenkerzen (Bid) aus suche/tag_daten.py: Indizes ab Ende 2010, Gold/Silber ab 2009, Öl ab 2010, Devisen
+    ab 2000/2002, alles bis Oktober 2026. Tageskerze = die 24 Stunden bis zum Entscheidungszeitpunkt T je Markt
+    (runde5.MAERKTE: US-Indizes 15:00 New York, Europa, Devisen, Rohstoffe 16:00 London, Asien-Indizes 14:00 Ortszeit),
+    Samstag/Sonntag zählen zum Montag. Für IBS bei Indizes Hoch/Tief der Kassa-Sitzung bis T (runde5.SITZUNG_AB).
+    Signal zum Schluss der Tageskerze, Ausführung sofort zum Kurs bei T (Kauf zum Ask = Bid + Spread, Verkauf zum Bid).
+    Spread = Median des echten Capital.com-Spreads zur Uhrzeit T aus den Runde-3-Kerzen (Dez. 2025 bis Nov. 2026), über
+    alle Jahre gleich angenommen; Stops werden auf den Stundenkerzen geprüft, Short-Stops auf der Ask-Seite mit dem
+    Spread je Ortsstunde.
+
+  fenster:
+    auswahl: ["2000-01-01", "2016-12-31"]      # je Markt ab seinem Datenbeginn plus Vorlauf
+    pruefung: ["2017-01-01", "2021-12-31"]
+    siegel: ["2022-01-01", "2026-10-30"]       # nur für Finalisten geöffnet; Daten-Prüfsummen vorher ins Journal
+
+  messung: >-
+    Jeder Trade in Einheiten der Tagesschwankung beim Einstieg (ATR 20 der Tageskerzen), nach Spread und
+    Übernachtgebühr. So zählt jeder Markt gleich (ein Bot würde die Größe so wählen: gleiches Risiko je Trade).
+    Gewinnfaktor = Summe der Gewinne / Summe der Verluste über alle Trades aller Märkte im Fenster. Ein Trade je Markt
+    und Strategie gleichzeitig.
+
+  kosten:
+    spread_ersatz:                             # nur falls ein Markt keine Capital.com-Kerzen hat: Anteil vom Kurs
+      index_us: 0.0002
+      index_eu: 0.0002
+      index_asien: 0.0003
+      metall: 0.0004
+      energie: 0.0008
+      fx: 0.0003
+    uebernacht:                                # Prozent im Jahr vom Kurs, je Nacht (22:00 UTC) / 365; Wochenende dreifach
+      index: {long: 6.5, short: 2.0}           # Capital.com: Long zahlt Leitzins + Aufschlag, Short Aufschlag - Leitzins
+      metall: {long: 6.5, short: 2.0}
+      energie: {long: 6.5, short: 2.0}
+      fx: {long: 2.0, short: 2.0}              # Zinsdifferenz nicht modelliert, nur der Aufschlag in beide Richtungen
+    robust_faktor: 1.5                         # Spread UND Übernachtgebühr x 1,5
+    hinweis: >-
+      Die echten Übernachtsätze von Capital.com (Kerzen-Lauf Modus "tag" vom 04.11.2026, Feld "uebernacht") werden nur
+      zum Vergleich berichtet und ändern die Sätze oben nicht.
+
+  regel:
+    vorlauf_tage: 400                          # Kalendertage je Markt ohne Trades (Durchschnitte einschwingen lassen)
+    min_abdeckung: 0.85                        # Werktage mit Kerze / alle Werktage im Fenster (ab Datenbeginn)
+    min_trades_auswahl: 150
+    min_pf_auswahl: 1.2
+    min_zufall_perzentil: 95                   # Strategie besser als 95 % der Zufallsläufe
+    min_pf_robust: 1.1                         # Auswahl mit 1,5-fachen Kosten
+    min_trades_pruefung: 75
+    min_pf_pruefung: 1.1
+    min_pf_plateau: 1.05                       # jeder Nachbarwert (Auswahl) mindestens so gut
+    min_trades_markt: 30                       # bester Einzelmarkt nur zur Information
+    min_trades_siegel: 75
+    min_pf_siegel: 1.1
+    min_pf_robust_siegel: 1.0
+
+  zufall:
+    laeufe: 1000
+    seed: 20261105
+    art: >-
+      Strategien mit Long und Short: gleiche Einstiege, gleiche Ausstiegstage, je Trade zufällig echte oder umgedrehte
+      Richtung (mit gespiegeltem, auch nachgezogenem Stop). Reine Long-Strategien: gleiche Zahl und Haltedauer der
+      Trades, zufälliger Einstiegstag im selben Markt und Fenster (so zählt der Anstieg der Indizes nicht als Können).
+
+  strategien:
+    # --- Trendfolge über alle 41 Märkte (Swing, Wochen bis Monate) ---
+    tsmom_12m:
+      logik: tsmom                             # Moskowitz/Ooi/Pedersen 2012: Richtung der 12-Monats-Rendite, monatlich
+      klassen: [index_us, index_eu, index_asien, metall, energie, fx]
+      richtung: beide
+      parameter: {tage: 252}
+      plateau: {tage: [189, 315]}
+    abstimmung:
+      logik: abstimmung                        # AQR-Stil: 1, 3, 12 Monate; rein wenn alle drei gleich, raus bei Mehrheit dagegen; wöchentlich
+      klassen: [index_us, index_eu, index_asien, metall, energie, fx]
+      richtung: beide
+    ewmac:
+      logik: ewmac                             # Carver: EWMAC 16/64, 32/128, 64/256, Skalare 4,1 / 2,79 / 1,91; wöchentlich, immer im Markt
+      klassen: [index_us, index_eu, index_asien, metall, energie, fx]
+      richtung: beide
+    donchian_trend:
+      logik: donchian_trend                    # Schluss über 55-Tage-Hoch und EWMA 64 > 256; nachgezogener Stop 5 ATR vom besten Schluss
+      klassen: [index_us, index_eu, index_asien, metall, energie, fx]
+      richtung: beide
+      parameter: {einstieg: 55, trail_atr: 5.0}
+      plateau: {einstieg: [40, 70], trail_atr: [4.0, 6.0]}
+
+    # --- Aktienindizes, nur Long (kurze Rücksetzer und Kalender) ---
+    rsi2_index:
+      logik: rsi2                              # Connors: über SMA 200, RSI(2) < 10 kaufen, raus über SMA 5
+      klassen: [index_us, index_eu, index_asien]
+      richtung: long
+      parameter: {unter: 10, trend: 200}
+      plateau: {unter: [5, 15], trend: [150, 250]}
+    ibs_index:
+      logik: ibs                               # IBS < 0,2 (Kassa-Sitzung) kaufen, raus über dem Vortageshoch, spätestens 5 Tage
+      klassen: [index_us, index_eu, index_asien]
+      richtung: long
+      parameter: {unter: 0.2, max_tage: 5}
+      plateau: {unter: [0.15, 0.25], max_tage: [3, 7]}
+    double7_index:
+      logik: double7                           # Connors/Alvarez: über SMA 200, 7-Tage-Tief kaufen, 7-Tage-Hoch raus
+      klassen: [index_us, index_eu, index_asien]
+      richtung: long
+      parameter: {tage: 7}
+      plateau: {tage: [5, 10]}
+    monatswechsel_index:
+      logik: monatswechsel                     # Lakonishok/Smidt: vorletzter Handelstag bis 3. Handelstag des neuen Monats
+      klassen: [index_us, index_eu, index_asien]
+      richtung: long
+      parameter: {einstieg_rest: 1, ausstieg_tag: 3}
+      plateau: {einstieg_rest: [0, 2], ausstieg_tag: [2, 4]}
+    index_momentum:
+      logik: index_momentum                    # Reddit r/algotrading "Leverage Dual Momentum" ohne Hebel: 0,7 x 6M + 0,3 x 12M > 0 und 3M > 0
+      klassen: [index_us, index_eu, index_asien]
+      richtung: long
+
+    # --- Kombinationen Swing + Kurzfrist (Kirons Wunsch, die Stile zu verbinden) ---
+    trend_ruecksetzer:
+      logik: trend_ruecksetzer                 # S2: Richtung aus SMA 200, Einstieg RSI(2) < 10 / > 90, raus SMA 5 oder 5 Tage, Notstop 3 ATR
+      klassen: [index_us, index_eu, index_asien, metall, energie, fx]
+      richtung: beide
+      parameter: {trend: 200, unter: 10, stop_atr: 3.0, max_tage: 5}
+      plateau: {unter: [5, 15], max_tage: [3, 7]}
+    vola_ruecksetzer:
+      logik: vola_ruecksetzer                  # S3 (Nagel 2012): wie S2 ohne Trendfilter, nur bei Schwankung >= Median der letzten 252 Tage
+      klassen: [index_us, index_eu, index_asien]
+      richtung: beide
+      parameter: {unter: 10, stop_atr: 3.0, max_tage: 5}
+      plateau: {unter: [5, 15], max_tage: [3, 7]}
+
+  kombis:                                      # nur zur Information: alle Trades der Teile zusammen; Siegel nur, wenn alle Teile Finalisten
+    trend_plus_ruecksetzer: {teile: [donchian_trend, trend_ruecksetzer]}
+    index_paket: {teile: [rsi2_index, ibs_index, double7_index, monatswechsel_index]}
+
+  prozesse: 4
+
+  erwartung: >-
+    Vorher geschätzt, damit das Ergebnis nicht schöngeredet wird: Am ehesten bestehen die Index-Rücksetzer (RSI 2, IBS,
+    Double 7) und der Monatswechsel; die Literatur zeigt dort die stabilsten Effekte, und die Haltedauer von wenigen Tagen
+    hält die Übernachtgebühr klein. Die Trendfolge (tsmom, abstimmung, ewmac, donchian_trend) ist vor Kosten gut belegt,
+    ist aber oft wochenlang im Markt; mit 6,5 % Übernachtgebühr bei Long-Indizes und 2 % bei Devisen kann sie durchfallen.
+
+  folgen: >-
+    Besteht eine Strategie alle Tests (Auswahl, Prüfung, Plateau, Siegel): ich schlage Kiron einen Demo-Bot auf einem
+    eigenen Capital.com-Demokonto vor, mit dem besten Markt laut Auswahl und Prüfung (Kirons Regel: ein Markt je Konto),
+    Entscheidung einmal am Tag zur Zeit T, Größe nach ATR, Vorwärtstest mindestens 6 Monate oder 150 Trades. Kein
+    Echtgeld. Besteht keine: ich berichte ehrlich, nichts geht in Betrieb, und an keiner Regel wird nachträglich gedreht.

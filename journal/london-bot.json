@@ -1,0 +1,23 @@
+{
+ "stand_utc": "2026-11-04T07:01:50.726657",
+ "status": "beendet am 04.11.2026 (Kirons Entscheidung nach der Langzeit-Prüfung 2015-2025)",
+ "regel": "London-Breakout EUR/USD: Bereich 0 bis 8 Uhr London, Ausbruch per Marktorder, Stop andere Seite, Ziel eine Bereichsbreite, raus um 17 Uhr London, kleinste Größe. Vorwärtstest seit 04.11.2026, Urteil nach 60 Trades (Gewinnfaktor ab 1,2 und Summe im Plus). Runde 4: 0,88 / 1,62 / 1,65 in drei Zeiträumen, nicht vorab festgelegt.",
+ "bot": "london-eurusd",
+ "epic": "EURUSD",
+ "konto": null,
+ "konto_name": null,
+ "kontostand": null,
+ "start_kontostand": null,
+ "start_utc": null,
+ "offen": null,
+ "position": null,
+ "letzte_entscheidung": null,
+ "zusammenfassung": {
+  "trades": 0,
+  "treffer_pct": null,
+  "pf": null,
+  "summe_pct": 0.0,
+  "pnl_eur": 0.0
+ },
+ "letzte_trades": []
+}

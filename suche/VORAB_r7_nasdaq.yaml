@@ -1,0 +1,61 @@
+# Vorwärtstest Noise-Band nur Long auf dem Nasdaq (US100) auf einem eigenen Capital.com-DEMOKONTO.
+# Vorab festgelegt am 04.11.2026, bevor der Bot den ersten Trade macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: suche/r7_nasdaq_bot.py. Nie echtes Geld.
+#
+# Herkunft: Runde 7 (suche/VORAB_runde7.yaml, suche/PROTOKOLL.md), Teil A, freie Wahl für noise_band_long. Einstieg wie
+# Runde 6 (runde4.noise_band_trades nur Long, Bedingung schwankung=niedrig), Ausstieg in den Lern-Jahren 2015-2020 aus
+# 120 Varianten gewählt: Stop 5 ATR, kein Ziel, 5 Tage, Markt NSXUSD (Lernen 77 Trades, Gewinnfaktor 2,19).
+# Prüf-Jahre 2021 bis Oktober 2026 (HistData mit Capital.com-Spreads und Übernachtkosten): 61 Trades, Gewinnfaktor 2,11,
+# mit 1,5-fachen Kosten 2,05, 5 von 6 Jahren über 1, Zufall 99,1 %, Treffer 62 %. Aber nur 1,0 R im Jahr (1 R = 5 ATR,
+# etwa 7 % vom Kurs), größter Verlust -0,62 R, alle Ausstiege zur Zeit (der Stop wurde nie erreicht).
+# Ehrlich: Runde 7 hat 42 Wahlen beurteilt, 3 haben bestanden, alle auf Märkten mit starkem Trend. Ein Teil des Ergebnisses
+# kann der Nasdaq-Aufschwung 2021-2026 sein (nur Long, 5 Tage im Markt). Die Strategie stammt aus einem YouTube-Video
+# (Zarattini/Aziz/Barbon 2024, Runde 4 bis 6).
+# Kirons Wahl vom 04.11.2026 09:38 UTC auf der Frage "Neue Demo-Bots aus den 3 bestandenen Runde-7-Varianten starten?":
+# "Nur Nasdaq Noise-Band Long".
+#
+# Nachspiel (suche/r7_nasdaq_nachspiel.py): Die Regeln des Bots, alle 15 Minuten auf den HistData-Kerzen 2015-11 bis
+# 2026-10 abgespielt, treffen 137 von 138 Einstiegen des Backtests, 132 davon mit derselben Ausstiegskerze. Alle
+# Abweichungen liegen an Lücken in den HistData-Kerzen (Februar 2017, Frühjahr 2023, September 2026) oder am früheren
+# Ausstieg um 12:45 New York an drei kurzen US-Börsentagen (dort endet der Handel um 13:00).
+
+r7_nasdaq_vorwaerts:
+  markt: US100
+  konto: >-
+    eigenes neues Demokonto, dessen Name "Nasdaq" (oder "US100") enthält; nie das Hauptkonto, nie das Konto eines anderen
+    Bots, kein Ersatzkonto. Ohne passendes Konto wartet der Bot.
+  groesse: kleinste Ordergröße des Markts (0,001), höchstens 10 Euro Risiko bis zum Notstop
+  regeln: >-
+    Genau suche/r7_nasdaq_bot.py: Sitzung 9:30-16:00 New York, 15-Minuten-Bid-Kerzen, Band aus den letzten 14 vollen
+    Sitzungen (vm 1,0), Prüfpunkte 10:00 bis 15:00 New York jede halbe Stunde, Long per Marktorder in der Kerze nach einem
+    Schluss über dem Band (Band-Signal wie im Backtest mit Wiedereinstieg), nur wenn keine Position offen ist und
+    ATR(14)/ATR(100) der Tageskerzen bis zum Vortag höchstens 0,8653728646155798 ist. Kein Einstieg an US-Feiertagen und
+    kurzen Börsentagen. Notstop 5 x ATR(14) beim Broker, kein Ziel. Raus im ersten Lauf ab 16:00 New York am 5.
+    Handelstag (Einstiegstag = 1; an kurzen Tagen ab 12:45).
+  lauf: Workflow "Demo-Bots", von cron-job.org Mo-Fr alle 15 Minuten angestoßen (Minute 1, 16, 31, 46)
+  bekannte_abweichungen: >-
+    Wird ein Trade am Einstiegstag selbst ausgestoppt, steigt der Bot an dem Tag nicht neu ein (der Backtest könnte es);
+    bei 5 ATR Stop kam das in elf Jahren nie vor. An kurzen US-Börsentagen 12:45 statt 13:00 raus.
+
+  messung: >-
+    Jeder abgeschlossene Trade zählt. R = Ergebnis / Abstand zum Notstop (5 ATR), wie im Backtest; dazu Prozent vom Kurs
+    und Euro (mit echter Übernachtgebühr auf dem Konto). Beim Zwischencheck: Hätte das Nachspiel auf den Capital.com-Kerzen
+    derselben Tage dieselben Trades gemacht?
+
+  erwartung: >-
+    Im Backtest etwa 10 bis 15 Trades im Jahr, je Trade etwa 6 Kalendertage. Ein Vorwärtstest mit so wenig Trades beweist
+    in wenigen Monaten nichts; er zeigt vor allem, ob der Bot genau wie der Backtest handelt und was Spread und
+    Übernachtgebühr wirklich kosten. Mit der kleinsten Größe geht es um Cent-Beträge.
+
+  zwischencheck:
+    nach_trades: 15
+    vorschlag_stopp_wenn_pf_unter: 0.6      # dann schlage ich Kiron vor, den Test zu beenden; der Bot ändert sich nie selbst
+    vorschlag_stopp_wenn_abweichung: "mehr als 2 Trades, die das Nachspiel auf den Capital.com-Kerzen nicht gemacht hätte"
+
+  urteil:
+    nach_trades: 40                         # rund 3 bis 4 Jahre; Zwischenstand jeden Monat
+    bestanden_wenn:
+      pf_min: 1.2
+      summe_r_ueber: 0.0
+    sonst: durchgefallen
+    hinweis: "Echtes Geld nur mit Kirons ausdrücklichem Wort, frühestens nach dem Urteil."

@@ -1,0 +1,99 @@
+{
+ "bots": {
+  "oil-brent": {
+   "last_bar": "2026-11-04 12:00:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 12:00:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto wird frei",
+   "konto": null
+  },
+  "j225": {
+   "last_bar": "2026-11-04 10:00:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 10:00:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto an r7-nasdaq-noise-long",
+   "konto": null
+  },
+  "us30": {
+   "last_bar": "2026-11-04 11:15:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 11:15:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto an r5-ruecksetzer-us100",
+   "konto": null,
+   "open": null
+  },
+  "copper": {
+   "last_bar": "2026-11-04 11:00:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 11:00:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto an r6-vortag-eurusd",
+   "konto": null
+  },
+  "intc": {
+   "last_bar": "2026-11-04 10:00:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 10:00:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto an r5-ruecksetzer-us30",
+   "konto": null
+  },
+  "gold2": {
+   "konto": null,
+   "last_bar": "2026-11-04 10:00:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 10:00:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto an r6-london-gbpusd"
+  },
+  "dax": {
+   "konto": null,
+   "last_bar": "2026-11-04 11:15:00",
+   "letzte_entscheidung": {
+    "bar": "2026-11-04 11:15:00",
+    "action": "none",
+    "why": []
+   },
+   "status": "abgelöst, Konto an r6-noise-usdjpy",
+   "open": null
+  }
+ },
+ "start_utc": "2026-11-03T07:14:21.451786",
+ "ende_utc": "2027-01-29T21:00:00",
+ "konto": {
+  "waehrung": "EUR",
+  "balance": 995.17,
+  "frei": 995.17
+ },
+ "trades_heute": {
+  "tag": "2026-11-05",
+  "r": 0.0
+ },
+ "stand_utc": "2026-11-05T09:46:36.561995",
+ "phase": "laeuft",
+ "positionen": {},
+ "konten": {
+  "oil-brent": null,
+  "j225": null,
+  "us30": null,
+  "copper": null,
+  "intc": null,
+  "gold2": null,
+  "dax": null
+ }
+}

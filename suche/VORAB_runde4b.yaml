@@ -1,0 +1,149 @@
+# Strategie-Suche Runde 4b: die Day-Trading-Strategien aus Runde 4 so, wie sie in den Videos selbst erklärt werden.
+# Vorab festgelegt am 04.11.2026, BEVOR gerechnet wird (Prüfsumme im Journal journal/strategie-suche-protokoll.md).
+# Code: suche/runde4b.py. Daten: dieselben 15-Minuten-Kerzen (Bid und Ask) wie Runde 3 und 4, 01.12.2025 bis 02.11.2026.
+#
+# Warum: suche/VORAB_runde4.yaml sagt "Weichen die Videos später deutlich ab, bekommt die Fassung aus dem Video eine
+# eigene, wieder vorab festgelegte Runde 4b." Inzwischen liegen 47 von 60 Untertiteln vor (über Kirons Mac geholt,
+# /mnt/project-files/strategie-suche/youtube/transkripte/). Neun Strategien weichen im Video deutlich ab. Für jede steht
+# unten das Video, die Regel in den Worten des Videos und was ich daraus mache.
+#
+# Ehrliche Hinweise vorab:
+# - Die Ergebnisse von Runde 4 kenne ich (keine Strategie bestanden, Journal 03.11.2026 21:58 UTC). Die Regeln hier
+#   kommen aus den Untertiteln, nicht aus diesen Ergebnissen. Parameter sind die Werte aus den Videos, nichts optimiert.
+# - Für die Mechanik habe ich nur Dezember 2025 bis Februar 2026 angesehen (Zahl der Trades und Ausstiegsgründe, keine
+#   Gewinnfaktoren). Auswahl und Siegel sind unberührt.
+# - Wir haben nur 15-Minuten-Kerzen. Wo ein Video 5-Minuten-Kerzen nimmt (QuantCrawler, Cory Mitchell), nehme ich die
+#   15-Minuten-Kerze als Ersatz. Stundenkerzen baue ich aus je vier 15-Minuten-Kerzen ab Sitzungsbeginn.
+# - Wo ein Video keinen Ausstieg nennt, gilt wie in Runde 4: spätestens zum Sitzungs- bzw. Tagesende flach.
+# - Mehrere Videos (QuantCrawler, Cory Mitchell) sagen selbst, dass sie ihre Einstellungen jede Woche neu anpassen. Das
+#   teste ich nicht: Ein Bot soll seine Regeln nicht selbst ändern.
+# - 9 Strategien heißen 9 Chancen auf Glück. Mit allen drei Hürden erwarte ich im Schnitt etwa 0,2 falsche Treffer
+#   (9 x 5 % x etwa 50 % fürs Siegel). Ein Treffer ist ein Kandidat für die Demo, kein Beweis.
+# - Nicht dabei, weil im Video nicht als feste Regel testbar: Initial Balance Gold (Cory Mitchell, Einstieg nach
+#   Rücksetzer, wöchentlich neu eingestellt), Prosperity DAX (braucht Put/Call-Daten), DAX 9-Uhr (Dennis Trades, Trend und
+#   Zonen nach Augenmaß), DAX Morning Move (Indikator "Pro Trend" unbekannt). Unverändert gegenüber Runde 4, weil die
+#   Videos fehlen oder nichts anderes sagen: orb_richtung, fehlausbruch_vortag, intraday_momentum, noise_band.
+#
+# Kosten und Messung wie Runde 4: jeder Trade in Prozent vom Kurs bei fester Größe, Kauf zum Ask, Verkauf zum Bid
+# (echter Spread je Kerze). Stop-Orders: Auslösung, wenn die Kerze die Marke überschreitet, Füllung an der Marke oder zur
+# Eröffnung, wenn der Kurs darüber springt. Liegen Stop und Ziel in derselben Kerze, zählt der Stop.
+#
+# Eine Änderung gegenüber Runde 4, nur für die Kerze, in der eine Stop-Order auslöst (vortag_stop_oco,
+# larry_williams_24h): Runde 4 hat dort jedes Tief unter dem Stop als Stop gezählt, auch wenn es VOR dem Einstieg lag.
+# Beim Mechanik-Check (Dezember bis Februar, 8 Märkte) wären so 223 von 393 Rampton-Trades schon in der Einstiegskerze
+# ausgestoppt worden; das Video meldet 28 bis 35 % Treffer. Runde 4b liest die Einstiegskerze deshalb wie der
+# Broker-Emulator von TradingView: Eröffnung näher am Hoch -> Eröffnung, Hoch, Tief, Schluss; sonst Eröffnung, Tief, Hoch,
+# Schluss. Stop und Ziel zählen erst nach dem Auslösen. Für die Zufallsläufe gilt dasselbe. Ab der nächsten Kerze wieder
+# wie Runde 4. Hinweis für Runde 4: vortag_ausbruch und larry_williams dort waren durch die alte Lesart etwas zu schlecht.
+#
+# Mechanik-Check (nur Dezember 2025 bis Februar 2026, 19 Märkte, Zahl der Trades, keine Gewinnfaktoren): alle neun
+# Strategien erzeugen Trades. Wenige Trades je Markt bei gap_fill_klein (Indizes 1 bis 12 in drei Monaten, Devisen 17 bis
+# 32) und vortag_hoch_long (4 bis 19); dort werden viele Märkte die 30 Trades im Auswahlfenster nicht schaffen. So ist
+# die Regel, ich lockere sie nicht.
+
+runde_4b:
+  auswahl: ["2026-03-01", "2026-08-31"]       # hier wird der beste Markt je Strategie gesucht
+  siegel: ["2026-09-01", "2026-10-31"]        # danach unangetastet: muss halten
+
+  zufall:
+    laeufe: 1000                              # je Markt und Strategie: zufällige Richtung, gleiche Zeitpunkte und Abstände
+    seed: 20261105
+
+  kosten:
+    spread_faktor_robust: 1.5                 # Gegenprobe mit 1,5-fachem Spread
+
+  regel:                                      # dieselben Hürden wie Runde 4
+    min_trades: 30
+    min_pf: 1.2                               # Kirons Regel: bester Markt je Strategie, Gewinnfaktor über 1,2
+    nie: []
+    min_perzentil_bester_markt: 95            # Sieger besser als der beste Markt in 95 % der Zufallsläufe
+    min_pf_robust: 1.1
+    siegel_min_trades: 10
+    siegel_min_pf: 1.0
+
+  ohne: [USDCNH, MZN3]                        # keine Kerzen in Runde 3
+
+  # Sitzungen (suche/runde4b.py SITZUNGEN_B): ohne Angabe die Hauptsitzung des Markts wie in Runde 4 (US-Werte,
+  # Rohstoffe, Krypto 9:30-16:00 New York; Europa 9:00-17:30 Berlin; Devisen 8:00-17:00 London usw.).
+  # NY_ABEND = 18:00-1:00 New York. TAG24 = Handelstag 18:00-17:00 New York (so zählen Futures und MT-Broker den Tag).
+  # LONDON_FRUEH = 4:00-17:00 London.
+  strategien:
+    orb_schluss_15:
+      logik: orb_schluss
+      video: "Edge or Myth: 15-Min ORB Strategy Tested on 1,670 Days of NQ Futures and Gold (DQUm5RFZEZY)"
+      im_video: "Take the first 15-minute candle and mark its high and its low. If a candle closes above the range, you buy. If it closes below, you sell. Your stop goes on the other side of the range. Your target is 1 and 1/2 times your risk. One trade a day. If nothing is hit by 4:00, you close it."
+      statt_runde4: "orb_15: Einstieg per Stop-Order am Bereich, Ziel 2 x Risiko"
+      regel: "Bereich = erste 15-Minuten-Kerze der Sitzung. Die erste Kerze, die außerhalb schließt, gibt die Richtung; Einstieg zur Eröffnung der nächsten Kerze, Stop andere Seite, Ziel 1,5 x Risiko, sonst Sitzungsschluss. Ein Trade am Tag."
+      parameter: {kerzen: 1, stop: gegenseite, ziel_r: 1.5}
+
+    orb_schluss_15_long:
+      logik: orb_schluss
+      video: "Trading Steady: I Backtested ORB on 1M, 5M, and 15M (8wbDkJV1J48)"
+      im_video: "the candle needs to not only break out, but it needs to close above the opening range high ... I wait until the open of the next one ... My stop loss goes at the other side of the range ... take profit to 1 and 1/2 times ... it's long only trades ... overall over the long term, this strategy doesn't perform well in the short direction."
+      statt_runde4: "orb_15: beide Richtungen, Stop-Order, Ziel 2 x Risiko"
+      regel: "Wie orb_schluss_15, aber nur Long: die erste Kerze, die über dem Bereich schließt."
+      parameter: {kerzen: 1, stop: gegenseite, ziel_r: 1.5, richtung: long}
+
+    london_stunde_long:
+      logik: london_stunde
+      sitzung: LONDON_FRUEH
+      maerkte: [CURRENCIES]
+      video: "Trading Steady: How to Day Trade Forex Using The London Breakout Strategy (MeCReaTLX2Q)"
+      im_video: "hourly chart ... opening range ... between the hours of 4:00 a.m. and 8:00 a.m. inclusively ... I use the 9:00 a.m. candle as the open time ... for long I need the price to open below the Range High and then close above the Range High ... on the next candle is where I open a trade ... stop loss just goes at the bottom of the range ... 1.5 takeprofit ... no bigger than 2 and 1/2 time ATR and no smaller than 1 * ATR ... Longs were pretty profitable but ... the short performance wasn't that great"
+      statt_runde4: "vorbereich: 15-Minuten-Kerzen, Bereich 0-8 Uhr, Stop-Order beidseitig, Ziel 1 x Bereich"
+      regel: "Stundenkerzen London. Bereich = Hoch und Tief der Stundenkerzen 4:00 bis 8:00 (fünf Kerzen). Ab der 9-Uhr-Kerze: eine Stundenkerze eröffnet unter dem Bereichshoch und schließt darüber, ihre Größe (Hoch minus Tief) liegt zwischen 1 und 2,5 x ATR(14) der Stunde davor -> Long zur Eröffnung der nächsten Stunde, Stop am Bereichstief, Ziel 1,5 x Risiko. Ein Ausstieg ist im Video nicht genannt: raus um 17 Uhr London. Ein Trade am Tag, nur Long."
+      parameter: {bereich_von: 4, bereich_bis: 8, signal_ab: 9, atr_n: 14, atr_min: 1.0, atr_max: 2.5, ziel_r: 1.5}
+
+    asien_orb_30:
+      logik: orb_schluss
+      sitzung: NY_ABEND
+      maerkte: [COMMODITIES, CURRENCIES, CRYPTOCURRENCIES]
+      video: "QuantCrawler: I Found an Asia Gold Opening Range Strategy That Works (jHEXI0JQtn0)"
+      im_video: "The starting hour is at 1,800 ... opening range break period ... over 30 minutes ... wait for a candle body closure to be outside the zone ... stop loss at the midpoint of that 30 minute range ... take profit is 2.2 ... session end time is 1:00 a.m. ... Eastern ... I don't trade on Sundays"
+      statt_runde4: "asien_orb: Tokio 9:00-15:30, erste 15 Minuten, Stop-Order, Stop andere Seite, Ziel 2 x Risiko"
+      regel: "Sitzung 18:00 bis 1:00 New York. Bereich = 18:00 bis 18:30 (zwei 15-Minuten-Kerzen). Die erste 15-Minuten-Kerze, die außerhalb schließt (Ersatz für den 5-Minuten-Körper), gibt die Richtung; Einstieg zur Eröffnung der nächsten Kerze, Stop in der Mitte des Bereichs, Ziel 2,2 x Risiko, sonst raus um 1:00. Ohne die Sonntagabend-Sitzung."
+      parameter: {kerzen: 2, stop: mitte, ziel_r: 2.2, ohne_wochentage: [0]}
+
+    vortag_stop_oco:
+      logik: vortag_stop_oco
+      sitzung: TAG24
+      maerkte: [COMMODITIES, CURRENCIES, CRYPTOCURRENCIES, INDICES]
+      video: "Trading Steady: Backtesting a Previous Day High and Low Breakout Strategy on XAUUSD (aHbP0lXLZOs), Regeln von Rampton FX"
+      im_video: "as soon as the day closes, I mark these levels ... immediately place stop orders at both high and low ... one trade triggering will cancel the other order ... 10% of that range is the stop loss and 25% of that range is the take profit"
+      statt_runde4: "vortag_ausbruch: nur Hauptsitzung, Stop 25 % der Spanne, Ziel 2 x Risiko"
+      regel: "Handelstag 18:00 bis 17:00 New York. Stop-Orders am Hoch und Tief des Vortags, die erste ausgelöste löscht die andere. Stop 10 % der Vortagesspanne hinter der Marke, Ziel 25 % der Vortagesspanne vor der Marke. Die Abbruchzeit im Video ist nicht genannt: Einstieg nur, solange noch 2 Kerzen bleiben, raus zum Tagesende."
+      parameter: {stop_anteil: 0.10, ziel_anteil: 0.25}
+
+    vortag_hoch_long:
+      logik: vortag_hoch_stunde
+      video: "Trading Steady: How to Day Trade S&P500 Futures Using The Previous Day's High and Low Strategy (BS9DqD5GETI), Regeln von TradePro"
+      im_video: "the day must open in between these two lines ... a candle that opens below but closes above yesterday's high ... I then enter at the open of the next candle ... stop loss is placed either at the low of the previous candle or at 1 time ATR whichever is greatest ... aiming for 5 to1 ... if the trade isn't completed by the end of the day ... you just exit ... I'm not going to take a trade within the last hour of the day ... only going to be testing long entries"
+      statt_runde4: "vortag_ausbruch: beidseitig, Stop-Order, Stop 25 % der Spanne, Ziel 2 x Risiko"
+      regel: "Hauptsitzung, Stundenkerzen ab Sitzungsbeginn. Die Sitzung eröffnet zwischen Vortageshoch und -tief. Die erste Stundenkerze, die unter dem Vortageshoch eröffnet und darüber schließt -> Long zur Eröffnung der nächsten Stunde. Stop = der größere Abstand von (Tief dieser Kerze, 1 x ATR(14) der Stundenkerzen), Ziel 5 x Risiko, sonst Sitzungsschluss. Kein Einstieg in der letzten Stundenkerze. Ein Trade am Tag."
+      parameter: {atr_n: 14, atr_stop: 1.0, ziel_r: 5.0}
+
+    gap_fill_klein:
+      logik: gap_fill_prozent
+      video: "Cory Mitchell: Gap Fill Strategy for ES : +44% in 3 Months, 71% Win Rate (Dml1FyJxkqs)"
+      im_video: "if you have a small gap up to about 0.2% ... wait for the opening 5-minute candle, and it's going to enter at the close of that candle ... Your target is the 4:00 p.m. close of the prior day ... Risk reward 1:1 up to the max loss ... 12 points ... If the gap's already filled by the time that first 5-minute candle completes, then there's no trade ... Give us at least a tiny bit of a gap, not zero"
+      statt_runde4: "gap_fill: Lücke 10-60 % der mittleren Tagesspanne, Einstieg zur Eröffnung"
+      regel: "Hauptsitzung. Lücke zwischen Vortagesschluss und Eröffnung zwischen 0,05 % und 0,2 % vom Kurs (im Video 'Min gap size 0.5', gemeint als winzige Lücke; 0,5 % läge über der Obergrenze). Ist die Lücke in der ersten 15-Minuten-Kerze (Ersatz für 5 Minuten) schon geschlossen, kein Trade. Sonst Einstieg nach der ersten Kerze gegen die Lücke, Ziel = Vortagesschluss, Stop gleich weit wie das Ziel, höchstens 0,2 % vom Kurs (12 ES-Punkte), sonst Sitzungsschluss."
+      parameter: {min_luecke: 0.0005, max_luecke: 0.002, max_verlust: 0.002}
+
+    larry_williams_24h:
+      logik: larry_williams_tag
+      sitzung: TAG24
+      maerkte: [COMMODITIES, CURRENCIES, CRYPTOCURRENCIES, INDICES]
+      video: "YuRa Trading: Larry Williams' Breakout on Gold (G4sX4yberGo)"
+      im_video: "gold's range on the previous trading day was $58. Early that morning, price fell more than 70% of that range below where the day opened. So, the robot went short ... The stop went $40.73 above the entry and the target three times that far below ... You take one trade a day and close it before the next day starts ... ran out of time after 23 hours"
+      statt_runde4: "larry_williams: k 0,5, nur Hauptsitzung, Stop an der Eröffnung, kein Ziel"
+      regel: "Handelstag 18:00 bis 17:00 New York. Stop-Orders bei Tageseröffnung +/- 0,7 x Vortagesspanne, erster Ausbruch des Tages. Stop 0,7 x Vortagesspanne hinter der Marke (also etwa an der Eröffnung), Ziel 3 x Stopabstand, sonst raus zum Tagesende."
+      parameter: {k: 0.7, stop_k: 0.7, ziel_x: 3.0}
+
+    luecke_mit:
+      logik: luecke_mit
+      video: "Tradingdusche: DAX Gap-Strategie (+60% mehr als normaler DAX) (tmnJZVrPfW8)"
+      im_video: "ein aufwärtsgap liegt immer dann vor wenn der Eröffnungskurs des daxes um 9 Uhr morgens über dem Tageshoch des vor Trading Tages ist ... kaufen wir morgens um 9 Uhr ... den StopLoss den setzen wir auf das Tages hoch des Vortages ... um Punkt 17:30 Uhr ... Position wieder auflösen ... abwärtsgap ... Short ... StopLoss ... auf das Tagestief des Vortages"
+      statt_runde4: "gap_fill: gegen die Lücke (Tradingdusche war dort als Quelle für das Gegenteil eingetragen)"
+      regel: "Hauptsitzung. Eröffnung über dem Vortageshoch: Long zur Eröffnung, Stop am Vortageshoch. Eröffnung unter dem Vortagestief: Short, Stop am Vortagestief. Kein Ziel, raus zum Sitzungsschluss."
+      parameter: {}

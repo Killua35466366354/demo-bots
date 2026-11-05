@@ -1,0 +1,23 @@
+{
+ "stand_utc": "2026-11-04T07:01:53.067608",
+ "status": "beendet am 04.11.2026 (Kirons Entscheidung nach der Langzeit-Prüfung 2015-2025)",
+ "regel": "Asien-ORB GBP/NZD (QuantCrawler, Runde 4b): Bereich 18:00 bis 18:30 Uhr New York, erste 15-Minuten-Kerze mit Schluss außerhalb gibt die Richtung, Marktorder, Stop Mitte des Bereichs, Ziel 2,2 x Stop, raus um 1:00 Uhr New York (7:00 Berlin), ohne Sonntagabend, kleinste Größe. Vorwärtstest seit 04.11.2026, Urteil nach 60 Trades (Gewinnfaktor ab 1,2 und Summe im Plus). Runde 4b: 1,62 Auswahl, 1,17 Siegel, Dezember bis Februar 0,60.",
+ "bot": "asien-gbpnzd",
+ "epic": "GBPNZD",
+ "konto": null,
+ "konto_name": null,
+ "kontostand": null,
+ "start_kontostand": null,
+ "start_utc": null,
+ "offen": null,
+ "position": null,
+ "letzte_entscheidung": null,
+ "zusammenfassung": {
+  "trades": 0,
+  "treffer_pct": null,
+  "pf": null,
+  "summe_pct": 0.0,
+  "pnl_eur": 0.0
+ },
+ "letzte_trades": []
+}

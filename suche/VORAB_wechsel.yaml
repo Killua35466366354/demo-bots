@@ -1,0 +1,40 @@
+# Automatischer Wechsel deutlich schlechterer Demo-Bots (suche/demo_pruefung.py). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kirons Wunsch vom 04.11.2026, 11:55 UTC: "okay mach das und stelle es dann im demo live und stelle sicher mit
+# strategien zu wechseln die deutlich schlechter sind". Antwort auf meinen Vorschlag von 11:50 UTC: jeden Bot nach
+# 40 Demo-Trades prüfen und abschalten, wenn er unter Gewinnfaktor 1 liegt.
+# Davor geprüft (11:50 UTC, Projektdateien strategie-suche/bewertung/verlustgrenze/): feste Euro-Grenzen auf der
+# Bewertung 2025-2026 (je Trade, je Monat, Notaus vom Höchststand, Pause) hätten mehr gekostet als gebracht, weil gute
+# Strategien (Brent, Dow-Short) am Anfang genauso tief fielen wie der DAX.
+#
+# Festgelegt am 04.11.2026 um 11:57 UTC, bevor ein Bot nach dieser Regel geprüft wurde.
+
+format: 1
+wechsel:
+  gilt_fuer: >-
+    Alle Demo-Bots mit eigenem Konto in journal/konten.json (zuordnung). Nicht der Gold-Bot C/B auf dem Hauptkonto: das
+    Hauptkonto gehört ihm, er hat einen eigenen Plan (Demo gegen Backtest Ende Januar 2027).
+  messung: >-
+    Geschlossene Demo-Trades des Bots, seit er sein jetziges Konto hat (bei einer Übergabe ab dem Zeitpunkt der
+    Übergabe). Gewinnfaktor auf R: Summe der Gewinne in R geteilt durch Summe der Verluste in R. Ohne Verlust-Trade gilt
+    der Gewinnfaktor als hoch.
+  frueh:                                     # deutlich schlechter, früh erkennbar (wie der Zwischencheck der Vorwärtstests)
+    ab_trades: 15
+    wechsel_wenn_pf_unter: 0.6
+  urteil:                                    # nach 40 Trades (wie das Urteil der Vorwärtstests US500, Runde 6, Runde 7)
+    ab_trades: 40
+    wechsel_wenn_pf_unter: 1.0               # verliert Geld: Wechsel, auch wenn es keinen Ersatz gibt
+    wechsel_mit_ersatz_wenn_pf_unter: 1.2    # Gewinnfaktor 1,0 bis 1,2: Wechsel nur, wenn ein bestandener Ersatz bereitsteht
+  nachfolger: >-
+    Die beste Strategie der Rangliste in journal/portfolio.json (Bewertung 2025-2026, suche/VORAB_bewertung.yaml), die
+    bestanden hat, kein Konto hat, nicht auf ein Konto wartet, einen Bot-Lauf hat und noch nie abgelöst wurde. Gibt es
+    keine, wird das Konto frei, und die nächste Strategie, die dieselbe Regel besteht und einen Bot-Lauf hat, bekommt es.
+  ablauf: >-
+    Der abgelöste Bot öffnet keinen neuen Trade. Eine offene Position läuft nach seinen Regeln zu Ende, erst dann geht das
+    Konto an den Nachfolger (journal/konten.json: zuordnung, start, uebergaben). Der Nachfolger zählt ab null. Ein
+    abgelöster Bot bekommt nie wieder ein Konto.
+  nie: Kein neues Konto, kein echtes Geld, keine Regel eines Bots ändert sich, config/limits.yaml bleibt unberührt.
+  ehrlich: >-
+    15 und 40 Trades sind wenig, ein guter Bot kann Pech haben. Darum sind die Schwellen niedrig (0,6 nach 15 Trades,
+    1,0 nach 40), damit nur deutlich schlechtere Bots wechseln. Heute hat jede bestandene Strategie schon ein Konto; ein
+    Wechsel macht ein Konto also zunächst frei.

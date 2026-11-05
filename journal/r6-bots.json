@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-05T10:16:56.324845",
+ "stand_utc": "2026-11-05T10:31:36.874299",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -379,7 +379,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T10:16:56.324845",
+    "zeit": "2026-11-05T10:31:36.874299",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -494,7 +494,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T10:16:56.324845",
+    "zeit": "2026-11-05T10:31:36.874299",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

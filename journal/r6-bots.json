@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-05T19:31:43.030783",
+ "stand_utc": "2026-11-05T19:46:50.793748",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -128,7 +128,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T19:31:43.030783",
+    "zeit": "2026-11-05T19:46:50.793748",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -255,7 +255,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T19:31:43.030783",
+    "zeit": "2026-11-05T19:46:50.793748",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -467,7 +467,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T19:31:43.030783",
+    "zeit": "2026-11-05T19:46:50.793748",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -582,7 +582,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T19:31:43.030783",
+    "zeit": "2026-11-05T19:46:50.793748",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -697,7 +697,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T19:31:43.030783",
+    "zeit": "2026-11-05T19:46:50.793748",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -802,7 +802,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T19:31:43.030783",
+    "zeit": "2026-11-05T19:46:50.793748",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

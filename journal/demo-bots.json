@@ -1,6 +1,6 @@
 {
  "format": 1,
- "stand_utc": "2026-11-05T13:46:34.911075",
+ "stand_utc": "2026-11-05T14:01:31.507511",
  "phase": "laeuft",
  "start_utc": "2026-11-03T07:14:21.451786",
  "ende_utc": "2027-01-29T21:00:00",
@@ -33,7 +33,7 @@
    "pf_r": null,
    "sum_r": 0.0,
    "pnl_eur": 0.0,
-   "letzte_kerze": "2026-11-05 13:00:00",
+   "letzte_kerze": "2026-11-05 13:30:00",
    "bewertung": null,
    "hinweis": "Nur Long (C). Ohne die 3 besten Trades Gewinnfaktor 1,33. Zufall gleich gut in 3,5 % der Läufe.",
    "konto": {

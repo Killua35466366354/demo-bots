@@ -756,7 +756,11 @@
     "trades": 0,
     "pf": null,
     "summe_r": 0,
-    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung",
+    "rutschen": {
+     "trades": 0,
+     "median_pips": null
+    }
    }
   },
   {
@@ -1676,7 +1680,11 @@
     "trades": 0,
     "pf": null,
     "summe_r": 0,
-    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung",
+    "rutschen": {
+     "trades": 0,
+     "median_pips": null
+    }
    }
   },
   {
@@ -3285,7 +3293,11 @@
     "trades": 0,
     "pf": null,
     "summe_r": 0,
-    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+    "pruefung": "0 von 15 Trades bis zur ersten Prüfung",
+    "rutschen": {
+     "trades": 0,
+     "median_pips": null
+    }
    }
   }
  ]

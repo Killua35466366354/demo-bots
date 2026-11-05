@@ -10,7 +10,8 @@
   "r5-ruecksetzer-us30": "332263750966269086",
   "r6-london-gbpusd": "332263759556203678",
   "r6-noise-usdjpy": "332264120333456542",
-  "r6-vortag-gbpjpy": "332263742376334494"
+  "r6-vortag-gbpjpy": "332263742376334494",
+  "r6-vortag-eurusd-1atr": "332263729491432606"
  },
  "start": {
   "332117868107093150": 995.17,
@@ -21,7 +22,8 @@
   "332263750966269086": 1000.0,
   "332263759556203678": 1000.0,
   "332264120333456542": 999.96,
-  "332325912027944094": 1000.0
+  "332325912027944094": 1000.0,
+  "332317231899038878": 1000.0
  },
  "haupt": "332117868107093150",
  "konten": [
@@ -50,14 +52,14 @@
    "balance": 1000.0,
    "frei": 1000.0,
    "bevorzugt": false,
-   "fuer": null
+   "fuer": "r6-vortag-eurusd-1atr"
   },
   {
    "id": "…4494",
    "name": "Account 3",
    "waehrung": "EUR",
    "balance": 999.79,
-   "frei": 497.23,
+   "frei": 497.25,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpjpy"
   },
@@ -66,7 +68,7 @@
    "name": "Account 4",
    "waehrung": "EUR",
    "balance": 1000.0,
-   "frei": 501.66,
+   "frei": 501.56,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd"
   },
@@ -111,12 +113,12 @@
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
    "balance": 1000.0,
-   "frei": 499.22,
+   "frei": 499.12,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-05T17:16:29.713765",
+ "stand_utc": "2026-11-05T17:31:34.187016",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",
@@ -271,12 +273,18 @@
    "konto_id": "332263742376334494",
    "von": null,
    "an": "r6-vortag-gbpjpy"
+  },
+  {
+   "zeit": "2026-11-05T17:31:33",
+   "konto": "…2606",
+   "konto_id": "332263729491432606",
+   "von": null,
+   "an": "r6-vortag-eurusd-1atr",
+   "messung": true
   }
  ],
  "abgeloest": {},
- "frei": [
-  "332263729491432606"
- ],
+ "frei": [],
  "deals": {},
  "labor": {
   "oil-brent": {
@@ -294,6 +302,12 @@
   "r6-noise-usdjpy": {
    "seit": "2026-11-05T11:16:36",
    "konto": "…6542"
+  }
+ },
+ "messung": {
+  "r6-vortag-eurusd-1atr": {
+   "seit": "2026-11-05T17:31:33",
+   "konto": "…2606"
   }
  }
 }

@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-05T17:16:39.443695",
+ "stand_utc": "2026-11-05T17:32:02.353890",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -128,7 +128,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T17:16:39.443695",
+    "zeit": "2026-11-05T17:32:02.353890",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -255,7 +255,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T17:16:39.443695",
+    "zeit": "2026-11-05T17:32:02.353890",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -467,7 +467,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T17:16:39.443695",
+    "zeit": "2026-11-05T17:32:02.353890",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -582,7 +582,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T17:16:39.443695",
+    "zeit": "2026-11-05T17:32:02.353890",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -697,7 +697,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-05T17:16:39.443695",
+    "zeit": "2026-11-05T17:32:02.353890",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -744,6 +744,114 @@
        }
       ],
       "berechnet_utc": "2026-11-05T11:46:51.956368",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "bot": "r6-vortag-eurusd-1atr",
+   "titel": "Vortageshoch/-tief mit Stop-Orders (EUR/USD, Stop 1 x ATR, Mess-Bot)",
+   "epic": "EURUSD",
+   "regel": "Ab 10:30 Uhr deutscher Zeit (4:30 New York): Kauf-Stop am Vortageshoch, Verkauf-Stop am Vortagestief. Stop 1 x ATR der Viertelstunden-Kerzen beim Legen der Orders (Mess-Bot, der Kern-Bot nimmt 0,5 x ATR), Ziel 25 % der Vortagesspanne, raus spätestens 22:45 Uhr deutscher Zeit (16:45 New York). Bricht der Kurs schon vor 10:30 Uhr aus, gibt es an dem Tag keinen Trade. Verpasst der Bot einen Ausbruch, steigt er bis gut eine Stunde später per Marktorder ein, solange Stop und Ziel noch nicht erreicht sind.",
+   "backtest": "Mess-Bot ohne eigenen Backtest-Sieg: gleiche Regel wie Vortag EUR/USD (0,5 x ATR: 2025 bis Oktober 2026 133 Trades, 486 Euro, Gewinnfaktor 2,33 ohne Rutschen). Mit 1 x ATR halbiert sich bei gleichem Euro-Risiko die Größe, also auch der Anteil des Rutschens am Risiko. Verglichen wird nur Demo gegen Demo (suche/VORAB_messbots.yaml).",
+   "konto_vorschlag": "Account 2 (Mess-Bot)",
+   "konto": "…2606",
+   "konto_name": "Account 2",
+   "kontostand": 1000.0,
+   "start_kontostand": 1000.0,
+   "start_utc": "2026-11-05T17:32:02.353890",
+   "status": "Stop-Orders liegen",
+   "offen": null,
+   "orders": {
+    "tag": "2026-11-05",
+    "ph": 1.1273,
+    "pl": 1.11831,
+    "gelegt_utc": "2026-11-05T17:32:02.353890",
+    "bis_utc": "2026-11-05 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.123405,
+    "konto_kurz": "…2606",
+    "long": {
+     "dealId": "00000000-7154-d9f5-049c-701a0015549e",
+     "level": 1.12737,
+     "marke": 1.1273,
+     "stop": 1.12644,
+     "ziel": 1.12955,
+     "size": 12000.0
+    },
+    "short": {
+     "dealId": "00000000-7154-d9ff-049c-701a0015549e",
+     "level": 1.11831,
+     "marke": 1.11831,
+     "stop": 1.11917,
+     "ziel": 1.11606,
+     "size": 12000.0
+    },
+    "stop_abstand": 0.0008625261991793908,
+    "atr15": 0.0008625261991793908
+   },
+   "position": null,
+   "letzte_entscheidung": {
+    "zeit": "2026-11-05T17:32:02.353890",
+    "action": "orders",
+    "why": [
+     "kein Ausbruch bis jetzt, Stop-Orders an 1.1273 und 1.11831"
+    ],
+    "bar": "2026-11-05 17:15:00"
+   },
+   "zusammenfassung": {
+    "trades": 0,
+    "treffer_pct": null,
+    "pf": null,
+    "summe_pct": 0.0,
+    "pnl_eur": 0.0
+   },
+   "letzte_trades": [],
+   "zwilling": {
+    "tage": 1,
+    "abweichungen": 0,
+    "zusammenfassung": {
+     "trades": 0,
+     "treffer_pct": null,
+     "pf": null,
+     "summe_pct": 0.0,
+     "pnl_eur": 0.0
+    },
+    "letzte": [
+     {
+      "tag": "2026-11-04",
+      "strategie": "vortag_stop_oco",
+      "markt": "EURUSD",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-03 23:45:00",
+        "side": "long",
+        "einstieg": 1.12072,
+        "pct": 0.0636,
+        "grund": "ziel",
+        "ausstieg_kerze": "2026-11-04 00:15:00",
+        "uhrzeit": 45,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.001023
+       }
+      ],
+      "berechnet_utc": "2026-11-05T17:32:02.353890",
+      "bot": "r6-vortag-eurusd-1atr",
+      "stop_atr": 1.0,
       "bot_trades": [],
       "konto": true,
       "vergleich": {

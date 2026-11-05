@@ -341,7 +341,7 @@
    "gruppe": "verbessern",
    "aktiv": true,
    "konto": "Hauptkonto",
-   "seit": "2026-11-03T07:14:21",
+   "seit": "2026-11-03T09:05:00",
    "ist": {
     "trades": 0,
     "gewonnen": 0,
@@ -353,10 +353,10 @@
    },
    "soll": {
     "wochen": 0.2,
-    "trades": 0.4,
-    "summe_r": 0.08
+    "trades": 0.3,
+    "summe_r": 0.07
    },
-   "abweichung_r": -0.08,
+   "abweichung_r": -0.07,
    "bewertung": {
     "rang": 12,
     "pf": 1.171,
@@ -407,6 +407,60 @@
    "rang": 11
   },
   {
+   "id": "r6-vortag-eurusd-1atr",
+   "name": "Vortag EUR/USD 1 x ATR (Mess-Bot)",
+   "markt": "EURUSD",
+   "gruppe": "messung",
+   "aktiv": true,
+   "konto": "Account 2",
+   "seit": "2026-11-05T17:31:33",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": null,
+   "monate": {},
+   "aufstieg": {
+    "status": "messung",
+    "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
+   },
+   "rang": 12
+  },
+  {
+   "id": "gold-cb-long",
+   "name": "Gold nur Long (Teil C)",
+   "markt": "Gold",
+   "gruppe": "messung",
+   "aktiv": true,
+   "konto": "Hauptkonto (aus Gold C/B)",
+   "seit": "2026-11-03T09:05:00",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": null,
+   "monate": {},
+   "aufstieg": {
+    "status": "messung",
+    "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
+   },
+   "rang": 13
+  },
+  {
    "id": "dax",
    "name": "DAX 15 min Long",
    "markt": "DE40",
@@ -439,7 +493,7 @@
     }
    },
    "aufstieg": null,
-   "rang": 12
+   "rang": 14
   },
   {
    "id": "us30",
@@ -474,7 +528,7 @@
     }
    },
    "aufstieg": null,
-   "rang": 13
+   "rang": 15
   }
  ],
  "kombi": {

@@ -1489,10 +1489,10 @@
     }
    ],
    "demo": {
-    "trades": 0,
+    "trades": 1,
     "pf": null,
-    "summe_r": 0,
-    "pruefung": "0 von 15 Trades bis zur ersten Prüfung"
+    "summe_r": 0.06,
+    "pruefung": "1 von 15 Trades bis zur ersten Prüfung"
    }
   },
   {

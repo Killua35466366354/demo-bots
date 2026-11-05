@@ -201,6 +201,21 @@ jobs:
                       p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
           EOF
 
+      # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
+      # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
+      # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens
+      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den fünf Testgruppen.
+      - name: Demo-Vergleich aller Bots
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        continue-on-error: true
+        env:
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_vergleich.py
+          fi
+          python -m suche.vergleich --schreiben
+
       # Nur wenn alle fünf Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
       - name: Alle Testgruppen grün?
         id: alle

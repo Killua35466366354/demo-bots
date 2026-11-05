@@ -1,0 +1,48 @@
+# Aufstieg vom Demokonto zu echtem Geld (suche/vergleich.py). Diese Datei entscheidet nichts allein, sie sagt nur,
+# wann eine Strategie oder eine Kombi reif für Kirons Entscheidung ist.
+#
+# Kirons Wunsch vom 05.11.2026, 10:17 UTC: "das öffentliche reps soll also zum testen alles möglichem genutzt werden
+# ... wenn wir etwas finden was profitable ist oder mehrere und die zusammen führen und dann wird es in den privat
+# ordner gepackt und mit echtem geld live gestellt in einem account". Dazu: alle Demo-Bots laufen die nächsten Wochen
+# live, ihre Profite werden verglichen und bewertet.
+#
+# Festgelegt am 05.11.2026, bevor eine Strategie nach dieser Regel geprüft wurde. Stand heute: kein Demo-Bot außer dem
+# Gold-Bot hat einen geschlossenen Trade.
+
+format: 1
+aufstieg:
+  messung: >-
+    Wie in VORAB_wechsel.yaml: geschlossene Demo-Trades seit dem jetzigen Konto, Gewinnfaktor auf R (Gewinne in R
+    geteilt durch Verluste in R; ohne Verlust-Trade gilt er als hoch). Ändert ein PR eine Regel des Bots, zählen nur
+    Trades nach dem Merge (so wie beim neuen Stop der Vortag-Bots am 04.11.2026). Euro sind Demo-Euro bei kleinster
+    Größe, darum zählt R.
+  einzeln:                                   # eine Strategie allein
+    ab_trades: 40                            # dieselbe Zahl wie das Urteil nach 40 Trades
+    pf_mindestens: 1.2                       # dieselbe Hürde wie die Bewertung 2025-2026
+    summe_r_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0        # die neuere Hälfte der Trades darf nicht verlieren (kein früher Glückslauf)
+    rueckgang_r:                             # größter Rückgang der Demo-Trades in R darf höchstens so groß sein:
+      mal_bewertung: 2                       # doppelter Rückgang der Bewertung 2025-2026 (eur_1000_rueckgang / 10 € je R)
+      mindestens: 3                          # aber nie strenger als 3 R
+  kombi:                                     # mehrere Strategien zusammen auf einem Konto
+    mitglieder: Alle Strategien unter "behalten" in suche/auswahl.yaml am Tag der Prüfung
+    ab_trades: 60                            # zusammen
+    pf_mindestens: 1.2
+    summe_r_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0
+    jedes_mitglied:                          # ein Mitglied darunter fällt aus der Kombi, die Kombi zählt ohne es
+      ab_trades: 10
+      pf_mindestens: 1.0
+  dann: >-
+    suche/vergleich.py zeigt "reif für Kirons Entscheidung". Claude legt Kiron eine Entscheidungskarte vor (welche
+    Strategien, welches Risiko je Trade, welches Konto). Echtes Geld erst nach Kirons Ja und einem PR im privaten Repo,
+    den Kiron selbst merged; Start mit der kleinsten Größe, Grenzen aus config/limits.yaml des privaten Repos.
+  nie: >-
+    Kein Bot handelt von selbst mit echtem Geld, kein Bot ändert seine eigenen Regeln, kein Demo-Bot wechselt von selbst
+    das Konto in Richtung echtes Geld. Diese Datei ändert sich nur per PR mit neuer Prüfsumme im Protokoll.
+  ehrlich: >-
+    40 oder 60 Trades sind wenig; auch eine Strategie ohne Vorteil besteht die Hürde manchmal durch Glück. Darum ist es
+    nur der Punkt, an dem Kiron entscheidet, kein Beweis. Bei dem Tempo der Bewertung 2025-2026 (Vortag EUR/USD und
+    GBP/USD je etwa 1,4 Trades pro Woche, die Top 3 zusammen etwa 0,7) erreicht die Kombi der fünf Kern-Strategien
+    60 Trades frühestens etwa im März 2027, eine einzelne Vortag-Strategie 40 Trades etwa im Mai 2027, der
+    Trend-Rücksetzer US500 allein erst nach Jahren.

@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-06T09:47:02.512952",
+ "stand_utc": "2026-11-06T10:01:44.195326",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -147,10 +147,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T09:47:02.512952",
+    "zeit": "2026-11-06T10:01:44.195326",
     "action": "none",
     "why": [
-     "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
+     "Markt nicht ruhiger als sonst (Schwankung 0.933 > 0,876): heute kein Trade"
     ]
    },
    "zusammenfassung": {
@@ -266,7 +266,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1001.0,
+   "kontostand": 1001.34,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "Position offen",
@@ -289,12 +289,12 @@
    },
    "orders": null,
    "position": {
-    "upl": 0.5,
+    "upl": 0.84,
     "stop": 156.414,
     "ziel": null
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T09:47:02.512952",
+    "zeit": "2026-11-06T10:01:44.195326",
     "action": "none",
     "why": [
      "Position bleibt"
@@ -478,7 +478,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T09:47:02.512952",
+    "zeit": "2026-11-06T10:01:44.195326",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -585,7 +585,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T09:47:02.512952",
+    "zeit": "2026-11-06T10:01:44.195326",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -692,7 +692,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T09:47:02.512952",
+    "zeit": "2026-11-06T10:01:44.195326",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -839,7 +839,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T09:47:02.512952",
+    "zeit": "2026-11-06T10:01:44.195326",
     "action": "none",
     "why": [
      "heute erledigt"

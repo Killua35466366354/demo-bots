@@ -121,3 +121,65 @@ def test_box_175_zaehlt_erst_ab_eigenem_start():
     assert st["start_je"]["box_175"] == str(df.index[end - 1] + pd.Timedelta("15min"))
     assert st["fertig"]["box_175"] == [] and len(st["fertig"]["stream_box"]) > 0
     assert "box_175" in st["zusammenfassung"] and "text_175" in st["vorhersage"]
+
+
+def test_gross_box_hoechstens_drei_offen_und_nur_in_boxrichtung():
+    rng = np.random.default_rng(3)
+    c = 4000 + np.cumsum(rng.normal(0.2, 3, 2400))
+    df, sp = _bars(c)
+    b = ts.basis(df, sp)
+    m15, h1, h4 = ts.ebene(b, "15m"), ts.ebene(b, "1h"), ts.ebene(b, "4h")
+    trs = ts.gross_box(b, m15, h1, h4)
+    assert len(trs) > 5
+    gd = ts.grosse_richtung(b, h1, h4)
+    for t in trs:
+        j0 = int(np.searchsorted(b.t, np.datetime64(pd.Timestamp(t["einstieg_zeit"]))))
+        assert gd[j0] == t["richtung"] and t["art"] in ("a", "b", "c")
+    # nie mehr als 3 zugleich offen
+    for t in trs:
+        tin = pd.Timestamp(t["einstieg_zeit"])
+        offen = [x for x in trs if pd.Timestamp(x["einstieg_zeit"]) <= tin
+                 and (x["offen"] or pd.Timestamp(x["ende"]) > tin)]
+        assert len(offen) <= 3
+    assert any(t["grund"] == "neue_box" for t in trs)
+    assert len(ts.gross_box(b, m15, h1, h4, kerze=False)) >= len(trs)
+
+
+def test_mehrfach_frueher_offener_trade_zaehlt_wenn_er_spaeter_schliesst():
+    now = datetime(2026, 11, 6, 10, tzinfo=timezone.utc)
+    a = {"einstieg_zeit": "2026-11-06 08:00:00", "richtung": 1, "einstieg": 1.0, "stop": 0.0, "tp1": 2.0, "art": "a",
+         "grund": "offen", "ergebnis_r": 0.0, "offen": True}
+    b = {**a, "einstieg_zeit": "2026-11-06 08:30:00", "art": "b", "offen": False, "grund": "stop", "ergebnis_r": -1.0}
+    fertig, offen, ev = [], {}, []
+    ts._mehrfach("gross_box_kerze", [a, b], fertig, [], pd.Timestamp("2026-11-06 07:00"), now, offen, ev)
+    assert [t["einstieg_zeit"] for t in fertig] == ["2026-11-06 08:30:00"]
+    assert [t["einstieg_zeit"] for t in offen["gross_box_kerze"]] == ["2026-11-06 08:00:00"]
+    a_fertig = {**a, "offen": False, "grund": "neue_box", "ergebnis_r": 2.5}
+    offen2, ev2 = {}, []
+    ts._mehrfach("gross_box_kerze", [a_fertig, b], fertig, offen["gross_box_kerze"], pd.Timestamp("2026-11-06 07:00"),
+                 now, offen2, ev2)
+    assert sorted(t["einstieg_zeit"] for t in fertig) == ["2026-11-06 08:00:00", "2026-11-06 08:30:00"]
+    assert offen2 == {} and [e["ereignis"] for e in ev2] == ["fertig"]
+    # ein unbekannter alter Trade (Neuberechnung) zählt nicht
+    alt = {**b, "einstieg_zeit": "2026-11-06 08:15:00"}
+    ts._mehrfach("gross_box_kerze", [alt], fertig, [], pd.Timestamp("2026-11-06 07:00"), now, {}, [])
+    assert len(fertig) == 2
+
+
+def test_gross_box_im_schatten_wie_in_einer_rechnung():
+    rng = np.random.default_rng(3)
+    c = 4000 + np.cumsum(rng.normal(0.2, 3, 2400))
+    df, sp = _bars(c)
+    t1 = df.index[1499]
+    now1 = (t1 + pd.Timedelta("15min")).to_pydatetime().replace(tzinfo=timezone.utc)
+    st, _ = ts.step(df.iloc[:1500], sp.iloc[:1500], {}, now1)
+    for end in range(1504, 2400, 4):
+        now = (df.index[end - 1] + pd.Timedelta("15min")).to_pydatetime().replace(tzinfo=timezone.utc)
+        st, _ = ts.step(df.iloc[max(0, end - 1400):end], sp.iloc[max(0, end - 1400):end], st, now)
+    fertig = st["fertig"]["gross_box_kerze"]
+    ganz, _ = ts.alle(ts.basis(df.iloc[:2396], sp.iloc[:2396]))
+    soll = sorted((t["einstieg_zeit"], t["ergebnis_r"]) for t in ganz["gross_box_kerze"]
+                  if t["einstieg_zeit"] >= st["start"] and not t["offen"])
+    ist = sorted((t["einstieg_zeit"], t["ergebnis_r"]) for t in fertig)
+    assert len(soll) > 3 and ist == soll
+    assert st["vorhersage"]["grosse_box"] in (-1, 0, 1) and "text_gross" in st["vorhersage"]

@@ -18,6 +18,12 @@ Strategien (wie portfolio-manager suche/runde12.py und runde12b.py):
   den Umkehrungen der Streams (9 von 15 statt 5 von 15). Vorab festgelegt in portfolio-manager suche/VORAB_runde12c.yaml,
   dort 11/2024 bis 10/2026 durchgefallen (PF_R 0,96). Kommt laut Vorab in jedem Fall in den Schatten, weil sie die Box
   genauer nachbaut. Zählt erst ab ihrem eigenen ersten Lauf (start_je), nicht rückwirkend.
+- gross_box_kerze: die große Strategie aus box_175, gross_klein_3 und der Box auf 1 Std. (portfolio-manager
+  suche/VORAB_runde12d.yaml, dort 11/2024 bis 10/2026 PF_R 1,21, knapp durchgefallen). Große Box = SuperTrend 20/2 auf
+  1 Std. und letzter 4-Std.-Strukturbruch zeigen gleich, endet, sobald eine der beiden dreht. Darin Einstiege bei
+  Beginn der Box, bei jedem 15-Min.-Wechsel des SuperTrend 20/1,75 und bei jedem 15-Min.-Strukturbruch in Boxrichtung,
+  nur mit starker Signalkerze (Schluss im äußeren Drittel in Trade-Richtung), höchstens 3 offen. Ein Drittel bei 1 R,
+  dann Einstand, der Rest bis zur neuen Box. Zählt ab ihrem eigenen ersten Lauf.
 - gross_klein_3: Strukturbruch (Schluss über dem letzten Swing-Hoch, Swing-Länge 5) auf 15 Min., 1 Std. und 4 Std.
   (4 Std. ab 18:00 New York wie TradingView/OANDA). Ein 15-Min.-Signal zählt nur, wenn die 4-Std.- und die 1-Std.-Box
   in dieselbe Richtung laufen und der Kurs in der grünen Zone der 4-Std.-Box liegt (zwischen Einstieg und TP3). Stop am
@@ -56,7 +62,10 @@ SATZ = {1: 6.5, -1: 2.0}                     # Übernachtgebühr in % im Jahr
 URTEIL_NACH, URTEIL_PF = 40, 1.2
 MIN_BARS = 400                                # etwa 4 Handelstage Vorlauf für 4-Std.-Swings und ATR
 CHUNK_DAYS = 10                               # weniger als 1.000 Viertelstunden-Kerzen je Abruf
-STRATEGIEN = ("stream_box", "gross_klein_3", "box_175")
+STRATEGIEN = ("stream_box", "gross_klein_3", "box_175", "gross_box_kerze")
+MEHRFACH = ("gross_box_kerze",)               # mehrere Trades zugleich offen
+GROSS_MAX_OFFEN = 3
+LAUFEN = ((1.0, 1e9), (1 / 3, 2 / 3))         # ein Drittel bei 1 R, der Rest bis zur neuen Box
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -97,6 +106,7 @@ class Ebene:
     c: np.ndarray
     i1: np.ndarray           # letzte 15-Min.-Kerze der Gruppe
     atr: np.ndarray = field(default=None)
+    o: np.ndarray = field(default=None)
 
 
 def ebene(b: Basis, name: str) -> Ebene:
@@ -118,6 +128,7 @@ def ebene(b: Basis, name: str) -> Ebene:
     c = b.c[i1]
     e = Ebene(name, b.t[i1] + np.timedelta64(15, "m"), h, lo, c, i1)
     e.atr = atr_wilder(h, lo, c, 14)
+    e.o = b.o[i0]
     return e
 
 
@@ -209,7 +220,8 @@ def _erster(mask: np.ndarray, ab: int) -> int:
     return ab + k if mask[ab + k] else -1
 
 
-def fuehre(b: Basis, d: int, j0: int, jf: int, einstieg: float, stop: float) -> tuple[list[dict], bool]:
+def fuehre(b: Basis, d: int, j0: int, jf: int, einstieg: float, stop: float, ziele: tuple = ZIELE,
+           gewichte: tuple = GEWICHTE, grund_ende: str = "gegensignal") -> tuple[list[dict], bool]:
     """Teile (w, px, j, grund) auf den Kerzen j0 .. jf-1, Rest zur Eröffnung von jf. Zweiter Wert: noch offen."""
     n = len(b)
     jf = min(jf, n)
@@ -220,7 +232,7 @@ def fuehre(b: Basis, d: int, j0: int, jf: int, einstieg: float, stop: float) -> 
         lo, hi, op = (b.l + b.sp)[j0:jf], (b.h + b.sp)[j0:jf], (b.o + b.sp)[j0:jf]
     teile, rest = [], 1.0
     stop_akt, stop_ab, ziel_ab = stop, 0, 0
-    for m, (zr, w) in enumerate(zip(ZIELE, GEWICHTE)):
+    for m, (zr, w) in enumerate(zip(ziele, gewichte)):
         ziel = einstieg + d * zr * r
         s_mask = (lo <= stop_akt) if d > 0 else (hi >= stop_akt)
         z_mask = (hi >= ziel) if d > 0 else (lo <= ziel)
@@ -240,7 +252,7 @@ def fuehre(b: Basis, d: int, j0: int, jf: int, einstieg: float, stop: float) -> 
     if rest > 1e-9:
         if jf < n:
             px = b.o[jf] if d > 0 else b.o[jf] + b.sp[jf]
-            teile.append({"w": rest, "px": float(px), "j": jf, "grund": "gegensignal"})
+            teile.append({"w": rest, "px": float(px), "j": jf, "grund": grund_ende})
             return teile, False
         return teile, True
     return teile, False
@@ -333,6 +345,96 @@ def gross_klein(b: Basis, klein: Ebene, sig_k: list[Signal], gross: list[dict], 
     return signalbox(b, klein, sig_k, erlaubt=erlaubt, zwang=zwang)
 
 
+# --------------------------------------------------------------------------------------------------------------------
+# Die große Box (gross_box_kerze)
+
+def stand_bei(ende: np.ndarray, wert, t: np.ndarray) -> np.ndarray:
+    """Je Zeitpunkt t der Wert der letzten Kerze mit Ende <= t (0, wenn es noch keine gibt)."""
+    wert = np.asarray(wert, int)
+    if len(wert) == 0:
+        return np.zeros(len(t), int)
+    i = np.searchsorted(ende, t, side="right") - 1
+    return np.where(i >= 0, wert[np.clip(i, 0, None)], 0).astype(int)
+
+
+def grosse_richtung(b: Basis, h1: Ebene, h4: Ebene) -> np.ndarray:
+    """Richtung der großen Box zur Eröffnung jeder 15-Min.-Kerze, 1-Std.-SuperTrend und 4-Std.-Bruch müssen gleich sein."""
+    r1, _ = supertrend(h1.h, h1.l, h1.c)
+    b4 = strukturbrueche(h4)
+    d1 = stand_bei(h1.ende, r1, b.t)
+    d4 = stand_bei(np.array([h4.ende[x.k] for x in b4], dtype="datetime64[ns]"), [x.d for x in b4], b.t)
+    return np.where((d1 == d4) & (d1 != 0), d1, 0)
+
+
+def box_ende(gd: np.ndarray) -> np.ndarray:
+    n = len(gd)
+    out = np.full(n, n, int)
+    for j in range(n - 2, -1, -1):
+        out[j] = j + 1 if gd[j + 1] != gd[j] else out[j + 1]
+    return out
+
+
+def stark(o: float, h: float, lo: float, c: float, d: int) -> bool:
+    """Schluss im äußeren Drittel der Spanne in Trade-Richtung (kein langer Docht gegen den Trade)."""
+    spanne = h - lo
+    if not spanne > 0:
+        return False
+    return ((c - lo) if d > 0 else (h - c)) / spanne >= 2 / 3
+
+
+def gross_box(b: Basis, m15: Ebene, h1: Ebene, h4: Ebene, kerze: bool = True) -> list[dict]:
+    n = len(b)
+    gd = grosse_richtung(b, h1, h4)
+    ende = box_ende(gd)
+    _, l1 = supertrend(h1.h, h1.l, h1.c)
+    kand = []                                         # (j0, art, d, gegen, atr, kerze_ok, signalzeit)
+    for j in range(1, n):
+        if gd[j] == 0 or gd[j - 1] == gd[j]:
+            continue
+        i = int(np.searchsorted(h1.ende, b.t[j], side="right")) - 1
+        if i < 0 or not np.isfinite(h1.atr[i]) or not np.isfinite(l1[i]):
+            continue
+        d = int(gd[j])
+        kand.append((j, "a", d, float(l1[i]), float(h1.atr[i]), stark(h1.o[i], h1.h[i], h1.l[i], h1.c[i], d),
+                     str(pd.Timestamp(b.t[j]))))
+    for art, sig in (("b", st_signale(m15, ST_FAKTOR_GENAUER)), ("c", strukturbrueche(m15))):
+        for x in sig:
+            j0 = int(m15.i1[x.k]) + 1
+            if j0 >= n or gd[j0] != x.d or not np.isfinite(m15.atr[x.k]):
+                continue
+            kand.append((j0, art, x.d, x.gegen, float(m15.atr[x.k]),
+                         stark(m15.o[x.k], m15.h[x.k], m15.l[x.k], m15.c[x.k], x.d), str(pd.Timestamp(m15.ende[x.k]))))
+    kand.sort(key=lambda x: (x[0], x[1]))
+    out: list[dict] = []
+    offen_bis: list[int] = []
+    benutzt = -1
+    for j0, art, d, gegen, a, ok, sz in kand:
+        if j0 == benutzt or (kerze and not ok):
+            continue
+        offen_bis = [x for x in offen_bis if x >= j0]
+        if len(offen_bis) >= GROSS_MAX_OFFEN:
+            continue
+        jf = int(ende[j0])
+        einstieg = float(b.o[j0] + b.sp[j0] if d > 0 else b.o[j0])
+        roh = d * (einstieg - gegen) if np.isfinite(gegen) else 0.0
+        dist = float(np.clip(roh, 0.5 * a, 3.0 * a))
+        stop = einstieg - d * dist
+        teile, offen = fuehre(b, d, j0, jf, einstieg, stop, *LAUFEN, grund_ende="neue_box")
+        res = ergebnis_r(b, d, j0, einstieg, dist, teile, offen)
+        letzt_j = max([t["j"] for t in teile], default=n - 1) if not offen else n - 1
+        grund = "offen" if offen else max(teile, key=lambda t: t["j"])["grund"]
+        ende_t = _zeit(b, letzt_j) if grund == "neue_box" else str(pd.Timestamp(b.t[letzt_j]) + pd.Timedelta("15min"))
+        out.append({"signal": sz, "einstieg_zeit": _zeit(b, j0), "richtung": d, "art": art,
+                    "einstieg": round(einstieg, 2), "stop": round(stop, 2), "tp1": round(einstieg + d * dist, 2),
+                    "tp2": None, "tp3": None, "r_usd": round(dist, 2),
+                    "teile": [{"grund": t["grund"], "px": round(t["px"], 2), "zeit": _zeit(b, t["j"]),
+                               "anteil": round(t["w"], 3)} for t in teile],
+                    "ergebnis_r": round(res, 3), "grund": grund, "ende": None if offen else ende_t, "offen": offen})
+        offen_bis.append(n if offen else (letzt_j - 1 if grund == "neue_box" else letzt_j))
+        benutzt = j0
+    return out
+
+
 def alle(b: Basis) -> tuple[dict[str, list[dict]], dict]:
     m15, h1, h4 = ebene(b, "15m"), ebene(b, "1h"), ebene(b, "4h")
     out = {"stream_box": signalbox(b, m15, st_signale(m15))}
@@ -340,14 +442,16 @@ def alle(b: Basis) -> tuple[dict[str, list[dict]], dict]:
     box1 = signalbox(b, h1, strukturbrueche(h1))
     out["gross_klein_3"] = gross_klein(b, m15, strukturbrueche(m15), box4, box1)
     out["box_175"] = signalbox(b, m15, st_signale(m15, ST_FAKTOR_GENAUER))
+    out["gross_box_kerze"] = gross_box(b, m15, h1, h4, kerze=True)
 
     def richtung(faktor: float) -> dict:
         richt, linie = supertrend(m15.h, m15.l, m15.c, faktor=faktor)
         return {"richtung": int(richt[-1]), "linie": round(float(linie[-1]), 2) if np.isfinite(linie[-1]) else None,
                 "gerade_gedreht": bool(len(richt) > 1 and richt[-2] != 0 and richt[-1] != richt[-2])}
 
+    gd = int(grosse_richtung(b, h1, h4)[-1])
     vorhersage = {**richtung(ST_FAKTOR), "kerze": str(pd.Timestamp(m15.ende[-1])), "kurs": round(float(b.c[-1]), 2),
-                  "genauer_175": richtung(ST_FAKTOR_GENAUER)}
+                  "genauer_175": richtung(ST_FAKTOR_GENAUER), "grosse_box": gd}
     return out, vorhersage
 
 
@@ -398,6 +502,10 @@ def step(bars: pd.DataFrame, spread: pd.Series, state: dict, now: datetime) -> t
     for name in STRATEGIEN:
         start = pd.Timestamp(start_je[name])
         fertig = st["fertig"].setdefault(name, [])
+        if name in MEHRFACH:
+            _mehrfach(name, trades[name], fertig, (state.get("offen") or {}).get(name) or [], start, now, offen_neu,
+                      events)
+            continue
         letzte = pd.Timestamp(fertig[-1]["einstieg_zeit"]) if fertig else None
         alt_offen = (state.get("offen") or {}).get(name)
         for t in trades[name]:
@@ -420,16 +528,47 @@ def step(bars: pd.DataFrame, spread: pd.Series, state: dict, now: datetime) -> t
         seite = "Kauf" if v["richtung"] > 0 else "Verkauf"
         return f"Gerade auf {seite} gedreht, neuer Trade zur nächsten Eröffnung" if v["gerade_gedreht"] else seite
 
+    gross_text = {1: "Große Box Kauf", -1: "Große Box Verkauf"}.get(vorhersage["grosse_box"],
+                                                                    "Keine große Box, 1 Std. und 4 Std. uneinig")
     st["vorhersage"] = {**vorhersage, "text": text(vorhersage) + " (SuperTrend 20/2 auf 15 Min., die Richtung der "
                         "Stream-Box)", "text_175": text(vorhersage["genauer_175"]) + " (SuperTrend 20/1,75, genauerer "
-                        "Nachbau)"}
+                        "Nachbau)", "text_gross": gross_text + " (gross_box_kerze, nur in dieser Richtung neue Trades)"}
     st["zusammenfassung"] = {name: zusammenfassung(st["fertig"][name]) for name in STRATEGIEN}
     st["stand"] = now.isoformat(timespec="seconds")
     st["letzte_kerze"] = str(pd.Timestamp(b.t[-1]))
-    st["hinweis"] = ("Nur Schatten, keine Order. Keine der drei Strategien hat einen Backtest bestanden (portfolio-"
-                     "manager suche/VORAB_runde12b.yaml und VORAB_runde12c.yaml). Urteil nach 40 fertigen Trades je "
-                     "Strategie.")
+    st["hinweis"] = ("Nur Schatten, keine Order. Keine der vier Strategien hat einen Backtest bestanden (portfolio-"
+                     "manager suche/VORAB_runde12b.yaml, VORAB_runde12c.yaml und VORAB_runde12d.yaml). Urteil nach 40 "
+                     "fertigen Trades je Strategie.")
     return st, events
+
+
+def _mehrfach(name: str, trades: list[dict], fertig: list[dict], alt_offen: list[dict], start: pd.Timestamp,
+              now: datetime, offen_neu: dict, events: list[dict]) -> None:
+    """Wie oben, aber mehrere Trades zugleich offen. Ein Trade vor dem letzten fertigen zählt nur, wenn er beim
+    letzten Lauf schon offen war (sonst wäre er eine Neuberechnung eines alten Trades)."""
+    bekannt = {t["einstieg_zeit"] for t in fertig}
+    war_offen = {t["einstieg_zeit"] for t in alt_offen}
+    letzte = max((pd.Timestamp(t["einstieg_zeit"]) for t in fertig), default=None)
+    offen: list[dict] = []
+    for t in trades:
+        tin = pd.Timestamp(t["einstieg_zeit"])
+        if tin < start or t["einstieg_zeit"] in bekannt:
+            continue
+        if letzte is not None and tin <= letzte and t["einstieg_zeit"] not in war_offen:
+            continue
+        zeit = now.isoformat(timespec="seconds")
+        if t["offen"]:
+            offen.append(_sauber(t))
+            if t["einstieg_zeit"] not in war_offen:
+                events.append({"zeit": zeit, "strategie": name, "ereignis": "einstieg",
+                               **{k: t[k] for k in ("einstieg_zeit", "richtung", "einstieg", "stop", "tp1", "art")}})
+        else:
+            fertig.append(_sauber(t))
+            bekannt.add(t["einstieg_zeit"])
+            events.append({"zeit": zeit, "strategie": name, "ereignis": "fertig",
+                           **{k: t[k] for k in ("einstieg_zeit", "richtung", "einstieg", "grund", "ergebnis_r")}})
+    if offen:
+        offen_neu[name] = offen
 
 
 def fetch_candles(client, epic: str = EPIC, chunks: int = 1) -> list[dict]:

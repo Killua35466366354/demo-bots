@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-06T16:02:00.136371",
+ "stand_utc": "2026-11-06T16:16:42.259282",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -147,7 +147,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T16:02:00.136371",
+    "zeit": "2026-11-06T16:16:42.259282",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -266,7 +266,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.17,
+   "kontostand": 1000.43,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "Position offen",
@@ -289,15 +289,15 @@
    },
    "orders": null,
    "position": {
-    "upl": -0.06,
+    "upl": 0.25,
     "stop": 156.436,
     "ziel": null
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T16:02:00.136371",
-    "action": "open",
+    "zeit": "2026-11-06T16:16:42.259282",
+    "action": "none",
     "why": [
-     "Schluss 158.24 über dem Band (158.187)"
+     "Position bleibt"
     ]
    },
    "zusammenfassung": {
@@ -507,7 +507,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T16:02:00.136371",
+    "zeit": "2026-11-06T16:16:42.259282",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -614,7 +614,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T16:02:00.136371",
+    "zeit": "2026-11-06T16:16:42.259282",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -721,7 +721,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T16:02:00.136371",
+    "zeit": "2026-11-06T16:16:42.259282",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -868,7 +868,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T16:02:00.136371",
+    "zeit": "2026-11-06T16:16:42.259282",
     "action": "none",
     "why": [
      "heute erledigt"

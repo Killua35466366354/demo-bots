@@ -183,3 +183,56 @@ def test_gross_box_im_schatten_wie_in_einer_rechnung():
     ist = sorted((t["einstieg_zeit"], t["ergebnis_r"]) for t in fertig)
     assert len(soll) > 3 and ist == soll
     assert st["vorhersage"]["grosse_box"] in (-1, 0, 1) and "text_gross" in st["vorhersage"]
+
+
+def test_box_laufen_und_box_1h_ein_drittel_dann_bis_zum_gegensignal():
+    rng = np.random.default_rng(11)
+    df, sp = _bars(4000 + np.cumsum(rng.normal(0, 3, 1600)))
+    trades, _ = ts.alle(ts.basis(df, sp))
+    for name in ("box_laufen", "box_1h"):
+        fertig = [t for t in trades[name] if not t["offen"]]
+        assert fertig, name
+        for t in fertig:
+            assert t["tp2"] is None and t["tp3"] is None
+            gruende = [x["grund"] for x in t["teile"]]
+            assert gruende in (["stop"], ["gegensignal"], ["tp1", "einstand"], ["tp1", "gegensignal"]), gruende
+    # box_laufen steigt zu denselben Zeiten ein wie stream_box (gleiches Signal, andere Führung)
+    assert [t["einstieg_zeit"] for t in trades["box_laufen"]] == [t["einstieg_zeit"] for t in trades["stream_box"]]
+
+
+def _t(zeit, d, r, ende="2026-11-20 00:00:00"):
+    return {"einstieg_zeit": zeit, "richtung": d, "ergebnis_r": r, "ende": ende}
+
+
+def test_gesamt_zaehlt_ab_eigenem_start_und_urteil_bleibt():
+    st = {"start_je": {ts.GESAMT: "2026-11-06 10:00:00"},
+          "fertig": {"stream_box": [_t("2026-11-06 09:00:00", 1, 5.0), _t("2026-11-06 11:00:00", 1, 1.0)],
+                     "gross_box": [_t("2026-11-06 12:00:00", -1, -0.5)]},
+          "offen": {"box_1h": _t("2026-11-06 13:00:00", 1, 0.2), "gross_box_kerze": [_t("2026-11-06 14:00:00", -1, 0.1)]}}
+    g = ts.gesamt(st, datetime(2026, 11, 7, tzinfo=timezone.utc))
+    assert g["trades"] == 2 and g["summe_r"] == 0.5 and g["pf_r"] == 2.0          # der Trade vor dem Start zählt nicht
+    assert g["offen_long"] == 1 and g["offen_short"] == 1 and g["urteil"].startswith("läuft (2 von 200")
+    viele = [_t(f"2026-11-{7 + k // 100:02d} {k % 24:02d}:00:00", 1, 1.0 if k % 2 else -0.5) for k in range(200)]
+    st["fertig"] = {"box_175": viele}
+    zu_frueh = ts.gesamt(st, datetime(2026, 11, 20, tzinfo=timezone.utc))
+    assert zu_frueh["urteil"].startswith("läuft")                                  # 200 Trades, aber keine 4 Wochen
+    st["gesamt"] = ts.gesamt(st, datetime(2026, 12, 5, tzinfo=timezone.utc))
+    assert st["gesamt"]["urteil"].startswith("bestanden")
+    st["fertig"]["box_175"] = viele + [_t("2026-12-05 12:00:00", 1, -500.0)]
+    assert ts.gesamt(st, datetime(2026, 12, 6, tzinfo=timezone.utc))["urteil"] == st["gesamt"]["urteil"]
+
+
+def test_neue_teile_und_gesamt_starten_nicht_rueckwirkend():
+    rng = np.random.default_rng(5)
+    df, sp = _bars(4000 + np.cumsum(rng.normal(0, 3, 1700)))
+    alt = {name: [] for name in ("stream_box", "gross_klein_3", "box_175", "gross_box_kerze")}
+    state = {"start": "2026-11-02 00:00:00", "fertig": alt,
+             "start_je": {n: "2026-11-02 00:00:00" for n in alt}}
+    now = (df.index[-1] + pd.Timedelta("15min")).to_pydatetime().replace(tzinfo=timezone.utc)
+    st, _ = ts.step(df, sp, state, now)
+    jetzt = str(df.index[-1] + pd.Timedelta("15min"))
+    for name in ("gross_box", "box_1h", "box_laufen", ts.GESAMT):
+        assert st["start_je"][name] == jetzt
+    assert st["start_je"]["stream_box"] == "2026-11-02 00:00:00"
+    assert st["gesamt"]["trades"] == 0 and "text_gesamt" in st["vorhersage"]
+    assert st["zusammenfassung"]["box_1h"]["urteil"].startswith("nur Teil")

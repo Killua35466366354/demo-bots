@@ -1,0 +1,18 @@
+# Zwillinge: verbesserte Versionen laufender Demo-Bots, die neben dem unveränderten Original laufen
+# (Regel: suche/VORAB_zwilling.yaml, Prüfung: tests/test_zwilling.py, Stand: suche/vergleich.py). Nur Capital.com-DEMO.
+# Ein Eintrag kommt nur per PR mit Kirons Merge dazu. Beendete oder ersetzende Zwillinge bleiben stehen (mit ende_utc).
+#
+# Eintrag je Zwilling:
+#   <zwilling-id>:
+#     original: <bot-id des Originals>
+#     vorab: suche/VORAB_<name>.yaml          # eigene Regel, Prüfsumme im Protokoll vor start_utc
+#     vorab_key: "VORAB_<name> sha256 "
+#     start_utc: "JJJJ-MM-TTTHH:MM:SS"        # ab hier zählt er
+#     konto: "<konto-id>"                      # oder: schatten (Live-Kurse, keine Order)
+#     trades: journal/<datei>.jsonl            # Zeilen mit "bot": <zwilling-id>
+#     pr: <nummer des PRs>
+#     ende_utc: "JJJJ-MM-TTTHH:MM:SS"          # nur wenn beendet oder als Ersatz übernommen
+#     ende_grund: "<warum>"
+
+format: 1
+zwillinge: {}

@@ -1,0 +1,70 @@
+# Verbesserungen nur als Zwilling neben dem unveränderten Bot (suche/zwilling.py, suche/zwillinge.yaml,
+# suche/vergleich.py, tests/test_zwilling.py). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kirons Zusatz vom 06.11.2026, 10:25 UTC (Gerichts-Thread): "ja, es soll unendlich durch traden und die strategie so
+# lange beweisen bis es einen echten account bekommt,... aber während es performance beweist wird es auch bearbeitet
+# und weiter entwickelt,...". Antwort des Gerichts (portfolio-manager board/decisions.md, Eintrag vom 06.11.2026,
+# PR #204): nach dem Urteil 2026-11-06-live-regel (Fassung A) ist jede Verbesserung eine neue Regel mit Zählung ab null,
+# darum läuft sie als Zwilling neben dem unveränderten Bot (eigene eingefrorene VORAB-Datei, eigene Zählung) und ersetzt
+# ihn erst, wenn sie sich bewiesen hat. Die Prüfungen von VORAB_wechsel.yaml (15 und 40 Trades) gelten weiter.
+# Kirons Wahl vom 06.11.2026, 15:22 UTC (Karte "Soll ein Bot nach 15 sehr schlechten Trades weiter abgelöst werden?"):
+# "Ja, wie bisher ablösen". VORAB_wechsel.yaml bleibt also unverändert.
+#
+# Festgelegt am 06.11.2026, bevor es einen Zwilling gab (suche/zwillinge.yaml ist leer).
+
+format: 1
+zwilling:
+  original: >-
+    Ein Demo-Bot handelt ohne Zeitgrenze weiter, bis er nach suche/VORAB_aufstieg.yaml reif für Kirons Entscheidung über
+    echtes Geld ist oder eine eingefrorene Prüfung ihn ablöst (VORAB_wechsel 15/40, VORAB_frist, VORAB_messbots,
+    VORAB_labor, VORAB_rutschen). Seine Regel bleibt dabei unverändert. Erlaubt sind nur Fehlerbehebungen, die keine
+    VORAB-Datei und keine Prüfsumme ändern, Verlust- und Sicherheitsgrenzen und Kirons eigenes datiertes Wort
+    ("Kirons Wort vom TT.MM.JJJJ", wie in VORAB_eine_woche.yaml).
+  verbesserung: >-
+    Jede Verbesserung ist ein eigener Bot, der Zwilling: eigene Bot-ID, eigene VORAB-Datei mit Prüfsumme im Protokoll
+    vor seinem Start, eigene Trade-Datei (Zeilen mit "bot" gleich seiner ID) und ein Eintrag in suche/zwillinge.yaml,
+    alles in einem PR, den Kiron selbst merged.
+  start:
+    nach_tag_7_des_originals: true          # suche/VORAB_eine_woche.yaml (woche_bis des Originals)
+    eingangspruefung: >-
+      Die Regel des Zwillings hat vorher eine eingefrorene Prüfung bestanden (lernen bis 2024, prüfen 2025-2026, wie
+      jede Idee im Wochen-Check). Gute Demo-Trades heilen keinen durchgefallenen Test.
+    je_original_hoechstens: 1               # ein laufender Zwilling je Original, damit der Vergleich klar bleibt
+    neu_je_woche_hoechstens: 1              # wie die eine Idee pro Woche im Wochen-Check
+  konto: >-
+    Ist ein Demokonto frei (journal/konten.json), nennt der PR es, und der Zwilling handelt dort. Sonst läuft er als
+    Schatten: dieselben Live-Kurse von Capital.com, keine Order, Kosten wie in seiner Prüfung. Ein Zwilling nimmt nie
+    von selbst ein Konto und nie eines, das ein anderer Bot hat. Nie ein neues Konto.
+  zaehlung: >-
+    Geschlossene Trades des Zwillings ab seinem start_utc, Gewinnfaktor auf R wie in VORAB_wechsel.yaml (ohne
+    Verlust-Trade gilt er als hoch). Das Original wird im selben Zeitraum gemessen: seine Trades ab dem Start des
+    Zwillings (frühestens seit seinem jetzigen Konto) bis zum Schluss des Trades, mit dem der Zwilling die Hürde erreicht.
+  frueh_ende:                               # wie VORAB_wechsel frueh
+    ab_trades: 15
+    ende_wenn_pf_unter: 0.6
+  ersatz:                                   # Mindesthürde nach den ersten 40 Trades; die eigene VORAB-Datei darf nur strenger sein
+    ab_trades: 40
+    pf_mindestens: 1.2                      # wie VORAB_aufstieg einzeln
+    zweite_haelfte_pf_mindestens: 1.0       # wie VORAB_aufstieg einzeln
+    summe_r_hoeher_als_original: true
+    pf_mindestens_wie_original: true
+  frist_monate: 6                           # danach Bericht an Kiron mit dem Stand; kein automatischer Ersatz, kein Ende
+  dann: >-
+    Erfüllt der Zwilling die Ersatz-Hürde, zeigt suche/vergleich.py "reif für Kirons Entscheidung", und Claude legt
+    Kiron eine Karte vor (bei einem Schatten mit dem Hinweis, dass seine Kosten nicht live geprüft sind). Ersetzt wird
+    nur über einen PR, den Kiron merged: Das Original öffnet keinen neuen Trade mehr und endet nach seiner offenen
+    Position. Der Zwilling läuft mit seiner Regel und seiner Zählung weiter. Handelt er auf eigenem Konto, wird das Konto
+    des Originals frei. Ein Schatten übernimmt das Konto des Originals, und VORAB_aufstieg zählt ab dieser Übergabe.
+    Verfehlt der Zwilling die Hürde nach 40 Trades oder endet er früh, öffnet er keinen neuen Trade mehr (zwilling.offen),
+    und das Original läuft unverändert weiter.
+  original_abgeloest: >-
+    Löst eine eingefrorene Prüfung das Original ab, läuft der Zwilling mit seiner Zählung weiter. Ein Konto bekommt er
+    nur als Nachfolger nach VORAB_wechsel.yaml oder per PR mit Kirons Merge.
+  ehrlich: >-
+    40 Trades sind wenig, ein besserer Zwilling kann auch Glück sein. Darum muss er im selben Zeitraum mehr R und
+    mindestens denselben Gewinnfaktor wie das Original haben und dazu die Hürde des Aufstiegs, und Kiron entscheidet.
+    Bei etwa 1,4 Trades pro Woche (Vortag) dauert das gut ein halbes Jahr.
+  nie_fuer: [gold-cb]                       # eigener Plan bis Januar 2027; dazu die Mess-Bots (VORAB_messbots), die Jagd und echtes Geld
+  nie: >-
+    Kein Zwilling handelt mit echtem Geld, keiner ändert die Regel des Originals oder seine eigene, keiner bekommt ein
+    neues Konto, und die eingefrorenen Prüfungen gelten für Original und Zwilling unverändert.

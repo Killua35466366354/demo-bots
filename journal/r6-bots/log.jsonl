@@ -15,3 +15,4 @@
 {"time": "2026-11-05T21:31:43.277871", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
 {"time": "2026-11-06T06:31:51.682251", "bot": "r6-vortag-gbpjpy", "event": "nachgebucht", "tag": "2026-11-05", "side": "short", "entry": 212.067, "exit": 212.125, "r": -1.018, "pnl_eur": -4.08, "reason": "Stop beim Broker"}
 {"time": "2026-11-06T09:01:47.560892", "bot": "r6-noise-usdjpy", "event": "eröffnet", "entry": 158.189, "dealId": "00000000-714d-fecd-049c-70750015549e", "side": "long", "bar": "2026-11-06 08:45:00", "size": 900.0, "risiko_eur": 9.03, "margin_eur": 26.84, "stop_level": null, "stop_dist": 1.775, "ziel_level": null}
+{"time": "2026-11-06T15:31:42.914730", "bot": "r6-noise-usdjpy", "event": "geschlossen", "exit": 158.124, "pct": -0.0411, "reason": "Gegensignal (Band/VWAP)"}

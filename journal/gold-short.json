@@ -1,0 +1,27 @@
+{
+ "bot": "gold-short",
+ "name": "Gold-Short-Bot (große Strategie nur Shorts)",
+ "konto": "…9086",
+ "stand": "2026-11-06T15:31:51",
+ "start": "2026-11-06T14:32:43",
+ "pausiert": null,
+ "regel": "Shorts aus gross_klein_3, gross_box_kerze und gross_box (Runde 12h), Ziele mal 0,75, Prüfer 0,5 R, Halten bis Einstieg, Sperre bei Fehltrade. 5 € Risiko je Trade, höchstens 4 offen.",
+ "backtest": "11/2024 bis 10/2026 465 Trades, PF_R 0,94, -9,3 R, Kontrolle 2022 bis 2024 PF_R 0,66 (durchgefallen, läuft auf Kirons Wunsch)",
+ "vorab": "suche/VORAB_gold_short.yaml",
+ "offen": [],
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "trefferquote": null,
+  "summe_eur": 0.0,
+  "urteil": "läuft (0 von 40 Trades)"
+ },
+ "letzte_trades": [],
+ "blick": {
+  "kerzen": 2287,
+  "letzte_kerze": "2026-11-06 15:15:00",
+  "kurs": 4047.08,
+  "modell_offen": []
+ }
+}

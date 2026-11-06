@@ -132,6 +132,29 @@ def _sortiert(trades: list[dict]) -> list[dict]:
     return sorted(trades, key=lambda t: str(t.get("closed_utc") or ""))
 
 
+def _zwillinge(laeufe: dict) -> tuple[dict, dict | None]:
+    """Einträge aus suche/zwillinge.yaml mit Trade-Datei (ein Fehler dort hält den Vergleich nie auf)."""
+    try:
+        from suche import zwilling as zw
+        liste = {z: e for z, e in zw.eintraege().items() if isinstance(e, dict) and e.get("trades")
+                 and e.get("start_utc") and e.get("original") and z not in laeufe}
+        return liste, zw.regel()
+    except Exception:                                   # noqa: BLE001
+        return {}, None
+
+
+def _zwilling_stand(bid: str, e: dict, rg: dict | None, trades: list[dict], laeufe: dict, kont: dict, now) -> dict:
+    """Stand eines Zwillings gegen sein Original im selben Zeitraum (suche/VORAB_zwilling.yaml)."""
+    if rg is None:
+        return {"status": "keine_regel", "text": "Prüfsumme von VORAB_zwilling.yaml fehlt"}
+    from suche import zwilling as zw
+    org = e["original"]
+    ab = max(str(e["start_utc"]), str(dp.seit_wann(kont, org) or ""))
+    o = dp.demo_trades(laeufe[org], org, ab) if org in laeufe else []
+    st = zw.stand(trades, o, rg, str(e["start_utc"]), now, e)
+    return {"status": st["status"], "text": st["text"], "original": org}
+
+
 def vergleich(now: datetime | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     tag = pd.Timestamp(now.astimezone(timezone.utc).date())
@@ -151,16 +174,20 @@ def vergleich(now: datetime | None = None) -> dict:
     mess = set(kont.get("messung") or {})
 
     laeufe = {GOLD: J / "gold-trades.jsonl", **dp.laeufe()}
+    zwl, zw_rg = _zwillinge(laeufe)
     zeilen, alle_trades = [], {}
-    for bid, datei in laeufe.items():
-        if bid == GOLD:
+    for bid, datei in {**laeufe, **{z: ROOT / e["trades"] for z, e in zwl.items()}}.items():
+        if bid in zwl:
+            seit = str(zwl[bid]["start_utc"])           # ein Zwilling zählt ab seinem Start (suche/VORAB_zwilling.yaml)
+            trades = [t for t in dp.demo_trades(datei, bid, seit) if t.get("bot") == bid]
+        elif bid == GOLD:
             seit = GOLD_START
             trades = [t for t in wb._lines(datei) if str(t.get("closed_utc") or "") >= seit]
         else:
             seit = dp.seit_wann(kont, bid)
             trades = dp.demo_trades(datei, bid, seit)
         trades = _sortiert(trades)
-        aktiv = bid == GOLD or bid in zu
+        aktiv = bid == GOLD or bid in zu or (bid in zwl and not zwl[bid].get("ende_utc"))
         if not aktiv and not trades:
             continue                                    # nie gelaufen oder abgelöst ohne Demo-Trade
         alle_trades[bid] = trades
@@ -173,16 +200,23 @@ def vergleich(now: datetime | None = None) -> dict:
             rr = rg["einzeln"]["rueckgang_r"]
             rueck_max = max(rr["mal_bewertung"] * p["eur_1000_rueckgang"] / EUR_JE_R, rr["mindestens"])
         name, markt = namen.get(bid, (p.get("name") or ("Gold C/B" if bid == GOLD else bid), p.get("markt")))
+        if bid in zwl:
+            e = zwl[bid]
+            name = e.get("name") or f"Zwilling von {namen.get(e['original'], (e['original'],))[0]}"
+            markt = markt or namen.get(e["original"], (None, None))[1]
         zeilen.append({
             "id": bid, "name": p.get("name") or name, "markt": p.get("markt") or markt or ("Gold" if bid == GOLD else None),
-            "gruppe": _gruppe(bid, aus, abgeloest, mess), "aktiv": aktiv,
-            "konto": "Hauptkonto" if bid == GOLD else konto_name.get("…" + str(zu.get(bid, ""))[-4:]) if aktiv else None,
+            "gruppe": "zwilling" if bid in zwl else _gruppe(bid, aus, abgeloest, mess), "aktiv": aktiv,
+            "konto": "Hauptkonto" if bid == GOLD else "Schatten (keine Order)" if bid in zwl and str(
+                zwl[bid].get("konto")) == "schatten" and aktiv else konto_name.get("…" + str(zu.get(bid, ""))[-4:])
+            if aktiv else None,
             "seit": None if start is None else start.isoformat(), "ist": z, "soll": soll,
             "abweichung_r": None if not soll or soll["summe_r"] is None else round(z["summe_r"] - soll["summe_r"], 2),
             "bewertung": None if not p else {"rang": p.get("rang"), "pf": p.get("pf"), "eur_1000": p.get("eur_1000"),
                                              "bestanden": p.get("bestanden")},
             "monate": _monate(trades),
-            "aufstieg": None if not aktiv else MESS_TEXT if bid in mess else (
+            "aufstieg": _zwilling_stand(bid, zwl[bid], zw_rg, trades, laeufe, kont, now) if bid in zwl
+            else None if not aktiv else MESS_TEXT if bid in mess else (
                 {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"}
                 if rg is None else pruefe(trades, rg["einzeln"], rueck_max))})
     # ---- Mess-Zeile "Gold nur Long" (Kritik F2/D4, suche/VORAB_messbots.yaml): die C-Trades des Hauptkontos ----

@@ -26,7 +26,7 @@ Stand: 05.11.2026.
 | Trend-Rücksetzer US100 | "US500" (Top 3) | behalten | 1,91, +23 € |
 | Gold C/B mit 1-ATR-Stop | Hauptkonto | verbessern | 1,17, +298 € (2026 allein 0,95) |
 | Gold-Bot 2.0 | kein Konto, nur Schatten | | |
-| TikTok-Box (stream_box), box_175 und gross_klein_3 | kein Konto, nur Schatten (`gold/tiktok_schatten.py`) | Schatten | alle ohne bestandenen Test, stream_box 11/2024-10/2026 0,96, box_175 (genauerer Nachbau, Faktor 1,75) 0,96, gross_klein_3 1,41 aber erst nach dem Ansehen gewählt; Urteil nach 40 Schatten-Trades (portfolio-manager `suche/VORAB_runde12b.yaml` und `VORAB_runde12c.yaml`) |
+| TikTok-Box (stream_box), box_175, gross_klein_3 und große Box (gross_box_kerze) | kein Konto, nur Schatten (`gold/tiktok_schatten.py`) | Schatten | alle ohne bestandenen Test, stream_box 11/2024-10/2026 0,96, box_175 (genauerer Nachbau, Faktor 1,75) 0,96, gross_klein_3 1,41 aber erst nach dem Ansehen gewählt, gross_box_kerze 1,21 (knapp durchgefallen, Kontrolle 2022-2024 0,96); Urteil nach 40 Schatten-Trades (portfolio-manager `suche/VORAB_runde12b.yaml`, `VORAB_runde12c.yaml`, `VORAB_runde12d.yaml`) |
 | Brent-Öl | Account 1 | Labor | 1,49, +289 € (2025 allein -177 €) |
 | Trend-Rücksetzer Dow | Account 5 | Labor | 1,48, +19 € |
 | London-Stunde GBP/USD | Account 6 | Labor | 1,45, +59 € |
@@ -55,6 +55,7 @@ Bots steht nach jedem Lauf in `journal/vergleich.md`.
 | Tagesrichtung aus Vorhersagen (Welt-Lagebild) | durchgefallen, 0 von 6 | PR #140 |
 | Signal-Box der TikTok-Live-Streams und TradingTop-Videos nachbauen, nur die letzten 2 Jahre testen, Vorhersage live mitlaufen lassen | Runde 12 und 12b durchgefallen, läuft als Schatten seit dem Merge | portfolio-manager Runde 12/12b, PR #196 |
 | Stream-Box mit dem verbessern, was Fotos und Videos nutzen (Faktor 1,75, Rest laufen lassen, 4-Std.-Trend, nur London/New York, 1 Std., Kombi, FVG-Rücklauf, Docht-Kerze am Level) | Runde 12c, alle 8 durchgefallen (beste box_1h 1,13), box_175 läuft im Schatten mit | portfolio-manager Runde 12c, PR #199 |
+| Große Box aus box_175, gross_klein_3 und Box auf 1 Std. (1 Std. und 4-Std.-Bruch gleich, Einstiege auf 15 Min., halten bis zur neuen Box, starke Signalkerze) | Runde 12d, PF 1,21 knapp durchgefallen, gross_box_kerze läuft im Schatten mit | portfolio-manager Runde 12d |
 | Kleines Konto mit 50 € und alle 2 Monate 50 € dazu | gerechnet | Gold-Thread |
 | Sicherheitsschalter | nur vorwärts beobachtet | Gold-Lernjournal Idee 34 |
 

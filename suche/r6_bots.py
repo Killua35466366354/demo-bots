@@ -162,8 +162,9 @@ BOTS = (VORTAG, LONDON, NOISE, VORTAG_EURUSD, VORTAG_GBPUSD, VORTAG_GBPJPY, VORT
 # suche/VORAB_bewertung.yaml): Vortag USD/JPY besteht nicht (Gewinnfaktor 0,95, 2026: 0,88), Vortag GBP/USD schon (1,22).
 # Ein beendeter Bot legt nichts Neues mehr, löscht noch liegende Stop-Orders, führt eine offene Position zu Ende und gibt
 # sein Konto dann an den Nachfolger weiter (journal/konten.json: zuordnung, start, uebergaben, konten[].fuer).
+# Neue Einträge brauchen "seit" und frühestens den Tag 7 des Bots (suche/VORAB_eine_woche.yaml, tests/test_eine_woche.py).
 BEENDET = {
-    "r6-vortag-usdjpy": {"an": "r6-vortag-gbpusd",
+    "r6-vortag-usdjpy": {"an": "r6-vortag-gbpusd", "seit": "2026-11-04",
                          "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, "
                                    "vor dem ersten Trade)"},
 }
@@ -364,6 +365,7 @@ class Lauf:
         self.accounts: list[dict] = []
         self.haupt: str | None = None
         self.pos: dict = {}
+        self.aktivitaet_roh: list[dict] = []        # letzte Antwort von /history/activity (für das Log, siehe unten)
 
     def ereignis(self, bot: Bot | None, event: str, **kw) -> None:
         self.log.append({"time": self.stamp, "bot": bot.bot_id if bot else None, "event": event, **kw})
@@ -444,6 +446,7 @@ def _aktivitaet(lauf: Lauf, bot: Bot, von: pd.Timestamp, bis: pd.Timestamp) -> l
     except Exception as err:            # noqa: BLE001
         lauf.ereignis(bot, "Kontoaktivität nicht lesbar", why=str(err)[:200])
         return None
+    lauf.aktivitaet_roh = acts
     return [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"), "status": a.get("status"),
              "level": (a.get("details") or {}).get("level"), "direction": (a.get("details") or {}).get("direction"),
              "actions": [x.get("actionType") for x in (a.get("details") or {}).get("actions", [])]}
@@ -496,7 +499,20 @@ def _gefuellt_und_zu(lauf: Lauf, bot: Bot, orders: dict, weg: list[str], rows: l
     closed = utc(zu["dateUTC"]) if zu.get("dateUTC") else lauf.now
     tr = buche(bot, op, float(zu["level"]), closed, str(zu.get("source") or "SL"), None)
     tr["einstieg_geschaetzt"] = not auf
+    if not auf:
+        # Am 05.11.2026 (GBP/JPY) fehlte die Eröffnung mit Kurs in der Aktivität: Einstieg = Orderkurs, ohne Rutschen,
+        # das Konto verlor aber 0,44 € mehr als gebucht. Die Zeilen ins Log, damit der echte Einstieg lesbar wird.
+        lauf.ereignis(bot, "Einstieg nicht in der Kontoaktivität", zeilen=_roh_kurz(lauf.aktivitaet_roh))
     return tr
+
+
+def _roh_kurz(acts: list[dict]) -> list[dict]:
+    """Die Aktivität knapp fürs öffentliche Log: nur Zeit, Markt, Art, Quelle, Status und Kurs-Felder (keine Konto-Daten)."""
+    keep = ("level", "direction", "size", "stopLevel", "profitLevel", "dealId", "dealReference")
+    return [{**{k: a.get(k) for k in ("dateUTC", "epic", "dealId", "type", "source", "status")},
+             "details": {**{k: v for k, v in (a.get("details") or {}).items() if k in keep},
+                         "actions": [x.get("actionType") for x in (a.get("details") or {}).get("actions", [])]}}
+            for a in (acts or [])[:20]]
 
 
 # Einmal nachprüfen (Fehler bis 05.11.2026, siehe _gefuellt_und_zu): Beim Lauf um 21:31 UTC waren beide GBP/JPY-Orders

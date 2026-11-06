@@ -597,6 +597,24 @@ def test_nachpruefen_bucht_den_fehlenden_trade_einmal(monkeypatch):
     rb.nachpruefen(lauf, gbpjpy, st2)
     assert "nachgeprueft" not in st2 and len(lauf.neu) == 1
 
+def test_einstieg_fehlt_in_der_aktivitaet_dann_zeilen_ins_log():
+    """Wie am 05.11.2026: nur der Schluss steht in der Aktivität. Einstieg = Orderkurs (geschätzt), die rohen Zeilen
+    (knapp, ohne Konto-Daten) kommen ins Log."""
+    fb = FakeBroker()
+    fb.activities = [{"epic": "GBPJPY", "dealId": "D1", "dateUTC": "2026-11-05T21:23:02", "source": "SL",
+                      "type": "POSITION", "status": "ACCEPTED", "accountId": "geheim",
+                      "details": {"level": 212.125, "currency": "JPY", "actions": [{"actionType": "POSITION_CLOSED"}]}}]
+    gbpjpy = next(b for b in rb.BOTS if b.bot_id == "r6-vortag-gbpjpy")
+    lauf = rb.Lauf(fb, utc("2026-11-06", "05:01", NY), {}, True)
+    st = {"konto": "…4494"}
+    rb.nachpruefen(lauf, gbpjpy, st)
+    t = lauf.neu[0]
+    assert t["entry"] == 212.067 and t["einstieg_geschaetzt"] and t["rutschen_pips"] is None
+    e = next(x for x in lauf.log if x["event"] == "Einstieg nicht in der Kontoaktivität")
+    assert e["zeilen"] == [{"dateUTC": "2026-11-05T21:23:02", "epic": "GBPJPY", "dealId": "D1", "type": "POSITION",
+                            "source": "SL", "status": "ACCEPTED",
+                            "details": {"level": 212.125, "actions": ["POSITION_CLOSED"]}}]
+
 
 def test_nachpruefen_versucht_es_wieder_wenn_die_aktivitaet_fehlt():
     class Kaputt(FakeBroker):

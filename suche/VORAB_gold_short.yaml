@@ -1,0 +1,90 @@
+# Vorwärtstest Gold-Short-Bot (große Strategie nur Shorts, Runde 12h) auf einem Capital.com-DEMOKONTO. Nie echtes Geld.
+# Vorab festgelegt am 06.11.2026, bevor der Bot den ersten Trade macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: gold/short_bot.py, Tests: tests/test_gold_short.py.
+#
+# Herkunft: Runde 12h im Repo portfolio-manager (suche/VORAB_runde12h.yaml, suche/runde12h.py, Variante gross_short).
+# Kirons Wunsch vom 06.11.2026 12:51 UTC: "gebe der nur short strategie einen eigenen live trading bot ... der nur short
+# bot soll ab jetzt live laufen und einen threat zur verbesserung haben".
+# Ehrlich: gross_short ist im Backtest durchgefallen. 11/2024 bis 10/2026 465 Trades, PF_R 0,94, Summe -9,3 R (2026
+# allein gut). Kontrolle 11/2022 bis 10/2024 527 Trades, PF_R 0,66, -69,9 R. Größter Rückgang im Backtest 46,8 R
+# (Kontrolle 73,6 R), 7 bis 9 Verluste in Folge. Der Bot läuft nur, weil Kiron es ausdrücklich will.
+#
+# Nachspiel vor dem Start (Rechnungen im Projektordner strategie-suche/gold-short/):
+# - Die Regeln des Bots auf 15-Min.-Kerzen (aus den HistData-5-Min.-Kerzen der Runde 12h, gleicher Spread) ergeben
+#   11/2024 bis 10/2026 472 Trades, PF_R 0,95, -7,2 R und in der Kontrolle 534 Trades, PF_R 0,68, -67,4 R. Also fast
+#   genau der Backtest auf 5-Min.-Kerzen.
+# - Live gerechnet (je Lauf nur die fertigen Kerzen der letzten 2.900 Viertelstunden plus eine Kerze "jetzt") findet der
+#   Bot in den letzten 1.500 Viertelstunden bis 10/2026 dieselben 24 Short-Einstiege wie die Rechnung über alle Kerzen,
+#   und alle 22 normalen Ausstiege werden genau im richtigen Lauf fällig. Kein Blick in die Zukunft.
+#
+# Quant-Komitee vom 06.11.2026 (Frage von Kiron: wie kommt die Short-Strategie in die anderen Gold-Bots?): gar nicht.
+# Der Gold-Bot (C und B) und Gold-Bot 2.0 bleiben unverändert, der TikTok-Schatten auch. Gründe: Die Trades fallen fast
+# nie zusammen (3 von 61 C-Käufen 2024-26 starteten, während ein gross_short-Trade offen war), gross_short hat seinen
+# Test nicht bestanden, und die laufenden Zählungen der anderen Bots (30 Trades für den 1-ATR-Stop, -8 R Schalter)
+# würden von vorn beginnen. Der TikTok-Schatten rechnet dieselben drei Seiten mit der alten Führung und ist so die
+# Vergleichsgruppe für die neue Führung.
+
+gold_short_vorwaerts:
+  markt: GOLD (Capital.com, Kassa-Gold in USD)
+  konto: >-
+    Konto 5 (Konto-ID 332263750966269086, Endung 9086), das sich der Bot mit dem Dow-Laborbot r5-ruecksetzer-us30 teilt
+    (anderer Markt, kein Netting). Kein freies Demokonto war da (journal/konten.json "frei" leer). Nie das Hauptkonto des
+    Gold-Bots (Endung 3150), nie ein anderes Konto. Fehlt Konto 5, handelt der Bot nicht. Liegt eine fremde Gold-Position
+    auf Konto 5, öffnet er nichts Neues (das Konto hat kein Hedging, ein Verkauf würde einen Kauf schließen).
+  groesse: >-
+    5 Euro Risiko bis zum Stop je Trade (0,5 % von 1.000 Euro), auf die Teile verteilt und auf 0,01 Unzen abgerundet.
+    Höchstens 1 Unze je Trade und 2 Unzen zusammen, höchstens 4 Trades zugleich offen. Würde die kleinste Größe das Risiko
+    mehr als verdoppeln, kein Trade. Neue Trades nur bei genug freier Marge (höchstens 80 % der freien Mittel).
+  regeln: >-
+    Genau gold/short_bot.py: die drei Seiten gross_klein_3, gross_box_kerze und gross_box wie gold/tiktok_schatten.py auf
+    15-Min.-Bid-Kerzen, nur Verkäufe. Gleicher Einstieg von mehreren Seiten zählt einmal (Reihenfolge gross_klein_3,
+    gross_box_kerze, gross_box). Ziele mal 0,75 (gross_klein_3 je ein Drittel bei 0,75, 1,5 und 2,25 R, die beiden
+    gross_box-Seiten ein Drittel bei 0,75 R und der Rest bis zur neuen Box), nach dem ersten Ziel Stop auf Einstand.
+    Prüfer bei 0,5 R gegen den Trade vor dem ersten Ziel, dann raus, sobald der Kurs wieder am Einstieg ist (Stop bleibt).
+    Halten im Minus zum normalen Ausstieg bis zum Einstieg oder Stop. Kein neuer Short, solange ein offener Short schon
+    ein Fehltrade ist. Die Filter-Boxen von gross_klein_3 (4 Std. und 1 Std.) mit der alten Führung. Nur fertige 1-Std.-
+    und 4-Std.-Kerzen (4 Std. ab 18:00 New York), Einstieg per Marktorder im Lauf nach dem Schluss der Signalkerze.
+  lauf: >-
+    Workflow "Demo-Bots", von cron-job.org rund um die Uhr alle 15 Minuten angestoßen (Minute 1, 16, 31, 46). Etwa 30
+    Tage Viertelstunden-Kerzen je Lauf. Ein Signal zählt nur bis 20 Minuten nach Schluss seiner Kerze, nach dem
+    Tagesschluss (17:00 New York) bis 18:20 New York.
+  bekannte_abweichungen: >-
+    15-Min.- statt 5-Min.-Kerzen (Nachspiel oben, fast gleich). Einstieg 1 bis 4 Minuten nach der Eröffnung zum Marktkurs.
+    Einstand, Prüfer und Halten setzt der Bot erst im nächsten Lauf, bis zu 15 Minuten später als der Backtest. Erreicht
+    ein Trade sein erstes Ziel und 0,5 R gegen sich in derselben Viertelstunde, zählt live das Ziel (im Backtest der
+    Prüfer). Höchstens 4 Trades offen und höchstens 2 Unzen (im Backtest bis zu 7 Trades). Übernachtgebühren stehen nicht
+    im R, nur im Kontostand. Fällt ein Lauf aus, ist ein Signal danach zu alt und wird ausgelassen.
+
+  messung: >-
+    Jeder abgeschlossene Trade zählt (alle Teile zu). R = gewichtete Summe der Teile (Einstieg minus Ausstieg) durch den
+    Stopabstand. Dazu Euro und Grund je Teil (Ziel, Stop, Einstand, Prüfer, Halten, Ausstieg). Nur zur Information nach 40
+    Trades: dieselben Einstiege mit der alten Führung (TikTok-Schatten, journal/tiktok-schatten.json), hilft die neue
+    Führung oder kostet sie Gewinner (Backtest: +127 R alt gegen +84 R neu bei gross_ganz)?
+
+  erwartung: >-
+    Im Backtest etwa 235 Trades im Jahr, also etwa 4 bis 5 je Woche; 40 Trades in etwa 2 Monaten. Treffer selten, viele
+    Prüfer- und Einstand-Ausstiege nahe 0 R. Bei 5 Euro je R wäre der größte Rückgang des Backtests etwa 234 Euro.
+
+  pause:
+    summe_r_bis: -10.0                     # ab -10 R seit Start keine neuen Shorts, offene laufen zu Ende
+    zurueck: nur mit Kirons Entscheidung (PR)
+
+  zwischencheck:
+    nach_trades: 15
+    vorschlag_stopp_wenn_pf_unter: 0.6     # dann schlage ich Kiron vor, den Test zu beenden; der Bot ändert sich nie selbst
+
+  urteil:
+    nach_trades: 40
+    bestanden_wenn:
+      pf_min: 1.2
+      summe_r_ueber: 0.0
+    sonst: durchgefallen, Vorschlag an Kiron stoppen oder neue Regeln mit neuem Vorab
+    hinweis: >-
+      Nicht in der automatischen Prüfung nach 15/40 Trades (suche/VORAB_wechsel.yaml), über diesen Bot entscheidet nur
+      Kiron. Echtes Geld nur mit Kirons ausdrücklichem Wort, frühestens nach dem Urteil.
+
+  verbesserungen: >-
+    Kiron will an der Strategie weiter feilen (eigener Thread "Gold-Short-Bot verbessern"). Jede Regeländerung kommt als
+    PR mit einem neuen Vorab (eigene Prüfsumme, erst Backtest 11/2024 bis 10/2026 und Kontrolle 2022 bis 2024), danach
+    zählen die Trades von vorn. Die Regel "eine Woche live" (suche/VORAB_eine_woche.yaml) gilt auch hier, also keine
+    Regeländerung in den ersten 7 Tagen nach dem Merge.

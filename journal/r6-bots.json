@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-06T08:31:43.120401",
+ "stand_utc": "2026-11-06T08:46:59.824754",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -147,7 +147,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:31:43.120401",
+    "zeit": "2026-11-06T08:46:59.824754",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -274,7 +274,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:31:43.120401",
+    "zeit": "2026-11-06T08:46:59.824754",
     "action": "none",
     "why": [
      "kein Signal"
@@ -458,7 +458,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:31:43.120401",
+    "zeit": "2026-11-06T08:46:59.824754",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -565,7 +565,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:31:43.120401",
+    "zeit": "2026-11-06T08:46:59.824754",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -672,7 +672,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:31:43.120401",
+    "zeit": "2026-11-06T08:46:59.824754",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -819,7 +819,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:31:43.120401",
+    "zeit": "2026-11-06T08:46:59.824754",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

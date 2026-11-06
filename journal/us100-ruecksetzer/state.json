@@ -6,14 +6,14 @@
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:00.693559",
  "letzte_entscheidung": {
-  "zeit": "2026-11-06T08:31:40.003635",
+  "zeit": "2026-11-06T08:46:55.243941",
   "action": "none",
   "why": "wartet auf 15 Uhr New York",
   "bar": null
  },
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "position": null,
- "stand_utc": "2026-11-06T08:31:40.003635",
+ "stand_utc": "2026-11-06T08:46:55.243941",
  "start_kontostand": 1000.0,
  "tag_erledigt": "2026-11-05"
 }

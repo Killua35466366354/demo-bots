@@ -219,6 +219,7 @@ jobs:
           CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
           CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
           NTFY_THEMA: ${{ secrets.NTFY_THEMA }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run }}
           TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
         run: |

@@ -213,6 +213,7 @@ def test_workflow_testet_vor_dem_lauf():
     wf = (Path(__file__).resolve().parents[1] / ".github" / "workflows" / "demo-bots.yml").read_text(encoding="utf-8")
     assert wf.index("tests/test_gold_hand.py") < wf.index("python -m gold.hand_bot")
     assert "NTFY_THEMA: ${{ secrets.NTFY_THEMA }}" in wf
+    assert "NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}" in wf
 
 
 def test_hintergrund_sperrt_gegen_den_trend(welt):

@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-06",
- "letzter_trade_utc": "2026-11-05T17:01:46.310824",
+ "letzter_trade_utc": "2026-11-05T21:23:02.351000",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
   {
@@ -371,42 +371,6 @@
    "rang": 10
   },
   {
-   "id": "r6-vortag-gbpjpy",
-   "name": "Vortag GBP/JPY",
-   "markt": "GBPJPY",
-   "gruppe": "behalten",
-   "aktiv": true,
-   "konto": "Account 3",
-   "seit": "2026-11-05T11:46:30",
-   "ist": {
-    "trades": 0,
-    "gewonnen": 0,
-    "treffer_pct": null,
-    "summe_r": 0,
-    "pf_r": null,
-    "eur": 0,
-    "rueckgang_r": 0.0
-   },
-   "soll": {
-    "wochen": 0.1,
-    "trades": 0.1,
-    "summe_r": 0.01
-   },
-   "abweichung_r": -0.01,
-   "bewertung": {
-    "rang": 18,
-    "pf": 1.451,
-    "eur_1000": 189.7,
-    "bestanden": true
-   },
-   "monate": {},
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "0 von 40 Demo-Trades"
-   },
-   "rang": 11
-  },
-  {
    "id": "r6-vortag-eurusd-1atr",
    "name": "Vortag EUR/USD 1 x ATR (Mess-Bot)",
    "markt": "EURUSD",
@@ -431,7 +395,7 @@
     "status": "messung",
     "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
    },
-   "rang": 12
+   "rang": 11
   },
   {
    "id": "gold-cb-long",
@@ -457,6 +421,48 @@
    "aufstieg": {
     "status": "messung",
     "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
+   },
+   "rang": 12
+  },
+  {
+   "id": "r6-vortag-gbpjpy",
+   "name": "Vortag GBP/JPY",
+   "markt": "GBPJPY",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "Account 3",
+   "seit": "2026-11-05T11:46:30",
+   "ist": {
+    "trades": 1,
+    "gewonnen": 0,
+    "treffer_pct": 0.0,
+    "summe_r": -1.02,
+    "pf_r": 0.0,
+    "eur": -4.08,
+    "rueckgang_r": 1.02
+   },
+   "soll": {
+    "wochen": 0.1,
+    "trades": 0.1,
+    "summe_r": 0.01
+   },
+   "abweichung_r": -1.03,
+   "bewertung": {
+    "rang": 18,
+    "pf": 1.451,
+    "eur_1000": 189.7,
+    "bestanden": true
+   },
+   "monate": {
+    "2026-11": {
+     "trades": 1,
+     "summe_r": -1.02,
+     "eur": -4.08
+    }
+   },
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "1 von 40 Demo-Trades"
    },
    "rang": 13
   },
@@ -542,22 +548,28 @@
   ],
   "draussen": [],
   "ist": {
-   "trades": 0,
+   "trades": 1,
    "gewonnen": 0,
-   "treffer_pct": null,
-   "summe_r": 0,
-   "pf_r": null,
-   "eur": 0,
-   "rueckgang_r": 0.0
+   "treffer_pct": 0.0,
+   "summe_r": -1.02,
+   "pf_r": 0.0,
+   "eur": -4.08,
+   "rueckgang_r": 1.02
   },
-  "monate": {},
+  "monate": {
+   "2026-11": {
+    "trades": 1,
+    "summe_r": -1.02,
+    "eur": -4.08
+   }
+  },
   "soll": {
    "trades": 0.9,
    "summe_r": 0.19
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "0 von 60 Demo-Trades"
+   "text": "1 von 60 Demo-Trades"
   }
  },
  "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung 2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast nichts; über echtes Geld entscheidet immer Kiron (suche/VORAB_aufstieg.yaml)."

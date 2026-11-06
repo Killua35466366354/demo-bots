@@ -13,3 +13,4 @@
 {"time": "2026-11-05T21:31:43.277871", "bot": "r6-vortag-gbpusd", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
 {"time": "2026-11-05T21:31:43.277871", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
 {"time": "2026-11-05T21:31:43.277871", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-06T06:31:51.682251", "bot": "r6-vortag-gbpjpy", "event": "nachgebucht", "tag": "2026-11-05", "side": "short", "entry": 212.067, "exit": 212.125, "r": -1.018, "pnl_eur": -4.08, "reason": "Stop beim Broker"}

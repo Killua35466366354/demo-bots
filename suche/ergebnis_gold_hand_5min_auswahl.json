@@ -1,0 +1,303 @@
+{
+ "vorab": {
+  "ok": true,
+  "sha256": "87e7789b3ceb99fdc78becebdf277794bf1030000057219048141529e12d6c1f"
+ },
+ "zeitraum": {
+  "von": "2024-11-01",
+  "bis": "2026-10-30",
+  "vergleich": {
+   "trades": 1163,
+   "pf_r": 1.18,
+   "summe_r": 60.6,
+   "trefferquote": 0.408,
+   "erst_1r": 0.54,
+   "shorts": 438,
+   "longs": 725,
+   "nur_shorts": {
+    "trades": 438,
+    "pf_r": 0.978,
+    "summe_r": -3.0,
+    "trefferquote": 0.395,
+    "erst_1r": 0.526
+   },
+   "nur_longs": {
+    "trades": 725,
+    "pf_r": 1.317,
+    "summe_r": 63.6,
+    "trefferquote": 0.415,
+    "erst_1r": 0.549
+   }
+  },
+  "auswahlen": {
+   "v1_wie_live": {
+    "trades": 2490,
+    "pf_r": 1.003,
+    "summe_r": 2.5,
+    "trefferquote": 0.37,
+    "erst_1r": 0.487,
+    "shorts": 1012,
+    "longs": 1478,
+    "nur_shorts": {
+     "trades": 1012,
+     "pf_r": 0.862,
+     "summe_r": -46.6,
+     "trefferquote": 0.37,
+     "erst_1r": 0.473
+    },
+    "nur_longs": {
+     "trades": 1478,
+     "pf_r": 1.104,
+     "summe_r": 49.1,
+     "trefferquote": 0.37,
+     "erst_1r": 0.497
+    }
+   },
+   "v2_mit_trend": {
+    "trades": 1674,
+    "pf_r": 1.216,
+    "summe_r": 111.5,
+    "trefferquote": 0.386,
+    "erst_1r": 0.51,
+    "shorts": 516,
+    "longs": 1158,
+    "nur_shorts": {
+     "trades": 516,
+     "pf_r": 0.966,
+     "summe_r": -5.5,
+     "trefferquote": 0.391,
+     "erst_1r": 0.506
+    },
+    "nur_longs": {
+     "trades": 1158,
+     "pf_r": 1.328,
+     "summe_r": 117.0,
+     "trefferquote": 0.383,
+     "erst_1r": 0.512
+    }
+   },
+   "v3_zwei_am_tag": {
+    "trades": 550,
+    "pf_r": 1.289,
+    "summe_r": 53.0,
+    "trefferquote": 0.373,
+    "erst_1r": 0.495,
+    "shorts": 166,
+    "longs": 384,
+    "nur_shorts": {
+     "trades": 166,
+     "pf_r": 0.656,
+     "summe_r": -20.1,
+     "trefferquote": 0.325,
+     "erst_1r": 0.494
+    },
+    "nur_longs": {
+     "trades": 384,
+     "pf_r": 1.587,
+     "summe_r": 73.1,
+     "trefferquote": 0.393,
+     "erst_1r": 0.495
+    }
+   },
+   "v4_nur_5min": {
+    "trades": 2921,
+    "pf_r": 1.052,
+    "summe_r": 48.4,
+    "trefferquote": 0.379,
+    "erst_1r": 0.492,
+    "shorts": 1186,
+    "longs": 1735,
+    "nur_shorts": {
+     "trades": 1186,
+     "pf_r": 0.887,
+     "summe_r": -44.1,
+     "trefferquote": 0.373,
+     "erst_1r": 0.478
+    },
+    "nur_longs": {
+     "trades": 1735,
+     "pf_r": 1.171,
+     "summe_r": 92.6,
+     "trefferquote": 0.383,
+     "erst_1r": 0.501
+    }
+   }
+  },
+  "hintergrund_anteil": {
+   "-1": 279,
+   "0": 366,
+   "1": 620
+  }
+ },
+ "kontrolle": {
+  "von": "2022-11-01",
+  "bis": "2024-10-31",
+  "vergleich": {
+   "trades": 1174,
+   "pf_r": 0.865,
+   "summe_r": -56.3,
+   "trefferquote": 0.401,
+   "erst_1r": 0.497,
+   "shorts": 442,
+   "longs": 732,
+   "nur_shorts": {
+    "trades": 442,
+    "pf_r": 0.674,
+    "summe_r": -57.7,
+    "trefferquote": 0.373,
+    "erst_1r": 0.448
+   },
+   "nur_longs": {
+    "trades": 732,
+    "pf_r": 1.006,
+    "summe_r": 1.4,
+    "trefferquote": 0.418,
+    "erst_1r": 0.527
+   }
+  },
+  "auswahlen": {
+   "v1_wie_live": {
+    "trades": 2399,
+    "pf_r": 0.74,
+    "summe_r": -230.4,
+    "trefferquote": 0.342,
+    "erst_1r": 0.458,
+    "shorts": 965,
+    "longs": 1434,
+    "nur_shorts": {
+     "trades": 965,
+     "pf_r": 0.564,
+     "summe_r": -171.9,
+     "trefferquote": 0.318,
+     "erst_1r": 0.401
+    },
+    "nur_longs": {
+     "trades": 1434,
+     "pf_r": 0.881,
+     "summe_r": -58.5,
+     "trefferquote": 0.358,
+     "erst_1r": 0.496
+    }
+   },
+   "v2_mit_trend": {
+    "trades": 1734,
+    "pf_r": 0.76,
+    "summe_r": -151.1,
+    "trefferquote": 0.348,
+    "erst_1r": 0.473,
+    "shorts": 522,
+    "longs": 1212,
+    "nur_shorts": {
+     "trades": 522,
+     "pf_r": 0.574,
+     "summe_r": -93.8,
+     "trefferquote": 0.33,
+     "erst_1r": 0.421
+    },
+    "nur_longs": {
+     "trades": 1212,
+     "pf_r": 0.86,
+     "summe_r": -57.3,
+     "trefferquote": 0.356,
+     "erst_1r": 0.496
+    }
+   },
+   "v3_zwei_am_tag": {
+    "trades": 553,
+    "pf_r": 0.575,
+    "summe_r": -87.5,
+    "trefferquote": 0.32,
+    "erst_1r": 0.467,
+    "shorts": 159,
+    "longs": 394,
+    "nur_shorts": {
+     "trades": 159,
+     "pf_r": 0.241,
+     "summe_r": -59.5,
+     "trefferquote": 0.283,
+     "erst_1r": 0.352
+    },
+    "nur_longs": {
+     "trades": 394,
+     "pf_r": 0.78,
+     "summe_r": -28.0,
+     "trefferquote": 0.335,
+     "erst_1r": 0.513
+    }
+   },
+   "v4_nur_5min": {
+    "trades": 2829,
+    "pf_r": 0.764,
+    "summe_r": -243.0,
+    "trefferquote": 0.349,
+    "erst_1r": 0.467,
+    "shorts": 1136,
+    "longs": 1693,
+    "nur_shorts": {
+     "trades": 1136,
+     "pf_r": 0.591,
+     "summe_r": -186.6,
+     "trefferquote": 0.323,
+     "erst_1r": 0.415
+    },
+    "nur_longs": {
+     "trades": 1693,
+     "pf_r": 0.902,
+     "summe_r": -56.4,
+     "trefferquote": 0.366,
+     "erst_1r": 0.501
+    }
+   }
+  },
+  "hintergrund_anteil": {
+   "-1": 235,
+   "0": 345,
+   "1": 702
+  }
+ },
+ "urteil": {
+  "je_auswahl": {
+   "v1_wie_live": {
+    "pruefungen": {
+     "trades_ab_50": true,
+     "pf_zeitraum": false,
+     "erst_1r_zeitraum": false,
+     "pf_kontrolle": false,
+     "erst_1r_kontrolle": false
+    },
+    "bestanden": false
+   },
+   "v2_mit_trend": {
+    "pruefungen": {
+     "trades_ab_50": true,
+     "pf_zeitraum": true,
+     "erst_1r_zeitraum": false,
+     "pf_kontrolle": false,
+     "erst_1r_kontrolle": false
+    },
+    "bestanden": false
+   },
+   "v3_zwei_am_tag": {
+    "pruefungen": {
+     "trades_ab_50": true,
+     "pf_zeitraum": true,
+     "erst_1r_zeitraum": false,
+     "pf_kontrolle": false,
+     "erst_1r_kontrolle": false
+    },
+    "bestanden": false
+   },
+   "v4_nur_5min": {
+    "pruefungen": {
+     "trades_ab_50": true,
+     "pf_zeitraum": false,
+     "erst_1r_zeitraum": false,
+     "pf_kontrolle": false,
+     "erst_1r_kontrolle": false
+    },
+    "bestanden": false
+   }
+  },
+  "gewaehlt": null
+ }
+}

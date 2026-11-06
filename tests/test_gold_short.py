@@ -497,5 +497,7 @@ def test_anderer_gold_bot_auf_konto_5(welt, monkeypatch):
 def test_workflow_testet_vor_dem_lauf():
     from pathlib import Path
     wf = (Path(__file__).resolve().parents[1] / ".github" / "workflows" / "demo-bots.yml").read_text(encoding="utf-8")
-    assert wf.index("tests/test_gold_short.py") < wf.index("python -m gold.short_bot")
-    assert '-ge 6' in wf and wf.count("touch .tests-ok/") == 6
+    assert "tests/test_gold_short.py" in wf
+    # Kirons Wahl vom 06.11.2026: Konto 5 gehört dem Gold-Hand-Bot, der Gold-Short-Bot öffnet dort nichts mehr
+    assert "python -m gold.short_bot" not in wf and "Gold-Short-Bot ruht" in wf
+    assert '-ge 7' in wf and wf.count("touch .tests-ok/") == 7

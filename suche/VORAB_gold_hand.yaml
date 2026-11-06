@@ -1,0 +1,54 @@
+# Gold-Hand-Bot: Gold Short und Long ohne Stop und ohne Ziel, Nachricht aufs Handy, Kiron geht selbst raus.
+# Code gold/hand_bot.py, Tests tests/test_gold_hand.py. Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kirons Wunsch vom 06.11.2026 15:51 UTC (Thread "Gold-Short-Bot verbessern"): "den Shortbot ... und jetzt hier diesen
+# Longbot ... zusammentun und dann ohne Stop-Loss, ohne nix und ohne Backtest ... dass der mir immer dann eine Nachricht
+# sendet, wann er sozusagen in den Trade reingeht, dass ich den sozusagen selber rausgehen kann". Darum gibt es hier
+# keine Hürde und kein Urteil: Das Ergebnis hängt an Kirons eigenem Rausgehen und steht nur zur Information im Journal.
+# Kein Kandidat für echtes Geld, nicht in der automatischen 15/40-Prüfung, kein Zwilling nach VORAB_zwilling.yaml.
+# Festgelegt vor dem ersten Trade.
+
+format: 1
+gold_hand:
+  konto:
+    id: "332263750966269086"    # Account 5, Kirons Wahl; der Gold-Short-Bot öffnet dort nichts mehr
+    nie: Hauptkonto des Gold-Bots (Endung 3150) und seine Dateien
+  signale: >-
+    Wie gold/short_bot.simuliere (gross_klein_3, gross_box_kerze, gross_box auf 15-Min.-Kerzen, nur fertige 1-Std.- und
+    4-Std.-Kerzen, Kerze "jetzt" mit dem aktuellen Kurs), Verkäufe und Käufe. In einer Kerze gilt der erste Short (Seiten
+    in dieser Reihenfolge), ein Long nur, wenn es dort keinen Short gibt. Ein Signal nur einmal je Kerze und nur frisch
+    (sb.frisch).
+  fuehrung: >-
+    Marktorder ohne Stop und ohne Ziel. Der Bot schließt nie eine Position und ändert keine. Kiron schließt selbst.
+  groesse:
+    risiko_eur_je_strategie_r: 5.0      # nur zum Rechnen der Größe, kein Stop beim Broker
+    max_oz_trade: 1.0
+    max_oz_zusammen: 2.0
+    max_goldpositionen: 4               # alle Goldpositionen auf dem Konto, auch Kirons eigene
+  gegenrichtung: >-
+    Ist eine Goldposition in die andere Richtung offen, öffnet der Bot nichts (kein Hedging, die Order würde sonst die
+    alte Position schließen) und schickt nur die Nachricht.
+  hintergrund: >-
+    Kirons Wunsch vom 06.11.2026 16:12 UTC ("damit keine völlig unnötigen Trades genommen werden"), wie der
+    Richtungs-Check von Gold-Bot 2.0 (gold/v2/richtung.py) auf den Kerzen von Capital.com: letzter fertiger Tagesschluss
+    gegen seinen 50-Tage-Schnitt und letzter fertiger 4-Std.-Schluss gegen seine EMA 50. Beide darüber, kein Short. Beide
+    darunter, kein Long. Uneinig oder zu wenig Daten, beides erlaubt. Beim Gold-Bot C/B war dieser Check im Test nicht
+    besser als Zufall (Runde 3, 02.11.2026); hier gilt er ohne Test auf Kirons Wunsch.
+  news_agent:
+    termine: >-
+      Fed-Zinsentscheid, US-Inflation (CPI) und US-Arbeitsmarkt (NFP) aus gold/v2/termine.yaml, dazu alle roten
+      USD-Termine aus dem ForexFactory-Wochenkalender (höchstens alle 6 Stunden geholt).
+    pause_vor_min: 60
+    pause_nach_min: 30
+    schock: Pause, solange eine der letzten 3 fertigen 15-Min.-Kerzen eine Spanne über 3 x ATR 20 davor hatte.
+    warnung_vor_min: 45     # sind Goldpositionen offen, einmal je Termin eine Warnung
+    schlagzeilen: >-
+      Jede Nachricht zeigt bis zu 3 Gold-Schlagzeilen der letzten 6 Stunden (Google News RSS "spot gold"). Sie
+      entscheiden nichts, Kiron ordnet sie selbst ein.
+  nachricht: >-
+    Bei jedem Einstieg und jedem ausgelassenen frischen Signal eine Nachricht über ntfy an das Thema im GitHub-Secret
+    NTFY_THEMA: Richtung, Größe, Kurs, Seite, Kerze und zur Orientierung Stop und Ziel 1 der Strategie. Nimmt ntfy
+    eine Nachricht nicht an (Grenze je IP-Adresse), holt der nächste Lauf sie bis 12 Std. lang nach. Ein eigener
+    ntfy-Zugang im Secret NTFY_TOKEN ist erlaubt. Beim ersten echten Lauf eine Start-Nachricht.
+  journal: journal/gold-hand/ (state.json, log.jsonl, trades.jsonl, nachrichten.jsonl) und journal/gold-hand.json
+  aenderung: Nur über einen PR, den Kiron merged.

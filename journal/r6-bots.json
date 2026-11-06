@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-06T10:31:42.357941",
+ "stand_utc": "2026-11-06T10:46:43.251376",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -147,7 +147,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T10:31:42.357941",
+    "zeit": "2026-11-06T10:46:43.251376",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -266,7 +266,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.87,
+   "kontostand": 1000.92,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "Position offen",
@@ -289,12 +289,12 @@
    },
    "orders": null,
    "position": {
-    "upl": 0.37,
+    "upl": 0.44,
     "stop": 156.414,
     "ziel": null
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T10:31:42.357941",
+    "zeit": "2026-11-06T10:46:43.251376",
     "action": "none",
     "why": [
      "Position bleibt"
@@ -478,7 +478,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T10:31:42.357941",
+    "zeit": "2026-11-06T10:46:43.251376",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -585,7 +585,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T10:31:42.357941",
+    "zeit": "2026-11-06T10:46:43.251376",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -692,7 +692,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T10:31:42.357941",
+    "zeit": "2026-11-06T10:46:43.251376",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -839,7 +839,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T10:31:42.357941",
+    "zeit": "2026-11-06T10:46:43.251376",
     "action": "none",
     "why": [
      "heute erledigt"

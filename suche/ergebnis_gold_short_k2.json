@@ -1,0 +1,1095 @@
+{
+ "vorab_sha256": "07f44b83a5fb304ac00aae00216977d2a6524de1ae9206e0a19281adf1ef4136",
+ "varianten": {
+  "vorschuss": {
+   "zeitraum_a": {
+    "trades": 464,
+    "pf_r": 1.002,
+    "summe_r": 0.3,
+    "trefferquote": 0.36
+   },
+   "robust": {
+    "trades": 463,
+    "pf_r": 0.981,
+    "summe_r": -2.8,
+    "trefferquote": 0.356
+   },
+   "zufall": 77.5,
+   "zufall_median_r": -13.0,
+   "haelfte_1": {
+    "trades": 186,
+    "pf_r": 0.96,
+    "summe_r": -2.5,
+    "trefferquote": 0.339
+   },
+   "haelfte_2": {
+    "trades": 278,
+    "pf_r": 1.035,
+    "summe_r": 2.9,
+    "trefferquote": 0.374
+   },
+   "jahr_2026": {
+    "trades": 229,
+    "pf_r": 1.321,
+    "summe_r": 20.0,
+    "trefferquote": 0.419
+   },
+   "kontrolle_2022_2024": {
+    "trades": 522,
+    "pf_r": 0.751,
+    "summe_r": -49.8,
+    "trefferquote": 0.368
+   },
+   "checks": {
+    "trades": true,
+    "pf_r": false,
+    "pf_r_robust": false,
+    "zufall": false,
+    "haelfte_1": false,
+    "haelfte_2": true,
+    "jahr_2026": true,
+    "kontrolle": false
+   },
+   "bestanden": false,
+   "je_seite": {
+    "gross_klein_3": {
+     "trades": 134,
+     "pf_r": 1.186,
+     "summe_r": 7.5,
+     "trefferquote": 0.373
+    },
+    "gross_box_kerze": {
+     "trades": 260,
+     "pf_r": 1.014,
+     "summe_r": 1.2,
+     "trefferquote": 0.365
+    },
+    "gross_box": {
+     "trades": 70,
+     "pf_r": 0.538,
+     "summe_r": -8.4,
+     "trefferquote": 0.314
+    }
+   },
+   "gruende": {
+    "stop": {
+     "trades": 158,
+     "summe_r": -141.2
+    },
+    "pruefer": {
+     "trades": 113,
+     "summe_r": -0.1
+    },
+    "halten": {
+     "trades": 8,
+     "summe_r": -0.1
+    },
+    "tp1": {
+     "trades": 2,
+     "summe_r": 2.8
+    },
+    "tp2": {
+     "trades": 3,
+     "summe_r": 4.2
+    },
+    "gegensignal": {
+     "trades": 6,
+     "summe_r": 4.8
+    },
+    "offen": {
+     "trades": 2,
+     "summe_r": 9.4
+    },
+    "einstand": {
+     "trades": 98,
+     "summe_r": 9.6
+    },
+    "tp3": {
+     "trades": 23,
+     "summe_r": 32.6
+    },
+    "neue_box": {
+     "trades": 51,
+     "summe_r": 78.2
+    }
+   },
+   "rueckgang_r": 42.0,
+   "gesperrt": 32,
+   "gold_steigt": {
+    "trades": 155,
+    "pf_r": 0.862,
+    "summe_r": -6.7,
+    "trefferquote": 0.329
+   },
+   "gold_faellt": {
+    "trades": 309,
+    "pf_r": 1.072,
+    "summe_r": 7.0,
+    "trefferquote": 0.375
+   }
+  },
+  "sitzungs_ernte": {
+   "zeitraum_a": {
+    "trades": 475,
+    "pf_r": 0.979,
+    "summe_r": -2.9,
+    "trefferquote": 0.413
+   },
+   "robust": {
+    "trades": 476,
+    "pf_r": 0.961,
+    "summe_r": -5.6,
+    "trefferquote": 0.408
+   },
+   "zufall": 84.5,
+   "zufall_median_r": -18.4,
+   "haelfte_1": {
+    "trades": 188,
+    "pf_r": 0.862,
+    "summe_r": -9.1,
+    "trefferquote": 0.351
+   },
+   "haelfte_2": {
+    "trades": 287,
+    "pf_r": 1.081,
+    "summe_r": 6.1,
+    "trefferquote": 0.453
+   },
+   "jahr_2026": {
+    "trades": 238,
+    "pf_r": 1.379,
+    "summe_r": 21.5,
+    "trefferquote": 0.5
+   },
+   "kontrolle_2022_2024": {
+    "trades": 538,
+    "pf_r": 0.634,
+    "summe_r": -76.3,
+    "trefferquote": 0.39
+   },
+   "checks": {
+    "trades": true,
+    "pf_r": false,
+    "pf_r_robust": false,
+    "zufall": false,
+    "haelfte_1": false,
+    "haelfte_2": true,
+    "jahr_2026": true,
+    "kontrolle": false
+   },
+   "bestanden": false,
+   "je_seite": {
+    "gross_klein_3": {
+     "trades": 142,
+     "pf_r": 1.106,
+     "summe_r": 4.7,
+     "trefferquote": 0.394
+    },
+    "gross_box_kerze": {
+     "trades": 261,
+     "pf_r": 0.941,
+     "summe_r": -4.6,
+     "trefferquote": 0.437
+    },
+    "gross_box": {
+     "trades": 72,
+     "pf_r": 0.832,
+     "summe_r": -3.1,
+     "trefferquote": 0.361
+    }
+   },
+   "gruende": {
+    "stop": {
+     "trades": 140,
+     "summe_r": -141.2
+    },
+    "pruefer": {
+     "trades": 128,
+     "summe_r": -0.1
+    },
+    "halten": {
+     "trades": 11,
+     "summe_r": -0.1
+    },
+    "ernte": {
+     "trades": 2,
+     "summe_r": 0.6
+    },
+    "tp2": {
+     "trades": 1,
+     "summe_r": 1.5
+    },
+    "tp1": {
+     "trades": 2,
+     "summe_r": 3.0
+    },
+    "offen": {
+     "trades": 2,
+     "summe_r": 3.3
+    },
+    "gegensignal": {
+     "trades": 5,
+     "summe_r": 4.3
+    },
+    "einstand": {
+     "trades": 122,
+     "summe_r": 31.9
+    },
+    "tp3": {
+     "trades": 22,
+     "summe_r": 32.6
+    },
+    "neue_box": {
+     "trades": 40,
+     "summe_r": 61.4
+    }
+   },
+   "rueckgang_r": 39.4,
+   "gesperrt": 40,
+   "gold_steigt": {
+    "trades": 154,
+    "pf_r": 0.876,
+    "summe_r": -6.0,
+    "trefferquote": 0.377
+   },
+   "gold_faellt": {
+    "trades": 321,
+    "pf_r": 1.033,
+    "summe_r": 3.1,
+    "trefferquote": 0.43
+   }
+  },
+  "reife": {
+   "zeitraum_a": {
+    "trades": 492,
+    "pf_r": 1.001,
+    "summe_r": 0.2,
+    "trefferquote": 0.386
+   },
+   "robust": {
+    "trades": 493,
+    "pf_r": 0.988,
+    "summe_r": -1.9,
+    "trefferquote": 0.381
+   },
+   "zufall": 87.0,
+   "zufall_median_r": -16.5,
+   "haelfte_1": {
+    "trades": 192,
+    "pf_r": 0.811,
+    "summe_r": -12.8,
+    "trefferquote": 0.339
+   },
+   "haelfte_2": {
+    "trades": 300,
+    "pf_r": 1.159,
+    "summe_r": 13.0,
+    "trefferquote": 0.417
+   },
+   "jahr_2026": {
+    "trades": 251,
+    "pf_r": 1.456,
+    "summe_r": 28.2,
+    "trefferquote": 0.466
+   },
+   "kontrolle_2022_2024": {
+    "trades": 553,
+    "pf_r": 0.665,
+    "summe_r": -73.5,
+    "trefferquote": 0.371
+   },
+   "checks": {
+    "trades": true,
+    "pf_r": false,
+    "pf_r_robust": false,
+    "zufall": false,
+    "haelfte_1": false,
+    "haelfte_2": true,
+    "jahr_2026": true,
+    "kontrolle": false
+   },
+   "bestanden": false,
+   "je_seite": {
+    "gross_klein_3": {
+     "trades": 141,
+     "pf_r": 1.07,
+     "summe_r": 3.2,
+     "trefferquote": 0.383
+    },
+    "gross_box_kerze": {
+     "trades": 275,
+     "pf_r": 0.971,
+     "summe_r": -2.5,
+     "trefferquote": 0.396
+    },
+    "gross_box": {
+     "trades": 76,
+     "pf_r": 0.973,
+     "summe_r": -0.5,
+     "trefferquote": 0.355
+    }
+   },
+   "gruende": {
+    "stop": {
+     "trades": 148,
+     "summe_r": -149.3
+    },
+    "pruefer": {
+     "trades": 139,
+     "summe_r": -0.2
+    },
+    "halten": {
+     "trades": 14,
+     "summe_r": -0.1
+    },
+    "tp2": {
+     "trades": 1,
+     "summe_r": 1.5
+    },
+    "gegensignal": {
+     "trades": 3,
+     "summe_r": 2.1
+    },
+    "tp1": {
+     "trades": 2,
+     "summe_r": 3.0
+    },
+    "offen": {
+     "trades": 2,
+     "summe_r": 3.2
+    },
+    "neue_box": {
+     "trades": 8,
+     "summe_r": 4.0
+    },
+    "nachzug": {
+     "trades": 16,
+     "summe_r": 14.8
+    },
+    "einstand": {
+     "trades": 104,
+     "summe_r": 26.5
+    },
+    "tp3": {
+     "trades": 20,
+     "summe_r": 30.0
+    },
+    "reife": {
+     "trades": 35,
+     "summe_r": 64.6
+    }
+   },
+   "rueckgang_r": 41.2,
+   "gesperrt": 40,
+   "gold_steigt": {
+    "trades": 154,
+    "pf_r": 0.82,
+    "summe_r": -9.2,
+    "trefferquote": 0.351
+   },
+   "gold_faellt": {
+    "trades": 338,
+    "pf_r": 1.095,
+    "summe_r": 9.4,
+    "trefferquote": 0.402
+   }
+  },
+  "laeufer": {
+   "zeitraum_a": {
+    "trades": 421,
+    "pf_r": 0.703,
+    "summe_r": -38.8,
+    "trefferquote": 0.38
+   },
+   "robust": {
+    "trades": 422,
+    "pf_r": 0.692,
+    "summe_r": -40.3,
+    "trefferquote": 0.377
+   },
+   "zufall": 28.5,
+   "zufall_median_r": -29.3,
+   "haelfte_1": {
+    "trades": 174,
+    "pf_r": 0.49,
+    "summe_r": -31.0,
+    "trefferquote": 0.333
+   },
+   "haelfte_2": {
+    "trades": 247,
+    "pf_r": 0.888,
+    "summe_r": -7.8,
+    "trefferquote": 0.413
+   },
+   "jahr_2026": {
+    "trades": 199,
+    "pf_r": 1.197,
+    "summe_r": 9.8,
+    "trefferquote": 0.472
+   },
+   "kontrolle_2022_2024": {
+    "trades": 490,
+    "pf_r": 0.645,
+    "summe_r": -69.6,
+    "trefferquote": 0.369
+   },
+   "checks": {
+    "trades": true,
+    "pf_r": false,
+    "pf_r_robust": false,
+    "zufall": false,
+    "haelfte_1": false,
+    "haelfte_2": false,
+    "jahr_2026": true,
+    "kontrolle": false
+   },
+   "bestanden": false,
+   "je_seite": {
+    "gross_klein_3": {
+     "trades": 130,
+     "pf_r": 1.069,
+     "summe_r": 2.9,
+     "trefferquote": 0.385
+    },
+    "gross_box_kerze": {
+     "trades": 234,
+     "pf_r": 0.54,
+     "summe_r": -35.4,
+     "trefferquote": 0.376
+    },
+    "gross_box": {
+     "trades": 57,
+     "pf_r": 0.476,
+     "summe_r": -6.4,
+     "trefferquote": 0.386
+    }
+   },
+   "gruende": {
+    "stop": {
+     "trades": 129,
+     "summe_r": -130.2
+    },
+    "pruefer": {
+     "trades": 126,
+     "summe_r": -0.2
+    },
+    "halten": {
+     "trades": 5,
+     "summe_r": -0.0
+    },
+    "offen": {
+     "trades": 2,
+     "summe_r": 3.2
+    },
+    "bruch_4h": {
+     "trades": 9,
+     "summe_r": 20.3
+    },
+    "einstand": {
+     "trades": 126,
+     "summe_r": 33.1
+    },
+    "gegensignal": {
+     "trades": 24,
+     "summe_r": 35.0
+    }
+   },
+   "rueckgang_r": 63.1,
+   "gesperrt": 31,
+   "gold_steigt": {
+    "trades": 145,
+    "pf_r": 0.466,
+    "summe_r": -25.5,
+    "trefferquote": 0.352
+   },
+   "gold_faellt": {
+    "trades": 276,
+    "pf_r": 0.839,
+    "summe_r": -13.4,
+    "trefferquote": 0.395
+   }
+  },
+  "doppelte_box": {
+   "zeitraum_a": {
+    "trades": 448,
+    "pf_r": 1.071,
+    "summe_r": 12.1,
+    "trefferquote": 0.254
+   },
+   "robust": {
+    "trades": 449,
+    "pf_r": 1.062,
+    "summe_r": 10.6,
+    "trefferquote": 0.254
+   },
+   "zufall": 81.5,
+   "zufall_median_r": -6.9,
+   "haelfte_1": {
+    "trades": 178,
+    "pf_r": 0.808,
+    "summe_r": -14.0,
+    "trefferquote": 0.219
+   },
+   "haelfte_2": {
+    "trades": 270,
+    "pf_r": 1.267,
+    "summe_r": 26.1,
+    "trefferquote": 0.278
+   },
+   "jahr_2026": {
+    "trades": 221,
+    "pf_r": 1.576,
+    "summe_r": 44.2,
+    "trefferquote": 0.317
+   },
+   "kontrolle_2022_2024": {
+    "trades": 511,
+    "pf_r": 0.705,
+    "summe_r": -69.9,
+    "trefferquote": 0.252
+   },
+   "checks": {
+    "trades": true,
+    "pf_r": false,
+    "pf_r_robust": false,
+    "zufall": false,
+    "haelfte_1": false,
+    "haelfte_2": true,
+    "jahr_2026": true,
+    "kontrolle": false
+   },
+   "bestanden": false,
+   "je_seite": {
+    "gross_klein_3": {
+     "trades": 125,
+     "pf_r": 1.212,
+     "summe_r": 9.9,
+     "trefferquote": 0.256
+    },
+    "gross_box_kerze": {
+     "trades": 256,
+     "pf_r": 0.921,
+     "summe_r": -8.1,
+     "trefferquote": 0.25
+    },
+    "gross_box": {
+     "trades": 67,
+     "pf_r": 1.462,
+     "summe_r": 10.3,
+     "trefferquote": 0.269
+    }
+   },
+   "gruende": {
+    "stop": {
+     "trades": 168,
+     "summe_r": -170.3
+    },
+    "halten": {
+     "trades": 26,
+     "summe_r": -0.2
+    },
+    "pruefer": {
+     "trades": 140,
+     "summe_r": -0.2
+    },
+    "offen": {
+     "trades": 2,
+     "summe_r": 11.3
+    },
+    "einstand": {
+     "trades": 38,
+     "summe_r": 20.2
+    },
+    "tp3": {
+     "trades": 7,
+     "summe_r": 21.0
+    },
+    "gegensignal": {
+     "trades": 18,
+     "summe_r": 30.0
+    },
+    "neue_box": {
+     "trades": 49,
+     "summe_r": 100.2
+    }
+   },
+   "rueckgang_r": 59.0,
+   "gesperrt": 42,
+   "gold_steigt": {
+    "trades": 147,
+    "pf_r": 0.861,
+    "summe_r": -8.6,
+    "trefferquote": 0.184
+   },
+   "gold_faellt": {
+    "trades": 301,
+    "pf_r": 1.19,
+    "summe_r": 20.7,
+    "trefferquote": 0.289
+   }
+  },
+  "longs": {
+   "zeitraum_a": {
+    "trades": 793,
+    "pf_r": 1.192,
+    "summe_r": 43.5,
+    "trefferquote": 0.397
+   },
+   "robust": {
+    "trades": 792,
+    "pf_r": 1.127,
+    "summe_r": 29.5,
+    "trefferquote": 0.388
+   },
+   "zufall": 100.0,
+   "zufall_median_r": -14.4,
+   "haelfte_1": {
+    "trades": 478,
+    "pf_r": 1.331,
+    "summe_r": 44.2,
+    "trefferquote": 0.427
+   },
+   "haelfte_2": {
+    "trades": 315,
+    "pf_r": 0.992,
+    "summe_r": -0.7,
+    "trefferquote": 0.352
+   },
+   "jahr_2026": {
+    "trades": 238,
+    "pf_r": 0.904,
+    "summe_r": -6.9,
+    "trefferquote": 0.34
+   },
+   "kontrolle_2022_2024": {
+    "trades": 748,
+    "pf_r": 1.006,
+    "summe_r": 1.5,
+    "trefferquote": 0.422
+   },
+   "checks": {
+    "trades": true,
+    "pf_r": false,
+    "pf_r_robust": false,
+    "zufall": true,
+    "haelfte_1": true,
+    "haelfte_2": false,
+    "jahr_2026": false,
+    "kontrolle": true
+   },
+   "bestanden": false,
+   "je_seite": {
+    "gross_klein_3": {
+     "trades": 207,
+     "pf_r": 1.496,
+     "summe_r": 25.5,
+     "trefferquote": 0.464
+    },
+    "gross_box_kerze": {
+     "trades": 485,
+     "pf_r": 1.143,
+     "summe_r": 20.7,
+     "trefferquote": 0.384
+    },
+    "gross_box": {
+     "trades": 101,
+     "pf_r": 0.911,
+     "summe_r": -2.7,
+     "trefferquote": 0.327
+    }
+   },
+   "gruende": {
+    "stop": {
+     "trades": 220,
+     "summe_r": -224.9
+    },
+    "halten": {
+     "trades": 18,
+     "summe_r": -0.4
+    },
+    "pruefer": {
+     "trades": 252,
+     "summe_r": 1.8
+    },
+    "tp1": {
+     "trades": 1,
+     "summe_r": 3.4
+    },
+    "tp2": {
+     "trades": 6,
+     "summe_r": 8.8
+    },
+    "gegensignal": {
+     "trades": 17,
+     "summe_r": 13.2
+    },
+    "tp3": {
+     "trades": 25,
+     "summe_r": 37.2
+    },
+    "einstand": {
+     "trades": 164,
+     "summe_r": 42.3
+    },
+    "neue_box": {
+     "trades": 90,
+     "summe_r": 162.1
+    }
+   },
+   "rueckgang_r": 30.8,
+   "gesperrt": 39,
+   "gold_steigt": {
+    "trades": 618,
+    "pf_r": 1.388,
+    "summe_r": 65.6,
+    "trefferquote": 0.414
+   },
+   "gold_faellt": {
+    "trades": 175,
+    "pf_r": 0.62,
+    "summe_r": -22.1,
+    "trefferquote": 0.337
+   },
+   "zusammen_mit_shorts": {
+    "trades": 1265,
+    "pf_r": 1.097,
+    "summe_r": 36.3,
+    "trefferquote": 0.394
+   },
+   "zusammen_kontrolle": {
+    "trades": 1282,
+    "pf_r": 0.855,
+    "summe_r": -65.9,
+    "trefferquote": 0.404
+   }
+  }
+ },
+ "info": {
+  "vorschuss_0.4": {
+   "trades": 466,
+   "pf_r": 1.012,
+   "summe_r": 1.8,
+   "trefferquote": 0.369
+  },
+  "vorschuss_0.6": {
+   "trades": 467,
+   "pf_r": 1.009,
+   "summe_r": 1.3,
+   "trefferquote": 0.353
+  },
+  "sitzungs_ernte_0.2": {
+   "trades": 476,
+   "pf_r": 0.991,
+   "summe_r": -1.3,
+   "trefferquote": 0.422
+  },
+  "sitzungs_ernte_0.4": {
+   "trades": 474,
+   "pf_r": 0.962,
+   "summe_r": -5.4,
+   "trefferquote": 0.399
+  },
+  "reife_1.5": {
+   "trades": 495,
+   "pf_r": 0.981,
+   "summe_r": -2.8,
+   "trefferquote": 0.384
+  },
+  "reife_2.5": {
+   "trades": 489,
+   "pf_r": 0.998,
+   "summe_r": -0.3,
+   "trefferquote": 0.389
+  },
+  "beispiele": {
+   "heute": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "halten",
+     "teile": [
+      "halten"
+     ]
+    },
+    "472": {
+     "ergebnis_r": -1.022,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    },
+    "473": {
+     "ergebnis_r": -1.0,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    }
+   },
+   "vorschuss": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "halten",
+     "teile": [
+      "halten"
+     ]
+    },
+    "472": null,
+    "473": {
+     "ergebnis_r": -0.5,
+     "grund": "stop",
+     "teile": [
+      "tp1",
+      "stop"
+     ]
+    }
+   },
+   "sitzungs_ernte": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "halten",
+     "teile": [
+      "halten"
+     ]
+    },
+    "472": {
+     "ergebnis_r": 0.361,
+     "grund": "einstand",
+     "teile": [
+      "ernte",
+      "einstand"
+     ]
+    },
+    "473": {
+     "ergebnis_r": 0.311,
+     "grund": "einstand",
+     "teile": [
+      "ernte",
+      "einstand"
+     ]
+    }
+   },
+   "reife": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "halten",
+     "teile": [
+      "halten"
+     ]
+    },
+    "472": {
+     "ergebnis_r": -1.022,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    },
+    "473": {
+     "ergebnis_r": -1.0,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    }
+   },
+   "laeufer": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "pruefer",
+     "teile": [
+      "pruefer"
+     ]
+    },
+    "472": {
+     "ergebnis_r": -1.022,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    },
+    "473": {
+     "ergebnis_r": -1.0,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    }
+   },
+   "doppelte_box": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "halten",
+     "teile": [
+      "halten"
+     ]
+    },
+    "472": null,
+    "473": {
+     "ergebnis_r": -1.0,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    }
+   },
+   "longs": {
+    "461": {
+     "ergebnis_r": 0.0,
+     "grund": "halten",
+     "teile": [
+      "halten"
+     ]
+    },
+    "472": {
+     "ergebnis_r": -1.022,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    },
+    "473": {
+     "ergebnis_r": -1.0,
+     "grund": "stop",
+     "teile": [
+      "stop"
+     ]
+    }
+   }
+  },
+  "ohne_beispiele_summe_r": {
+   "heute": -8.8,
+   "vorschuss": -2.5,
+   "sitzungs_ernte": -4.6,
+   "reife": -0.9,
+   "laeufer": -41.9,
+   "doppelte_box": 9.4,
+   "longs": 34.7
+  }
+ },
+ "heute": {
+  "zeitraum_a": {
+   "trades": 472,
+   "pf_r": 0.95,
+   "summe_r": -7.2,
+   "trefferquote": 0.388
+  },
+  "robust": {
+   "trades": 473,
+   "pf_r": 0.933,
+   "summe_r": -9.9,
+   "trefferquote": 0.383
+  },
+  "zufall": 78.0,
+  "zufall_median_r": -19.3,
+  "haelfte_1": {
+   "trades": 187,
+   "pf_r": 0.836,
+   "summe_r": -11.0,
+   "trefferquote": 0.337
+  },
+  "haelfte_2": {
+   "trades": 285,
+   "pf_r": 1.047,
+   "summe_r": 3.7,
+   "trefferquote": 0.421
+  },
+  "jahr_2026": {
+   "trades": 236,
+   "pf_r": 1.354,
+   "summe_r": 20.8,
+   "trefferquote": 0.475
+  },
+  "kontrolle_2022_2024": {
+   "trades": 534,
+   "pf_r": 0.678,
+   "summe_r": -67.4,
+   "trefferquote": 0.378
+  },
+  "checks": {
+   "trades": true,
+   "pf_r": false,
+   "pf_r_robust": false,
+   "zufall": false,
+   "haelfte_1": false,
+   "haelfte_2": true,
+   "jahr_2026": true,
+   "kontrolle": false
+  },
+  "bestanden": false,
+  "je_seite": {
+   "gross_klein_3": {
+    "trades": 141,
+    "pf_r": 1.08,
+    "summe_r": 3.7,
+    "trefferquote": 0.383
+   },
+   "gross_box_kerze": {
+    "trades": 260,
+    "pf_r": 0.908,
+    "summe_r": -7.6,
+    "trefferquote": 0.396
+   },
+   "gross_box": {
+    "trades": 71,
+    "pf_r": 0.816,
+    "summe_r": -3.3,
+    "trefferquote": 0.366
+   }
+  },
+  "gruende": {
+   "stop": {
+    "trades": 144,
+    "summe_r": -145.3
+   },
+   "pruefer": {
+    "trades": 130,
+    "summe_r": -0.2
+   },
+   "halten": {
+    "trades": 14,
+    "summe_r": -0.1
+   },
+   "tp2": {
+    "trades": 1,
+    "summe_r": 1.5
+   },
+   "tp1": {
+    "trades": 2,
+    "summe_r": 3.0
+   },
+   "offen": {
+    "trades": 2,
+    "summe_r": 3.2
+   },
+   "gegensignal": {
+    "trades": 5,
+    "summe_r": 4.3
+   },
+   "einstand": {
+    "trades": 110,
+    "summe_r": 28.0
+   },
+   "tp3": {
+    "trades": 22,
+    "summe_r": 33.0
+   },
+   "neue_box": {
+    "trades": 42,
+    "summe_r": 65.3
+   }
+  },
+  "rueckgang_r": 44.0,
+  "gesperrt": 39,
+  "gold_steigt": {
+   "trades": 153,
+   "pf_r": 0.812,
+   "summe_r": -9.6,
+   "trefferquote": 0.346
+  },
+  "gold_faellt": {
+   "trades": 319,
+   "pf_r": 1.024,
+   "summe_r": 2.3,
+   "trefferquote": 0.408
+  }
+ }
+}

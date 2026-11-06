@@ -1,0 +1,120 @@
+# Gold-Short-Bot, Komitee 2 (06.11.2026): Schneller ins Ziel, Reife-Prüfer, größere Ziel-Box und Longs.
+# Vorab festgelegt, BEVOR eine Variante gerechnet wird (Prüfsumme in journal/strategie-suche-protokoll.md).
+# Code: suche/gold_short_k2.py. Nur Demo, nie echtes Geld. Der laufende Bot (gold/short_bot.py, suche/VORAB_gold_short.yaml)
+# ändert sich durch diese Rechnung nicht. Nur Kiron entscheidet per PR über eine neue Bot-Fassung.
+#
+# Kirons Wünsche (Thread "Gold-Short-Bot verbessern"):
+# - 06.11.2026 15:19 UTC: "Passe es so an, dass 473 und 472 Take Profit gehittet hätten und dass generell solche Trades
+#   schneller den Take Profit hitten, auch 461. Richte eventuell extra etwas ein, was überprüft, dass es rausgeht, wenn
+#   die Zeit reif ist. Nach dem Prinzip überall, wo keine Short-Phase ist, ein paar Longs nehmen, nach den gleichen
+#   Regeln und Prinzipien. Richte dafür ein eigenes Komitee ein ... berühmte Trader, Wirtschaftsforscher, Goldspezialisten."
+# - 06.11.2026 15:21 UTC: "Die Profit-Box (grüner Teil) kann doppelt so groß wenn nicht größer sein und dann breiter."
+#
+# Komitee 2: drei Rollen, die Claude nach öffentlich bekannten Grundsätzen spielt (nicht die echten Personen):
+# Trader (Paul Tudor Jones, Ed Seykota, Linda Raschke), Wirtschaftsforscher (Marcos López de Prado, Campbell Harvey,
+# Andrew Lo), Goldspezialist (wie John Reade, Ross Norman, Jeffrey Christian veröffentlichen). Jede Rolle las nur die
+# Unterlage (Projektordner strategie-suche/gold-short/komitee2/BRIEF.md) und rechnete nichts. Ihre Vorschläge liegen dort
+# (trader.md, forscher.md, gold.md). Aus neun Vorschlägen sind hier sechs Varianten festgelegt.
+#
+# SCHON GESEHEN (ehrlich): alle Trades des Bots 11/2024 bis 05.11.2026 im Chart, je Ausgang der höchste Zwischengewinn
+# (Unterlage), Kirons Beispiele #461 (lief 0,33 R), #472 (0,69 R), #473 (0,75 R, Ziel 1 um den Spread verfehlt), dazu alle
+# früheren Runden (nähere Ziele, Prüfer, Zeit-Stopp schadeten, Longs der drei Seiten 2024-26 über 1, Kontrolle 0,95).
+# Darum fällt der Rückblick 11/2024-10/2026 eher zu gut aus. Unabhängig ist nur die Kontrolle 2022-2024 und danach der
+# Lauf nach vorn. Keine Variante wurde vor dem Versiegeln gerechnet.
+
+format: 1
+gold_short_k2:
+  daten:
+    quelle: >-
+      HistData.com 5-Minuten-Bid-Kerzen XAUUSD (Projektordner strategie-suche/daten/XAUUSD_5min.csv.gz), zu 15-Minuten-
+      Kerzen wie der Bot, Spread wie Capital.com (Median je 15-Minuten-Fenster New York, als Anteil am Kurs, portfolio-
+      manager suche/runde12.spread_anteil).
+    zeitraum_a: {von: "2024-08-01", test_ab: "2024-11-01", bis: "2026-10-30"}
+    kontrolle: {von: "2022-08-01", test_ab: "2022-11-01", bis: "2024-10-31"}
+    rechnung: >-
+      Genau die Rechnung des Bots (gold/short_bot.simuliere und kombi auf gold/tiktok_schatten), nur die Führung ist je
+      Variante anders. Die Führung rechnet Kerze für Kerze (suche/gold_short_k2.py fuehre_var) und gibt mit der
+      Grundeinstellung genau die Trades von short_bot.fuehre_neu (geprüft vor dem Versiegeln: 0 Abweichungen, 470 Trades,
+      -10,47 R). Kauf zum Ask, Verkauf zum Bid, Stop vor Ziel in derselben Kerze, Lücken zur Eröffnung, Übernachtgebühr.
+
+  heute: >-
+    Bot heute (zum Vergleich, keine Variante): Ziele mal 0,75 (gross_klein_3 Drittel bei 0,75/1,5/2,25 R, Box-Seiten ein
+    Drittel bei 0,75 R und Rest bis zur neuen Box), nach Ziel 1 Stop auf Einstand, Prüfer 0,5 R vor Ziel 1, Halten,
+    Sperre. Alles unten nicht Genannte bleibt so.
+
+  varianten:
+    vorschuss:
+      herkunft: Wirtschaftsforscher A, ähnlich Goldspezialist 2. Kirons Wunsch 1.
+      regel: >-
+        Erstes Drittel schon bei 0,5 R (alle drei Seiten). Danach bleibt der Stop am ursprünglichen Stop und rückt erst
+        auf Einstand, wenn der höchste Zwischengewinn seit Einstieg 1,0 R erreicht (gilt ab der nächsten Kerze).
+        gross_klein_3 behält die Drittel bei 1,5 und 2,25 R. Die Box-Seiten halten den Rest bis zur neuen Box. Der Prüfer
+        gilt bis zum neuen ersten Ziel (0,5 R gegen den Trade, bevor 0,5 R erreicht sind).
+    sitzungs_ernte:
+      herkunft: Goldspezialist 1. Kirons Wünsche 1 und 2 (rausgehen, wenn die Zeit reif ist).
+      regel: >-
+        Geprüft wird am Schluss der 15-Minuten-Kerzen, die um 08:00 London-Zeit, um 08:00 New-York-Zeit und um 16:45
+        New-York-Zeit enden (Sommerzeit beachtet). Hat ein offener Trade Ziel 1 noch nicht erreicht, ist kein Fehltrade
+        und steht beim Schluss dieser Kerze mindestens 0,3 R im Gewinn (Short am Ask, Long am Bid), werden zwei Drittel
+        zur Eröffnung der nächsten Kerze geschlossen. Das letzte Drittel bekommt ab dann den Stop auf Einstand und läuft
+        bis zum letzten Ziel seiner Seite (gross_klein_3 2,25 R) oder, bei den Box-Seiten, bis zur neuen Box. Höchstens
+        eine Ernte je Trade.
+    reife:
+      herkunft: Trader 2 (ähnlich Wirtschaftsforscher B). Kirons Wunsch 2.
+      regel: >-
+        Erreicht der höchste Zwischengewinn 2,0 R, ist der Trade reif. Ab der nächsten Kerze steht der Stop des Rests auf
+        +1,0 R (Short Einstieg minus 1 R). Ab dann wird der ganze Rest zur nächsten Eröffnung geschlossen, sobald eine
+        15-Minuten-Kerze über dem 15-Minuten-SuperTrend (ATR 20 nach Wilder, Faktor 1,75) schließt, also der SuperTrend
+        nach oben zeigt (Long gespiegelt). Vor 2,0 R kein Reife-Ausstieg, keine Zeitgrenze. Alle anderen Ausstiege bleiben.
+    laeufer:
+      herkunft: Trader 3. Kirons Wunsch 4 (breitere Box) als offenes Ende.
+      regel: >-
+        Bis Ziel 1 wie heute. Das Drittel bei 0,75 R bleibt, bei gross_klein_3 auch das Drittel bei 1,5 R. Ziel 3 fällt weg.
+        Der Rest hat kein festes Ziel, sein Stop steht auf Einstand. gross_klein_3 schließt ihn wie heute zum normalen
+        Ausstieg (Gegensignal oder Ende der 4-Std.-Box). Die Box-Seiten schließen ihn nicht mehr am Ende der großen Box,
+        sondern zur Eröffnung nach dem nächsten 4-Std.-Strukturbruch gegen den Trade (Swing 5, nur fertige 4-Std.-Kerzen).
+    doppelte_box:
+      herkunft: Kirons Wunsch 4 wörtlich ("doppelt so groß"). Trader und Forscher waren dagegen, getestet wird trotzdem.
+      regel: >-
+        Alle Ziele doppelt so weit wie heute: gross_klein_3 Drittel bei 1,5, 3,0 und 4,5 R, Box-Seiten ein Drittel bei 1,5 R
+        und der Rest bis zur neuen Box. Einstand nach Ziel 1, Prüfer 0,5 R vor Ziel 1, Halten und Sperre wie heute.
+    longs:
+      herkunft: Kirons Wunsch 3, Trader (Spiegel mit dem Trend), Forscher C und Goldspezialist 3 (nur eng und getrennt).
+      regel: >-
+        Shorts genau wie heute. Dazu die Longs derselben drei Seiten gespiegelt (gross_klein_3 nur, wenn 4-Std.- und
+        1-Std.-Box auf Kauf stehen, die Box-Seiten nur in einer großen Kauf-Box, so wie die Signale gebaut sind), mit
+        der heutigen Führung gespiegelt (Ziele mal 0,75, Einstand, Prüfer, Halten, Sperre unter Longs). Gleiche Einstiege
+        einmal (Reihenfolge wie bei Shorts). Ein Long wird nur eröffnet, wenn gerade kein genommener Short offen ist.
+        Gewertet werden die Longs allein (müssen allein bestehen) und Shorts und Longs zusammen (nur zur Information).
+        Live bräuchte das ein Konto mit Hedging oder ein eigenes Konto, Konto 5 hat kein Hedging.
+
+  kosten:
+    spread: wie oben
+    uebernacht_pct_jahr: {long: 6.5, short: 2.0}
+    robust_faktor: 1.5     # Spread und Übernachtgebühr mal 1,5
+
+  bewertung:
+    zeitraum_a: Einstieg 01.11.2024 bis 30.10.2026.
+    haelften: {haelfte_1: ["2024-11-01", "2025-10-31"], haelfte_2: ["2025-11-01", "2026-10-30"]}
+    zufall:
+      laeufe: 200
+      seed: 20261106
+      art: >-
+        Je genommenem Trade ein Zwilling mit derselben Führung der Variante in Zufallsrichtung, eine Richtung je
+        Einstiegs-Kerze, Stop-Abstand gleich, spätestens bis zum Ende des echten Trades (wie Runde 12h).
+    bestanden_wenn: >-
+      Wie Runde 12h: mindestens 100 Trades, PF_R mindestens 1,3, mit 1,5-fachen Kosten mindestens 1,15, Zufall mindestens
+      95, beide Hälften und 2026 allein über 1,0, und PF_R in der Kontrolle 11/2022-10/2024 über 1,0. Jede Variante allein.
+      Bei longs zählen dafür nur die Longs.
+    nur_zur_information: >-
+      Heute zum Vergleich, Gründe der Ausstiege, je Seite, größter Rückgang, was jede Variante aus #461, #472 und #473
+      macht (Rechnung mit Dukascopy-Kerzen bis 05.11.2026 wie im Chart), Ergebnis ohne diese drei Trades, Trades bei
+      steigendem und fallendem Gold (Gold über oder unter dem Kurs von 20 Handelstagen vorher beim Einstieg), Nachbarwerte
+      nur zur Stabilität: vorschuss mit 0,4 und 0,6 R, sitzungs_ernte mit 0,2 und 0,4 R, reife mit 1,5 und 2,5 R.
+      Kein Nachbessern nach dem Ergebnis.
+
+  danach: >-
+    Besteht eine Variante, schlage ich sie Kiron als neue Fassung des Gold-Short-Bots vor (eigenes Vorab, PR, Trades
+    zählen von vorn, eine Woche live nach VORAB_eine_woche, Kiron mergt). Besteht mehr als eine, die mit dem höheren
+    PF_R in der Kontrolle. Besteht keine, bleibt der Bot wie er ist, die Varianten kommen nur in den Chart zum Ansehen.
+    Longs nur mit eigenem Konto mit Hedging und Kirons ausdrücklichem Wort.

@@ -46,6 +46,8 @@ RUTSCH = ROOT / "suche" / "VORAB_rutschen.yaml"
 RUTSCH_KEY = "VORAB_rutschen sha256 "
 FRIST = ROOT / "suche" / "VORAB_frist.yaml"
 FRIST_KEY = "VORAB_frist sha256 "
+WOCHE = ROOT / "suche" / "VORAB_eine_woche.yaml"
+WOCHE_KEY = "VORAB_eine_woche sha256 "
 
 
 def regel() -> dict | None:
@@ -88,6 +90,60 @@ def rutsch_regel() -> dict | None:
 def frist_regel() -> dict | None:
     """Die feste Frist aus VORAB_frist.yaml, nur wenn ihre Prüfsumme im Journal steht."""
     return _versiegelt(FRIST, FRIST_KEY, "frist")
+
+
+def woche_regel() -> dict | None:
+    """Eine Woche live (VORAB_eine_woche.yaml, Fassung B des Gerichts), nur wenn ihre Prüfsumme im Journal steht."""
+    return _versiegelt(WOCHE, WOCHE_KEY, "eine_woche")
+
+
+def start_utc(bot_id: str, j: Path | None = None) -> str | None:
+    """start_utc des Bots aus seinem Journal: journal/r6-bots/state.json, seine eigene Datei oder journal/demo-bots.json."""
+    j = j or J
+
+    def lies(p: Path) -> dict:
+        try:
+            d = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+        except (OSError, ValueError):
+            return {}
+        return d if isinstance(d, dict) else {}
+    v = ((lies(j / "r6-bots" / "state.json").get("bots") or {}).get(bot_id) or {}).get("start_utc")
+    if v:
+        return str(v)
+    for p in sorted(j.glob("*.json")):
+        d = lies(p)
+        if d.get("bot") == bot_id and d.get("start_utc"):
+            return str(d["start_utc"])
+    d = lies(j / "demo-bots.json")
+    if d.get("start_utc") and any(isinstance(b, dict) and b.get("id") == bot_id for b in d.get("bots") or []):
+        return str(d["start_utc"])
+    return None
+
+
+def woche_bis(kont: dict, bot_id: str, wo: dict | None, start: str | None = None) -> str | None:
+    """Ende der ersten Woche (VORAB_eine_woche.yaml): 7 Tage nach dem spätesten von start_utc, letzter Kontoübergabe
+    und Merge der letzten Regeländerung. None ohne Regel oder für den Gold-Bot."""
+    import pandas as pd
+    if not wo or bot_id in (wo.get("nie_fuer") or []) or bot_id == HAUPT_BOT:
+        return None
+    zeiten = [t for t in (start, seit_wann(kont, bot_id), (wo.get("konto_seit") or {}).get(bot_id),
+                          (wo.get("regel_seit") or {}).get(bot_id)) if t]
+    beginn = max(pd.Timestamp(t) for t in zeiten) if zeiten else pd.Timestamp(wo["ohne_eintrag"])
+    return (beginn + pd.Timedelta(days=int(wo["tage"]))).isoformat()
+
+
+def kirons_wort(text) -> bool:
+    """Kirons eigenes datiertes Wort (VORAB_eine_woche.yaml kirons_wort): Text beginnt mit "Kirons Wort vom TT.MM.JJJJ"."""
+    import re
+    return bool(re.match(r"Kirons Wort vom \d{2}\.\d{2}\.\d{4}", str(text or "").strip()))
+
+
+def wartet(kont: dict, bot_id: str, bis: str, warum: str, stamp: str) -> list[dict]:
+    """Eine aufgeschobene Ablösung: einmal je Grund "Ablösung wartet" ins Log (kont["woche"] merkt sich den Grund)."""
+    if (kont.get("woche") or {}).get(bot_id, {}).get("why") == warum:
+        return []
+    kont.setdefault("woche", {})[bot_id] = {"bis": bis, "why": warum, "seit": stamp}
+    return [{"time": stamp, "event": "Ablösung wartet", "bot": bot_id, "bis": bis, "why": warum}]
 
 
 def frist_grund(kont: dict, bot_id: str, k: dict, rg: dict, fr: dict | None, stamp: str) -> str | None:
@@ -296,9 +352,12 @@ def ersatz(kont: dict, pf: dict, lauf_ids, demo_abl: dict) -> str | None:
 def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | None = None,
             dateien: dict[str, Path] | None = None, aus: dict | None = None,
             lb: dict | None = None, mb: dict | None = None, ru: dict | None = None,
-            fr: dict | None = None) -> tuple[list[dict], dict]:
+            fr: dict | None = None, wo: dict | None = None,
+            starts: dict[str, str] | None = None) -> tuple[list[dict], dict]:
     """Eine Prüfung (reine Funktion bis auf das Lesen der Trade-Dateien). Ändert `kont` (abgeloest, zuordnung für
-    freie Konten). Rückgabe: Ereignisse fürs Log und Demo-Stand je Bot."""
+    freie Konten). Rückgabe: Ereignisse fürs Log und Demo-Stand je Bot. wo/starts: VORAB_eine_woche.yaml und start_utc je
+    Bot; die eingefrorenen Prüfungen (Wechsel, Rutschen, Frist, Labor, Mess-Bots) setzt die Woche nicht aus."""
+    import pandas as pd
     rg = rg or regel()
     if rg is None:
         return [{"time": stamp, "event": "Prüfung übersprungen", "why": "Prüfsumme von VORAB_wechsel.yaml fehlt"}], {}
@@ -315,7 +374,12 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
     for bot_id, warum in sorted((abschalten() if aus is None else aus).items()):
         if (bot_id in zu and bot_id != HAUPT_BOT and bot_id not in abl and bot_id not in demo_abl
                 and bot_id not in (kont.get("labor") or {})):
-            grund = f"Kirons Auswahl vom 04.11.2026 (abschalten): {warum}"
+            # Erste Woche live (VORAB_eine_woche.yaml): eine Auswahlliste schaltet nichts ab, nur Kirons datiertes Wort
+            bis = woche_bis(kont, bot_id, wo, (starts or {}).get(bot_id))
+            if bis and pd.Timestamp(stamp) < pd.Timestamp(bis) and not kirons_wort(warum):
+                log += wartet(kont, bot_id, bis, f"suche/auswahl.yaml abschalten: {warum}", stamp)
+                continue
+            grund = (str(warum) if kirons_wort(warum) else f"Kirons Auswahl vom 04.11.2026 (abschalten): {warum}")
             abl[bot_id] = {"an": None, "seit": stamp, "grund": grund}
             log.append({"time": stamp, "event": "Bot abgeschaltet", "bot": bot_id, "an": None, "why": grund})
     for bot_id in sorted(zu):
@@ -400,8 +464,10 @@ def main(argv: list[str]) -> int:
     pf_path = J / "portfolio.json"
     pf = json.loads(pf_path.read_text(encoding="utf-8")) if pf_path.exists() else None
     demo_cfg = yaml.safe_load((ROOT / "suche" / "demo_bots.yaml").read_text(encoding="utf-8"))
+    wo = woche_regel()
+    starts = {b: v for b in kont.get("zuordnung") or {} if (v := start_utc(b))}
     log, stand = pruefen(kont, pf, demo_cfg, stamp, lb=labor_regel(), mb=mess_regel(), ru=rutsch_regel(),
-                         fr=frist_regel())
+                         fr=frist_regel(), wo=wo, starts=starts)
     print(json.dumps({"log": log, "stand": stand}, ensure_ascii=False, indent=1))
     if "--dry-run" in argv:
         return 0

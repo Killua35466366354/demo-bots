@@ -202,3 +202,44 @@ def test_fixed_deadline_judges_slow_bots_every_6_months(tmp_path):
     log, _ = dp.pruefen(kont, pf, {}, "2027-11-05T10:00:00", RG, dateien, fr=fr)
     assert "Frist nach 12 Monaten" in kont["abgeloest"]["b1"]["grund"] and log[0]["event"] == "Bot abgelöst"
     assert dp.frist_grund({}, "x", {"trades": 0, "summe_r": 0}, RG, None, "2030-01-01T00:00:00") is None
+
+
+WO = {"tage": 7, "ohne_eintrag": "2026-11-04T00:00:00", "nie_fuer": ["gold-cb"],
+      "regel_seit": {"b2": "2026-11-05T09:00:00"}}
+
+
+def test_week_start_is_the_latest_of_start_handover_and_rule_change():
+    kont = {"uebergaben": [{"zeit": "2026-11-04T11:46:39", "an": "b1"}]}
+    assert dp.woche_bis(kont, "b1", WO, "2026-11-04T07:00:00") == "2026-11-11T11:46:39"
+    assert dp.woche_bis(kont, "b1", WO, "2026-11-04T12:00:00") == "2026-11-11T12:00:00"
+    assert dp.woche_bis(kont, "b2", WO, "2026-11-04T12:00:00") == "2026-11-12T09:00:00"     # Regeländerung zählt
+    assert dp.woche_bis({}, "b3", WO) == "2026-11-11T00:00:00"                              # ohne Eintrag
+    assert dp.woche_bis(kont, "gold-cb", WO, "2026-11-04T12:00:00") is None                 # nie für den Gold-Bot
+    assert dp.woche_bis(kont, "b1", None) is None
+
+
+def test_selection_list_waits_for_day_7_but_frozen_checks_do_not(tmp_path):
+    """Fassung B: auswahl.yaml abschalten wartet bis Tag 7 ("Ablösung wartet", einmal), Kirons datiertes Wort gilt sofort,
+    und eine eingefrorene Prüfung (hier die Rutsch-Regel) löst auch in der ersten Woche ab."""
+    tr = [{"bot": "b1", "r": 1.0 if i % 2 else -0.5, "rutschen_pips": 0.9, "closed_utc": f"2026-11-05T10:{i:02d}:00"}
+          for i in range(10)]
+    kont, pf, dateien = _setup(tmp_path, [])
+    starts = {"b1": "2026-11-04T11:00:00", "b2": "2026-11-04T11:00:00"}
+    aus = {"b2": "zu schwach im Backtest"}
+    log, _ = dp.pruefen(kont, pf, {}, "2026-11-06T10:00:00", RG, dateien, aus=aus, wo=WO, starts=starts)
+    assert [(e["event"], e["bot"]) for e in log] == [("Ablösung wartet", "b2")] and "b2" not in kont["abgeloest"]
+    assert log[0]["bis"] == "2026-11-12T09:00:00" and "Backtest" in log[0]["why"]
+    assert dp.pruefen(kont, pf, {}, "2026-11-06T10:15:00", RG, dateien, aus=aus, wo=WO, starts=starts)[0] == []
+    log, _ = dp.pruefen(kont, pf, {}, "2026-11-12T09:00:00", RG, dateien, aus=aus, wo=WO, starts=starts)
+    assert [(e["event"], e["bot"]) for e in log] == [("Bot abgeschaltet", "b2")]           # Tag 7: Liste gilt
+
+    kont, pf, dateien = _setup(tmp_path, [])
+    wort = {"b2": "Kirons Wort vom 06.11.2026 10:40 UTC: b2 raus"}
+    log, _ = dp.pruefen(kont, pf, {}, "2026-11-06T11:00:00", RG, dateien, aus=wort, wo=WO, starts=starts)
+    assert [(e["event"], e["bot"]) for e in log] == [("Bot abgeschaltet", "b2")]
+    assert kont["abgeloest"]["b2"]["grund"].startswith("Kirons Wort vom 06.11.2026")
+
+    kont, pf, dateien = _setup(tmp_path, tr)
+    ru = {"gilt_fuer": {"b1": 0.5}, "ab_trades": 10, "fenster": 10}
+    log, _ = dp.pruefen(kont, pf, {}, "2026-11-06T10:00:00", RG, dateien, ru=ru, wo=WO, starts=starts)
+    assert [(e["event"], e["bot"]) for e in log] == [("Bot abgelöst", "b1")] and "Rutschen" in kont["abgeloest"]["b1"]["grund"]

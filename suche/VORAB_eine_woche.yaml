@@ -1,0 +1,57 @@
+# Eine Woche live, bevor ein Demo-Bot abgeschaltet oder seine Regel geändert wird (suche/demo_pruefung.py woche_bis,
+# tests/test_eine_woche.py). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kirons Regel vom 06.11.2026, 09:21 UTC (Gerichts-Thread): "die demo tages strategien sollen live 1 woche laufen befor
+# welche automatisch raus genommen oder verbessert werden". Urteil 2026-11-06-live-regel (portfolio-manager
+# court/cases/2026-11-06-live-regel/verdict.md): die Regel gilt in Fassung B. Kirons Ja dazu am 06.11.2026, 10:25 UTC
+# (board/decisions.md). Sein Zusatz (ohne Ende weitertraden bis zum echten Konto, dabei weiterentwickeln) und die Frage
+# nach Zwillingen für Verbesserungen sind noch offen und stehen nicht in dieser Datei.
+#
+# Festgelegt am 06.11.2026, bevor ein Bot seinen Tag 7 erreicht hat (der erste: us500-ruecksetzer am 11.11.2026 07:47).
+
+format: 1
+eine_woche:
+  wortlaut_b: >-
+    For seven calendar days from the latest of its start_utc, its last account hand-over and the merge of its last rule
+    change, a bot on a Capital.com demo account handled by suche/demo_pruefung.py keeps its account and its rules, so no
+    selection list, marker, backtest ranking or agent removes it (including auswahl.yaml abschalten, the abgeloest list
+    in demo_bots.yaml and the BEENDET marker) and no rule-change pull request for it is merged. Earlier action comes
+    only from Kiron's own dated word naming the bot, from every check of a frozen VORAB file (VORAB_wechsel, VORAB_frist,
+    VORAB_messbots, VORAB_labor, and the slippage rule once its file is frozen), which this rule neither suspends nor
+    changes, from every loss or safety stop of config/limits.yaml or a frozen VORAB file, and from bug fixes that leave
+    every VORAB file and its sha256 unchanged. Day 7 is a waiting time and not a verdict, after it only the frozen checks
+    decide, and a later rule change restarts the trade count (VORAB_aufstieg messung). The rule never applies to the
+    Gold-Bot with its own plan to January 2027 (as in VORAB_wechsel and VORAB_frist), to the Jagd or to any real-money
+    position, and every removal it defers is logged as "Ablösung wartet".
+  tage: 7
+  start: >-
+    Der späteste von drei Zeitpunkten: start_utc des Bots (journal/r6-bots/state.json, seine eigene Datei in journal/
+    oder journal/demo-bots.json), die letzte Übergabe eines Kontos an ihn (journal/konten.json uebergaben, auch Labor-
+    und Mess-Vergabe, dazu konto_seit unten) und der Merge seiner letzten Regeländerung (regel_seit unten). Fehlt alles,
+    gilt ohne_eintrag.
+  ohne_eintrag: "2026-11-04T00:00:00"
+  konto_seit:                                  # Kontowechsel ohne Eintrag in uebergaben (Kirons Wunsch 04.11. 12:09 UTC)
+    r5-ruecksetzer-us100: "2026-11-04T13:02:07"
+    r7-nasdaq-noise-long: "2026-11-04T13:02:21"
+  regel_seit:                                  # Merge der letzten Regeländerung (portfolio-manager PR #134, Nachholen)
+    r6-vortag-eurusd: "2026-11-04T14:07:47"
+    r6-vortag-gbpusd: "2026-11-04T14:07:47"
+  regel_seit_pflege: >-
+    Jede spätere Regeländerung eines Bots trägt hier ihr Merge-Datum nach (neue Prüfsumme im Protokoll). Ab dann zählt
+    die Woche neu, und VORAB_aufstieg.yaml zählt seine Trades erst ab diesem Merge.
+  gesperrt_in_woche_1: >-
+    suche/auswahl.yaml abschalten (suche/demo_pruefung.py schiebt es auf und schreibt einmal "Ablösung wartet" in
+    journal/demo-pruefung.jsonl), neue Einträge unter abgeloest in suche/demo_bots.yaml und in BEENDET in
+    suche/r6_bots.py (tests/test_eine_woche.py prüft ihr Datum "seit"), Ranglisten, Backtests, Agenten und das Gericht,
+    und jeder PR, der die Regel des Bots ändert.
+  kirons_wort: >-
+    Ein Eintrag gilt als Kirons eigenes datiertes Wort, wenn sein Text mit "Kirons Wort vom TT.MM.JJJJ" beginnt und den
+    Bot nennt (der Bot-Name ist der Schlüssel des Eintrags). Dann gilt er sofort.
+  bleibt: >-
+    Alle Prüfungen eingefrorener VORAB-Dateien laufen unverändert weiter: VORAB_wechsel.yaml (15/40), VORAB_frist.yaml,
+    VORAB_messbots.yaml, VORAB_labor.yaml und VORAB_rutschen.yaml (eingefroren seit 05.11.2026 17:18 UTC). Ebenso jede
+    Verlust- oder Sicherheitsgrenze (config/limits.yaml, gold/bot/VORAB_sicherheit.yaml) und Fehlerbehebungen, die keine
+    VORAB-Datei und keine Prüfsumme ändern.
+  tag_7: "Wartezeit, kein Urteil. Danach entscheiden nur die eingefrorenen Prüfungen."
+  ab: "2026-11-06T10:25:00"                    # Kirons Ja; ältere Einträge (04.11.2026) bleiben, wie sie sind
+  nie_fuer: [gold-cb]                          # dazu die Jagd und alles mit echtem Geld (nicht in diesem Repo)

@@ -21,7 +21,7 @@
    "tp3": 4130.54,
    "r_usd": 21.88,
    "teile": [],
-   "ergebnis_r": -0.101,
+   "ergebnis_r": -0.142,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -31,16 +31,16 @@
   "richtung": 1,
   "linie": 4059.83,
   "gerade_gedreht": false,
-  "kerze": "2026-11-06 12:00:00",
-  "kurs": 4062.69,
+  "kerze": "2026-11-06 13:00:00",
+  "kurs": 4061.79,
   "genauer_175": {
-   "richtung": 1,
-   "linie": 4062.19,
-   "gerade_gedreht": false
+   "richtung": -1,
+   "linie": 4077.45,
+   "gerade_gedreht": true
   },
   "grosse_box": 0,
   "text": "Kauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
-  "text_175": "Kauf (SuperTrend 20/1,75, genauerer Nachbau)",
+  "text_175": "Gerade auf Verkauf gedreht, neuer Trade zur nächsten Eröffnung (SuperTrend 20/1,75, genauerer Nachbau)",
   "text_gross": "Keine große Box, 1 Std. und 4 Std. uneinig (gross_box_kerze, nur in dieser Richtung neue Trades)",
   "text_gesamt": "Alle sieben zusammen: 0 Long und 0 Short offen (Gesamt-Strategie, alle Teile zugleich)"
  },
@@ -95,8 +95,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-06T12:11:35+00:00",
- "letzte_kerze": "2026-11-06 11:45:00",
+ "stand": "2026-11-06T13:11:31+00:00",
+ "letzte_kerze": "2026-11-06 12:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

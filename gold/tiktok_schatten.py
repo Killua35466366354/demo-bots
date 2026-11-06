@@ -4,7 +4,7 @@
 
 Kirons Wunsch vom 06.11.2026: die Signal-Box der TikTok-Live-Streams nachbauen und die Vorhersage live mitlaufen lassen,
 so dass sie immer in einem Trade ist. Festgelegt im Repo portfolio-manager in suche/VORAB_runde12b.yaml (Prüfsumme im
-Journal dort). Beide Strategien haben KEINEN Test bestanden: stream_box fiel 11/2024 bis 10/2026 durch (PF_R 0,96),
+Journal dort). Keine Strategie hat einen Test bestanden: stream_box fiel 11/2024 bis 10/2026 durch (PF_R 0,96),
 gross_klein_3 sah in dieser Zeit gut aus (PF_R 1,41), wurde aber erst nach dem Ansehen gewählt und fiel über 11 Jahre
 durch. Der Schatten sammelt nur neue Daten ab seinem ersten Lauf. Urteil nach 40 fertigen Trades je Strategie: PF_R
 mindestens 1,2 und Summe R über 0, dann Vorschlag an Kiron für ein Demokonto, nur mit seinem Ja. Der Code ruft beim
@@ -14,6 +14,10 @@ Strategien (wie portfolio-manager suche/runde12.py und runde12b.py):
 - stream_box: SuperTrend (ATR 20 nach Wilder, Faktor 2) auf 15-Minuten-Kerzen. Jeder Richtungswechsel ist ein Signal.
   Stop an der SuperTrend-Linie, Abstand 0,5 bis 3 ATR(14). Je ein Drittel bei 1, 2, 3 R, nach TP1 Stop auf Einstand,
   das nächste Signal schließt den Rest und dreht. Die Richtung des SuperTrend ist die laufende Vorhersage.
+- box_175: wie stream_box, aber Faktor 1,75. Auf echten XAUUSD-Minuten (Dukascopy 03.-05.11.2026) passt 1,75 besser zu
+  den Umkehrungen der Streams (9 von 15 statt 5 von 15). Vorab festgelegt in portfolio-manager suche/VORAB_runde12c.yaml,
+  dort 11/2024 bis 10/2026 durchgefallen (PF_R 0,96). Kommt laut Vorab in jedem Fall in den Schatten, weil sie die Box
+  genauer nachbaut. Zählt erst ab ihrem eigenen ersten Lauf (start_je), nicht rückwirkend.
 - gross_klein_3: Strukturbruch (Schluss über dem letzten Swing-Hoch, Swing-Länge 5) auf 15 Min., 1 Std. und 4 Std.
   (4 Std. ab 18:00 New York wie TradingView/OANDA). Ein 15-Min.-Signal zählt nur, wenn die 4-Std.- und die 1-Std.-Box
   in dieselbe Richtung laufen und der Kurs in der grünen Zone der 4-Std.-Box liegt (zwischen Einstieg und TP3). Stop am
@@ -46,12 +50,13 @@ EPIC = "GOLD"
 NY = "America/New_York"
 SWING = 5
 ST_ATR, ST_FAKTOR = 20, 2.0
+ST_FAKTOR_GENAUER = 1.75                      # box_175, portfolio-manager suche/VORAB_runde12c.yaml
 ZIELE, GEWICHTE = (1.0, 2.0, 3.0), (1 / 3, 1 / 3, 1 / 3)
 SATZ = {1: 6.5, -1: 2.0}                     # Übernachtgebühr in % im Jahr
 URTEIL_NACH, URTEIL_PF = 40, 1.2
 MIN_BARS = 400                                # etwa 4 Handelstage Vorlauf für 4-Std.-Swings und ATR
 CHUNK_DAYS = 10                               # weniger als 1.000 Viertelstunden-Kerzen je Abruf
-STRATEGIEN = ("stream_box", "gross_klein_3")
+STRATEGIEN = ("stream_box", "gross_klein_3", "box_175")
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -188,8 +193,8 @@ def supertrend(h, lo, c, n: int = ST_ATR, faktor: float = ST_FAKTOR):
     return richt, linie
 
 
-def st_signale(e: Ebene) -> list[Signal]:
-    richt, linie = supertrend(e.h, e.l, e.c)
+def st_signale(e: Ebene, faktor: float = ST_FAKTOR) -> list[Signal]:
+    richt, linie = supertrend(e.h, e.l, e.c, faktor=faktor)
     return [Signal(k, int(richt[k]), float(linie[k])) for k in range(1, len(richt))
             if richt[k] != 0 and richt[k - 1] != 0 and richt[k] != richt[k - 1]]
 
@@ -334,10 +339,15 @@ def alle(b: Basis) -> tuple[dict[str, list[dict]], dict]:
     box4 = signalbox(b, h4, strukturbrueche(h4))
     box1 = signalbox(b, h1, strukturbrueche(h1))
     out["gross_klein_3"] = gross_klein(b, m15, strukturbrueche(m15), box4, box1)
-    richt, linie = supertrend(m15.h, m15.l, m15.c)
-    vorhersage = {"richtung": int(richt[-1]), "linie": round(float(linie[-1]), 2) if np.isfinite(linie[-1]) else None,
-                  "kerze": str(pd.Timestamp(m15.ende[-1])), "kurs": round(float(b.c[-1]), 2),
-                  "gerade_gedreht": bool(len(richt) > 1 and richt[-2] != 0 and richt[-1] != richt[-2])}
+    out["box_175"] = signalbox(b, m15, st_signale(m15, ST_FAKTOR_GENAUER))
+
+    def richtung(faktor: float) -> dict:
+        richt, linie = supertrend(m15.h, m15.l, m15.c, faktor=faktor)
+        return {"richtung": int(richt[-1]), "linie": round(float(linie[-1]), 2) if np.isfinite(linie[-1]) else None,
+                "gerade_gedreht": bool(len(richt) > 1 and richt[-2] != 0 and richt[-1] != richt[-2])}
+
+    vorhersage = {**richtung(ST_FAKTOR), "kerze": str(pd.Timestamp(m15.ende[-1])), "kurs": round(float(b.c[-1]), 2),
+                  "genauer_175": richtung(ST_FAKTOR_GENAUER)}
     return out, vorhersage
 
 
@@ -372,13 +382,21 @@ def step(bars: pd.DataFrame, spread: pd.Series, state: dict, now: datetime) -> t
     """Rechnet alles aus den Kerzen neu und übernimmt nur Trades mit Einstieg ab dem Start des Schattens."""
     b = basis(bars, spread)
     st = dict(state)
-    st.setdefault("start", str(pd.Timestamp(b.t[-1]) + pd.Timedelta("15min")))
-    start = pd.Timestamp(st["start"])
-    st.setdefault("fertig", {s: [] for s in STRATEGIEN})
+    jetzt_start = str(pd.Timestamp(b.t[-1]) + pd.Timedelta("15min"))
+    st.setdefault("start", jetzt_start)
+    # Jede Strategie zählt ab ihrem eigenen ersten Lauf, eine später dazugekommene (box_175) nicht rückwirkend.
+    alt_fertig = state.get("fertig")
+    start_je = dict(st.get("start_je") or {})
+    for name in STRATEGIEN:
+        if name not in start_je:
+            start_je[name] = st["start"] if alt_fertig is None or name in alt_fertig else jetzt_start
+    st["start_je"] = start_je
+    st["fertig"] = dict(st.get("fertig") or {})
     trades, vorhersage = alle(b)
     events: list[dict] = []
     offen_neu = {}
     for name in STRATEGIEN:
+        start = pd.Timestamp(start_je[name])
         fertig = st["fertig"].setdefault(name, [])
         letzte = pd.Timestamp(fertig[-1]["einstieg_zeit"]) if fertig else None
         alt_offen = (state.get("offen") or {}).get(name)
@@ -398,15 +416,19 @@ def step(bars: pd.DataFrame, spread: pd.Series, state: dict, now: datetime) -> t
                 events.append({"zeit": now.isoformat(timespec="seconds"), "strategie": name, "ereignis": "fertig",
                                **{k: t[k] for k in ("einstieg_zeit", "richtung", "einstieg", "grund", "ergebnis_r")}})
     st["offen"] = offen_neu
-    seite = "Kauf" if vorhersage["richtung"] > 0 else "Verkauf"
-    st["vorhersage"] = {**vorhersage, "text": (f"Gerade auf {seite} gedreht, neuer Trade zur nächsten Eröffnung"
-                                               if vorhersage["gerade_gedreht"] else seite)
-                        + " (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)"}
+    def text(v: dict) -> str:
+        seite = "Kauf" if v["richtung"] > 0 else "Verkauf"
+        return f"Gerade auf {seite} gedreht, neuer Trade zur nächsten Eröffnung" if v["gerade_gedreht"] else seite
+
+    st["vorhersage"] = {**vorhersage, "text": text(vorhersage) + " (SuperTrend 20/2 auf 15 Min., die Richtung der "
+                        "Stream-Box)", "text_175": text(vorhersage["genauer_175"]) + " (SuperTrend 20/1,75, genauerer "
+                        "Nachbau)"}
     st["zusammenfassung"] = {name: zusammenfassung(st["fertig"][name]) for name in STRATEGIEN}
     st["stand"] = now.isoformat(timespec="seconds")
     st["letzte_kerze"] = str(pd.Timestamp(b.t[-1]))
-    st["hinweis"] = ("Nur Schatten, keine Order. Beide Strategien haben keinen Backtest bestanden (portfolio-manager "
-                     "suche/VORAB_runde12b.yaml). Urteil nach 40 fertigen Trades je Strategie.")
+    st["hinweis"] = ("Nur Schatten, keine Order. Keine der drei Strategien hat einen Backtest bestanden (portfolio-"
+                     "manager suche/VORAB_runde12b.yaml und VORAB_runde12c.yaml). Urteil nach 40 fertigen Trades je "
+                     "Strategie.")
     return st, events
 
 

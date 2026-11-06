@@ -96,3 +96,28 @@ def test_keine_order_funktion():
     text = (ts.ROOT / "gold" / "tiktok_schatten.py").read_text(encoding="utf-8")
     for verboten in ("open_position", "create_position", "close_position", "/positions\"", "_request(\"POST\""):
         assert verboten not in text
+
+
+def test_box_175_dreht_oefter_als_20_2():
+    rng = np.random.default_rng(11)
+    c = 4000 + np.cumsum(rng.normal(0, 3, 1500))
+    df, sp = _bars(c)
+    trades, vorhersage = ts.alle(ts.basis(df, sp))
+    assert len(trades["box_175"]) >= len(trades["stream_box"]) > 5
+    assert vorhersage["genauer_175"]["richtung"] in (1, -1)
+
+
+def test_box_175_zaehlt_erst_ab_eigenem_start():
+    # Ein alter Stand ohne box_175 (Schatten lief schon): box_175 startet beim nächsten Lauf, nicht rückwirkend
+    rng = np.random.default_rng(7)
+    c = 4000 + np.cumsum(rng.normal(0, 3, 2400))
+    df, sp = _bars(c)
+    t1 = df.index[1499]
+    alt = {"start": str(t1 + pd.Timedelta("15min")), "fertig": {"stream_box": [], "gross_klein_3": []}}
+    end = 1900
+    now = (df.index[end - 1] + pd.Timedelta("15min")).to_pydatetime().replace(tzinfo=timezone.utc)
+    st, _ = ts.step(df.iloc[end - 1400:end], sp.iloc[end - 1400:end], alt, now)
+    assert st["start_je"]["stream_box"] == alt["start"]
+    assert st["start_je"]["box_175"] == str(df.index[end - 1] + pd.Timedelta("15min"))
+    assert st["fertig"]["box_175"] == [] and len(st["fertig"]["stream_box"]) > 0
+    assert "box_175" in st["zusammenfassung"] and "text_175" in st["vorhersage"]

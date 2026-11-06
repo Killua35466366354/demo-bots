@@ -26,8 +26,8 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-05 21:00:00",
- "updated_utc": "2026-11-05T22:11:26+00:00",
+ "cursor": "2026-11-05 23:00:00",
+ "updated_utc": "2026-11-06T00:11:21+00:00",
  "open_detail": null,
  "richtung": 0,
  "summary": {
@@ -48,7 +48,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-05T22:11:26+00:00",
+  "abgerufen_utc": "2026-11-06T00:11:21+00:00",
   "naechste": [
    "2026-11-06 13:30 Average Hourly Earnings m/m",
    "2026-11-06 13:30 Non-Farm Employment Change",

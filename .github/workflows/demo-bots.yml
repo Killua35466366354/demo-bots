@@ -208,10 +208,11 @@ jobs:
           echo "Gold-Short-Bot ruht seit 06.11.2026 (Kirons Wahl: Konto 5 an den Gold-Hand-Bot), keine Order"
 
       # Gold-Hand-Bot (Kirons Wunsch vom 06.11.2026 15:51 UTC): Einstiege der drei Seiten des Gold-Short-Bots, Shorts und
-      # Longs, ohne Stop und ohne Ziel. Kiron bekommt über ntfy eine Nachricht und schließt selbst. Nur Demo, Account 5,
+      # Longs, ohne Ziel, mit Stop-Agent (Kirons Wunsch vom 06.11.2026 17:12 UTC). Kiron bekommt über ntfy eine
+      # Nachricht und schließt selbst. Nur Demo, Account 5,
       # nie das Hauptkonto des Gold-Bots. Regeln in suche/VORAB_gold_hand.yaml, Code gold/hand_bot.py. Schreibt nur
       # journal/gold-hand/ und journal/gold-hand.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
-      - name: Gold-Hand-Bot (Short und Long ohne Stop, Nachricht aufs Handy)
+      - name: Gold-Hand-Bot (Short und Long mit Stop-Agent, Nachricht aufs Handy)
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:

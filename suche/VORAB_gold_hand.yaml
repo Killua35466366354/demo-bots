@@ -1,4 +1,4 @@
-# Gold-Hand-Bot: Gold Short und Long ohne Stop und ohne Ziel, Nachricht aufs Handy, Kiron geht selbst raus.
+# Gold-Hand-Bot: Gold Short und Long ohne Ziel, mit Stop-Agent, Nachricht aufs Handy, Kiron geht selbst raus.
 # Code gold/hand_bot.py, Tests tests/test_gold_hand.py. Nur Capital.com-DEMO, nie echtes Geld.
 #
 # Kirons Wunsch vom 06.11.2026 15:51 UTC (Thread "Gold-Short-Bot verbessern"): "den Shortbot ... und jetzt hier diesen
@@ -6,7 +6,8 @@
 # sendet, wann er sozusagen in den Trade reingeht, dass ich den sozusagen selber rausgehen kann". Darum gibt es hier
 # keine Hürde und kein Urteil: Das Ergebnis hängt an Kirons eigenem Rausgehen und steht nur zur Information im Journal.
 # Kein Kandidat für echtes Geld, nicht in der automatischen 15/40-Prüfung, kein Zwilling nach VORAB_zwilling.yaml.
-# Festgelegt vor dem ersten Trade.
+# Festgelegt vor dem ersten Trade (16:48 UTC). Nachtrag Stop-Agent auf Kirons Wunsch vom 06.11.2026 17:12 UTC ("Den
+# intelligenten Stoploss-Agenten ... kannst du den hinzufügen"), sein datiertes Wort im Sinne der Eine-Woche-Regel.
 
 format: 1
 gold_hand:
@@ -19,7 +20,23 @@ gold_hand:
     in dieser Reihenfolge), ein Long nur, wenn es dort keinen Short gibt. Ein Signal nur einmal je Kerze und nur frisch
     (sb.frisch).
   fuehrung: >-
-    Marktorder ohne Stop und ohne Ziel. Der Bot schließt nie eine Position und ändert keine. Kiron schließt selbst.
+    Marktorder mit dem Stop der Strategie beim Broker (stopDistance = 1 R, mindestens 1,05 x Mindestabstand), ohne Ziel.
+    Der Bot schließt nie selbst. Kiron schließt, wann er will. Den Stop bewegt nur der Stop-Agent.
+  stop_agent:
+    einstand: Hat der beste Kurs seit dem Einstieg Ziel 1 der Strategie erreicht, Stop auf den Einstieg.
+    nachziehen: Bei k vollen R Gewinn (bester Kurs) Stop auf k-1 R, also bei 2 R auf +1 R, bei 3 R auf +2 R.
+    news: >-
+      Steht in den nächsten 45 Minuten ein wichtiger Termin an (wie news_agent.termine) und liegt der Trade mindestens
+      0,5 R im Plus, Stop auf den Einstieg.
+    nur_richtung_gewinn: Der Stop wird nie weiter weg gesetzt und nur, wenn er mindestens 1,05 x Mindestabstand vom Kurs liegt.
+    kiron: Ändert oder löscht Kiron den Stop in der App, lässt der Agent diese Position in Ruhe (eine Nachricht).
+    alte_trades: >-
+      Bot-Positionen von vor dem Stop-Agenten bekommen den Stop der Strategie, wenn der Kurs ihn noch nicht überschritten
+      hat, sonst keinen (eine Nachricht).
+    nachricht: Jede Stop-Änderung und jeder Schluss durch den Stop.
+    test: >-
+      Keiner, auf Kirons Wunsch ohne Backtest. Zum Vergleich: Komitee 2 und Runde 12f fanden, dass ein früher Ausstieg
+      bei Einstand Gewinner abschneidet. Darum zieht der Agent erst ab Ziel 1 nach, nicht vorher.
   groesse:
     risiko_eur_je_strategie_r: 5.0      # nur zum Rechnen der Größe, kein Stop beim Broker
     max_oz_trade: 1.0
@@ -47,7 +64,7 @@ gold_hand:
       entscheiden nichts, Kiron ordnet sie selbst ein.
   nachricht: >-
     Bei jedem Einstieg und jedem ausgelassenen frischen Signal eine Nachricht über ntfy an das Thema im GitHub-Secret
-    NTFY_THEMA: Richtung, Größe, Kurs, Seite, Kerze und zur Orientierung Stop und Ziel 1 der Strategie. Nimmt ntfy
+    NTFY_THEMA: Richtung, Größe, Kurs, Seite, Kerze, Stop und Ziel 1 der Strategie. Nimmt ntfy
     eine Nachricht nicht an (Grenze je IP-Adresse), holt der nächste Lauf sie bis 12 Std. lang nach. Ein eigener
     ntfy-Zugang im Secret NTFY_TOKEN ist erlaubt. Beim ersten echten Lauf eine Start-Nachricht.
   journal: journal/gold-hand/ (state.json, log.jsonl, trades.jsonl, nachrichten.jsonl) und journal/gold-hand.json

@@ -1,4 +1,4 @@
-"""Gold-Hand-Bot: Gold Short und Long nach den drei Seiten des Gold-Short-Bots, ohne Stop und ohne Ziel, mit einer
+"""Gold-Hand-Bot: Gold Short und Long nach den drei Seiten des Gold-Short-Bots, ohne Ziel, mit Stop-Agent und einer
 Nachricht aufs Handy. Kiron geht selbst raus. Nur Capital.com-DEMOKONTO, nie echtes Geld.
 
     python -m gold.hand_bot              # ein Lauf: Kerzen holen, Signal in der Kerze "jetzt"? Dann öffnen und melden
@@ -14,8 +14,13 @@ Regeln:
   Kerzen, nur fertige 1-Std.- und 4-Std.-Kerzen), dazu die Käufe derselben drei Seiten (Komitee 2, Variante longs).
 - Kommt in der Kerze "jetzt" ein Short, gilt der (erste Seite gewinnt). Ein Long nur, wenn es in dieser Kerze keinen
   Short gibt.
-- Kein Stop, kein Ziel beim Broker. Der Bot schließt nie etwas. Stop und Ziel 1 der Strategie stehen nur zur
-  Orientierung in der Nachricht.
+- Kein Ziel beim Broker. Der Bot schließt nie selbst etwas.
+- Stop-Agent (Kirons Wunsch vom 06.11.2026 17:12 UTC): Beim Einstieg liegt der Stop der Strategie beim Broker (1 R,
+  etwa 5 €). Hat der Kurs Ziel 1 der Strategie erreicht, zieht der Agent den Stop auf den Einstieg, danach je volles R
+  einen Schritt nach (bei 2 R auf +1 R, bei 3 R auf +2 R). Steht ein wichtiger Termin in den nächsten 45 Minuten an und
+  liegt der Trade mindestens 0,5 R im Plus, zieht er den Stop auf den Einstieg. Der Stop geht nur in Richtung Gewinn.
+  Ändert oder löscht Kiron den Stop in der App, lässt der Agent diese Position in Ruhe. Jede Änderung kommt als
+  Nachricht.
 - Größe: 5 € bis zum Stop der Strategie (nur zum Rechnen), höchstens 1 Unze je Trade und 2 Unzen zusammen, höchstens 4
   Goldpositionen zugleich auf dem Konto (auch Kirons eigene zählen).
 - Ist eine Goldposition in die andere Richtung offen, öffnet er nichts (das Konto hat kein Hedging, sonst würde die neue
@@ -46,6 +51,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from gold import short_bot as sb
@@ -78,6 +84,8 @@ FF_ALTER = pd.Timedelta(hours=6)
 RSS_URL = "https://news.google.com/rss/search?q=spot+gold+when:1d&hl=en-US&gl=US&ceid=US:en"
 SCHLAGZEILEN, SCHLAGZEILEN_STD = 3, 6
 NACHHOLEN_STD = 12                 # nicht zugestellte Nachrichten so lange nachholen
+NEWS_SICHERN_R = 0.5               # Stop-Agent: vor einem wichtigen Termin ab so viel R im Plus Stop auf Einstieg
+STOP_TOL = 0.05                    # $: so weit darf der Stop beim Broker von unserem abweichen (Rundung)
 TERMIN_NAMEN = {"fomc": "Fed-Zinsentscheid", "cpi": "US-Inflation (CPI)", "nfp": "US-Arbeitsmarkt (NFP)"}
 
 
@@ -334,7 +342,108 @@ class Lauf:
             self.st["trades"] = int(self.st["trades"]) + 1
             self.fertige.append(rec)
             self.ev("Trade zu", dealId=tr["dealId"], kurs=rec["exit"], r=rec.get("r"), quelle=rec["quelle"])
+            stop = tr.get("stop")
+            if (level is not None and stop is not None and tr.get("agent") != "aus"
+                    and abs(level - stop) <= max(1.0, 0.1 * tr["dist"])):
+                wort = "LONG" if d > 0 else "SHORT"
+                eur = f" ({_de(rec['pnl_eur'])} €)" if rec.get("pnl_eur") is not None else ""
+                self.melde(f"Gold {wort} durch den Stop geschlossen",
+                           f"{_de(tr['size'])} oz von {_de(tr['entry'])} bei {_de(level)} geschlossen: "
+                           f"{_de(rec['r'])} R{eur}.", ["stop_sign"])
         self.st["offen"] = rest
+
+    # ---- Stop-Agent ----
+
+    def setze_stop(self, tr: dict, stop: float, warum: str) -> bool:
+        if not self.send:
+            self.ev("würde Stop setzen", dealId=tr["dealId"], stop=round(stop, 2), warum=warum)
+            return False
+        try:
+            ref = self.client._request("PUT", f"/positions/{tr['dealId']}",
+                                       json={"stopLevel": round(stop, 2)}).json().get("dealReference")
+            conf = self.client.confirm(ref) if ref else {}
+        except Exception as err:            # noqa: BLE001 - nächster Lauf versucht es wieder
+            self.ev("Stop ändern fehlgeschlagen", dealId=tr["dealId"], warum=warum, fehler=str(err)[:200])
+            return False
+        if conf and str(conf.get("dealStatus") or "").upper() == "REJECTED":
+            self.ev("Stop ändern abgelehnt", dealId=tr["dealId"], warum=warum, grund=conf.get("reason"))
+            return False
+        tr["stop"] = round(stop, 2)
+        self.ev("Stop gesetzt", dealId=tr["dealId"], stop=tr["stop"], warum=warum)
+        return True
+
+    def termine_bald(self) -> list:
+        try:
+            return [(t, s) for t, s in alle_termine(self.st, self.now) if self.now < t <= self.now + WARN_VOR]
+        except Exception as err:            # noqa: BLE001
+            self.ev("Termine nicht lesbar", fehler=str(err)[:120])
+            return []
+
+    def stop_agent(self, b: ts.Basis, gold: list[dict]) -> None:
+        """Stop nur in Richtung Gewinn: Ziel 1 erreicht -> Einstieg, je weiteres volles R ein Schritt, vor wichtigen
+        Terminen ab 0,5 R Plus auf den Einstieg. Ändert Kiron den Stop selbst, ist der Agent für diese Position aus."""
+        pos = {str(p["position"].get("dealId")): p["position"] for p in gold}
+        q = self.q
+        abstand = max(1.05 * (q.min_dist or 0.0), 0.01)
+        bald = None
+        for tr in self.st["offen"]:
+            p = pos.get(tr["dealId"])
+            if p is None or tr.get("agent") == "aus":
+                continue
+            d, e, r = int(tr["richtung"]), float(tr["entry"]), float(tr["dist"])
+            wort = "LONG" if d > 0 else "SHORT"
+            jetzt = q.bid if d > 0 else q.offer            # zu diesem Kurs würde der Stop auslösen
+            broker = _num(p.get("stopLevel"))
+            kopf = f"{wort} {_de(tr['size'])} oz von {_de(e)}"
+            if tr.get("stop") is None:                     # Position von vor dem Stop-Agenten
+                if broker is not None:
+                    tr["stop"] = round(broker, 2)
+                    self.ev("Stop übernommen", dealId=tr["dealId"], stop=tr["stop"])
+                    continue
+                ziel = float(tr["stop_strategie"])
+                if d * (jetzt - ziel) > abstand:
+                    if self.setze_stop(tr, ziel, "Stop der Strategie nachgetragen"):
+                        self.melde("Gold: Stop-Agent übernimmt", f"{kopf}: Stop jetzt bei {_de(ziel)} (Stop der "
+                                   f"Strategie, 1 R). Raus gehst du weiter selbst.", ["shield"])
+                else:
+                    tr["agent"] = "aus"
+                    self.ev("Stop-Agent aus", dealId=tr["dealId"], grund="Stop der Strategie schon überschritten")
+                    self.melde("Gold: kein Stop gesetzt", f"{kopf}: Der Kurs {_de(jetzt)} liegt schon hinter dem Stop "
+                               f"der Strategie ({_de(ziel)}). Der Agent setzt hier keinen Stop, entscheide selbst.",
+                               ["warning"])
+                continue
+            if broker is None or abs(broker - float(tr["stop"])) > STOP_TOL:
+                tr["agent"] = "aus"
+                self.ev("Stop-Agent aus", dealId=tr["dealId"], grund="Kiron hat den Stop geändert", broker=broker)
+                self.melde("Gold: Stop-Agent lässt die Position in Ruhe",
+                           f"{kopf}: Du hast den Stop selbst geändert"
+                           + (f" (jetzt {_de(broker)})" if broker is not None else " (keiner mehr)")
+                           + ". Der Agent ändert an dieser Position nichts mehr.", ["information_source"])
+                continue
+            j0 = int(np.searchsorted(b.t, np.datetime64(pd.Timestamp(tr["opened_utc"]).floor("15min"))))
+            if d > 0:
+                bester = max([q.bid] + list(b.h[j0:]))
+            else:
+                bester = min([q.offer] + list(b.l[j0:] + b.sp[j0:]))
+            if tr.get("bester") is not None:
+                bester = max(bester, tr["bester"]) if d > 0 else min(bester, tr["bester"])
+            tr["bester"] = round(float(bester), 2)
+            neu, warum = None, ""
+            if d * (bester - float(tr["ziel1_strategie"])) >= 0:
+                k = int(np.floor(d * (bester - e) / r + 1e-9))
+                neu = e + d * max(0, k - 1) * r
+                warum = "Ziel 1 erreicht, Stop auf den Einstieg" if k < 2 else f"{k} R erreicht, Stop auf +{k - 1} R"
+            if d * (jetzt - e) / r >= NEWS_SICHERN_R and (neu is None or d * (e - neu) > 0):
+                if bald is None:
+                    bald = self.termine_bald()
+                if bald:
+                    t, name = bald[0]
+                    neu, warum = e, f"{name} um {_berlin(t)} Uhr, Stop auf den Einstieg"
+            if neu is None or d * (neu - float(tr["stop"])) <= STOP_TOL or d * (jetzt - neu) <= abstand:
+                continue
+            if self.setze_stop(tr, neu, warum):
+                self.melde("Gold: Stop nachgezogen", f"{kopf}: Stop jetzt bei {_de(neu)} ({warum}). Kurs "
+                           f"{_de(jetzt)}. Raus gehst du weiter selbst.", ["shield"])
 
     # ---- Warnung vor wichtigen Terminen, wenn Gold offen ist ----
 
@@ -354,8 +463,9 @@ class Lauf:
         n_l = len(gold) - n_s
         was = ", ".join(f"{s} um {_berlin(t)} Uhr" for t, s in bald)
         self.melde("Gold: wichtiger Termin bald",
-                   f"{was}. Du hast {n_s} Short und {n_l} Long in Gold offen, ohne Stop. Der Kurs kann dann stark "
-                   f"springen. Jetzt prüfen, ob du rausgehen oder absichern willst.", ["warning"])
+                   f"{was}. Du hast {n_s} Short und {n_l} Long in Gold offen. Der Kurs kann dann stark springen. "
+                   f"Liegt ein Trade des Bots mindestens 0,5 R im Plus, zieht der Stop-Agent den Stop auf den "
+                   f"Einstieg. Jetzt prüfen, ob du rausgehen willst.", ["warning"])
         self.st["gewarnt"] = (gewarnt + [f"{t.isoformat()} {s}" for t, s in bald])[-50:]
 
     # ---- Neuer Trade ----
@@ -377,7 +487,8 @@ class Lauf:
         wort = "LONG" if d > 0 else "SHORT"
         dist = float(sig["r_usd"])
         kurs = q.offer if d > 0 else q.bid
-        stop_ref, ziel_ref = kurs - d * dist, kurs + d * sb.ZIEL_FAKTOR * dist
+        stop_dist = round(max(dist, 1.05 * (q.min_dist or 0.0)), 2)
+        stop_ref, ziel_ref = kurs - d * stop_dist, kurs + d * sb.ZIEL_FAKTOR * dist
         gruende = []
         if not sb.frisch(t_ph, self.now):
             gruende.append("Signal zu alt")
@@ -407,8 +518,7 @@ class Lauf:
         info = {"seite": seite, "richtung": d, "kerze": str(t_ph), "signal": sig.get("signal"), "dist": round(dist, 2),
                 "hintergrund": hg, "news": nl["gruende"]}
         lage = hg_text(hg) + (f" Nächster wichtiger Termin: {nl['naechster']}." if nl["naechster"] else "")
-        orient = (f"Zur Orientierung: Stop der Strategie {_de(stop_ref)} (1 R = {_de(dist)} $), Ziel 1 bei "
-                  f"{_de(ziel_ref)}.")
+        orient = (f"Stop der Strategie {_de(stop_ref)} (1 R = {_de(dist)} $), Ziel 1 bei {_de(ziel_ref)}.")
         quelle = f"Seite {NAMEN.get(seite, seite)}, 15-Min.-Kerze bis {_berlin(t_ph)} Uhr."
         if gruende:
             self.ev("ausgelassen", **info, gruende=gruende)
@@ -423,7 +533,8 @@ class Lauf:
                        ["chart_with_upwards_trend" if d > 0 else "chart_with_downwards_trend"])
             return
         vorher = {str(p["position"].get("dealId")) for p in gold}
-        body = {"epic": EPIC, "direction": "BUY" if d > 0 else "SELL", "size": sizes[0], "guaranteedStop": False}
+        body = {"epic": EPIC, "direction": "BUY" if d > 0 else "SELL", "size": sizes[0], "guaranteedStop": False,
+                "stopDistance": stop_dist}
         try:
             ref = self.client._request("POST", "/positions", json=body).json()["dealReference"]
             conf = self.client.confirm(ref)
@@ -443,13 +554,16 @@ class Lauf:
         level = _num(pos.get("level")) or _num((conf or {}).get("level")) or kurs
         tr = {"dealId": deal, "richtung": d, "size": sizes[0], "entry": round(level, 2), "dist": round(dist, 2),
               "seite": seite, "signal": sig.get("signal"), "einstieg_zeit": str(t_ph), "opened_utc": self.stamp,
-              "stop_strategie": round(level - d * dist, 2), "ziel1_strategie": round(level + d * sb.ZIEL_FAKTOR * dist, 2)}
+              "stop_strategie": round(level - d * stop_dist, 2),
+              "ziel1_strategie": round(level + d * sb.ZIEL_FAKTOR * dist, 2)}
+        if _num(pos.get("stopLevel")) is not None:
+            tr["stop"] = round(_num(pos.get("stopLevel")), 2)   # sonst trägt der Stop-Agent ihn im nächsten Lauf nach
         self.st["offen"].append(tr)
         self.ev("eröffnet", **info, dealId=deal, size=sizes[0], entry=tr["entry"])
         self.melde(f"Gold {wort} eröffnet",
-                   f"{KONTO_NAME} (Demo): {_de(sizes[0])} oz bei {_de(level)}. Ohne Stop und ohne Ziel, raus gehst du "
-                   f"selbst. {quelle} Zur Orientierung: Stop der Strategie {_de(tr['stop_strategie'])} (1 R = "
-                   f"{_de(dist)} $ = etwa 5 €), Ziel 1 bei {_de(tr['ziel1_strategie'])}. {lage}",
+                   f"{KONTO_NAME} (Demo): {_de(sizes[0])} oz bei {_de(level)}. Stop bei {_de(tr['stop_strategie'])} "
+                   f"(1 R = {_de(dist)} $ = etwa 5 €), kein Ziel, raus gehst du selbst. Ab Ziel 1 "
+                   f"({_de(tr['ziel1_strategie'])}) zieht der Stop-Agent den Stop auf den Einstieg. {quelle} {lage}",
                    ["chart_with_upwards_trend" if d > 0 else "chart_with_downwards_trend"])
 
 
@@ -482,6 +596,7 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, post=None)
             bars2, sp2 = with_now_bar(bars, spread, t_ph, q.bid, q.offer)
             b = ts.basis(bars2, sp2)
             n = len(b) - 1
+            lauf.stop_agent(b, gold)
             trades, _ = sb.simuliere(b, n)
             lauf.einstieg(b, n, trades, gold, available)
             lauf.st["letzter_kurs"] = round(float(q.bid), 2)
@@ -494,8 +609,8 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, post=None)
 
 
 START_TEXT = ("Der Gold-Hand-Bot läuft jetzt auf dem Demokonto „Account 5“ von Capital.com. Er meldet jeden Einstieg "
-              "(Short oder Long, ohne Stop und ohne Ziel) und jedes ausgelassene Signal mit Grund. Rausgehen machst "
-              "du selbst in der Capital.com-App.")
+              "(Short oder Long, ohne Ziel, mit Stop-Agent) und jedes ausgelassene Signal mit Grund. Rausgehen "
+              "machst du selbst in der Capital.com-App.")
 
 
 def start_nachricht(st: dict, post=None) -> bool:
@@ -510,10 +625,12 @@ def start_nachricht(st: dict, post=None) -> bool:
 
 def cockpit(st: dict, alle: list[dict]) -> dict:
     r = [float(t["r"]) for t in alle if t.get("r") is not None]
-    return {"bot": BOT_ID, "name": "Gold-Hand-Bot (Short und Long ohne Stop, Kiron geht selbst raus)",
+    return {"bot": BOT_ID, "name": "Gold-Hand-Bot (Short und Long mit Stop-Agent, Kiron geht selbst raus)",
             "konto": "…" + KONTO[-4:], "stand": st.get("stand"), "start": st.get("start"),
-            "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. Nachricht "
-                      "über ntfy, Kiron schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, 2 oz."),
+            "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Ziel. Stop-Agent: Stop "
+                      "der Strategie, ab Ziel 1 auf Einstieg, dann je R nach, vor wichtigen Terminen sichern. "
+                      "Nachricht über ntfy, Kiron schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, "
+                      "2 oz."),
             "vorab": "suche/VORAB_gold_hand.yaml", "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": ts.pf(r) if r else None, "summe_r": round(sum(r), 2),
                                 "summe_eur": round(sum(float(t.get("pnl_eur") or 0) for t in alle), 2),

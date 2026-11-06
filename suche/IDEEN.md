@@ -26,6 +26,7 @@ Stand: 05.11.2026.
 | Trend-Rücksetzer US100 | "US500" (Top 3) | behalten | 1,91, +23 € |
 | Gold C/B mit 1-ATR-Stop | Hauptkonto | verbessern | 1,17, +298 € (2026 allein 0,95) |
 | Gold-Bot 2.0 | kein Konto, nur Schatten | | |
+| TikTok-Box (stream_box) und gross_klein_3 | kein Konto, nur Schatten (`gold/tiktok_schatten.py`) | Schatten | beide ohne bestandenen Test, stream_box 11/2024-10/2026 0,96, gross_klein_3 1,41 aber erst nach dem Ansehen gewählt; Urteil nach 40 Schatten-Trades (portfolio-manager `suche/VORAB_runde12b.yaml`) |
 | Brent-Öl | Account 1 | Labor | 1,49, +289 € (2025 allein -177 €) |
 | Trend-Rücksetzer Dow | Account 5 | Labor | 1,48, +19 € |
 | London-Stunde GBP/USD | Account 6 | Labor | 1,45, +59 € |
@@ -52,6 +53,7 @@ Bots steht nach jedem Lauf in `journal/vergleich.md`.
 | Bei +50 raus, Teilgewinn, Break-even, weiter Stop mit Geduld, Nachkauf | durchgefallen | Gold-Lernjournal |
 | Phasen, Wende, Megatrend-Schalter, immer im Markt (Flip) und umgekehrt, Verlierer umdrehen, Halten mit Take-Profit | durchgefallen | Gold-Lernjournal bis Idee 62, PR #156 |
 | Tagesrichtung aus Vorhersagen (Welt-Lagebild) | durchgefallen, 0 von 6 | PR #140 |
+| Signal-Box der TikTok-Live-Streams und TradingTop-Videos nachbauen, nur die letzten 2 Jahre testen, Vorhersage live mitlaufen lassen | Runde 12 und 12b durchgefallen, läuft als Schatten seit dem Merge | portfolio-manager Runde 12/12b, PR #196 |
 | Kleines Konto mit 50 € und alle 2 Monate 50 € dazu | gerechnet | Gold-Thread |
 | Sicherheitsschalter | nur vorwärts beobachtet | Gold-Lernjournal Idee 34 |
 

@@ -1,0 +1,33 @@
+# Gold-Hand-Bot: Bringen Einstiege auf 5-Min.-Kerzen mehr gute Einstiege?
+# Kirons Wunsch vom 06.11.2026 17:12 UTC: "eventuell im 5min chart entrys so das mehr gute entrys gemacht werden".
+# Der Gold-Hand-Bot läuft auf Kirons Wunsch ohne Backtest. Diese Prüfung entscheidet nur, ob 5-Min.-Einstiege
+# dazukommen. Code suche/gold_hand_5min.py. Festgelegt, bevor etwas auf 5-Min.-Kerzen gerechnet wurde.
+
+format: 1
+gold_hand_5min:
+  einstiege_15: >-
+    Wie der Bot heute: gold_short_k2.simuliere(HEUTE) auf 15-Min.-Kerzen (die drei Seiten gross_klein_3,
+    gross_box_kerze, gross_box), Shorts wie short_bot.kombi, Longs nur ohne offenen Short wie gold_short_k2.kombi
+    mit longs.
+  einstiege_5: >-
+    Dieselben drei Seiten, dieselbe Führung und dieselbe Kombination, aber die kleine Ebene aus 5-Min.-Kerzen
+    (Strukturbrüche, SuperTrend 1,75, ATR und Kerzenstärke je 5 Min., Einstieg zur Eröffnung der nächsten
+    5-Min.-Kerze). 1-Std.- und 4-Std.-Ebene unverändert (aus denselben Kursen, nur fertige Kerzen).
+  zusaetzlich: >-
+    Die 5-Min.-Einstiege, die nicht in dasselbe 15-Min.-Fenster und dieselbe Richtung fallen wie ein 15-Min.-Einstieg.
+    Nur diese würden neu dazukommen.
+  daten: HistData XAUUSD 5 Min. mit dem Capital.com-Spread je 15-Min.-Fenster (wie Komitee 2)
+  zeitraum: 01.11.2024 bis 30.10.2026
+  kontrolle: 01.11.2022 bis 31.10.2024
+  masse:
+    pf_r: Ergebnis in R mit der Strategie-Führung (wie in allen Runden).
+    erst_1r: >-
+      Anteil der Einstiege, deren Kurs zuerst 1 R in Trade-Richtung läuft, bevor er 1 R dagegen läuft (5-Min.-Kerzen,
+      Longs auf Bid, Shorts auf Ask, beides in derselben Kerze zählt als dagegen). Misst den Einstieg ohne Ausstieg,
+      passend zum Hand-Bot, bei dem Kiron selbst rausgeht.
+  dazu_wenn: >-
+    Die zusätzlichen 5-Min.-Einstiege haben im Zeitraum mindestens 50 Trades und PF_R und erst_1r mindestens so hoch
+    wie die 15-Min.-Einstiege, und in der Kontrolle ebenfalls PF_R und erst_1r mindestens so hoch wie die
+    15-Min.-Einstiege dort.
+  sonst: Der Bot bleibt bei 15-Min.-Einstiegen. Keine Nachbesserung nach dem Ergebnis, keine anderen Längen.
+  live: Bestanden heißt Vorschlag an Kiron, live nur über einen PR, den er merged.

@@ -1,0 +1,29 @@
+# Gold-Hand-Bot: eine Auswahl der 5-Min.-Einstiege. Kirons Wunsch vom 06.11.2026 17:49 UTC ("füge eventuell doch nur
+# die 5 Minuten Entries ein und dort auch nur ausgewählte Anzahl"), nachdem alle 5-Min.-Einstiege durchgefallen waren
+# (suche/ergebnis_gold_hand_5min.md, 17:2x UTC). Code suche/gold_hand_5min_auswahl.py, Einstiege und Maße wie
+# suche/gold_hand_5min.py. Festgelegt, bevor eine Auswahl gerechnet wurde. Vier Auswahlen auf einmal: Wer mehrere
+# Regeln prüft, findet leichter zufällig eine gute, darum gilt die feste Reihenfolge unten und beide Zeiträume.
+
+format: 1
+gold_hand_5min_auswahl:
+  hintergrund: >-
+    Richtungs-Check von Gold-Bot 2.0 (gold/v2/richtung.direction auf Stundenkerzen aus denselben HistData-Kursen):
+    +1 Tagesschluss über SMA 50 und 4-Std.-Schluss über EMA 50, -1 beide darunter, sonst 0. Für einen Einstieg gilt
+    der Wert der letzten Stundenkerze, die vor dem Einstieg fertig war. Live rechnet der Bot dasselbe aus den
+    Tages- und 4-Std.-Kerzen von Capital.com.
+  vergleich: >-
+    Die 15-Min.-Einstiege so, wie der Bot sie live nimmt: ohne die, gegen die der Hintergrund steht (Richtung -d).
+  auswahlen:
+    v1_wie_live: Die zusätzlichen 5-Min.-Einstiege, gegen die der Hintergrund nicht steht (wie live).
+    v2_mit_trend: Die zusätzlichen 5-Min.-Einstiege, bei denen der Hintergrund in Trade-Richtung zeigt (Richtung = d).
+    v3_zwei_am_tag: Wie v2, aber höchstens die ersten 2 je Handelstag (Tag endet 17:00 New York).
+    v4_nur_5min: Alle 5-Min.-Einstiege wie live (statt der 15-Min.-Einstiege, nicht zusätzlich).
+  zeitraum: 01.11.2024 bis 30.10.2026
+  kontrolle: 01.11.2022 bis 31.10.2024
+  bestanden: >-
+    Eine Auswahl besteht, wenn sie im Zeitraum mindestens 50 Trades hat und PF_R und erst_1r mindestens so hoch wie
+    der Vergleich hat, und in der Kontrolle ebenfalls PF_R und erst_1r mindestens so hoch wie der Vergleich dort.
+  wahl: >-
+    Bestehen mehrere, gilt die erste in der Reihenfolge v1, v2, v3, v4. Besteht keine, bleibt der Bot bei
+    15-Min.-Einstiegen. Keine Nachbesserung nach dem Ergebnis, keine anderen Anzahlen oder Filter.
+  live: Bestanden heißt Vorschlag an Kiron, live nur über einen PR, den er merged.

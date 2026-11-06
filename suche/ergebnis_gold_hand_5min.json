@@ -1,0 +1,164 @@
+{
+ "vorab": {
+  "ok": true,
+  "sha256": "931ba27da8e90f1c50e770a94d1a86f19dd49302fa3b2e4247c485d0e5e8a4d9"
+ },
+ "zeitraum": {
+  "von": "2024-11-01",
+  "bis": "2026-10-30",
+  "e15": {
+   "trades": 1265,
+   "pf_r": 1.097,
+   "summe_r": 36.3,
+   "trefferquote": 0.394,
+   "erst_1r": 0.528,
+   "shorts": 472,
+   "longs": 793,
+   "nur_shorts": {
+    "trades": 472,
+    "pf_r": 0.95,
+    "summe_r": -7.2,
+    "trefferquote": 0.388,
+    "erst_1r": 0.527
+   },
+   "nur_longs": {
+    "trades": 793,
+    "pf_r": 1.192,
+    "summe_r": 43.5,
+    "trefferquote": 0.397,
+    "erst_1r": 0.528
+   }
+  },
+  "e5": {
+   "trades": 3115,
+   "pf_r": 0.996,
+   "summe_r": -3.7,
+   "trefferquote": 0.371,
+   "erst_1r": 0.485,
+   "shorts": 1253,
+   "longs": 1862,
+   "nur_shorts": {
+    "trades": 1253,
+    "pf_r": 0.857,
+    "summe_r": -59.6,
+    "trefferquote": 0.365,
+    "erst_1r": 0.476
+   },
+   "nur_longs": {
+    "trades": 1862,
+    "pf_r": 1.094,
+    "summe_r": 55.8,
+    "trefferquote": 0.375,
+    "erst_1r": 0.491
+   }
+  },
+  "zusaetzlich": {
+   "trades": 2635,
+   "pf_r": 0.948,
+   "summe_r": -45.2,
+   "trefferquote": 0.363,
+   "erst_1r": 0.48,
+   "shorts": 1058,
+   "longs": 1577,
+   "nur_shorts": {
+    "trades": 1058,
+    "pf_r": 0.829,
+    "summe_r": -61.2,
+    "trefferquote": 0.362,
+    "erst_1r": 0.47
+   },
+   "nur_longs": {
+    "trades": 1577,
+    "pf_r": 1.031,
+    "summe_r": 16.0,
+    "trefferquote": 0.364,
+    "erst_1r": 0.487
+   }
+  },
+  "gleich": 480
+ },
+ "kontrolle": {
+  "von": "2022-11-01",
+  "bis": "2024-10-31",
+  "e15": {
+   "trades": 1282,
+   "pf_r": 0.855,
+   "summe_r": -65.9,
+   "trefferquote": 0.404,
+   "erst_1r": 0.497,
+   "shorts": 534,
+   "longs": 748,
+   "nur_shorts": {
+    "trades": 534,
+    "pf_r": 0.678,
+    "summe_r": -67.4,
+    "trefferquote": 0.378,
+    "erst_1r": 0.451
+   },
+   "nur_longs": {
+    "trades": 748,
+    "pf_r": 1.006,
+    "summe_r": 1.5,
+    "trefferquote": 0.422,
+    "erst_1r": 0.529
+   }
+  },
+  "e5": {
+   "trades": 3039,
+   "pf_r": 0.779,
+   "summe_r": -242.6,
+   "trefferquote": 0.351,
+   "erst_1r": 0.468,
+   "shorts": 1319,
+   "longs": 1720,
+   "nur_shorts": {
+    "trades": 1319,
+    "pf_r": 0.637,
+    "summe_r": -188.1,
+    "trefferquote": 0.328,
+    "erst_1r": 0.422
+   },
+   "nur_longs": {
+    "trades": 1720,
+    "pf_r": 0.906,
+    "summe_r": -54.5,
+    "trefferquote": 0.369,
+    "erst_1r": 0.503
+   }
+  },
+  "zusaetzlich": {
+   "trades": 2540,
+   "pf_r": 0.761,
+   "summe_r": -222.2,
+   "trefferquote": 0.343,
+   "erst_1r": 0.46,
+   "shorts": 1091,
+   "longs": 1449,
+   "nur_shorts": {
+    "trades": 1091,
+    "pf_r": 0.619,
+    "summe_r": -165.3,
+    "trefferquote": 0.321,
+    "erst_1r": 0.41
+   },
+   "nur_longs": {
+    "trades": 1449,
+    "pf_r": 0.885,
+    "summe_r": -56.8,
+    "trefferquote": 0.36,
+    "erst_1r": 0.498
+   }
+  },
+  "gleich": 499
+ },
+ "urteil": {
+  "pruefungen": {
+   "trades_ab_50": true,
+   "pf_zeitraum": false,
+   "erst_1r_zeitraum": false,
+   "pf_kontrolle": false,
+   "erst_1r_kontrolle": false
+  },
+  "dazu": false
+ }
+}

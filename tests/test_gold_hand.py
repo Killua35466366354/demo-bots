@@ -64,8 +64,15 @@ class HandKonto(Konto):
         if method == "POST" and path == "/positions":
             deal = f"D{self.nr}"
             lvl = self.offer if json["direction"] == "BUY" else self.bid
-            self.pos[deal] = {"dealId": deal, "level": lvl, "size": json["size"], "direction": json["direction"]}
+            d = 1 if json["direction"] == "BUY" else -1
+            p = {"dealId": deal, "level": lvl, "size": json["size"], "direction": json["direction"]}
+            if json.get("stopDistance"):
+                p["stopLevel"] = round(lvl - d * json["stopDistance"], 2)
+            self.pos[deal] = p
             self.refs[ref] = {"dealStatus": "ACCEPTED", "affectedDeals": [{"dealId": deal}], "level": lvl}
+        elif method == "PUT":
+            self.pos[path.rsplit("/", 1)[1]].update(json)
+            self.refs[ref] = {"dealStatus": "ACCEPTED"}
         return type("A", (), {"json": lambda s: {"dealReference": ref}})()
 
 
@@ -114,7 +121,9 @@ def test_short_ohne_stop_und_ziel_mit_nachricht(welt, monkeypatch):
     assert body["size"] == 0.27                                          # 5 € je 20 $ bei EUR/USD 1,08
     assert st["offen"][0]["seite"] == "gross_box_kerze" and st["offen"][0]["stop_strategie"] == 4020.0
     assert len(post.calls) == 1 and post.calls[0][1]["topic"] == "gold-hand-test"
-    assert "SHORT eröffnet" in post.calls[0][1]["title"] and "Ohne Stop" in post.calls[0][1]["message"]
+    assert "stop" not in st["offen"][0] and "stopLevel" not in k.pos[st["offen"][0]["dealId"]]
+    m = post.calls[0][1]["message"]
+    assert "SHORT eröffnet" in post.calls[0][1]["title"] and "Ohne Stop" in m and "Abfänger" in m
     assert k.account_id == HAUPT                                         # zurück aufs Hauptkonto
     # Nächster Lauf mit derselben Kerze: nichts Neues, keine zweite Nachricht
     st2, _, _, msg2 = hb.run(k, st, NOW, post=post)
@@ -347,3 +356,87 @@ def test_start_nachricht_und_token(monkeypatch):
     monkeypatch.setenv("NTFY_TOKEN", "tk_test")
     assert hb.sende("t", "T", [], post=post) and gesehen["headers"] == {"Authorization": "Bearer tk_test"}
     assert gesehen["json"]["message"] == "t" and "Account 5" in hb.START_TEXT
+
+
+def _offener_short(k, entry=4000.0, dist=20.0, stop=None, ziel=None, deal="D9", seit="2026-03-04T15:00:00"):
+    """Ein Short des Bots ohne Stop beim Broker (oder mit dem, was Kiron gesetzt hat)."""
+    p = {"dealId": deal, "level": entry, "size": 0.27, "direction": "SELL"}
+    if stop is not None:
+        p["stopLevel"] = stop
+    if ziel is not None:
+        p["profitLevel"] = ziel
+    k.pos[deal] = p
+    tr = {"dealId": deal, "richtung": -1, "size": 0.27, "entry": entry, "dist": dist, "seite": "gross_box",
+          "einstieg_zeit": seit.replace("T", " "), "opened_utc": seit,
+          "stop_strategie": entry + dist, "ziel1_strategie": entry - sb.ZIEL_FAKTOR * dist}
+    return {"start": "2026-03-04T00:00:00", "offen": [tr]}
+
+
+def _puts(k):
+    return [c[2] for c in k.calls if c[0] == "PUT"]
+
+
+def test_abfaenger_greift_erst_beim_fehltrade(welt, monkeypatch):
+    monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
+    k, post = HandKonto(bid=4004.7, offer=4005.0), Post()        # 0,25 R dagegen: nichts
+    st, _, _, msg = hb.run(k, _offener_short(k), NOW, post=post)
+    assert not _puts(k) and not msg
+    k.bid, k.offer = 4009.7, 4010.0                               # 0,5 R dagegen vor Ziel 1: Fehltrade
+    st, _, _, msg = hb.run(k, st, NOW, post=post)
+    assert _puts(k) == [{"stopLevel": 4020.0, "profitLevel": 4000.0}]
+    assert k.pos["D9"]["stopLevel"] == 4020.0 and "Abfänger greift" in msg[0]["titel"] and st["offen"][0]["fehl"]
+    k.bid, k.offer = 4014.7, 4015.0                               # weiter dagegen: nichts Neues
+    st, _, _, msg = hb.run(k, st, NOW, post=post)
+    assert len(_puts(k)) == 1 and not msg
+    assert not [c for c in k.calls if c[0] == "DELETE"]           # der Bot schließt nie selbst
+
+
+def test_nach_ziel_1_kein_fehltrade_aber_notbremse(welt):
+    bars, sp = welt["kerzen"]
+    bars = bars.copy()
+    bars.loc[pd.Timestamp("2026-03-04 14:00"), "low"] = 3984.0    # Ziel 1 (3985) um 14:00 erreicht
+    welt["kerzen"] = (bars, sp)
+    k = HandKonto(bid=4011.0, offer=4011.3)                      # danach 0,56 R dagegen: kein Fehltrade
+    st, _, _, _ = hb.run(k, _offener_short(k, seit="2026-03-04T13:00:00"), NOW, post=Post())
+    assert not _puts(k)
+    k.bid, k.offer = 4025.0, 4025.3                               # 1,26 R im Minus: Notbremse 0,5 R hinter den Kurs
+    st, _, _, msg = hb.run(k, st, NOW, post=Post())
+    assert _puts(k) == [{"stopLevel": 4035.3}] and "Notbremse" in msg[0]["text"]
+
+
+def test_fehltrade_hinter_dem_stop_der_strategie(welt):
+    k = HandKonto(bid=4030.0, offer=4030.3)                      # Sprung über 1 R hinaus
+    st, _, _, _ = hb.run(k, _offener_short(k), NOW, post=Post())
+    assert _puts(k) == [{"stopLevel": 4040.3, "profitLevel": 4000.0}]
+
+
+def test_abfaenger_laesst_kirons_stop_in_ruhe(welt, monkeypatch):
+    monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
+    k = HandKonto(bid=4015.0, offer=4015.3)
+    st, _, _, msg = hb.run(k, _offener_short(k, stop=4030.0), NOW, post=Post())
+    assert not _puts(k) and st["offen"][0]["agent"] == "aus" and "selbst gesetzt" in msg[0]["text"]
+    st, _, _, msg2 = hb.run(k, st, NOW, post=Post())
+    assert not _puts(k) and not msg2                              # einmal Bescheid, danach Ruhe
+    # Hat der Abfänger gegriffen und Kiron ändert danach das Ziel, ist er für diese Position ebenfalls aus
+    k2 = HandKonto(bid=4010.0, offer=4010.3)
+    st2, _, _, _ = hb.run(k2, _offener_short(k2), NOW, post=Post())
+    k2.pos["D9"].pop("profitLevel")
+    st2, _, _, msg3 = hb.run(k2, st2, NOW, post=Post())
+    assert st2["offen"][0]["agent"] == "aus" and "nichts mehr" in msg3[0]["text"]
+
+
+def test_schluss_durch_den_abfaenger_kommt_als_nachricht(welt, monkeypatch):
+    from suche import demo_bots
+    monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
+    k = HandKonto(bid=4010.0, offer=4010.3)
+    st, _, _, _ = hb.run(k, _offener_short(k), NOW, post=Post())
+    k.pos.pop("D9")                                               # Broker schließt am Einstieg
+    monkeypatch.setattr(demo_bots, "broker_exit", lambda client, op, now, until=None: (4000.0, "TP"))
+    st, _, fertig, msg = hb.run(k, st, NOW, post=Post())
+    assert fertig[0]["r"] == 0.0 and "am Einstieg" in msg[0]["text"]
+
+
+def test_trockenlauf_setzt_nichts(welt):
+    k = HandKonto(bid=4010.0, offer=4010.3)
+    st, log, _, _ = hb.run(k, _offener_short(k), NOW, send_orders=False, post=Post())
+    assert not _puts(k) and "abfang" not in st["offen"][0] and any(e["event"] == "würde setzen" for e in log)

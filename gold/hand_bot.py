@@ -1,5 +1,5 @@
-"""Gold-Hand-Bot: Gold Short und Long nach den drei Seiten des Gold-Short-Bots, ohne Stop und ohne Ziel, mit einer
-Nachricht aufs Handy. Kiron geht selbst raus. Nur Capital.com-DEMOKONTO, nie echtes Geld.
+"""Gold-Hand-Bot: Gold Short und Long nach den drei Seiten des Gold-Short-Bots, ohne Stop und Ziel, mit Trade-Abfänger
+und einer Nachricht aufs Handy. Kiron geht selbst raus. Nur Capital.com-DEMOKONTO, nie echtes Geld.
 
     python -m gold.hand_bot              # ein Lauf: Kerzen holen, Signal in der Kerze "jetzt"? Dann öffnen und melden
     python -m gold.hand_bot --dry-run    # nur rechnen und zeigen, keine Order, keine Nachricht
@@ -14,8 +14,12 @@ Regeln:
   Kerzen, nur fertige 1-Std.- und 4-Std.-Kerzen), dazu die Käufe derselben drei Seiten (Komitee 2, Variante longs).
 - Kommt in der Kerze "jetzt" ein Short, gilt der (erste Seite gewinnt). Ein Long nur, wenn es in dieser Kerze keinen
   Short gibt.
-- Kein Stop, kein Ziel beim Broker. Der Bot schließt nie etwas. Stop und Ziel 1 der Strategie stehen nur zur
-  Orientierung in der Nachricht.
+- Kein Ziel beim Broker. Der Bot schließt nie selbst etwas.
+- Trade-Abfänger (Kirons Wunsch vom 06.11.2026 17:49 UTC statt des Stop-Agenten von 17:12 UTC): kein Stop beim
+  Einstieg. Wird ein Trade zum Fehltrade wie beim Prüfer des Gold-Short-Bots (0,5 R gegen ihn, bevor Ziel 1 kommt),
+  setzt der Abfänger den Stop der Strategie (1 R, etwa 5 €) und das Ziel auf den Einstieg. Liegt ein Trade ohne Stop 1 R
+  im Minus (Notbremse, auch nach Ziel 1), setzt er einen Stop 0,5 R hinter den Kurs. Hat Kiron selbst Stop oder Ziel
+  gesetzt, lässt er die Position in Ruhe. Jedes Eingreifen kommt als Nachricht.
 - Größe: 5 € bis zum Stop der Strategie (nur zum Rechnen), höchstens 1 Unze je Trade und 2 Unzen zusammen, höchstens 4
   Goldpositionen zugleich auf dem Konto (auch Kirons eigene zählen).
 - Ist eine Goldposition in die andere Richtung offen, öffnet er nichts (das Konto hat kein Hedging, sonst würde die neue
@@ -46,6 +50,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from gold import short_bot as sb
@@ -78,6 +83,7 @@ FF_ALTER = pd.Timedelta(hours=6)
 RSS_URL = "https://news.google.com/rss/search?q=spot+gold+when:1d&hl=en-US&gl=US&ceid=US:en"
 SCHLAGZEILEN, SCHLAGZEILEN_STD = 3, 6
 NACHHOLEN_STD = 12                 # nicht zugestellte Nachrichten so lange nachholen
+STOP_TOL = 0.05                    # $: so weit dürfen Stop und Ziel beim Broker von unseren abweichen (Rundung)
 TERMIN_NAMEN = {"fomc": "Fed-Zinsentscheid", "cpi": "US-Inflation (CPI)", "nfp": "US-Arbeitsmarkt (NFP)"}
 
 
@@ -214,6 +220,16 @@ def _num(x) -> float | None:
     return sb._num(x)
 
 
+def _anders(broker, unser) -> bool:
+    if broker is None or unser is None:
+        return (broker is None) != (unser is None)
+    return abs(float(broker) - float(unser)) > STOP_TOL
+
+
+def _erst(mask: np.ndarray) -> int:
+    return int(np.argmax(mask)) if mask.any() else -1
+
+
 def _de(x: float, n: int = 2) -> str:
     return f"{x:,.{n}f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
@@ -334,7 +350,99 @@ class Lauf:
             self.st["trades"] = int(self.st["trades"]) + 1
             self.fertige.append(rec)
             self.ev("Trade zu", dealId=tr["dealId"], kurs=rec["exit"], r=rec.get("r"), quelle=rec["quelle"])
+            nah = max(1.0, 0.1 * tr["dist"])
+            if level is not None and tr.get("abfang") and tr.get("agent") != "aus":
+                wo = ("durch den Stop des Abfängers" if tr.get("stop") is not None and abs(level - tr["stop"]) <= nah
+                      else "am Einstieg (Abfänger)" if tr.get("ziel") is not None and abs(level - tr["ziel"]) <= nah
+                      else None)
+                if wo:
+                    wort = "LONG" if d > 0 else "SHORT"
+                    eur = f" ({_de(rec['pnl_eur'])} €)" if rec.get("pnl_eur") is not None else ""
+                    self.melde(f"Gold {wort} geschlossen", f"{_de(tr['size'])} oz von {_de(tr['entry'])} bei "
+                               f"{_de(level)} {wo} geschlossen: {_de(rec['r'])} R{eur}.", ["stop_sign"])
         self.st["offen"] = rest
+
+    # ---- Trade-Abfänger ----
+
+    def setze(self, tr: dict, stop: float | None, ziel: float | None, warum: str) -> bool:
+        body = {k: round(v, 2) for k, v in (("stopLevel", stop), ("profitLevel", ziel)) if v is not None}
+        if not self.send:
+            self.ev("würde setzen", dealId=tr["dealId"], **body, warum=warum)
+            return False
+        try:
+            ref = self.client._request("PUT", f"/positions/{tr['dealId']}", json=body).json().get("dealReference")
+            conf = self.client.confirm(ref) if ref else {}
+        except Exception as err:            # noqa: BLE001 - nächster Lauf versucht es wieder
+            self.ev("setzen fehlgeschlagen", dealId=tr["dealId"], warum=warum, fehler=str(err)[:200])
+            return False
+        if conf and str(conf.get("dealStatus") or "").upper() == "REJECTED":
+            self.ev("setzen abgelehnt", dealId=tr["dealId"], warum=warum, grund=conf.get("reason"))
+            return False
+        tr["stop"] = body.get("stopLevel")
+        tr["ziel"] = body.get("profitLevel")
+        tr["abfang"] = {"zeit": self.stamp, "warum": warum}
+        self.ev("Abfänger gesetzt", dealId=tr["dealId"], **body, warum=warum)
+        return True
+
+    def abfaenger(self, b: ts.Basis, gold: list[dict]) -> None:
+        """Kein Stop beim Einstieg. Erst wenn ein Trade falsch läuft, setzt der Abfänger etwas:
+        - Fehltrade wie der Prüfer des Gold-Short-Bots: 0,5 R gegen den Trade, bevor Ziel 1 erreicht ist. Dann Stop auf
+          den Stop der Strategie (1 R) und Ziel auf den Einstieg, damit der Trade bei null endet, wenn der Kurs
+          zurückkommt.
+        - Notbremse: liegt ein Trade ohne Stop 1 R oder mehr im Minus (auch nach Ziel 1), Stop 0,5 R hinter den Kurs.
+        Hat Kiron selbst Stop oder Ziel gesetzt oder geändert, lässt der Abfänger die Position in Ruhe."""
+        pos = {str(p["position"].get("dealId")): p["position"] for p in gold}
+        q = self.q
+        abstand = max(1.05 * (q.min_dist or 0.0), 0.01)
+        for tr in self.st["offen"]:
+            p = pos.get(tr["dealId"])
+            if p is None or tr.get("agent") == "aus":
+                continue
+            d, e, r = int(tr["richtung"]), float(tr["entry"]), float(tr["dist"])
+            wort = "LONG" if d > 0 else "SHORT"
+            kopf = f"{wort} {_de(tr['size'])} oz von {_de(e)}"
+            jetzt = q.bid if d > 0 else q.offer            # zu diesem Kurs würde ein Stop auslösen
+            b_stop, b_ziel = _num(p.get("stopLevel")), _num(p.get("profitLevel"))
+            if tr.get("abfang"):                           # schon gesetzt: nur prüfen, ob Kiron etwas geändert hat
+                if _anders(b_stop, tr.get("stop")) or _anders(b_ziel, tr.get("ziel")):
+                    self._aus(tr, kopf, b_stop, b_ziel)
+                continue
+            if b_stop is not None or b_ziel is not None:   # Kiron hat selbst Stop oder Ziel gesetzt
+                self._aus(tr, kopf, b_stop, b_ziel)
+                continue
+            j0 = int(np.searchsorted(b.t, np.datetime64(pd.Timestamp(tr["opened_utc"]).floor("15min"))))
+            if d > 0:
+                gegen, dafuer = np.r_[b.l[j0:], q.bid], np.r_[b.h[j0:], q.bid]
+                kf = _erst(gegen <= e - sb.FEHL_F * r)
+                kz = _erst(dafuer >= float(tr["ziel1_strategie"]))
+            else:
+                gegen, dafuer = np.r_[b.h[j0:] + b.sp[j0:], q.offer], np.r_[b.l[j0:] + b.sp[j0:], q.offer]
+                kf = _erst(gegen >= e + sb.FEHL_F * r)
+                kz = _erst(dafuer <= float(tr["ziel1_strategie"]))
+            minus_r = d * (e - jetzt) / r
+            fehl = kf >= 0 and not (0 <= kz < kf)
+            if not fehl and minus_r < 1.0:
+                continue
+            stop = float(tr["stop_strategie"])
+            if d * (jetzt - stop) <= abstand:              # schon hinter dem Stop der Strategie: Notbremse
+                stop = jetzt - d * 0.5 * r
+            ziel = e if fehl and d * (e - jetzt) > abstand else None
+            warum = "Fehltrade (0,5 R dagegen vor Ziel 1)" if fehl else "Notbremse (1 R im Minus)"
+            if self.setze(tr, stop, ziel, warum):
+                tr["fehl"] = self.stamp if fehl else None
+                text = f"{kopf}: {warum}. Kurs {_de(jetzt)}. Stop jetzt bei {_de(stop)}"
+                text += (f", Ziel auf dem Einstieg {_de(e)}, damit der Trade bei null endet, wenn der Kurs zurückkommt."
+                         if ziel is not None else ".")
+                self.melde("Gold: Abfänger greift", text + " Raus gehst du weiter selbst.", ["shield"])
+
+    def _aus(self, tr: dict, kopf: str, b_stop, b_ziel) -> None:
+        tr["agent"] = "aus"
+        self.ev("Abfänger aus", dealId=tr["dealId"], grund="Kiron hat Stop oder Ziel selbst gesetzt", stop=b_stop,
+                ziel=b_ziel)
+        self.melde("Gold: Abfänger lässt die Position in Ruhe",
+                   f"{kopf}: Du hast Stop oder Ziel selbst gesetzt oder geändert (Stop {_de(b_stop) if b_stop else 'keiner'}, "
+                   f"Ziel {_de(b_ziel) if b_ziel else 'keins'}). Der Abfänger ändert an dieser Position nichts mehr.",
+                   ["information_source"])
 
     # ---- Warnung vor wichtigen Terminen, wenn Gold offen ist ----
 
@@ -354,8 +462,9 @@ class Lauf:
         n_l = len(gold) - n_s
         was = ", ".join(f"{s} um {_berlin(t)} Uhr" for t, s in bald)
         self.melde("Gold: wichtiger Termin bald",
-                   f"{was}. Du hast {n_s} Short und {n_l} Long in Gold offen, ohne Stop. Der Kurs kann dann stark "
-                   f"springen. Jetzt prüfen, ob du rausgehen oder absichern willst.", ["warning"])
+                   f"{was}. Du hast {n_s} Short und {n_l} Long in Gold offen, ohne Stop, solange der Abfänger nicht "
+                   f"gegriffen hat. Der Kurs kann dann stark springen. Jetzt prüfen, ob du rausgehen willst.",
+                   ["warning"])
         self.st["gewarnt"] = (gewarnt + [f"{t.isoformat()} {s}" for t, s in bald])[-50:]
 
     # ---- Neuer Trade ----
@@ -407,8 +516,7 @@ class Lauf:
         info = {"seite": seite, "richtung": d, "kerze": str(t_ph), "signal": sig.get("signal"), "dist": round(dist, 2),
                 "hintergrund": hg, "news": nl["gruende"]}
         lage = hg_text(hg) + (f" Nächster wichtiger Termin: {nl['naechster']}." if nl["naechster"] else "")
-        orient = (f"Zur Orientierung: Stop der Strategie {_de(stop_ref)} (1 R = {_de(dist)} $), Ziel 1 bei "
-                  f"{_de(ziel_ref)}.")
+        orient = (f"Stop der Strategie {_de(stop_ref)} (1 R = {_de(dist)} $), Ziel 1 bei {_de(ziel_ref)}.")
         quelle = f"Seite {NAMEN.get(seite, seite)}, 15-Min.-Kerze bis {_berlin(t_ph)} Uhr."
         if gruende:
             self.ev("ausgelassen", **info, gruende=gruende)
@@ -443,13 +551,15 @@ class Lauf:
         level = _num(pos.get("level")) or _num((conf or {}).get("level")) or kurs
         tr = {"dealId": deal, "richtung": d, "size": sizes[0], "entry": round(level, 2), "dist": round(dist, 2),
               "seite": seite, "signal": sig.get("signal"), "einstieg_zeit": str(t_ph), "opened_utc": self.stamp,
-              "stop_strategie": round(level - d * dist, 2), "ziel1_strategie": round(level + d * sb.ZIEL_FAKTOR * dist, 2)}
+              "stop_strategie": round(level - d * dist, 2),
+              "ziel1_strategie": round(level + d * sb.ZIEL_FAKTOR * dist, 2)}
         self.st["offen"].append(tr)
         self.ev("eröffnet", **info, dealId=deal, size=sizes[0], entry=tr["entry"])
         self.melde(f"Gold {wort} eröffnet",
-                   f"{KONTO_NAME} (Demo): {_de(sizes[0])} oz bei {_de(level)}. Ohne Stop und ohne Ziel, raus gehst du "
-                   f"selbst. {quelle} Zur Orientierung: Stop der Strategie {_de(tr['stop_strategie'])} (1 R = "
-                   f"{_de(dist)} $ = etwa 5 €), Ziel 1 bei {_de(tr['ziel1_strategie'])}. {lage}",
+                   f"{KONTO_NAME} (Demo): {_de(sizes[0])} oz bei {_de(level)}. Ohne Stop und ohne Ziel, raus gehst "
+                   f"du selbst. Läuft er 0,5 R gegen dich ({_de(level - d * sb.FEHL_F * dist)}), bevor Ziel 1 "
+                   f"({_de(tr['ziel1_strategie'])}) kommt, setzt der Abfänger Stop {_de(tr['stop_strategie'])} (1 R = "
+                   f"{_de(dist)} $ = etwa 5 €) und Ziel auf den Einstieg. {quelle} {lage}",
                    ["chart_with_upwards_trend" if d > 0 else "chart_with_downwards_trend"])
 
 
@@ -482,6 +592,7 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, post=None)
             bars2, sp2 = with_now_bar(bars, spread, t_ph, q.bid, q.offer)
             b = ts.basis(bars2, sp2)
             n = len(b) - 1
+            lauf.abfaenger(b, gold)
             trades, _ = sb.simuliere(b, n)
             lauf.einstieg(b, n, trades, gold, available)
             lauf.st["letzter_kurs"] = round(float(q.bid), 2)
@@ -494,8 +605,8 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, post=None)
 
 
 START_TEXT = ("Der Gold-Hand-Bot läuft jetzt auf dem Demokonto „Account 5“ von Capital.com. Er meldet jeden Einstieg "
-              "(Short oder Long, ohne Stop und ohne Ziel) und jedes ausgelassene Signal mit Grund. Rausgehen machst "
-              "du selbst in der Capital.com-App.")
+              "(Short oder Long, ohne Stop und Ziel, mit Trade-Abfänger) und jedes ausgelassene Signal mit Grund. "
+              "Rausgehen machst du selbst in der Capital.com-App.")
 
 
 def start_nachricht(st: dict, post=None) -> bool:
@@ -510,10 +621,12 @@ def start_nachricht(st: dict, post=None) -> bool:
 
 def cockpit(st: dict, alle: list[dict]) -> dict:
     r = [float(t["r"]) for t in alle if t.get("r") is not None]
-    return {"bot": BOT_ID, "name": "Gold-Hand-Bot (Short und Long ohne Stop, Kiron geht selbst raus)",
+    return {"bot": BOT_ID, "name": "Gold-Hand-Bot (Short und Long mit Trade-Abfänger, Kiron geht selbst raus)",
             "konto": "…" + KONTO[-4:], "stand": st.get("stand"), "start": st.get("start"),
-            "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. Nachricht "
-                      "über ntfy, Kiron schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, 2 oz."),
+            "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. "
+                      "Trade-Abfänger: bei Fehltrade (0,5 R dagegen vor Ziel 1) Stop 1 R und Ziel am Einstieg, "
+                      "Notbremse ab 1 R Minus. Nachricht über ntfy, Kiron schließt selbst. 5 € je Strategie-R, "
+                      "höchstens 4 Goldpositionen, 2 oz."),
             "vorab": "suche/VORAB_gold_hand.yaml", "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": ts.pf(r) if r else None, "summe_r": round(sum(r), 2),
                                 "summe_eur": round(sum(float(t.get("pnl_eur") or 0) for t in alle), 2),

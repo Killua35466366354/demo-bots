@@ -3290,10 +3290,10 @@
     }
    ],
    "demo": {
-    "trades": 0,
-    "pf": null,
-    "summe_r": 0,
-    "pruefung": "0 von 15 Trades bis zur ersten Prüfung",
+    "trades": 1,
+    "pf": 0.0,
+    "summe_r": -1.02,
+    "pruefung": "1 von 15 Trades bis zur ersten Prüfung",
     "rutschen": {
      "trades": 0,
      "median_pips": null

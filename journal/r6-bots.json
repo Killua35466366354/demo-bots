@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-06T08:46:59.824754",
+ "stand_utc": "2026-11-06T09:01:47.560892",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -147,7 +147,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:46:59.824754",
+    "zeit": "2026-11-06T09:01:47.560892",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -269,15 +269,35 @@
    "kontostand": 1000.5,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "wartet auf das nächste Signal",
-   "offen": null,
+   "status": "Position offen",
+   "offen": {
+    "dealId": "00000000-714d-fecd-049c-70750015549e",
+    "side": 1,
+    "tag": "2026-11-06",
+    "signal_bar": "2026-11-06 08:45:00",
+    "einstieg_kerze": "2026-11-06 09:00:00",
+    "entry": 158.189,
+    "stop_level": 156.414,
+    "ziel_level": null,
+    "notstop": true,
+    "size": 900.0,
+    "lot": 1.0,
+    "currency": "JPY",
+    "eur_rate": 176.834,
+    "opened_utc": "2026-11-06T09:01:50.249",
+    "konto_kurz": "…6542"
+   },
    "orders": null,
-   "position": null,
+   "position": {
+    "upl": -0.06,
+    "stop": 156.414,
+    "ziel": null
+   },
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:46:59.824754",
-    "action": "none",
+    "zeit": "2026-11-06T09:01:47.560892",
+    "action": "open",
     "why": [
-     "kein Signal"
+     "Schluss 158.152 über dem Band (158.055)"
     ]
    },
    "zusammenfassung": {
@@ -458,7 +478,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:46:59.824754",
+    "zeit": "2026-11-06T09:01:47.560892",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -565,7 +585,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:46:59.824754",
+    "zeit": "2026-11-06T09:01:47.560892",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -672,7 +692,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:46:59.824754",
+    "zeit": "2026-11-06T09:01:47.560892",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -819,7 +839,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-06T08:46:59.824754",
+    "zeit": "2026-11-06T09:01:47.560892",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

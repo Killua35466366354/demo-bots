@@ -108,7 +108,7 @@ class Post:
         return type("R", (), {"status_code": 200})()
 
 
-def test_short_mit_stop_ohne_ziel_mit_nachricht(welt, monkeypatch):
+def test_short_ohne_stop_und_ziel_mit_nachricht(welt, monkeypatch):
     monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
     welt["trades"]["gross_box_kerze"] = [_signal(dist=20.0)]
     welt["trades"]["gross_box"] = [_signal(dist=30.0)]                  # gleicher Einstieg: die erste Seite gilt
@@ -117,12 +117,13 @@ def test_short_mit_stop_ohne_ziel_mit_nachricht(welt, monkeypatch):
     posts = [c for c in k.calls if c[0] == "POST"]
     assert len(posts) == 1
     body = posts[0][2]
-    assert body["direction"] == "SELL" and body["stopDistance"] == 20.0 and "profitDistance" not in body
+    assert body["direction"] == "SELL" and "stopDistance" not in body and "profitDistance" not in body
     assert body["size"] == 0.27                                          # 5 € je 20 $ bei EUR/USD 1,08
     assert st["offen"][0]["seite"] == "gross_box_kerze" and st["offen"][0]["stop_strategie"] == 4020.0
     assert len(post.calls) == 1 and post.calls[0][1]["topic"] == "gold-hand-test"
-    assert st["offen"][0]["stop"] == 4020.0 and "profitLevel" not in k.pos[st["offen"][0]["dealId"]]
-    assert "SHORT eröffnet" in post.calls[0][1]["title"] and "Stop bei 4.020,00" in post.calls[0][1]["message"]
+    assert "stop" not in st["offen"][0] and "stopLevel" not in k.pos[st["offen"][0]["dealId"]]
+    m = post.calls[0][1]["message"]
+    assert "SHORT eröffnet" in post.calls[0][1]["title"] and "Ohne Stop" in m and "Abfänger" in m
     assert k.account_id == HAUPT                                         # zurück aufs Hauptkonto
     # Nächster Lauf mit derselben Kerze: nichts Neues, keine zweite Nachricht
     st2, _, _, msg2 = hb.run(k, st, NOW, post=post)
@@ -357,84 +358,85 @@ def test_start_nachricht_und_token(monkeypatch):
     assert gesehen["json"]["message"] == "t" and "Account 5" in hb.START_TEXT
 
 
-def _offener_short(k, entry=4000.0, dist=20.0, stop=4020.0, deal="D9"):
-    """Ein Short des Bots, eröffnet um 15:00 UTC, mit oder ohne Stop beim Broker."""
+def _offener_short(k, entry=4000.0, dist=20.0, stop=None, ziel=None, deal="D9", seit="2026-03-04T15:00:00"):
+    """Ein Short des Bots ohne Stop beim Broker (oder mit dem, was Kiron gesetzt hat)."""
     p = {"dealId": deal, "level": entry, "size": 0.27, "direction": "SELL"}
     if stop is not None:
         p["stopLevel"] = stop
+    if ziel is not None:
+        p["profitLevel"] = ziel
     k.pos[deal] = p
     tr = {"dealId": deal, "richtung": -1, "size": 0.27, "entry": entry, "dist": dist, "seite": "gross_box",
-          "einstieg_zeit": "2026-03-04 15:00:00", "opened_utc": "2026-03-04T15:00:00",
+          "einstieg_zeit": seit.replace("T", " "), "opened_utc": seit,
           "stop_strategie": entry + dist, "ziel1_strategie": entry - sb.ZIEL_FAKTOR * dist}
-    if stop is not None:
-        tr["stop"] = stop
     return {"start": "2026-03-04T00:00:00", "offen": [tr]}
 
 
 def _puts(k):
-    return [c[2]["stopLevel"] for c in k.calls if c[0] == "PUT"]
+    return [c[2] for c in k.calls if c[0] == "PUT"]
 
 
-def test_stop_agent_einstand_und_nachziehen(welt, monkeypatch):
+def test_abfaenger_greift_erst_beim_fehltrade(welt, monkeypatch):
     monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
-    k, post = HandKonto(bid=3990.0, offer=3990.3), Post()       # 0,5 R im Plus, Ziel 1 (3985) noch nicht erreicht
-    st, _, _, _ = hb.run(k, _offener_short(k), NOW, post=post)
-    assert not _puts(k) and st["offen"][0]["stop"] == 4020.0
-    k.bid, k.offer = 3984.0, 3984.3                               # Ziel 1 erreicht: Stop auf den Einstieg
+    k, post = HandKonto(bid=4004.7, offer=4005.0), Post()        # 0,25 R dagegen: nichts
+    st, _, _, msg = hb.run(k, _offener_short(k), NOW, post=post)
+    assert not _puts(k) and not msg
+    k.bid, k.offer = 4009.7, 4010.0                               # 0,5 R dagegen vor Ziel 1: Fehltrade
     st, _, _, msg = hb.run(k, st, NOW, post=post)
-    assert _puts(k) == [4000.0] and k.pos["D9"]["stopLevel"] == 4000.0 and "Einstieg" in msg[-1]["text"]
-    k.bid, k.offer = 3959.0, 3959.3                               # 2 R erreicht: Stop auf +1 R
-    st, _, _, _ = hb.run(k, st, NOW, post=post)
-    assert _puts(k) == [4000.0, 3980.0]
-    k.bid, k.offer = 3975.0, 3975.3                               # Kurs läuft zurück: Stop bleibt, nie weiter weg
-    st, _, _, _ = hb.run(k, st, NOW, post=post)
-    assert _puts(k) == [4000.0, 3980.0] and st["offen"][0]["bester"] <= 3959.3
+    assert _puts(k) == [{"stopLevel": 4020.0, "profitLevel": 4000.0}]
+    assert k.pos["D9"]["stopLevel"] == 4020.0 and "Abfänger greift" in msg[0]["titel"] and st["offen"][0]["fehl"]
+    k.bid, k.offer = 4014.7, 4015.0                               # weiter dagegen: nichts Neues
+    st, _, _, msg = hb.run(k, st, NOW, post=post)
+    assert len(_puts(k)) == 1 and not msg
     assert not [c for c in k.calls if c[0] == "DELETE"]           # der Bot schließt nie selbst
 
 
-def test_stop_agent_laesst_kirons_stop_in_ruhe(welt, monkeypatch):
+def test_nach_ziel_1_kein_fehltrade_aber_notbremse(welt):
+    bars, sp = welt["kerzen"]
+    bars = bars.copy()
+    bars.loc[pd.Timestamp("2026-03-04 14:00"), "low"] = 3984.0    # Ziel 1 (3985) um 14:00 erreicht
+    welt["kerzen"] = (bars, sp)
+    k = HandKonto(bid=4011.0, offer=4011.3)                      # danach 0,56 R dagegen: kein Fehltrade
+    st, _, _, _ = hb.run(k, _offener_short(k, seit="2026-03-04T13:00:00"), NOW, post=Post())
+    assert not _puts(k)
+    k.bid, k.offer = 4025.0, 4025.3                               # 1,26 R im Minus: Notbremse 0,5 R hinter den Kurs
+    st, _, _, msg = hb.run(k, st, NOW, post=Post())
+    assert _puts(k) == [{"stopLevel": 4035.3}] and "Notbremse" in msg[0]["text"]
+
+
+def test_fehltrade_hinter_dem_stop_der_strategie(welt):
+    k = HandKonto(bid=4030.0, offer=4030.3)                      # Sprung über 1 R hinaus
+    st, _, _, _ = hb.run(k, _offener_short(k), NOW, post=Post())
+    assert _puts(k) == [{"stopLevel": 4040.3, "profitLevel": 4000.0}]
+
+
+def test_abfaenger_laesst_kirons_stop_in_ruhe(welt, monkeypatch):
     monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
-    k = HandKonto(bid=3950.0, offer=3950.3)
-    st0 = _offener_short(k)
-    k.pos["D9"]["stopLevel"] = 3995.0                             # Kiron hat den Stop in der App geändert
-    st, log, _, msg = hb.run(k, st0, NOW, post=Post())
-    assert not _puts(k) and st["offen"][0]["agent"] == "aus" and "selbst geändert" in msg[0]["text"]
+    k = HandKonto(bid=4015.0, offer=4015.3)
+    st, _, _, msg = hb.run(k, _offener_short(k, stop=4030.0), NOW, post=Post())
+    assert not _puts(k) and st["offen"][0]["agent"] == "aus" and "selbst gesetzt" in msg[0]["text"]
     st, _, _, msg2 = hb.run(k, st, NOW, post=Post())
     assert not _puts(k) and not msg2                              # einmal Bescheid, danach Ruhe
+    # Hat der Abfänger gegriffen und Kiron ändert danach das Ziel, ist er für diese Position ebenfalls aus
+    k2 = HandKonto(bid=4010.0, offer=4010.3)
+    st2, _, _, _ = hb.run(k2, _offener_short(k2), NOW, post=Post())
+    k2.pos["D9"].pop("profitLevel")
+    st2, _, _, msg3 = hb.run(k2, st2, NOW, post=Post())
+    assert st2["offen"][0]["agent"] == "aus" and "nichts mehr" in msg3[0]["text"]
 
 
-def test_stop_agent_traegt_stop_bei_alten_trades_nach(welt):
-    k = HandKonto(bid=4005.0, offer=4005.3)
-    st, _, _, msg = hb.run(k, _offener_short(k, stop=None), NOW, post=Post())
-    assert _puts(k) == [4020.0] and st["offen"][0]["stop"] == 4020.0 and "übernimmt" in msg[0]["titel"]
-    k2 = HandKonto(bid=4025.0, offer=4025.3)                     # Stop der Strategie schon überschritten
-    st2, _, _, msg2 = hb.run(k2, _offener_short(k2, stop=None), NOW, post=Post())
-    assert not _puts(k2) and st2["offen"][0]["agent"] == "aus" and "kein Stop" in msg2[0]["titel"]
-
-
-def test_stop_agent_sichert_vor_wichtigem_termin(welt, monkeypatch):
-    termin = pd.Timestamp(NOW).tz_localize(None) + pd.Timedelta(minutes=30)
-    monkeypatch.setattr(hb, "alle_termine", lambda st, now: [(termin, "US-Inflation (CPI)")])
-    k = HandKonto(bid=3989.0, offer=3989.3)                      # gut 0,5 R im Plus, Ziel 1 nicht erreicht
-    st, _, _, msg = hb.run(k, _offener_short(k), NOW, post=Post())
-    assert _puts(k) == [4000.0] and any("CPI" in m["text"] for m in msg)
-    k2 = HandKonto(bid=3995.0, offer=3995.3)                     # nur 0,25 R im Plus: Stop bleibt
-    hb.run(k2, _offener_short(k2), NOW, post=Post())
-    assert not _puts(k2)
-
-
-def test_schluss_durch_den_stop_kommt_als_nachricht(welt, monkeypatch):
+def test_schluss_durch_den_abfaenger_kommt_als_nachricht(welt, monkeypatch):
     from suche import demo_bots
     monkeypatch.setenv("NTFY_THEMA", "gold-hand-test")
-    k = HandKonto()
-    st0 = _offener_short(k)
-    k.pos.pop("D9")                                               # Broker hat den Stop ausgelöst
-    monkeypatch.setattr(demo_bots, "broker_exit", lambda client, op, now, until=None: (4020.0, "SL"))
-    st, _, fertig, msg = hb.run(k, st0, NOW, post=Post())
-    assert fertig[0]["r"] == -1.0 and "durch den Stop" in msg[0]["titel"]
+    k = HandKonto(bid=4010.0, offer=4010.3)
+    st, _, _, _ = hb.run(k, _offener_short(k), NOW, post=Post())
+    k.pos.pop("D9")                                               # Broker schließt am Einstieg
+    monkeypatch.setattr(demo_bots, "broker_exit", lambda client, op, now, until=None: (4000.0, "TP"))
+    st, _, fertig, msg = hb.run(k, st, NOW, post=Post())
+    assert fertig[0]["r"] == 0.0 and "am Einstieg" in msg[0]["text"]
 
 
-def test_trockenlauf_aendert_keinen_stop(welt):
-    k = HandKonto(bid=3984.0, offer=3984.3)
+def test_trockenlauf_setzt_nichts(welt):
+    k = HandKonto(bid=4010.0, offer=4010.3)
     st, log, _, _ = hb.run(k, _offener_short(k), NOW, send_orders=False, post=Post())
-    assert not _puts(k) and st["offen"][0]["stop"] == 4020.0 and any(e["event"] == "würde Stop setzen" for e in log)
+    assert not _puts(k) and "abfang" not in st["offen"][0] and any(e["event"] == "würde setzen" for e in log)

@@ -56,7 +56,7 @@ jobs:
 
       # Tests nur nach einer Code-Änderung und einmal am Tag (Minuten sparen, 05.11.2026): Die Tests brauchten gut die
       # Hälfte jedes 15-Minuten-Laufs, obwohl sich der Code zwischen zwei Läufen fast nie ändert. Der Schlüssel ist der
-      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle sechs Testgruppen mit genau diesem Stand
+      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle sieben Testgruppen mit genau diesem Stand
       # heute schon grün, springt jede Gruppe darüber. Sonst gilt wie immer: ohne grüne Tests kein Lauf.
       - name: Code-Stand für die Tests
         id: code
@@ -188,7 +188,10 @@ jobs:
       # Konto 5, das er mit dem Dow-Laborbot teilt. Nur Demo, nie das Hauptkonto des Gold-Bots. Regeln und Urteil in
       # suche/VORAB_gold_short.yaml, Code gold/short_bot.py. Schreibt nur journal/gold-short/ und journal/gold-short.json.
       # Ein Fehler hier hält die anderen Bots und das Journal nie auf.
-      - name: Gold-Short-Bot (große Strategie nur Shorts)
+      # Seit Kirons Wahl vom 06.11.2026 ruht der Gold-Short-Bot: Konto 5 gehört dem Gold-Hand-Bot (nächster Schritt), der
+      # dieselben Shorts ohne Stop nimmt. Zwei Gold-Bots ohne Hedging auf einem Konto würden sich gegenseitig Positionen
+      # schließen. Die Tests laufen weiter, der Bot öffnet nichts mehr. Er hatte bis dahin keinen Trade.
+      - name: Gold-Short-Bot (ruht, Konto 5 an den Gold-Hand-Bot)
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -202,10 +205,31 @@ jobs:
             python -m pytest -q tests/test_gold_short.py tests/test_tiktok_schatten.py
             touch .tests-ok/gold_short
           fi
+          echo "Gold-Short-Bot ruht seit 06.11.2026 (Kirons Wahl: Konto 5 an den Gold-Hand-Bot), keine Order"
+
+      # Gold-Hand-Bot (Kirons Wunsch vom 06.11.2026 15:51 UTC): Einstiege der drei Seiten des Gold-Short-Bots, Shorts und
+      # Longs, ohne Stop und ohne Ziel. Kiron bekommt über ntfy eine Nachricht und schließt selbst. Nur Demo, Account 5,
+      # nie das Hauptkonto des Gold-Bots. Regeln in suche/VORAB_gold_hand.yaml, Code gold/hand_bot.py. Schreibt nur
+      # journal/gold-hand/ und journal/gold-hand.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: Gold-Hand-Bot (Short und Long ohne Stop, Nachricht aufs Handy)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          NTFY_THEMA: ${{ secrets.NTFY_THEMA }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_gold_hand.py
+            touch .tests-ok/gold_hand
+          fi
           if [ "$DRY_RUN" = "true" ]; then
-            python -m gold.short_bot --dry-run
+            python -m gold.hand_bot --dry-run
           else
-            python -m gold.short_bot
+            python -m gold.hand_bot
           fi
 
       # London-Breakout EUR/USD und Asien-ORB GBP/NZD: beendet am 04.11.2026, Kirons Entscheidung nach der
@@ -231,7 +255,7 @@ jobs:
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
       # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
       # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens
-      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den sechs Testgruppen.
+      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den sieben Testgruppen.
       - name: Demo-Vergleich aller Bots
         if: ${{ !cancelled() && inputs.dry_run != true }}
         continue-on-error: true
@@ -243,13 +267,13 @@ jobs:
           fi
           python -m suche.vergleich --schreiben
 
-      # Nur wenn alle sechs Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
+      # Nur wenn alle sieben Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
       - name: Alle Testgruppen grün?
         id: alle
         if: ${{ !cancelled() && steps.tests_ok.outputs.cache-hit != 'true' }}
         run: |
           n=$(ls .tests-ok | wc -l)
-          if [ "$n" -ge 6 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 6 Testgruppen grün"; fi
+          if [ "$n" -ge 7 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 7 Testgruppen grün"; fi
 
       - name: Grünen Stand merken
         if: ${{ !cancelled() && steps.alle.outputs.gruen == 'true' }}

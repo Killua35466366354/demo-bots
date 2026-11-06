@@ -24,6 +24,13 @@ Strategien (wie portfolio-manager suche/runde12.py und runde12b.py):
   Beginn der Box, bei jedem 15-Min.-Wechsel des SuperTrend 20/1,75 und bei jedem 15-Min.-Strukturbruch in Boxrichtung,
   nur mit starker Signalkerze (Schluss im äußeren Drittel in Trade-Richtung), höchstens 3 offen. Ein Drittel bei 1 R,
   dann Einstand, der Rest bis zur neuen Box. Zählt ab ihrem eigenen ersten Lauf.
+- alle_sieben: die Gesamt-Strategie (portfolio-manager suche/VORAB_runde12e.yaml, dort 11/2024 bis 10/2026 PF_R 1,03,
+  durchgefallen). Alle sieben Teile handeln zugleich wie allein, jeder Trade mit demselben Risiko, Kauf und Verkauf
+  dürfen zugleich offen sein. Die Teile sind gross_box_kerze, gross_box, stream_box, box_175, gross_klein_3, box_1h und
+  box_laufen. Die drei Teile gross_box (wie gross_box_kerze ohne Kerzen-Filter), box_1h (SuperTrend 20/2 auf 1 Std.)
+  und box_laufen (wie stream_box) rechnet der Schatten nur als Teile mit, ohne eigenes Urteil. Bei box_1h und box_laufen
+  geht ein Drittel bei 1 R, dann Einstand, der Rest bis zum Gegensignal. Die Gesamt-Linie zählt ab ihrem eigenen ersten
+  Lauf. Urteil frühestens 4 Wochen danach und nach mindestens 200 fertigen Trades, PF_R mindestens 1,2 und Summe R über 0.
 - gross_klein_3: Strukturbruch (Schluss über dem letzten Swing-Hoch, Swing-Länge 5) auf 15 Min., 1 Std. und 4 Std.
   (4 Std. ab 18:00 New York wie TradingView/OANDA). Ein 15-Min.-Signal zählt nur, wenn die 4-Std.- und die 1-Std.-Box
   in dieselbe Richtung laufen und der Kurs in der grünen Zone der 4-Std.-Box liegt (zwischen Einstieg und TP3). Stop am
@@ -62,8 +69,12 @@ SATZ = {1: 6.5, -1: 2.0}                     # Übernachtgebühr in % im Jahr
 URTEIL_NACH, URTEIL_PF = 40, 1.2
 MIN_BARS = 400                                # etwa 4 Handelstage Vorlauf für 4-Std.-Swings und ATR
 CHUNK_DAYS = 10                               # weniger als 1.000 Viertelstunden-Kerzen je Abruf
-STRATEGIEN = ("stream_box", "gross_klein_3", "box_175", "gross_box_kerze")
-MEHRFACH = ("gross_box_kerze",)               # mehrere Trades zugleich offen
+STRATEGIEN = ("stream_box", "gross_klein_3", "box_175", "gross_box_kerze", "gross_box", "box_1h", "box_laufen")
+MEHRFACH = ("gross_box_kerze", "gross_box")   # mehrere Trades zugleich offen
+NUR_TEIL = ("gross_box", "box_1h", "box_laufen")   # nur Teile der Gesamt-Linie, ohne eigenes Urteil
+GESAMT = "alle_sieben"                        # portfolio-manager suche/VORAB_runde12e.yaml
+TEILE = ("gross_box_kerze", "gross_box", "stream_box", "box_175", "gross_klein_3", "box_1h", "box_laufen")
+GESAMT_NACH, GESAMT_TAGE = 200, 28
 GROSS_MAX_OFFEN = 3
 LAUFEN = ((1.0, 1e9), (1 / 3, 2 / 3))         # ein Drittel bei 1 R, der Rest bis zur neuen Box
 
@@ -277,7 +288,9 @@ def _zeit(b: Basis, j: int) -> str:
     return str(pd.Timestamp(b.t[min(j, len(b) - 1)]))
 
 
-def signalbox(b: Basis, e: Ebene, sig: list[Signal], erlaubt=None, zwang=None) -> list[dict]:
+def signalbox(b: Basis, e: Ebene, sig: list[Signal], erlaubt=None, zwang=None, fuehrung=None) -> list[dict]:
+    """fuehrung=None: Drittel bei 1, 2, 3 R. fuehrung=LAUFEN: ein Drittel bei 1 R, der Rest bis zum Gegensignal."""
+    ziele, gewichte = fuehrung or (ZIELE, GEWICHTE)
     n = len(b)
     eintritt = [int(e.i1[s.k]) + 1 for s in sig]
     naechstes_gegen = [n] * len(sig)
@@ -303,15 +316,16 @@ def signalbox(b: Basis, e: Ebene, sig: list[Signal], erlaubt=None, zwang=None) -
         jf = naechstes_gegen[q] if zwang is None else min(naechstes_gegen[q], zwang(s))
         if jf <= j0:
             continue
-        teile, offen = fuehre(b, s.d, j0, jf, einstieg, stop)
+        teile, offen = fuehre(b, s.d, j0, jf, einstieg, stop, ziele, gewichte)
         res = ergebnis_r(b, s.d, j0, einstieg, dist, teile, offen)
         letzt_j = max([t["j"] for t in teile], default=n - 1) if not offen else n - 1
         grund = "offen" if offen else max(teile, key=lambda t: t["j"])["grund"]
         ende = _zeit(b, letzt_j) if grund == "gegensignal" else str(pd.Timestamp(b.t[letzt_j]) + pd.Timedelta("15min"))
         out.append({"signal": str(pd.Timestamp(e.ende[s.k])), "einstieg_zeit": _zeit(b, j0), "richtung": s.d,
                     "einstieg": round(einstieg, 2), "stop": round(stop, 2),
-                    "tp1": round(einstieg + s.d * dist, 2), "tp2": round(einstieg + s.d * 2 * dist, 2),
-                    "tp3": round(einstieg + s.d * 3 * dist, 2), "r_usd": round(dist, 2),
+                    "tp1": round(einstieg + s.d * dist, 2),
+                    "tp2": round(einstieg + s.d * 2 * dist, 2) if fuehrung is None else None,
+                    "tp3": round(einstieg + s.d * 3 * dist, 2) if fuehrung is None else None, "r_usd": round(dist, 2),
                     "teile": [{"grund": t["grund"], "px": round(t["px"], 2), "zeit": _zeit(b, t["j"]),
                                "anteil": round(t["w"], 3)} for t in teile],
                     "ergebnis_r": round(res, 3), "grund": grund, "ende": None if offen else ende, "offen": offen,
@@ -443,6 +457,9 @@ def alle(b: Basis) -> tuple[dict[str, list[dict]], dict]:
     out["gross_klein_3"] = gross_klein(b, m15, strukturbrueche(m15), box4, box1)
     out["box_175"] = signalbox(b, m15, st_signale(m15, ST_FAKTOR_GENAUER))
     out["gross_box_kerze"] = gross_box(b, m15, h1, h4, kerze=True)
+    out["gross_box"] = gross_box(b, m15, h1, h4, kerze=False)
+    out["box_1h"] = signalbox(b, h1, st_signale(h1), fuehrung=LAUFEN)
+    out["box_laufen"] = signalbox(b, m15, st_signale(m15), fuehrung=LAUFEN)
 
     def richtung(faktor: float) -> dict:
         richt, linie = supertrend(m15.h, m15.l, m15.c, faktor=faktor)
@@ -478,6 +495,43 @@ def zusammenfassung(fertig: list[dict]) -> dict:
             "trefferquote": round(sum(x > 0 for x in r) / n, 3) if n else None, "urteil": urteil}
 
 
+def _naiv(now: datetime) -> pd.Timestamp:
+    t = pd.Timestamp(now)
+    return t.tz_convert(None) if t.tzinfo else t
+
+
+def gesamt(st: dict, now: datetime) -> dict:
+    """Die Gesamt-Linie alle_sieben aus den fertigen und offenen Trades der sieben Teile ab ihrem eigenen Start.
+    Das Urteil fällt einmal, sobald 4 Wochen um und 200 Trades fertig sind, und bleibt dann stehen."""
+    start = pd.Timestamp(st["start_je"][GESAMT])
+    fertig = [t for n in TEILE for t in st["fertig"].get(n, []) if pd.Timestamp(t["einstieg_zeit"]) >= start]
+    offen = []
+    for n in TEILE:
+        o = (st.get("offen") or {}).get(n)
+        for t in (o if isinstance(o, list) else [o] if o else []):
+            if pd.Timestamp(t["einstieg_zeit"]) >= start:
+                offen.append(t)
+    r = [t["ergebnis_r"] for t in sorted(fertig, key=lambda t: t["ende"] or "")]
+    alt = (st.get("gesamt") or {}).get("urteil", "")
+    frueh = start + pd.Timedelta(days=GESAMT_TAGE)
+    n = len(r)
+    if alt.startswith(("bestanden", "durchgefallen")):
+        urteil = alt
+    elif n >= GESAMT_NACH and _naiv(now) >= frueh:
+        ok = (pf(r) or 0) >= URTEIL_PF and sum(r) > 0
+        urteil = (f"bestanden am {now.date()}, Vorschlag an Kiron" if ok else
+                  f"durchgefallen am {now.date()}, Gesamt-Linie endet") + f" ({n} Trades, PF_R {pf(r)})"
+    else:
+        urteil = f"läuft ({n} von {GESAMT_NACH} Trades, Urteil frühestens {frueh.date()})"
+    return {"start": str(start), "trades": n, "pf_r": pf(r), "summe_r": round(float(sum(r)), 2),
+            "trefferquote": round(sum(x > 0 for x in r) / n, 3) if n else None,
+            "kaeufe": sum(t["richtung"] > 0 for t in fertig), "verkaeufe": sum(t["richtung"] < 0 for t in fertig),
+            "offen_long": sum(t["richtung"] > 0 for t in offen), "offen_short": sum(t["richtung"] < 0 for t in offen),
+            "je_teil": {k: round(float(sum(t["ergebnis_r"] for t in st["fertig"].get(k, [])
+                                           if pd.Timestamp(t["einstieg_zeit"]) >= start)), 2) for k in TEILE},
+            "urteil": urteil}
+
+
 def _sauber(t: dict) -> dict:
     return {k: v for k, v in t.items() if not k.startswith("_")}
 
@@ -491,7 +545,7 @@ def step(bars: pd.DataFrame, spread: pd.Series, state: dict, now: datetime) -> t
     # Jede Strategie zählt ab ihrem eigenen ersten Lauf, eine später dazugekommene (box_175) nicht rückwirkend.
     alt_fertig = state.get("fertig")
     start_je = dict(st.get("start_je") or {})
-    for name in STRATEGIEN:
+    for name in STRATEGIEN + (GESAMT,):
         if name not in start_je:
             start_je[name] = st["start"] if alt_fertig is None or name in alt_fertig else jetzt_start
     st["start_je"] = start_je
@@ -534,11 +588,18 @@ def step(bars: pd.DataFrame, spread: pd.Series, state: dict, now: datetime) -> t
                         "Stream-Box)", "text_175": text(vorhersage["genauer_175"]) + " (SuperTrend 20/1,75, genauerer "
                         "Nachbau)", "text_gross": gross_text + " (gross_box_kerze, nur in dieser Richtung neue Trades)"}
     st["zusammenfassung"] = {name: zusammenfassung(st["fertig"][name]) for name in STRATEGIEN}
+    for name in NUR_TEIL:
+        st["zusammenfassung"][name]["urteil"] = "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
+    st["gesamt"] = gesamt(st, now)
+    g = st["gesamt"]
+    st["vorhersage"]["text_gesamt"] = (f"Alle sieben zusammen: {g['offen_long']} Long und {g['offen_short']} Short "
+                                       "offen (Gesamt-Strategie, alle Teile zugleich)")
     st["stand"] = now.isoformat(timespec="seconds")
     st["letzte_kerze"] = str(pd.Timestamp(b.t[-1]))
-    st["hinweis"] = ("Nur Schatten, keine Order. Keine der vier Strategien hat einen Backtest bestanden (portfolio-"
-                     "manager suche/VORAB_runde12b.yaml, VORAB_runde12c.yaml und VORAB_runde12d.yaml). Urteil nach 40 "
-                     "fertigen Trades je Strategie.")
+    st["hinweis"] = ("Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager "
+                     "suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, "
+                     "bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und "
+                     "box_laufen sind nur Teile der Gesamt-Linie.")
     return st, events
 
 
@@ -621,7 +682,8 @@ def main(argv: list[str]) -> int:
         with open(journal / LOG, "a", encoding="utf-8") as fh:
             for ev in events:
                 fh.write(json.dumps(ev, ensure_ascii=False) + "\n")
-    print(json.dumps({"vorhersage": st["vorhersage"], "zusammenfassung": st["zusammenfassung"], "ereignisse": events},
+    print(json.dumps({"vorhersage": st["vorhersage"], "zusammenfassung": st["zusammenfassung"], "gesamt": st["gesamt"],
+                      "ereignisse": events},
                      ensure_ascii=False))
     return 0
 

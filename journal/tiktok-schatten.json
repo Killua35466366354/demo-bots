@@ -2,16 +2,40 @@
  "start": "2026-11-06 08:00:00",
  "fertig": {
   "stream_box": [],
-  "gross_klein_3": []
+  "gross_klein_3": [],
+  "box_175": []
  },
- "offen": {},
+ "offen": {
+  "stream_box": {
+   "signal": "2026-11-06 08:30:00",
+   "einstieg_zeit": "2026-11-06 08:30:00",
+   "richtung": 1,
+   "einstieg": 4064.9,
+   "stop": 4043.02,
+   "tp1": 4086.78,
+   "tp2": 4108.66,
+   "tp3": 4130.54,
+   "r_usd": 21.88,
+   "teile": [],
+   "ergebnis_r": 0.5,
+   "grund": "offen",
+   "ende": null,
+   "offen": true
+  }
+ },
  "vorhersage": {
-  "richtung": -1,
-  "linie": 4063.15,
-  "kerze": "2026-11-06 08:00:00",
-  "kurs": 4055.49,
+  "richtung": 1,
+  "linie": 4052.46,
   "gerade_gedreht": false,
-  "text": "Verkauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)"
+  "kerze": "2026-11-06 09:00:00",
+  "kurs": 4075.84,
+  "genauer_175": {
+   "richtung": 1,
+   "linie": 4054.94,
+   "gerade_gedreht": false
+  },
+  "text": "Kauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
+  "text_175": "Kauf (SuperTrend 20/1,75, genauerer Nachbau)"
  },
  "zusammenfassung": {
   "stream_box": {
@@ -27,9 +51,21 @@
    "summe_r": 0.0,
    "trefferquote": null,
    "urteil": "läuft (0 von 40 Trades)"
+  },
+  "box_175": {
+   "trades": 0,
+   "pf_r": null,
+   "summe_r": 0.0,
+   "trefferquote": null,
+   "urteil": "läuft (0 von 40 Trades)"
   }
  },
- "stand": "2026-11-06T08:11:34+00:00",
- "letzte_kerze": "2026-11-06 07:45:00",
- "hinweis": "Nur Schatten, keine Order. Beide Strategien haben keinen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml). Urteil nach 40 fertigen Trades je Strategie."
+ "stand": "2026-11-06T09:11:29+00:00",
+ "letzte_kerze": "2026-11-06 08:45:00",
+ "hinweis": "Nur Schatten, keine Order. Keine der drei Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml und VORAB_runde12c.yaml). Urteil nach 40 fertigen Trades je Strategie.",
+ "start_je": {
+  "stream_box": "2026-11-06 08:00:00",
+  "gross_klein_3": "2026-11-06 08:00:00",
+  "box_175": "2026-11-06 09:00:00"
+ }
 }

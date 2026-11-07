@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-07T22:31:38.002965",
+ "stand_utc": "2026-11-07T22:46:39.430133",
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "regel": "Trend-Rücksetzer US100 (Nasdaq 100) (Runde 5b/5c, gleiche Regel wie US500): einmal am Tag um 15 Uhr New York; über dem 200-Tage-Schnitt kaufen, wenn RSI(2) unter 10 schließt, darunter verkaufen bei RSI(2) über 90; raus über/unter dem 5-Tage-Schnitt, beim Gegensignal oder nach 5 Handelstagen; Notstop 3 x ATR(20), kein Ziel, kleinste Größe. Capital.com-Tageskerzen 2025 bis Oktober 2026: 23 Trades, Gewinnfaktor 1,91.",
  "bot": "r5-ruecksetzer-us100",
@@ -12,7 +12,7 @@
  "offen": null,
  "position": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-07T22:31:38.002965",
+  "zeit": "2026-11-07T22:46:39.430133",
   "action": "none",
   "why": "Wochenende",
   "bar": null

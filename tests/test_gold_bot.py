@@ -644,3 +644,31 @@ def test_safety_switch_never_stops_the_exit(tmp_path, monkeypatch):
     client = BrokerClient(bars, position=open_long_state(tmp_path, bars))
     rec = runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
     assert client.orders == [("close", "d1")] and rec["trades_closed"] == 1
+
+
+class OpenProfitClient(BrokerClient):
+    """Wie Capital.com mit offenem Gewinn: balance = deposit + profitLoss, das offene Ergebnis steckt schon drin."""
+
+    def accounts(self):
+        return [{"preferred": True, "currency": "EUR",
+                 "balance": {"balance": 310.9, "deposit": 300.0, "profitLoss": 10.9, "available": 290.0}}]
+
+
+def test_open_profit_is_counted_once_in_the_account(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch)
+    client = OpenProfitClient(bars, position=open_long_state(tmp_path, bars))
+    rec = runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    assert rec["equity"] == 310.9                     # nicht 321,80 (offener Gewinn doppelt)
+    state = runner.json.loads((tmp_path / "gold-state.json").read_text(encoding="utf-8"))
+    assert state["peak_eur"] == 310.9
+    assert state["day_start_eur"] == 300.0 and state["week_start_eur"] == 300.0   # nur abgeschlossene Trades
+
+
+def test_balance_after_a_bot_exit_is_cash_plus_the_result(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch, exit_long=True)
+    client = OpenProfitClient(bars, position=open_long_state(tmp_path, bars))
+    runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    [t] = trades_of(tmp_path)
+    assert t["balance_after_eur"] == round(300.0 + t["pnl_eur"], 2)

@@ -281,11 +281,15 @@ def run(client: CapitalClient, limits: GoldLimits, journal_dir: Path, now: datet
         trades.append(closed_outside(client, prev_trade, now))
 
     bal = account["balance"]
-    balance, upl, available = float(bal["balance"]), float(bal.get("profitLoss", 0)), float(bal["available"])
-    state = roll_account_marks(previous, balance + upl, balance, now)
+    # Capital.com meldet balance = deposit + profitLoss: Das offene Ergebnis steckt schon drin. Konto mit offenem
+    # Ergebnis ist also balance selbst, das Geld aus abgeschlossenen Trades balance minus profitLoss.
+    upl, available = float(bal.get("profitLoss", 0)), float(bal["available"])
+    equity = float(bal["balance"])
+    balance = equity - upl
+    state = roll_account_marks(previous, equity, balance, now)
     if send_orders:
         state["last_bar"] = str(last)
-    acc = Account(equity_eur=balance + upl, balance_eur=balance, available_eur=available,
+    acc = Account(equity_eur=equity, balance_eur=balance, available_eur=available,
                   peak_eur=state["peak_eur"], day_start_eur=state["day_start_eur"],
                   week_start_eur=state["week_start_eur"])
     quote = quote_for(client, limits.epic, currency)

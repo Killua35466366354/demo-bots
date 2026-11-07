@@ -2,7 +2,7 @@
  "bot": "gold-hand",
  "name": "Gold-Hand-Bot (Short und Long mit Trade-Abfänger, Kiron geht selbst raus)",
  "konto": "…9086",
- "stand": "2026-11-06T23:46:48",
+ "stand": "2026-11-07T00:02:27",
  "start": "2026-11-06T17:17:54",
  "regel": "Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. Trade-Abfänger: bei Fehltrade (0,5 R dagegen vor Ziel 1) Stop 1 R und Ziel am Einstieg, Notbremse ab 1 R Minus. Nachricht über ntfy, Kiron schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, 2 oz.",
  "vorab": "suche/VORAB_gold_hand.yaml",

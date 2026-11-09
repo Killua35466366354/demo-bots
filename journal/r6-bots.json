@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-09T09:31:38.596902",
+ "stand_utc": "2026-11-09T09:46:43.065303",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -179,7 +179,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-09T09:31:38.596902",
+    "zeit": "2026-11-09T09:46:43.065303",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -325,7 +325,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-09T09:31:38.596902",
+    "zeit": "2026-11-09T09:46:43.065303",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.886 > 0,866): heute kein Trade"
@@ -652,12 +652,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-09T09:31:38.596902",
-    "action": "orders",
+    "zeit": "2026-11-09T09:46:43.065303",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.12345 und 1.11306"
-    ],
-    "bar": "2026-11-09 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 0,
@@ -819,12 +818,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-09T09:31:38.596902",
-    "action": "orders",
+    "zeit": "2026-11-09T09:46:43.065303",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.34629 und 1.33403"
-    ],
-    "bar": "2026-11-09 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 0,
@@ -986,12 +984,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-09T09:31:38.596902",
-    "action": "orders",
+    "zeit": "2026-11-09T09:46:43.065303",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 212.45 und 211.176"
-    ],
-    "bar": "2026-11-09 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1193,12 +1190,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-09T09:31:38.596902",
-    "action": "orders",
+    "zeit": "2026-11-09T09:46:43.065303",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.12345 und 1.11306"
-    ],
-    "bar": "2026-11-09 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 0,

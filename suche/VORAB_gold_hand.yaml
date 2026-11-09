@@ -13,6 +13,8 @@
 # schwachsinnige Regel ... die Trades sollen unabhängig von diesem News-Springen sein, weil ein 1% macht keinen großen
 # Unterschied. Der Trade soll genommen werden, wenn der Preis sozusagen reif ist"), nachdem die Kursschock-Pause am
 # 09.11. zwei Longs (01:00 und 20:00 UTC) gesperrt hatte. Sein datiertes Wort im Sinne der Eine-Woche-Regel.
+# Nachtrag Termin-Pause wieder an auf Kirons Wort vom 09.11.2026 20:38 UTC ("das 1%-Ding ... sollte rausgemacht werden,
+# aber dass es rausgestoppt wurde wegen News oder so, das sollte drinnen bleiben"): nur die Kursschock-Pause bleibt weg.
 
 format: 1
 gold_hand:
@@ -60,11 +62,11 @@ gold_hand:
     termine: >-
       Fed-Zinsentscheid, US-Inflation (CPI) und US-Arbeitsmarkt (NFP) aus gold/v2/termine.yaml, dazu alle roten
       USD-Termine aus dem ForexFactory-Wochenkalender (höchstens alle 6 Stunden geholt).
-    einstieg: >-
-      Termine und Kurssprünge sperren keinen Einstieg (Kirons Wort vom 09.11.2026 20:13 UTC). Bis dahin galt: kein
-      Einstieg 60 Min. vor bis 30 Min. nach einem Termin und 45 Min. nach einem Kursschock (15-Min.-Kerze über
-      3 x ATR 20).
-    hinweis: Liegt ein Termin 60 Min. vor bis 30 Min. nach dem Signal, steht er als Hinweis in der Nachricht.
+    pause_vor_min: 60       # kein Einstieg 60 Min. vor bis 30 Min. nach einem Termin (Kirons Wort vom 09.11.2026 20:38 UTC)
+    pause_nach_min: 30
+    schock: >-
+      Keine Pause nach Kurssprüngen (Kirons Wort vom 09.11.2026 20:13 UTC). Bis dahin galten 45 Min. Pause nach einer
+      15-Min.-Kerze über 3 x ATR 20.
     warnung_vor_min: 45     # sind Goldpositionen offen, einmal je Termin eine Warnung
     schlagzeilen: >-
       Jede Nachricht zeigt bis zu 3 Gold-Schlagzeilen der letzten 6 Stunden (Google News RSS "spot gold"). Sie

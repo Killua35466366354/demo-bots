@@ -28,11 +28,12 @@ Regeln:
   der Richtungs-Check von Gold-Bot 2.0 (gold/v2/richtung.py). Stehen der letzte fertige Tagesschluss über seinem
   50-Tage-Schnitt und der letzte fertige 4-Std.-Schluss über seiner EMA 50, gibt es keinen Short. Stehen beide darunter,
   gibt es keinen Long. Sind sie uneins, ist beides erlaubt.
-- News-Agent (derselbe Wunsch): sperrt keinen Einstieg mehr (Kirons Wort vom 09.11.2026 20:13 UTC: "die Trades sollen
-  unabhängig von diesem News-Springen sein ... Der Trade soll genommen werden, wenn der Preis sozusagen reif ist").
-  Bis dahin galt eine Pause von 60 Minuten vor bis 30 Minuten nach einem wichtigen US-Termin und 45 Minuten nach einem
-  Kursschock. Liegt ein wichtiger US-Termin (Fed-Zinsentscheid, Inflation, Arbeitsmarkt aus gold/v2/termine.yaml und
-  alle roten USD-Termine aus dem ForexFactory-Wochenkalender) so nah, steht er nur als Hinweis in der Nachricht. Sind
+- News-Agent (derselbe Wunsch): kein Einstieg von 60 Minuten vor bis 30 Minuten nach einem wichtigen US-Termin
+  (Fed-Zinsentscheid, Inflation, Arbeitsmarkt aus gold/v2/termine.yaml und alle roten USD-Termine aus dem
+  ForexFactory-Wochenkalender). Kurssprünge sperren nichts (Kirons Wort vom 09.11.2026 20:13 UTC: "die Trades sollen
+  unabhängig von diesem News-Springen sein"). Die Termin-Pause war am 09.11. von 20:27 bis zum Merge des Folge-PRs aus
+  und gilt wieder (Kirons Wort vom 09.11.2026 20:38 UTC: "das 1%-Ding ... sollte rausgemacht werden, aber dass es
+  rausgestoppt wurde wegen News oder so, das sollte drinnen bleiben"). Sind
   Goldpositionen offen, warnt er bis zu 45 Minuten vor einem solchen Termin einmal. Jede Nachricht zeigt die neuesten
   Gold-Schlagzeilen (Google News), damit Kiron selbst einordnen kann. Die Schlagzeilen entscheiden nichts.
 - Nachricht über ntfy (App "ntfy", Thema im GitHub-Secret NTFY_THEMA). Ohne Thema steht sie nur im Journal. Kommt
@@ -78,7 +79,7 @@ NAMEN = {"gross_klein_3": "Groß-und-klein 3", "gross_box_kerze": "Große Box mi
 GOLD_BOT_DATEIEN = sb.GOLD_BOT_DATEIEN
 HG_SMA_TAGE, HG_EMA_4H = 50, 50
 NEWS_VOR, NEWS_NACH = pd.Timedelta(minutes=60), pd.Timedelta(minutes=30)   # Termin so nah: nur Hinweis
-TERMIN_PAUSE = False               # Kirons Wort vom 09.11.2026 20:13 UTC: Termine und Kurssprünge sperren nichts
+TERMIN_PAUSE = True                # Kirons Wort vom 09.11.2026 20:38 UTC: Termine sperren, Kurssprünge nicht
 WARN_VOR = pd.Timedelta(minutes=45)
 FF_URL = "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
 FF_ALTER = pd.Timedelta(hours=6)
@@ -165,8 +166,8 @@ def alle_termine(st: dict, now: pd.Timestamp) -> list[tuple[pd.Timestamp, str]]:
 
 
 def news_lage(st: dict, now: pd.Timestamp) -> dict:
-    """Wichtige US-Termine von 60 Min. vorher bis 30 Min. nachher. Seit Kirons Wort vom 09.11.2026 nur ein Hinweis in
-    der Nachricht, keine Pause (TERMIN_PAUSE). Kurssprünge zählen gar nicht mehr."""
+    """Wichtige US-Termine von 60 Min. vorher bis 30 Min. nachher sperren den Einstieg (TERMIN_PAUSE). Kurssprünge
+    zählen seit Kirons Wort vom 09.11.2026 nicht mehr."""
     ev = alle_termine(st, now)
     nah = [(t, s) for t, s in ev if now - NEWS_NACH <= t <= now + NEWS_VOR]
     gruende = [f"{s} um {_berlin(t)} Uhr" for t, s in nah]
@@ -614,7 +615,7 @@ def cockpit(st: dict, alle: list[dict]) -> dict:
             "konto": "…" + KONTO[-4:], "stand": st.get("stand"), "start": st.get("start"),
             "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. "
                       "Trade-Abfänger: bei Fehltrade (0,5 R dagegen vor Ziel 1) Stop 1 R und Ziel am Einstieg, "
-                      "Notbremse ab 1 R Minus. Keine News-Pause, Termine nur als Hinweis. Nachricht über ntfy, Kiron "
+                      "Notbremse ab 1 R Minus. Pause nur rund um wichtige US-Termine, nicht nach Kurssprüngen. Nachricht über ntfy, Kiron "
                       "schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, 2 oz."),
             "vorab": "suche/VORAB_gold_hand.yaml", "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": ts.pf(r) if r else None, "summe_r": round(sum(r), 2),

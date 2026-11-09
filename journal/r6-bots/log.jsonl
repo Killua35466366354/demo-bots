@@ -22,3 +22,7 @@
 {"time": "2026-11-09T09:31:38.596902", "bot": "r6-vortag-gbpusd", "event": "Stop-Orders gelegt", "ph": 1.34629, "pl": 1.33403, "long": 1.34642, "short": 1.33403, "stop_abstand": 0.0002764839050162712, "atr15": 0.0005529678100325424, "size": 12500.0, "risiko_eur": 4.54, "margin_eur": 499.57}
 {"time": "2026-11-09T09:31:38.596902", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders gelegt", "ph": 212.45, "pl": 211.176, "long": 212.474, "short": 211.176, "stop_abstand": 0.0627291932161407, "atr15": 0.1254583864322814, "size": 12400.0, "risiko_eur": 6.08, "margin_eur": 495.58}
 {"time": "2026-11-09T09:31:38.596902", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders gelegt", "ph": 1.12345, "pl": 1.11306, "long": 1.12352, "short": 1.11306, "stop_abstand": 0.0004624241394099862, "atr15": 0.0004624241394099862, "size": 14900.0, "risiko_eur": 7.09, "margin_eur": 496.7}
+{"time": "2026-11-09T21:31:36.945832", "bot": "r6-vortag-eurusd", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-09T21:31:36.945832", "bot": "r6-vortag-gbpusd", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-09T21:31:36.945832", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-09T21:31:36.945832", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}

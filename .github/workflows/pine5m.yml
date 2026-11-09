@@ -1,0 +1,89 @@
+name: Pine-Gold-Bots (5 Min., nur Demokonto)
+
+# Kirons TradingView-Strategien A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, zwei Bots mit denselben Einstiegen
+# (gold/pine5m_bot.py, Regeln und Test suche/VORAB_pine5m.yaml). Kirons Wunsch vom 09.11.2026 20:41 UTC.
+# Nur Capital.com-DEMO, nie echtes Geld:
+#   pine-hand auf Konto "Vortag USDJPY" (…4094): ohne Stop und Ziel, Nachricht aufs Handy, Kiron geht selbst raus,
+#             Trade-Abfänger wie beim Gold-Hand-Bot.
+#   pine-tp3  auf Konto "US500" (…8878): Take-Profit +3 €, kein Stop, Notausstieg bei zusammen -250 €.
+#
+# Uhr: alle 5 Minuten, 3 Minuten nach jedem Kerzenschluss. GitHubs eigener Zeitplan ist die Reserve (er kann sich
+# verspäten). Pünktlich wird es mit einem cron-job.org-Auftrag auf workflow_dispatch zu denselben Minuten. Laufen
+# beide, wartet der zweite und findet nichts Neues: Jede Kerze zählt je Bot nur einmal.
+#
+# Eigene Gruppe statt der des Gold-Bots: GitHub behält je Gruppe nur einen wartenden Lauf und bricht den älteren ab,
+# ein Lauf alle 5 Minuten würde dort sonst wartende Gold- oder Demo-Bot-Läufe abbrechen. Der Kontowechsel bei
+# Capital.com gilt je Sitzung, jeder Lauf meldet sich selbst an. Zusätzlich prüft der Bot vor jeder Order, welches
+# Konto in seiner Sitzung aktiv ist. Im öffentlichen Repo kostet ein Lauf keine Minuten.
+on:
+  schedule:
+    - cron: "3-58/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nur rechnen, keine Order"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pine5m
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Tests (ohne grüne Tests kein Lauf)
+        run: python -m pytest -q tests/test_pine5m.py
+
+      - name: Pine-Gold-Bots
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          NTFY_THEMA: ${{ secrets.NTFY_THEMA }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m gold.pine5m_bot --dry-run
+          else
+            python -m gold.pine5m_bot
+          fi
+
+      - name: Journal sichern
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        run: |
+          git config user.name "demo-bots"
+          git config user.email "demo-bots@users.noreply.github.com"
+          git add -A -- 'journal/pine-*' || true
+          if git diff --cached --quiet; then
+            echo "Nichts Neues im Journal"
+          else
+            git commit -m "Pine-Gold: $(date -u +%Y-%m-%dT%H:%MZ)"
+            for i in 1 2 3 4 5; do
+              if git pull --rebase origin "${GITHUB_REF_NAME}" && git push; then
+                exit 0
+              fi
+              git rebase --abort 2>/dev/null || true
+              echo "Push fehlgeschlagen (Versuch $i), neuer Versuch in $((i * 5)) s"
+              sleep $((i * 5))
+            done
+            exit 1
+          fi

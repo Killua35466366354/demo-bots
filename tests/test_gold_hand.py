@@ -253,17 +253,28 @@ def test_hintergrund_werte():
     assert hb.hintergrund(k, pd.Timestamp(NOW).tz_convert(None))["richtung"] == 0
 
 
-def test_news_pause_vor_wichtigem_termin(welt):
+def test_termin_nah_sperrt_nicht_mehr(welt):
+    """Kirons Wort vom 09.11.2026 20:13 UTC: Termine sperren keinen Einstieg, sie stehen nur als Hinweis da."""
     welt["holen"].ff = [{"country": "USD", "impact": "High", "title": "ISM Services PMI",
                          "date": "2026-03-04T11:00:00-05:00"}]                    # 16:00 UTC, 43 Min. nach NOW
     welt["trades"]["gross_klein_3"] = [_signal()]
     st, log, _, msg = hb.run(HandKonto(), {}, NOW, post=Post())
-    assert not st["offen"] and "News-Pause" in msg[0]["text"] and "ISM Services PMI" in msg[0]["text"]
+    assert len(st["offen"]) == 1 and msg[0]["titel"].endswith("eröffnet")
+    assert "News-Pause" not in msg[0]["text"] and "ISM Services PMI" in msg[0]["text"] and "Achtung" in msg[0]["text"]
     assert st["ff"]["termine"]                                                 # Kalender im Stand gemerkt
     # Der Kalender wird nicht bei jedem Lauf neu geholt
     n = len([u for u in welt["holen"].urls if u == hb.FF_URL])
     hb.alle_termine(st, pd.Timestamp(NOW).tz_convert(None) + pd.Timedelta("15min"))
     assert len([u for u in welt["holen"].urls if u == hb.FF_URL]) == n
+
+
+def test_termin_pause_nur_mit_schalter(welt, monkeypatch):
+    monkeypatch.setattr(hb, "TERMIN_PAUSE", True)
+    welt["holen"].ff = [{"country": "USD", "impact": "High", "title": "ISM Services PMI",
+                         "date": "2026-03-04T11:00:00-05:00"}]
+    welt["trades"]["gross_klein_3"] = [_signal()]
+    st, _, _, msg = hb.run(HandKonto(), {}, NOW, post=Post())
+    assert not st["offen"] and "News-Pause" in msg[0]["text"]
 
 
 def test_warnung_vor_termin_wenn_gold_offen(welt):
@@ -280,15 +291,12 @@ def test_warnung_vor_termin_wenn_gold_offen(welt):
     assert not msg3
 
 
-def test_schock_pause():
-    import numpy as np
-    from tests.test_gold_short import _b
-    o = [100.0] * 40
-    h = [100.5] * 40
-    lo = [99.5] * 40
-    h[-2], lo[-2] = 106.0, 99.0                                                 # Spanne 7 statt 1
-    b = _b(o, h, lo, o)
-    assert hb.schock(b, len(b)) and not hb.schock(_b(o, [100.5] * 40, [99.5] * 40, o), 40)
+def test_kurssprung_sperrt_nicht(welt, monkeypatch):
+    """Kirons Wort vom 09.11.2026 20:13 UTC: eine große Kerze vor dem Signal hält den Einstieg nicht auf."""
+    assert not hasattr(hb, "schock")
+    welt["trades"]["gross_klein_3"] = [_signal()]
+    st, log, _, msg = hb.run(HandKonto(), {}, NOW, post=Post())
+    assert len(st["offen"]) == 1 and not any("Kursschock" in m["text"] for m in msg)
 
 
 def test_schlagzeilen_in_der_nachricht(welt, monkeypatch):

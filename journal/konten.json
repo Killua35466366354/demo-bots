@@ -31,8 +31,8 @@
    "id": "…3150",
    "name": "Account",
    "waehrung": "EUR",
-   "balance": 1077.47,
-   "frei": 893.04,
+   "balance": 1077.46,
+   "frei": 893.05,
    "bevorzugt": false,
    "fuer": "gold"
   },
@@ -118,7 +118,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-09T22:16:28.863219",
+ "stand_utc": "2026-11-09T22:31:33.346324",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

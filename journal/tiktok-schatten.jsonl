@@ -43,3 +43,10 @@
 {"zeit": "2026-11-09T17:11:33+00:00", "strategie": "box_laufen", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 11:30:00", "richtung": 1, "einstieg": 4105.8, "grund": "einstand", "ergebnis_r": 0.333}
 {"zeit": "2026-11-09T19:11:25+00:00", "strategie": "stream_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-09 17:00:00", "richtung": -1, "einstieg": 4110.13, "stop": 4125.52, "tp1": 4094.74, "tp2": 4079.34, "tp3": 4063.95}
 {"zeit": "2026-11-09T19:11:25+00:00", "strategie": "box_laufen", "ereignis": "einstieg", "einstieg_zeit": "2026-11-09 17:00:00", "richtung": -1, "einstieg": 4110.13, "stop": 4125.52, "tp1": 4094.74, "tp2": null, "tp3": null}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "stream_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 17:00:00", "richtung": -1, "einstieg": 4110.13, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "stream_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-09 19:45:00", "richtung": 1, "einstieg": 4129.19, "stop": 4108.52, "tp1": 4149.86, "tp2": 4170.54, "tp3": 4191.21}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 16:30:00", "richtung": -1, "einstieg": 4114.44, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-09 19:45:00", "richtung": 1, "einstieg": 4129.19, "stop": 4110.5, "tp1": 4147.88, "tp2": 4166.56, "tp3": 4185.25}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "box_1h", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 08:00:00", "richtung": -1, "einstieg": 4086.34, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "box_laufen", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 17:00:00", "richtung": -1, "einstieg": 4110.13, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-09T20:11:31+00:00", "strategie": "box_laufen", "ereignis": "einstieg", "einstieg_zeit": "2026-11-09 19:45:00", "richtung": 1, "einstieg": 4129.19, "stop": 4108.52, "tp1": 4149.86, "tp2": null, "tp3": null}

@@ -28,9 +28,11 @@ Regeln:
   der Richtungs-Check von Gold-Bot 2.0 (gold/v2/richtung.py). Stehen der letzte fertige Tagesschluss über seinem
   50-Tage-Schnitt und der letzte fertige 4-Std.-Schluss über seiner EMA 50, gibt es keinen Short. Stehen beide darunter,
   gibt es keinen Long. Sind sie uneins, ist beides erlaubt.
-- News-Agent (derselbe Wunsch): kein Einstieg von 60 Minuten vor bis 30 Minuten nach einem wichtigen US-Termin
-  (Fed-Zinsentscheid, Inflation, Arbeitsmarkt aus gold/v2/termine.yaml und alle roten USD-Termine aus dem
-  ForexFactory-Wochenkalender), und 45 Minuten Pause nach einem Kursschock (15-Min.-Kerze über 3 x ATR 20). Sind
+- News-Agent (derselbe Wunsch): sperrt keinen Einstieg mehr (Kirons Wort vom 09.11.2026 20:13 UTC: "die Trades sollen
+  unabhängig von diesem News-Springen sein ... Der Trade soll genommen werden, wenn der Preis sozusagen reif ist").
+  Bis dahin galt eine Pause von 60 Minuten vor bis 30 Minuten nach einem wichtigen US-Termin und 45 Minuten nach einem
+  Kursschock. Liegt ein wichtiger US-Termin (Fed-Zinsentscheid, Inflation, Arbeitsmarkt aus gold/v2/termine.yaml und
+  alle roten USD-Termine aus dem ForexFactory-Wochenkalender) so nah, steht er nur als Hinweis in der Nachricht. Sind
   Goldpositionen offen, warnt er bis zu 45 Minuten vor einem solchen Termin einmal. Jede Nachricht zeigt die neuesten
   Gold-Schlagzeilen (Google News), damit Kiron selbst einordnen kann. Die Schlagzeilen entscheiden nichts.
 - Nachricht über ntfy (App "ntfy", Thema im GitHub-Secret NTFY_THEMA). Ohne Thema steht sie nur im Journal. Kommt
@@ -75,9 +77,9 @@ BERLIN = "Europe/Berlin"
 NAMEN = {"gross_klein_3": "Groß-und-klein 3", "gross_box_kerze": "Große Box mit Kerze", "gross_box": "Große Box"}
 GOLD_BOT_DATEIEN = sb.GOLD_BOT_DATEIEN
 HG_SMA_TAGE, HG_EMA_4H = 50, 50
-NEWS_VOR, NEWS_NACH = pd.Timedelta(minutes=60), pd.Timedelta(minutes=30)
+NEWS_VOR, NEWS_NACH = pd.Timedelta(minutes=60), pd.Timedelta(minutes=30)   # Termin so nah: nur Hinweis
+TERMIN_PAUSE = False               # Kirons Wort vom 09.11.2026 20:13 UTC: Termine und Kurssprünge sperren nichts
 WARN_VOR = pd.Timedelta(minutes=45)
-SCHOCK_ATR, SCHOCK_KERZEN, ATR_N = 3.0, 3, 20
 FF_URL = "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
 FF_ALTER = pd.Timedelta(hours=6)
 RSS_URL = "https://news.google.com/rss/search?q=spot+gold+when:1d&hl=en-US&gl=US&ceid=US:en"
@@ -162,29 +164,14 @@ def alle_termine(st: dict, now: pd.Timestamp) -> list[tuple[pd.Timestamp, str]]:
     return sorted(out + ff_termine(st, now))
 
 
-def schock(b: ts.Basis, n: int) -> bool:
-    """Eine der letzten SCHOCK_KERZEN fertigen 15-Min.-Kerzen hatte eine Spanne über SCHOCK_ATR x ATR 20 davor."""
-    import numpy as np
-    h, lo, c = b.h[:n], b.l[:n], b.c[:n]
-    if n < ATR_N + SCHOCK_KERZEN + 1:
-        return False
-    tr = np.maximum(h[1:] - lo[1:], np.maximum(abs(h[1:] - c[:-1]), abs(lo[1:] - c[:-1])))
-    for k in range(1, SCHOCK_KERZEN + 1):
-        i = len(tr) - k
-        atr = tr[i - ATR_N:i].mean()
-        if atr > 0 and (h[1:][i] - lo[1:][i]) > SCHOCK_ATR * atr:
-            return True
-    return False
-
-
-def news_lage(st: dict, now: pd.Timestamp, b: ts.Basis | None = None, n: int | None = None) -> dict:
+def news_lage(st: dict, now: pd.Timestamp) -> dict:
+    """Wichtige US-Termine von 60 Min. vorher bis 30 Min. nachher. Seit Kirons Wort vom 09.11.2026 nur ein Hinweis in
+    der Nachricht, keine Pause (TERMIN_PAUSE). Kurssprünge zählen gar nicht mehr."""
     ev = alle_termine(st, now)
     nah = [(t, s) for t, s in ev if now - NEWS_NACH <= t <= now + NEWS_VOR]
     gruende = [f"{s} um {_berlin(t)} Uhr" for t, s in nah]
-    if b is not None and n is not None and schock(b, n):
-        gruende.append("Kursschock in den letzten 45 Minuten")
     naechster = next(((t, s) for t, s in ev if t > now), None)
-    return {"pause": bool(gruende), "gruende": gruende, "termine": ev,
+    return {"pause": TERMIN_PAUSE and bool(gruende), "gruende": gruende, "termine": ev,
             "naechster": None if naechster is None else f"{naechster[1]} am {_berlin(naechster[0])} Uhr"}
 
 
@@ -495,7 +482,7 @@ class Lauf:
         hg = hintergrund(self.client, self.now)
         if hg["richtung"] == -d:
             gruende.append("gegen den Hintergrund (" + ("Gold steigt" if d < 0 else "Gold fällt") + " auf Tag und 4 Std.)")
-        nl = news_lage(self.st, self.now, b, n)
+        nl = news_lage(self.st, self.now)
         if nl["pause"]:
             gruende.append("News-Pause: " + ", ".join(nl["gruende"]))
         gegen = [p for p in gold if richtung(p) != d]
@@ -516,6 +503,8 @@ class Lauf:
         info = {"seite": seite, "richtung": d, "kerze": str(t_ph), "signal": sig.get("signal"), "dist": round(dist, 2),
                 "hintergrund": hg, "news": nl["gruende"]}
         lage = hg_text(hg) + (f" Nächster wichtiger Termin: {nl['naechster']}." if nl["naechster"] else "")
+        if nl["gruende"] and not nl["pause"]:
+            lage += f" Achtung, wichtiger Termin nah ({', '.join(nl['gruende'])}): der Kurs kann springen."
         orient = (f"Stop der Strategie {_de(stop_ref)} (1 R = {_de(dist)} $), Ziel 1 bei {_de(ziel_ref)}.")
         quelle = f"Seite {NAMEN.get(seite, seite)}, 15-Min.-Kerze bis {_berlin(t_ph)} Uhr."
         if gruende:
@@ -625,8 +614,8 @@ def cockpit(st: dict, alle: list[dict]) -> dict:
             "konto": "…" + KONTO[-4:], "stand": st.get("stand"), "start": st.get("start"),
             "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. "
                       "Trade-Abfänger: bei Fehltrade (0,5 R dagegen vor Ziel 1) Stop 1 R und Ziel am Einstieg, "
-                      "Notbremse ab 1 R Minus. Nachricht über ntfy, Kiron schließt selbst. 5 € je Strategie-R, "
-                      "höchstens 4 Goldpositionen, 2 oz."),
+                      "Notbremse ab 1 R Minus. Keine News-Pause, Termine nur als Hinweis. Nachricht über ntfy, Kiron "
+                      "schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, 2 oz."),
             "vorab": "suche/VORAB_gold_hand.yaml", "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": ts.pf(r) if r else None, "summe_r": round(sum(r), 2),
                                 "summe_eur": round(sum(float(t.get("pnl_eur") or 0) for t in alle), 2),

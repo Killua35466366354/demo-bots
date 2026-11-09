@@ -9,7 +9,10 @@
 # Festgelegt vor dem ersten Trade (16:48 UTC). Nachtrag Trade-Abfänger auf Kirons Wunsch vom 06.11.2026 17:49 UTC
 # ("mache kein Stop-Loss direkt rein ... nur dieser Trade-Abfänger ... der einfach nur die Trades abfängt, die falsch
 # genommen werden oder zur falschen Zeit"), statt des Stop-Agenten von 17:12 UTC, der nie live war. Sein datiertes Wort
-# im Sinne der Eine-Woche-Regel.
+# im Sinne der Eine-Woche-Regel. Nachtrag ohne News-Pause auf Kirons Wort vom 09.11.2026 20:13 UTC ("das ist eine
+# schwachsinnige Regel ... die Trades sollen unabhängig von diesem News-Springen sein, weil ein 1% macht keinen großen
+# Unterschied. Der Trade soll genommen werden, wenn der Preis sozusagen reif ist"), nachdem die Kursschock-Pause am
+# 09.11. zwei Longs (01:00 und 20:00 UTC) gesperrt hatte. Sein datiertes Wort im Sinne der Eine-Woche-Regel.
 
 format: 1
 gold_hand:
@@ -57,9 +60,11 @@ gold_hand:
     termine: >-
       Fed-Zinsentscheid, US-Inflation (CPI) und US-Arbeitsmarkt (NFP) aus gold/v2/termine.yaml, dazu alle roten
       USD-Termine aus dem ForexFactory-Wochenkalender (höchstens alle 6 Stunden geholt).
-    pause_vor_min: 60
-    pause_nach_min: 30
-    schock: Pause, solange eine der letzten 3 fertigen 15-Min.-Kerzen eine Spanne über 3 x ATR 20 davor hatte.
+    einstieg: >-
+      Termine und Kurssprünge sperren keinen Einstieg (Kirons Wort vom 09.11.2026 20:13 UTC). Bis dahin galt: kein
+      Einstieg 60 Min. vor bis 30 Min. nach einem Termin und 45 Min. nach einem Kursschock (15-Min.-Kerze über
+      3 x ATR 20).
+    hinweis: Liegt ein Termin 60 Min. vor bis 30 Min. nach dem Signal, steht er als Hinweis in der Nachricht.
     warnung_vor_min: 45     # sind Goldpositionen offen, einmal je Termin eine Warnung
     schlagzeilen: >-
       Jede Nachricht zeigt bis zu 3 Gold-Schlagzeilen der letzten 6 Stunden (Google News RSS "spot gold"). Sie

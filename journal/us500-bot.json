@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-09T19:46:36.815612",
+ "stand_utc": "2026-11-09T20:01:31.096344",
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "regel": "Trend-Rücksetzer US500 (Runde 5b): einmal am Tag um 15 Uhr New York; über dem 200-Tage-Schnitt kaufen, wenn RSI(2) unter 10 schließt, darunter verkaufen bei RSI(2) über 90; raus über/unter dem 5-Tage-Schnitt, beim Gegensignal oder nach 5 Handelstagen; Notstop 3 x ATR(20), kein Ziel, kleinste Größe. Siegel 2022-2026 (S&P 500 + Nasdaq 100): 131 Trades, Gewinnfaktor 1,73, Zufall 99,8 %. Vorwärtstest seit Kirons Merge (suche/VORAB_us500.yaml).",
  "bot": "us500-ruecksetzer",
@@ -12,10 +12,10 @@
  "offen": null,
  "position": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-09T19:46:36.815612",
+  "zeit": "2026-11-09T20:01:31.096344",
   "action": "none",
-  "why": "wartet auf 15 Uhr New York",
-  "bar": null
+  "why": "kein Signal: {'schluss': 7562.5, 'sma200': 7337.8, 'sma5': 7528.96, 'rsi2': 68.5, 'atr20': 115.48}",
+  "bar": "2026-11-09 19:00:00"
  },
  "zusammenfassung": {
   "trades": 0,

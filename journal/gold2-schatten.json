@@ -26,8 +26,8 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-06 21:00:00",
- "updated_utc": "2026-11-06T22:11:34+00:00",
+ "cursor": "2026-11-08 23:00:00",
+ "updated_utc": "2026-11-09T00:11:29+00:00",
  "open_detail": null,
  "richtung": 0,
  "summary": {
@@ -48,10 +48,16 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-06T22:11:34+00:00",
-  "naechste": [],
+  "abgerufen_utc": "2026-11-09T00:11:29+00:00",
+  "naechste": [
+   "2026-11-10 13:30 Core CPI m/m",
+   "2026-11-10 13:30 CPI m/m",
+   "2026-11-13 13:30 Core PPI m/m",
+   "2026-11-13 13:30 PPI m/m"
+  ],
   "nicht_in_termine_yaml": [
-   "2026-11-03 15:16 Congressional Elections"
+   "2026-11-13 13:30 Core PPI m/m",
+   "2026-11-13 13:30 PPI m/m"
   ],
   "hinweis": "nur mitgeschrieben, ändert keine Entscheidung"
  },

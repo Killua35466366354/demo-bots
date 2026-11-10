@@ -1,12 +1,26 @@
 {
  "format": 1,
  "start": "2026-11-06T17:17:54",
- "offen": [],
+ "offen": [
+  {
+   "dealId": "00000000-722a-9fdc-049c-701f0015549e",
+   "richtung": 1,
+   "size": 0.33,
+   "entry": 4136.5,
+   "dist": 16.57,
+   "seite": "gross_box_kerze",
+   "signal": "2026-11-10 01:30:00",
+   "einstieg_zeit": "2026-11-10 01:30:00",
+   "opened_utc": "2026-11-10T01:31:55",
+   "stop_strategie": 4119.93,
+   "ziel1_strategie": 4148.93
+  }
+ ],
  "trades": 0,
  "summe_r": 0.0,
- "letzter_kurs": 4133.64,
- "stand": "2026-11-10T01:16:44",
- "letzte_kerze": "2026-11-09 20:00:00",
+ "letzter_kurs": 4136.1,
+ "stand": "2026-11-10T01:31:55",
+ "letzte_kerze": "2026-11-10 01:30:00",
  "ff": {
   "stand": "2026-11-09T20:02:19",
   "termine": [

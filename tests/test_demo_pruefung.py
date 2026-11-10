@@ -115,6 +115,30 @@ def test_kirons_selection_switches_bots_off_without_successor(tmp_path):
     assert kont["zuordnung"].get("x") == "1001" and "b1" not in kont["zuordnung"]
 
 
+def test_lab_bot_goes_only_with_kirons_dated_word(tmp_path):
+    """Ein Labor-Bot (VORAB_labor.yaml) bleibt bei einer bloßen Auswahlliste, Kirons datiertes Wort schaltet ihn ab
+    (Kirons Wort vom 10.11.2026 10:35 UTC: Brent macht Account 1 frei). Sein Konto wird frei, er bekommt es nie zurück."""
+    kont, pf, dateien = _setup(tmp_path, [])
+    kont["labor"] = {"b1": {"seit": "2026-11-05T11:16:36", "konto": "…1001"}}
+    log, _ = dp.pruefen(kont, pf, {}, "2026-11-10T11:00:00", RG, dateien, aus={"b1": "zu wenig Trades"})
+    assert log == [] and "b1" not in kont["abgeloest"]
+    wort = {"b1": "Kirons Wort vom 10.11.2026 10:35 UTC: Konto frei machen"}
+    log, _ = dp.pruefen(kont, pf, {}, "2026-11-10T11:00:00", RG, dateien, aus=wort, wo=WO,
+                        starts={"b1": "2026-11-05T11:16:36"})
+    assert [(e["event"], e["bot"]) for e in log] == [("Bot abgeschaltet", "b1")]
+    assert kont["abgeloest"]["b1"]["an"] is None and kont["abgeloest"]["b1"]["grund"].startswith("Kirons Wort vom")
+    db.uebergeben(kont, kont["abgeloest"], set(), [], "2026-11-10T11:01:00")
+    assert kont["frei"] == ["1001"] and "b1" not in kont["zuordnung"]
+    dp.pruefen(kont, pf, {}, "2026-11-10T11:15:00", RG, dateien, aus=wort)
+    assert "b1" not in kont["zuordnung"] and kont["labor"]["b1"]["konto"] == "…1001"
+
+
+def test_brent_is_switched_off_by_kirons_word():
+    import yaml
+    a = yaml.safe_load(open("suche/auswahl.yaml", encoding="utf-8"))["auswahl"]
+    assert dp.kirons_wort(a["abschalten"]["oil-brent"]) and "oil-brent" not in a["labor"]
+
+
 def test_selection_file_names_real_strategies():
     import yaml
     a = yaml.safe_load(open("suche/auswahl.yaml", encoding="utf-8"))["auswahl"]

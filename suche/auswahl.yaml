@@ -21,6 +21,9 @@
 # labor: Kirons Entscheidung vom 05.11.2026, 11:07 UTC (suche/VORAB_labor.yaml): die vier am 04.11.2026 abgeschalteten,
 #   aber bestandenen Strategien laufen als Vorwärtstest auf freien Demokonten, getrennt vom Kern (nicht in der Kombi,
 #   nicht im Wochen-Check der Kern-Strategien). Die Gründe fürs Abschalten gelten weiter und stehen dabei.
+# Brent (Labor) abschalten: Kirons Wort vom 10.11.2026 10:35 UTC (Entscheidungskarte "Soll Brent sein Demokonto
+#   (Account 1) behalten?", Antwort "Konto frei machen"). Account 1 wird frei für den nächsten Bot, der seine Prüfung
+#   besteht und öfter handelt.
 format: 1
 auswahl:
   seit: "2026-11-04"
@@ -36,8 +39,10 @@ auswahl:
       2025 +328 €, 2026 -30 €. Kirons Pine auf dem Hauptkonto, eigener Plan bis Ende Januar 2027; jeden Morgen eine
       neue Idee im Gold-Lernjournal.
   labor:
-    oil-brent: "2025 -177 €, 2026 +466 € nur in den Monaten, auf denen er ausgesucht wurde; Rückgang 256 €"
     r6-noise-usdjpy: "+49 € aus 254 Trades (2025 +2 €), Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"
     r6-london-gbpusd: "+59 € aus 53 Trades, Gewinnfaktor 1,4, kaum vom Zufall zu unterscheiden"
     r5-ruecksetzer-us30: "+19 € aus 23 Trades, Gewinnfaktor 1,5, kaum vom Zufall zu unterscheiden"
-  abschalten: {}
+  abschalten:
+    oil-brent: >-
+      Kirons Wort vom 10.11.2026 10:35 UTC: Konto frei machen. Runde-3-Urteil durchgefallen, 0 Trades in rund 4
+      Handelstagen Labor, 2025 -177 €; Account 1 geht an den nächsten Bot, der seine Prüfung besteht und öfter handelt.

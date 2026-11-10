@@ -86,7 +86,7 @@
    "waehrung": "EUR",
    "balance": 998.84,
    "frei": 964.52,
-   "bevorzugt": false,
+   "bevorzugt": true,
    "fuer": "r6-london-gbpusd"
   },
   {
@@ -95,7 +95,7 @@
    "waehrung": "EUR",
    "balance": 1000.05,
    "frei": 1000.05,
-   "bevorzugt": true,
+   "bevorzugt": false,
    "fuer": "r6-noise-usdjpy"
   },
   {
@@ -117,7 +117,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-10T22:01:31.422249",
+ "stand_utc": "2026-11-10T22:16:29.342876",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

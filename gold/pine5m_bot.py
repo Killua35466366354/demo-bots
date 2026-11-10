@@ -11,13 +11,14 @@ ist trotzdem nicht bestanden, beide Bots laufen als reiner Demo-Vorwärtstest).
   bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach Kurssprüngen), Warnung vor Terminen, Hintergrund (Tag über
   SMA 50 und 4 Std. über EMA 50: kein Short, beide darunter: kein Long). Hedging: Long und Short dürfen gleichzeitig
   offen sein, der Bot schaltet den Hedging-Modus des Kontos ein (PUT /accounts/preferences). Ist er aus, gilt wie
-  vorher "nie gegen die Gegenrichtung".
+  vorher "nie gegen die Gegenrichtung". Seit Kirons Wort vom 10.11.2026 09:35 UTC (suche/VORAB_pine5m_rund.yaml)
+  Einstiege rund um die Uhr, wann immer Gold handelbar ist.
 - Bot "pine-hand" (Konto "Vortag USDJPY" …4094): lief dort vom 10.11. 03:48 bis zum Umzug auf Account 5, öffnet nichts
   Neues mehr und betreut nur noch seine offenen Trades (Abfänger, Pine-Ausstiegshinweis).
 - Bot "pine-tp3" (Konto "US500" …8878): jeder Einstieg mit Take-Profit +3 € und ohne Stop. Notausstieg nur, wenn seine
   offenen Trades zusammen 250 € im Minus sind (schützt die anderen Bots auf dem Konto), sonst schließt er nie selbst.
 
-Beide: Einstieg auf dem Schluss jeder fertigen 5-Min.-Kerze von 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14) der 5-Min.-Kerzen,
+Alle: Einstieg auf dem Schluss jeder fertigen 5-Min.-Kerze von 7 bis 20 Uhr UTC (pine-k5 rund um die Uhr), 1 R = 3 x ATR(14) der 5-Min.-Kerzen,
 5 € je R, höchstens 1 oz je Trade, höchstens 4 Goldpositionen auf dem Konto, nie gegen eine offene Goldposition der
 Gegenrichtung (außer pine-k5 mit Hedging). Die anderen Bots auf dem Konto handeln andere Märkte und behalten Marge: Ein Pine-Bot
 belegt höchstens 250 € Marge, und nach jeder Order bleiben mindestens 250 € frei. Nie auf dem Hauptkonto des Gold-Bots.
@@ -64,6 +65,9 @@ VORAB_PRUEFER = ROOT / "suche" / "VORAB_pine5m_pruefer.yaml"
 KEY_PRUEFER = "VORAB_pine5m_pruefer sha256 "
 VORAB_K5 = ROOT / "suche" / "VORAB_pine5m_konto5.yaml"
 KEY_K5 = "VORAB_pine5m_konto5 sha256 "
+VORAB_RUND = ROOT / "suche" / "VORAB_pine5m_rund.yaml"
+KEY_RUND = "VORAB_pine5m_rund sha256 "
+RUND = (0.0, 24.0)                     # Kirons Wort 10.11.2026 09:35 UTC: pine-k5 rund um die Uhr
 HEDGING_WIEDER = pd.Timedelta(hours=1)  # schlug das Einschalten fehl, erst nach 1 Std. neu versuchen
 KERZEN_MAX = 1000
 LEBENSZEICHEN = pd.Timedelta(minutes=30)
@@ -80,12 +84,13 @@ class Bot:
     neu: bool = True                   # False: keine neuen Einstiege, nur offene Trades betreuen
     hedging: bool = False              # Long und Short gleichzeitig (Hedging-Modus des Kontos)
     gold_pruefer: bool = False         # Termin-Pause, Termin-Warnung und Hintergrund wie beim Gold-Hand-Bot
+    stunden: tuple[float, float] = STUNDEN  # Einstiege nur bei Signalkerzen in diesem Fenster (UTC)
 
 
 BOTS = (
     Bot("pine-k5", hb.KONTO, "Account 5", "hand",
         "Pine-Gold Hand auf Account 5 (Kirons Long A und Short B auf 5 Min., Long und Short gleichzeitig, Kiron geht "
-        "selbst raus)", hedging=True, gold_pruefer=True),
+        "selbst raus, rund um die Uhr)", hedging=True, gold_pruefer=True, stunden=RUND),
     Bot("pine-tp3", "332317231899038878", "US500", "tp3",
         "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)"),
     Bot("pine-hand", "332325912027944094", "Vortag USDJPY", "hand",
@@ -98,7 +103,7 @@ def vorab_ok() -> bool:
     from suche.runde1 import journal_lines, last_value, sha256_text
     zeilen = journal_lines()
     return all(v.exists() and last_value(zeilen, k) == sha256_text(v.read_text(encoding="utf-8"))
-               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER), (VORAB_K5, KEY_K5)))
+               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER), (VORAB_K5, KEY_K5), (VORAB_RUND, KEY_RUND)))
 
 
 def atr_rma(bars: pd.DataFrame, n: int = ATR_N) -> pd.Series:
@@ -115,9 +120,9 @@ def signale(bars: pd.DataFrame) -> pd.DataFrame:
                          "aus_short": b["exit"].fillna(False).astype(bool), "atr": atr_rma(bars)}, index=bars.index)
 
 
-def in_handelszeit(t: pd.Timestamp) -> bool:
+def in_handelszeit(t: pd.Timestamp, stunden: tuple[float, float] = STUNDEN) -> bool:
     h = t.hour + t.minute / 60
-    return STUNDEN[0] <= h < STUNDEN[1]
+    return stunden[0] <= h < stunden[1]
 
 
 def r_dist(atr: float, spread: float) -> float:
@@ -470,7 +475,7 @@ class Lauf:
         for t in neue:
             ende = t + KERZE
             lang, kurz = bool(sig.at[t, "long"]), bool(sig.at[t, "short"])
-            if not (lang or kurz) or not in_handelszeit(t):
+            if not (lang or kurz) or not in_handelszeit(t, self.bot.stunden):
                 continue
             seiten = {1 if hb.richtung(p) > 0 else -1 for p in gold}
             if lang and kurz:
@@ -697,7 +702,9 @@ START_BOT = "pine-k5"
 
 def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
     r = [float(t["r"]) for t in alle if t.get("r") is not None]
-    regel = ("Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, "
+    zeit = ("Einstiege rund um die Uhr, wenn Gold handelbar ist" if bot.stunden == RUND else
+            f"Einstiege {bot.stunden[0]:.0f} bis {bot.stunden[1]:.0f} Uhr UTC")
+    regel = ("Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, " + zeit + ", "
              "1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, "
              + ("Long und Short gleichzeitig erlaubt (Hedging). " if bot.hedging else "nie gegen die Gegenrichtung. "))
     if bot.gold_pruefer:
@@ -713,9 +720,9 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
               f"Notausstieg aller eigenen Trades bei zusammen -{NOT_AUS_EUR:.0f} €.")
     return {"bot": bot.bot_id, "name": bot.name, "konto": "…" + bot.konto[-4:], "konto_name": bot.konto_name,
             "stand": st.get("stand"), "start": st.get("start"), "regel": regel,
-            "vorab": "suche/VORAB_pine5m_konto5.yaml" if bot.gold_pruefer else "suche/VORAB_pine5m.yaml",
-            "test": ("nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 "
-                     "0,76)" if bot.gold_pruefer else
+            "vorab": "suche/VORAB_pine5m_rund.yaml" if bot.gold_pruefer else "suche/VORAB_pine5m.yaml",
+            "test": ("nicht bestanden (rund um die Uhr Gewinnfaktor 1,00, nur 7 bis 20 Uhr UTC 1,09, Nachttrades allein "
+                     "0,89; Kontrolle 2022-24 0,72)" if bot.gold_pruefer else
                      "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)"),
             "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": sb.ts.pf(r) if r else None, "summe_r": round(sum(r), 2),

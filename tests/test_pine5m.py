@@ -160,8 +160,9 @@ def _orders(k, konto=None):
 def test_konten_und_nie_hauptkonto():
     assert {b.art for b in pb.BOTS} == {"hand", "tp3"}
     assert HAND.konto.endswith("9086") and HAND.konto == pb.hb.KONTO and HAND.bot_id == "pine-k5"
-    assert HAND.hedging and HAND.gold_pruefer and HAND.neu
+    assert HAND.hedging and HAND.gold_pruefer and HAND.neu and HAND.stunden == pb.RUND == (0.0, 24.0)
     assert TP3.konto.endswith("8878") and not TP3.hedging and not TP3.gold_pruefer and TP3.neu
+    assert TP3.stunden == pb.STUNDEN == (7.0, 20.0)
     assert ALT.bot_id == "pine-hand" and ALT.konto.endswith("4094") and not ALT.neu
     assert not any(b.konto.endswith(pb.HAUPT_ENDUNG) for b in pb.BOTS)
     assert len({b.konto for b in pb.BOTS}) == 3
@@ -194,14 +195,25 @@ def test_short_signal_mit_tp_unter_dem_einstieg(welt):
     assert tp3[0][2]["direction"] == "SELL" and tp3[0][2]["profitLevel"] == pytest.approx(3994.60)
 
 
-def test_ausserhalb_der_handelszeit_kein_trade(welt):
-    nacht = pd.Timestamp("2026-03-04 21:17", tz="UTC").to_pydatetime()
-    welt["bars"], welt["spread"] = _kerzen(nacht)
-    welt["sig"] = welt["sig"].set_axis(welt["bars"].index)
-    _setze(welt, "long")
-    k = Konto()
-    pb.run(k, {}, nacht, post=Post())
-    assert not _orders(k)
+def test_nachts_nur_konto5_tp_bot_nicht(welt):
+    # Kirons Wort 10.11.2026 09:35 UTC: pine-k5 rund um die Uhr, der TP-Bot bleibt bei 7 bis 20 Uhr UTC
+    for zeit in ("2026-03-04 21:17", "2026-03-05 03:02"):
+        nacht = pd.Timestamp(zeit, tz="UTC").to_pydatetime()
+        welt["bars"], welt["spread"] = _kerzen(nacht)
+        welt["sig"] = pd.DataFrame({"long": False, "short": False, "aus_long": False, "aus_short": False,
+                                    "atr": 3.0}, index=welt["bars"].index)
+        _setze(welt, "long")
+        k = Konto()
+        pb.run(k, {}, nacht, post=Post())
+        assert len(_orders(k, HAND.konto)) == 1 and not _orders(k, TP3.konto) and not _orders(k, ALT.konto)
+
+
+def test_handelszeit_fenster():
+    t = pd.Timestamp("2026-03-04 06:55", tz="UTC")
+    assert not pb.in_handelszeit(t) and pb.in_handelszeit(t, pb.RUND)
+    assert pb.in_handelszeit(pd.Timestamp("2026-03-04 07:00", tz="UTC"))
+    assert not pb.in_handelszeit(pd.Timestamp("2026-03-04 20:00", tz="UTC"))
+    assert pb.in_handelszeit(pd.Timestamp("2026-03-04 23:55", tz="UTC"), pb.RUND)
 
 
 def test_altes_signal_verfaellt_still(welt):
@@ -341,6 +353,8 @@ def test_alter_bot_betreut_seine_offenen_trades(welt):
 def test_vorab_konto5_ist_versiegelt():
     from suche.runde1 import journal_lines, last_value, sha256_text
     assert last_value(journal_lines(), pb.KEY_K5) == sha256_text(pb.VORAB_K5.read_text(encoding="utf-8"))
+    assert last_value(journal_lines(), pb.KEY_RUND) == sha256_text(pb.VORAB_RUND.read_text(encoding="utf-8"))
+    assert pb.vorab_ok()
 
 
 def test_widerspruch_ohne_position_verfaellt_mit_long_stockt_auf(welt):
@@ -530,7 +544,8 @@ def test_nur_eigene_dateien_und_weniger_commits(tmp_path):
     assert pb.schreiben(HAND, {}, st, [], [], [], root=tmp_path)
     assert (tmp_path / "journal" / "pine-k5" / "state.json").exists()
     cp = json.loads((tmp_path / "journal" / "pine-k5.json").read_text())
-    assert cp["konto"] == "…9086" and cp["vorab"] == "suche/VORAB_pine5m_konto5.yaml" and "Hedging" in cp["regel"]
+    assert cp["konto"] == "…9086" and cp["vorab"] == "suche/VORAB_pine5m_rund.yaml" and "Hedging" in cp["regel"]
+    assert "rund um die Uhr" in cp["regel"] and "7 bis 20" not in cp["regel"]
     assert pb.schreiben(ALT, {}, st, [], [], [], root=tmp_path)
     alt = json.loads((tmp_path / "journal" / "pine-hand.json").read_text())
     assert alt["konto"] == "…4094" and alt["regel"].startswith("Seit 10.11.2026 auf Account 5 umgezogen")

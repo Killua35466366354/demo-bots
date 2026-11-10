@@ -1,0 +1,27 @@
+# Pine-Gold-Hand-Bot auf Account 5 rund um die Uhr, Nachtrag zu suche/VORAB_pine5m_konto5.yaml.
+# Kirons Wort vom 10.11.2026 09:35 UTC: "Kann der bot nicht 24/7 trades nehmen".
+# Festgelegt, bevor etwas gerechnet wurde. Code suche/pine5m_rund.py. Einstiege, Kosten, R, Abfänger, Hedging,
+# Termin-Pause, Hintergrund, Zeiträume und Bestanden-Regel genau wie k5_hedge_termin_hg in VORAB_pine5m_konto5.yaml,
+# nur das Zeitfenster für Einstiege ändert sich. Markt nur XAUUSD.
+
+format: 1
+pine5m_rund:
+  live_auf_jeden_fall: >-
+    Kirons Wunsch geht live, egal wie der Test ausgeht (reiner Demo-Vorwärtstest): Bot pine-k5 auf Account 5 nimmt
+    Einstiege zu jeder Stunde, in der Gold bei Capital.com handelbar ist (kein Fenster 7 bis 20 Uhr UTC mehr). Ist der
+    Markt zu, kommt keine Kerze und kein Einstieg. Alles andere bleibt wie in VORAB_pine5m_konto5 (Hedging,
+    Termin-Pause, Hintergrund, Abfänger, höchstens 4 offen). Der TP-Bot pine-tp3 bleibt bei 7 bis 20 Uhr UTC.
+  varianten:
+    k5_7_20: wie heute live (k5_hedge_termin_hg), Einstiege nur bei Signalkerzen von 7 bis 20 Uhr UTC
+    k5_rund: dasselbe ohne Zeitfenster, jede Signalkerze in den Daten zählt
+  masse: >-
+    wie VORAB_pine5m_konto5 (Zeitraum, 1,5-facher Spread, Hälften, 2026, Kontrolle, Long und Short, größter
+    Einzelverlust), dazu für k5_rund getrennt die Trades mit Signalkerze außerhalb von 7 bis 20 Uhr UTC (Nacht) im
+    Zeitraum und in der Kontrolle.
+  hinweis_spread: >-
+    Der Test rechnet wie VORAB_pine5m mit festem Spread 0,50. Nachts, vor allem um die Tagespause, ist der
+    Capital.com-Spread oft breiter. Der 1,5-fache Spread zeigt, wie empfindlich das ist. Der Live-Bot nimmt den
+    echten Spread.
+  bestanden: wie VORAB_pine5m (Gewinnfaktor mindestens 1,2, robust 1,0, Hälften, 2026 und Kontrolle über 1,0, 100 Trades)
+  keine_nachbesserung: keine anderen Fenster, Schwellen oder Filter nach dem Ergebnis.
+  live: nur Demo, nur über einen PR, den Kiron merged. Urteil nach 40 Trades.

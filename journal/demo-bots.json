@@ -1,13 +1,13 @@
 {
  "format": 1,
- "stand_utc": "2026-11-10T02:46:35.201947",
+ "stand_utc": "2026-11-10T03:00:25.775203",
  "phase": "laeuft",
  "start_utc": "2026-11-03T07:14:21.451786",
  "ende_utc": "2027-01-29T21:00:00",
  "konto": {
   "waehrung": "EUR",
-  "balance": 1053.53,
-  "frei": 870.21
+  "balance": 1051.45,
+  "frei": 868.26
  },
  "regel": "Backtest März bis Oktober 2026, die 5 besten Varianten nach Gewinnfaktor (über 1,2, mindestens 30 Trades, je Markt eine). 4 Handelstage Demo mit der kleinsten Ordergröße. Gut = Summe R über 0 und Gewinnfaktor ab 1,2 bei mindestens 3 Trades.",
  "bots": [
@@ -33,7 +33,7 @@
    "pf_r": null,
    "sum_r": 0.0,
    "pnl_eur": 0.0,
-   "letzte_kerze": "2026-11-10 02:00:00",
+   "letzte_kerze": "2026-11-10 02:30:00",
    "bewertung": null,
    "hinweis": "Nur Long (C). Ohne die 3 besten Trades Gewinnfaktor 1,33. Zufall gleich gut in 3,5 % der Läufe.",
    "konto": {

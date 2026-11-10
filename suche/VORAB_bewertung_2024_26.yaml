@@ -1,0 +1,43 @@
+# Neue Grundregel für die Bewertung aller Backtests im Demo-Labor. Kirons Wort vom 10.11.2026 17:05 UTC:
+# "Ich entscheide beim Retesten und Backtesten auch den Markt. Also wenn es im 24 bis 26 sehr gut performt, dann sollte
+# es eher genommen werden und es ist dann ein bisschen egal, wenn es in 2015 bis 2020 oder so nicht so gut performt. Da
+# war nämlich ja auch Corona-Krise und ganz viele verschiedene Sachen, die das so beeinflusst haben ... Also priorisiere
+# die Backtests, die gut laufen von 2024 bis 2026. Vor allem bei Strategien, die viele Trades innerhalb von einer Woche
+# nehmen."
+# Festgelegt, bevor irgendein altes Ergebnis nach dieser Regel nachgeprüft wurde.
+
+format: 1
+bewertung_2024_26:
+  gilt_ab: >-
+    10.11.2026 für jede neue Rechnung im Demo-Labor und für die Nachprüfung alter Ergebnisse. Versiegelte Regeln alter
+    Tests bleiben unverändert, nur ihr Urteil wird hier zusätzlich nach dieser Regel gelesen.
+  hauptfenster: >-
+    01.01.2024 bis Ende der Daten. Beginnen die Daten eines Tests später (z. B. erst Ende 2024), zählt alles, was da ist,
+    und das steht dabei.
+  bestanden_heisst:
+    trades: mindestens 100 im Hauptfenster (etwa 0,7 je Woche). Weniger heißt nicht bestanden, nur Auskunft.
+    gewinnfaktor: mindestens 1,2 im Hauptfenster, mit den Kosten des jeweiligen Tests.
+    robust: hat der Test eine Rechnung mit 1,5-fachem Spread, dort im Hauptfenster mindestens 1,0.
+    haelften: beide zeitlichen Hälften des Hauptfensters je Gewinnfaktor über 1,0.
+    jahr_2026: 2026 allein Gewinnfaktor über 1,0, wenn es dort mindestens 20 Trades gibt.
+    zufall: hat der Test einen Zufallsvergleich für das Hauptfenster, muss die Variante ihn schlagen wie in ihrem Test.
+  aeltere_jahre: >-
+    Alles vor 2024 ist nur Auskunft und lässt keinen Test mehr durchfallen. In Berichten stehen die Zahlen ab 2024 zuerst.
+  viele_trades: >-
+    Strategien mit mindestens 2 Trades je Woche im Hauptfenster werden zuerst geprüft und zuerst gemeldet. Jede Strategie
+    soll wie bisher möglichst 1 bis 2 oder mehr Trades je Woche bringen.
+  nachpruefung:
+    was: >-
+      Alle bisherigen Ergebnisse, für die einzelne Trades mit Zeit und Ergebnis in R gespeichert sind (Repo demo-bots und
+      Projektordner strategie-suche), werden nach dieser Regel neu gelesen. Keine neuen Varianten, keine neuen Parameter,
+      nur die Varianten, die damals gerechnet wurden. Ergebnisse ohne einzelne Trades werden nur dann gelesen, wenn ihr
+      Rechenzeitraum ganz ab 2024 liegt, sonst stehen sie als "nicht nachprüfbar ohne neue Rechnung" in der Liste.
+    melden: >-
+      Welche bisher durchgefallenen Varianten jetzt bestehen, sortiert nach Trades je Woche, dann Gewinnfaktor, dazu wie
+      viele Varianten insgesamt nachgeprüft wurden (bei vielen Varianten besteht auch mal eine nur durch Glück).
+    live: nur nach Kirons Wahl auf einer Karte und über einen PR, den Kiron merged, als Demo-Bot mit Urteil nach 40 Trades.
+  ehrlich: >-
+    2024 bis 2026 war für Gold ein starker Aufwärtstrend und für Aktien ein Hoch. Eine Strategie, die nur in so einem
+    Markt verdient, kann verlieren, wenn er dreht. Darum bleibt das Urteil nach 40 Demo-Trades (VORAB_aufstieg.yaml) die
+    echte Prüfung, und ältere Jahre stehen weiter als Auskunft in jedem Bericht.
+  keine_nachbesserung: keine andere Schwelle, kein anderes Fenster nach dem Ergebnis der Nachprüfung.

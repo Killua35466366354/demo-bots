@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-10T10:47:03.473799",
+ "stand_utc": "2026-11-10T11:01:35.679945",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -198,7 +198,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T10:47:03.473799",
+    "zeit": "2026-11-10T11:01:35.679945",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -376,7 +376,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T10:47:03.473799",
+    "zeit": "2026-11-10T11:01:35.679945",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.892 > 0,866): heute kein Trade"
@@ -694,7 +694,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T10:47:03.473799",
+    "zeit": "2026-11-10T11:01:35.679945",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -852,7 +852,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T10:47:03.473799",
+    "zeit": "2026-11-10T11:01:35.679945",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1010,7 +1010,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T10:47:03.473799",
+    "zeit": "2026-11-10T11:01:35.679945",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1208,7 +1208,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T10:47:03.473799",
+    "zeit": "2026-11-10T11:01:35.679945",
     "action": "none",
     "why": [
      "heute erledigt"

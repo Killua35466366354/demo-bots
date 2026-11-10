@@ -1,0 +1,2440 @@
+[
+ {
+  "variante": "gotobi_a",
+  "markt": "USDJPY",
+  "einheit": "%",
+  "termin": true,
+  "zeitraum": {
+   "trades": 124,
+   "je_woche": 1.19,
+   "pf": 0.96,
+   "summe": -0.43,
+   "schnitt": -0.0035,
+   "max_rueckgang": 2.52,
+   "trefferquote_pct": 50.8,
+   "long_n": 124,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 124
+   }
+  },
+  "robust": {
+   "trades": 124,
+   "je_woche": 1.19,
+   "pf": 0.91,
+   "summe": -0.92,
+   "schnitt": -0.0074,
+   "max_rueckgang": 2.74,
+   "trefferquote_pct": 48.4,
+   "long_n": 124,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 124
+   }
+  },
+  "haelfte_1": {
+   "trades": 62,
+   "je_woche": 1.19,
+   "pf": 0.96,
+   "summe": -0.24,
+   "schnitt": -0.0039,
+   "max_rueckgang": 2.19,
+   "trefferquote_pct": 46.8,
+   "long_n": 62,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 62
+   }
+  },
+  "haelfte_2": {
+   "trades": 62,
+   "je_woche": 1.19,
+   "pf": 0.95,
+   "summe": -0.19,
+   "schnitt": -0.003,
+   "max_rueckgang": 1.55,
+   "trefferquote_pct": 54.8,
+   "long_n": 62,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 62
+   }
+  },
+  "jahr_2026": {
+   "trades": 52,
+   "je_woche": 1.2,
+   "pf": 0.85,
+   "summe": -0.5,
+   "schnitt": -0.0097,
+   "max_rueckgang": 1.55,
+   "trefferquote_pct": 53.8,
+   "long_n": 52,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 52
+   }
+  },
+  "kontrolle": {
+   "trades": 103,
+   "je_woche": 1.08,
+   "pf": 0.83,
+   "summe": -1.48,
+   "schnitt": -0.0143,
+   "max_rueckgang": 2.77,
+   "trefferquote_pct": 48.5,
+   "long_n": 103,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 103
+   }
+  },
+  "vergleich": {
+   "placebo_trades": 286,
+   "placebo_pf": 0.92,
+   "kandidat_pf": 0.96,
+   "bestanden": true
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.96",
+   "mit 1,5-fachem Spread 0.91",
+   "2026 0.85",
+   "Kontrolle 0.83",
+   "1. Hälfte 0.96",
+   "2. Hälfte 0.95"
+  ]
+ },
+ {
+  "variante": "gotobi_b",
+  "markt": "USDJPY",
+  "einheit": "%",
+  "termin": true,
+  "zeitraum": {
+   "trades": 143,
+   "je_woche": 1.37,
+   "pf": 1.33,
+   "summe": 2.11,
+   "schnitt": 0.0147,
+   "max_rueckgang": 1.44,
+   "trefferquote_pct": 57.3,
+   "long_n": 143,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 143
+   }
+  },
+  "robust": {
+   "trades": 143,
+   "je_woche": 1.37,
+   "pf": 1.24,
+   "summe": 1.55,
+   "schnitt": 0.0108,
+   "max_rueckgang": 1.52,
+   "trefferquote_pct": 54.5,
+   "long_n": 143,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 143
+   }
+  },
+  "haelfte_1": {
+   "trades": 71,
+   "je_woche": 1.36,
+   "pf": 1.0,
+   "summe": 0.01,
+   "schnitt": 0.0001,
+   "max_rueckgang": 1.44,
+   "trefferquote_pct": 50.7,
+   "long_n": 71,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 71
+   }
+  },
+  "haelfte_2": {
+   "trades": 72,
+   "je_woche": 1.38,
+   "pf": 2.04,
+   "summe": 2.1,
+   "schnitt": 0.0291,
+   "max_rueckgang": 0.74,
+   "trefferquote_pct": 63.9,
+   "long_n": 72,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 72
+   }
+  },
+  "jahr_2026": {
+   "trades": 60,
+   "je_woche": 1.39,
+   "pf": 1.83,
+   "summe": 1.53,
+   "schnitt": 0.0254,
+   "max_rueckgang": 0.74,
+   "trefferquote_pct": 61.7,
+   "long_n": 60,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 60
+   }
+  },
+  "kontrolle": {
+   "trades": 115,
+   "je_woche": 1.2,
+   "pf": 1.1,
+   "summe": 0.56,
+   "schnitt": 0.0049,
+   "max_rueckgang": 0.89,
+   "trefferquote_pct": 53.9,
+   "long_n": 115,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 115
+   }
+  },
+  "vergleich": {
+   "placebo_trades": 374,
+   "placebo_pf": 1.4,
+   "kandidat_pf": 1.33,
+   "bestanden": false
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "1. Hälfte 1.0",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eurusd_a",
+  "markt": "EURUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 1031,
+   "je_woche": 9.9,
+   "pf": 0.82,
+   "summe": -20.26,
+   "schnitt": -0.0197,
+   "max_rueckgang": 23.77,
+   "trefferquote_pct": 46.6,
+   "long_n": 515,
+   "short_n": 516,
+   "gruende": {
+    "zeit": 1031
+   }
+  },
+  "robust": {
+   "trades": 1031,
+   "je_woche": 9.9,
+   "pf": 0.78,
+   "summe": -24.81,
+   "schnitt": -0.0241,
+   "max_rueckgang": 27.68,
+   "trefferquote_pct": 45.8,
+   "long_n": 515,
+   "short_n": 516,
+   "gruende": {
+    "zeit": 1031
+   }
+  },
+  "haelfte_1": {
+   "trades": 518,
+   "je_woche": 9.93,
+   "pf": 0.83,
+   "summe": -11.22,
+   "schnitt": -0.0217,
+   "max_rueckgang": 17.04,
+   "trefferquote_pct": 46.9,
+   "long_n": 259,
+   "short_n": 259,
+   "gruende": {
+    "zeit": 518
+   }
+  },
+  "haelfte_2": {
+   "trades": 513,
+   "je_woche": 9.87,
+   "pf": 0.8,
+   "summe": -9.05,
+   "schnitt": -0.0176,
+   "max_rueckgang": 11.76,
+   "trefferquote_pct": 46.2,
+   "long_n": 256,
+   "short_n": 257,
+   "gruende": {
+    "zeit": 513
+   }
+  },
+  "jahr_2026": {
+   "trades": 429,
+   "je_woche": 9.91,
+   "pf": 0.84,
+   "summe": -6.19,
+   "schnitt": -0.0144,
+   "max_rueckgang": 11.7,
+   "trefferquote_pct": 47.1,
+   "long_n": 214,
+   "short_n": 215,
+   "gruende": {
+    "zeit": 429
+   }
+  },
+  "kontrolle": {
+   "trades": 881,
+   "je_woche": 8.44,
+   "pf": 0.97,
+   "summe": -2.5,
+   "schnitt": -0.0028,
+   "max_rueckgang": 8.26,
+   "trefferquote_pct": 49.4,
+   "long_n": 416,
+   "short_n": 465,
+   "gruende": {
+    "zeit": 881
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 8.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.93
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.82",
+   "mit 1,5-fachem Spread 0.78",
+   "2026 0.84",
+   "Kontrolle 0.97",
+   "1. Hälfte 0.83",
+   "2. Hälfte 0.8",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eurusd_a_f",
+  "markt": "EURUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 5,
+   "je_woche": 0.05,
+   "pf": 0.0,
+   "summe": -1.98,
+   "schnitt": -0.3965,
+   "max_rueckgang": 1.98,
+   "trefferquote_pct": 0.0,
+   "long_n": 5,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 5
+   }
+  },
+  "robust": {
+   "trades": 5,
+   "je_woche": 0.05,
+   "pf": 0.0,
+   "summe": -2.01,
+   "schnitt": -0.401,
+   "max_rueckgang": 2.01,
+   "trefferquote_pct": 0.0,
+   "long_n": 5,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 5
+   }
+  },
+  "haelfte_1": {
+   "trades": 5,
+   "je_woche": 0.1,
+   "pf": 0.0,
+   "summe": -1.98,
+   "schnitt": -0.3965,
+   "max_rueckgang": 1.98,
+   "trefferquote_pct": 0.0,
+   "long_n": 5,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 5
+   }
+  },
+  "haelfte_2": {
+   "trades": 0,
+   "je_woche": 0.0,
+   "pf": 0.0,
+   "summe": 0.0,
+   "schnitt": null,
+   "max_rueckgang": 0.0,
+   "trefferquote_pct": null,
+   "long_n": 0,
+   "short_n": 0,
+   "gruende": {}
+  },
+  "jahr_2026": {
+   "trades": 0,
+   "je_woche": 0.0,
+   "pf": 0.0,
+   "summe": 0.0,
+   "schnitt": null,
+   "max_rueckgang": 0.0,
+   "trefferquote_pct": null,
+   "long_n": 0,
+   "short_n": 0,
+   "gruende": {}
+  },
+  "kontrolle": {
+   "trades": 4,
+   "je_woche": 0.04,
+   "pf": 1.9,
+   "summe": 0.34,
+   "schnitt": 0.0853,
+   "max_rueckgang": 0.38,
+   "trefferquote_pct": 50.0,
+   "long_n": 4,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 4
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 0.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.93
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 5 Trades (mindestens 100)",
+   "Gewinnfaktor 0.0",
+   "mit 1,5-fachem Spread 0.0",
+   "2026 0.0",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eurusd_b",
+  "markt": "EURUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 515,
+   "je_woche": 4.95,
+   "pf": 1.02,
+   "summe": 0.65,
+   "schnitt": 0.0013,
+   "max_rueckgang": 4.03,
+   "trefferquote_pct": 52.6,
+   "long_n": 0,
+   "short_n": 515,
+   "gruende": {
+    "zeit": 515
+   }
+  },
+  "robust": {
+   "trades": 515,
+   "je_woche": 4.95,
+   "pf": 0.95,
+   "summe": -1.62,
+   "schnitt": -0.0032,
+   "max_rueckgang": 5.28,
+   "trefferquote_pct": 51.7,
+   "long_n": 0,
+   "short_n": 515,
+   "gruende": {
+    "zeit": 515
+   }
+  },
+  "haelfte_1": {
+   "trades": 259,
+   "je_woche": 4.97,
+   "pf": 1.08,
+   "summe": 1.64,
+   "schnitt": 0.0063,
+   "max_rueckgang": 2.51,
+   "trefferquote_pct": 51.7,
+   "long_n": 0,
+   "short_n": 259,
+   "gruende": {
+    "zeit": 259
+   }
+  },
+  "haelfte_2": {
+   "trades": 256,
+   "je_woche": 4.92,
+   "pf": 0.93,
+   "summe": -0.99,
+   "schnitt": -0.0039,
+   "max_rueckgang": 4.03,
+   "trefferquote_pct": 53.5,
+   "long_n": 0,
+   "short_n": 256,
+   "gruende": {
+    "zeit": 256
+   }
+  },
+  "jahr_2026": {
+   "trades": 214,
+   "je_woche": 4.94,
+   "pf": 1.04,
+   "summe": 0.45,
+   "schnitt": 0.0021,
+   "max_rueckgang": 3.28,
+   "trefferquote_pct": 55.1,
+   "long_n": 0,
+   "short_n": 214,
+   "gruende": {
+    "zeit": 214
+   }
+  },
+  "kontrolle": {
+   "trades": 460,
+   "je_woche": 4.4,
+   "pf": 0.92,
+   "summe": -2.83,
+   "schnitt": -0.0062,
+   "max_rueckgang": 5.92,
+   "trefferquote_pct": 46.5,
+   "long_n": 0,
+   "short_n": 460,
+   "gruende": {
+    "zeit": 460
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 83.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.89
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 1.02",
+   "mit 1,5-fachem Spread 0.95",
+   "Kontrolle 0.92",
+   "2. Hälfte 0.93",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eroeffnung",
+  "markt": "GRXEUR",
+  "einheit": "R",
+  "termin": false,
+  "zeitraum": {
+   "trades": 512,
+   "je_woche": 4.92,
+   "pf": 0.91,
+   "summe": -38.48,
+   "schnitt": -0.0752,
+   "max_rueckgang": 100.71,
+   "trefferquote_pct": 16.0,
+   "long_n": 286,
+   "short_n": 226,
+   "gruende": {
+    "zeit": 69,
+    "stop": 425,
+    "ziel": 18
+   }
+  },
+  "robust": {
+   "trades": 511,
+   "je_woche": 4.91,
+   "pf": 0.9,
+   "summe": -44.14,
+   "schnitt": -0.0864,
+   "max_rueckgang": 104.78,
+   "trefferquote_pct": 16.0,
+   "long_n": 286,
+   "short_n": 225,
+   "gruende": {
+    "zeit": 70,
+    "stop": 424,
+    "ziel": 17
+   }
+  },
+  "haelfte_1": {
+   "trades": 258,
+   "je_woche": 4.95,
+   "pf": 0.64,
+   "summe": -79.37,
+   "schnitt": -0.3076,
+   "max_rueckgang": 98.59,
+   "trefferquote_pct": 14.3,
+   "long_n": 156,
+   "short_n": 102,
+   "gruende": {
+    "zeit": 36,
+    "stop": 217,
+    "ziel": 5
+   }
+  },
+  "haelfte_2": {
+   "trades": 254,
+   "je_woche": 4.88,
+   "pf": 1.2,
+   "summe": 40.89,
+   "schnitt": 0.161,
+   "max_rueckgang": 28.44,
+   "trefferquote_pct": 17.7,
+   "long_n": 130,
+   "short_n": 124,
+   "gruende": {
+    "zeit": 33,
+    "stop": 208,
+    "ziel": 13
+   }
+  },
+  "jahr_2026": {
+   "trades": 212,
+   "je_woche": 4.9,
+   "pf": 1.11,
+   "summe": 19.63,
+   "schnitt": 0.0926,
+   "max_rueckgang": 27.44,
+   "trefferquote_pct": 15.6,
+   "long_n": 110,
+   "short_n": 102,
+   "gruende": {
+    "stop": 179,
+    "zeit": 21,
+    "ziel": 12
+   }
+  },
+  "kontrolle": {
+   "trades": 437,
+   "je_woche": 4.18,
+   "pf": 0.77,
+   "summe": -84.52,
+   "schnitt": -0.1934,
+   "max_rueckgang": 104.15,
+   "trefferquote_pct": 14.6,
+   "long_n": 239,
+   "short_n": 198,
+   "gruende": {
+    "stop": 369,
+    "ziel": 11,
+    "zeit": 57
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 33.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.97
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.91",
+   "mit 1,5-fachem Spread 0.9",
+   "Kontrolle 0.77",
+   "1. Hälfte 0.64",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eroeffnung_f",
+  "markt": "GRXEUR",
+  "einheit": "R",
+  "termin": false,
+  "zeitraum": {
+   "trades": 40,
+   "je_woche": 0.38,
+   "pf": 0.77,
+   "summe": -7.21,
+   "schnitt": -0.1803,
+   "max_rueckgang": 15.52,
+   "trefferquote_pct": 20.0,
+   "long_n": 20,
+   "short_n": 20,
+   "gruende": {
+    "stop": 32,
+    "zeit": 8
+   }
+  },
+  "robust": {
+   "trades": 40,
+   "je_woche": 0.38,
+   "pf": 0.77,
+   "summe": -7.46,
+   "schnitt": -0.1864,
+   "max_rueckgang": 15.54,
+   "trefferquote_pct": 20.0,
+   "long_n": 20,
+   "short_n": 20,
+   "gruende": {
+    "stop": 32,
+    "zeit": 8
+   }
+  },
+  "haelfte_1": {
+   "trades": 20,
+   "je_woche": 0.38,
+   "pf": 0.38,
+   "summe": -10.56,
+   "schnitt": -0.5278,
+   "max_rueckgang": 14.0,
+   "trefferquote_pct": 15.0,
+   "long_n": 11,
+   "short_n": 9,
+   "gruende": {
+    "stop": 17,
+    "zeit": 3
+   }
+  },
+  "haelfte_2": {
+   "trades": 20,
+   "je_woche": 0.38,
+   "pf": 1.22,
+   "summe": 3.35,
+   "schnitt": 0.1673,
+   "max_rueckgang": 11.0,
+   "trefferquote_pct": 25.0,
+   "long_n": 9,
+   "short_n": 11,
+   "gruende": {
+    "stop": 15,
+    "zeit": 5
+   }
+  },
+  "jahr_2026": {
+   "trades": 18,
+   "je_woche": 0.42,
+   "pf": 1.41,
+   "summe": 5.35,
+   "schnitt": 0.297,
+   "max_rueckgang": 11.0,
+   "trefferquote_pct": 27.8,
+   "long_n": 8,
+   "short_n": 10,
+   "gruende": {
+    "zeit": 5,
+    "stop": 13
+   }
+  },
+  "kontrolle": {
+   "trades": 2,
+   "je_woche": 0.02,
+   "pf": 0.0,
+   "summe": -2.0,
+   "schnitt": -1.0,
+   "max_rueckgang": 2.0,
+   "trefferquote_pct": 0.0,
+   "long_n": 2,
+   "short_n": 0,
+   "gruende": {
+    "stop": 2
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 14.0,
+   "bestanden": false,
+   "zufall_pf_median": 1.14
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 40 Trades (mindestens 100)",
+   "Gewinnfaktor 0.77",
+   "mit 1,5-fachem Spread 0.77",
+   "Kontrolle 0.0",
+   "1. Hälfte 0.38",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eroeffnung",
+  "markt": "SPXUSD",
+  "einheit": "R",
+  "termin": false,
+  "zeitraum": {
+   "trades": 491,
+   "je_woche": 4.71,
+   "pf": 0.73,
+   "summe": -114.18,
+   "schnitt": -0.2326,
+   "max_rueckgang": 147.59,
+   "trefferquote_pct": 14.1,
+   "long_n": 251,
+   "short_n": 240,
+   "gruende": {
+    "stop": 420,
+    "zeit": 56,
+    "ziel": 15
+   }
+  },
+  "robust": {
+   "trades": 489,
+   "je_woche": 4.7,
+   "pf": 0.66,
+   "summe": -142.61,
+   "schnitt": -0.2916,
+   "max_rueckgang": 170.35,
+   "trefferquote_pct": 13.7,
+   "long_n": 251,
+   "short_n": 238,
+   "gruende": {
+    "stop": 420,
+    "zeit": 57,
+    "ziel": 12
+   }
+  },
+  "haelfte_1": {
+   "trades": 246,
+   "je_woche": 4.72,
+   "pf": 0.8,
+   "summe": -42.33,
+   "schnitt": -0.1721,
+   "max_rueckgang": 81.68,
+   "trefferquote_pct": 14.2,
+   "long_n": 126,
+   "short_n": 120,
+   "gruende": {
+    "stop": 211,
+    "zeit": 26,
+    "ziel": 9
+   }
+  },
+  "haelfte_2": {
+   "trades": 245,
+   "je_woche": 4.71,
+   "pf": 0.66,
+   "summe": -71.86,
+   "schnitt": -0.2933,
+   "max_rueckgang": 79.12,
+   "trefferquote_pct": 13.9,
+   "long_n": 125,
+   "short_n": 120,
+   "gruende": {
+    "zeit": 30,
+    "stop": 209,
+    "ziel": 6
+   }
+  },
+  "jahr_2026": {
+   "trades": 206,
+   "je_woche": 4.76,
+   "pf": 0.61,
+   "summe": -69.23,
+   "schnitt": -0.3361,
+   "max_rueckgang": 79.12,
+   "trefferquote_pct": 13.1,
+   "long_n": 103,
+   "short_n": 103,
+   "gruende": {
+    "stop": 178,
+    "zeit": 23,
+    "ziel": 5
+   }
+  },
+  "kontrolle": {
+   "trades": 428,
+   "je_woche": 4.1,
+   "pf": 0.69,
+   "summe": -115.07,
+   "schnitt": -0.2688,
+   "max_rueckgang": 133.85,
+   "trefferquote_pct": 12.9,
+   "long_n": 227,
+   "short_n": 201,
+   "gruende": {
+    "ziel": 14,
+    "stop": 371,
+    "zeit": 43
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 45.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.74
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.73",
+   "mit 1,5-fachem Spread 0.66",
+   "2026 0.61",
+   "Kontrolle 0.69",
+   "1. Hälfte 0.8",
+   "2. Hälfte 0.66",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "eroeffnung_f",
+  "markt": "SPXUSD",
+  "einheit": "R",
+  "termin": false,
+  "zeitraum": {
+   "trades": 23,
+   "je_woche": 0.22,
+   "pf": 0.87,
+   "summe": -2.57,
+   "schnitt": -0.1116,
+   "max_rueckgang": 13.47,
+   "trefferquote_pct": 13.0,
+   "long_n": 12,
+   "short_n": 11,
+   "gruende": {
+    "zeit": 2,
+    "stop": 20,
+    "ziel": 1
+   }
+  },
+  "robust": {
+   "trades": 23,
+   "je_woche": 0.22,
+   "pf": 0.87,
+   "summe": -2.63,
+   "schnitt": -0.1142,
+   "max_rueckgang": 13.49,
+   "trefferquote_pct": 13.0,
+   "long_n": 12,
+   "short_n": 11,
+   "gruende": {
+    "zeit": 2,
+    "stop": 20,
+    "ziel": 1
+   }
+  },
+  "haelfte_1": {
+   "trades": 11,
+   "je_woche": 0.21,
+   "pf": 1.77,
+   "summe": 6.9,
+   "schnitt": 0.6277,
+   "max_rueckgang": 5.0,
+   "trefferquote_pct": 18.2,
+   "long_n": 6,
+   "short_n": 5,
+   "gruende": {
+    "zeit": 1,
+    "stop": 9,
+    "ziel": 1
+   }
+  },
+  "haelfte_2": {
+   "trades": 12,
+   "je_woche": 0.23,
+   "pf": 0.14,
+   "summe": -9.47,
+   "schnitt": -0.7893,
+   "max_rueckgang": 9.47,
+   "trefferquote_pct": 8.3,
+   "long_n": 6,
+   "short_n": 6,
+   "gruende": {
+    "stop": 11,
+    "zeit": 1
+   }
+  },
+  "jahr_2026": {
+   "trades": 11,
+   "je_woche": 0.25,
+   "pf": 0.15,
+   "summe": -8.47,
+   "schnitt": -0.7701,
+   "max_rueckgang": 8.47,
+   "trefferquote_pct": 9.1,
+   "long_n": 5,
+   "short_n": 6,
+   "gruende": {
+    "stop": 10,
+    "zeit": 1
+   }
+  },
+  "kontrolle": {
+   "trades": 7,
+   "je_woche": 0.07,
+   "pf": 0.6,
+   "summe": -2.4,
+   "schnitt": -0.343,
+   "max_rueckgang": 4.0,
+   "trefferquote_pct": 14.3,
+   "long_n": 0,
+   "short_n": 7,
+   "gruende": {
+    "stop": 6,
+    "zeit": 1
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 47.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.87
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 23 Trades (mindestens 100)",
+   "Gewinnfaktor 0.87",
+   "mit 1,5-fachem Spread 0.87",
+   "2026 0.15",
+   "Kontrolle 0.6",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde",
+  "markt": "SPXUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 494,
+   "je_woche": 4.74,
+   "pf": 0.71,
+   "summe": -9.95,
+   "schnitt": -0.0202,
+   "max_rueckgang": 11.75,
+   "trefferquote_pct": 42.9,
+   "long_n": 270,
+   "short_n": 224,
+   "gruende": {
+    "zeit": 494
+   }
+  },
+  "robust": {
+   "trades": 494,
+   "je_woche": 4.74,
+   "pf": 0.66,
+   "summe": -12.21,
+   "schnitt": -0.0247,
+   "max_rueckgang": 13.56,
+   "trefferquote_pct": 41.9,
+   "long_n": 270,
+   "short_n": 224,
+   "gruende": {
+    "zeit": 494
+   }
+  },
+  "haelfte_1": {
+   "trades": 247,
+   "je_woche": 4.74,
+   "pf": 0.76,
+   "summe": -4.41,
+   "schnitt": -0.0179,
+   "max_rueckgang": 6.2,
+   "trefferquote_pct": 40.5,
+   "long_n": 138,
+   "short_n": 109,
+   "gruende": {
+    "zeit": 247
+   }
+  },
+  "haelfte_2": {
+   "trades": 247,
+   "je_woche": 4.75,
+   "pf": 0.65,
+   "summe": -5.54,
+   "schnitt": -0.0224,
+   "max_rueckgang": 5.65,
+   "trefferquote_pct": 45.3,
+   "long_n": 132,
+   "short_n": 115,
+   "gruende": {
+    "zeit": 247
+   }
+  },
+  "jahr_2026": {
+   "trades": 208,
+   "je_woche": 4.81,
+   "pf": 0.64,
+   "summe": -4.62,
+   "schnitt": -0.0222,
+   "max_rueckgang": 4.62,
+   "trefferquote_pct": 45.7,
+   "long_n": 110,
+   "short_n": 98,
+   "gruende": {
+    "zeit": 208
+   }
+  },
+  "kontrolle": {
+   "trades": 453,
+   "je_woche": 4.34,
+   "pf": 0.9,
+   "summe": -3.13,
+   "schnitt": -0.0069,
+   "max_rueckgang": 7.77,
+   "trefferquote_pct": 47.9,
+   "long_n": 241,
+   "short_n": 212,
+   "gruende": {
+    "zeit": 453
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 12.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.85
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.71",
+   "mit 1,5-fachem Spread 0.66",
+   "2026 0.64",
+   "Kontrolle 0.9",
+   "1. Hälfte 0.76",
+   "2. Hälfte 0.65",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde_f",
+  "markt": "SPXUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 67,
+   "je_woche": 0.64,
+   "pf": 1.12,
+   "summe": 0.97,
+   "schnitt": 0.0145,
+   "max_rueckgang": 2.75,
+   "trefferquote_pct": 46.3,
+   "long_n": 19,
+   "short_n": 48,
+   "gruende": {
+    "zeit": 67
+   }
+  },
+  "robust": {
+   "trades": 67,
+   "je_woche": 0.64,
+   "pf": 1.08,
+   "summe": 0.66,
+   "schnitt": 0.0098,
+   "max_rueckgang": 2.96,
+   "trefferquote_pct": 46.3,
+   "long_n": 19,
+   "short_n": 48,
+   "gruende": {
+    "zeit": 67
+   }
+  },
+  "haelfte_1": {
+   "trades": 33,
+   "je_woche": 0.63,
+   "pf": 1.55,
+   "summe": 2.44,
+   "schnitt": 0.0741,
+   "max_rueckgang": 1.37,
+   "trefferquote_pct": 48.5,
+   "long_n": 9,
+   "short_n": 24,
+   "gruende": {
+    "zeit": 33
+   }
+  },
+  "haelfte_2": {
+   "trades": 34,
+   "je_woche": 0.65,
+   "pf": 0.63,
+   "summe": -1.47,
+   "schnitt": -0.0434,
+   "max_rueckgang": 1.57,
+   "trefferquote_pct": 44.1,
+   "long_n": 10,
+   "short_n": 24,
+   "gruende": {
+    "zeit": 34
+   }
+  },
+  "jahr_2026": {
+   "trades": 26,
+   "je_woche": 0.6,
+   "pf": 0.55,
+   "summe": -1.34,
+   "schnitt": -0.0515,
+   "max_rueckgang": 1.57,
+   "trefferquote_pct": 50.0,
+   "long_n": 7,
+   "short_n": 19,
+   "gruende": {
+    "zeit": 26
+   }
+  },
+  "kontrolle": {
+   "trades": 15,
+   "je_woche": 0.14,
+   "pf": 1.31,
+   "summe": 0.56,
+   "schnitt": 0.0371,
+   "max_rueckgang": 0.68,
+   "trefferquote_pct": 60.0,
+   "long_n": 5,
+   "short_n": 10,
+   "gruende": {
+    "zeit": 15
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 67.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.91
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 67 Trades (mindestens 100)",
+   "Gewinnfaktor 1.12",
+   "2026 0.55",
+   "2. Hälfte 0.63",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde",
+  "markt": "NSXUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 493,
+   "je_woche": 4.73,
+   "pf": 0.72,
+   "summe": -12.61,
+   "schnitt": -0.0256,
+   "max_rueckgang": 13.63,
+   "trefferquote_pct": 45.2,
+   "long_n": 271,
+   "short_n": 222,
+   "gruende": {
+    "zeit": 493
+   }
+  },
+  "robust": {
+   "trades": 493,
+   "je_woche": 4.73,
+   "pf": 0.68,
+   "summe": -14.44,
+   "schnitt": -0.0293,
+   "max_rueckgang": 15.15,
+   "trefferquote_pct": 44.2,
+   "long_n": 271,
+   "short_n": 222,
+   "gruende": {
+    "zeit": 493
+   }
+  },
+  "haelfte_1": {
+   "trades": 246,
+   "je_woche": 4.72,
+   "pf": 0.63,
+   "summe": -9.12,
+   "schnitt": -0.0371,
+   "max_rueckgang": 9.44,
+   "trefferquote_pct": 43.5,
+   "long_n": 139,
+   "short_n": 107,
+   "gruende": {
+    "zeit": 246
+   }
+  },
+  "haelfte_2": {
+   "trades": 247,
+   "je_woche": 4.75,
+   "pf": 0.82,
+   "summe": -3.49,
+   "schnitt": -0.0141,
+   "max_rueckgang": 4.6,
+   "trefferquote_pct": 47.0,
+   "long_n": 132,
+   "short_n": 115,
+   "gruende": {
+    "zeit": 247
+   }
+  },
+  "jahr_2026": {
+   "trades": 208,
+   "je_woche": 4.81,
+   "pf": 0.85,
+   "summe": -2.47,
+   "schnitt": -0.0119,
+   "max_rueckgang": 3.54,
+   "trefferquote_pct": 47.6,
+   "long_n": 111,
+   "short_n": 97,
+   "gruende": {
+    "zeit": 208
+   }
+  },
+  "kontrolle": {
+   "trades": 441,
+   "je_woche": 4.22,
+   "pf": 0.91,
+   "summe": -3.33,
+   "schnitt": -0.0076,
+   "max_rueckgang": 7.85,
+   "trefferquote_pct": 49.9,
+   "long_n": 236,
+   "short_n": 205,
+   "gruende": {
+    "zeit": 441
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 4.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.9
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.72",
+   "mit 1,5-fachem Spread 0.68",
+   "2026 0.85",
+   "Kontrolle 0.91",
+   "1. Hälfte 0.63",
+   "2. Hälfte 0.82",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde_f",
+  "markt": "NSXUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 143,
+   "je_woche": 1.37,
+   "pf": 0.72,
+   "summe": -6.02,
+   "schnitt": -0.0421,
+   "max_rueckgang": 7.34,
+   "trefferquote_pct": 42.7,
+   "long_n": 48,
+   "short_n": 95,
+   "gruende": {
+    "zeit": 143
+   }
+  },
+  "robust": {
+   "trades": 143,
+   "je_woche": 1.37,
+   "pf": 0.7,
+   "summe": -6.55,
+   "schnitt": -0.0458,
+   "max_rueckgang": 7.84,
+   "trefferquote_pct": 42.7,
+   "long_n": 48,
+   "short_n": 95,
+   "gruende": {
+    "zeit": 143
+   }
+  },
+  "haelfte_1": {
+   "trades": 60,
+   "je_woche": 1.15,
+   "pf": 0.67,
+   "summe": -3.7,
+   "schnitt": -0.0617,
+   "max_rueckgang": 4.92,
+   "trefferquote_pct": 41.7,
+   "long_n": 18,
+   "short_n": 42,
+   "gruende": {
+    "zeit": 60
+   }
+  },
+  "haelfte_2": {
+   "trades": 83,
+   "je_woche": 1.6,
+   "pf": 0.77,
+   "summe": -2.32,
+   "schnitt": -0.028,
+   "max_rueckgang": 2.79,
+   "trefferquote_pct": 43.4,
+   "long_n": 30,
+   "short_n": 53,
+   "gruende": {
+    "zeit": 83
+   }
+  },
+  "jahr_2026": {
+   "trades": 72,
+   "je_woche": 1.66,
+   "pf": 0.82,
+   "summe": -1.47,
+   "schnitt": -0.0204,
+   "max_rueckgang": 2.79,
+   "trefferquote_pct": 45.8,
+   "long_n": 24,
+   "short_n": 48,
+   "gruende": {
+    "zeit": 72
+   }
+  },
+  "kontrolle": {
+   "trades": 66,
+   "je_woche": 0.63,
+   "pf": 1.27,
+   "summe": 2.28,
+   "schnitt": 0.0346,
+   "max_rueckgang": 2.2,
+   "trefferquote_pct": 63.6,
+   "long_n": 29,
+   "short_n": 37,
+   "gruende": {
+    "zeit": 66
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 9.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.93
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.72",
+   "mit 1,5-fachem Spread 0.7",
+   "2026 0.82",
+   "1. Hälfte 0.67",
+   "2. Hälfte 0.77",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde",
+  "markt": "GRXEUR",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 514,
+   "je_woche": 4.94,
+   "pf": 0.97,
+   "summe": -1.01,
+   "schnitt": -0.002,
+   "max_rueckgang": 5.94,
+   "trefferquote_pct": 50.0,
+   "long_n": 271,
+   "short_n": 243,
+   "gruende": {
+    "zeit": 514
+   }
+  },
+  "robust": {
+   "trades": 514,
+   "je_woche": 4.94,
+   "pf": 0.92,
+   "summe": -2.98,
+   "schnitt": -0.0058,
+   "max_rueckgang": 7.26,
+   "trefferquote_pct": 48.6,
+   "long_n": 271,
+   "short_n": 243,
+   "gruende": {
+    "zeit": 514
+   }
+  },
+  "haelfte_1": {
+   "trades": 258,
+   "je_woche": 4.95,
+   "pf": 1.22,
+   "summe": 3.52,
+   "schnitt": 0.0136,
+   "max_rueckgang": 2.79,
+   "trefferquote_pct": 54.7,
+   "long_n": 132,
+   "short_n": 126,
+   "gruende": {
+    "zeit": 258
+   }
+  },
+  "haelfte_2": {
+   "trades": 256,
+   "je_woche": 4.92,
+   "pf": 0.76,
+   "summe": -4.53,
+   "schnitt": -0.0177,
+   "max_rueckgang": 5.33,
+   "trefferquote_pct": 45.3,
+   "long_n": 139,
+   "short_n": 117,
+   "gruende": {
+    "zeit": 256
+   }
+  },
+  "jahr_2026": {
+   "trades": 214,
+   "je_woche": 4.94,
+   "pf": 0.86,
+   "summe": -2.19,
+   "schnitt": -0.0102,
+   "max_rueckgang": 2.92,
+   "trefferquote_pct": 47.7,
+   "long_n": 114,
+   "short_n": 100,
+   "gruende": {
+    "zeit": 214
+   }
+  },
+  "kontrolle": {
+   "trades": 454,
+   "je_woche": 4.35,
+   "pf": 0.73,
+   "summe": -9.89,
+   "schnitt": -0.0218,
+   "max_rueckgang": 10.89,
+   "trefferquote_pct": 43.6,
+   "long_n": 256,
+   "short_n": 198,
+   "gruende": {
+    "zeit": 454
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 82.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.88
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.97",
+   "mit 1,5-fachem Spread 0.92",
+   "2026 0.86",
+   "Kontrolle 0.73",
+   "2. Hälfte 0.76",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde_f",
+  "markt": "GRXEUR",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 122,
+   "je_woche": 1.17,
+   "pf": 0.94,
+   "summe": -0.64,
+   "schnitt": -0.0053,
+   "max_rueckgang": 3.49,
+   "trefferquote_pct": 49.2,
+   "long_n": 44,
+   "short_n": 78,
+   "gruende": {
+    "zeit": 122
+   }
+  },
+  "robust": {
+   "trades": 122,
+   "je_woche": 1.17,
+   "pf": 0.9,
+   "summe": -1.11,
+   "schnitt": -0.0091,
+   "max_rueckgang": 3.71,
+   "trefferquote_pct": 46.7,
+   "long_n": 44,
+   "short_n": 78,
+   "gruende": {
+    "zeit": 122
+   }
+  },
+  "haelfte_1": {
+   "trades": 51,
+   "je_woche": 0.98,
+   "pf": 1.27,
+   "summe": 1.2,
+   "schnitt": 0.0235,
+   "max_rueckgang": 1.51,
+   "trefferquote_pct": 56.9,
+   "long_n": 16,
+   "short_n": 35,
+   "gruende": {
+    "zeit": 51
+   }
+  },
+  "haelfte_2": {
+   "trades": 71,
+   "je_woche": 1.37,
+   "pf": 0.71,
+   "summe": -1.84,
+   "schnitt": -0.0259,
+   "max_rueckgang": 1.98,
+   "trefferquote_pct": 43.7,
+   "long_n": 28,
+   "short_n": 43,
+   "gruende": {
+    "zeit": 71
+   }
+  },
+  "jahr_2026": {
+   "trades": 63,
+   "je_woche": 1.46,
+   "pf": 0.79,
+   "summe": -1.19,
+   "schnitt": -0.019,
+   "max_rueckgang": 1.49,
+   "trefferquote_pct": 47.6,
+   "long_n": 26,
+   "short_n": 37,
+   "gruende": {
+    "zeit": 63
+   }
+  },
+  "kontrolle": {
+   "trades": 7,
+   "je_woche": 0.07,
+   "pf": 2.24,
+   "summe": 0.81,
+   "schnitt": 0.1153,
+   "max_rueckgang": 0.43,
+   "trefferquote_pct": 57.1,
+   "long_n": 2,
+   "short_n": 5,
+   "gruende": {
+    "zeit": 7
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 54.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.92
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.94",
+   "mit 1,5-fachem Spread 0.9",
+   "2026 0.79",
+   "2. Hälfte 0.71",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde",
+  "markt": "XAUUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 513,
+   "je_woche": 4.93,
+   "pf": 0.81,
+   "summe": -7.07,
+   "schnitt": -0.0138,
+   "max_rueckgang": 9.18,
+   "trefferquote_pct": 44.6,
+   "long_n": 282,
+   "short_n": 231,
+   "gruende": {
+    "zeit": 513
+   }
+  },
+  "robust": {
+   "trades": 513,
+   "je_woche": 4.93,
+   "pf": 0.72,
+   "summe": -10.56,
+   "schnitt": -0.0206,
+   "max_rueckgang": 11.16,
+   "trefferquote_pct": 42.7,
+   "long_n": 282,
+   "short_n": 231,
+   "gruende": {
+    "zeit": 513
+   }
+  },
+  "haelfte_1": {
+   "trades": 258,
+   "je_woche": 4.95,
+   "pf": 0.84,
+   "summe": -2.29,
+   "schnitt": -0.0089,
+   "max_rueckgang": 3.64,
+   "trefferquote_pct": 43.8,
+   "long_n": 149,
+   "short_n": 109,
+   "gruende": {
+    "zeit": 258
+   }
+  },
+  "haelfte_2": {
+   "trades": 255,
+   "je_woche": 4.9,
+   "pf": 0.78,
+   "summe": -4.78,
+   "schnitt": -0.0187,
+   "max_rueckgang": 9.18,
+   "trefferquote_pct": 45.5,
+   "long_n": 133,
+   "short_n": 122,
+   "gruende": {
+    "zeit": 255
+   }
+  },
+  "jahr_2026": {
+   "trades": 214,
+   "je_woche": 4.94,
+   "pf": 0.72,
+   "summe": -5.71,
+   "schnitt": -0.0267,
+   "max_rueckgang": 9.18,
+   "trefferquote_pct": 42.1,
+   "long_n": 106,
+   "short_n": 108,
+   "gruende": {
+    "zeit": 214
+   }
+  },
+  "kontrolle": {
+   "trades": 453,
+   "je_woche": 4.34,
+   "pf": 0.55,
+   "summe": -12.15,
+   "schnitt": -0.0268,
+   "max_rueckgang": 12.35,
+   "trefferquote_pct": 40.6,
+   "long_n": 258,
+   "short_n": 195,
+   "gruende": {
+    "zeit": 453
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 49.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.81
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.81",
+   "mit 1,5-fachem Spread 0.72",
+   "2026 0.72",
+   "Kontrolle 0.55",
+   "1. Hälfte 0.84",
+   "2. Hälfte 0.78",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "halbe_stunde_f",
+  "markt": "XAUUSD",
+  "einheit": "%",
+  "termin": false,
+  "zeitraum": {
+   "trades": 67,
+   "je_woche": 0.64,
+   "pf": 1.13,
+   "summe": 1.05,
+   "schnitt": 0.0157,
+   "max_rueckgang": 3.26,
+   "trefferquote_pct": 49.3,
+   "long_n": 27,
+   "short_n": 40,
+   "gruende": {
+    "zeit": 67
+   }
+  },
+  "robust": {
+   "trades": 67,
+   "je_woche": 0.64,
+   "pf": 1.08,
+   "summe": 0.67,
+   "schnitt": 0.01,
+   "max_rueckgang": 3.34,
+   "trefferquote_pct": 47.8,
+   "long_n": 27,
+   "short_n": 40,
+   "gruende": {
+    "zeit": 67
+   }
+  },
+  "haelfte_1": {
+   "trades": 12,
+   "je_woche": 0.23,
+   "pf": 0.91,
+   "summe": -0.19,
+   "schnitt": -0.016,
+   "max_rueckgang": 1.3,
+   "trefferquote_pct": 50.0,
+   "long_n": 3,
+   "short_n": 9,
+   "gruende": {
+    "zeit": 12
+   }
+  },
+  "haelfte_2": {
+   "trades": 55,
+   "je_woche": 1.06,
+   "pf": 1.22,
+   "summe": 1.25,
+   "schnitt": 0.0227,
+   "max_rueckgang": 3.26,
+   "trefferquote_pct": 49.1,
+   "long_n": 24,
+   "short_n": 31,
+   "gruende": {
+    "zeit": 55
+   }
+  },
+  "jahr_2026": {
+   "trades": 49,
+   "je_woche": 1.13,
+   "pf": 1.15,
+   "summe": 0.88,
+   "schnitt": 0.0179,
+   "max_rueckgang": 3.26,
+   "trefferquote_pct": 44.9,
+   "long_n": 22,
+   "short_n": 27,
+   "gruende": {
+    "zeit": 49
+   }
+  },
+  "kontrolle": {
+   "trades": 0,
+   "je_woche": 0.0,
+   "pf": 0.0,
+   "summe": 0.0,
+   "schnitt": null,
+   "max_rueckgang": 0.0,
+   "trefferquote_pct": null,
+   "long_n": 0,
+   "short_n": 0,
+   "gruende": {}
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 65.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.94
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 67 Trades (mindestens 100)",
+   "Gewinnfaktor 1.13",
+   "Kontrolle 0.0",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "news_halbe_stunde",
+  "markt": "SPXUSD",
+  "einheit": "%",
+  "termin": true,
+  "zeitraum": {
+   "trades": 61,
+   "je_woche": 0.59,
+   "pf": 0.44,
+   "summe": -4.12,
+   "schnitt": -0.0676,
+   "max_rueckgang": 4.4,
+   "trefferquote_pct": 42.6,
+   "long_n": 42,
+   "short_n": 19,
+   "gruende": {
+    "zeit": 61
+   }
+  },
+  "robust": {
+   "trades": 61,
+   "je_woche": 0.59,
+   "pf": 0.42,
+   "summe": -4.4,
+   "schnitt": -0.0722,
+   "max_rueckgang": 4.67,
+   "trefferquote_pct": 42.6,
+   "long_n": 42,
+   "short_n": 19,
+   "gruende": {
+    "zeit": 61
+   }
+  },
+  "haelfte_1": {
+   "trades": 31,
+   "je_woche": 0.59,
+   "pf": 0.46,
+   "summe": -2.17,
+   "schnitt": -0.0701,
+   "max_rueckgang": 2.97,
+   "trefferquote_pct": 41.9,
+   "long_n": 23,
+   "short_n": 8,
+   "gruende": {
+    "zeit": 31
+   }
+  },
+  "haelfte_2": {
+   "trades": 30,
+   "je_woche": 0.58,
+   "pf": 0.42,
+   "summe": -1.95,
+   "schnitt": -0.0649,
+   "max_rueckgang": 2.22,
+   "trefferquote_pct": 43.3,
+   "long_n": 19,
+   "short_n": 11,
+   "gruende": {
+    "zeit": 30
+   }
+  },
+  "jahr_2026": {
+   "trades": 26,
+   "je_woche": 0.6,
+   "pf": 0.57,
+   "summe": -1.07,
+   "schnitt": -0.0412,
+   "max_rueckgang": 1.57,
+   "trefferquote_pct": 50.0,
+   "long_n": 15,
+   "short_n": 11,
+   "gruende": {
+    "zeit": 26
+   }
+  },
+  "kontrolle": {
+   "trades": 45,
+   "je_woche": 0.47,
+   "pf": 0.57,
+   "summe": -1.95,
+   "schnitt": -0.0432,
+   "max_rueckgang": 2.33,
+   "trefferquote_pct": 33.3,
+   "long_n": 27,
+   "short_n": 18,
+   "gruende": {
+    "zeit": 45
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 9.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.88
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.44",
+   "mit 1,5-fachem Spread 0.42",
+   "2026 0.57",
+   "Kontrolle 0.57",
+   "1. Hälfte 0.46",
+   "2. Hälfte 0.42",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "news_halbe_stunde",
+  "markt": "NSXUSD",
+  "einheit": "%",
+  "termin": true,
+  "zeitraum": {
+   "trades": 61,
+   "je_woche": 0.59,
+   "pf": 0.69,
+   "summe": -2.16,
+   "schnitt": -0.0354,
+   "max_rueckgang": 3.88,
+   "trefferquote_pct": 49.2,
+   "long_n": 41,
+   "short_n": 20,
+   "gruende": {
+    "zeit": 61
+   }
+  },
+  "robust": {
+   "trades": 61,
+   "je_woche": 0.59,
+   "pf": 0.67,
+   "summe": -2.39,
+   "schnitt": -0.0392,
+   "max_rueckgang": 4.03,
+   "trefferquote_pct": 45.9,
+   "long_n": 41,
+   "short_n": 20,
+   "gruende": {
+    "zeit": 61
+   }
+  },
+  "haelfte_1": {
+   "trades": 31,
+   "je_woche": 0.59,
+   "pf": 0.81,
+   "summe": -0.59,
+   "schnitt": -0.0192,
+   "max_rueckgang": 2.46,
+   "trefferquote_pct": 51.6,
+   "long_n": 22,
+   "short_n": 9,
+   "gruende": {
+    "zeit": 31
+   }
+  },
+  "haelfte_2": {
+   "trades": 30,
+   "je_woche": 0.58,
+   "pf": 0.6,
+   "summe": -1.57,
+   "schnitt": -0.0522,
+   "max_rueckgang": 2.12,
+   "trefferquote_pct": 46.7,
+   "long_n": 19,
+   "short_n": 11,
+   "gruende": {
+    "zeit": 30
+   }
+  },
+  "jahr_2026": {
+   "trades": 26,
+   "je_woche": 0.6,
+   "pf": 0.71,
+   "summe": -0.86,
+   "schnitt": -0.0329,
+   "max_rueckgang": 1.93,
+   "trefferquote_pct": 46.2,
+   "long_n": 16,
+   "short_n": 10,
+   "gruende": {
+    "zeit": 26
+   }
+  },
+  "kontrolle": {
+   "trades": 46,
+   "je_woche": 0.48,
+   "pf": 0.78,
+   "summe": -1.28,
+   "schnitt": -0.0278,
+   "max_rueckgang": 2.99,
+   "trefferquote_pct": 58.7,
+   "long_n": 29,
+   "short_n": 17,
+   "gruende": {
+    "zeit": 46
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 24.5,
+   "bestanden": false,
+   "zufall_pf_median": 0.93
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.69",
+   "mit 1,5-fachem Spread 0.67",
+   "2026 0.71",
+   "Kontrolle 0.78",
+   "1. Hälfte 0.81",
+   "2. Hälfte 0.6",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "fed_fade",
+  "markt": "SPXUSD",
+  "einheit": "R",
+  "termin": true,
+  "zeitraum": {
+   "trades": 3,
+   "je_woche": 0.03,
+   "pf": 1.92,
+   "summe": 1.84,
+   "schnitt": 0.6143,
+   "max_rueckgang": 1.0,
+   "trefferquote_pct": 33.3,
+   "long_n": 2,
+   "short_n": 1,
+   "gruende": {
+    "stop": 2,
+    "ziel": 1
+   }
+  },
+  "robust": {
+   "trades": 3,
+   "je_woche": 0.03,
+   "pf": 1.8,
+   "summe": 1.59,
+   "schnitt": 0.5304,
+   "max_rueckgang": 1.0,
+   "trefferquote_pct": 33.3,
+   "long_n": 2,
+   "short_n": 1,
+   "gruende": {
+    "stop": 2,
+    "ziel": 1
+   }
+  },
+  "haelfte_1": {
+   "trades": 3,
+   "je_woche": 0.06,
+   "pf": 1.92,
+   "summe": 1.84,
+   "schnitt": 0.6143,
+   "max_rueckgang": 1.0,
+   "trefferquote_pct": 33.3,
+   "long_n": 2,
+   "short_n": 1,
+   "gruende": {
+    "stop": 2,
+    "ziel": 1
+   }
+  },
+  "haelfte_2": {
+   "trades": 0,
+   "je_woche": 0.0,
+   "pf": 0.0,
+   "summe": 0.0,
+   "schnitt": null,
+   "max_rueckgang": 0.0,
+   "trefferquote_pct": null,
+   "long_n": 0,
+   "short_n": 0,
+   "gruende": {}
+  },
+  "jahr_2026": {
+   "trades": 0,
+   "je_woche": 0.0,
+   "pf": 0.0,
+   "summe": 0.0,
+   "schnitt": null,
+   "max_rueckgang": 0.0,
+   "trefferquote_pct": null,
+   "long_n": 0,
+   "short_n": 0,
+   "gruende": {}
+  },
+  "kontrolle": {
+   "trades": 3,
+   "je_woche": 0.03,
+   "pf": 0.93,
+   "summe": -0.15,
+   "schnitt": -0.0497,
+   "max_rueckgang": 1.0,
+   "trefferquote_pct": 33.3,
+   "long_n": 1,
+   "short_n": 2,
+   "gruende": {
+    "stop": 2,
+    "ziel": 1
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 44.5,
+   "bestanden": false,
+   "zufall_pf_median": 1.92
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 3 Trades (mindestens 30)",
+   "2026 0.0",
+   "Kontrolle 0.93",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "fed_fade",
+  "markt": "NSXUSD",
+  "einheit": "R",
+  "termin": true,
+  "zeitraum": {
+   "trades": 5,
+   "je_woche": 0.05,
+   "pf": 0.55,
+   "summe": -1.81,
+   "schnitt": -0.3627,
+   "max_rueckgang": 3.0,
+   "trefferquote_pct": 20.0,
+   "long_n": 3,
+   "short_n": 2,
+   "gruende": {
+    "stop": 4,
+    "ziel": 1
+   }
+  },
+  "robust": {
+   "trades": 5,
+   "je_woche": 0.05,
+   "pf": 0.52,
+   "summe": -1.91,
+   "schnitt": -0.3813,
+   "max_rueckgang": 3.0,
+   "trefferquote_pct": 20.0,
+   "long_n": 3,
+   "short_n": 2,
+   "gruende": {
+    "stop": 4,
+    "ziel": 1
+   }
+  },
+  "haelfte_1": {
+   "trades": 4,
+   "je_woche": 0.08,
+   "pf": 0.73,
+   "summe": -0.81,
+   "schnitt": -0.2033,
+   "max_rueckgang": 2.0,
+   "trefferquote_pct": 25.0,
+   "long_n": 3,
+   "short_n": 1,
+   "gruende": {
+    "stop": 3,
+    "ziel": 1
+   }
+  },
+  "haelfte_2": {
+   "trades": 1,
+   "je_woche": 0.02,
+   "pf": 0.0,
+   "summe": -1.0,
+   "schnitt": -1.0,
+   "max_rueckgang": 1.0,
+   "trefferquote_pct": 0.0,
+   "long_n": 0,
+   "short_n": 1,
+   "gruende": {
+    "stop": 1
+   }
+  },
+  "jahr_2026": {
+   "trades": 0,
+   "je_woche": 0.0,
+   "pf": 0.0,
+   "summe": 0.0,
+   "schnitt": null,
+   "max_rueckgang": 0.0,
+   "trefferquote_pct": null,
+   "long_n": 0,
+   "short_n": 0,
+   "gruende": {}
+  },
+  "kontrolle": {
+   "trades": 3,
+   "je_woche": 0.03,
+   "pf": 0.84,
+   "summe": -0.31,
+   "schnitt": -0.1043,
+   "max_rueckgang": 1.0,
+   "trefferquote_pct": 33.3,
+   "long_n": 1,
+   "short_n": 2,
+   "gruende": {
+    "stop": 2,
+    "ziel": 1
+   }
+  },
+  "vergleich": {
+   "laeufe": 200,
+   "geschlagen_pct": 47.0,
+   "bestanden": false,
+   "zufall_pf_median": 0.55
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "nur 5 Trades (mindestens 30)",
+   "Gewinnfaktor 0.55",
+   "mit 1,5-fachem Spread 0.52",
+   "2026 0.0",
+   "Kontrolle 0.84",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "vor_der_zahl",
+  "markt": "SPXUSD",
+  "einheit": "%",
+  "termin": true,
+  "zeitraum": {
+   "trades": 38,
+   "je_woche": 0.36,
+   "pf": 0.64,
+   "summe": -4.09,
+   "schnitt": -0.1075,
+   "max_rueckgang": 5.9,
+   "trefferquote_pct": 42.1,
+   "long_n": 38,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 38
+   }
+  },
+  "robust": {
+   "trades": 38,
+   "je_woche": 0.36,
+   "pf": 0.63,
+   "summe": -4.26,
+   "schnitt": -0.1121,
+   "max_rueckgang": 5.94,
+   "trefferquote_pct": 42.1,
+   "long_n": 38,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 38
+   }
+  },
+  "haelfte_1": {
+   "trades": 18,
+   "je_woche": 0.35,
+   "pf": 0.31,
+   "summe": -5.74,
+   "schnitt": -0.319,
+   "max_rueckgang": 5.9,
+   "trefferquote_pct": 27.8,
+   "long_n": 18,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 18
+   }
+  },
+  "haelfte_2": {
+   "trades": 20,
+   "je_woche": 0.38,
+   "pf": 1.55,
+   "summe": 1.66,
+   "schnitt": 0.0828,
+   "max_rueckgang": 1.13,
+   "trefferquote_pct": 55.0,
+   "long_n": 20,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 20
+   }
+  },
+  "jahr_2026": {
+   "trades": 18,
+   "je_woche": 0.42,
+   "pf": 1.22,
+   "summe": 0.64,
+   "schnitt": 0.0353,
+   "max_rueckgang": 1.13,
+   "trefferquote_pct": 55.6,
+   "long_n": 18,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 18
+   }
+  },
+  "kontrolle": {
+   "trades": 30,
+   "je_woche": 0.31,
+   "pf": 1.06,
+   "summe": 0.26,
+   "schnitt": 0.0085,
+   "max_rueckgang": 1.84,
+   "trefferquote_pct": 36.7,
+   "long_n": 30,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 30
+   }
+  },
+  "vergleich": {
+   "placebo_trades": 865,
+   "placebo_pf": 1.1,
+   "kandidat_pf": 0.64,
+   "bestanden": false
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.64",
+   "mit 1,5-fachem Spread 0.63",
+   "Vergleich nicht bestanden"
+  ]
+ },
+ {
+  "variante": "vor_der_zahl",
+  "markt": "NSXUSD",
+  "einheit": "%",
+  "termin": true,
+  "zeitraum": {
+   "trades": 38,
+   "je_woche": 0.36,
+   "pf": 0.7,
+   "summe": -4.28,
+   "schnitt": -0.1126,
+   "max_rueckgang": 6.29,
+   "trefferquote_pct": 52.6,
+   "long_n": 38,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 38
+   }
+  },
+  "robust": {
+   "trades": 38,
+   "je_woche": 0.36,
+   "pf": 0.69,
+   "summe": -4.42,
+   "schnitt": -0.1163,
+   "max_rueckgang": 6.31,
+   "trefferquote_pct": 52.6,
+   "long_n": 38,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 38
+   }
+  },
+  "haelfte_1": {
+   "trades": 18,
+   "je_woche": 0.35,
+   "pf": 0.43,
+   "summe": -5.04,
+   "schnitt": -0.2801,
+   "max_rueckgang": 6.29,
+   "trefferquote_pct": 38.9,
+   "long_n": 18,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 18
+   }
+  },
+  "haelfte_2": {
+   "trades": 20,
+   "je_woche": 0.38,
+   "pf": 1.15,
+   "summe": 0.76,
+   "schnitt": 0.038,
+   "max_rueckgang": 3.23,
+   "trefferquote_pct": 65.0,
+   "long_n": 20,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 20
+   }
+  },
+  "jahr_2026": {
+   "trades": 18,
+   "je_woche": 0.42,
+   "pf": 0.86,
+   "summe": -0.69,
+   "schnitt": -0.0384,
+   "max_rueckgang": 3.23,
+   "trefferquote_pct": 66.7,
+   "long_n": 18,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 18
+   }
+  },
+  "kontrolle": {
+   "trades": 29,
+   "je_woche": 0.3,
+   "pf": 1.02,
+   "summe": 0.12,
+   "schnitt": 0.004,
+   "max_rueckgang": 2.96,
+   "trefferquote_pct": 44.8,
+   "long_n": 29,
+   "short_n": 0,
+   "gruende": {
+    "zeit": 29
+   }
+  },
+  "vergleich": {
+   "placebo_trades": 863,
+   "placebo_pf": 1.13,
+   "kandidat_pf": 0.7,
+   "bestanden": false
+  },
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 0.7",
+   "mit 1,5-fachem Spread 0.69",
+   "2026 0.86",
+   "Vergleich nicht bestanden"
+  ]
+ }
+]

@@ -1,0 +1,592 @@
+{
+ "aktien": [
+  {
+   "sym": "AAPL",
+   "tage": 2413,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.12000000000000455,
+   "kurs": 343.85,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "ABNB",
+   "tage": 1496,
+   "von": "2020-12-11",
+   "bis": "2026-11-02",
+   "spread_t": 0.1599999999999966,
+   "kurs": 164.4,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "ALV",
+   "tage": 454,
+   "von": "2025-01-10",
+   "bis": "2026-10-30",
+   "spread_t": 0.06999999999999984,
+   "kurs": 4.55,
+   "deckt": {
+    "lernen": false,
+    "pruefen": false
+   }
+  },
+  {
+   "sym": "AMD",
+   "tage": 2398,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.18999999999999773,
+   "kurs": 513.59,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "AMZN",
+   "tage": 2413,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.12000000000000455,
+   "kurs": 241.65,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "ASML",
+   "tage": 2384,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 1.1299999999999955,
+   "kurs": 1589.45,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "AVGO",
+   "tage": 2070,
+   "von": "2018-08-20",
+   "bis": "2026-11-02",
+   "spread_t": 0.19999999999998863,
+   "kurs": 329.1,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "CCJ",
+   "tage": 101,
+   "von": "2026-06-09",
+   "bis": "2026-10-30",
+   "spread_t": 0.18000000000000682,
+   "kurs": 75.02,
+   "deckt": {
+    "lernen": false,
+    "pruefen": false
+   }
+  },
+  {
+   "sym": "DB1",
+   "tage": 2413,
+   "von": "2017-05-02",
+   "bis": "2026-11-02",
+   "spread_t": 0.6999999999999886,
+   "kurs": 314.05,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "GOOGL",
+   "tage": 2413,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.12999999999999545,
+   "kurs": 282.55,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "IBE",
+   "tage": 2437,
+   "von": "2017-05-02",
+   "bis": "2026-11-02",
+   "spread_t": 0.060000000000002274,
+   "kurs": 22.01,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "JPM",
+   "tage": 2408,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.18000000000000682,
+   "kurs": 339.35,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "LLY",
+   "tage": 2399,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.6499999999998636,
+   "kurs": 1405.17,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "META",
+   "tage": 2413,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.25,
+   "kurs": 612.06,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "MSFT",
+   "tage": 2412,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.1500000000000341,
+   "kurs": 524.64,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "NFLX",
+   "tage": 2409,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.10999999999999943,
+   "kurs": 62.11,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "NVDA",
+   "tage": 2413,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.11000000000001364,
+   "kurs": 206.97,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "SAP",
+   "tage": 2413,
+   "von": "2017-05-02",
+   "bis": "2026-11-02",
+   "spread_t": 0.44999999999998863,
+   "kurs": 209.05,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "SIE",
+   "tage": 2413,
+   "von": "2017-05-02",
+   "bis": "2026-11-02",
+   "spread_t": 0.6499999999999773,
+   "kurs": 268.3,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  },
+  {
+   "sym": "TSLA",
+   "tage": 2369,
+   "von": "2017-05-01",
+   "bis": "2026-11-02",
+   "spread_t": 0.15999999999996817,
+   "kurs": 404.8,
+   "deckt": {
+    "lernen": true,
+    "pruefen": true
+   }
+  }
+ ],
+ "varianten": [
+  {
+   "variante": "markt_rs",
+   "lernen": {
+    "trades": 1413,
+    "pf": 0.97,
+    "treffer_pct": 61.6,
+    "summe_r": -21.3,
+    "mittel_r": -0.015,
+    "pf_pct": 1.009,
+    "long_pf": 1.049,
+    "short_pf": 0.798,
+    "haltedauer_median": 3.0,
+    "t_wert": -0.42,
+    "maerkte_im_plus_pct": 38.9,
+    "je_woche": 4.11,
+    "zufall_perzentil": 100.0,
+    "zufall_pf_median": 0.743
+   },
+   "pruefen": {
+    "trades": 411,
+    "pf": 1.096,
+    "treffer_pct": 63.7,
+    "summe_r": 17.6,
+    "mittel_r": 0.043,
+    "pf_pct": 1.098,
+    "long_pf": 1.242,
+    "short_pf": 0.871,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.7,
+    "maerkte_im_plus_pct": 72.2,
+    "je_woche": 4.31,
+    "zufall_perzentil": 95.1,
+    "zufall_pf_median": 0.894
+   },
+   "jahr_2025": {
+    "trades": 225,
+    "pf": 1.032,
+    "treffer_pct": 61.8,
+    "summe_r": 3.2,
+    "mittel_r": 0.014,
+    "pf_pct": 0.984,
+    "long_pf": 1.072,
+    "short_pf": 0.949,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.18,
+    "maerkte_im_plus_pct": 55.6
+   },
+   "jahr_2026": {
+    "trades": 186,
+    "pf": 1.17,
+    "treffer_pct": 66.1,
+    "summe_r": 14.4,
+    "mittel_r": 0.077,
+    "pf_pct": 1.23,
+    "long_pf": 1.501,
+    "short_pf": 0.808,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.83,
+    "maerkte_im_plus_pct": 72.2
+   },
+   "robust_pruefen": {
+    "trades": 411,
+    "pf": 1.02,
+    "treffer_pct": 62.0,
+    "summe_r": 3.8,
+    "mittel_r": 0.009,
+    "pf_pct": 1.036,
+    "long_pf": 1.135,
+    "short_pf": 0.838,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.15,
+    "maerkte_im_plus_pct": 55.6
+   },
+   "je_aktie_pruefen": {
+    "AAPL": {
+     "trades": 28,
+     "summe_r": 5.0,
+     "pf": 1.617
+    },
+    "ABNB": {
+     "trades": 23,
+     "summe_r": -6.9,
+     "pf": 0.511
+    },
+    "AMD": {
+     "trades": 23,
+     "summe_r": 3.85,
+     "pf": 1.482
+    },
+    "AMZN": {
+     "trades": 25,
+     "summe_r": 0.23,
+     "pf": 1.018
+    },
+    "ASML": {
+     "trades": 23,
+     "summe_r": 4.54,
+     "pf": 1.544
+    },
+    "AVGO": {
+     "trades": 25,
+     "summe_r": 0.01,
+     "pf": 1.001
+    },
+    "DB1": {
+     "trades": 23,
+     "summe_r": -9.07,
+     "pf": 0.516
+    },
+    "GOOGL": {
+     "trades": 20,
+     "summe_r": 0.6,
+     "pf": 1.09
+    },
+    "IBE": {
+     "trades": 22,
+     "summe_r": 0.19,
+     "pf": 1.027
+    },
+    "JPM": {
+     "trades": 19,
+     "summe_r": -0.2,
+     "pf": 0.974
+    },
+    "LLY": {
+     "trades": 27,
+     "summe_r": 0.91,
+     "pf": 1.073
+    },
+    "META": {
+     "trades": 23,
+     "summe_r": -4.51,
+     "pf": 0.733
+    },
+    "MSFT": {
+     "trades": 18,
+     "summe_r": 4.92,
+     "pf": 1.724
+    },
+    "NFLX": {
+     "trades": 30,
+     "summe_r": 9.1,
+     "pf": 2.032
+    },
+    "NVDA": {
+     "trades": 23,
+     "summe_r": 4.55,
+     "pf": 1.534
+    },
+    "SAP": {
+     "trades": 20,
+     "summe_r": 2.95,
+     "pf": 1.341
+    },
+    "SIE": {
+     "trades": 20,
+     "summe_r": 3.83,
+     "pf": 1.489
+    },
+    "TSLA": {
+     "trades": 19,
+     "summe_r": -2.44,
+     "pf": 0.772
+    }
+   },
+   "aktien_im_plus_pct": 72.2,
+   "bestanden": false,
+   "verfehlt": [
+    "Lernen Gewinnfaktor 0.97",
+    "Prüfen Gewinnfaktor 1.096",
+    "Prüfen mit 1,5-fachen Kosten 1.02"
+   ]
+  },
+  {
+   "variante": "markt_rs_long",
+   "lernen": {
+    "trades": 1003,
+    "pf": 1.049,
+    "treffer_pct": 64.1,
+    "summe_r": 23.7,
+    "mittel_r": 0.024,
+    "pf_pct": 1.116,
+    "long_pf": 1.049,
+    "short_pf": null,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.55,
+    "maerkte_im_plus_pct": 66.7,
+    "je_woche": 2.92,
+    "zufall_perzentil": 91.6,
+    "zufall_pf_median": 0.922
+   },
+   "pruefen": {
+    "trades": 286,
+    "pf": 1.242,
+    "treffer_pct": 63.6,
+    "summe_r": 27.0,
+    "mittel_r": 0.094,
+    "pf_pct": 1.25,
+    "long_pf": 1.242,
+    "short_pf": null,
+    "haltedauer_median": 3.0,
+    "t_wert": 1.4,
+    "maerkte_im_plus_pct": 66.7,
+    "je_woche": 3.0,
+    "zufall_perzentil": 84.5,
+    "zufall_pf_median": 1.043
+   },
+   "jahr_2025": {
+    "trades": 154,
+    "pf": 1.072,
+    "treffer_pct": 60.4,
+    "summe_r": 4.8,
+    "mittel_r": 0.031,
+    "pf_pct": 0.972,
+    "long_pf": 1.072,
+    "short_pf": null,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.32,
+    "maerkte_im_plus_pct": 50.0
+   },
+   "jahr_2026": {
+    "trades": 132,
+    "pf": 1.501,
+    "treffer_pct": 67.4,
+    "summe_r": 22.1,
+    "mittel_r": 0.168,
+    "pf_pct": 1.675,
+    "long_pf": 1.501,
+    "short_pf": null,
+    "haltedauer_median": 3.0,
+    "t_wert": 1.85,
+    "maerkte_im_plus_pct": 76.5
+   },
+   "robust_pruefen": {
+    "trades": 286,
+    "pf": 1.135,
+    "treffer_pct": 61.2,
+    "summe_r": 15.7,
+    "mittel_r": 0.055,
+    "pf_pct": 1.164,
+    "long_pf": 1.135,
+    "short_pf": null,
+    "haltedauer_median": 3.0,
+    "t_wert": 0.82,
+    "maerkte_im_plus_pct": 61.1
+   },
+   "je_aktie_pruefen": {
+    "AAPL": {
+     "trades": 19,
+     "summe_r": 5.61,
+     "pf": 2.242
+    },
+    "ABNB": {
+     "trades": 13,
+     "summe_r": -3.77,
+     "pf": 0.515
+    },
+    "AMD": {
+     "trades": 15,
+     "summe_r": 2.95,
+     "pf": 1.525
+    },
+    "AMZN": {
+     "trades": 21,
+     "summe_r": 1.19,
+     "pf": 1.122
+    },
+    "ASML": {
+     "trades": 16,
+     "summe_r": 4.83,
+     "pf": 2.012
+    },
+    "AVGO": {
+     "trades": 21,
+     "summe_r": -0.5,
+     "pf": 0.94
+    },
+    "DB1": {
+     "trades": 17,
+     "summe_r": -5.44,
+     "pf": 0.573
+    },
+    "GOOGL": {
+     "trades": 16,
+     "summe_r": -1.78,
+     "pf": 0.733
+    },
+    "IBE": {
+     "trades": 22,
+     "summe_r": 0.19,
+     "pf": 1.027
+    },
+    "JPM": {
+     "trades": 17,
+     "summe_r": 0.65,
+     "pf": 1.108
+    },
+    "LLY": {
+     "trades": 17,
+     "summe_r": 1.1,
+     "pf": 1.17
+    },
+    "META": {
+     "trades": 12,
+     "summe_r": 1.0,
+     "pf": 1.131
+    },
+    "MSFT": {
+     "trades": 7,
+     "summe_r": -0.57,
+     "pf": 0.702
+    },
+    "NFLX": {
+     "trades": 15,
+     "summe_r": 9.83,
+     "pf": 14.807
+    },
+    "NVDA": {
+     "trades": 20,
+     "summe_r": 6.58,
+     "pf": 2.195
+    },
+    "SAP": {
+     "trades": 9,
+     "summe_r": 2.37,
+     "pf": 2.249
+    },
+    "SIE": {
+     "trades": 18,
+     "summe_r": 4.26,
+     "pf": 1.624
+    },
+    "TSLA": {
+     "trades": 11,
+     "summe_r": -1.5,
+     "pf": 0.78
+    }
+   },
+   "aktien_im_plus_pct": 66.7,
+   "bestanden": false,
+   "verfehlt": [
+    "Lernen Gewinnfaktor 1.049",
+    "Lernen nur besser als 91.6 % Zufall",
+    "Prüfen nur besser als 84.5 % Zufall"
+   ]
+  }
+ ]
+}

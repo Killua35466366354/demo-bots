@@ -1,0 +1,28 @@
+{
+ "bot": "scalp-j225",
+ "name": "Nikkei letzte halbe Stunde (5 Min.)",
+ "epic": "J225",
+ "konto": "…5310",
+ "konto_name": "Account 1",
+ "stand": "2026-11-10T12:43:38",
+ "start": "2026-11-10T12:43:38",
+ "regel": "30 Min. vor Schluss (15:00 Uhr Tokio) gegen die Bewegung seit dem Vortagsschluss, ohne Stop, raus um 15:30 Uhr Tokio. Nur wenn der Kurs auf der Seite des Wochen-Opens liegt (Long darüber, Short darunter). Kleinste Größe.",
+ "vorab": "suche/VORAB_scalping_opens.yaml",
+ "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe",
+ "offen": null,
+ "letzte_entscheidung": {
+  "zeit": "2026-11-10T12:43:38",
+  "tag": "2026-11-10",
+  "action": "none",
+  "why": "Einstiegszeit verpasst (mehr als 10 Min. später)"
+ },
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "summe_pct": 0.0,
+  "summe_eur": 0.0,
+  "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
+ },
+ "letzte_trades": []
+}

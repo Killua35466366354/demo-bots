@@ -1,0 +1,28 @@
+{
+ "bot": "scalp-de40",
+ "name": "DAX Eröffnungskerze (15 Min.)",
+ "epic": "DE40",
+ "konto": "…5310",
+ "konto_name": "Account 1",
+ "stand": "2026-11-10T12:43:38",
+ "start": "2026-11-10T12:43:38",
+ "regel": "Erste 15-Min.-Kerze ab 09:00 Uhr Berlin: grün Long, rot Short, Einstieg danach, Stop am anderen Ende der Kerze, Ziel 10 R, sonst raus um 17:30 Uhr Berlin. Nur wenn der Kurs auf der Seite von Jahres-, Quartals-, Monats- und Wochen-Open liegt (Long darüber, Short darunter). 1 R = 5 €.",
+ "vorab": "suche/VORAB_scalping_opens.yaml",
+ "test": "PF 1,63, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,13, schlägt 90,5 % der Zufallsläufe",
+ "offen": null,
+ "letzte_entscheidung": {
+  "zeit": "2026-11-10T12:43:38",
+  "tag": "2026-11-10",
+  "action": "none",
+  "why": "Einstiegszeit verpasst (mehr als 10 Min. später)"
+ },
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "summe_pct": 0.0,
+  "summe_eur": 0.0,
+  "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
+ },
+ "letzte_trades": []
+}

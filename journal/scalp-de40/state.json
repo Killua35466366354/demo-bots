@@ -1,0 +1,18 @@
+{
+ "format": 1,
+ "offen": null,
+ "tag_erledigt": "2026-11-10",
+ "opens": {},
+ "trades": 0,
+ "summe_r": 0.0,
+ "summe_pct": 0.0,
+ "summe_eur": 0.0,
+ "letzte_entscheidung": {
+  "zeit": "2026-11-10T12:43:38",
+  "tag": "2026-11-10",
+  "action": "none",
+  "why": "Einstiegszeit verpasst (mehr als 10 Min. später)"
+ },
+ "stand": "2026-11-10T12:43:38",
+ "start": "2026-11-10T12:43:38"
+}

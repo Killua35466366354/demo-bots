@@ -12,9 +12,9 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 6 | Trend-Rücksetzer Dow | labor | 0 | +0,00 | – | +0,00 | 0,2 Trades, +0,01 R | 0 von 40 Demo-Trades |
 | 7 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |
 | 8 | Vortag GBP/USD | behalten | 0 | +0,00 | – | +0,00 | 1,1 Trades, +0,14 R | 0 von 40 Demo-Trades |
-| 9 | Gold-Bot C/B | verbessern | 0 | +0,00 | – | +0,00 | 1,4 Trades, +0,30 R | 0 von 40 Demo-Trades |
-| 10 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 0 | +0,00 | – | +0,00 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
-| 11 | Gold nur Long (Teil C) | messung | 0 | +0,00 | – | +0,00 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
+| 9 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 0 | +0,00 | – | +0,00 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 10 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 1,4 Trades, +0,30 R | 1 von 40 Demo-Trades |
+| 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 12 | Vortag GBP/JPY | behalten | 1 | -1,02 | 0,00 | -4,08 | 0,6 Trades, +0,13 R | 1 von 40 Demo-Trades |
 | 13 | DAX 15 min Long | abgeloest | 1 | -1,00 | 0,00 | -0,04 | – | – |
 | 14 | Dow 15 min Short | abgeloest | 3 | -3,00 | 0,00 | -0,21 | – | – |

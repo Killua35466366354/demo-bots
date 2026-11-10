@@ -13,14 +13,14 @@
    "opened_utc": "2026-11-10T15:08:35",
    "nachzieh": {
     "seit": "2026-11-10T19:13:29",
-    "bestes": 4029.78,
-    "stop_seit": "2026-11-10T19:13:29"
+    "bestes": 4031.89,
+    "stop_seit": "2026-11-10T19:23:28"
    },
    "abfang": {
     "zeit": "2026-11-10T19:13:29",
     "warum": "4 Std. ohne Ausstieg"
    },
-   "stop": 4017.67,
+   "stop": 4019.78,
    "ziel": null
   }
  ],
@@ -29,9 +29,9 @@
  "summe_eur": -5.01,
  "hedging_versuch": "2026-11-10T09:28:32",
  "hedging": true,
- "letzte_kerze": "2026-11-10 19:05:00",
- "letzter_kurs": 4029.78,
- "stand": "2026-11-10T19:13:29",
+ "letzte_kerze": "2026-11-10 19:15:00",
+ "letzter_kurs": 4031.89,
+ "stand": "2026-11-10T19:23:28",
  "ff": {
   "stand": "2026-11-10T16:03:36",
   "termine": [

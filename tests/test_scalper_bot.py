@@ -182,6 +182,8 @@ class Broker:
             return {"accountId": self.account_id}
         if path.startswith("/prices/"):
             von, bis = pd.Timestamp(kw["from"]), pd.Timestamp(kw["to"])
+            if self.now is not None and bis > self.now:        # wie Capital.com: kein Ende in der Zukunft
+                raise RuntimeError(f"GET {path} -> 400: {{\"errorCode\":\"error.invalid.daterange\"}}")
             std = self.df.resample("60min").agg({"open": "first", "high": "max", "low": "min",
                                                  "close": "last"}).dropna()
             return {"prices": _raw(std[(std.index >= von) & (std.index <= bis)])}
@@ -314,3 +316,29 @@ def test_ohne_siegel_nichts(monkeypatch):
     br.now = pd.Timestamp("2026-11-10 14:48")
     out = sb.run(br, {}, br.now.tz_localize("UTC").to_pydatetime())
     assert all(o.log[0]["event"].startswith("Regeln nicht versiegelt") for o in out.values()) and not br.posts
+
+
+def test_wochen_open_mitten_in_der_woche_lesbar():
+    """Erster Live-Lauf 10.11.2026: das Fenster für den Wochen-Open reichte in die Zukunft, Capital.com sagte 400."""
+    br = Broker(_markt_us100())
+    br.now = pd.Timestamp("2026-11-10 14:48")
+    tag = pd.Timestamp("2026-11-10")
+    w = sb.hole_open(br, "US100", tag, "woche", br.now)
+    erwartet = br.df[br.df.index >= pd.Timestamp("2026-11-08 22:00")]["open"].iloc[0]   # Wochenbeginn 17:00 New York
+    assert w == pytest.approx(erwartet)
+    with pytest.raises(RuntimeError, match="invalid.daterange"):
+        sb.hole_open(br, "US100", tag, "woche")                    # ohne Grenze: wie vorher abgelehnt
+
+
+def test_journal_ohne_neues_nur_alle_30_minuten(tmp_path, monkeypatch):
+    monkeypatch.setattr(sb, "JOURNAL", tmp_path)
+    st = {"format": 1, "offen": None, "opens": {}, "trades": 0, "stand": "2026-11-10T12:43:38",
+          "start": "2026-11-10T12:43:38"}
+    assert sb.schreiben(US100, dict(st), [], []) is True
+    assert sb.schreiben(US100, {**st, "stand": "2026-11-10T12:48:38"}, [], []) is False      # nur die Zeit neu
+    ev = [{"time": "2026-11-10T12:53:38", "bot": "scalp-us100", "event": "verpasst", "tag": "2026-11-10"}]
+    assert sb.schreiben(US100, {**st, "stand": "2026-11-10T12:53:38"}, ev, []) is True        # Ereignis: sofort
+    assert sb.schreiben(US100, {**st, "stand": "2026-11-10T12:58:38", "tag_erledigt": "2026-11-10"}, [], []) is True
+    assert sb.schreiben(US100, {**st, "stand": "2026-11-10T13:28:39", "tag_erledigt": "2026-11-10"}, [], []) is True
+    karte = json.loads((tmp_path / "scalp-us100.json").read_text(encoding="utf-8"))
+    assert karte["stand"] == "2026-11-10T13:28:39"

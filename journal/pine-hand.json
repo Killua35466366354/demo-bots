@@ -1,0 +1,20 @@
+{
+ "bot": "pine-hand",
+ "name": "Pine-Gold Hand (Kirons Long A und Short B auf 5 Min., Kiron geht selbst raus)",
+ "konto": "…4094",
+ "konto_name": "Vortag USDJPY",
+ "stand": "2026-11-10T03:48:53",
+ "start": "2026-11-10T03:48:53",
+ "regel": "Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, nie gegen die Gegenrichtung. Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger: Fehltrade (0,5 R dagegen vor 0,75 R dafür) Stop 1 R und Ziel am Einstieg, Notbremse ab 1 R Minus. Hinweis beim Pine-Ausstiegssignal.",
+ "vorab": "suche/VORAB_pine5m.yaml",
+ "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
+ "offen": [],
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0,
+  "summe_eur": 0,
+  "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
+ },
+ "letzte_trades": []
+}

@@ -6,7 +6,6 @@
   "r5-ruecksetzer-us100": "332317231899038878",
   "r6-vortag-eurusd": "332263746671301790",
   "r6-vortag-gbpusd": "332325912027944094",
-  "oil-brent": "332263725196465310",
   "r5-ruecksetzer-us30": "332263750966269086",
   "r6-london-gbpusd": "332263759556203678",
   "r6-noise-usdjpy": "332264120333456542",
@@ -31,8 +30,8 @@
    "id": "…3150",
    "name": "Account",
    "waehrung": "EUR",
-   "balance": 1018.45,
-   "frei": 836.94,
+   "balance": 1020.59,
+   "frei": 838.99,
    "bevorzugt": false,
    "fuer": "gold"
   },
@@ -43,7 +42,7 @@
    "balance": 1000.0,
    "frei": 1000.0,
    "bevorzugt": false,
-   "fuer": "oil-brent"
+   "fuer": null
   },
   {
    "id": "…2606",
@@ -76,8 +75,8 @@
    "id": "…9086",
    "name": "Account 5",
    "waehrung": "EUR",
-   "balance": 986.71,
-   "frei": 921.36,
+   "balance": 987.47,
+   "frei": 922.09,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us30"
   },
@@ -103,8 +102,8 @@
    "id": "…8878",
    "name": "US500",
    "waehrung": "EUR",
-   "balance": 996.64,
-   "frei": 931.29,
+   "balance": 997.46,
+   "frei": 932.08,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us100"
   },
@@ -118,7 +117,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-10T10:31:30.864678",
+ "stand_utc": "2026-11-10T10:46:37.996946",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",
@@ -281,10 +280,27 @@
    "von": null,
    "an": "r6-vortag-eurusd-1atr",
    "messung": true
+  },
+  {
+   "zeit": "2026-11-10T10:46:37.996946",
+   "konto": "…5310",
+   "konto_id": "332263725196465310",
+   "name": "Account 1",
+   "von": "oil-brent",
+   "an": null,
+   "kontostand": 1000.0
   }
  ],
- "abgeloest": {},
- "frei": [],
+ "abgeloest": {
+  "oil-brent": {
+   "an": null,
+   "seit": "2026-11-10T10:46:37",
+   "grund": "Kirons Wort vom 10.11.2026 10:35 UTC: Konto frei machen. Runde-3-Urteil durchgefallen, 0 Trades in rund 4 Handelstagen Labor, 2025 -177 €; Account 1 geht an den nächsten Bot, der seine Prüfung besteht und öfter handelt."
+  }
+ },
+ "frei": [
+  "332263725196465310"
+ ],
  "deals": {},
  "labor": {
   "oil-brent": {

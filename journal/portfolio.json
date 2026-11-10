@@ -770,7 +770,7 @@
    "markt": "OIL_BRENT",
    "zeitrahmen": "30min",
    "konto": "Account 1",
-   "rolle": "labor",
+   "rolle": "abgeloest",
    "ersetzt": null,
    "ersetzt_durch": null,
    "bestanden": true,
@@ -805,7 +805,7 @@
     "eur_1000": 466.0
    },
    "zufall_pct": null,
-   "warum": "Labor-Vorwärtstest seit 2026-11-05 (Kirons Entscheidung vom 05.11.2026, suche/VORAB_labor.yaml); nicht im Kern und nicht in der Kombi",
+   "warum": "Demo: Kirons Wort vom 10.11.2026 10:35 UTC: Konto frei machen. Runde-3-Urteil durchgefallen, 0 Trades in rund 4 Handelstagen Labor, 2025 -177 €; Account 1 geht an den nächsten Bot, der seine Prüfung besteht und öfter handelt.. Konto wird frei",
    "monate": [
     {
      "monat": "2025-01",

@@ -29,3 +29,4 @@
 {"time": "2026-11-04T11:46:39.499621", "event": "konto übergeben", "bot": "dax", "an": "r6-noise-usdjpy", "konto": "…6542", "name": "Account 7", "kontostand": 999.96}
 {"time": "2026-11-04T13:01:29.986068", "event": "konto frei", "bot": "oil-brent", "an": null, "konto": "…5310", "name": "Account 1", "kontostand": 1000.0}
 {"time": "2026-11-05T19:46:36.852800", "event": "zurück aufs Hauptkonto fehlgeschlagen", "why": "PUT /session -> 500: {\"errorCode\":\"error.internal\"}"}
+{"time": "2026-11-10T10:46:37.996946", "event": "konto frei", "bot": "oil-brent", "an": null, "konto": "…5310", "name": "Account 1", "kontostand": 1000.0}

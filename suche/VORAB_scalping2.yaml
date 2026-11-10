@@ -1,0 +1,85 @@
+# Scalping-Komitee, Runde 2b: dieselben Regeln aus Schritt 2 auf weiteren Märkten, auf 1-, 5- und 15-Min.-Kerzen und in
+# anderen Spielarten, damit möglichst viele Trades zusammenkommen. Nur Capital.com-DEMO, nie echtes Geld.
+# Kirons Wort vom 10.11.2026 11:11 UTC: "nutzte die strategie aus den tests um es wo anders und auf andere weise zu
+# testen,... (so viele trades wie möglich) bei dem scalping". 11:13 UTC: "scalping soll im 1, 5 oder 15min chart laufen".
+# Schritt 2 (VORAB_scalping.yaml) hat 0 von 23 Varianten bestanden. Bei rund 360 Kombinationen bestehen einige auch
+# durch Glück; darum strengere Hürden (Kontrolle 1,1, Zufall 95 %) und eine Zufalls-Gegenprobe, die zeigt, wie viele
+# Kombinationen ohne jeden Vorteil bestehen würden.
+# Festgelegt, bevor eine dieser Kombinationen gerechnet wurde. Code suche/scalping2.py.
+
+format: 1
+scalping2:
+  daten: >-
+    5-Min.-Bid-Kerzen /mnt/project-files/strategie-suche/daten/<SYMBOL>_5min.csv.gz (21 Märkte, UTC). 15-Min.-Kerzen
+    daraus zusammengefasst (Eröffnung der ersten, Hoch, Tief, Schluss der letzten 5-Min.-Kerze, Raster ab :00 UTC).
+    1-Min.-Bid-Kerzen /mnt/project-files/strategie-suche/scalper/m1/<SYMBOL>_1min.csv.gz (ab 2023-01) für alle
+    Märkte, die es dort auch gibt, dazu AUDJPY und CADJPY nur für Gotobi. Termine aus gold/v2/termine.yaml (ab 2023-01).
+  zeitraum: ["2024-11-01", "2026-10-30 23:59"]
+  haelften: [["2024-11-01", "2025-10-31 23:59"], ["2025-11-01", "2026-10-30 23:59"]]
+  jahr_2026: ["2026-01-01", "2026-10-30 23:59"]
+  kontrolle: ["2022-11-01", "2024-10-31 23:59"]   # 1-Min.-Kerzen und Termine erst ab 2023-01
+  spread: >-
+    Wie VORAB_scalping.yaml (EURUSD 0.00010, USDJPY 0.012, SPXUSD 0.6, NSXUSD 1.8, GRXEUR 1.8, XAUUSD 0.50), sonst die
+    Capital.com-Spreads aus VORAB.yaml runde_1 und suche/pine5m.EXTRA (AUDNZD 0.0003, GBPNZD 0.0005); AUDJPY 0.02,
+    CADJPY 0.025.
+  kosten: Wie VORAB_scalping.yaml (Ask für Long, Stop vor Ziel in derselben Kerze, Kurslücke zählt, Haltekosten 5 %).
+  sitzungen: >-
+    Start und Schluss in Ortszeit. SPXUSD, NSXUSD 09:30 bis 16:00 New York. GRXEUR 09:00 bis 17:30 Berlin. UKXGBP
+    08:00 bis 16:30 London. JPXJPY 09:00 bis 15:00 Tokio, ab 05.11.2024 bis 15:30. WTIUSD 09:00 bis 14:30 New York.
+    Alle Devisen, XAUUSD, XAGUSD 08:00 bis 16:00 London (London-Eröffnung bis Londoner 16-Uhr-Fixing).
+  familien:
+    eroeffnung:
+      kerzen: [1, 5, 15]
+      maerkte: alle mit Sitzung
+      regel: >-
+        Wie VORAB_scalping.yaml, aber mit der ersten Kerze des gewählten Charts: erste Kerze nach Sitzungsstart grün
+        Long, rot Short, gleich kein Trade. Einstieg zur Eröffnung der zweiten Kerze, Stop am anderen Ende der ersten
+        (liegt der Einstieg schon jenseits, kein Trade), sonst raus zum Schluss der letzten Kerze vor Sitzungsschluss.
+      varianten:
+        folgen_10r: Ziel 10 R (wie Schritt 2)
+        folgen_2r: Ziel 2 R
+        gegen_2r: Richtung gegen die erste Kerze, Stop im selben Abstand auf der anderen Seite, Ziel 2 R
+    halbe_stunde:
+      kerzen: [5]                  # die Regel braucht nur Kurse zu festen Uhrzeiten, auf 1 und 15 Min. dieselben Trades
+      maerkte: alle mit Sitzung
+      regel: Wie VORAB_scalping.yaml mit dem Sitzungsschluss oben (Einstieg 30 Min. davor, raus zum Schluss).
+      varianten: {folgen: Richtung der Rendite seit dem Vortagsschluss, gegen: umgekehrte Richtung}
+    gotobi:
+      kerzen: [1]
+      maerkte: [USDJPY, EURJPY, GBPJPY, AUDJPY, CADJPY]
+      regel: Wie VORAB_scalping.yaml (gotobi_a 03:00 bis 09:55 Tokio, gotobi_b 08:00 bis 09:55 Tokio, Long).
+      varianten: {gotobi_a: Long ab 03:00, gotobi_b: Long ab 08:00}
+    news:
+      kerzen: [1, 5, 15]
+      maerkte: alle
+      termine: NFP und CPI (08:30 New York), Fed (14:00 New York)
+      regel: >-
+        T = Termin. Bezug = Eröffnung der Kerze, die um T beginnt. Einstieg zur Eröffnung der Kerze um T+30 Min.
+        Bewegung = Einstiegskurs minus Bezug, geteilt durch die ATR(14) der Kerzen vor T. Ist sie mindestens 2 ATR:
+      varianten:
+        news_gegen: >-
+          gegen die Bewegung; Stop jenseits des Extrems der Kerzen von T bis vor T+30 plus 0,5 ATR, Ziel der Bezug,
+          sonst raus zur Eröffnung der Kerze um T+90 Min.
+        news_folgen: mit der Bewegung; Stop am Bezug, kein Ziel, raus zur Eröffnung der Kerze um T+90 Min.
+    vor_der_zahl:
+      kerzen: [5]
+      maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]
+      regel: Wie VORAB_scalping.yaml (Long 15:55 New York am Wochentag vor NFP oder ISM bis 5 Min. vor der Zahl).
+  vergleich: >-
+    Wie VORAB_scalping.yaml: Gotobi und vor_der_zahl gegen Placebo-Tage (höherer Gewinnfaktor nötig), alle anderen
+    gegen 200 Läufe mit zufälliger Richtung bei gleicher Zeit und gleichem Stop- und Zielabstand.
+  bestanden: >-
+    Je Familie, Variante, Markt und Chart: Gewinnfaktor im Zeitraum mindestens 1,2; mit 1,5-fachem Spread mindestens
+    1,0; 2026 über 1,0; Kontrolle mindestens 1,1; beide Hälften über 1,0, sofern jede mindestens 20 Trades hat;
+    Vergleich besser als 95 % der Zufallsläufe bzw. höher als Placebo; mindestens 100 Trades im Zeitraum, bei Gotobi,
+    News und vor_der_zahl mindestens 30.
+  zufalls_gegenprobe: >-
+    Für jede Kombination ein Zufallszwilling: dieselben Einstiege, Stops und Ziele, je Trade per Zufall die eigene oder
+    die umgedrehte Richtung (bei Gotobi und vor_der_zahl die Placebo-Tage). Er muss dieselben Hürden ohne den Vergleich
+    nehmen. Berichtet wird, wie viele echte Kombinationen und wie viele Zwillinge bestehen.
+  danach: >-
+    Was besteht, kommt mit den Trades pro Woche und der Zufalls-Gegenprobe zu Kiron. Bestehen höchstens so viele echte
+    Kombinationen wie Zwillinge, ist es vermutlich Glück, und das steht so in der Nachricht. Live geht nur, was Kiron
+    per PR merged, auf Account 1, Urteil nach 40 Demo-Trades.
+  keine_nachbesserung: keine anderen Zeiten, Schwellen, Märkte, Charts oder Varianten nach dem Ergebnis.
+  zufall_saat: 20261110

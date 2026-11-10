@@ -1,0 +1,99 @@
+# Scalping-Komitee, Schritt 2: sieben Kandidaten aus der Recherche, vorab festgelegt. Nur Capital.com-DEMO.
+# Kirons Wunsch vom 10.11.2026 10:11 UTC: Scalping-Strategien aus Internet, YouTube und Studien finden und testen
+# (den ganzen Tag und News-Scalping), Risiko und Wann/Wo wichtig, schwächste Bots ersetzen, wenn einer besteht.
+# Recherche: /mnt/project-files/strategie-suche/scalping-komitee/ (dauer-scalping.md, news-scalping.md,
+# risiko-wann-wo.md). Kernbefund: klassisches Scalping mit kleinen Zielen verliert nach Kosten in jedem unabhängigen
+# Test; Trade-Führung (Break-even, Teilgewinn, kleines Ziel) ändert die Trefferquote, nicht den Gewinn. Getestet werden
+# deshalb kurze Tagestrades zu festen Uhrzeiten mit der Ausstiegsregel ihrer Quelle, dazu ein Wann/Wo-Filter.
+# Festgelegt, bevor etwas gerechnet wurde. Code suche/scalping.py.
+
+format: 1
+scalping:
+  daten: >-
+    5-Min.-Bid-Kerzen /mnt/project-files/strategie-suche/daten/<SYMBOL>_5min.csv.gz (UTC), USD/JPY 1-Min.-Bid-Kerzen
+    /mnt/project-files/strategie-suche/scalper/m1/USDJPY_1min.csv.gz (ab 2023-01-01). Termine (Fed, CPI, NFP) aus
+    gold/v2/termine.yaml (ab 2023-01). Ortszeiten mit Sommerzeit (America/New_York, Europe/Berlin, Europe/London,
+    Asia/Tokyo).
+  zeitraum: ["2024-11-01", "2026-10-30 23:59"]
+  haelften: [["2024-11-01", "2025-10-31 23:59"], ["2025-11-01", "2026-10-30 23:59"]]
+  jahr_2026: ["2026-01-01", "2026-10-30 23:59"]
+  kontrolle: ["2022-11-01", "2024-10-31 23:59"]   # bei Terminen und 1-Min.-Daten erst ab 2023-01
+  spread: {EURUSD: 0.00010, USDJPY: 0.012, SPXUSD: 0.6, NSXUSD: 1.8, GRXEUR: 1.8, XAUUSD: 0.50}
+  kosten: >-
+    Bid-Kerzen. Long kauft zum Ask (Bid + Spread) und verkauft zum Bid, Short verkauft zum Bid und kauft zum Ask
+    zurück. Einstieg zur Eröffnung der Einstiegskerze. Stop und Ziel: berührt eine Kerze beide, zählt der Stop; springt
+    die Eröffnung über den Stop, zählt die Eröffnung. Haltekosten 5 % im Jahr auf den Positionswert für jede Nacht über
+    22:00 UTC (wie VORAB_pine5m).
+  ergebnis: >-
+    Mit Stop (eroeffnung, fed_fade) in R = Abstand Einstieg bis Stop. Ohne Stop in Prozent vom Einstiegskurs.
+  wann_wo_filter: >-
+    Variante "_f": Einstieg nur, wenn (a) Spread höchstens 7 % der ATR(14) der Kerzen vor dem Einstieg und (b) die
+    Spanne (Hoch minus Tief) der letzten 60 Minuten vor dem Einstieg mindestens so groß ist wie ihr Schnitt zur selben
+    Uhrzeit an den 14 Handelstagen davor.
+  kandidaten:
+    gotobi:
+      quelle: Bessho u. a. arXiv 2301.13204; Krueger, Tokyo Fix USDJPY (Recherche dauer-scalping.md Nr. 1)
+      markt: USDJPY 1 Min.
+      tage: >-
+        5., 10., 15., 20., 25. und letzter Wochentag des Monats; fällt der Tag auf Samstag oder Sonntag, gilt der Freitag
+        davor.
+      varianten:
+        gotobi_a: Long zur Eröffnung der 1-Min.-Kerze 03:00 Tokio, raus zur Eröffnung 09:55 Tokio
+        gotobi_b: Long zur Eröffnung 08:00 Tokio, raus zur Eröffnung 09:55 Tokio
+      vergleich: dasselbe Fenster an allen anderen Wochentagen (Placebo); der Kandidat braucht einen höheren PF
+    eurusd_zeiten:
+      quelle: Breedon und Ranaldo (JMCB 2013), QuantRocket, Krueger (Recherche Nr. 3)
+      markt: EURUSD 5 Min.
+      varianten:
+        eurusd_a: Short 03:00 bis 11:00 New York, Long 11:00 bis 16:00 New York (zwei Trades je Tag)
+        eurusd_a_f: wie eurusd_a mit dem Wann/Wo-Filter je Trade
+        eurusd_b: nur Short 09:00 bis 13:00 London
+      vergleich: 200 Läufe mit zufälliger Richtung zu denselben Zeiten; der Kandidat muss 90 % davon schlagen
+    eroeffnung:
+      quelle: Zarattini und Aziz (SSRN 4416622), Krueger-Nachbau auf CFDs (Recherche Nr. 4)
+      maerkte: [GRXEUR (Start 09:00 Berlin, Schluss 17:30), SPXUSD (Start 09:30 New York, Schluss 16:00)]
+      regel: >-
+        Erste 5-Min.-Kerze nach Börsenstart grün: Long, rot: Short, gleich: kein Trade. Einstieg zur Eröffnung der
+        zweiten Kerze, Stop am anderen Ende der ersten Kerze (liegt der Einstieg schon jenseits davon, kein Trade), Ziel
+        10 R, sonst raus zum Schluss der letzten Kerze vor Börsenschluss.
+      varianten: {eroeffnung: Regel, eroeffnung_f: Regel mit Wann/Wo-Filter}
+      vergleich: 200 Läufe mit zufälliger Richtung, gleicher Zeit und gleichem Stop- und Zielabstand; 90 % schlagen
+    halbe_stunde:
+      quelle: Baltussen u. a. (JFE 2021), Gao u. a. (JFE 2018) (Recherche Nr. 5, News S8)
+      maerkte: [SPXUSD und NSXUSD (Schluss 16:00 New York), GRXEUR (Schluss 17:30 Berlin), XAUUSD (Schluss 13:30 New York)]
+      varianten:
+        halbe_stunde: >-
+          Richtung = Vorzeichen der Rendite vom Schluss des Vortags bis 30 Min. vor Schluss; Einstieg 30 Min. vor
+          Schluss, raus zum Schluss. Ohne Stop.
+        halbe_stunde_f: wie halbe_stunde mit dem Wann/Wo-Filter
+        news_halbe_stunde: >-
+          nur SPXUSD und NSXUSD, nur an Tagen mit NFP, CPI oder Fed (New Yorker Datum): Richtung = Rendite vom Vortagsschluss
+          bis 10:00 New York, Einstieg 15:30, raus 16:00
+      vergleich: 200 Läufe mit zufälliger Richtung zu denselben Zeiten; 90 % schlagen
+    fed_fade:
+      quelle: Narain und Sangani (IJCB), Recherche News S3
+      maerkte: [SPXUSD, NSXUSD]
+      regel: >-
+        Fed-Termin T (Erklärung). Bewegung = Schluss der Kerze T+25 Min. gegen Schluss der Kerze T-5 Min. Ist sie
+        mindestens 0,20 %, Einstieg zur Eröffnung T+30 Min. gegen die Bewegung. Stop jenseits des Extrems der Kerzen T bis
+        T+25 plus 0,5 x ATR(14) der 5-Min.-Kerzen vor T. Ziel der Kurs vor der Erklärung (Schluss T-5). Sonst raus zur
+        Eröffnung T+90 Min.
+      vergleich: 200 Läufe mit zufälliger Richtung, gleicher Zeit und gleichem Stop- und Zielabstand; 90 % schlagen
+    vor_der_zahl:
+      quelle: Hu, Pan, Wang und Zhu (JFE 2022), Recherche News S1
+      maerkte: [SPXUSD, NSXUSD]
+      regel: >-
+        Termine NFP (aus termine.yaml) und ISM Industrie (erster Wochentag des Monats 10:00 New York; 1. Januar zählt
+        nicht). Nicht, wenn am selben Tag die Fed entscheidet. Long zur Eröffnung der Kerze 15:55 New York am
+        Wochentag davor, raus zur Eröffnung der Kerze 5 Min. vor der Zahl. Ohne Stop.
+      vergleich: dasselbe Fenster (15:55 bis 08:25 bzw. 09:55 am Folgetag) an allen anderen Wochentagen (Placebo)
+  bestanden: >-
+    Je Variante und Markt: Gewinnfaktor im Zeitraum mindestens 1,2; mit 1,5-fachem Spread mindestens 1,0; 2026 und
+    Kontrolle über 1,0; beide Hälften über 1,0, sofern jede mindestens 20 Trades hat; Vergleich bestanden; mindestens
+    100 Trades im Zeitraum, bei Terminen (gotobi, fed_fade, vor_der_zahl, news_halbe_stunde) mindestens 30.
+  danach: >-
+    Was besteht, ist ein Kandidat für ein freies Demokonto (Account 1) oder ersetzt die schwächste Strategie, nur über
+    einen PR, den Kiron merged, mit Urteil nach 40 Demo-Trades. Besteht nichts, geht nichts live, außer Kiron will es
+    ausdrücklich als reinen Demo-Test.
+  keine_nachbesserung: keine anderen Zeiten, Schwellen, Märkte oder Filter nach dem Ergebnis.
+  zufall_saat: 20261110

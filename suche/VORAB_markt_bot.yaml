@@ -1,0 +1,58 @@
+# Scalping-Komitee, Schritt 3a: der Markt-Bot. Nur Capital.com-DEMO, nie echtes Geld.
+# Kirons Wunsch vom 10.11.2026 10:11 UTC: die Strategien, die wenig Trades nehmen, aber viel Gewinn haben, häufen und
+# eine Markt-Strategie daraus machen, die viele Charts, Aktien und Märkte nach einer Gelegenheit absucht.
+# Die seltenen starken Bots sind die Trend-Rücksetzer (US500, US100, Dow) und Nasdaq Noise Long. Der Trend-Rücksetzer
+# lief in Runde 5 schon auf 41 Märkten (Indizes, Metalle, Energie, Devisen): zusammen Gewinnfaktor 0,91, gehalten hat
+# er nur auf den US-Indizes. Einzelaktien hat er nie gesehen. Getestet wird deshalb dieselbe Regel, unverändert, auf
+# allen Aktien mit Capital.com-Stundenkerzen (echter Bid und Ask). Noise Long braucht 15-Min.-Kerzen über viele
+# Jahre; die gibt es bei Aktien erst ab 2024, er bleibt hier draußen.
+# Festgelegt, bevor eine Aktie mit dieser Regel gerechnet wurde. Code suche/markt_bot.py.
+
+format: 1
+markt_bot:
+  daten: >-
+    Capital.com-Stundenkerzen mit Bid und Ask /mnt/project-files/strategie-suche/aktien/<EPIC>_HOUR.csv.gz (UTC, ab
+    Mai 2017). Alle Aktien in diesem Ordner. Eine Aktie zählt in einem Fenster nur, wenn sie es nach 400 Tagen Vorlauf
+    abdeckt (runde5.abdeckung: mindestens ein Jahr, 85 % der Werktage mit Kerze).
+  datenfehler: >-
+    Eine Stundenkerze, bei der Eröffnung, Hoch, Tief oder Schluss mehr als 20 % vom Median der Schlusskurse der 11
+    Kerzen um sie herum abweicht, gilt als Datenfehler und fällt weg (gesehen bei NVDA 10.06.2024, AVGO 15.07.2024,
+    SAP 11.07.2017 beim Prüfen der Kerzen, bevor gerechnet wurde).
+  tageskerze: >-
+    Wie runde5.tageslabel: die 24 Stunden bis T, Samstag und Sonntag zählen zum Montag. T = 15:00 New York für Aktien
+    in USD, 16:00 London für Aktien in EUR (SAP, SIE, DB1, IBE).
+  regel: >-
+    Genau runde5.sig_trend_ruecksetzer mit den Werten aus VORAB_runde5.yaml (trend 200, unter 10, stop_atr 3.0,
+    max_tage 5), gleicher Code wie der US500-Bot. Long: Schluss über dem 200-Tage-Schnitt und RSI(2) unter 10. Short:
+    Schluss unter dem 200-Tage-Schnitt und RSI(2) über 90. Raus zum Schluss, wenn der Schluss über (Long) bzw. unter
+    (Short) dem 5-Tage-Schnitt liegt, beim Gegensignal oder nach 5 Handelstagen. Notstop 3 x ATR(20), auf den
+    Stundenkerzen geprüft. Je Aktie höchstens ein Trade gleichzeitig, jede Aktie für sich (runde5.simuliere).
+  varianten:
+    markt_rs: Long und Short, wie der US500-Bot
+    markt_rs_long: nur Long (Short-Signale fallen weg)
+  kosten: >-
+    Einstieg zum Schluss bei T, Long zum Ask. Spread bei T = Median von Ask minus Bid der Kerze vor T in den letzten 12
+    Monaten der Daten (so zahlt ein Bot heute), auf den Stundenkerzen der echte Spread jeder Kerze. Übernachtgebühr
+    wie Indizes in Runde 5: Long 6,5 %, Short 2,0 % im Jahr je Nacht über 22:00 UTC, Wochenende dreifach. Robust:
+    Spread und Übernachtgebühr x 1,5. Ergebnis in R = Tagesschwankung ATR(20) beim Einstieg (gleiches Risiko je Trade).
+  fenster:
+    lernen: ["2018-06-01", "2024-12-31"]
+    pruefen: ["2025-01-01", "2026-10-30"]
+    jahr_2025: ["2025-01-01", "2025-12-31"]
+    jahr_2026: ["2026-01-01", "2026-10-30"]
+  zufall: >-
+    markt_rs: 1000 Läufe, je Trade zufällig die eigene oder die umgedrehte Richtung (gleicher Stop, gleicher
+    Ausstiegstag, runde5.zwilling und runde5.null_beide). markt_rs_long: 1000 Läufe mit zufälligem Einstiegstag und
+    gleicher Haltedauer in derselben Aktie und demselben Fenster (runde5.zufall_long). Saat 20261110.
+  bestanden: >-
+    Lernen: alle Aktien zusammen mindestens 150 Trades, Gewinnfaktor mindestens 1,2, besser als 95 % der Zufallsläufe.
+    Prüfen: mindestens 75 Trades, Gewinnfaktor mindestens 1,2, 2025 und 2026 je über 1,0, mit 1,5-fachen Kosten
+    mindestens 1,1, besser als 95 % der Zufallsläufe, mindestens die Hälfte der Aktien mit Trades im Plus.
+  erwartung: >-
+    Vorher geschätzt: eher knapp. Große US-Aktien sind den US-Indizes ähnlich, auf denen die Regel hält; auf den übrigen
+    41 Märkten hielt sie nicht, und Einzelaktien springen bei Zahlen stärker, was den Notstop öfter auslöst.
+  danach: >-
+    Besteht eine Variante, ist sie der Markt-Bot: ein Bot, der jeden Tag alle bestandenen Aktien prüft und die Regel
+    handelt, auf Account 1 (frei seit Kirons Wort vom 10.11.2026 10:35 UTC zu Brent), nur über einen PR, den Kiron
+    merged, Urteil nach 40 Demo-Trades. Besteht keine, geht nichts live.
+  keine_nachbesserung: keine anderen Werte, Aktien, Zeiten oder Fenster nach dem Ergebnis.

@@ -48,7 +48,13 @@ MAX_OFFEN = 4
 MARGE_MAX_EUR = 250.0
 FREI_NACH_EUR = 250.0
 TP_EUR = 3.0
-NOT_AUS_EUR = 250.0                    # Kirons Karte vom 09.11.2026 (empfohlene Wahl), None = nie raus
+NOT_AUS_EUR = 250.0                    # Kirons Karte vom 10.11.2026 02:49 UTC: äußerste Grenze, None = nie raus
+# Prüfer des TP-Bots (Kirons Wort 10.11.2026 02:48 UTC, suche/VORAB_pine5m_pruefer.yaml, gewählt pruefer_3_1)
+PRUEF_WARTEN = pd.Timedelta(hours=3)   # so lange tut der Prüfer nichts
+PRUEF_STOP_R = 1.0                     # Stop so weit hinter dem Einstieg, wenn er eingreift
+PRUEF_LANG = pd.Timedelta(hours=24)    # nach so langem Warten im Plus raus, im Minus Ziel auf den Einstieg
+VORAB_PRUEFER = ROOT / "suche" / "VORAB_pine5m_pruefer.yaml"
+KEY_PRUEFER = "VORAB_pine5m_pruefer sha256 "
 KERZEN_MAX = 1000
 LEBENSZEICHEN = pd.Timedelta(minutes=30)
 GOLD_BOT_DATEIEN = sb.GOLD_BOT_DATEIEN
@@ -73,7 +79,9 @@ BOTS = (
 
 def vorab_ok() -> bool:
     from suche.runde1 import journal_lines, last_value, sha256_text
-    return VORAB.exists() and last_value(journal_lines(), KEY) == sha256_text(VORAB.read_text(encoding="utf-8"))
+    zeilen = journal_lines()
+    return all(v.exists() and last_value(zeilen, k) == sha256_text(v.read_text(encoding="utf-8"))
+               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER)))
 
 
 def atr_rma(bars: pd.DataFrame, n: int = ATR_N) -> pd.Series:
@@ -285,6 +293,62 @@ class Lauf:
                            f"Ausstiegssignal. Kurs {hb._de(kurs)}. Offen: " + "; ".join(zeilen) +
                            ". Der Bot schließt nicht selbst, du entscheidest.", ["bell"])
 
+    # ---- Prüfer (nur Bot TP 3 €) ----
+
+    def pruefer(self, bars: pd.DataFrame, spread: pd.Series, gold: list[dict]) -> None:
+        """Erst 3 Std. nichts. Danach einmal je Position: lag der Trade seit dem Einstieg 0,5 R im Minus (Fehltrade),
+        Stop 1 R hinter dem Einstieg (liegt der Kurs schon dahinter: 0,5 R hinter den Kurs) und, wenn der Kurs unter dem
+        Einstieg liegt, Ziel auf den Einstieg. Nach 24 Std. ohne Eingriff: im Plus sofort raus, sonst wie Fehltrade.
+        Ändert jemand Stop oder Ziel von Hand, lässt der Prüfer die Position in Ruhe."""
+        pos = {str(p["position"].get("dealId")): p["position"] for p in gold}
+        q = self.q
+        abstand = max(1.05 * (q.min_dist or 0.0), 0.01)
+        t = bars.index.to_numpy()
+        lo, hi = bars["low"].to_numpy(float), bars["high"].to_numpy(float)
+        sp = spread.reindex(bars.index).fillna(0.0).to_numpy(float)
+        for tr in list(self.st["offen"]):
+            p = pos.get(tr["dealId"])
+            if p is None or tr.get("pruefer") or tr.get("agent") == "aus":
+                continue
+            b_stop, b_ziel = hb._num(p.get("stopLevel")), hb._num(p.get("profitLevel"))
+            if b_stop is not None or hb._anders(b_ziel, tr.get("tp")):
+                tr["agent"] = "aus"
+                self.ev("Prüfer aus", dealId=tr["dealId"], stop=b_stop, ziel=b_ziel)
+                continue
+            offen_seit = pd.Timestamp(tr["opened_utc"]).tz_localize(None)
+            alter = self.now - offen_seit
+            if alter < PRUEF_WARTEN:
+                continue
+            d, e, r = int(tr["richtung"]), float(tr["entry"]), float(tr["dist"])
+            jetzt = q.bid if d > 0 else q.offer
+            j0 = int(np.searchsorted(t, np.datetime64(offen_seit.floor("5min"))))
+            gegen = np.r_[lo[j0:], jetzt] if d > 0 else np.r_[hi[j0:] + sp[j0:], jetzt]
+            fehl = bool((d * (e - gegen) >= FEHL_R * r).any())
+            lang = alter >= PRUEF_LANG
+            if not (fehl or lang):
+                continue
+            if not fehl and d * (jetzt - e) >= 0:
+                if not self.send:
+                    self.ev("würde schließen (langes Warten)", dealId=tr["dealId"])
+                    continue
+                try:
+                    self.client.close_position(tr["dealId"])
+                except Exception as err:        # noqa: BLE001 - nächster Lauf versucht es wieder
+                    self.ev("schließen fehlgeschlagen", dealId=tr["dealId"], fehler=str(err)[:200])
+                    continue
+                tr["pruefer"] = {"zeit": self.stamp, "warum": "langes Warten, im Plus raus"}
+                self.ev("Prüfer schließt", dealId=tr["dealId"], warum="langes Warten (24 Std.), im Plus")
+                continue
+            stop = e - d * PRUEF_STOP_R * r
+            if d * (jetzt - stop) <= abstand:
+                stop = jetzt - d * 0.5 * r
+            ziel = e if d * (e - jetzt) > abstand else tr.get("tp")
+            warum = "Fehltrade (0,5 R im Minus)" if fehl else "langes Warten (24 Std.)"
+            if self.setze(tr, stop, ziel, warum):
+                tr["tp"] = tr["ziel"]
+                tr["pruefer"] = {"zeit": self.stamp, "warum": warum}
+                self.ev("Prüfer greift", dealId=tr["dealId"], stop=round(stop, 2), ziel=tr["ziel"], warum=warum)
+
     # ---- Notausstieg (nur Bot TP 3 €) ----
 
     def notausstieg(self, gold: list[dict]) -> None:
@@ -477,6 +541,7 @@ def lauf_bot(bot: Bot, client, state: dict, now, bars: pd.DataFrame, spread: pd.
             lauf.abfaenger(bars, spread, gold)
             lauf.ausstieg_hinweis(sig, neue)
         else:
+            lauf.pruefer(bars, spread, gold)
             lauf.notausstieg(gold)
             if send_orders and any(e["event"] == "Notausstieg" for e in lauf.log):
                 gold = [p for p in client.positions() if (p.get("market") or {}).get("epic") == EPIC]
@@ -522,7 +587,9 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
     regel += ("Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger: Fehltrade (0,5 R dagegen vor 0,75 R dafür) "
               "Stop 1 R und Ziel am Einstieg, Notbremse ab 1 R Minus. Hinweis beim Pine-Ausstiegssignal."
               if bot.art == "hand" else
-              f"Take-Profit +3 €, kein Stop. Notausstieg aller eigenen Trades bei zusammen -{NOT_AUS_EUR:.0f} €.")
+              "Take-Profit +3 €, kein Stop beim Einstieg. Prüfer: erst 3 Std. nichts, dann bei Fehltrade (0,5 R im "
+              "Minus seit dem Einstieg) Stop 1 R und Ziel am Einstieg, nach 24 Std. im Plus raus. Äußerste Grenze: "
+              f"Notausstieg aller eigenen Trades bei zusammen -{NOT_AUS_EUR:.0f} €.")
     return {"bot": bot.bot_id, "name": bot.name, "konto": "…" + bot.konto[-4:], "konto_name": bot.konto_name,
             "stand": st.get("stand"), "start": st.get("start"), "regel": regel, "vorab": "suche/VORAB_pine5m.yaml",
             "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",

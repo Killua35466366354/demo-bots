@@ -1,0 +1,36 @@
+# Prüfer für den Pine-Gold-TP-Bot (Take-Profit +3 €, ohne festen Stop), Nachtrag zu suche/VORAB_pine5m.yaml.
+# Kirons Wort vom 10.11.2026 02:48 UTC: kein reiner Notausstieg, sondern ein Prüfer wie beim Gold-Hand-Bot (Konto 5),
+# der abfängt, dass ein Trade unnötig war, damit es wenige und kleine Verluste bleiben gegen die vielen kleinen Gewinne.
+# Erst mehrere Stunden im Trade bleiben, bevor ein Ausstieg gesucht wird. Wartet man lange auf den Gewinn, darf er in
+# der Nähe des Einstiegs schließen. -250 € bleibt die äußerste Grenze (02:49 UTC Karte "Notausstieg bei -250 €").
+# Festgelegt, bevor ein Prüfer gerechnet wurde. Code suche/pine5m_pruefer.py. Einstiege, Kosten, R, Kontoregeln und
+# Zeiträume genau wie in VORAB_pine5m.yaml, Markt nur XAUUSD (der Markt der Bots).
+# Ehrlicher Hinweis vorab: Ein ähnlicher Einstand-Prüfer hat Gold-Boxen in Runde 12f verschlechtert (halb so viele
+# Gewinner, weil viele Trades erst gegenlaufen und dann gewinnen).
+
+format: 1
+pine5m_pruefer:
+  ziel: +3 € (0,6 R) bleibt, solange der Prüfer nichts ändert
+  wartezeit_std: [1, 3, 6]          # so lange nach dem Einstieg tut der Prüfer nichts
+  stop_r: [1, 2]                    # Stop so weit hinter dem Einstieg, wenn der Prüfer eingreift
+  fehltrade: >-
+    Nach der Wartezeit: lag der Trade seit dem Einstieg irgendwann 0,5 R oder mehr im Minus (auch erst später), greift der
+    Prüfer einmal ein. Stop stop_r hinter dem Einstieg, liegt der Kurs schon dahinter, Stop 0,5 R hinter den Kurs. Liegt
+    der Kurs unter dem Einstieg, kommt das Ziel auf den Einstieg (bei null raus, wenn er zurückkommt), sonst bleibt +3 €.
+  langes_warten: >-
+    Nach 24 Std. noch offen und der Prüfer hat noch nicht eingegriffen: liegt der Kurs über dem Einstieg, sofort raus,
+    sonst wie Fehltrade (Stop und Ziel auf den Einstieg).
+  wirkung: ab der Kerze nach der Erkennung, liegt der Kurs schon hinter Stop oder Ziel, raus zur Eröffnung; Stop und Ziel
+    in derselben Kerze zählt als Stop
+  varianten: alle 6 Paare aus wartezeit_std und stop_r, dazu zum Vergleich tp3 ohne Prüfer
+  masse: wie VORAB_pine5m, dazu größter Einzelverlust, Anteil Verlierer, mittlerer Gewinn und Verlust in R
+  bestanden: >-
+    Gewinnfaktor mindestens 1,2 im Zeitraum, mindestens 1,0 mit 1,5-fachem Spread, beide Hälften und 2026 über 1,0,
+    Kontrolle über 1,0, mindestens 100 Trades.
+  wahl: >-
+    Unter den bestandenen Varianten die mit dem höchsten Gewinnfaktor im Zeitraum, bei Gleichstand mehr Summe R. Besteht
+    keine, geht die mit dem höchsten Gewinnfaktor im Zeitraum als Demo-Vorwärtstest live, beschriftet "nicht bestanden",
+    weil Kiron den TP-Bot live sehen will und ohne Prüfer jeder Markt festhing.
+  notausstieg: -250 € für alle offenen Trades des TP-Bots zusammen bleibt als letzte Grenze (im Test nicht gerechnet).
+  keine_nachbesserung: keine anderen Wartezeiten, Stops oder Schwellen nach dem Ergebnis.
+  live: nur Demo, nur über einen PR, den Kiron merged.

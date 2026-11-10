@@ -56,7 +56,7 @@ jobs:
 
       # Tests nur nach einer Code-Änderung und einmal am Tag (Minuten sparen, 05.11.2026): Die Tests brauchten gut die
       # Hälfte jedes 15-Minuten-Laufs, obwohl sich der Code zwischen zwei Läufen fast nie ändert. Der Schlüssel ist der
-      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle sieben Testgruppen mit genau diesem Stand
+      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle acht Testgruppen mit genau diesem Stand
       # heute schon grün, springt jede Gruppe darüber. Sonst gilt wie immer: ohne grüne Tests kein Lauf.
       - name: Code-Stand für die Tests
         id: code
@@ -234,6 +234,31 @@ jobs:
             python -m gold.hand_bot
           fi
 
+      # Gold Groß-Box (Kirons Wahl vom 10.11.2026 17:35 UTC nach der neuen Bewertung 2024-26): die große Box aus
+      # Runde 12d (Seite gross_box), Kauf und Verkauf, ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box,
+      # 5 € Risiko je Trade, höchstens 3 offen. Nur Demo, Account 6 (geteilt mit dem Laborbot London GBP/USD), nie das
+      # Hauptkonto des Gold-Bots. Regeln in suche/VORAB_gold_grossbox.yaml, Code gold/grossbox_bot.py. Schreibt nur
+      # journal/gold-grossbox/ und journal/gold-grossbox.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: Gold Groß-Box (Account 6)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_grossbox_bot.py
+            touch .tests-ok/gold_grossbox
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m gold.grossbox_bot --dry-run
+          else
+            python -m gold.grossbox_bot
+          fi
+
       # London-Breakout EUR/USD und Asien-ORB GBP/NZD: beendet am 04.11.2026, Kirons Entscheidung nach der
       # Langzeit-Prüfung 2015-2025 (suche/VORAB_langzeit.yaml, Gewinnfaktor 0,93 und 0,77, beide unter 1,0). Beide hatten
       # noch kein eigenes Konto und keinen Trade. Der Code (suche/london_bot.py, suche/asien_bot.py) bleibt im Repo,
@@ -257,7 +282,7 @@ jobs:
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
       # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
       # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens
-      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den sieben Testgruppen.
+      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den acht Testgruppen.
       - name: Demo-Vergleich aller Bots
         if: ${{ !cancelled() && inputs.dry_run != true }}
         continue-on-error: true
@@ -269,13 +294,13 @@ jobs:
           fi
           python -m suche.vergleich --schreiben
 
-      # Nur wenn alle sieben Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
+      # Nur wenn alle acht Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
       - name: Alle Testgruppen grün?
         id: alle
         if: ${{ !cancelled() && steps.tests_ok.outputs.cache-hit != 'true' }}
         run: |
           n=$(ls .tests-ok | wc -l)
-          if [ "$n" -ge 7 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 7 Testgruppen grün"; fi
+          if [ "$n" -ge 8 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 8 Testgruppen grün"; fi
 
       - name: Grünen Stand merken
         if: ${{ !cancelled() && steps.alle.outputs.gruen == 'true' }}

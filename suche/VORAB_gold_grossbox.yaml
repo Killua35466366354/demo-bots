@@ -1,0 +1,62 @@
+# Vorwärtstest Gold Groß-Box (Runde 12d, Seite gross_box) auf einem Capital.com-DEMOKONTO. Nie echtes Geld.
+# Vorab festgelegt am 10.11.2026, bevor der Bot den ersten Trade macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: gold/grossbox_bot.py, Tests: tests/test_grossbox_bot.py.
+#
+# Herkunft: Kirons Wahl vom 10.11.2026 17:35 UTC auf der Karte "Welche Strategie soll mit der neuen Regel live auf
+# Demo?" (Option "Gold Groß-Box"). Grundlage ist die neue Bewertung suche/VORAB_bewertung_2024_26.yaml (Kirons Wort vom
+# 10.11.2026 17:05 UTC: 2024 bis 2026 zählt, ältere Jahre nur als Auskunft), Nachprüfung in
+# suche/ergebnis_nachpruefung_2024_26.md. Die Regel der Strategie stammt aus portfolio-manager suche/VORAB_runde12d.yaml
+# und läuft seit 06.11.2026 im TikTok-Schatten mit (gold/tiktok_schatten.py, Linie gross_box als Teil).
+#
+# Ehrlich vorweg (Backtest 11/2024 bis 10/2026, 5-Min.-Kerzen, Projektordner strategie-suche/runde12d/):
+# 945 Trades (9,1 je Woche), Gewinnfaktor 1,21, +93,4 R, beide Hälften 1,26 und 1,15, 2026 allein 1,24 (+42,2 R),
+# 1,5-facher Spread 1,15, Zufall mit einer zufälligen Richtung je großer Box in 95,5 % der Läufe schlechter.
+# Aber: größter Rückgang 76,7 R (2025), 53 % der Wochen im Minus, schlechteste Woche -12,2 R. 2024 bis 2026 war ein
+# starker Gold-Aufwärtstrend. Die Kontrolle 11/2022 bis 10/2024 (nach der neuen Regel nur Auskunft) hatte nur 1,01.
+# Darum zählt am Ende nur das Demo-Urteil nach 40 Trades.
+
+gold_grossbox_vorwaerts:
+  markt: GOLD (Capital.com, Kassa-Gold in USD)
+  konto: >-
+    Account 6 (Konto-ID 332263759556203678, Endung 3678), das sich der Bot mit dem Laborbot r6-london-gbpusd teilt
+    (GBP/USD, anderer Markt, kein Netting). Auf Account 6 handelt sonst kein Gold-Bot, darum braucht es kein Hedging.
+    Nie das Hauptkonto des Gold-Bots (Endung 3150), nie ein anderes Konto. Fehlt Account 6, handelt der Bot nicht. Liegt
+    eine fremde Gold-Position auf Account 6 oder gibt journal/konten.json Account 6 einem anderen Gold-Bot, öffnet er
+    nichts Neues. Der Bot steht nicht in journal/konten.json "zuordnung" (wie die Gold-Staffel und die Scalper).
+  groesse: >-
+    5 Euro Risiko bis zum Stop je Trade (0,5 % von 1.000 Euro), zwei Teile (ein Drittel und zwei Drittel), je Teil auf
+    die kleinste Schrittgröße abgerundet, mindestens die kleinste Größe. Höchstens 1 Unze je Trade und 3 Unzen zusammen,
+    höchstens 3 Trades zugleich offen (wie im Backtest). Würde die kleinste Größe das Risiko mehr als verdoppeln, kein
+    Trade. Neue Trades nur bei genug freier Marge (höchstens 80 % der freien Mittel).
+  regeln: >-
+    Genau gold/tiktok_schatten.gross_box mit kerze=False (Runde 12d, Seite gross_box) auf 15-Min.-Bid-Kerzen. Große Box =
+    SuperTrend 20/2 auf fertigen 1-Std.-Kerzen und letzter Strukturbruch (Swing 5) auf fertigen 4-Std.-Kerzen (ab 18:00
+    New York) zeigen in dieselbe Richtung, sie endet, sobald eine der beiden dreht. Einstiege nur in Boxrichtung, Kauf
+    und Verkauf: (a) bei Beginn der Box, Stop an der 1-Std.-SuperTrend-Linie, (b) bei jedem Wechsel des SuperTrend 20/1,75
+    auf 15 Min., Stop an seiner Linie, (c) bei jedem Strukturbruch auf 15 Min., Stop am Gegen-Swing. Stopabstand
+    begrenzt auf 0,5 bis 3 ATR(14) der Signal-Ebene. Höchstens 3 Trades offen (das Modell zählt selbst). Ausstieg: ein
+    Drittel mit Ziel 1 R beim Broker, danach Stop des Rests auf den Einstieg, der Rest ohne Ziel bis zum Ende der großen
+    Box (dann Marktorder, im Plus wie im Minus). Stop beider Teile beim Broker. Kein Prüfer, kein Halten, kein Kerzen-
+    Filter. Einstieg per Marktorder im Lauf nach dem Schluss der Signalkerze.
+  lauf: >-
+    Workflow "Demo-Bots", von cron-job.org rund um die Uhr alle 15 Minuten angestoßen (Minute 1, 16, 31, 46). Etwa 30
+    Tage Viertelstunden-Kerzen je Lauf, dahinter eine Kerze "jetzt" mit dem aktuellen Kurs. Ein Signal zählt nur bis 20
+    Minuten nach Schluss seiner Kerze, nach dem Tagesschluss (17:00 New York) bis 18:20 New York. Das Ende der Box prüft
+    jeder Lauf an der Kerze "jetzt".
+  bekannte_abweichungen: >-
+    15-Min.- statt 5-Min.-Kerzen (beim Gold-Short-Bot ergab das fast dieselben Zahlen). Einstieg 1 bis 4 Minuten nach
+    der Eröffnung zum Marktkurs. Den Einstand setzt der Bot erst im nächsten Lauf, bis zu 15 Minuten später als im
+    Backtest. Fällt ein Lauf aus, ist ein Signal danach zu alt und wird ausgelassen. Übernachtgebühren stehen nicht im R,
+    nur im Kontostand.
+  sicherung: >-
+    Ab -25 R seit Start öffnet der Bot nichts Neues mehr, offene Trades führt er zu Ende (im Backtest wäre das in der
+    Durststrecke von 2025 passiert). Zurück nur mit Kirons Entscheidung (PR).
+  messung: >-
+    Jeder abgeschlossene Trade zählt (beide Teile zu). R = gewichtete Summe der Teile (Ausstieg minus Einstieg in
+    Trade-Richtung) durch den Stopabstand. Dazu Euro und Grund je Teil (Ziel, Stop, Einstand, neue Box).
+  urteil: >-
+    Zwischencheck nach 15 Trades: Gewinnfaktor unter 0,6, dann Vorschlag an Kiron zu stoppen. Urteil nach 40 Trades wie
+    suche/VORAB_aufstieg.yaml: Gewinnfaktor mindestens 1,2 und Summe R über 0 heißt bestanden, Kiron entscheidet über
+    den nächsten Schritt. Sonst Vorschlag an Kiron: stoppen oder neue Regeln mit neuem Vorab. Der Bot ändert nie seine
+    eigenen Regeln.
+  dateien: Nur journal/gold-grossbox/ und journal/gold-grossbox.json, nie die Dateien des Gold-Bots.

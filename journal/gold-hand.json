@@ -2,11 +2,19 @@
  "bot": "gold-hand",
  "name": "Gold-Hand-Bot (Short und Long mit Trade-Abfänger, Kiron geht selbst raus)",
  "konto": "…9086",
- "stand": "2026-11-10T02:31:48",
+ "stand": "2026-11-10T02:47:45",
  "start": "2026-11-06T17:17:54",
  "regel": "Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. Trade-Abfänger: bei Fehltrade (0,5 R dagegen vor Ziel 1) Stop 1 R und Ziel am Einstieg, Notbremse ab 1 R Minus. Pause nur rund um wichtige US-Termine, nicht nach Kurssprüngen. Nachricht über ntfy, Kiron schließt selbst. 5 € je Strategie-R, höchstens 4 Goldpositionen, 2 oz.",
  "vorab": "suche/VORAB_gold_hand.yaml",
- "offen": [
+ "offen": [],
+ "zusammenfassung": {
+  "trades": 1,
+  "pf_r": 0.0,
+  "summe_r": -1.01,
+  "summe_eur": -4.92,
+  "urteil": "nur zur Info, Kiron schließt selbst"
+ },
+ "letzte_trades": [
   {
    "dealId": "00000000-722a-9fdc-049c-701f0015549e",
    "richtung": 1,
@@ -25,15 +33,12 @@
     "zeit": "2026-11-10T02:01:40",
     "warum": "Fehltrade (0,5 R dagegen vor Ziel 1)"
    },
-   "fehl": "2026-11-10T02:01:40"
+   "fehl": "2026-11-10T02:01:40",
+   "exit": 4119.78,
+   "quelle": "SL",
+   "closed_utc": "2026-11-10T02:47:45",
+   "r": -1.009,
+   "pnl_eur": -4.92
   }
- ],
- "zusammenfassung": {
-  "trades": 0,
-  "pf_r": null,
-  "summe_r": 0,
-  "summe_eur": 0,
-  "urteil": "nur zur Info, Kiron schließt selbst"
- },
- "letzte_trades": []
+ ]
 }

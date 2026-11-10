@@ -73,3 +73,10 @@
 {"zeit": "2026-11-10T06:11:34+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 05:45:00", "richtung": 1, "einstieg": 4126.05, "stop": 4108.24, "tp1": 4143.86, "tp2": 4161.68, "tp3": 4179.49}
 {"zeit": "2026-11-10T06:11:34+00:00", "strategie": "gross_box_kerze", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 05:45:00", "richtung": 1, "einstieg": 4126.05, "stop": 4108.24, "tp1": 4143.86, "art": "b"}
 {"zeit": "2026-11-10T06:11:34+00:00", "strategie": "gross_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 05:45:00", "richtung": 1, "einstieg": 4126.05, "stop": 4108.24, "tp1": 4143.86, "art": "b"}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 05:45:00", "richtung": 1, "einstieg": 4126.05, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 09:15:00", "richtung": -1, "einstieg": 4095.47, "stop": 4113.95, "tp1": 4076.99, "tp2": 4058.51, "tp3": 4040.03}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "gross_box_kerze", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 20:00:00", "richtung": 1, "einstieg": 4136.67, "grund": "stop", "ergebnis_r": -1.016}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "gross_box_kerze", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 05:45:00", "richtung": 1, "einstieg": 4126.05, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 20:00:00", "richtung": 1, "einstieg": 4136.67, "grund": "stop", "ergebnis_r": -1.016}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 05:45:00", "richtung": 1, "einstieg": 4126.05, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-10T10:11:32+00:00", "strategie": "box_1h", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 20:00:00", "richtung": 1, "einstieg": 4136.67, "grund": "stop", "ergebnis_r": -1.016}

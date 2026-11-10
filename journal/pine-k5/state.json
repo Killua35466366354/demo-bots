@@ -1,0 +1,13 @@
+{
+ "format": 1,
+ "start": "2026-11-10T09:28:32",
+ "offen": [],
+ "trades": 0,
+ "summe_r": 0.0,
+ "summe_eur": 0.0,
+ "hedging_versuch": "2026-11-10T09:28:32",
+ "hedging": true,
+ "letzte_kerze": "2026-11-10 09:20:00",
+ "letzter_kurs": 4091.32,
+ "stand": "2026-11-10T09:28:32"
+}

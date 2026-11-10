@@ -1,2 +1,4 @@
 {"time": "2026-11-10T09:28:32", "bot": "pine-k5", "event": "Hedging eingeschaltet"}
 {"time": "2026-11-10T09:28:32", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Hedging an", "gesendet": true}
+{"time": "2026-11-10T10:03:28", "bot": "pine-k5", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-10 09:55:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 4138.84, "sma50": 4150.14, "h4": 4112.42, "ema50": 4053.53}, "lage": "Hintergrund: uneinig, Short und Long erlaubt. Nächster wichtiger Termin: CPI m/m am 10.11. 14:30 Uhr.", "dealId": "00000000-722c-e0b2-049c-701f0015549e", "size": 0.36, "entry": 4084.45, "tp": null}
+{"time": "2026-11-10T10:03:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}

@@ -500,4 +500,4 @@ def test_workflow_testet_vor_dem_lauf():
     assert "tests/test_gold_short.py" in wf
     # Kirons Wahl vom 06.11.2026: Konto 5 gehört dem Gold-Hand-Bot, der Gold-Short-Bot öffnet dort nichts mehr
     assert "python -m gold.short_bot" not in wf and "Gold-Short-Bot ruht" in wf
-    assert '-ge 7' in wf and wf.count("touch .tests-ok/") == 7
+    assert '-ge 8' in wf and wf.count("touch .tests-ok/") == 8

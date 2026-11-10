@@ -1,0 +1,1235 @@
+{
+ "vorab": "suche/VORAB_bewertung_2024_26.yaml",
+ "geprueft": 1862,
+ "bestehen_jetzt": 38,
+ "hinweis": "bestehen_jetzt zählt jede Variante einmal, auch wenn dieselben Trades in mehreren Dateien stehen.",
+ "je_quelle": {
+  "Scalping Schritt 2": {
+   "geprueft": 23,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "Runde 2b Scalping": {
+   "geprueft": 362,
+   "bestehen_jetzt": 1,
+   "bestanden_frueher": 0
+  },
+  "Scalping mit Opens": {
+   "geprueft": 1285,
+   "bestehen_jetzt": 17,
+   "bestanden_frueher": 0
+  },
+  "Pine 5 Min.": {
+   "geprueft": 63,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "Markt-Bot (18 Aktien)": {
+   "geprueft": 2,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "Gold-Short K2": {
+   "geprueft": 6,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "runde10": {
+   "geprueft": 8,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "runde11": {
+   "geprueft": 2,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "runde12": {
+   "geprueft": 7,
+   "bestehen_jetzt": 2,
+   "bestanden_frueher": 0
+  },
+  "runde12b": {
+   "geprueft": 2,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "runde12c": {
+   "geprueft": 8,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "runde12d": {
+   "geprueft": 2,
+   "bestehen_jetzt": 2,
+   "bestanden_frueher": 0
+  },
+  "runde12e": {
+   "geprueft": 14,
+   "bestehen_jetzt": 6,
+   "bestanden_frueher": 0
+  },
+  "runde12f": {
+   "geprueft": 14,
+   "bestehen_jetzt": 4,
+   "bestanden_frueher": 0
+  },
+  "runde12g": {
+   "geprueft": 37,
+   "bestehen_jetzt": 5,
+   "bestanden_frueher": 0
+  },
+  "runde12h": {
+   "geprueft": 9,
+   "bestehen_jetzt": 3,
+   "bestanden_frueher": 0
+  },
+  "runde7": {
+   "geprueft": 2,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  },
+  "runde9": {
+   "geprueft": 16,
+   "bestehen_jetzt": 0,
+   "bestanden_frueher": 0
+  }
+ },
+ "trade_dateien": [
+  "runde10/trades_fed_schwung_K20_A16.csv.gz",
+  "runde10/trades_fed_schwung_K20_M11.csv.gz",
+  "runde10/trades_fed_schwung_K35_A16.csv.gz",
+  "runde10/trades_fed_schwung_K35_M11.csv.gz",
+  "runde10/trades_zahlen_schwung_K25_A11.csv.gz",
+  "runde10/trades_zahlen_schwung_K25_A16.csv.gz",
+  "runde10/trades_zahlen_schwung_K40_A11.csv.gz",
+  "runde10/trades_zahlen_schwung_K40_A16.csv.gz",
+  "runde11/ergebnis/trades_aktien_short.csv",
+  "runde11/ergebnis/trades_bitcoin_short.csv",
+  "runde11/ergebnis/trades_gold_long.csv",
+  "runde12/runde12_gross_klein_2_trades.csv.gz",
+  "runde12/runde12_gross_klein_3_trades.csv.gz",
+  "runde12/runde12_ki_level_1h_trades.csv.gz",
+  "runde12/runde12_ki_level_4h_trades.csv.gz",
+  "runde12/runde12_signalbox_15m_trades.csv.gz",
+  "runde12/runde12_signalbox_1h_trades.csv.gz",
+  "runde12/runde12_signalbox_4h_trades.csv.gz",
+  "runde12b/runde12b_stream_box_eng_trades.csv.gz",
+  "runde12b/runde12b_stream_box_trades.csv.gz",
+  "runde12c/runde12c_box_175_trades.csv.gz",
+  "runde12c/runde12c_box_1h_trades.csv.gz",
+  "runde12c/runde12c_box_kombi_trades.csv.gz",
+  "runde12c/runde12c_box_laufen_trades.csv.gz",
+  "runde12c/runde12c_box_sitzung_trades.csv.gz",
+  "runde12c/runde12c_box_trend4h_trades.csv.gz",
+  "runde12c/runde12c_fvg_rueck_trades.csv.gz",
+  "runde12c/runde12c_kerze_level_trades.csv.gz",
+  "runde12d/runde12d_gross_box_kerze_trades.csv.gz",
+  "runde12d/runde12d_gross_box_trades.csv.gz",
+  "runde12e/runde12e_alle_ein_konto_trades.csv.gz",
+  "runde12e/runde12e_alle_sieben_trades.csv.gz",
+  "runde12f/runde12f_konto_pruefer_alter_stop_trades.csv.gz",
+  "runde12f/runde12f_konto_pruefer_trades.csv.gz",
+  "runde12g/runde12g_alle_longs_trades.csv.gz",
+  "runde12g/runde12g_neu_beide_trades.csv.gz",
+  "runde12g/runde12g_neu_long_trades.csv.gz",
+  "runde12g/runde12g_nur_shorts_pruefer_trades.csv.gz",
+  "runde12g/runde12g_nur_shorts_trades.csv.gz",
+  "runde12h/runde12h_gross_ganz_trades.csv.gz",
+  "runde12h/runde12h_gross_short_trades.csv.gz",
+  "runde7/nasdaq_noise_long_trades_2015_bis_2026.csv",
+  "runde7/nasdaq_noise_long_trades_2025_bis_jetzt.csv",
+  "runde9/b/trades_fix_umkehr_europa.csv.gz",
+  "runde9/b/trades_tokio_fix_umkehr.csv.gz",
+  "runde9/c/trades_L20_Z1.csv.gz",
+  "runde9/c/trades_L20_Z2.csv.gz",
+  "runde9/c/trades_L60_Z1.csv.gz",
+  "runde9/c/trades_L60_Z2.csv.gz",
+  "runde9/trades_fix_umkehr_europa.csv.gz",
+  "runde9/trades_fomc_vortag.csv.gz",
+  "runde9/trades_fx_monatsende.csv.gz",
+  "runde9/trades_gold_nacht_long.csv.gz",
+  "runde9/trades_gold_tag_short.csv.gz",
+  "runde9/trades_gotobi_long.csv.gz",
+  "runde9/trades_index_nacht_long.csv.gz",
+  "runde9/trades_kreuz_rueckkehr.csv.gz",
+  "runde9/trades_nacht_scalper.csv.gz",
+  "runde9/trades_tokio_fix_umkehr.csv.gz"
+ ],
+ "neu_bestanden": [
+  {
+   "quelle": "runde12f",
+   "name": "runde12f/runde12f_konto_pruefer_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 277,
+   "je_woche": 2.68,
+   "pf": 1.6,
+   "summe_r": 32.9,
+   "robust_pf": null,
+   "h1": [
+    1.78,
+    152
+   ],
+   "h2": [
+    1.41,
+    125
+   ],
+   "j2026": [
+    1.58,
+    99
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12e",
+   "name": "runde12e/runde12e_alle_ein_konto_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 245,
+   "je_woche": 2.37,
+   "pf": 1.51,
+   "summe_r": 46.9,
+   "robust_pf": null,
+   "h1": [
+    1.44,
+    136
+   ],
+   "h2": [
+    1.61,
+    109
+   ],
+   "j2026": [
+    1.74,
+    89
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r NSXUSD 15 Min. Filter woche",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 281,
+   "je_woche": 2.7,
+   "pf": 1.49,
+   "summe_r": 96.84,
+   "robust_pf": 1.46,
+   "h1": [
+    1.97,
+    145
+   ],
+   "h2": [
+    1.07,
+    136
+   ],
+   "j2026": [
+    1.09,
+    108
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 1.09,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12f",
+   "name": "runde12f/runde12f_konto_pruefer_alter_stop_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 317,
+   "je_woche": 3.07,
+   "pf": 1.44,
+   "summe_r": 40.6,
+   "robust_pf": null,
+   "h1": [
+    1.47,
+    169
+   ],
+   "h2": [
+    1.4,
+    148
+   ],
+   "j2026": [
+    1.57,
+    114
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12h",
+   "name": "runde12h/runde12h_gross_ganz_trades box_1h",
+   "fenster": "01.11.2024 bis 27.10.2026",
+   "trades": 228,
+   "je_woche": 2.2,
+   "pf": 1.44,
+   "summe_r": 27.8,
+   "robust_pf": null,
+   "h1": [
+    1.45,
+    119
+   ],
+   "h2": [
+    1.43,
+    109
+   ],
+   "j2026": [
+    1.43,
+    89
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12e",
+   "name": "runde12e/runde12e_alle_sieben_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 285,
+   "je_woche": 2.76,
+   "pf": 1.41,
+   "summe_r": 46.4,
+   "robust_pf": null,
+   "h1": [
+    1.35,
+    157
+   ],
+   "h2": [
+    1.5,
+    128
+   ],
+   "j2026": [
+    1.6,
+    102
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r GRXEUR 15 Min. Filter monat",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 260,
+   "je_woche": 2.5,
+   "pf": 1.36,
+   "summe_r": 69.55,
+   "robust_pf": 1.23,
+   "h1": [
+    1.01,
+    137
+   ],
+   "h2": [
+    1.77,
+    123
+   ],
+   "j2026": [
+    1.73,
+    99
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 1.28,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r NSXUSD 15 Min. Filter monat",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 251,
+   "je_woche": 2.41,
+   "pf": 1.35,
+   "summe_r": 62.95,
+   "robust_pf": 1.32,
+   "h1": [
+    1.47,
+    127
+   ],
+   "h2": [
+    1.24,
+    124
+   ],
+   "j2026": [
+    1.28,
+    103
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 1.12,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r NSXUSD 15 Min. Filter jahr",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 228,
+   "je_woche": 2.19,
+   "pf": 1.33,
+   "summe_r": 55.15,
+   "robust_pf": 1.32,
+   "h1": [
+    1.64,
+    122
+   ],
+   "h2": [
+    1.03,
+    106
+   ],
+   "j2026": [
+    1.17,
+    89
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 1.16,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12h",
+   "name": "runde12h/runde12h_gross_ganz_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 346,
+   "je_woche": 3.35,
+   "pf": 1.32,
+   "summe_r": 30.4,
+   "robust_pf": null,
+   "h1": [
+    1.41,
+    183
+   ],
+   "h2": [
+    1.22,
+    163
+   ],
+   "j2026": [
+    1.47,
+    126
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r NSXUSD 15 Min. Filter quartal",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 244,
+   "je_woche": 2.34,
+   "pf": 1.31,
+   "summe_r": 56.87,
+   "robust_pf": 1.3,
+   "h1": [
+    1.62,
+    125
+   ],
+   "h2": [
+    1.04,
+    119
+   ],
+   "j2026": [
+    1.21,
+    101
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.99,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12g",
+   "name": "runde12g/runde12g_neu_beide_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 378,
+   "je_woche": 3.66,
+   "pf": 1.3,
+   "summe_r": 32.4,
+   "robust_pf": null,
+   "h1": [
+    1.54,
+    196
+   ],
+   "h2": [
+    1.07,
+    182
+   ],
+   "j2026": [
+    1.29,
+    140
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r XAUUSD 15 Min. Filter monat",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 261,
+   "je_woche": 2.51,
+   "pf": 1.28,
+   "summe_r": 57.78,
+   "robust_pf": 1.16,
+   "h1": [
+    1.1,
+    131
+   ],
+   "h2": [
+    1.46,
+    130
+   ],
+   "j2026": [
+    1.67,
+    106
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.61,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12",
+   "name": "runde12/runde12_gross_klein_3_trades",
+   "fenster": "04.01.2024 bis 30.10.2026",
+   "trades": 404,
+   "je_woche": 2.75,
+   "pf": 1.26,
+   "summe_r": 43.7,
+   "robust_pf": null,
+   "h1": [
+    1.06,
+    207
+   ],
+   "h2": [
+    1.52,
+    197
+   ],
+   "j2026": [
+    1.6,
+    102
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": {
+    "trades": 1357,
+    "pf": 0.9,
+    "summe_r": -63.8
+   },
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12g",
+   "name": "runde12g/runde12g_alle_longs_trades box_1h",
+   "fenster": "01.11.2024 bis 28.10.2026",
+   "trades": 254,
+   "je_woche": 2.45,
+   "pf": 1.25,
+   "summe_r": 27.7,
+   "robust_pf": null,
+   "h1": [
+    1.42,
+    131
+   ],
+   "h2": [
+    1.06,
+    123
+   ],
+   "j2026": [
+    1.01,
+    100
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_2r XAUUSD 15 Min. Filter monat",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 261,
+   "je_woche": 2.51,
+   "pf": 1.22,
+   "summe_r": 35.26,
+   "robust_pf": 1.1,
+   "h1": [
+    1.27,
+    131
+   ],
+   "h2": [
+    1.17,
+    130
+   ],
+   "j2026": [
+    1.37,
+    106
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.7,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_2r UKXGBP 15 Min. Filter quartal",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 265,
+   "je_woche": 2.54,
+   "pf": 1.21,
+   "summe_r": 32.59,
+   "robust_pf": 1.14,
+   "h1": [
+    1.12,
+    135
+   ],
+   "h2": [
+    1.31,
+    130
+   ],
+   "j2026": [
+    1.33,
+    111
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.77,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12d",
+   "name": "runde12d/runde12d_gross_box_kerze_trades",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 833,
+   "je_woche": 8.01,
+   "pf": 1.21,
+   "summe_r": 82.8,
+   "robust_pf": 1.146,
+   "h1": [
+    1.33,
+    418
+   ],
+   "h2": [
+    1.09,
+    415
+   ],
+   "j2026": [
+    1.18,
+    329
+   ],
+   "zufall": true,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, Spread-Probe und Zufall aus der Ergebnis-Datei",
+   "bestanden": true,
+   "fehlt": [],
+   "kontrolle_pf_auskunft": null
+  },
+  {
+   "quelle": "runde12d",
+   "name": "runde12d/runde12d_gross_box_trades",
+   "fenster": "01.11.2024 bis 29.10.2026",
+   "trades": 945,
+   "je_woche": 9.1,
+   "pf": 1.21,
+   "summe_r": 93.4,
+   "robust_pf": 1.148,
+   "h1": [
+    1.26,
+    473
+   ],
+   "h2": [
+    1.15,
+    472
+   ],
+   "j2026": [
+    1.24,
+    376
+   ],
+   "zufall": true,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, Spread-Probe und Zufall aus der Ergebnis-Datei",
+   "bestanden": true,
+   "fehlt": [],
+   "kontrolle_pf_auskunft": null
+  },
+  {
+   "quelle": "runde12e",
+   "name": "runde12e/runde12e_alle_ein_konto_trades gross_box",
+   "fenster": "01.11.2024 bis 29.10.2026",
+   "trades": 940,
+   "je_woche": 9.05,
+   "pf": 1.21,
+   "summe_r": 93.3,
+   "robust_pf": null,
+   "h1": [
+    1.27,
+    472
+   ],
+   "h2": [
+    1.14,
+    468
+   ],
+   "j2026": [
+    1.24,
+    372
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12e",
+   "name": "runde12e/runde12e_alle_ein_konto_trades gross_box_kerze",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 829,
+   "je_woche": 7.97,
+   "pf": 1.21,
+   "summe_r": 83.5,
+   "robust_pf": null,
+   "h1": [
+    1.33,
+    417
+   ],
+   "h2": [
+    1.09,
+    412
+   ],
+   "j2026": [
+    1.18,
+    326
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12h",
+   "name": "runde12h/runde12h_gross_ganz_trades box_laufen",
+   "fenster": "01.11.2024 bis 27.10.2026",
+   "trades": 394,
+   "je_woche": 3.8,
+   "pf": 1.21,
+   "summe_r": 22.6,
+   "robust_pf": null,
+   "h1": [
+    1.13,
+    206
+   ],
+   "h2": [
+    1.3,
+    188
+   ],
+   "j2026": [
+    1.2,
+    158
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12f",
+   "name": "runde12f/runde12f_konto_pruefer_trades gross_box",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 1085,
+   "je_woche": 10.43,
+   "pf": 1.2,
+   "summe_r": 51.6,
+   "robust_pf": null,
+   "h1": [
+    1.3,
+    546
+   ],
+   "h2": [
+    1.09,
+    539
+   ],
+   "j2026": [
+    1.18,
+    427
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12f",
+   "name": "runde12f/runde12f_konto_pruefer_trades gross_box_kerze",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 926,
+   "je_woche": 8.9,
+   "pf": 1.2,
+   "summe_r": 45.6,
+   "robust_pf": null,
+   "h1": [
+    1.35,
+    466
+   ],
+   "h2": [
+    1.06,
+    460
+   ],
+   "j2026": [
+    1.17,
+    365
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r NSXUSD 15 Min. Filter alle",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 123,
+   "je_woche": 1.18,
+   "pf": 2.06,
+   "summe_r": 82.95,
+   "robust_pf": 2.04,
+   "h1": [
+    2.12,
+    89
+   ],
+   "h2": [
+    1.92,
+    34
+   ],
+   "j2026": [
+    2.45,
+    29
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 1.11,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r GRXEUR 15 Min. Filter alle",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 123,
+   "je_woche": 1.18,
+   "pf": 1.63,
+   "summe_r": 53.59,
+   "robust_pf": 1.36,
+   "h1": [
+    1.14,
+    71
+   ],
+   "h2": [
+    2.41,
+    52
+   ],
+   "j2026": [
+    2.32,
+    42
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 1.13,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Runde 2b Scalping",
+   "name": "gotobi/gotobi_b CADJPY 1 Min.",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 143,
+   "je_woche": 1.37,
+   "pf": 1.61,
+   "summe_r": 3.12,
+   "robust_pf": 1.25,
+   "h1": [
+    1.21,
+    71
+   ],
+   "h2": [
+    2.44,
+    72
+   ],
+   "j2026": [
+    2.31,
+    60
+   ],
+   "zufall": true,
+   "kontrolle_pf_auskunft": 0.79,
+   "alt_bestanden": false,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_2r NSXUSD 15 Min. Filter alle",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 123,
+   "je_woche": 1.18,
+   "pf": 1.58,
+   "summe_r": 36.79,
+   "robust_pf": 1.47,
+   "h1": [
+    1.82,
+    89
+   ],
+   "h2": [
+    1.07,
+    34
+   ],
+   "j2026": [
+    1.21,
+    29
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.76,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "halbe_stunde/gegen JPXJPY 5 Min. Filter woche",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 174,
+   "je_woche": 1.67,
+   "pf": 1.53,
+   "summe_r": 5.51,
+   "robust_pf": 1.33,
+   "h1": [
+    1.16,
+    87
+   ],
+   "h2": [
+    1.88,
+    87
+   ],
+   "j2026": [
+    1.71,
+    76
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.69,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "halbe_stunde/gegen SPXUSD 5 Min. Filter monat",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 189,
+   "je_woche": 1.81,
+   "pf": 1.47,
+   "summe_r": 4.6,
+   "robust_pf": 1.37,
+   "h1": [
+    1.5,
+    98
+   ],
+   "h2": [
+    1.43,
+    91
+   ],
+   "j2026": [
+    1.26,
+    75
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.99,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "halbe_stunde/gegen NSXUSD 5 Min. Filter monat",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 188,
+   "je_woche": 1.81,
+   "pf": 1.43,
+   "summe_r": 5.59,
+   "robust_pf": 1.36,
+   "h1": [
+    1.41,
+    95
+   ],
+   "h2": [
+    1.45,
+    93
+   ],
+   "j2026": [
+    1.19,
+    75
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.98,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12g",
+   "name": "runde12g/runde12g_alle_longs_trades gross_klein_3",
+   "fenster": "21.11.2024 bis 09.10.2026",
+   "trades": 170,
+   "je_woche": 1.73,
+   "pf": 1.43,
+   "summe_r": 27.8,
+   "robust_pf": null,
+   "h1": [
+    1.48,
+    106
+   ],
+   "h2": [
+    1.33,
+    64
+   ],
+   "j2026": [
+    1.3,
+    47
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_2r UKXGBP 15 Min. Filter alle",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 134,
+   "je_woche": 1.29,
+   "pf": 1.41,
+   "summe_r": 29.95,
+   "robust_pf": 1.36,
+   "h1": [
+    1.32,
+    82
+   ],
+   "h2": [
+    1.56,
+    52
+   ],
+   "j2026": [
+    1.77,
+    46
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.91,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12g",
+   "name": "runde12g/runde12g_nur_shorts_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 115,
+   "je_woche": 1.11,
+   "pf": 1.39,
+   "summe_r": 18.6,
+   "robust_pf": null,
+   "h1": [
+    1.11,
+    51
+   ],
+   "h2": [
+    1.68,
+    64
+   ],
+   "j2026": [
+    1.88,
+    55
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_2r GRXEUR 15 Min. Filter alle",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 123,
+   "je_woche": 1.18,
+   "pf": 1.33,
+   "summe_r": 23.14,
+   "robust_pf": 1.28,
+   "h1": [
+    1.16,
+    71
+   ],
+   "h2": [
+    1.59,
+    52
+   ],
+   "j2026": [
+    1.64,
+    42
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.88,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "Scalping mit Opens",
+   "name": "eroeffnung/folgen_10r UKXGBP 15 Min. Filter alle",
+   "fenster": "01.11.2024 bis 30.10.2026",
+   "trades": 134,
+   "je_woche": 1.29,
+   "pf": 1.3,
+   "summe_r": 27.54,
+   "robust_pf": 1.23,
+   "h1": [
+    1.24,
+    82
+   ],
+   "h2": [
+    1.39,
+    52
+   ],
+   "j2026": [
+    1.52,
+    46
+   ],
+   "zufall": null,
+   "kontrolle_pf_auskunft": 0.8,
+   "alt_bestanden": null,
+   "pruefung": "wie im Test, ohne Kontrolle 2022-24",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12",
+   "name": "runde12/runde12_gross_klein_2_trades",
+   "fenster": "02.01.2024 bis 29.10.2026",
+   "trades": 189,
+   "je_woche": 1.28,
+   "pf": 1.25,
+   "summe_r": 19.6,
+   "robust_pf": null,
+   "h1": [
+    1.21,
+    95
+   ],
+   "h2": [
+    1.28,
+    94
+   ],
+   "j2026": [
+    1.15,
+    54
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": {
+    "trades": 628,
+    "pf": 0.99,
+    "summe_r": -2.2
+   },
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  },
+  {
+   "quelle": "runde12g",
+   "name": "runde12g/runde12g_nur_shorts_pruefer_trades gross_klein_3",
+   "fenster": "06.11.2024 bis 30.10.2026",
+   "trades": 139,
+   "je_woche": 1.35,
+   "pf": 1.21,
+   "summe_r": 9.1,
+   "robust_pf": null,
+   "h1": [
+    1.09,
+    60
+   ],
+   "h2": [
+    1.31,
+    79
+   ],
+   "j2026": [
+    1.88,
+    61
+   ],
+   "zufall": null,
+   "vor_2024_auskunft": null,
+   "alt_bestanden": null,
+   "pruefung": "einzelne Trades ab 2024, ohne 1,5-fachen Spread und ohne Zufallsvergleich",
+   "bestanden": true,
+   "fehlt": []
+  }
+ ]
+}

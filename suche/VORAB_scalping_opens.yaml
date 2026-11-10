@@ -1,0 +1,62 @@
+# Scalping mit den Open-Filtern aus Kirons Video: die 3 Scalping-Strategien mit dem höchsten Gewinnfaktor gehen auf Demo.
+# Kirons Wort vom 10.11.2026 12:16 UTC: "nutze die neuen filter aus dem tiktok viedo das du analysiert hast und tue die
+# 3 profitablsten nach gewinnfactor scalping strategien live auf demo accounts stellen....".
+# Filter = die Open-Filter aus suche/VORAB_opens.yaml (Video TikTok montyfinance), Scalping = die Kombinationen aus
+# suche/VORAB_scalping2.yaml (Runde 2b, 0 von 362 bestanden). Festgelegt, bevor eine Kombination mit Filter gerechnet
+# wurde. Code suche/scalping_opens.py (Test) und suche/scalper_bot.py (Bot).
+# Ehrlicher Hinweis vorab: rund 1.000 Varianten, die 3 besten werden nach dem Gewinnfaktor gewählt. Ein hoher
+# Gewinnfaktor kann dabei auch Glück sein; darum stehen Zufallsvergleich, Kontrolle 2022-24 und Zufallszwillinge im
+# Bericht. Live gehen die 3 trotzdem (Kirons Wunsch, reiner Demo-Vorwärtstest).
+
+format: 1
+scalping_opens:
+  kandidaten:
+    kombinationen: >-
+      Alle Kombinationen aus VORAB_scalping2.yaml auf 5- und 15-Min.-Kerzen (Familien eroeffnung, halbe_stunde, news,
+      vor_der_zahl), Regeln, Märkte, Sitzungen, Spreads, Kosten und Zeiträume unverändert (Code suche/scalping2.py).
+    ohne_1_min: >-
+      1-Min.-Kombinationen (auch Gotobi) nicht: die Bots laufen höchstens alle 5 Minuten (pine5m.yml), eine 1-Min.-Regel
+      ließe sich live nicht so handeln wie getestet.
+    filter: >-
+      Je Kombination die fünf Filter aus VORAB_opens.yaml teil_a_filter (jahr, quartal, monat, woche, alle): Long nur,
+      wenn der Kurs über dem Open liegt, Short nur darunter, genau auf dem Open fällt der Trade weg. Kurs = Schluss der
+      letzten fertigen 5-Min.-Kerze (Beginn höchstens Einstieg minus 5 Min.), Opens wie dort (Handelstag bis 17:00 New
+      York, suche/opens.py perioden) aus denselben 5-Min.-Kerzen. Ein Trade, der wegfällt, wird nicht ersetzt.
+    ohne_filter: zählt nicht (Kiron will die Filter nutzen).
+  auswahl:
+    mindestens: >-
+      100 Trades im Zeitraum 01.11.2024 bis 30.10.2026 nach dem Filter (rund 1 je Woche, Kirons Wunsch 1 bis 2 und mehr
+      Trades je Woche).
+    rang: Gewinnfaktor im Zeitraum, höchster zuerst, bei Gleichstand mehr Trades.
+    top_3: >-
+      Die 3 besten mit 3 verschiedenen Märkten (ein Bot je Markt auf dem Konto). Ist ein Markt schon vergeben, kommt
+      die nächste Variante eines anderen Markts.
+  masse: >-
+    Je Variante wie VORAB_scalping2.yaml (Trades, je Woche, Gewinnfaktor, Summe, größter Rückgang, 1,5-facher Spread,
+    Hälften, 2026, Kontrolle 2022-24) und für die 3 gewählten der Vergleich mit 200 Läufen zufälliger Richtung (wie
+    Runde 2b, Saat 20261110). Dazu die Zufallsgegenprobe: dieselbe Auswahl auf den Zufallszwillingen (je Trade per
+    Zufall eigene oder umgedrehte Richtung, dann derselbe Filter); berichtet wird, welchen Gewinnfaktor der 3. Platz dort
+    erreicht. Liegt er so hoch wie bei den echten, ist der Vorsprung vermutlich Glück, und das steht so in der Nachricht.
+  live:
+    wer: die 3 gewählten, egal wie der Test ausgeht (Kirons Wunsch, reiner Demo-Vorwärtstest).
+    konto: >-
+      Account 1 (…5310, frei seit dem Abschalten von Brent am 10.11.2026), alle drei dort, je ein eigener Markt. Nie das
+      Hauptkonto des Gold-Bots, nie ein neues Konto.
+    lauf: >-
+      Im 5-Min.-Lauf (pine5m.yml, Minute 3, 8, 13 ...). Einstieg im ersten Lauf nach der getesteten Einstiegszeit (bis
+      etwa 3 Min. später als im Test), Stop und Ziel wie getestet beim Broker, Zeit-Ausstieg im ersten Lauf ab der
+      getesteten Ausstiegszeit. Verpasst ein Lauf den Einstieg um mehr als 10 Min., gibt es an dem Tag keinen Trade.
+    opens_live: >-
+      Aus Capital.com-Bid-Kerzen: Open = Eröffnung der ersten Stundenkerze des Handelstags (17:00 New York) zu Beginn
+      der Woche, des Monats, des Quartals bzw. des Jahres; einmal geholt und im Zustand gespeichert. Fehlt ein Open,
+      gibt es keinen Trade (eine Zeile im Protokoll).
+    groesse: >-
+      Mit Stop: Größe so, dass 1 R (Abstand Einstieg bis Stop) 5 € kostet wie bei den Pine-Bots, abgerundet auf die
+      Schrittweite von Capital.com, mindestens die kleinste Ordergröße. Ohne Stop (halbe_stunde): die kleinste
+      Ordergröße. Höchstens 1 offene Position je Markt.
+    urteil: Demo-Vorwärtstest, Urteil nach 40 Trades je Bot. Geld nur Demo, nie echtes Geld ohne Kirons Wort.
+    nur_per_pr: Live nur über einen PR, den Kiron merged.
+  keine_nachbesserung: >-
+    Keine anderen Filter, Mindestzahlen, Märkte, Charts oder Regeln nach dem Ergebnis, kein Austausch eines der 3 Bots
+    ohne neue VORAB-Zeile.
+  zufall_saat: 20261110

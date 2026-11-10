@@ -1,0 +1,60 @@
+# Gestaffelte Take-Profits mit Wächter für den Gold-Bot C/B (Hauptkonto). Kirons Wort vom 10.11.2026 16:25 UTC:
+# "Kannst du es so ändern, dass eventuell Take-Profits immer verteilt sind und wenn vielleicht der erste Take-Profit
+# gehittet wird, dass von dort aus der Take-Profit sozusagen als Exit genutzt wird und der nächste Take-Profit ist dann
+# ... der zweite Take-Profit und der wäre dann ... bei dem Trade ... eventuell irgendwie 80 Euro gewesen oder 70 Euro.
+# Und dann wäre der dritte Take-Profit bei dem Zukunftspreis gewesen, der eventuell gehittet hätte, wenn der Trade
+# perfekt gelaufen wäre. ... dass dort immer ein Überprüfer drin ist und der immer guckt, dass die Trades dann auch mit
+# Profit genommen werden und nicht, dass es danach einfach wieder ins Minus läuft?"
+# Anlass: Gold-Bot Long seit 06.11.2026 07:11 UTC bei 4045,34, Stop 4024,11 (1 R = 21,23 $, etwa 18 €), Hoch 4148,34
+# am 09.11. 20:00 UTC (+4,9 R, etwa +85 €), am 10.11. wieder bei etwa 0. Das Ausstiegssignal von C kam nicht.
+# Festgelegt, bevor irgendetwas gerechnet wurde. Ehrlicher Hinweis vorab: ähnliche Regeln (Gewinn sichern ab +x R,
+# halb raus bei +1/2/3/5 R, Break-even bei +1 R) haben am 04.11. auf 2023-25 fast alle weniger gebracht als der Bot
+# ohne Änderung (gold-bot/gewinne im Projektordner, Ideen 11 bis 18 und 31 bis 35). Ein sauberes Prüffenster für Gold
+# gibt es nicht mehr (2015-22 ist seit dem 04.11. geöffnet), darum ist die Rechnung nur eine Auskunft. Entscheiden
+# soll der Vorwärtstest auf dem Demokonto.
+
+format: 1
+gold_staffel:
+  bot_von_heute: >-
+    Einstiege, Stop (1 x ATR(14) der Signalkerze beim Broker), Ausstiegssignal der eigenen Strategie, eine Position,
+    Limits und Sicherheitsschalter genau wie der Gold-Bot C/B (gold/bot/rules.py, Abschnitt gold in config/limits.yaml,
+    gold/bot/schalter.py). Nur der Ausstieg bekommt die Staffel dazu.
+  staffel:
+    r: Abstand Einstieg zu Stop beim Einstieg (1 R).
+    tp1: +2 R
+    tp2: +4 R
+    tp3: +6 R, als Take-Profit beim Broker, schließt den Trade.
+    herleitung: >-
+      Aus Kirons Beispiel: TP2 etwa 70 bis 80 € beim Trade vom 06.11. (4 R = 84,9 $, etwa 72 €), TP3 der Kurs bei
+      perfektem Lauf (Hoch 4148 = 4,9 R, aufgerundet auf 6 R), TP1 die Hälfte von TP2. Keine anderen Stufen nach dem
+      Ergebnis.
+  waechter:
+    nachziehen: >-
+      Hat der Kurs TP1 erreicht (Long Bid mindestens TP1, Short Ask höchstens TP1), wandert der Stop auf TP1. Hat er
+      TP2 erreicht, wandert der Stop auf TP2. Der Stop rückt nur in Richtung des Trades, nie zurück.
+    zu_nah: >-
+      Liegt der Kurs beim Nachziehen nicht mehr weiter als der Mindestabstand von Capital.com vor dem neuen Stop,
+      schließt der Wächter den Trade sofort zum Marktkurs.
+    takt: live in jedem Lauf alle 5 Minuten (pine5m.yml) auf Kurs und fertigen 5-Min.-Kerzen seit dem Einstieg.
+  test:
+    daten: XAUUSD 5 Min. (Projektordner gold-bot/data/XAUUSD_5min.csv.gz), Bot von heute wie in der Rechnung "Gewinn sichern" vom 04.11.2026 (gleiche Trades, gleiche Kosten).
+    kerzen: >-
+      TP erreicht heißt Hoch (Long) bzw. Tief plus Spread (Short) einer 5-Min.-Kerze. Der neue Stop gilt ab der
+      nächsten Kerze. Eröffnet eine Kerze schon hinter dem Stop, raus zur Eröffnung. TP3 und Stop in derselben Kerze
+      zählt als Stop. Bleibt der Trade ohne Staffel-Ausstieg, endet er wie beim Bot von heute.
+    zeitraeume:
+      entwicklung: 2023 bis 2025 wie am 04.11.
+      info_2026: 01.01.2026 bis zum Ende der Daten.
+      info_2015_22: 2015 bis 2022 (seit 04.11. geöffnet, nur Auskunft).
+    masse: >-
+      Je Zeitraum gegen den Bot von heute auf denselben Trades: Summe R, Gewinnfaktor in R, größter Rückgang in R,
+      größter Gewinner in R, Zahl der Trades, die erst mindestens +2 R im Plus waren und dann mit Verlust endeten, und
+      wie viele Trades TP1, TP2 und TP3 erreichen.
+    besser_heisst: mehr Summe R als der Bot von heute in allen drei Zeiträumen.
+  live: >-
+    Nur nach Kirons Wahl auf der Karte vom 10.11.2026 und nur über einen PR, den Kiron merged. Empfohlen ist ein eigener
+    Bot gold-staffel auf Account 1 mit Demo-Orders neben dem unveränderten Gold-Bot (gleiche Einstiege, eigene Zählung,
+    1 R = derselbe Stop wie beim Gold-Bot, Größe wie beim Gold-Bot). Demo-Vorwärtstest, Urteil nach 40 Trades im
+    Vergleich mit dem Gold-Bot auf denselben Einstiegen. Geht auch live, wenn die Rechnung "schlechter" sagt, weil Kiron
+    die Staffel sehen will. Das steht dann so in der Nachricht.
+  keine_nachbesserung: keine anderen Stufen, kein anderer Takt und keine anderen Regeln nach dem Ergebnis.

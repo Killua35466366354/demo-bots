@@ -1,8 +1,9 @@
 """Tests für gold/pine5m_bot.py: Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Bots auf drei Konten.
 
-Bot Hand (pine-k5, Account 5): Marktorder ohne Stop und Ziel, Nachricht, Trade-Abfänger, Hinweis beim Pine-Ausstieg,
-schließt nie selbst, Hedging (Long und Short gleichzeitig), Termin-Pause, Hintergrund, Termin-Warnung.
-Bot pine-hand (Vortag USDJPY): ausgelaufen, betreut nur noch offene Trades.
+Bot Hand (pine-k5, Account 5): Marktorder ohne Stop und Ziel, Nachricht, Trade-Abfänger erst nach 4 Std. (dann Stop
+0,5 R hinter dem besten Kurs, nachgezogen), Hinweis beim Pine-Ausstieg, Hedging (Long und Short gleichzeitig),
+Termin-Pause, Hintergrund, Termin-Warnung.
+Bot pine-hand (Vortag USDJPY): ausgelaufen, betreut nur noch offene Trades (alter Abfänger: Fehltrade und Notbremse).
 Bot TP 3 €: Take-Profit +3 €, kein Stop, Notausstieg bei zusammen -250 €. Beide: nur 7 bis 20 Uhr UTC, frische Signale,
 höchstens 4 Goldpositionen, nie gegen die Gegenrichtung, Marge für die anderen Bots, nie das Hauptkonto, eigene Dateien."""
 import json
@@ -94,7 +95,7 @@ class Konto:
         return self.refs.get(ref, {"dealStatus": "ACCEPTED"})
 
     def close_position(self, deal_id):
-        assert self.account_id == TP3.konto
+        assert self.account_id in (TP3.konto, HAND.konto)
         self.calls.append(("DELETE", deal_id, self.account_id))
         p = self.pos[self.account_id].pop(deal_id)
         lvl = self.bid if p["direction"] == "BUY" else self.offer
@@ -400,14 +401,14 @@ def test_dieselbe_kerze_nur_einmal(welt):
 
 def test_abfaenger_fehltrade_setzt_stop_und_ziel(welt):
     k = Konto(bid=3995.0, offer=3995.3)                          # Long von 4000, 1 R = 9: 0,5 R dagegen = 3995,5
-    k.pos[HAND.konto]["H"] = {"dealId": "H", "level": 4000.0, "size": 0.6, "direction": "BUY"}
+    k.pos[ALT.konto]["H"] = {"dealId": "H", "level": 4000.0, "size": 0.6, "direction": "BUY"}
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T15:00:00"}], "letzte_kerze": str(welt["bars"].index[-1])}
     post = Post()
-    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
-    p = k.pos[HAND.konto]["H"]
+    out = pb.run(k, {ALT.bot_id: st}, NOW, post=post)
+    p = k.pos[ALT.konto]["H"]
     assert p["stopLevel"] == 3991.0 and p["profitLevel"] == 4000.0
-    assert out[HAND.bot_id][0]["offen"][0]["abfang"]["warum"].startswith("Fehltrade")
+    assert out[ALT.bot_id][0]["offen"][0]["abfang"]["warum"].startswith("Fehltrade")
     assert "Abfänger greift" in post.calls[0][1]["title"]
 
 
@@ -416,11 +417,11 @@ def test_abfaenger_notbremse_nach_ziel_1(welt):
     bars.iloc[-3, bars.columns.get_loc("high")] = 4008.0          # Ziel 1 (4006,75) erreicht
     welt["bars"] = bars
     k = Konto(bid=3990.5, offer=3990.8)                          # jetzt gut 1 R im Minus
-    k.pos[HAND.konto]["H"] = {"dealId": "H", "level": 4000.0, "size": 0.6, "direction": "BUY"}
+    k.pos[ALT.konto]["H"] = {"dealId": "H", "level": 4000.0, "size": 0.6, "direction": "BUY"}
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T14:58:00"}], "letzte_kerze": str(bars.index[-1])}
-    pb.run(k, {HAND.bot_id: st}, NOW, post=Post())
-    p = k.pos[HAND.konto]["H"]
+    pb.run(k, {ALT.bot_id: st}, NOW, post=Post())
+    p = k.pos[ALT.konto]["H"]
     assert p["stopLevel"] == pytest.approx(3986.0) and "profitLevel" not in p
 
 
@@ -530,7 +531,8 @@ def test_nur_eigene_dateien_und_weniger_commits(tmp_path):
     assert pb.schreiben(HAND, {}, st, [], [], [], root=tmp_path)
     assert (tmp_path / "journal" / "pine-k5" / "state.json").exists()
     cp = json.loads((tmp_path / "journal" / "pine-k5.json").read_text())
-    assert cp["konto"] == "…9086" and cp["vorab"] == "suche/VORAB_pine5m_konto5.yaml" and "Hedging" in cp["regel"]
+    assert cp["konto"] == "…9086" and cp["vorab"] == "suche/VORAB_pine5m_abfang4h.yaml" and "Hedging" in cp["regel"]
+    assert "die ersten 4 Std. nichts" in cp["regel"]
     assert pb.schreiben(ALT, {}, st, [], [], [], root=tmp_path)
     alt = json.loads((tmp_path / "journal" / "pine-hand.json").read_text())
     assert alt["konto"] == "…4094" and alt["regel"].startswith("Seit 10.11.2026 auf Account 5 umgezogen")
@@ -648,3 +650,135 @@ def test_pruefer_aus_wenn_ziel_von_hand_geaendert(welt):
 def test_pruefer_vorab_ist_versiegelt():
     from suche.runde1 import journal_lines, last_value, sha256_text
     assert last_value(journal_lines(), pb.KEY_PRUEFER) == sha256_text(pb.VORAB_PRUEFER.read_text(encoding="utf-8"))
+
+
+# ---- Abfänger von pine-k5 erst nach 4 Std. (Kirons Wort 10.11.2026 11:18 UTC) ----
+
+def _k5_pos(k, welt, seit, d="BUY", entry=4000.0, **extra):
+    k.pos[HAND.konto]["H"] = {"dealId": "H", "level": entry, "size": 0.6, "direction": d}
+    return {"offen": [{"dealId": "H", "richtung": 1 if d == "BUY" else -1, "size": 0.6, "entry": entry, "dist": 9.0,
+                       "opened_utc": seit, **extra}], "letzte_kerze": str(welt["bars"].index[-1])}
+
+
+def test_k5_abfaenger_tut_vier_stunden_nichts(welt):
+    k, post = Konto(bid=3985.0, offer=3985.3), Post()             # 1,7 R im Minus, aber erst 3 Std. 47 Min. offen
+    st = _k5_pos(k, welt, "2026-03-04T11:30:00")
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
+    assert not [c for c in k.calls if c[0] in ("PUT", "DELETE")] and not post.calls
+    assert "abfang" not in out[HAND.bot_id][0]["offen"][0]
+
+
+def test_k5_abfaenger_uebernimmt_nach_vier_stunden(welt):
+    k, post = Konto(bid=4003.0, offer=4003.3), Post()             # 4 Std. 17 Min. offen, im Plus
+    st = _k5_pos(k, welt, "2026-03-04T11:00:00")
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
+    p = k.pos[HAND.konto]["H"]
+    assert p["stopLevel"] == pytest.approx(3998.5) and "profitLevel" not in p      # 4003 - 0,5 x 9
+    tr = out[HAND.bot_id][0]["offen"][0]
+    assert tr["abfang"]["warum"] == "4 Std. ohne Ausstieg" and tr["nachzieh"]["bestes"] == 4003.0
+    assert [c[1]["title"] for c in post.calls] == ["Pine-Gold: Abfänger übernimmt"]
+    assert "nächsten Hoch" in post.calls[0][1]["message"]
+
+
+def test_k5_stop_wird_nachgezogen_nie_zurueck(welt):
+    k = Konto(bid=4003.0, offer=4003.3)
+    st = _k5_pos(k, welt, "2026-03-04T11:00:00")
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=Post())
+    st2 = out[HAND.bot_id][0]
+    st2["offen"][0]["nachzieh"]["seit"] = "2026-03-04T14:50:00"
+    bars = welt["bars"].copy()
+    bars.iloc[-2, bars.columns.get_loc("high")] = 4010.0          # Kerze 15:05 nach der Übernahme: neues Hoch
+    bars.iloc[-6, bars.columns.get_loc("high")] = 4030.0          # Kerze 14:45 vor der Übernahme zählt nicht
+    welt["bars"] = bars
+    k.bid, k.offer = 4008.0, 4008.3
+    out = pb.run(k, {HAND.bot_id: st2}, NOW, post=Post())
+    assert k.pos[HAND.konto]["H"]["stopLevel"] == pytest.approx(4005.5)          # 4010 - 4,5
+    st3 = out[HAND.bot_id][0]
+    assert st3["offen"][0]["nachzieh"]["bestes"] == 4010.0 and st3["offen"][0]["stop"] == pytest.approx(4005.5)
+    k.calls.clear()
+    k.bid, k.offer = 4006.0, 4006.3                               # zurück, aber noch vor dem Stop: nichts ändern
+    pb.run(k, {HAND.bot_id: st3}, NOW, post=Post())
+    assert not [c for c in k.calls if c[0] in ("PUT", "DELETE")]
+
+
+def test_k5_kurs_schon_am_stop_schliesst_sofort(welt):
+    k, post = Konto(bid=4005.55, offer=4005.85), Post()
+    st = _k5_pos(k, welt, "2026-03-04T10:00:00", stop=4005.5,
+                 abfang={"zeit": "2026-03-04T14:00:00", "warum": "4 Std. ohne Ausstieg"},
+                 nachzieh={"seit": "2026-03-04T15:16:00", "bestes": 4010.0})
+    k.pos[HAND.konto]["H"]["stopLevel"] = 4005.5
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
+    assert "H" not in k.pos[HAND.konto] and ("DELETE", "H", HAND.konto) in k.calls
+    assert [c[1]["title"] for c in post.calls] == ["Pine-Gold LONG geschlossen"]
+    post2 = Post()
+    out2 = pb.run(k, {HAND.bot_id: out[HAND.bot_id][0]}, NOW, post=post2)             # gebucht, nicht doppelt gemeldet
+    assert not out2[HAND.bot_id][0]["offen"] and len(out2[HAND.bot_id][2]) == 1 and not post2.calls
+
+
+def test_k5_schliessen_abgelehnt_versucht_es_wieder(welt):
+    k, post = Konto(bid=4005.55, offer=4005.85), Post()
+    k.close_position = lambda deal: {"dealStatus": "REJECTED", "reason": "MARKET_CLOSED"}
+    st = _k5_pos(k, welt, "2026-03-04T10:00:00", stop=4005.5,
+                 abfang={"zeit": "2026-03-04T14:00:00", "warum": "4 Std. ohne Ausstieg"},
+                 nachzieh={"seit": "2026-03-04T15:16:00", "bestes": 4010.0})
+    k.pos[HAND.konto]["H"]["stopLevel"] = 4005.5
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
+    tr = out[HAND.bot_id][0]["offen"][0]
+    assert "zu" not in tr["nachzieh"] and not post.calls
+    assert any(e["event"] == "schließen abgelehnt" for e in out[HAND.bot_id][1])
+
+
+def test_k5_short_stop_ueber_dem_tiefsten_ask(welt):
+    k = Konto(bid=3990.0, offer=3990.3)                           # Short von 4000, 5 Std. offen, im Plus
+    st = _k5_pos(k, welt, "2026-03-04T10:15:00", d="SELL")
+    pb.run(k, {HAND.bot_id: st}, NOW, post=Post())
+    assert k.pos[HAND.konto]["H"]["stopLevel"] == pytest.approx(3994.8)          # 3990,3 + 4,5
+
+
+def test_k5_kiron_aendert_den_stop_nach_der_uebernahme(welt):
+    k, post = Konto(bid=4003.0, offer=4003.3), Post()
+    st = _k5_pos(k, welt, "2026-03-04T10:00:00", stop=3998.5,
+                 abfang={"zeit": "2026-03-04T14:00:00", "warum": "4 Std. ohne Ausstieg"},
+                 nachzieh={"seit": "2026-03-04T14:00:00", "bestes": 4003.0})
+    k.pos[HAND.konto]["H"]["stopLevel"] = 3995.0
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
+    assert out[HAND.bot_id][0]["offen"][0]["agent"] == "aus" and not [c for c in k.calls if c[0] == "PUT"]
+    assert post.calls[0][1]["title"] == "Pine-Gold: Abfänger lässt die Position in Ruhe"
+
+
+def test_k5_schluss_durch_den_nachgezogenen_stop_wird_gemeldet(welt):
+    k, post = Konto(), Post()
+    k.acts["H"] = [{"dateUTC": "2026-03-04T15:10:00", "source": "SL", "type": "POSITION", "status": "ACCEPTED",
+                    "details": {"level": 4005.5, "actions": [{"actionType": "POSITION_CLOSED"}]}}]
+    st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0, "stop": 4005.5,
+                     "opened_utc": "2026-03-04T10:00:00",
+                     "abfang": {"zeit": "2026-03-04T14:00:00", "warum": "4 Std. ohne Ausstieg"},
+                     "nachzieh": {"seit": "2026-03-04T14:00:00", "bestes": 4010.0}}],
+          "letzte_kerze": str(welt["bars"].index[-1])}
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
+    assert out[HAND.bot_id][2][0]["r"] == pytest.approx(5.5 / 9, abs=1e-3)
+    assert "nachgezogenen Stop" in post.calls[0][1]["message"]
+
+
+def test_k5_einstieg_meldet_die_vier_stunden(welt):
+    _setze(welt, "long")
+    k, post = Konto(), Post()
+    pb.run(k, {}, NOW, post=post)
+    text = next(c[1]["message"] for c in post.calls if c[1]["title"] == "Pine-Gold LONG eröffnet")
+    assert "nach 4 Std. (um 04.03. 20:17 Uhr)" in text and "nächsten Hoch" in text
+
+
+def test_abfang4h_vorab_ist_versiegelt():
+    from suche.runde1 import journal_lines, last_value, sha256_text
+    assert last_value(journal_lines(), pb.KEY_4H) == sha256_text(pb.VORAB_4H.read_text(encoding="utf-8"))
+
+
+def test_abfang4h_test_rechnet_den_nachgezogenen_stop():
+    from suche.pine5m_abfang4h import nachziehen
+    opn = np.array([0.0, 0.2, 0.6, 0.9, 0.5, 0.3])
+    fav = np.array([0.1, 0.7, 1.0, 1.0, 0.6, 0.4])
+    adv = np.array([-0.2, 0.1, 0.5, 0.6, 0.45, 0.2])
+    assert nachziehen(opn, fav, adv, 1, 5) == (4, 0.5)            # bestes 1,0 nach Kerze 2, Stop 0,5 in Kerze 4
+    assert nachziehen(opn, fav, adv, 6, 5) is None                # Übernahme nach dem Ende: nichts
+    gap = np.array([0.0, 1.0, 0.2])
+    assert nachziehen(gap, np.array([0.0, 1.2, 0.3]), np.array([0.0, 0.9, 0.1]), 1, 2) == (2, 0.2)

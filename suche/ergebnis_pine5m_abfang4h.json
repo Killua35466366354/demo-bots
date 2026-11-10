@@ -1,0 +1,371 @@
+{
+ "vorab_sha256": "23111550b3be7db96e40fa98272f7088d152bb4b8378cfa18cc88af1ab0662b0",
+ "bestanden": false,
+ "verfehlt": [
+  "Gewinnfaktor 1.08",
+  "1. Hälfte 0.97",
+  "Kontrolle 2022-24 0.84"
+ ],
+ "varianten": {
+  "heute": {
+   "zeitraum": {
+    "trades": 2381,
+    "je_woche": 22.86,
+    "pf_r": 1.09,
+    "summe_r": 76.2,
+    "max_rueckgang_r": 48.2,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.1,
+    "long_r": 35.8,
+    "short_r": 40.4,
+    "long_n": 1341,
+    "short_n": 1040,
+    "trefferquote_pct": 34.4,
+    "gruende": {
+     "fehltrade_stop": 663,
+     "pine": 847,
+     "fehltrade_einstand": 745,
+     "notbremse_stop": 126
+    },
+    "swap_r": 9.2
+   },
+   "robust": {
+    "trades": 2383,
+    "je_woche": 22.88,
+    "pf_r": 1.0,
+    "summe_r": -3.9,
+    "max_rueckgang_r": 71.8,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.0,
+    "long_r": -5.9,
+    "short_r": 2.0,
+    "long_n": 1341,
+    "short_n": 1042,
+    "trefferquote_pct": 33.1,
+    "gruende": {
+     "fehltrade_stop": 690,
+     "pine": 814,
+     "fehltrade_einstand": 757,
+     "notbremse_stop": 122
+    },
+    "swap_r": 9.3
+   },
+   "haelfte_1": {
+    "trades": 1219,
+    "je_woche": 23.38,
+    "pf_r": 1.04,
+    "summe_r": 18.9,
+    "max_rueckgang_r": 31.9,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.0,
+    "long_r": 34.2,
+    "short_r": -15.3,
+    "long_n": 794,
+    "short_n": 425,
+    "trefferquote_pct": 32.6,
+    "gruende": {
+     "fehltrade_stop": 340,
+     "pine": 419,
+     "fehltrade_einstand": 396,
+     "notbremse_stop": 64
+    },
+    "swap_r": 5.5
+   },
+   "haelfte_2": {
+    "trades": 1162,
+    "je_woche": 22.35,
+    "pf_r": 1.13,
+    "summe_r": 57.4,
+    "max_rueckgang_r": 48.2,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": 1.7,
+    "short_r": 55.7,
+    "long_n": 547,
+    "short_n": 615,
+    "trefferquote_pct": 36.2,
+    "gruende": {
+     "fehltrade_stop": 323,
+     "pine": 428,
+     "fehltrade_einstand": 349,
+     "notbremse_stop": 62
+    },
+    "swap_r": 3.7
+   },
+   "jahr_2026": {
+    "trades": 972,
+    "je_woche": 22.46,
+    "pf_r": 1.13,
+    "summe_r": 48.3,
+    "max_rueckgang_r": 48.2,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.1,
+    "long_r": -4.7,
+    "short_r": 53.0,
+    "long_n": 411,
+    "short_n": 561,
+    "trefferquote_pct": 35.5,
+    "gruende": {
+     "fehltrade_einstand": 295,
+     "fehltrade_stop": 277,
+     "notbremse_stop": 52,
+     "pine": 348
+    },
+    "swap_r": 2.8
+   },
+   "kontrolle": {
+    "trades": 2426,
+    "je_woche": 23.23,
+    "pf_r": 0.76,
+    "summe_r": -247.0,
+    "max_rueckgang_r": 287.3,
+    "haltedauer_std_median": 1.0,
+    "haltedauer_std_mittel": 1.9,
+    "long_r": -155.9,
+    "short_r": -91.1,
+    "long_n": 1514,
+    "short_n": 912,
+    "trefferquote_pct": 28.5,
+    "gruende": {
+     "notbremse_stop": 118,
+     "pine": 721,
+     "fehltrade_stop": 795,
+     "fehltrade_einstand": 792
+    },
+    "swap_r": 17.3
+   },
+   "groesster_verlust_r": -6.49,
+   "anteil_abfaenger_pct": 64.4
+  },
+  "abfang4h": {
+   "zeitraum": {
+    "trades": 2272,
+    "je_woche": 21.82,
+    "pf_r": 1.08,
+    "summe_r": 91.5,
+    "max_rueckgang_r": 97.3,
+    "haltedauer_std_median": 4.0,
+    "haltedauer_std_mittel": 3.4,
+    "long_r": 99.9,
+    "short_r": -8.4,
+    "long_n": 1298,
+    "short_n": 974,
+    "trefferquote_pct": 60.2,
+    "gruende": {
+     "pine": 1325,
+     "abfang4h": 947
+    },
+    "swap_r": 14.3
+   },
+   "robust": {
+    "trades": 2272,
+    "je_woche": 21.82,
+    "pf_r": 1.03,
+    "summe_r": 37.8,
+    "max_rueckgang_r": 125.7,
+    "haltedauer_std_median": 4.0,
+    "haltedauer_std_mittel": 3.4,
+    "long_r": 68.1,
+    "short_r": -30.3,
+    "long_n": 1298,
+    "short_n": 974,
+    "trefferquote_pct": 59.4,
+    "gruende": {
+     "pine": 1325,
+     "abfang4h": 947
+    },
+    "swap_r": 14.3
+   },
+   "haelfte_1": {
+    "trades": 1153,
+    "je_woche": 22.11,
+    "pf_r": 0.97,
+    "summe_r": -18.4,
+    "max_rueckgang_r": 97.3,
+    "haltedauer_std_median": 4.0,
+    "haltedauer_std_mittel": 3.4,
+    "long_r": 31.0,
+    "short_r": -49.5,
+    "long_n": 766,
+    "short_n": 387,
+    "trefferquote_pct": 59.5,
+    "gruende": {
+     "pine": 663,
+     "abfang4h": 490
+    },
+    "swap_r": 8.9
+   },
+   "haelfte_2": {
+    "trades": 1119,
+    "je_woche": 21.52,
+    "pf_r": 1.2,
+    "summe_r": 109.9,
+    "max_rueckgang_r": 36.4,
+    "haltedauer_std_median": 4.0,
+    "haltedauer_std_mittel": 3.3,
+    "long_r": 68.8,
+    "short_r": 41.1,
+    "long_n": 532,
+    "short_n": 587,
+    "trefferquote_pct": 60.9,
+    "gruende": {
+     "pine": 662,
+     "abfang4h": 457
+    },
+    "swap_r": 5.4
+   },
+   "jahr_2026": {
+    "trades": 937,
+    "je_woche": 21.65,
+    "pf_r": 1.18,
+    "summe_r": 85.8,
+    "max_rueckgang_r": 36.4,
+    "haltedauer_std_median": 4.0,
+    "haltedauer_std_mittel": 3.3,
+    "long_r": 49.2,
+    "short_r": 36.6,
+    "long_n": 400,
+    "short_n": 537,
+    "trefferquote_pct": 60.3,
+    "gruende": {
+     "pine": 548,
+     "abfang4h": 389
+    },
+    "swap_r": 4.6
+   },
+   "kontrolle": {
+    "trades": 2278,
+    "je_woche": 21.81,
+    "pf_r": 0.84,
+    "summe_r": -232.1,
+    "max_rueckgang_r": 306.8,
+    "haltedauer_std_median": 4.1,
+    "haltedauer_std_mittel": 3.6,
+    "long_r": -100.6,
+    "short_r": -131.5,
+    "long_n": 1428,
+    "short_n": 850,
+    "trefferquote_pct": 52.9,
+    "gruende": {
+     "abfang4h": 943,
+     "pine": 1335
+    },
+    "swap_r": 27.2
+   },
+   "groesster_verlust_r": -9.12,
+   "anteil_abfaenger_pct": 41.7
+  },
+  "ohne_abfang": {
+   "zeitraum": {
+    "trades": 2047,
+    "je_woche": 19.66,
+    "pf_r": 1.08,
+    "summe_r": 110.7,
+    "max_rueckgang_r": 203.3,
+    "haltedauer_std_median": 4.2,
+    "haltedauer_std_mittel": 6.0,
+    "long_r": 129.6,
+    "short_r": -18.9,
+    "long_n": 1186,
+    "short_n": 861,
+    "trefferquote_pct": 65.2,
+    "gruende": {
+     "pine": 2047
+    },
+    "swap_r": 31.0
+   },
+   "robust": {
+    "trades": 2047,
+    "je_woche": 19.66,
+    "pf_r": 1.04,
+    "summe_r": 61.9,
+    "max_rueckgang_r": 229.1,
+    "haltedauer_std_median": 4.2,
+    "haltedauer_std_mittel": 6.0,
+    "long_r": 100.2,
+    "short_r": -38.3,
+    "long_n": 1186,
+    "short_n": 861,
+    "trefferquote_pct": 64.5,
+    "gruende": {
+     "pine": 2047
+    },
+    "swap_r": 31.0
+   },
+   "haelfte_1": {
+    "trades": 1040,
+    "je_woche": 19.95,
+    "pf_r": 0.88,
+    "summe_r": -100.0,
+    "max_rueckgang_r": 203.3,
+    "haltedauer_std_median": 4.2,
+    "haltedauer_std_mittel": 6.1,
+    "long_r": 31.7,
+    "short_r": -131.7,
+    "long_n": 708,
+    "short_n": 332,
+    "trefferquote_pct": 62.9,
+    "gruende": {
+     "pine": 1040
+    },
+    "swap_r": 19.2
+   },
+   "haelfte_2": {
+    "trades": 1007,
+    "je_woche": 19.37,
+    "pf_r": 1.37,
+    "summe_r": 210.7,
+    "max_rueckgang_r": 41.4,
+    "haltedauer_std_median": 4.1,
+    "haltedauer_std_mittel": 5.9,
+    "long_r": 97.9,
+    "short_r": 112.8,
+    "long_n": 478,
+    "short_n": 529,
+    "trefferquote_pct": 67.5,
+    "gruende": {
+     "pine": 1007
+    },
+    "swap_r": 11.8
+   },
+   "jahr_2026": {
+    "trades": 850,
+    "je_woche": 19.64,
+    "pf_r": 1.4,
+    "summe_r": 196.9,
+    "max_rueckgang_r": 41.4,
+    "haltedauer_std_median": 4.2,
+    "haltedauer_std_mittel": 6.0,
+    "long_r": 72.8,
+    "short_r": 124.1,
+    "long_n": 362,
+    "short_n": 488,
+    "trefferquote_pct": 67.6,
+    "gruende": {
+     "pine": 850
+    },
+    "swap_r": 9.8
+   },
+   "kontrolle": {
+    "trades": 2018,
+    "je_woche": 19.32,
+    "pf_r": 0.86,
+    "summe_r": -238.9,
+    "max_rueckgang_r": 324.2,
+    "haltedauer_std_median": 4.5,
+    "haltedauer_std_mittel": 6.3,
+    "long_r": -110.4,
+    "short_r": -128.5,
+    "long_n": 1280,
+    "short_n": 738,
+    "trefferquote_pct": 57.8,
+    "gruende": {
+     "pine": 2018
+    },
+    "swap_r": 53.4
+   },
+   "groesster_verlust_r": -14.75,
+   "anteil_abfaenger_pct": 0.0
+  }
+ }
+}

@@ -4,16 +4,18 @@ Kirons Wunsch vom 09.11.2026 20:41 UTC, Regeln und Test in suche/VORAB_pine5m.ya
 ist trotzdem nicht bestanden, beide Bots laufen als reiner Demo-Vorwärtstest).
 
 - Bot "pine-k5" (Account 5 …9086, seit Kirons Wort vom 10.11.2026 07:29 UTC, suche/VORAB_pine5m_konto5.yaml): jeder
-  Einstieg als Marktorder ohne Stop und Ziel, Nachricht aufs Handy über ntfy, Kiron geht selbst raus. Trade-Abfänger wie
-  beim Gold-Hand-Bot: Fehltrade (0,5 R dagegen, bevor 0,75 R dafür kamen) setzt Stop 1 R und Ziel auf den Einstieg,
-  Notbremse ab 1 R im Minus setzt den Stop 0,5 R hinter den Kurs. Meldet, wenn die Strategie selbst rausgehen würde
+  Einstieg als Marktorder ohne Stop und Ziel, Nachricht aufs Handy über ntfy, Kiron geht selbst raus. Trade-Abfänger
+  seit Kirons Wort vom 10.11.2026 11:18 UTC (suche/VORAB_pine5m_abfang4h.yaml): die ersten 4 Std. nichts, danach Stop
+  0,5 R hinter dem besten Kurs seit der Übernahme, nur nachgezogen, nie zurück (schließt am nächsten Hoch im Plus oder
+  mit möglichst wenig Minus). Meldet, wenn die Strategie selbst rausgehen würde
   (Pine-Ausstiegssignal), schließt aber nie selbst. Dazu der Gold-Prüfer des Gold-Hand-Bots: kein Einstieg 60 Min. vor
   bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach Kurssprüngen), Warnung vor Terminen, Hintergrund (Tag über
   SMA 50 und 4 Std. über EMA 50: kein Short, beide darunter: kein Long). Hedging: Long und Short dürfen gleichzeitig
   offen sein, der Bot schaltet den Hedging-Modus des Kontos ein (PUT /accounts/preferences). Ist er aus, gilt wie
   vorher "nie gegen die Gegenrichtung".
 - Bot "pine-hand" (Konto "Vortag USDJPY" …4094): lief dort vom 10.11. 03:48 bis zum Umzug auf Account 5, öffnet nichts
-  Neues mehr und betreut nur noch seine offenen Trades (Abfänger, Pine-Ausstiegshinweis).
+  Neues mehr und betreut nur noch seine offenen Trades (alter Abfänger wie beim Gold-Hand-Bot: Fehltrade, 0,5 R
+  dagegen vor 0,75 R dafür, setzt Stop 1 R und Ziel auf den Einstieg, Notbremse ab 1 R im Minus; Pine-Ausstiegshinweis).
 - Bot "pine-tp3" (Konto "US500" …8878): jeder Einstieg mit Take-Profit +3 € und ohne Stop. Notausstieg nur, wenn seine
   offenen Trades zusammen 250 € im Minus sind (schützt die anderen Bots auf dem Konto), sonst schließt er nie selbst.
 
@@ -64,6 +66,12 @@ VORAB_PRUEFER = ROOT / "suche" / "VORAB_pine5m_pruefer.yaml"
 KEY_PRUEFER = "VORAB_pine5m_pruefer sha256 "
 VORAB_K5 = ROOT / "suche" / "VORAB_pine5m_konto5.yaml"
 KEY_K5 = "VORAB_pine5m_konto5 sha256 "
+# Abfänger von pine-k5 (Kirons Wort 10.11.2026 11:18 UTC, suche/VORAB_pine5m_abfang4h.yaml)
+VORAB_4H = ROOT / "suche" / "VORAB_pine5m_abfang4h.yaml"
+KEY_4H = "VORAB_pine5m_abfang4h sha256 "
+ABFANG_WARTEN = pd.Timedelta(hours=4)  # so lange tut der Abfänger nichts
+NACHZIEH_R = 0.5                       # danach Stop so weit hinter dem besten Kurs seit der Übernahme
+NACHZIEH_SCHRITT_R = 0.05              # kleinere Verbesserungen schickt der Bot nicht (weniger Aufrufe)
 HEDGING_WIEDER = pd.Timedelta(hours=1)  # schlug das Einschalten fehl, erst nach 1 Std. neu versuchen
 KERZEN_MAX = 1000
 LEBENSZEICHEN = pd.Timedelta(minutes=30)
@@ -80,12 +88,13 @@ class Bot:
     neu: bool = True                   # False: keine neuen Einstiege, nur offene Trades betreuen
     hedging: bool = False              # Long und Short gleichzeitig (Hedging-Modus des Kontos)
     gold_pruefer: bool = False         # Termin-Pause, Termin-Warnung und Hintergrund wie beim Gold-Hand-Bot
+    abfang_4h: bool = False            # Abfänger erst nach 4 Std., dann Stop am besten Kurs nachziehen
 
 
 BOTS = (
     Bot("pine-k5", hb.KONTO, "Account 5", "hand",
         "Pine-Gold Hand auf Account 5 (Kirons Long A und Short B auf 5 Min., Long und Short gleichzeitig, Kiron geht "
-        "selbst raus)", hedging=True, gold_pruefer=True),
+        "selbst raus)", hedging=True, gold_pruefer=True, abfang_4h=True),
     Bot("pine-tp3", "332317231899038878", "US500", "tp3",
         "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)"),
     Bot("pine-hand", "332325912027944094", "Vortag USDJPY", "hand",
@@ -98,7 +107,7 @@ def vorab_ok() -> bool:
     from suche.runde1 import journal_lines, last_value, sha256_text
     zeilen = journal_lines()
     return all(v.exists() and last_value(zeilen, k) == sha256_text(v.read_text(encoding="utf-8"))
-               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER), (VORAB_K5, KEY_K5)))
+               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER), (VORAB_K5, KEY_K5), (VORAB_4H, KEY_4H)))
 
 
 def atr_rma(bars: pd.DataFrame, n: int = ATR_N) -> pd.Series:
@@ -201,9 +210,12 @@ class Lauf:
             self.fertige.append(rec)
             self.ev("Trade zu", dealId=tr["dealId"], kurs=rec["exit"], r=rec.get("r"), eur=rec.get("pnl_eur"),
                     quelle=rec["quelle"])
-            if self.bot.art == "hand" and level is not None and tr.get("abfang") and tr.get("agent") != "aus":
+            if self.bot.art == "hand" and level is not None and tr.get("abfang") and tr.get("agent") != "aus" \
+                    and not (tr.get("nachzieh") or {}).get("zu"):
                 nah = max(0.5, 0.1 * tr["dist"])
-                wo = ("durch den Stop des Abfängers" if tr.get("stop") is not None and abs(level - tr["stop"]) <= nah
+                stop_text = ("durch den nachgezogenen Stop des Abfängers (nächstes " + ("Hoch" if tr["richtung"] > 0
+                             else "Tief") + ")") if tr.get("nachzieh") else "durch den Stop des Abfängers"
+                wo = (stop_text if tr.get("stop") is not None and abs(level - tr["stop"]) <= nah
                       else "am Einstieg (Abfänger)" if tr.get("ziel") is not None and abs(level - tr["ziel"]) <= nah
                       else None)
                 if wo:
@@ -230,7 +242,7 @@ class Lauf:
             self.ev("setzen abgelehnt", dealId=tr["dealId"], warum=warum, grund=conf.get("reason"))
             return False
         tr["stop"], tr["ziel"] = body.get("stopLevel"), body.get("profitLevel")
-        tr["abfang"] = {"zeit": self.stamp, "warum": warum}
+        tr.setdefault("abfang", {"zeit": self.stamp, "warum": warum})
         self.ev("Abfänger gesetzt", dealId=tr["dealId"], **body, warum=warum)
         return True
 
@@ -252,9 +264,28 @@ class Lauf:
             if tr.get("abfang"):
                 if hb._anders(b_stop, tr.get("stop")) or hb._anders(b_ziel, tr.get("ziel")):
                     self._aus(tr, kopf, b_stop, b_ziel)
+                elif tr.get("nachzieh"):
+                    self.nachziehen(tr, kopf, bars, spread, jetzt, abstand)
                 continue
             if b_stop is not None or b_ziel is not None:
                 self._aus(tr, kopf, b_stop, b_ziel)
+                continue
+            if self.bot.abfang_4h:
+                if self.now - pd.Timestamp(tr["opened_utc"]).tz_localize(None) < ABFANG_WARTEN:
+                    continue                                   # die ersten 4 Std. geht Kiron selbst raus
+                tr["nachzieh"] = {"seit": self.stamp, "bestes": round(float(jetzt), 2)}
+                tr["abfang"] = {"zeit": self.stamp, "warum": "4 Std. ohne Ausstieg"}
+                self.ev("Abfänger übernimmt", dealId=tr["dealId"], kurs=round(float(jetzt), 2))
+                r_jetzt = d * (jetzt - e) / r
+                eur = self.eur(d, e, jetzt, tr["size"])
+                self.melde("Pine-Gold: Abfänger übernimmt",
+                           f"{kopf}: seit 4 Std. offen, du bist nicht raus. Kurs {hb._de(jetzt)} ({hb._de(r_jetzt)} R"
+                           + (f", {hb._de(eur)} €" if eur is not None else "") + "). Ab jetzt hält der Abfänger den "
+                           f"Stop 0,5 R ({hb._de(NACHZIEH_R * r)} $) hinter dem besten Kurs und zieht ihn nach. So "
+                           f"schließt der Trade am nächsten {'Hoch' if d > 0 else 'Tief'}: im Plus mit möglichst viel "
+                           f"Gewinn, im Minus mit möglichst wenig Verlust. Du kannst weiter selbst raus. Setzt du "
+                           f"Stop oder Ziel selbst, lässt er die Position in Ruhe.", ["shield"])
+                self.nachziehen(tr, kopf, bars, spread, jetzt, abstand)
                 continue
             j0 = int(np.searchsorted(t, np.datetime64(pd.Timestamp(tr["opened_utc"]).tz_localize(None).floor("5min"))))
             if d > 0:
@@ -277,6 +308,61 @@ class Lauf:
                 text += (f", Ziel auf dem Einstieg {hb._de(e)}, damit der Trade bei null endet, wenn der Kurs "
                          f"zurückkommt." if ziel is not None else ".")
                 self.melde("Pine-Gold: Abfänger greift", text + " Raus gehst du weiter selbst.", ["shield"])
+
+    def nachziehen(self, tr: dict, kopf: str, bars: pd.DataFrame, spread: pd.Series, jetzt: float,
+                   abstand: float) -> None:
+        """Stop 0,5 R hinter dem besten Kurs seit der Übernahme (Long: höchster Bid, Short: tiefster Ask), nur in
+        Richtung des Trades. Ist der Kurs schon so weit zurück, dass der Stop nicht mehr vor den Kurs passt: sofort raus."""
+        nz = tr["nachzieh"]
+        if nz.get("zu"):                    # schon geschlossen, aber noch offen beim Broker: nochmal, ohne Nachricht
+            self.schliessen(tr, kopf, jetzt, float(nz["bestes"]))
+            return
+        d, r = int(tr["richtung"]), float(tr["dist"])
+        t0 = pd.Timestamp(nz["seit"]).tz_localize(None).ceil("5min")     # nur Kerzen, die nach der Übernahme begannen
+        k0 = int(np.searchsorted(bars.index.to_numpy(), np.datetime64(t0)))
+        if d > 0:
+            kurse = np.r_[bars["high"].to_numpy(float)[k0:], jetzt]
+            bestes = max(float(nz["bestes"]), float(kurse.max()))
+        else:
+            sp = spread.reindex(bars.index).fillna(0.0).to_numpy(float)[k0:]
+            kurse = np.r_[bars["low"].to_numpy(float)[k0:] + sp, jetzt]
+            bestes = min(float(nz["bestes"]), float(kurse.min()))
+        nz["bestes"] = round(bestes, 2)
+        soll = round(bestes - d * NACHZIEH_R * r, 2)
+        if d * (jetzt - soll) <= abstand:
+            self.schliessen(tr, kopf, jetzt, bestes)
+            return
+        alt = tr.get("stop")
+        if alt is not None and d * (soll - alt) < NACHZIEH_SCHRITT_R * r:
+            return
+        if self.setze(tr, soll, None, "nachziehen (0,5 R hinter dem besten Kurs)"):
+            nz["stop_seit"] = self.stamp
+
+    def schliessen(self, tr: dict, kopf: str, jetzt: float, bestes: float) -> None:
+        if not self.send:
+            self.ev("würde schließen (Abfänger)", dealId=tr["dealId"], kurs=round(float(jetzt), 2))
+            return
+        try:
+            conf = self.client.close_position(tr["dealId"])
+        except Exception as err:            # noqa: BLE001 - nächster Lauf versucht es wieder
+            self.ev("schließen fehlgeschlagen", dealId=tr["dealId"], fehler=str(err)[:200])
+            return
+        if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
+            self.ev("schließen abgelehnt", dealId=tr["dealId"], grund=(conf or {}).get("reason"))
+            return
+        erst = not tr["nachzieh"].get("zu")
+        tr["nachzieh"]["zu"] = self.stamp
+        if not erst:
+            self.ev("Abfänger schließt nochmal", dealId=tr["dealId"])
+            return
+        d = int(tr["richtung"])
+        r_jetzt = d * (jetzt - tr["entry"]) / tr["dist"]
+        eur = self.eur(d, tr["entry"], jetzt, tr["size"])
+        self.ev("Abfänger schließt", dealId=tr["dealId"], kurs=round(float(jetzt), 2), bestes=round(bestes, 2))
+        self.melde(f"Pine-Gold {wort(d)} geschlossen",
+                   f"{kopf}: Der Kurs ist 0,5 R vom besten Kurs {hb._de(bestes)} zurückgelaufen. Der Abfänger hat bei "
+                   f"etwa {hb._de(jetzt)} geschlossen: {hb._de(r_jetzt)} R"
+                   + (f" ({hb._de(eur)} €)" if eur is not None else "") + ".", ["stop_sign"])
 
     def _aus(self, tr: dict, kopf: str, b_stop, b_ziel) -> None:
         tr["agent"] = "aus"
@@ -599,12 +685,15 @@ class Lauf:
         self.ev("eröffnet", **info, dealId=deal, size=size, entry=tr["entry"], tp=tr.get("tp"))
         if self.bot.art == "hand":
             stop1, fehl, ziel1 = level - d * dist, level - d * FEHL_R * dist, level + d * ZIEL1_R * dist
+            abfang = (f"Bist du nach 4 Std. (um {hb._berlin(self.now + ABFANG_WARTEN)} Uhr) noch drin, übernimmt "
+                      f"der Abfänger: Stop 0,5 R ({hb._de(NACHZIEH_R * dist)} $) hinter dem besten Kurs, nachgezogen, "
+                      f"raus am nächsten {'Hoch' if d > 0 else 'Tief'}." if self.bot.abfang_4h else
+                      f"Läuft er 0,5 R gegen dich ({hb._de(fehl)}), bevor {hb._de(ziel1)} kommt, setzt der Abfänger "
+                      f"Stop {hb._de(stop1)} (1 R = {hb._de(dist)} $ = etwa 5 €) und Ziel auf den Einstieg.")
             self.melde(f"Pine-Gold {wort(d)} eröffnet",
                        f"{self.bot.konto_name} (Demo): {hb._de(size)} oz bei {hb._de(level)}, Strategie "
                        f"{info['strategie']}, 5-Min.-Kerze bis {hb._berlin(pd.Timestamp(info['kerze']) + KERZE)} Uhr. "
-                       f"Ohne Stop und ohne Ziel, raus gehst du selbst. Läuft er 0,5 R gegen dich ({hb._de(fehl)}), "
-                       f"bevor {hb._de(ziel1)} kommt, setzt der Abfänger Stop {hb._de(stop1)} (1 R = "
-                       f"{hb._de(dist)} $ = etwa 5 €) und Ziel auf den Einstieg." +
+                       f"Ohne Stop und ohne Ziel, raus gehst du selbst. " + abfang +
                        (f" {info['lage']}" if info.get("lage") else ""),
                        ["chart_with_upwards_trend" if d > 0 else "chart_with_downwards_trend"])
         return {"market": {"epic": EPIC}, "position": {"dealId": deal, "direction": body["direction"], "size": size,
@@ -705,7 +794,11 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
                   "Kurssprüngen), nichts gegen den Hintergrund (Tag über SMA 50 und 4 Std. über EMA 50). ")
     if not bot.neu:
         regel = "Seit 10.11.2026 auf Account 5 umgezogen, hier keine neuen Einstiege mehr. " + regel
-    regel += ("Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger: Fehltrade (0,5 R dagegen vor 0,75 R dafür) "
+    regel += ("Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger (seit 10.11.2026): die ersten 4 Std. "
+              "nichts, danach Stop 0,5 R hinter dem besten Kurs, nur nachgezogen (raus am nächsten Hoch bzw. Tief). "
+              "Hinweis beim Pine-Ausstiegssignal."
+              if bot.art == "hand" and bot.abfang_4h else
+              "Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger: Fehltrade (0,5 R dagegen vor 0,75 R dafür) "
               "Stop 1 R und Ziel am Einstieg, Notbremse ab 1 R Minus. Hinweis beim Pine-Ausstiegssignal."
               if bot.art == "hand" else
               "Take-Profit +3 €, kein Stop beim Einstieg. Prüfer: erst 3 Std. nichts, dann bei Fehltrade (0,5 R im "
@@ -713,7 +806,8 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
               f"Notausstieg aller eigenen Trades bei zusammen -{NOT_AUS_EUR:.0f} €.")
     return {"bot": bot.bot_id, "name": bot.name, "konto": "…" + bot.konto[-4:], "konto_name": bot.konto_name,
             "stand": st.get("stand"), "start": st.get("start"), "regel": regel,
-            "vorab": "suche/VORAB_pine5m_konto5.yaml" if bot.gold_pruefer else "suche/VORAB_pine5m.yaml",
+            "vorab": ("suche/VORAB_pine5m_abfang4h.yaml" if bot.abfang_4h else "suche/VORAB_pine5m_konto5.yaml"
+                      if bot.gold_pruefer else "suche/VORAB_pine5m.yaml"),
             "test": ("nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 "
                      "0,76)" if bot.gold_pruefer else
                      "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)"),

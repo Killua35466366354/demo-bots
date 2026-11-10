@@ -1,9 +1,9 @@
 {
  "bots": {
   "oil-brent": {
-   "last_bar": "2026-11-10 03:30:00",
+   "last_bar": "2026-11-10 04:00:00",
    "letzte_entscheidung": {
-    "bar": "2026-11-10 03:30:00",
+    "bar": "2026-11-10 04:00:00",
     "action": "none",
     "why": []
    },
@@ -77,14 +77,14 @@
  "ende_utc": "2027-01-29T21:00:00",
  "konto": {
   "waehrung": "EUR",
-  "balance": 1050.89,
-  "frei": 867.77
+  "balance": 1054.87,
+  "frei": 871.54
  },
  "trades_heute": {
   "tag": "2026-11-10",
   "r": 0.0
  },
- "stand_utc": "2026-11-10T04:16:34.008527",
+ "stand_utc": "2026-11-10T04:31:29.014620",
  "phase": "laeuft",
  "positionen": {},
  "konten": {

@@ -57,3 +57,11 @@
 {"zeit": "2026-11-10T01:11:28+00:00", "strategie": "gross_klein_3", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 20:00:00", "richtung": 1, "einstieg": 4136.67, "grund": "gegensignal", "ergebnis_r": -0.347}
 {"zeit": "2026-11-10T01:11:28+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 19:45:00", "richtung": 1, "einstieg": 4129.19, "grund": "einstand", "ergebnis_r": 0.307}
 {"zeit": "2026-11-10T01:11:28+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 00:30:00", "richtung": -1, "einstieg": 4128.59, "stop": 4144.82, "tp1": 4112.36, "tp2": 4096.13, "tp3": 4079.91}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "stream_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 19:45:00", "richtung": 1, "einstieg": 4129.19, "grund": "gegensignal", "ergebnis_r": -0.336}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "stream_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 01:00:00", "richtung": -1, "einstieg": 4122.98, "grund": "stop", "ergebnis_r": -1.0}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 00:30:00", "richtung": -1, "einstieg": 4128.59, "grund": "gegensignal", "ergebnis_r": -0.721}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 01:30:00", "richtung": 1, "einstieg": 4140.29, "stop": 4120.03, "tp1": 4160.55, "tp2": 4180.81, "tp3": 4201.07}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "gross_box_kerze", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 01:30:00", "richtung": 1, "einstieg": 4140.29, "stop": 4120.03, "tp1": 4160.55, "art": "b"}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "gross_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-10 01:30:00", "richtung": 1, "einstieg": 4140.29, "stop": 4120.03, "tp1": 4160.55, "art": "b"}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "box_laufen", "ereignis": "fertig", "einstieg_zeit": "2026-11-09 19:45:00", "richtung": 1, "einstieg": 4129.19, "grund": "gegensignal", "ergebnis_r": -0.336}
+{"zeit": "2026-11-10T02:11:29+00:00", "strategie": "box_laufen", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 01:00:00", "richtung": -1, "einstieg": 4122.98, "grund": "stop", "ergebnis_r": -1.0}

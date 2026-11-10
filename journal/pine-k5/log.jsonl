@@ -8,3 +8,6 @@
 {"time": "2026-11-10T11:08:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG geschlossen", "gesendet": true}
 {"time": "2026-11-10T15:08:35", "bot": "pine-k5", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-10 15:00:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 4138.84, "sma50": 4150.14, "h4": 4074.02, "ema50": 4054.25}, "lage": "Hintergrund: uneinig, Short und Long erlaubt. Nächster wichtiger Termin: Core PPI m/m am 13.11. 14:30 Uhr.", "dealId": "00000000-722f-3211-049c-701f0015549e", "size": 0.23, "entry": 4046.95, "tp": null}
 {"time": "2026-11-10T15:08:35", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}
+{"time": "2026-11-10T19:13:29", "bot": "pine-k5", "event": "Abfänger übernimmt", "dealId": "00000000-722f-3211-049c-701f0015549e", "kurs": 4029.78}
+{"time": "2026-11-10T19:13:29", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Abfänger übernimmt", "gesendet": true}
+{"time": "2026-11-10T19:13:29", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-722f-3211-049c-701f0015549e", "stopLevel": 4017.67, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}

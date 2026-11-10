@@ -1,0 +1,76 @@
+# Kirons zwei TradingView-Strategien auf 5-Min.-Kerzen: Welcher Markt passt am besten?
+# Kirons Wunsch vom 09.11.2026 20:41 UTC: die Pine-Strategie für Longs und die für Shorts im 5-Min.-Chart auf
+# verschiedenen Märkten testen, den besten Markt finden, einen Filter wie beim Gold-Hand-Bot (Konto 5) dazu, der ganz
+# schlechte Trades früh rausstoppt, dann zwei Bots live auf Konto 8 und 9: einer nimmt jeden Trade, meldet ihn aufs
+# Handy und Kiron geht selbst raus, der andere nimmt jeden Trade mit Take-Profit bei +3 € und ohne Stop.
+# 20:45 UTC: "dass du die zwei Strategien von Trading View benutzt, die ich mal reingeschickt habe".
+# Festgelegt, bevor irgendetwas hiervon gerechnet wurde. Code suche/pine5m.py.
+# Ehrlicher Hinweis vorab: Runde 1 (02.11.2026, suche/VORAB.yaml) hat C und B auf 5 Min. mit engem Stop (1 ATR) und
+# Trendfilter auf denselben Märkten 2015 bis 2020 getestet, kein Markt kam über Gewinnfaktor 1,03. Hier ist die Führung
+# anders (kein enger Stop, Ausstieg wie in Pine), das Ergebnis kann also anders sein, die Erwartung ist trotzdem niedrig.
+
+format: 1
+pine5m:
+  strategien:
+    long: >-
+      A "Vix FIX / StochRSI Strategy" (Kirons Original, gold/strategies/A_long_vixfix_stochrsi_v2.pine),
+      Port gold/backtest/pine_port.signals_a_long, alle Standardwerte.
+    short: >-
+      B "Vix Fix Mean Reversion SHORT v6" (Kirons Original, gold/strategies/B_short_vixfix_meanrev_v6.pine),
+      Port gold/backtest/pine_port.signals_b_short, alle Standardwerte (Stop, Take-Profit, Zeitstop, Sitzung,
+      Trendfilter aus, wie in Pine voreingestellt).
+    pine_code: unverändert
+  kerzen: >-
+    5 Min., HistData-Bid aus strategie-suche/daten/{SYMBOL}_5min.csv.gz. Signale auf jeder Kerze wie im
+    TradingView-Chart, Einstieg zur Eröffnung der nächsten Kerze.
+  maerkte: alle 21 Märkte mit 5-Min.-Daten, Spread und Handelszeit aus suche/VORAB.yaml runde_1.maerkte, dazu AUDNZD (Spread
+    0.0003) und GBPNZD (Spread 0.0005), beide 7 bis 20 UTC
+  einstiege_nur_in_handelszeit: ja (nur dort stimmt der feste Spread), Ausstiege jederzeit
+  kosten:
+    spread: Long kauft zum Ask (Bid plus Spread) und verkauft zum Bid, Short umgekehrt
+    robust: Spread mal 1,5
+    swap: 5 % im Jahr auf den Positionswert für jede Nacht (22 Uhr UTC), in R umgerechnet
+  konto_regeln:
+    max_offen: 4                    # Positionen gleichzeitig je Bot
+    pyramide: Jedes Einstiegssignal öffnet eine neue Position, solange weniger als 4 offen sind (Pine erlaubt 9).
+    gegenrichtung: Nie gegen eine offene Position der Gegenrichtung (kein Hedging), das Signal verfällt.
+  r: >-
+    1 R = 3 x ATR(14) der 5-Min.-Kerzen beim Signal (RMA wie ta.atr), mindestens 4 x Spread. Größe live 5 € je R.
+  varianten:
+    pine: Ausstieg nur über das eigene Pine-Ausstiegssignal (A Stoch überkauft, B Stoch überverkauft), schließt alle
+      Positionen dieser Seite. Steht im Test für Kirons eigenen Ausstieg.
+    abfaenger: >-
+      Wie pine plus Trade-Abfänger wie beim Gold-Hand-Bot. Fehltrade = Kurs läuft 0,5 R gegen den Trade, bevor er
+      0,75 R (Ziel 1) dafür lief: Stop bei 1 R und Take-Profit beim Einstieg. Notbremse = Ziel 1 war erreicht, danach
+      1 R im Minus: Stop 0,5 R hinter dem Kurs. Je Position höchstens einmal, wirkt ab der Kerze nach der Erkennung,
+      liegt der Kurs schon dahinter, raus zur Eröffnung. Gleiche Kerze mit Stop und Ziel zählt als Stop.
+    tp3: >-
+      Take-Profit bei +3 € (= 0,6 R bei 5 € je R), kein Stop, kein Pine-Ausstieg. Bleibt offen, bis das Ziel kommt.
+      Am Ende des Zeitraums noch offene Positionen zählen mit ihrem Stand zum letzten Kurs.
+  zeitraum: 01.11.2024 bis 30.10.2026
+  haelften: [01.11.2024 bis 31.10.2025, 01.11.2025 bis 30.10.2026]
+  jahr_2026: 01.01.2026 bis 30.10.2026 (Einstiege aus dem Zeitraum)
+  kontrolle: 01.11.2022 bis 31.10.2024 (eigener Lauf)
+  vorlauf: 60 Tage Kerzen vor jedem Zeitraum nur zum Aufwärmen der Indikatoren
+  masse: >-
+    Trades, Trades je Woche, Gewinnfaktor in R, Summe R, größter Rückgang in R (bei tp3 mit offenen Positionen zum
+    Tagesschluss bewertet), mittlere Haltedauer, Long und Short getrennt, bei tp3 Anteil am Ziel und offen am Ende.
+  kandidaten: >-
+    Alle Märkte, die auf den beiden Zielkonten kein anderer Bot handelt (kein Netting). Bei Konto "US500"
+    (US500- und US100-Rücksetzer, Nasdaq Noise-Band) und "Vortag USDJPY" (Vortag GBP/USD) fallen SPXUSD, NSXUSD und
+    GBPUSD weg. Wählt Kiron andere Konten, fallen deren Märkte weg. Mindestens 100 Trades im Zeitraum (gut 1 je Woche).
+  bestanden: >-
+    Variante abfaenger mit Gewinnfaktor mindestens 1,2 im Zeitraum, mindestens 1,0 mit 1,5-fachem Spread, beide
+    Hälften über 1,0, 2026 allein über 1,0 und Kontrolle über 1,0.
+  bester_markt: >-
+    Unter den bestandenen Kandidaten der mit dem höchsten Gewinnfaktor der Variante abfaenger im Zeitraum, bei
+    Gleichstand mehr Trades. Besteht keiner: Kiron will die Bots trotzdem live sehen (20:41 UTC "stelle das jetzt alles
+    live"), dann geht der Kandidat mit dem höchsten Gewinnfaktor abfaenger im Zeitraum als reiner Demo-Vorwärtstest
+    live, klar als "Test nicht bestanden" beschriftet.
+  bots: >-
+    Beide Bots auf demselben Markt mit denselben Einstiegen. Bot Hand: jeder Einstieg als Marktorder ohne Stop,
+    Nachricht aufs Handy, Kiron geht selbst raus, Trade-Abfänger wie oben, Hinweis beim Pine-Ausstiegssignal, schließt
+    nie selbst. Bot TP3: jeder Einstieg mit Take-Profit +3 € und ohne Stop, schließt nie selbst. Auf geteilten Konten
+    öffnen beide nur, wenn danach genug Margin für die anderen Bots frei bleibt.
+  keine_nachbesserung: Keine anderen Längen, Märkte oder Schwellen nach dem Ergebnis. Änderungen nur mit neuer VORAB-Zeile.
+  live: Nur Demo, nur über einen PR, den Kiron merged. Urteil wie alle Demo-Bots nach 40 Trades.

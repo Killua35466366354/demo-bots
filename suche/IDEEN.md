@@ -73,6 +73,7 @@ Bots steht nach jedem Lauf in `journal/vergleich.md`.
 | Neue Familien für die 6 freien Konten | 11 Familien, keine bestanden | Runde 9 und 9b, PR #153 |
 | Kreuzkurs-Wende | durchgefallen (2025-2026 Gewinnfaktor 0,58) | Runde 9c, PR #158 |
 | Index über Nacht, Gotobi | verworfen | Runde 9, Nachanalyse |
+| Opens aus dem TikTok von montyfinance (Tages-, Wochen-, Monats-, Quartals- und Jahres-Eröffnungskurs als Linien) als Filter für 7 laufende Bots und als eigene Rücklauf-Strategie auf 21 Märkten | durchgefallen, kein Filter und keine Regel bestanden; knapp: Vortag GBP/USD nur mit dem Wochen-Open PF 1,29 auf 1,42 (+3,9 R), aber Zufall p 0,125; Gold Rücklauf zum Tages-Open PF 1,37, Kontrolle 1,35, aber 2026 allein 0,85 | `VORAB_opens.yaml`, `ergebnis_opens.md`, Kirons Video vom 10.11.2026 |
 
 ### Risiko, Stops und Ablauf
 

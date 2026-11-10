@@ -1,0 +1,101 @@
+# Opens aus Kirons Strategie-Video: Tages-, Wochen-, Monats-, Quartals- und Jahres-Eröffnungskurs als Linien.
+# Kirons Wunsch vom 10.11.2026 10:33 UTC: das Video analysieren und die Informationen nutzen, um alle Strategien zu
+# verbessern und zu optimieren. Das Video (TikTok montyfinance, 161 s) erklärt nur ein Konzept: die Eröffnungskurse von
+# Tag, Woche, Monat, drei Monaten und Jahr (Indikator "Daily Weekly Monthly Yearly Opens" von sbtnc) seien objektive
+# Linien, an denen oft starke Trendimpulse kommen. Eine Einstiegsregel, einen Stop oder ein Ziel nennt es nicht.
+# Die Regeln unten sind deshalb meine Übersetzung, festgelegt, bevor irgendetwas hiervon gerechnet wurde. Code suche/opens.py.
+# Opens wurden im Labor bisher nie getestet (weder als Filter noch als eigene Strategie).
+# Ehrlicher Hinweis vorab: Teil A prüft Filter auf Trades, die am 04.11.2026 auf demselben Fenster 2025-2026 ausgewählt
+# wurden; eine ältere Kontrolle gibt es für Teil A nicht. Deshalb der Zufallsvergleich und danach nur ein Zwilling im
+# Schatten. Teil B prüft 2 Regeln auf 21 Märkten, also 42 Versuche; einzelne Treffer können Glück sein.
+
+format: 1
+opens:
+  handelstag: >-
+    Endet 17:00 New York (mit Sommerzeit), Datum = Ortszeit New York plus 7 Stunden, nur Montag bis Freitag. Woche =
+    ISO-Woche des Handelstags, Monat, Quartal und Jahr = die des Handelstags.
+  open: >-
+    Eröffnung der ersten 5-Min.-Kerze (Bid) des Handelstags, der Woche, des Monats, des Quartals bzw. des Jahres, wie
+    der Indikator von sbtnc auf TradingView (Devisen-Tageskerze ab 17:00 New York).
+  kerzen: 5 Min., HistData-Bid aus strategie-suche/daten/{SYMBOL}_5min.csv.gz (Projektdateien), Zeit UTC.
+
+  teil_a_filter:
+    frage: Werden laufende Bots besser, wenn sie nur Trades in Richtung eines Opens nehmen?
+    trades: >-
+      strategie-suche/bewertung/trades.csv (Bewertung vom 04.11.2026, suche/VORAB_bewertung.yaml), Einstiege
+      01.01.2025 bis 30.10.2026, Spalten strategie, einstieg (UTC), richtung, r. Ergebnisse in R wie dort (nach Kosten).
+    strategien:
+      r6-vortag-eurusd: EURUSD
+      r6-vortag-gbpusd: GBPUSD
+      r6-london-gbpusd: GBPUSD
+      r6-noise-usdjpy: USDJPY
+      us500: SPXUSD
+      r5-ruecksetzer-us100: NSXUSD
+      r7-nasdaq-noise-long: NSXUSD
+    nicht_dabei: >-
+      gold-cb (VORAB_zwilling: nie für Gold-C/B), oil-brent (keine Brent-Kerzen), r5-ruecksetzer-us30 (keine
+      Dow-Kerzen), Vortag GBP/JPY (nicht in trades.csv), alle abgeschalteten Strategien.
+    kurs: >-
+      Schluss der letzten 5-Min.-Kerze, die bis zum Einstiegszeitpunkt fertig ist (Beginn höchstens Einstieg minus
+      5 Min.). Die Opens sind die der Periode, zu der diese Kerze gehört. Nichts aus der Zukunft.
+    filter:
+      jahr: Long nur wenn Kurs über dem Jahres-Open, Short nur wenn darunter.
+      quartal: dasselbe mit dem Quartals-Open.
+      monat: dasselbe mit dem Monats-Open.
+      woche: dasselbe mit dem Wochen-Open.
+      alle: Jahr, Quartal, Monat und Woche gleichzeitig.
+    gleich: Kurs genau auf dem Open zählt als nicht in Richtung (Trade fällt weg).
+    zufall: >-
+      5000 zufällige Teilmengen der Original-Trades mit gleich vielen Trades (Seed 20261110). p = Anteil der
+      Teilmengen mit Gewinnfaktor R mindestens so hoch wie der gefilterte.
+    bestanden: >-
+      Alle zugleich: mindestens 15 Trades bleiben und mindestens 40 % der Original-Trades; Gewinnfaktor R der
+      verbliebenen mindestens 1,2 und mindestens 0,15 über dem Original; Summe R der weggefilterten Trades höchstens 0
+      (also Summe R nicht kleiner als beim Original); R je Trade 2025 und 2026 je über dem Original (je Jahr mindestens 5
+      verbliebene Trades); p höchstens 0,01.
+    je_bot: Bestehen mehrere Filter, zählt der mit dem höchsten Gewinnfaktor R, bei Gleichstand mehr Trades.
+    folge: >-
+      Ein bestandener Filter wird ein Zwilling-Vorschlag nach suche/VORAB_zwilling.yaml (Schatten mit Live-Kursen, keine
+      Order, Start frühestens nach Tag 7 des Originals, höchstens 1 laufender Zwilling je Original und 1 neuer je
+      ISO-Woche, Reihenfolge nach Gewinnfaktor R). Eintrag in suche/zwillinge.yaml nur per PR, den Kiron merged. Das
+      Original ändert sich nie.
+
+  teil_b_eigene_strategie:
+    frage: Bringt ein Rücklauf zu einem Open in Richtung der großen Opens allein Gewinn?
+    maerkte: >-
+      alle 21 Märkte mit 5-Min.-Daten, Spread und Handelszeit aus suche/VORAB.yaml runde_1.maerkte, dazu AUDNZD (Spread
+      0.0003) und GBPNZD (Spread 0.0005), beide 7 bis 20 UTC (wie suche/VORAB_pine5m.yaml).
+    richtung: >-
+      Zu Beginn jedes Handelstags mit dem Tages-Open: Long-Tag, wenn das Tages-Open über dem Jahres-, Quartals- und
+      Monats-Open liegt; Short-Tag, wenn darunter; sonst kein Trade an diesem Tag.
+    atr: Mittel der wahren Spanne der letzten 14 fertigen Handelstage (Tag zählt ab 100 Kerzen) vor diesem Tag.
+    varianten:
+      woche: >-
+        Zusätzlich muss das Tages-Open auf derselben Seite des Wochen-Opens liegen (Long: darüber). Limit-Order am
+        Wochen-Open, sobald die Handelszeit beginnt.
+      tag: >-
+        Erst wenn der Kurs in der Handelszeit mindestens 0,25 x ATR vom Tages-Open in Tagesrichtung gelaufen ist
+        (Long: Bid-Hoch mindestens Tages-Open plus 0,25 x ATR), Limit-Order am Tages-Open.
+    fuellung: >-
+      Long kauft zum Ask (Bid plus Spread): gefüllt, wenn das Bid-Tief höchstens Linie minus Spread ist, Preis = Linie.
+      Short verkauft zum Bid: gefüllt, wenn das Bid-Hoch mindestens die Linie ist, Preis = Linie, Ausstieg zum Ask.
+      Nur Kerzen in der Handelszeit, nicht mehr in der letzten Stunde der Handelszeit.
+    fuehrung: >-
+      Stop 1 x ATR hinter dem Einstieg, Ziel 2 R, sonst raus zum Schluss der letzten Kerze der Handelszeit. Der Stop
+      zählt schon in der Füllungskerze, das Ziel erst ab der nächsten. Stop und Ziel in derselben Kerze: der Stop zählt.
+      Höchstens 1 Trade je Markt, Variante und Tag. Keine Übernachtkosten (raus vor 17:00 New York).
+    kosten: {spread: wie oben, robust: Spread mal 1,5}
+    zeitraum: 01.11.2024 bis 30.10.2026
+    haelften: [01.11.2024 bis 31.10.2025, 01.11.2025 bis 30.10.2026]
+    jahr_2026: 01.01.2026 bis 30.10.2026
+    kontrolle: 01.11.2022 bis 31.10.2024
+    masse: Trades, Trades je Woche, Gewinnfaktor R, Summe R, größter Rückgang R, Long und Short getrennt.
+    bestanden: >-
+      Je Markt und Variante: mindestens 40 Trades im Zeitraum, Gewinnfaktor R mindestens 1,2, mit 1,5-fachem Spread
+      mindestens 1,0, beide Hälften über 1,0, 2026 allein über 1,0, Kontrolle über 1,0.
+    folge: >-
+      Bestandene (höchstens die 2 mit dem höchsten Gewinnfaktor R) werden ein Vorschlag an Kiron für einen
+      Schatten-Vorwärtstest (Live-Kurse, keine Order, Urteil nach 40 Trades wie alle). Kein Konto, keine Ablösung eines
+      laufenden Bots ohne PR, den Kiron merged.
+
+  keine_nachbesserung: Keine anderen Opens, Schwellen, Stops, Ziele oder Märkte nach dem Ergebnis. Nur mit neuer VORAB-Zeile.

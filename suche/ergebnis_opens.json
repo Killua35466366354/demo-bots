@@ -1,0 +1,5936 @@
+{
+ "vorab_sha256": "9db5b74f1d1cc5caea86d112d8e3500f3d2449b1f10bd069881f483fd4b1830d",
+ "urteil": "Teil A: kein Filter bestanden, alle Bots bleiben wie sie sind. Teil B: keine Regel auf keinem Markt bestanden. Keine Nachbesserung nach dem Ergebnis.",
+ "teil_a": {
+  "r6-vortag-eurusd": {
+   "markt": "EURUSD",
+   "original": {
+    "trades": 133,
+    "pf_r": 1.668,
+    "summe_r": 52.19,
+    "r_je_trade": 0.392,
+    "je_jahr": {
+     "2025": {
+      "trades": 77,
+      "pf_r": 1.798,
+      "summe_r": 35.328,
+      "r_je_trade": 0.459
+     },
+     "2026": {
+      "trades": 56,
+      "pf_r": 1.498,
+      "summe_r": 16.862,
+      "r_je_trade": 0.301
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 69,
+     "pf_r": 1.682,
+     "summe_r": 27.446,
+     "r_je_trade": 0.398,
+     "anteil": 0.519,
+     "weg": {
+      "trades": 64,
+      "pf_r": 1.654,
+      "summe_r": 24.744,
+      "r_je_trade": 0.387
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 37,
+       "pf_r": 1.683,
+       "summe_r": 15.102,
+       "r_je_trade": 0.408
+      },
+      "2026": {
+       "trades": 32,
+       "pf_r": 1.679,
+       "summe_r": 12.344,
+       "r_je_trade": 0.386
+      }
+     },
+     "p_zufall": 0.4764,
+     "gruende": [
+      "PF 1.682 statt mindestens 1,2 und Original 1.668 plus 0,15",
+      "weggefiltert Summe R 24.744 über 0",
+      "2025 R je Trade 0.408 nicht über 0.459 (37 Trades)",
+      "Zufall p 0.4764 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 74,
+     "pf_r": 1.728,
+     "summe_r": 30.92,
+     "r_je_trade": 0.418,
+     "anteil": 0.556,
+     "weg": {
+      "trades": 59,
+      "pf_r": 1.596,
+      "summe_r": 21.27,
+      "r_je_trade": 0.361
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 46,
+       "pf_r": 2.193,
+       "summe_r": 28.661,
+       "r_je_trade": 0.623
+      },
+      "2026": {
+       "trades": 28,
+       "pf_r": 1.123,
+       "summe_r": 2.259,
+       "r_je_trade": 0.081
+      }
+     },
+     "p_zufall": 0.4128,
+     "gruende": [
+      "PF 1.728 statt mindestens 1,2 und Original 1.668 plus 0,15",
+      "weggefiltert Summe R 21.27 über 0",
+      "2026 R je Trade 0.081 nicht über 0.301 (28 Trades)",
+      "Zufall p 0.4128 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 84,
+     "pf_r": 1.746,
+     "summe_r": 35.603,
+     "r_je_trade": 0.424,
+     "anteil": 0.632,
+     "weg": {
+      "trades": 49,
+      "pf_r": 1.546,
+      "summe_r": 16.587,
+      "r_je_trade": 0.339
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 50,
+       "pf_r": 2.051,
+       "summe_r": 28.124,
+       "r_je_trade": 0.562
+      },
+      "2026": {
+       "trades": 34,
+       "pf_r": 1.357,
+       "summe_r": 7.479,
+       "r_je_trade": 0.22
+      }
+     },
+     "p_zufall": 0.3756,
+     "gruende": [
+      "PF 1.746 statt mindestens 1,2 und Original 1.668 plus 0,15",
+      "weggefiltert Summe R 16.587 über 0",
+      "2026 R je Trade 0.22 nicht über 0.301 (34 Trades)",
+      "Zufall p 0.3756 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 99,
+     "pf_r": 1.763,
+     "summe_r": 42.806,
+     "r_je_trade": 0.432,
+     "anteil": 0.744,
+     "weg": {
+      "trades": 34,
+      "pf_r": 1.426,
+      "summe_r": 9.384,
+      "r_je_trade": 0.276
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 56,
+       "pf_r": 1.938,
+       "summe_r": 29.052,
+       "r_je_trade": 0.519
+      },
+      "2026": {
+       "trades": 43,
+       "pf_r": 1.547,
+       "summe_r": 13.754,
+       "r_je_trade": 0.32
+      }
+     },
+     "p_zufall": 0.2946,
+     "gruende": [
+      "PF 1.763 statt mindestens 1,2 und Original 1.668 plus 0,15",
+      "weggefiltert Summe R 9.384 über 0",
+      "Zufall p 0.2946 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 30,
+     "pf_r": 1.478,
+     "summe_r": 8.646,
+     "r_je_trade": 0.288,
+     "anteil": 0.226,
+     "weg": {
+      "trades": 103,
+      "pf_r": 1.726,
+      "summe_r": 43.544,
+      "r_je_trade": 0.423
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 16,
+       "pf_r": 1.562,
+       "summe_r": 5.587,
+       "r_je_trade": 0.349
+      },
+      "2026": {
+       "trades": 14,
+       "pf_r": 1.374,
+       "summe_r": 3.059,
+       "r_je_trade": 0.218
+      }
+     },
+     "p_zufall": 0.6452,
+     "gruende": [
+      "nur 30 von 133 Trades",
+      "PF 1.478 statt mindestens 1,2 und Original 1.668 plus 0,15",
+      "weggefiltert Summe R 43.544 über 0",
+      "2025 R je Trade 0.349 nicht über 0.459 (16 Trades)",
+      "2026 R je Trade 0.218 nicht über 0.301 (14 Trades)",
+      "Zufall p 0.6452 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  },
+  "r6-vortag-gbpusd": {
+   "markt": "GBPUSD",
+   "original": {
+    "trades": 130,
+    "pf_r": 1.287,
+    "summe_r": 24.496,
+    "r_je_trade": 0.188,
+    "je_jahr": {
+     "2025": {
+      "trades": 61,
+      "pf_r": 1.3,
+      "summe_r": 11.986,
+      "r_je_trade": 0.196
+     },
+     "2026": {
+      "trades": 69,
+      "pf_r": 1.276,
+      "summe_r": 12.51,
+      "r_je_trade": 0.181
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 66,
+     "pf_r": 1.257,
+     "summe_r": 11.152,
+     "r_je_trade": 0.169,
+     "anteil": 0.508,
+     "weg": {
+      "trades": 64,
+      "pf_r": 1.319,
+      "summe_r": 13.344,
+      "r_je_trade": 0.209
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 34,
+       "pf_r": 1.272,
+       "summe_r": 6.154,
+       "r_je_trade": 0.181
+      },
+      "2026": {
+       "trades": 32,
+       "pf_r": 1.24,
+       "summe_r": 4.998,
+       "r_je_trade": 0.156
+      }
+     },
+     "p_zufall": 0.5646,
+     "gruende": [
+      "PF 1.257 statt mindestens 1,2 und Original 1.287 plus 0,15",
+      "weggefiltert Summe R 13.344 über 0",
+      "2025 R je Trade 0.181 nicht über 0.196 (34 Trades)",
+      "2026 R je Trade 0.156 nicht über 0.181 (32 Trades)",
+      "Zufall p 0.5646 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 71,
+     "pf_r": 1.274,
+     "summe_r": 12.914,
+     "r_je_trade": 0.182,
+     "anteil": 0.546,
+     "weg": {
+      "trades": 59,
+      "pf_r": 1.303,
+      "summe_r": 11.582,
+      "r_je_trade": 0.196
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 35,
+       "pf_r": 1.187,
+       "summe_r": 4.407,
+       "r_je_trade": 0.126
+      },
+      "2026": {
+       "trades": 36,
+       "pf_r": 1.362,
+       "summe_r": 8.507,
+       "r_je_trade": 0.236
+      }
+     },
+     "p_zufall": 0.5342,
+     "gruende": [
+      "PF 1.274 statt mindestens 1,2 und Original 1.287 plus 0,15",
+      "weggefiltert Summe R 11.582 über 0",
+      "2025 R je Trade 0.126 nicht über 0.196 (35 Trades)",
+      "Zufall p 0.5342 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 82,
+     "pf_r": 1.348,
+     "summe_r": 18.201,
+     "r_je_trade": 0.222,
+     "anteil": 0.631,
+     "weg": {
+      "trades": 48,
+      "pf_r": 1.191,
+      "summe_r": 6.295,
+      "r_je_trade": 0.131
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 40,
+       "pf_r": 1.34,
+       "summe_r": 8.982,
+       "r_je_trade": 0.225
+      },
+      "2026": {
+       "trades": 42,
+       "pf_r": 1.356,
+       "summe_r": 9.219,
+       "r_je_trade": 0.22
+      }
+     },
+     "p_zufall": 0.3872,
+     "gruende": [
+      "PF 1.348 statt mindestens 1,2 und Original 1.287 plus 0,15",
+      "weggefiltert Summe R 6.295 über 0",
+      "Zufall p 0.3872 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 107,
+     "pf_r": 1.423,
+     "summe_r": 28.4,
+     "r_je_trade": 0.265,
+     "anteil": 0.823,
+     "weg": {
+      "trades": 23,
+      "pf_r": 0.786,
+      "summe_r": -3.904,
+      "r_je_trade": -0.17
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 50,
+       "pf_r": 1.54,
+       "summe_r": 16.487,
+       "r_je_trade": 0.33
+      },
+      "2026": {
+       "trades": 57,
+       "pf_r": 1.326,
+       "summe_r": 11.913,
+       "r_je_trade": 0.209
+      }
+     },
+     "p_zufall": 0.125,
+     "gruende": [
+      "PF 1.423 statt mindestens 1,2 und Original 1.287 plus 0,15",
+      "Zufall p 0.125 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 33,
+     "pf_r": 1.366,
+     "summe_r": 7.721,
+     "r_je_trade": 0.234,
+     "anteil": 0.254,
+     "weg": {
+      "trades": 97,
+      "pf_r": 1.261,
+      "summe_r": 16.775,
+      "r_je_trade": 0.173
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 17,
+       "pf_r": 1.038,
+       "summe_r": 0.468,
+       "r_je_trade": 0.028
+      },
+      "2026": {
+       "trades": 16,
+       "pf_r": 1.831,
+       "summe_r": 7.253,
+       "r_je_trade": 0.453
+      }
+     },
+     "p_zufall": 0.4298,
+     "gruende": [
+      "nur 33 von 130 Trades",
+      "PF 1.366 statt mindestens 1,2 und Original 1.287 plus 0,15",
+      "weggefiltert Summe R 16.775 über 0",
+      "2025 R je Trade 0.028 nicht über 0.196 (17 Trades)",
+      "Zufall p 0.4298 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  },
+  "r6-london-gbpusd": {
+   "markt": "GBPUSD",
+   "original": {
+    "trades": 53,
+    "pf_r": 1.328,
+    "summe_r": 5.876,
+    "r_je_trade": 0.111,
+    "je_jahr": {
+     "2025": {
+      "trades": 18,
+      "pf_r": 1.369,
+      "summe_r": 2.492,
+      "r_je_trade": 0.138
+     },
+     "2026": {
+      "trades": 35,
+      "pf_r": 1.304,
+      "summe_r": 3.384,
+      "r_je_trade": 0.097
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 39,
+     "pf_r": 1.257,
+     "summe_r": 3.454,
+     "r_je_trade": 0.089,
+     "anteil": 0.736,
+     "weg": {
+      "trades": 14,
+      "pf_r": 1.54,
+      "summe_r": 2.422,
+      "r_je_trade": 0.173
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 18,
+       "pf_r": 1.369,
+       "summe_r": 2.492,
+       "r_je_trade": 0.138
+      },
+      "2026": {
+       "trades": 21,
+       "pf_r": 1.145,
+       "summe_r": 0.962,
+       "r_je_trade": 0.046
+      }
+     },
+     "p_zufall": 0.624,
+     "gruende": [
+      "PF 1.257 statt mindestens 1,2 und Original 1.328 plus 0,15",
+      "weggefiltert Summe R 2.422 über 0",
+      "2025 R je Trade 0.138 nicht über 0.138 (18 Trades)",
+      "2026 R je Trade 0.046 nicht über 0.097 (21 Trades)",
+      "Zufall p 0.624 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 41,
+     "pf_r": 1.425,
+     "summe_r": 5.542,
+     "r_je_trade": 0.135,
+     "anteil": 0.774,
+     "weg": {
+      "trades": 12,
+      "pf_r": 1.069,
+      "summe_r": 0.334,
+      "r_je_trade": 0.028
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 9,
+       "pf_r": 2.204,
+       "summe_r": 3.008,
+       "r_je_trade": 0.334
+      },
+      "2026": {
+       "trades": 32,
+       "pf_r": 1.24,
+       "summe_r": 2.534,
+       "r_je_trade": 0.079
+      }
+     },
+     "p_zufall": 0.3496,
+     "gruende": [
+      "PF 1.425 statt mindestens 1,2 und Original 1.328 plus 0,15",
+      "weggefiltert Summe R 0.334 über 0",
+      "2026 R je Trade 0.079 nicht über 0.097 (32 Trades)",
+      "Zufall p 0.3496 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 33,
+     "pf_r": 1.355,
+     "summe_r": 4.452,
+     "r_je_trade": 0.135,
+     "anteil": 0.623,
+     "weg": {
+      "trades": 20,
+      "pf_r": 1.265,
+      "summe_r": 1.424,
+      "r_je_trade": 0.071
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 16,
+       "pf_r": 1.522,
+       "summe_r": 2.988,
+       "r_je_trade": 0.187
+      },
+      "2026": {
+       "trades": 17,
+       "pf_r": 1.215,
+       "summe_r": 1.464,
+       "r_je_trade": 0.086
+      }
+     },
+     "p_zufall": 0.479,
+     "gruende": [
+      "PF 1.355 statt mindestens 1,2 und Original 1.328 plus 0,15",
+      "weggefiltert Summe R 1.424 über 0",
+      "2026 R je Trade 0.086 nicht über 0.097 (17 Trades)",
+      "Zufall p 0.479 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 36,
+     "pf_r": 1.243,
+     "summe_r": 2.845,
+     "r_je_trade": 0.079,
+     "anteil": 0.679,
+     "weg": {
+      "trades": 17,
+      "pf_r": 1.489,
+      "summe_r": 3.031,
+      "r_je_trade": 0.178
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 12,
+       "pf_r": 1.781,
+       "summe_r": 2.779,
+       "r_je_trade": 0.232
+      },
+      "2026": {
+       "trades": 24,
+       "pf_r": 1.008,
+       "summe_r": 0.066,
+       "r_je_trade": 0.003
+      }
+     },
+     "p_zufall": 0.6228,
+     "gruende": [
+      "PF 1.243 statt mindestens 1,2 und Original 1.328 plus 0,15",
+      "weggefiltert Summe R 3.031 über 0",
+      "2026 R je Trade 0.003 nicht über 0.097 (24 Trades)",
+      "Zufall p 0.6228 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 20,
+     "pf_r": 1.11,
+     "summe_r": 0.791,
+     "r_je_trade": 0.04,
+     "anteil": 0.377,
+     "weg": {
+      "trades": 33,
+      "pf_r": 1.474,
+      "summe_r": 5.085,
+      "r_je_trade": 0.154
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 8,
+       "pf_r": 1.622,
+       "summe_r": 1.554,
+       "r_je_trade": 0.194
+      },
+      "2026": {
+       "trades": 12,
+       "pf_r": 0.837,
+       "summe_r": -0.763,
+       "r_je_trade": -0.064
+      }
+     },
+     "p_zufall": 0.671,
+     "gruende": [
+      "nur 20 von 53 Trades",
+      "PF 1.11 statt mindestens 1,2 und Original 1.328 plus 0,15",
+      "weggefiltert Summe R 5.085 über 0",
+      "2026 R je Trade -0.064 nicht über 0.097 (12 Trades)",
+      "Zufall p 0.671 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  },
+  "r6-noise-usdjpy": {
+   "markt": "USDJPY",
+   "original": {
+    "trades": 254,
+    "pf_r": 1.543,
+    "summe_r": 4.858,
+    "r_je_trade": 0.019,
+    "je_jahr": {
+     "2025": {
+      "trades": 141,
+      "pf_r": 1.044,
+      "summe_r": 0.212,
+      "r_je_trade": 0.002
+     },
+     "2026": {
+      "trades": 113,
+      "pf_r": 2.129,
+      "summe_r": 4.646,
+      "r_je_trade": 0.041
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 125,
+     "pf_r": 0.962,
+     "summe_r": -0.163,
+     "r_je_trade": -0.001,
+     "anteil": 0.492,
+     "weg": {
+      "trades": 129,
+      "pf_r": 2.08,
+      "summe_r": 5.021,
+      "r_je_trade": 0.039
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 70,
+       "pf_r": 0.918,
+       "summe_r": -0.235,
+       "r_je_trade": -0.003
+      },
+      "2026": {
+       "trades": 55,
+       "pf_r": 1.05,
+       "summe_r": 0.072,
+       "r_je_trade": 0.001
+      }
+     },
+     "p_zufall": 0.8646,
+     "gruende": [
+      "PF 0.962 statt mindestens 1,2 und Original 1.543 plus 0,15",
+      "weggefiltert Summe R 5.021 über 0",
+      "2025 R je Trade -0.003 nicht über 0.002 (70 Trades)",
+      "2026 R je Trade 0.001 nicht über 0.041 (55 Trades)",
+      "Zufall p 0.8646 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 155,
+     "pf_r": 0.913,
+     "summe_r": -0.49,
+     "r_je_trade": -0.003,
+     "anteil": 0.61,
+     "weg": {
+      "trades": 99,
+      "pf_r": 2.628,
+      "summe_r": 5.348,
+      "r_je_trade": 0.054
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 92,
+       "pf_r": 0.932,
+       "summe_r": -0.243,
+       "r_je_trade": -0.003
+      },
+      "2026": {
+       "trades": 63,
+       "pf_r": 0.883,
+       "summe_r": -0.247,
+       "r_je_trade": -0.004
+      }
+     },
+     "p_zufall": 0.9418,
+     "gruende": [
+      "PF 0.913 statt mindestens 1,2 und Original 1.543 plus 0,15",
+      "weggefiltert Summe R 5.348 über 0",
+      "2025 R je Trade -0.003 nicht über 0.002 (92 Trades)",
+      "2026 R je Trade -0.004 nicht über 0.041 (63 Trades)",
+      "Zufall p 0.9418 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 161,
+     "pf_r": 1.027,
+     "summe_r": 0.15,
+     "r_je_trade": 0.001,
+     "anteil": 0.634,
+     "weg": {
+      "trades": 93,
+      "pf_r": 2.409,
+      "summe_r": 4.708,
+      "r_je_trade": 0.051
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 98,
+       "pf_r": 1.114,
+       "summe_r": 0.397,
+       "r_je_trade": 0.004
+      },
+      "2026": {
+       "trades": 63,
+       "pf_r": 0.883,
+       "summe_r": -0.247,
+       "r_je_trade": -0.004
+      }
+     },
+     "p_zufall": 0.9078,
+     "gruende": [
+      "PF 1.027 statt mindestens 1,2 und Original 1.543 plus 0,15",
+      "weggefiltert Summe R 4.708 über 0",
+      "2026 R je Trade -0.004 nicht über 0.041 (63 Trades)",
+      "Zufall p 0.9078 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 178,
+     "pf_r": 1.482,
+     "summe_r": 2.916,
+     "r_je_trade": 0.016,
+     "anteil": 0.701,
+     "weg": {
+      "trades": 76,
+      "pf_r": 1.671,
+      "summe_r": 1.942,
+      "r_je_trade": 0.026
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 105,
+       "pf_r": 0.981,
+       "summe_r": -0.07,
+       "r_je_trade": -0.001
+      },
+      "2026": {
+       "trades": 73,
+       "pf_r": 2.274,
+       "summe_r": 2.986,
+       "r_je_trade": 0.041
+      }
+     },
+     "p_zufall": 0.5878,
+     "gruende": [
+      "PF 1.482 statt mindestens 1,2 und Original 1.543 plus 0,15",
+      "weggefiltert Summe R 1.942 über 0",
+      "2025 R je Trade -0.001 nicht über 0.002 (105 Trades)",
+      "2026 R je Trade 0.041 nicht über 0.041 (73 Trades)",
+      "Zufall p 0.5878 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 72,
+     "pf_r": 0.843,
+     "summe_r": -0.435,
+     "r_je_trade": -0.006,
+     "anteil": 0.283,
+     "weg": {
+      "trades": 182,
+      "pf_r": 1.858,
+      "summe_r": 5.293,
+      "r_je_trade": 0.029
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 28,
+       "pf_r": 0.877,
+       "summe_r": -0.186,
+       "r_je_trade": -0.007
+      },
+      "2026": {
+       "trades": 44,
+       "pf_r": 0.803,
+       "summe_r": -0.249,
+       "r_je_trade": -0.006
+      }
+     },
+     "p_zufall": 0.8076,
+     "gruende": [
+      "nur 72 von 254 Trades",
+      "PF 0.843 statt mindestens 1,2 und Original 1.543 plus 0,15",
+      "weggefiltert Summe R 5.293 über 0",
+      "2025 R je Trade -0.007 nicht über 0.002 (28 Trades)",
+      "2026 R je Trade -0.006 nicht über 0.041 (44 Trades)",
+      "Zufall p 0.8076 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  },
+  "us500": {
+   "markt": "SPXUSD",
+   "original": {
+    "trades": 25,
+    "pf_r": 7.509,
+    "summe_r": 16.467,
+    "r_je_trade": 0.659,
+    "je_jahr": {
+     "2025": {
+      "trades": 13,
+      "pf_r": 6.796,
+      "summe_r": 9.343,
+      "r_je_trade": 0.719
+     },
+     "2026": {
+      "trades": 12,
+      "pf_r": 8.76,
+      "summe_r": 7.124,
+      "r_je_trade": 0.594
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 23,
+     "pf_r": 6.595,
+     "summe_r": 14.155,
+     "r_je_trade": 0.615,
+     "anteil": 0.92,
+     "weg": {
+      "trades": 2,
+      "pf_r": 99.0,
+      "summe_r": 2.312,
+      "r_je_trade": 1.156
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 11,
+       "pf_r": 5.362,
+       "summe_r": 7.031,
+       "r_je_trade": 0.639
+      },
+      "2026": {
+       "trades": 12,
+       "pf_r": 8.76,
+       "summe_r": 7.124,
+       "r_je_trade": 0.594
+      }
+     },
+     "p_zufall": 0.7968,
+     "gruende": [
+      "PF 6.595 statt mindestens 1,2 und Original 7.509 plus 0,15",
+      "weggefiltert Summe R 2.312 über 0",
+      "2025 R je Trade 0.639 nicht über 0.719 (11 Trades)",
+      "2026 R je Trade 0.594 nicht über 0.594 (12 Trades)",
+      "Zufall p 0.7968 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 23,
+     "pf_r": 6.542,
+     "summe_r": 14.022,
+     "r_je_trade": 0.61,
+     "anteil": 0.92,
+     "weg": {
+      "trades": 2,
+      "pf_r": 99.0,
+      "summe_r": 2.445,
+      "r_je_trade": 1.222
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 12,
+       "pf_r": 5.679,
+       "summe_r": 7.542,
+       "r_je_trade": 0.628
+      },
+      "2026": {
+       "trades": 11,
+       "pf_r": 8.059,
+       "summe_r": 6.48,
+       "r_je_trade": 0.589
+      }
+     },
+     "p_zufall": 0.8356,
+     "gruende": [
+      "PF 6.542 statt mindestens 1,2 und Original 7.509 plus 0,15",
+      "weggefiltert Summe R 2.445 über 0",
+      "2025 R je Trade 0.628 nicht über 0.719 (12 Trades)",
+      "2026 R je Trade 0.589 nicht über 0.594 (11 Trades)",
+      "Zufall p 0.8356 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 14,
+     "pf_r": 3.498,
+     "summe_r": 6.319,
+     "r_je_trade": 0.451,
+     "anteil": 0.56,
+     "weg": {
+      "trades": 11,
+      "pf_r": 99.0,
+      "summe_r": 10.148,
+      "r_je_trade": 0.923
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 7,
+       "pf_r": 3.336,
+       "summe_r": 3.765,
+       "r_je_trade": 0.538
+      },
+      "2026": {
+       "trades": 7,
+       "pf_r": 3.782,
+       "summe_r": 2.554,
+       "r_je_trade": 0.365
+      }
+     },
+     "p_zufall": 0.9606,
+     "gruende": [
+      "nur 14 von 25 Trades",
+      "PF 3.498 statt mindestens 1,2 und Original 7.509 plus 0,15",
+      "weggefiltert Summe R 10.148 über 0",
+      "2025 R je Trade 0.538 nicht über 0.719 (7 Trades)",
+      "2026 R je Trade 0.365 nicht über 0.594 (7 Trades)",
+      "Zufall p 0.9606 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 7,
+     "pf_r": 2.748,
+     "summe_r": 2.83,
+     "r_je_trade": 0.404,
+     "anteil": 0.28,
+     "weg": {
+      "trades": 18,
+      "pf_r": 15.969,
+      "summe_r": 13.637,
+      "r_je_trade": 0.758
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 3,
+       "pf_r": 2.488,
+       "summe_r": 1.635,
+       "r_je_trade": 0.545
+      },
+      "2026": {
+       "trades": 4,
+       "pf_r": 3.298,
+       "summe_r": 1.195,
+       "r_je_trade": 0.299
+      }
+     },
+     "p_zufall": 0.8894,
+     "gruende": [
+      "nur 7 von 25 Trades",
+      "PF 2.748 statt mindestens 1,2 und Original 7.509 plus 0,15",
+      "weggefiltert Summe R 13.637 über 0",
+      "2025 R je Trade 0.545 nicht über 0.719 (3 Trades)",
+      "2026 R je Trade 0.299 nicht über 0.594 (4 Trades)",
+      "Zufall p 0.8894 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 6,
+     "pf_r": 2.552,
+     "summe_r": 2.513,
+     "r_je_trade": 0.419,
+     "anteil": 0.24,
+     "weg": {
+      "trades": 19,
+      "pf_r": 16.317,
+      "summe_r": 13.954,
+      "r_je_trade": 0.734
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 2,
+       "pf_r": 2.199,
+       "summe_r": 1.318,
+       "r_je_trade": 0.659
+      },
+      "2026": {
+       "trades": 4,
+       "pf_r": 3.298,
+       "summe_r": 1.195,
+       "r_je_trade": 0.299
+      }
+     },
+     "p_zufall": 0.8782,
+     "gruende": [
+      "nur 6 von 25 Trades",
+      "PF 2.552 statt mindestens 1,2 und Original 7.509 plus 0,15",
+      "weggefiltert Summe R 13.954 über 0",
+      "2025 R je Trade 0.659 nicht über 0.719 (2 Trades)",
+      "2026 R je Trade 0.299 nicht über 0.594 (4 Trades)",
+      "Zufall p 0.8782 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  },
+  "r5-ruecksetzer-us100": {
+   "markt": "NSXUSD",
+   "original": {
+    "trades": 23,
+    "pf_r": 2.062,
+    "summe_r": 7.029,
+    "r_je_trade": 0.306,
+    "je_jahr": {
+     "2025": {
+      "trades": 12,
+      "pf_r": 1.358,
+      "summe_r": 1.923,
+      "r_je_trade": 0.16
+     },
+     "2026": {
+      "trades": 11,
+      "pf_r": 5.078,
+      "summe_r": 5.106,
+      "r_je_trade": 0.464
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 21,
+     "pf_r": 1.551,
+     "summe_r": 3.646,
+     "r_je_trade": 0.174,
+     "anteil": 0.913,
+     "weg": {
+      "trades": 2,
+      "pf_r": 99.0,
+      "summe_r": 3.383,
+      "r_je_trade": 1.692
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 11,
+       "pf_r": 1.137,
+       "summe_r": 0.735,
+       "r_je_trade": 0.067
+      },
+      "2026": {
+       "trades": 10,
+       "pf_r": 3.325,
+       "summe_r": 2.911,
+       "r_je_trade": 0.291
+      }
+     },
+     "p_zufall": 0.9818,
+     "gruende": [
+      "PF 1.551 statt mindestens 1,2 und Original 2.062 plus 0,15",
+      "weggefiltert Summe R 3.383 über 0",
+      "2025 R je Trade 0.067 nicht über 0.16 (11 Trades)",
+      "2026 R je Trade 0.291 nicht über 0.464 (10 Trades)",
+      "Zufall p 0.9818 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 15,
+     "pf_r": 1.571,
+     "summe_r": 3.068,
+     "r_je_trade": 0.205,
+     "anteil": 0.652,
+     "weg": {
+      "trades": 8,
+      "pf_r": 4.187,
+      "summe_r": 3.961,
+      "r_je_trade": 0.495
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 11,
+       "pf_r": 1.137,
+       "summe_r": 0.735,
+       "r_je_trade": 0.067
+      },
+      "2026": {
+       "trades": 4,
+       "pf_r": 260.222,
+       "summe_r": 2.333,
+       "r_je_trade": 0.583
+      }
+     },
+     "p_zufall": 0.7088,
+     "gruende": [
+      "PF 1.571 statt mindestens 1,2 und Original 2.062 plus 0,15",
+      "weggefiltert Summe R 3.961 über 0",
+      "2025 R je Trade 0.067 nicht über 0.16 (11 Trades)",
+      "2026 R je Trade 0.583 nicht über 0.464 (4 Trades)",
+      "Zufall p 0.7088 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 12,
+     "pf_r": 0.978,
+     "summe_r": -0.13,
+     "r_je_trade": -0.011,
+     "anteil": 0.522,
+     "weg": {
+      "trades": 11,
+      "pf_r": 11.606,
+      "summe_r": 7.159,
+      "r_je_trade": 0.651
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 9,
+       "pf_r": 0.988,
+       "summe_r": -0.066,
+       "r_je_trade": -0.007
+      },
+      "2026": {
+       "trades": 3,
+       "pf_r": 0.889,
+       "summe_r": -0.064,
+       "r_je_trade": -0.021
+      }
+     },
+     "p_zufall": 0.9118,
+     "gruende": [
+      "nur 12 von 23 Trades",
+      "PF 0.978 statt mindestens 1,2 und Original 2.062 plus 0,15",
+      "weggefiltert Summe R 7.159 über 0",
+      "2025 R je Trade -0.007 nicht über 0.16 (9 Trades)",
+      "2026 R je Trade -0.021 nicht über 0.464 (3 Trades)",
+      "Zufall p 0.9118 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 3,
+     "pf_r": 99.0,
+     "summe_r": 3.187,
+     "r_je_trade": 1.062,
+     "anteil": 0.13,
+     "weg": {
+      "trades": 20,
+      "pf_r": 1.581,
+      "summe_r": 3.842,
+      "r_je_trade": 0.192
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 2,
+       "pf_r": 99.0,
+       "summe_r": 2.674,
+       "r_je_trade": 1.337
+      },
+      "2026": {
+       "trades": 1,
+       "pf_r": 99.0,
+       "summe_r": 0.513,
+       "r_je_trade": 0.513
+      }
+     },
+     "p_zufall": 0.3774,
+     "gruende": [
+      "nur 3 von 23 Trades",
+      "weggefiltert Summe R 3.842 über 0",
+      "2025 R je Trade 1.337 nicht über 0.16 (2 Trades)",
+      "2026 R je Trade 0.513 nicht über 0.464 (1 Trades)",
+      "Zufall p 0.3774 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 2,
+     "pf_r": 99.0,
+     "summe_r": 2.789,
+     "r_je_trade": 1.394,
+     "anteil": 0.087,
+     "weg": {
+      "trades": 21,
+      "pf_r": 1.641,
+      "summe_r": 4.24,
+      "r_je_trade": 0.202
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 1,
+       "pf_r": 99.0,
+       "summe_r": 2.276,
+       "r_je_trade": 2.276
+      },
+      "2026": {
+       "trades": 1,
+       "pf_r": 99.0,
+       "summe_r": 0.513,
+       "r_je_trade": 0.513
+      }
+     },
+     "p_zufall": 0.493,
+     "gruende": [
+      "nur 2 von 23 Trades",
+      "weggefiltert Summe R 4.24 über 0",
+      "2025 R je Trade 2.276 nicht über 0.16 (1 Trades)",
+      "2026 R je Trade 0.513 nicht über 0.464 (1 Trades)",
+      "Zufall p 0.493 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  },
+  "r7-nasdaq-noise-long": {
+   "markt": "NSXUSD",
+   "original": {
+    "trades": 20,
+    "pf_r": 3.836,
+    "summe_r": 2.328,
+    "r_je_trade": 0.116,
+    "je_jahr": {
+     "2025": {
+      "trades": 14,
+      "pf_r": 2.974,
+      "summe_r": 1.293,
+      "r_je_trade": 0.092
+     },
+     "2026": {
+      "trades": 6,
+      "pf_r": 7.235,
+      "summe_r": 1.035,
+      "r_je_trade": 0.172
+     }
+    }
+   },
+   "max_alter_kurs_std": 0.1,
+   "filter": {
+    "jahr": {
+     "trades": 20,
+     "pf_r": 3.836,
+     "summe_r": 2.328,
+     "r_je_trade": 0.116,
+     "anteil": 1.0,
+     "weg": {
+      "trades": 0,
+      "pf_r": null,
+      "summe_r": 0.0,
+      "r_je_trade": null
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 14,
+       "pf_r": 2.974,
+       "summe_r": 1.293,
+       "r_je_trade": 0.092
+      },
+      "2026": {
+       "trades": 6,
+       "pf_r": 7.235,
+       "summe_r": 1.035,
+       "r_je_trade": 0.172
+      }
+     },
+     "p_zufall": null,
+     "gruende": [
+      "PF 3.836 statt mindestens 1,2 und Original 3.836 plus 0,15",
+      "2025 R je Trade 0.092 nicht über 0.092 (14 Trades)",
+      "2026 R je Trade 0.172 nicht über 0.172 (6 Trades)",
+      "Zufall p None über 0,01"
+     ],
+     "bestanden": false
+    },
+    "quartal": {
+     "trades": 16,
+     "pf_r": 4.553,
+     "summe_r": 2.327,
+     "r_je_trade": 0.145,
+     "anteil": 0.8,
+     "weg": {
+      "trades": 4,
+      "pf_r": 1.006,
+      "summe_r": 0.001,
+      "r_je_trade": 0.0
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 13,
+       "pf_r": 2.876,
+       "summe_r": 1.229,
+       "r_je_trade": 0.095
+      },
+      "2026": {
+       "trades": 3,
+       "pf_r": 99.0,
+       "summe_r": 1.098,
+       "r_je_trade": 0.366
+      }
+     },
+     "p_zufall": 0.2668,
+     "gruende": [
+      "weggefiltert Summe R 0.001 über 0",
+      "2026 R je Trade 0.366 nicht über 0.172 (3 Trades)",
+      "Zufall p 0.2668 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "monat": {
+     "trades": 17,
+     "pf_r": 3.469,
+     "summe_r": 1.938,
+     "r_je_trade": 0.114,
+     "anteil": 0.85,
+     "weg": {
+      "trades": 3,
+      "pf_r": 11.833,
+      "summe_r": 0.39,
+      "r_je_trade": 0.13
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 12,
+       "pf_r": 2.324,
+       "summe_r": 0.867,
+       "r_je_trade": 0.072
+      },
+      "2026": {
+       "trades": 5,
+       "pf_r": 9.238,
+       "summe_r": 1.071,
+       "r_je_trade": 0.214
+      }
+     },
+     "p_zufall": 0.583,
+     "gruende": [
+      "PF 3.469 statt mindestens 1,2 und Original 3.836 plus 0,15",
+      "weggefiltert Summe R 0.39 über 0",
+      "2025 R je Trade 0.072 nicht über 0.092 (12 Trades)",
+      "Zufall p 0.583 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "woche": {
+     "trades": 14,
+     "pf_r": 2.731,
+     "summe_r": 1.359,
+     "r_je_trade": 0.097,
+     "anteil": 0.7,
+     "weg": {
+      "trades": 6,
+      "pf_r": 27.917,
+      "summe_r": 0.969,
+      "r_je_trade": 0.162
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 10,
+       "pf_r": 1.965,
+       "summe_r": 0.632,
+       "r_je_trade": 0.063
+      },
+      "2026": {
+       "trades": 4,
+       "pf_r": 6.592,
+       "summe_r": 0.727,
+       "r_je_trade": 0.182
+      }
+     },
+     "p_zufall": 0.7982,
+     "gruende": [
+      "nur 14 von 20 Trades",
+      "PF 2.731 statt mindestens 1,2 und Original 3.836 plus 0,15",
+      "weggefiltert Summe R 0.969 über 0",
+      "2025 R je Trade 0.063 nicht über 0.092 (10 Trades)",
+      "2026 R je Trade 0.182 nicht über 0.172 (4 Trades)",
+      "Zufall p 0.7982 über 0,01"
+     ],
+     "bestanden": false
+    },
+    "alle": {
+     "trades": 10,
+     "pf_r": 2.466,
+     "summe_r": 0.96,
+     "r_je_trade": 0.096,
+     "anteil": 0.5,
+     "weg": {
+      "trades": 10,
+      "pf_r": 9.241,
+      "summe_r": 1.368,
+      "r_je_trade": 0.137
+     },
+     "je_jahr": {
+      "2025": {
+       "trades": 8,
+       "pf_r": 1.315,
+       "summe_r": 0.206,
+       "r_je_trade": 0.026
+      },
+      "2026": {
+       "trades": 2,
+       "pf_r": 99.0,
+       "summe_r": 0.754,
+       "r_je_trade": 0.377
+      }
+     },
+     "p_zufall": 0.7614,
+     "gruende": [
+      "nur 10 von 20 Trades",
+      "PF 2.466 statt mindestens 1,2 und Original 3.836 plus 0,15",
+      "weggefiltert Summe R 1.368 über 0",
+      "2025 R je Trade 0.026 nicht über 0.092 (8 Trades)",
+      "2026 R je Trade 0.377 nicht über 0.172 (2 Trades)",
+      "Zufall p 0.7614 über 0,01"
+     ],
+     "bestanden": false
+    }
+   },
+   "gewaehlt": null
+  }
+ },
+ "teil_b": {
+  "EURUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 40,
+     "pf_r": 0.602,
+     "summe_r": -3.867,
+     "r_je_trade": -0.097,
+     "je_woche": 0.38,
+     "rueckgang_r": 3.867,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.715
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 0.508
+     }
+    },
+    "robust": {
+     "trades": 40,
+     "pf_r": 0.595,
+     "summe_r": -3.955,
+     "r_je_trade": -0.099,
+     "je_woche": 0.38,
+     "rueckgang_r": 3.955,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.715
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 0.495
+     }
+    },
+    "haelfte_1": {
+     "trades": 21,
+     "pf_r": 0.454,
+     "summe_r": -2.645,
+     "r_je_trade": -0.126,
+     "je_woche": 0.4,
+     "rueckgang_r": 3.008,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.319
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.869
+     }
+    },
+    "haelfte_2": {
+     "trades": 19,
+     "pf_r": 0.75,
+     "summe_r": -1.222,
+     "r_je_trade": -0.064,
+     "je_woche": 0.37,
+     "rueckgang_r": 2.835,
+     "long": {
+      "trades": 8,
+      "pf_r": 2.625
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 0.404
+     }
+    },
+    "jahr_2026": {
+     "trades": 16,
+     "pf_r": 0.801,
+     "summe_r": -0.867,
+     "r_je_trade": -0.054,
+     "je_woche": 0.37,
+     "rueckgang_r": 2.835,
+     "long": {
+      "trades": 5,
+      "pf_r": 7.945
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 0.404
+     }
+    },
+    "kontrolle": {
+     "trades": 47,
+     "pf_r": 0.797,
+     "summe_r": -2.009,
+     "r_je_trade": -0.043,
+     "je_woche": 0.45,
+     "rueckgang_r": 3.281,
+     "long": {
+      "trades": 23,
+      "pf_r": 0.581
+     },
+     "short": {
+      "trades": 24,
+      "pf_r": 1.108
+     }
+    },
+    "gruende": [
+     "PF 0.602 unter 1,2",
+     "robust 0.595 unter 1,0",
+     "haelfte_1 0.454 nicht über 1,0",
+     "haelfte_2 0.75 nicht über 1,0",
+     "jahr_2026 0.801 nicht über 1,0",
+     "kontrolle 0.797 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 79,
+     "pf_r": 1.087,
+     "summe_r": 1.167,
+     "r_je_trade": 0.015,
+     "je_woche": 0.76,
+     "rueckgang_r": 5.066,
+     "long": {
+      "trades": 34,
+      "pf_r": 0.96
+     },
+     "short": {
+      "trades": 45,
+      "pf_r": 1.167
+     }
+    },
+    "robust": {
+     "trades": 79,
+     "pf_r": 1.063,
+     "summe_r": 0.852,
+     "r_je_trade": 0.011,
+     "je_woche": 0.76,
+     "rueckgang_r": 5.214,
+     "long": {
+      "trades": 34,
+      "pf_r": 0.96
+     },
+     "short": {
+      "trades": 45,
+      "pf_r": 1.127
+     }
+    },
+    "haelfte_1": {
+     "trades": 41,
+     "pf_r": 1.795,
+     "summe_r": 4.14,
+     "r_je_trade": 0.101,
+     "je_woche": 0.79,
+     "rueckgang_r": 1.281,
+     "long": {
+      "trades": 27,
+      "pf_r": 1.003
+     },
+     "short": {
+      "trades": 14,
+      "pf_r": 9.254
+     }
+    },
+    "haelfte_2": {
+     "trades": 38,
+     "pf_r": 0.637,
+     "summe_r": -2.974,
+     "r_je_trade": -0.078,
+     "je_woche": 0.73,
+     "rueckgang_r": 5.066,
+     "long": {
+      "trades": 7,
+      "pf_r": 0.529
+     },
+     "short": {
+      "trades": 31,
+      "pf_r": 0.643
+     }
+    },
+    "jahr_2026": {
+     "trades": 34,
+     "pf_r": 0.633,
+     "summe_r": -2.901,
+     "r_je_trade": -0.085,
+     "je_woche": 0.79,
+     "rueckgang_r": 5.066,
+     "long": {
+      "trades": 3,
+      "pf_r": 0.197
+     },
+     "short": {
+      "trades": 31,
+      "pf_r": 0.643
+     }
+    },
+    "kontrolle": {
+     "trades": 99,
+     "pf_r": 0.672,
+     "summe_r": -6.419,
+     "r_je_trade": -0.065,
+     "je_woche": 0.95,
+     "rueckgang_r": 9.275,
+     "long": {
+      "trades": 53,
+      "pf_r": 0.668
+     },
+     "short": {
+      "trades": 46,
+      "pf_r": 0.679
+     }
+    },
+    "gruende": [
+     "PF 1.087 unter 1,2",
+     "haelfte_2 0.637 nicht über 1,0",
+     "jahr_2026 0.633 nicht über 1,0",
+     "kontrolle 0.672 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "GBPUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 47,
+     "pf_r": 0.553,
+     "summe_r": -4.653,
+     "r_je_trade": -0.099,
+     "je_woche": 0.45,
+     "rueckgang_r": 5.862,
+     "long": {
+      "trades": 25,
+      "pf_r": 0.261
+     },
+     "short": {
+      "trades": 22,
+      "pf_r": 0.922
+     }
+    },
+    "robust": {
+     "trades": 46,
+     "pf_r": 0.526,
+     "summe_r": -4.963,
+     "r_je_trade": -0.108,
+     "je_woche": 0.44,
+     "rueckgang_r": 5.978,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.239
+     },
+     "short": {
+      "trades": 22,
+      "pf_r": 0.885
+     }
+    },
+    "haelfte_1": {
+     "trades": 22,
+     "pf_r": 0.659,
+     "summe_r": -1.758,
+     "r_je_trade": -0.08,
+     "je_woche": 0.42,
+     "rueckgang_r": 2.968,
+     "long": {
+      "trades": 13,
+      "pf_r": 0.195
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 1.656
+     }
+    },
+    "haelfte_2": {
+     "trades": 25,
+     "pf_r": 0.447,
+     "summe_r": -2.895,
+     "r_je_trade": -0.116,
+     "je_woche": 0.48,
+     "rueckgang_r": 3.742,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.364
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.513
+     }
+    },
+    "jahr_2026": {
+     "trades": 24,
+     "pf_r": 0.466,
+     "summe_r": -2.688,
+     "r_je_trade": -0.112,
+     "je_woche": 0.56,
+     "rueckgang_r": 3.742,
+     "long": {
+      "trades": 11,
+      "pf_r": 0.399
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.513
+     }
+    },
+    "kontrolle": {
+     "trades": 57,
+     "pf_r": 0.852,
+     "summe_r": -1.853,
+     "r_je_trade": -0.033,
+     "je_woche": 0.55,
+     "rueckgang_r": 6.087,
+     "long": {
+      "trades": 36,
+      "pf_r": 0.551
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 1.515
+     }
+    },
+    "gruende": [
+     "PF 0.553 unter 1,2",
+     "robust 0.526 unter 1,0",
+     "haelfte_1 0.659 nicht über 1,0",
+     "haelfte_2 0.447 nicht über 1,0",
+     "jahr_2026 0.466 nicht über 1,0",
+     "kontrolle 0.852 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 63,
+     "pf_r": 0.886,
+     "summe_r": -1.289,
+     "r_je_trade": -0.02,
+     "je_woche": 0.61,
+     "rueckgang_r": 5.559,
+     "long": {
+      "trades": 28,
+      "pf_r": 0.781
+     },
+     "short": {
+      "trades": 35,
+      "pf_r": 0.948
+     }
+    },
+    "robust": {
+     "trades": 62,
+     "pf_r": 0.836,
+     "summe_r": -1.871,
+     "r_je_trade": -0.03,
+     "je_woche": 0.6,
+     "rueckgang_r": 5.65,
+     "long": {
+      "trades": 27,
+      "pf_r": 0.702
+     },
+     "short": {
+      "trades": 35,
+      "pf_r": 0.915
+     }
+    },
+    "haelfte_1": {
+     "trades": 34,
+     "pf_r": 1.788,
+     "summe_r": 2.528,
+     "r_je_trade": 0.074,
+     "je_woche": 0.65,
+     "rueckgang_r": 1.493,
+     "long": {
+      "trades": 18,
+      "pf_r": 0.938
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 3.747
+     }
+    },
+    "haelfte_2": {
+     "trades": 29,
+     "pf_r": 0.529,
+     "summe_r": -3.817,
+     "r_je_trade": -0.132,
+     "je_woche": 0.56,
+     "rueckgang_r": 5.518,
+     "long": {
+      "trades": 10,
+      "pf_r": 0.603
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 0.506
+     }
+    },
+    "jahr_2026": {
+     "trades": 27,
+     "pf_r": 0.524,
+     "summe_r": -3.582,
+     "r_je_trade": -0.133,
+     "je_woche": 0.63,
+     "rueckgang_r": 4.93,
+     "long": {
+      "trades": 8,
+      "pf_r": 0.604
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 0.506
+     }
+    },
+    "kontrolle": {
+     "trades": 92,
+     "pf_r": 0.693,
+     "summe_r": -6.926,
+     "r_je_trade": -0.075,
+     "je_woche": 0.88,
+     "rueckgang_r": 10.641,
+     "long": {
+      "trades": 66,
+      "pf_r": 0.867
+     },
+     "short": {
+      "trades": 26,
+      "pf_r": 0.33
+     }
+    },
+    "gruende": [
+     "PF 0.886 unter 1,2",
+     "robust 0.836 unter 1,0",
+     "haelfte_2 0.529 nicht über 1,0",
+     "jahr_2026 0.524 nicht über 1,0",
+     "kontrolle 0.693 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "USDJPY": {
+   "woche": {
+    "zeitraum": {
+     "trades": 50,
+     "pf_r": 0.656,
+     "summe_r": -4.156,
+     "r_je_trade": -0.083,
+     "je_woche": 0.48,
+     "rueckgang_r": 6.119,
+     "long": {
+      "trades": 29,
+      "pf_r": 0.701
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 0.587
+     }
+    },
+    "robust": {
+     "trades": 50,
+     "pf_r": 0.651,
+     "summe_r": -4.241,
+     "r_je_trade": -0.085,
+     "je_woche": 0.48,
+     "rueckgang_r": 6.204,
+     "long": {
+      "trades": 29,
+      "pf_r": 0.701
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 0.573
+     }
+    },
+    "haelfte_1": {
+     "trades": 25,
+     "pf_r": 0.41,
+     "summe_r": -3.216,
+     "r_je_trade": -0.129,
+     "je_woche": 0.48,
+     "rueckgang_r": 4.065,
+     "long": {
+      "trades": 9,
+      "pf_r": 0.646
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 0.297
+     }
+    },
+    "haelfte_2": {
+     "trades": 25,
+     "pf_r": 0.858,
+     "summe_r": -0.94,
+     "r_je_trade": -0.038,
+     "je_woche": 0.48,
+     "rueckgang_r": 4.099,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.718
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 1.621
+     }
+    },
+    "jahr_2026": {
+     "trades": 25,
+     "pf_r": 0.858,
+     "summe_r": -0.94,
+     "r_je_trade": -0.038,
+     "je_woche": 0.58,
+     "rueckgang_r": 4.099,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.718
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 1.621
+     }
+    },
+    "kontrolle": {
+     "trades": 45,
+     "pf_r": 0.375,
+     "summe_r": -9.969,
+     "r_je_trade": -0.222,
+     "je_woche": 0.43,
+     "rueckgang_r": 10.983,
+     "long": {
+      "trades": 42,
+      "pf_r": 0.41
+     },
+     "short": {
+      "trades": 3,
+      "pf_r": 0.049
+     }
+    },
+    "gruende": [
+     "PF 0.656 unter 1,2",
+     "robust 0.651 unter 1,0",
+     "haelfte_1 0.41 nicht über 1,0",
+     "haelfte_2 0.858 nicht über 1,0",
+     "jahr_2026 0.858 nicht über 1,0",
+     "kontrolle 0.375 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 66,
+     "pf_r": 1.048,
+     "summe_r": 0.553,
+     "r_je_trade": 0.008,
+     "je_woche": 0.63,
+     "rueckgang_r": 3.993,
+     "long": {
+      "trades": 37,
+      "pf_r": 1.046
+     },
+     "short": {
+      "trades": 29,
+      "pf_r": 1.051
+     }
+    },
+    "robust": {
+     "trades": 66,
+     "pf_r": 1.038,
+     "summe_r": 0.441,
+     "r_je_trade": 0.007,
+     "je_woche": 0.63,
+     "rueckgang_r": 4.037,
+     "long": {
+      "trades": 37,
+      "pf_r": 1.046
+     },
+     "short": {
+      "trades": 29,
+      "pf_r": 1.03
+     }
+    },
+    "haelfte_1": {
+     "trades": 26,
+     "pf_r": 0.792,
+     "summe_r": -0.919,
+     "r_je_trade": -0.035,
+     "je_woche": 0.5,
+     "rueckgang_r": 3.436,
+     "long": {
+      "trades": 7,
+      "pf_r": 6.048
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 0.501
+     }
+    },
+    "haelfte_2": {
+     "trades": 40,
+     "pf_r": 1.209,
+     "summe_r": 1.472,
+     "r_je_trade": 0.037,
+     "je_woche": 0.77,
+     "rueckgang_r": 2.829,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.847
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 2.912
+     }
+    },
+    "jahr_2026": {
+     "trades": 40,
+     "pf_r": 1.209,
+     "summe_r": 1.472,
+     "r_je_trade": 0.037,
+     "je_woche": 0.93,
+     "rueckgang_r": 2.829,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.847
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 2.912
+     }
+    },
+    "kontrolle": {
+     "trades": 57,
+     "pf_r": 1.883,
+     "summe_r": 6.304,
+     "r_je_trade": 0.111,
+     "je_woche": 0.55,
+     "rueckgang_r": 1.19,
+     "long": {
+      "trades": 51,
+      "pf_r": 1.929
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 1.137
+     }
+    },
+    "gruende": [
+     "PF 1.048 unter 1,2",
+     "haelfte_1 0.792 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "AUDUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 61,
+     "pf_r": 1.004,
+     "summe_r": 0.052,
+     "r_je_trade": 0.001,
+     "je_woche": 0.59,
+     "rueckgang_r": 3.0,
+     "long": {
+      "trades": 56,
+      "pf_r": 1.239
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.276
+     }
+    },
+    "robust": {
+     "trades": 60,
+     "pf_r": 0.966,
+     "summe_r": -0.422,
+     "r_je_trade": -0.007,
+     "je_woche": 0.58,
+     "rueckgang_r": 3.0,
+     "long": {
+      "trades": 55,
+      "pf_r": 1.19
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.27
+     }
+    },
+    "haelfte_1": {
+     "trades": 27,
+     "pf_r": 0.77,
+     "summe_r": -1.427,
+     "r_je_trade": -0.053,
+     "je_woche": 0.52,
+     "rueckgang_r": 3.0,
+     "long": {
+      "trades": 22,
+      "pf_r": 1.233
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.276
+     }
+    },
+    "haelfte_2": {
+     "trades": 34,
+     "pf_r": 1.242,
+     "summe_r": 1.479,
+     "r_je_trade": 0.044,
+     "je_woche": 0.66,
+     "rueckgang_r": 2.24,
+     "long": {
+      "trades": 34,
+      "pf_r": 1.242
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 33,
+     "pf_r": 1.102,
+     "summe_r": 0.623,
+     "r_je_trade": 0.019,
+     "je_woche": 0.76,
+     "rueckgang_r": 2.24,
+     "long": {
+      "trades": 33,
+      "pf_r": 1.102
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 36,
+     "pf_r": 0.658,
+     "summe_r": -3.122,
+     "r_je_trade": -0.087,
+     "je_woche": 0.35,
+     "rueckgang_r": 4.149,
+     "long": {
+      "trades": 8,
+      "pf_r": 1.108
+     },
+     "short": {
+      "trades": 28,
+      "pf_r": 0.537
+     }
+    },
+    "gruende": [
+     "PF 1.004 unter 1,2",
+     "robust 0.966 unter 1,0",
+     "haelfte_1 0.77 nicht über 1,0",
+     "kontrolle 0.658 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 78,
+     "pf_r": 0.708,
+     "summe_r": -3.951,
+     "r_je_trade": -0.051,
+     "je_woche": 0.75,
+     "rueckgang_r": 6.459,
+     "long": {
+      "trades": 70,
+      "pf_r": 0.611
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 3.327
+     }
+    },
+    "robust": {
+     "trades": 77,
+     "pf_r": 0.703,
+     "summe_r": -4.021,
+     "r_je_trade": -0.052,
+     "je_woche": 0.74,
+     "rueckgang_r": 6.467,
+     "long": {
+      "trades": 69,
+      "pf_r": 0.611
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 3.131
+     }
+    },
+    "haelfte_1": {
+     "trades": 40,
+     "pf_r": 0.694,
+     "summe_r": -2.136,
+     "r_je_trade": -0.053,
+     "je_woche": 0.77,
+     "rueckgang_r": 4.523,
+     "long": {
+      "trades": 32,
+      "pf_r": 0.498
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 3.327
+     }
+    },
+    "haelfte_2": {
+     "trades": 38,
+     "pf_r": 0.724,
+     "summe_r": -1.815,
+     "r_je_trade": -0.048,
+     "je_woche": 0.73,
+     "rueckgang_r": 2.928,
+     "long": {
+      "trades": 38,
+      "pf_r": 0.724
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 30,
+     "pf_r": 0.656,
+     "summe_r": -2.041,
+     "r_je_trade": -0.068,
+     "je_woche": 0.7,
+     "rueckgang_r": 2.928,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.656
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 56,
+     "pf_r": 0.876,
+     "summe_r": -1.147,
+     "r_je_trade": -0.02,
+     "je_woche": 0.54,
+     "rueckgang_r": 3.069,
+     "long": {
+      "trades": 11,
+      "pf_r": 0.778
+     },
+     "short": {
+      "trades": 45,
+      "pf_r": 0.897
+     }
+    },
+    "gruende": [
+     "PF 0.708 unter 1,2",
+     "robust 0.703 unter 1,0",
+     "haelfte_1 0.694 nicht über 1,0",
+     "haelfte_2 0.724 nicht über 1,0",
+     "jahr_2026 0.656 nicht über 1,0",
+     "kontrolle 0.876 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "USDCAD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 35,
+     "pf_r": 0.703,
+     "summe_r": -2.249,
+     "r_je_trade": -0.064,
+     "je_woche": 0.34,
+     "rueckgang_r": 3.537,
+     "long": {
+      "trades": 15,
+      "pf_r": 0.699
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.706
+     }
+    },
+    "robust": {
+     "trades": 35,
+     "pf_r": 0.683,
+     "summe_r": -2.422,
+     "r_je_trade": -0.069,
+     "je_woche": 0.34,
+     "rueckgang_r": 3.598,
+     "long": {
+      "trades": 15,
+      "pf_r": 0.699
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.67
+     }
+    },
+    "haelfte_1": {
+     "trades": 17,
+     "pf_r": 1.242,
+     "summe_r": 0.67,
+     "r_je_trade": 0.039,
+     "je_woche": 0.33,
+     "rueckgang_r": 1.0,
+     "long": {
+      "trades": 4,
+      "pf_r": 1.352
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 1.179
+     }
+    },
+    "haelfte_2": {
+     "trades": 18,
+     "pf_r": 0.391,
+     "summe_r": -2.918,
+     "r_je_trade": -0.162,
+     "je_woche": 0.35,
+     "rueckgang_r": 3.537,
+     "long": {
+      "trades": 11,
+      "pf_r": 0.432
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.349
+     }
+    },
+    "jahr_2026": {
+     "trades": 16,
+     "pf_r": 0.29,
+     "summe_r": -3.072,
+     "r_je_trade": -0.192,
+     "je_woche": 0.37,
+     "rueckgang_r": 3.072,
+     "long": {
+      "trades": 11,
+      "pf_r": 0.432
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.107
+     }
+    },
+    "kontrolle": {
+     "trades": 47,
+     "pf_r": 1.124,
+     "summe_r": 1.091,
+     "r_je_trade": 0.023,
+     "je_woche": 0.45,
+     "rueckgang_r": 2.829,
+     "long": {
+      "trades": 27,
+      "pf_r": 0.932
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 1.596
+     }
+    },
+    "gruende": [
+     "nur 35 Trades",
+     "PF 0.703 unter 1,2",
+     "robust 0.683 unter 1,0",
+     "haelfte_2 0.391 nicht über 1,0",
+     "jahr_2026 0.29 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 68,
+     "pf_r": 1.077,
+     "summe_r": 0.829,
+     "r_je_trade": 0.012,
+     "je_woche": 0.65,
+     "rueckgang_r": 3.007,
+     "long": {
+      "trades": 31,
+      "pf_r": 1.184
+     },
+     "short": {
+      "trades": 37,
+      "pf_r": 0.956
+     }
+    },
+    "robust": {
+     "trades": 67,
+     "pf_r": 0.902,
+     "summe_r": -1.073,
+     "r_je_trade": -0.016,
+     "je_woche": 0.64,
+     "rueckgang_r": 3.217,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.912
+     },
+     "short": {
+      "trades": 37,
+      "pf_r": 0.891
+     }
+    },
+    "haelfte_1": {
+     "trades": 34,
+     "pf_r": 1.671,
+     "summe_r": 2.881,
+     "r_je_trade": 0.085,
+     "je_woche": 0.65,
+     "rueckgang_r": 1.205,
+     "long": {
+      "trades": 15,
+      "pf_r": 1.894
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 1.44
+     }
+    },
+    "haelfte_2": {
+     "trades": 34,
+     "pf_r": 0.684,
+     "summe_r": -2.052,
+     "r_je_trade": -0.06,
+     "je_woche": 0.66,
+     "rueckgang_r": 2.918,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.743
+     },
+     "short": {
+      "trades": 18,
+      "pf_r": 0.614
+     }
+    },
+    "jahr_2026": {
+     "trades": 27,
+     "pf_r": 0.744,
+     "summe_r": -1.426,
+     "r_je_trade": -0.053,
+     "je_woche": 0.63,
+     "rueckgang_r": 2.918,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.743
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 0.746
+     }
+    },
+    "kontrolle": {
+     "trades": 101,
+     "pf_r": 0.814,
+     "summe_r": -3.453,
+     "r_je_trade": -0.034,
+     "je_woche": 0.97,
+     "rueckgang_r": 5.219,
+     "long": {
+      "trades": 71,
+      "pf_r": 0.831
+     },
+     "short": {
+      "trades": 30,
+      "pf_r": 0.774
+     }
+    },
+    "gruende": [
+     "PF 1.077 unter 1,2",
+     "robust 0.902 unter 1,0",
+     "haelfte_2 0.684 nicht über 1,0",
+     "jahr_2026 0.744 nicht über 1,0",
+     "kontrolle 0.814 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "USDCHF": {
+   "woche": {
+    "zeitraum": {
+     "trades": 44,
+     "pf_r": 0.866,
+     "summe_r": -1.134,
+     "r_je_trade": -0.026,
+     "je_woche": 0.42,
+     "rueckgang_r": 3.86,
+     "long": {
+      "trades": 17,
+      "pf_r": 2.163
+     },
+     "short": {
+      "trades": 27,
+      "pf_r": 0.355
+     }
+    },
+    "robust": {
+     "trades": 43,
+     "pf_r": 0.803,
+     "summe_r": -1.693,
+     "r_je_trade": -0.039,
+     "je_woche": 0.41,
+     "rueckgang_r": 4.125,
+     "long": {
+      "trades": 16,
+      "pf_r": 2.05
+     },
+     "short": {
+      "trades": 27,
+      "pf_r": 0.324
+     }
+    },
+    "haelfte_1": {
+     "trades": 29,
+     "pf_r": 0.555,
+     "summe_r": -2.817,
+     "r_je_trade": -0.097,
+     "je_woche": 0.56,
+     "rueckgang_r": 3.842,
+     "long": {
+      "trades": 5,
+      "pf_r": 1.64
+     },
+     "short": {
+      "trades": 24,
+      "pf_r": 0.382
+     }
+    },
+    "haelfte_2": {
+     "trades": 15,
+     "pf_r": 1.8,
+     "summe_r": 1.683,
+     "r_je_trade": 0.112,
+     "je_woche": 0.29,
+     "rueckgang_r": 1.15,
+     "long": {
+      "trades": 12,
+      "pf_r": 2.465
+     },
+     "short": {
+      "trades": 3,
+      "pf_r": 0.109
+     }
+    },
+    "jahr_2026": {
+     "trades": 14,
+     "pf_r": 1.815,
+     "summe_r": 1.7,
+     "r_je_trade": 0.121,
+     "je_woche": 0.32,
+     "rueckgang_r": 1.15,
+     "long": {
+      "trades": 12,
+      "pf_r": 2.465
+     },
+     "short": {
+      "trades": 2,
+      "pf_r": 0.112
+     }
+    },
+    "kontrolle": {
+     "trades": 44,
+     "pf_r": 1.342,
+     "summe_r": 2.887,
+     "r_je_trade": 0.066,
+     "je_woche": 0.42,
+     "rueckgang_r": 3.033,
+     "long": {
+      "trades": 18,
+      "pf_r": 1.341
+     },
+     "short": {
+      "trades": 26,
+      "pf_r": 1.342
+     }
+    },
+    "gruende": [
+     "PF 0.866 unter 1,2",
+     "robust 0.803 unter 1,0",
+     "haelfte_1 0.555 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 79,
+     "pf_r": 0.931,
+     "summe_r": -1.0,
+     "r_je_trade": -0.013,
+     "je_woche": 0.76,
+     "rueckgang_r": 5.27,
+     "long": {
+      "trades": 37,
+      "pf_r": 1.293
+     },
+     "short": {
+      "trades": 42,
+      "pf_r": 0.671
+     }
+    },
+    "robust": {
+     "trades": 78,
+     "pf_r": 0.894,
+     "summe_r": -1.56,
+     "r_je_trade": -0.02,
+     "je_woche": 0.75,
+     "rueckgang_r": 5.596,
+     "long": {
+      "trades": 36,
+      "pf_r": 1.277
+     },
+     "short": {
+      "trades": 42,
+      "pf_r": 0.63
+     }
+    },
+    "haelfte_1": {
+     "trades": 43,
+     "pf_r": 1.573,
+     "summe_r": 3.853,
+     "r_je_trade": 0.09,
+     "je_woche": 0.83,
+     "rueckgang_r": 2.868,
+     "long": {
+      "trades": 17,
+      "pf_r": 3.729
+     },
+     "short": {
+      "trades": 26,
+      "pf_r": 0.929
+     }
+    },
+    "haelfte_2": {
+     "trades": 36,
+     "pf_r": 0.369,
+     "summe_r": -4.852,
+     "r_je_trade": -0.135,
+     "je_woche": 0.69,
+     "rueckgang_r": 5.072,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.45
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 0.256
+     }
+    },
+    "jahr_2026": {
+     "trades": 30,
+     "pf_r": 0.451,
+     "summe_r": -3.167,
+     "r_je_trade": -0.106,
+     "je_woche": 0.7,
+     "rueckgang_r": 3.858,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.45
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 0.454
+     }
+    },
+    "kontrolle": {
+     "trades": 92,
+     "pf_r": 0.947,
+     "summe_r": -0.992,
+     "r_je_trade": -0.011,
+     "je_woche": 0.88,
+     "rueckgang_r": 5.241,
+     "long": {
+      "trades": 41,
+      "pf_r": 0.716
+     },
+     "short": {
+      "trades": 51,
+      "pf_r": 1.12
+     }
+    },
+    "gruende": [
+     "PF 0.931 unter 1,2",
+     "robust 0.894 unter 1,0",
+     "haelfte_2 0.369 nicht über 1,0",
+     "jahr_2026 0.451 nicht über 1,0",
+     "kontrolle 0.947 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "NZDUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 43,
+     "pf_r": 0.451,
+     "summe_r": -5.934,
+     "r_je_trade": -0.138,
+     "je_woche": 0.41,
+     "rueckgang_r": 5.934,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.498
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.363
+     }
+    },
+    "robust": {
+     "trades": 43,
+     "pf_r": 0.441,
+     "summe_r": -6.105,
+     "r_je_trade": -0.142,
+     "je_woche": 0.41,
+     "rueckgang_r": 6.105,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.498
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.338
+     }
+    },
+    "haelfte_1": {
+     "trades": 25,
+     "pf_r": 0.528,
+     "summe_r": -3.021,
+     "r_je_trade": -0.121,
+     "je_woche": 0.48,
+     "rueckgang_r": 3.405,
+     "long": {
+      "trades": 18,
+      "pf_r": 0.612
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.398
+     }
+    },
+    "haelfte_2": {
+     "trades": 18,
+     "pf_r": 0.338,
+     "summe_r": -2.913,
+     "r_je_trade": -0.162,
+     "je_woche": 0.35,
+     "rueckgang_r": 2.975,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.356
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.295
+     }
+    },
+    "jahr_2026": {
+     "trades": 18,
+     "pf_r": 0.338,
+     "summe_r": -2.913,
+     "r_je_trade": -0.162,
+     "je_woche": 0.42,
+     "rueckgang_r": 2.975,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.356
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.295
+     }
+    },
+    "kontrolle": {
+     "trades": 45,
+     "pf_r": 1.347,
+     "summe_r": 2.275,
+     "r_je_trade": 0.051,
+     "je_woche": 0.43,
+     "rueckgang_r": 2.258,
+     "long": {
+      "trades": 9,
+      "pf_r": 19.268
+     },
+     "short": {
+      "trades": 36,
+      "pf_r": 0.918
+     }
+    },
+    "gruende": [
+     "PF 0.451 unter 1,2",
+     "robust 0.441 unter 1,0",
+     "haelfte_1 0.528 nicht über 1,0",
+     "haelfte_2 0.338 nicht über 1,0",
+     "jahr_2026 0.338 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 54,
+     "pf_r": 0.914,
+     "summe_r": -0.678,
+     "r_je_trade": -0.013,
+     "je_woche": 0.52,
+     "rueckgang_r": 2.613,
+     "long": {
+      "trades": 37,
+      "pf_r": 0.972
+     },
+     "short": {
+      "trades": 17,
+      "pf_r": 0.784
+     }
+    },
+    "robust": {
+     "trades": 52,
+     "pf_r": 0.754,
+     "summe_r": -1.962,
+     "r_je_trade": -0.038,
+     "je_woche": 0.5,
+     "rueckgang_r": 3.063,
+     "long": {
+      "trades": 35,
+      "pf_r": 0.778
+     },
+     "short": {
+      "trades": 17,
+      "pf_r": 0.704
+     }
+    },
+    "haelfte_1": {
+     "trades": 32,
+     "pf_r": 1.336,
+     "summe_r": 1.48,
+     "r_je_trade": 0.046,
+     "je_woche": 0.62,
+     "rueckgang_r": 1.434,
+     "long": {
+      "trades": 22,
+      "pf_r": 1.764
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 0.764
+     }
+    },
+    "haelfte_2": {
+     "trades": 22,
+     "pf_r": 0.382,
+     "summe_r": -2.158,
+     "r_je_trade": -0.098,
+     "je_woche": 0.42,
+     "rueckgang_r": 2.252,
+     "long": {
+      "trades": 15,
+      "pf_r": 0.294
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.851
+     }
+    },
+    "jahr_2026": {
+     "trades": 19,
+     "pf_r": 0.451,
+     "summe_r": -1.619,
+     "r_je_trade": -0.085,
+     "je_woche": 0.44,
+     "rueckgang_r": 1.714,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.36
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.851
+     }
+    },
+    "kontrolle": {
+     "trades": 67,
+     "pf_r": 0.733,
+     "summe_r": -2.955,
+     "r_je_trade": -0.044,
+     "je_woche": 0.64,
+     "rueckgang_r": 4.974,
+     "long": {
+      "trades": 11,
+      "pf_r": 1.897
+     },
+     "short": {
+      "trades": 56,
+      "pf_r": 0.629
+     }
+    },
+    "gruende": [
+     "PF 0.914 unter 1,2",
+     "robust 0.754 unter 1,0",
+     "haelfte_2 0.382 nicht über 1,0",
+     "jahr_2026 0.451 nicht über 1,0",
+     "kontrolle 0.733 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "EURGBP": {
+   "woche": {
+    "zeitraum": {
+     "trades": 54,
+     "pf_r": 0.541,
+     "summe_r": -6.186,
+     "r_je_trade": -0.115,
+     "je_woche": 0.52,
+     "rueckgang_r": 8.891,
+     "long": {
+      "trades": 22,
+      "pf_r": 0.107
+     },
+     "short": {
+      "trades": 32,
+      "pf_r": 0.856
+     }
+    },
+    "robust": {
+     "trades": 53,
+     "pf_r": 0.479,
+     "summe_r": -7.149,
+     "r_je_trade": -0.135,
+     "je_woche": 0.51,
+     "rueckgang_r": 9.292,
+     "long": {
+      "trades": 21,
+      "pf_r": 0.056
+     },
+     "short": {
+      "trades": 32,
+      "pf_r": 0.777
+     }
+    },
+    "haelfte_1": {
+     "trades": 27,
+     "pf_r": 0.51,
+     "summe_r": -3.596,
+     "r_je_trade": -0.133,
+     "je_woche": 0.52,
+     "rueckgang_r": 5.523,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.157
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 0.904
+     }
+    },
+    "haelfte_2": {
+     "trades": 27,
+     "pf_r": 0.578,
+     "summe_r": -2.59,
+     "r_je_trade": -0.096,
+     "je_woche": 0.52,
+     "rueckgang_r": 3.369,
+     "long": {
+      "trades": 6,
+      "pf_r": 0.0
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 0.817
+     }
+    },
+    "jahr_2026": {
+     "trades": 21,
+     "pf_r": 0.817,
+     "summe_r": -0.794,
+     "r_je_trade": -0.038,
+     "je_woche": 0.49,
+     "rueckgang_r": 1.75,
+     "long": {
+      "trades": 0,
+      "pf_r": null
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 0.817
+     }
+    },
+    "kontrolle": {
+     "trades": 51,
+     "pf_r": 0.692,
+     "summe_r": -4.655,
+     "r_je_trade": -0.091,
+     "je_woche": 0.49,
+     "rueckgang_r": 5.259,
+     "long": {
+      "trades": 6,
+      "pf_r": 0.501
+     },
+     "short": {
+      "trades": 45,
+      "pf_r": 0.722
+     }
+    },
+    "gruende": [
+     "PF 0.541 unter 1,2",
+     "robust 0.479 unter 1,0",
+     "haelfte_1 0.51 nicht über 1,0",
+     "haelfte_2 0.578 nicht über 1,0",
+     "jahr_2026 0.817 nicht über 1,0",
+     "kontrolle 0.692 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 100,
+     "pf_r": 0.535,
+     "summe_r": -9.727,
+     "r_je_trade": -0.097,
+     "je_woche": 0.96,
+     "rueckgang_r": 11.886,
+     "long": {
+      "trades": 50,
+      "pf_r": 0.401
+     },
+     "short": {
+      "trades": 50,
+      "pf_r": 0.693
+     }
+    },
+    "robust": {
+     "trades": 99,
+     "pf_r": 0.484,
+     "summe_r": -11.084,
+     "r_je_trade": -0.112,
+     "je_woche": 0.95,
+     "rueckgang_r": 13.017,
+     "long": {
+      "trades": 49,
+      "pf_r": 0.382
+     },
+     "short": {
+      "trades": 50,
+      "pf_r": 0.599
+     }
+    },
+    "haelfte_1": {
+     "trades": 44,
+     "pf_r": 0.692,
+     "summe_r": -2.46,
+     "r_je_trade": -0.056,
+     "je_woche": 0.85,
+     "rueckgang_r": 4.73,
+     "long": {
+      "trades": 35,
+      "pf_r": 0.579
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 1.208
+     }
+    },
+    "haelfte_2": {
+     "trades": 56,
+     "pf_r": 0.437,
+     "summe_r": -7.267,
+     "r_je_trade": -0.13,
+     "je_woche": 1.08,
+     "rueckgang_r": 7.829,
+     "long": {
+      "trades": 15,
+      "pf_r": 0.156
+     },
+     "short": {
+      "trades": 41,
+      "pf_r": 0.602
+     }
+    },
+    "jahr_2026": {
+     "trades": 46,
+     "pf_r": 0.631,
+     "summe_r": -3.285,
+     "r_je_trade": -0.071,
+     "je_woche": 1.07,
+     "rueckgang_r": 3.847,
+     "long": {
+      "trades": 5,
+      "pf_r": 0.931
+     },
+     "short": {
+      "trades": 41,
+      "pf_r": 0.602
+     }
+    },
+    "kontrolle": {
+     "trades": 75,
+     "pf_r": 0.444,
+     "summe_r": -9.865,
+     "r_je_trade": -0.132,
+     "je_woche": 0.72,
+     "rueckgang_r": 11.201,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.631
+     },
+     "short": {
+      "trades": 55,
+      "pf_r": 0.362
+     }
+    },
+    "gruende": [
+     "PF 0.535 unter 1,2",
+     "robust 0.484 unter 1,0",
+     "haelfte_1 0.692 nicht über 1,0",
+     "haelfte_2 0.437 nicht über 1,0",
+     "jahr_2026 0.631 nicht über 1,0",
+     "kontrolle 0.444 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "EURJPY": {
+   "woche": {
+    "zeitraum": {
+     "trades": 52,
+     "pf_r": 0.573,
+     "summe_r": -5.859,
+     "r_je_trade": -0.113,
+     "je_woche": 0.5,
+     "rueckgang_r": 6.029,
+     "long": {
+      "trades": 32,
+      "pf_r": 0.722
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.337
+     }
+    },
+    "robust": {
+     "trades": 52,
+     "pf_r": 0.565,
+     "summe_r": -5.997,
+     "r_je_trade": -0.115,
+     "je_woche": 0.5,
+     "rueckgang_r": 6.156,
+     "long": {
+      "trades": 32,
+      "pf_r": 0.722
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.321
+     }
+    },
+    "haelfte_1": {
+     "trades": 25,
+     "pf_r": 0.692,
+     "summe_r": -1.769,
+     "r_je_trade": -0.071,
+     "je_woche": 0.48,
+     "rueckgang_r": 4.319,
+     "long": {
+      "trades": 20,
+      "pf_r": 1.279
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.02
+     }
+    },
+    "haelfte_2": {
+     "trades": 27,
+     "pf_r": 0.487,
+     "summe_r": -4.09,
+     "r_je_trade": -0.151,
+     "je_woche": 0.52,
+     "rueckgang_r": 4.26,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.401
+     },
+     "short": {
+      "trades": 15,
+      "pf_r": 0.66
+     }
+    },
+    "jahr_2026": {
+     "trades": 24,
+     "pf_r": 0.547,
+     "summe_r": -3.044,
+     "r_je_trade": -0.127,
+     "je_woche": 0.56,
+     "rueckgang_r": 4.218,
+     "long": {
+      "trades": 9,
+      "pf_r": 0.474
+     },
+     "short": {
+      "trades": 15,
+      "pf_r": 0.66
+     }
+    },
+    "kontrolle": {
+     "trades": 50,
+     "pf_r": 0.408,
+     "summe_r": -9.33,
+     "r_je_trade": -0.187,
+     "je_woche": 0.48,
+     "rueckgang_r": 10.178,
+     "long": {
+      "trades": 47,
+      "pf_r": 0.464
+     },
+     "short": {
+      "trades": 3,
+      "pf_r": 0.0
+     }
+    },
+    "gruende": [
+     "PF 0.573 unter 1,2",
+     "robust 0.565 unter 1,0",
+     "haelfte_1 0.692 nicht über 1,0",
+     "haelfte_2 0.487 nicht über 1,0",
+     "jahr_2026 0.547 nicht über 1,0",
+     "kontrolle 0.408 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 78,
+     "pf_r": 0.436,
+     "summe_r": -9.943,
+     "r_je_trade": -0.127,
+     "je_woche": 0.75,
+     "rueckgang_r": 10.568,
+     "long": {
+      "trades": 46,
+      "pf_r": 0.379
+     },
+     "short": {
+      "trades": 32,
+      "pf_r": 0.6
+     }
+    },
+    "robust": {
+     "trades": 78,
+     "pf_r": 0.427,
+     "summe_r": -10.186,
+     "r_je_trade": -0.131,
+     "je_woche": 0.75,
+     "rueckgang_r": 10.811,
+     "long": {
+      "trades": 46,
+      "pf_r": 0.379
+     },
+     "short": {
+      "trades": 32,
+      "pf_r": 0.559
+     }
+    },
+    "haelfte_1": {
+     "trades": 39,
+     "pf_r": 0.371,
+     "summe_r": -6.1,
+     "r_je_trade": -0.156,
+     "je_woche": 0.75,
+     "rueckgang_r": 6.726,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.435
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 0.196
+     }
+    },
+    "haelfte_2": {
+     "trades": 39,
+     "pf_r": 0.516,
+     "summe_r": -3.843,
+     "r_je_trade": -0.099,
+     "je_woche": 0.75,
+     "rueckgang_r": 4.953,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.311
+     },
+     "short": {
+      "trades": 23,
+      "pf_r": 1.111
+     }
+    },
+    "jahr_2026": {
+     "trades": 33,
+     "pf_r": 0.342,
+     "summe_r": -4.933,
+     "r_je_trade": -0.149,
+     "je_woche": 0.76,
+     "rueckgang_r": 4.953,
+     "long": {
+      "trades": 10,
+      "pf_r": 0.055
+     },
+     "short": {
+      "trades": 23,
+      "pf_r": 1.111
+     }
+    },
+    "kontrolle": {
+     "trades": 63,
+     "pf_r": 1.604,
+     "summe_r": 4.982,
+     "r_je_trade": 0.079,
+     "je_woche": 0.6,
+     "rueckgang_r": 2.751,
+     "long": {
+      "trades": 62,
+      "pf_r": 1.62
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "gruende": [
+     "PF 0.436 unter 1,2",
+     "robust 0.427 unter 1,0",
+     "haelfte_1 0.371 nicht über 1,0",
+     "haelfte_2 0.516 nicht über 1,0",
+     "jahr_2026 0.342 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "GBPJPY": {
+   "woche": {
+    "zeitraum": {
+     "trades": 56,
+     "pf_r": 0.236,
+     "summe_r": -12.457,
+     "r_je_trade": -0.222,
+     "je_woche": 0.54,
+     "rueckgang_r": 12.746,
+     "long": {
+      "trades": 41,
+      "pf_r": 0.342
+     },
+     "short": {
+      "trades": 15,
+      "pf_r": 0.041
+     }
+    },
+    "robust": {
+     "trades": 56,
+     "pf_r": 0.234,
+     "summe_r": -12.565,
+     "r_je_trade": -0.224,
+     "je_woche": 0.54,
+     "rueckgang_r": 12.853,
+     "long": {
+      "trades": 41,
+      "pf_r": 0.342
+     },
+     "short": {
+      "trades": 15,
+      "pf_r": 0.039
+     }
+    },
+    "haelfte_1": {
+     "trades": 28,
+     "pf_r": 0.124,
+     "summe_r": -6.817,
+     "r_je_trade": -0.243,
+     "je_woche": 0.54,
+     "rueckgang_r": 7.105,
+     "long": {
+      "trades": 18,
+      "pf_r": 0.155
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 0.077
+     }
+    },
+    "haelfte_2": {
+     "trades": 28,
+     "pf_r": 0.338,
+     "summe_r": -5.64,
+     "r_je_trade": -0.201,
+     "je_woche": 0.54,
+     "rueckgang_r": 5.64,
+     "long": {
+      "trades": 23,
+      "pf_r": 0.491
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 23,
+     "pf_r": 0.276,
+     "summe_r": -5.292,
+     "r_je_trade": -0.23,
+     "je_woche": 0.53,
+     "rueckgang_r": 5.443,
+     "long": {
+      "trades": 18,
+      "pf_r": 0.433
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.0
+     }
+    },
+    "kontrolle": {
+     "trades": 57,
+     "pf_r": 0.653,
+     "summe_r": -5.546,
+     "r_je_trade": -0.097,
+     "je_woche": 0.55,
+     "rueckgang_r": 6.614,
+     "long": {
+      "trades": 55,
+      "pf_r": 0.747
+     },
+     "short": {
+      "trades": 2,
+      "pf_r": 0.0
+     }
+    },
+    "gruende": [
+     "PF 0.236 unter 1,2",
+     "robust 0.234 unter 1,0",
+     "haelfte_1 0.124 nicht über 1,0",
+     "haelfte_2 0.338 nicht über 1,0",
+     "jahr_2026 0.276 nicht über 1,0",
+     "kontrolle 0.653 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 80,
+     "pf_r": 0.59,
+     "summe_r": -7.19,
+     "r_je_trade": -0.09,
+     "je_woche": 0.77,
+     "rueckgang_r": 8.511,
+     "long": {
+      "trades": 60,
+      "pf_r": 0.642
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.479
+     }
+    },
+    "robust": {
+     "trades": 79,
+     "pf_r": 0.58,
+     "summe_r": -7.391,
+     "r_je_trade": -0.094,
+     "je_woche": 0.76,
+     "rueckgang_r": 8.692,
+     "long": {
+      "trades": 59,
+      "pf_r": 0.636
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.463
+     }
+    },
+    "haelfte_1": {
+     "trades": 39,
+     "pf_r": 0.549,
+     "summe_r": -4.175,
+     "r_je_trade": -0.107,
+     "je_woche": 0.75,
+     "rueckgang_r": 5.229,
+     "long": {
+      "trades": 25,
+      "pf_r": 0.631
+     },
+     "short": {
+      "trades": 14,
+      "pf_r": 0.455
+     }
+    },
+    "haelfte_2": {
+     "trades": 41,
+     "pf_r": 0.635,
+     "summe_r": -3.016,
+     "r_je_trade": -0.074,
+     "je_woche": 0.79,
+     "rueckgang_r": 5.662,
+     "long": {
+      "trades": 35,
+      "pf_r": 0.65
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.556
+     }
+    },
+    "jahr_2026": {
+     "trades": 33,
+     "pf_r": 0.366,
+     "summe_r": -5.196,
+     "r_je_trade": -0.157,
+     "je_woche": 0.76,
+     "rueckgang_r": 5.662,
+     "long": {
+      "trades": 27,
+      "pf_r": 0.329
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.556
+     }
+    },
+    "kontrolle": {
+     "trades": 69,
+     "pf_r": 1.128,
+     "summe_r": 1.455,
+     "r_je_trade": 0.021,
+     "je_woche": 0.66,
+     "rueckgang_r": 2.322,
+     "long": {
+      "trades": 68,
+      "pf_r": 1.175
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "gruende": [
+     "PF 0.59 unter 1,2",
+     "robust 0.58 unter 1,0",
+     "haelfte_1 0.549 nicht über 1,0",
+     "haelfte_2 0.635 nicht über 1,0",
+     "jahr_2026 0.366 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "EURCHF": {
+   "woche": {
+    "zeitraum": {
+     "trades": 47,
+     "pf_r": 0.823,
+     "summe_r": -1.797,
+     "r_je_trade": -0.038,
+     "je_woche": 0.45,
+     "rueckgang_r": 3.676,
+     "long": {
+      "trades": 11,
+      "pf_r": 0.514
+     },
+     "short": {
+      "trades": 36,
+      "pf_r": 0.958
+     }
+    },
+    "robust": {
+     "trades": 46,
+     "pf_r": 0.708,
+     "summe_r": -3.083,
+     "r_je_trade": -0.067,
+     "je_woche": 0.44,
+     "rueckgang_r": 4.397,
+     "long": {
+      "trades": 10,
+      "pf_r": 0.388
+     },
+     "short": {
+      "trades": 36,
+      "pf_r": 0.84
+     }
+    },
+    "haelfte_1": {
+     "trades": 30,
+     "pf_r": 1.151,
+     "summe_r": 0.774,
+     "r_je_trade": 0.026,
+     "je_woche": 0.58,
+     "rueckgang_r": 1.926,
+     "long": {
+      "trades": 8,
+      "pf_r": 1.515
+     },
+     "short": {
+      "trades": 22,
+      "pf_r": 1.057
+     }
+    },
+    "haelfte_2": {
+     "trades": 17,
+     "pf_r": 0.488,
+     "summe_r": -2.571,
+     "r_je_trade": -0.151,
+     "je_woche": 0.33,
+     "rueckgang_r": 3.336,
+     "long": {
+      "trades": 3,
+      "pf_r": 0.0
+     },
+     "short": {
+      "trades": 14,
+      "pf_r": 0.821
+     }
+    },
+    "jahr_2026": {
+     "trades": 16,
+     "pf_r": 0.432,
+     "summe_r": -2.85,
+     "r_je_trade": -0.178,
+     "je_woche": 0.37,
+     "rueckgang_r": 3.336,
+     "long": {
+      "trades": 3,
+      "pf_r": 0.0
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.727
+     }
+    },
+    "kontrolle": {
+     "trades": 42,
+     "pf_r": 1.294,
+     "summe_r": 2.603,
+     "r_je_trade": 0.062,
+     "je_woche": 0.4,
+     "rueckgang_r": 3.255,
+     "long": {
+      "trades": 14,
+      "pf_r": 0.75
+     },
+     "short": {
+      "trades": 28,
+      "pf_r": 1.849
+     }
+    },
+    "gruende": [
+     "PF 0.823 unter 1,2",
+     "robust 0.708 unter 1,0",
+     "haelfte_2 0.488 nicht über 1,0",
+     "jahr_2026 0.432 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 93,
+     "pf_r": 0.552,
+     "summe_r": -8.509,
+     "r_je_trade": -0.091,
+     "je_woche": 0.89,
+     "rueckgang_r": 10.424,
+     "long": {
+      "trades": 43,
+      "pf_r": 0.377
+     },
+     "short": {
+      "trades": 50,
+      "pf_r": 0.72
+     }
+    },
+    "robust": {
+     "trades": 90,
+     "pf_r": 0.461,
+     "summe_r": -10.572,
+     "r_je_trade": -0.117,
+     "je_woche": 0.87,
+     "rueckgang_r": 11.452,
+     "long": {
+      "trades": 40,
+      "pf_r": 0.292
+     },
+     "short": {
+      "trades": 50,
+      "pf_r": 0.612
+     }
+    },
+    "haelfte_1": {
+     "trades": 49,
+     "pf_r": 0.489,
+     "summe_r": -5.357,
+     "r_je_trade": -0.109,
+     "je_woche": 0.94,
+     "rueckgang_r": 7.053,
+     "long": {
+      "trades": 25,
+      "pf_r": 0.347
+     },
+     "short": {
+      "trades": 24,
+      "pf_r": 0.657
+     }
+    },
+    "haelfte_2": {
+     "trades": 44,
+     "pf_r": 0.629,
+     "summe_r": -3.153,
+     "r_je_trade": -0.072,
+     "je_woche": 0.85,
+     "rueckgang_r": 3.775,
+     "long": {
+      "trades": 18,
+      "pf_r": 0.424
+     },
+     "short": {
+      "trades": 26,
+      "pf_r": 0.78
+     }
+    },
+    "jahr_2026": {
+     "trades": 38,
+     "pf_r": 0.762,
+     "summe_r": -1.488,
+     "r_je_trade": -0.039,
+     "je_woche": 0.88,
+     "rueckgang_r": 2.311,
+     "long": {
+      "trades": 17,
+      "pf_r": 0.469
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 1.08
+     }
+    },
+    "kontrolle": {
+     "trades": 82,
+     "pf_r": 0.527,
+     "summe_r": -8.449,
+     "r_je_trade": -0.103,
+     "je_woche": 0.79,
+     "rueckgang_r": 10.373,
+     "long": {
+      "trades": 38,
+      "pf_r": 0.633
+     },
+     "short": {
+      "trades": 44,
+      "pf_r": 0.448
+     }
+    },
+    "gruende": [
+     "PF 0.552 unter 1,2",
+     "robust 0.461 unter 1,0",
+     "haelfte_1 0.489 nicht über 1,0",
+     "haelfte_2 0.629 nicht über 1,0",
+     "jahr_2026 0.762 nicht über 1,0",
+     "kontrolle 0.527 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "XAGUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 45,
+     "pf_r": 0.718,
+     "summe_r": -2.985,
+     "r_je_trade": -0.066,
+     "je_woche": 0.43,
+     "rueckgang_r": 4.837,
+     "long": {
+      "trades": 38,
+      "pf_r": 0.697
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.886
+     }
+    },
+    "robust": {
+     "trades": 44,
+     "pf_r": 0.682,
+     "summe_r": -3.378,
+     "r_je_trade": -0.077,
+     "je_woche": 0.42,
+     "rueckgang_r": 4.876,
+     "long": {
+      "trades": 37,
+      "pf_r": 0.659
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.857
+     }
+    },
+    "haelfte_1": {
+     "trades": 25,
+     "pf_r": 1.082,
+     "summe_r": 0.443,
+     "r_je_trade": 0.018,
+     "je_woche": 0.48,
+     "rueckgang_r": 2.278,
+     "long": {
+      "trades": 25,
+      "pf_r": 1.082
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 20,
+     "pf_r": 0.336,
+     "summe_r": -3.427,
+     "r_je_trade": -0.171,
+     "je_woche": 0.39,
+     "rueckgang_r": 3.927,
+     "long": {
+      "trades": 13,
+      "pf_r": 0.171
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.886
+     }
+    },
+    "jahr_2026": {
+     "trades": 17,
+     "pf_r": 0.239,
+     "summe_r": -3.927,
+     "r_je_trade": -0.231,
+     "je_woche": 0.39,
+     "rueckgang_r": 3.927,
+     "long": {
+      "trades": 10,
+      "pf_r": 0.046
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.886
+     }
+    },
+    "kontrolle": {
+     "trades": 59,
+     "pf_r": 0.744,
+     "summe_r": -4.185,
+     "r_je_trade": -0.071,
+     "je_woche": 0.57,
+     "rueckgang_r": 6.034,
+     "long": {
+      "trades": 31,
+      "pf_r": 0.444
+     },
+     "short": {
+      "trades": 28,
+      "pf_r": 1.188
+     }
+    },
+    "gruende": [
+     "PF 0.718 unter 1,2",
+     "robust 0.682 unter 1,0",
+     "haelfte_2 0.336 nicht über 1,0",
+     "jahr_2026 0.239 nicht über 1,0",
+     "kontrolle 0.744 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 77,
+     "pf_r": 0.991,
+     "summe_r": -0.12,
+     "r_je_trade": -0.002,
+     "je_woche": 0.74,
+     "rueckgang_r": 3.281,
+     "long": {
+      "trades": 64,
+      "pf_r": 1.149
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.351
+     }
+    },
+    "robust": {
+     "trades": 75,
+     "pf_r": 0.937,
+     "summe_r": -0.829,
+     "r_je_trade": -0.011,
+     "je_woche": 0.72,
+     "rueckgang_r": 3.314,
+     "long": {
+      "trades": 62,
+      "pf_r": 1.088
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.336
+     }
+    },
+    "haelfte_1": {
+     "trades": 46,
+     "pf_r": 1.138,
+     "summe_r": 0.898,
+     "r_je_trade": 0.02,
+     "je_woche": 0.88,
+     "rueckgang_r": 1.811,
+     "long": {
+      "trades": 46,
+      "pf_r": 1.138
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 31,
+     "pf_r": 0.845,
+     "summe_r": -1.018,
+     "r_je_trade": -0.033,
+     "je_woche": 0.6,
+     "rueckgang_r": 3.281,
+     "long": {
+      "trades": 18,
+      "pf_r": 1.167
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.351
+     }
+    },
+    "jahr_2026": {
+     "trades": 17,
+     "pf_r": 0.306,
+     "summe_r": -2.638,
+     "r_je_trade": -0.155,
+     "je_woche": 0.39,
+     "rueckgang_r": 3.054,
+     "long": {
+      "trades": 4,
+      "pf_r": 0.21
+     },
+     "short": {
+      "trades": 13,
+      "pf_r": 0.351
+     }
+    },
+    "kontrolle": {
+     "trades": 118,
+     "pf_r": 0.791,
+     "summe_r": -4.567,
+     "r_je_trade": -0.039,
+     "je_woche": 1.13,
+     "rueckgang_r": 9.867,
+     "long": {
+      "trades": 65,
+      "pf_r": 1.146
+     },
+     "short": {
+      "trades": 53,
+      "pf_r": 0.497
+     }
+    },
+    "gruende": [
+     "PF 0.991 unter 1,2",
+     "robust 0.937 unter 1,0",
+     "haelfte_2 0.845 nicht über 1,0",
+     "jahr_2026 0.306 nicht über 1,0",
+     "kontrolle 0.791 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "WTIUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 4,
+     "pf_r": 0.54,
+     "summe_r": -0.388,
+     "r_je_trade": -0.097,
+     "je_woche": 0.04,
+     "rueckgang_r": 0.844,
+     "long": {
+      "trades": 3,
+      "pf_r": 0.135
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "robust": {
+     "trades": 3,
+     "pf_r": 0.464,
+     "summe_r": -0.452,
+     "r_je_trade": -0.151,
+     "je_woche": 0.03,
+     "rueckgang_r": 0.844,
+     "long": {
+      "trades": 2,
+      "pf_r": 0.067
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "haelfte_1": {
+     "trades": 0,
+     "pf_r": null,
+     "summe_r": 0.0,
+     "r_je_trade": null,
+     "je_woche": 0.0,
+     "rueckgang_r": 0.0,
+     "long": {
+      "trades": 0,
+      "pf_r": null
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 4,
+     "pf_r": 0.54,
+     "summe_r": -0.388,
+     "r_je_trade": -0.097,
+     "je_woche": 0.08,
+     "rueckgang_r": 0.844,
+     "long": {
+      "trades": 3,
+      "pf_r": 0.135
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 4,
+     "pf_r": 0.54,
+     "summe_r": -0.388,
+     "r_je_trade": -0.097,
+     "je_woche": 0.09,
+     "rueckgang_r": 0.844,
+     "long": {
+      "trades": 3,
+      "pf_r": 0.135
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "kontrolle": {
+     "trades": 15,
+     "pf_r": 0.527,
+     "summe_r": -1.441,
+     "r_je_trade": -0.096,
+     "je_woche": 0.14,
+     "rueckgang_r": 1.51,
+     "long": {
+      "trades": 7,
+      "pf_r": 1.002
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.273
+     }
+    },
+    "gruende": [
+     "nur 4 Trades",
+     "PF 0.54 unter 1,2",
+     "robust 0.464 unter 1,0",
+     "haelfte_1 None nicht über 1,0",
+     "haelfte_2 0.54 nicht über 1,0",
+     "jahr_2026 0.54 nicht über 1,0",
+     "kontrolle 0.527 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 8,
+     "pf_r": 2.716,
+     "summe_r": 1.634,
+     "r_je_trade": 0.204,
+     "je_woche": 0.08,
+     "rueckgang_r": 0.398,
+     "long": {
+      "trades": 7,
+      "pf_r": 3.394
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "robust": {
+     "trades": 8,
+     "pf_r": 2.695,
+     "summe_r": 1.627,
+     "r_je_trade": 0.203,
+     "je_woche": 0.08,
+     "rueckgang_r": 0.405,
+     "long": {
+      "trades": 7,
+      "pf_r": 3.394
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "haelfte_1": {
+     "trades": 0,
+     "pf_r": null,
+     "summe_r": 0.0,
+     "r_je_trade": null,
+     "je_woche": 0.0,
+     "rueckgang_r": 0.0,
+     "long": {
+      "trades": 0,
+      "pf_r": null
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 8,
+     "pf_r": 2.716,
+     "summe_r": 1.634,
+     "r_je_trade": 0.204,
+     "je_woche": 0.15,
+     "rueckgang_r": 0.398,
+     "long": {
+      "trades": 7,
+      "pf_r": 3.394
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 8,
+     "pf_r": 2.716,
+     "summe_r": 1.634,
+     "r_je_trade": 0.204,
+     "je_woche": 0.19,
+     "rueckgang_r": 0.398,
+     "long": {
+      "trades": 7,
+      "pf_r": 3.394
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "kontrolle": {
+     "trades": 30,
+     "pf_r": 0.528,
+     "summe_r": -2.624,
+     "r_je_trade": -0.087,
+     "je_woche": 0.29,
+     "rueckgang_r": 3.191,
+     "long": {
+      "trades": 11,
+      "pf_r": 0.634
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 0.468
+     }
+    },
+    "gruende": [
+     "nur 8 Trades",
+     "haelfte_1 None nicht über 1,0",
+     "kontrolle 0.528 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "SPXUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 67,
+     "pf_r": 0.53,
+     "summe_r": -7.526,
+     "r_je_trade": -0.112,
+     "je_woche": 0.64,
+     "rueckgang_r": 8.653,
+     "long": {
+      "trades": 63,
+      "pf_r": 0.55
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 0.0
+     }
+    },
+    "robust": {
+     "trades": 67,
+     "pf_r": 0.53,
+     "summe_r": -7.535,
+     "r_je_trade": -0.112,
+     "je_woche": 0.64,
+     "rueckgang_r": 8.663,
+     "long": {
+      "trades": 63,
+      "pf_r": 0.55
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 0.0
+     }
+    },
+    "haelfte_1": {
+     "trades": 34,
+     "pf_r": 0.792,
+     "summe_r": -1.388,
+     "r_je_trade": -0.041,
+     "je_woche": 0.65,
+     "rueckgang_r": 2.642,
+     "long": {
+      "trades": 31,
+      "pf_r": 0.855
+     },
+     "short": {
+      "trades": 3,
+      "pf_r": 0.0
+     }
+    },
+    "haelfte_2": {
+     "trades": 33,
+     "pf_r": 0.343,
+     "summe_r": -6.137,
+     "r_je_trade": -0.186,
+     "je_woche": 0.64,
+     "rueckgang_r": 6.137,
+     "long": {
+      "trades": 32,
+      "pf_r": 0.347
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 28,
+     "pf_r": 0.402,
+     "summe_r": -4.223,
+     "r_je_trade": -0.151,
+     "je_woche": 0.65,
+     "rueckgang_r": 4.223,
+     "long": {
+      "trades": 27,
+      "pf_r": 0.407
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "kontrolle": {
+     "trades": 40,
+     "pf_r": 0.568,
+     "summe_r": -4.62,
+     "r_je_trade": -0.116,
+     "je_woche": 0.38,
+     "rueckgang_r": 6.865,
+     "long": {
+      "trades": 37,
+      "pf_r": 0.587
+     },
+     "short": {
+      "trades": 3,
+      "pf_r": 0.35
+     }
+    },
+    "gruende": [
+     "PF 0.53 unter 1,2",
+     "robust 0.53 unter 1,0",
+     "haelfte_1 0.792 nicht über 1,0",
+     "haelfte_2 0.343 nicht über 1,0",
+     "jahr_2026 0.402 nicht über 1,0",
+     "kontrolle 0.568 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 61,
+     "pf_r": 0.707,
+     "summe_r": -3.659,
+     "r_je_trade": -0.06,
+     "je_woche": 0.59,
+     "rueckgang_r": 6.304,
+     "long": {
+      "trades": 47,
+      "pf_r": 0.889
+     },
+     "short": {
+      "trades": 14,
+      "pf_r": 0.263
+     }
+    },
+    "robust": {
+     "trades": 61,
+     "pf_r": 0.704,
+     "summe_r": -3.696,
+     "r_je_trade": -0.061,
+     "je_woche": 0.59,
+     "rueckgang_r": 6.329,
+     "long": {
+      "trades": 47,
+      "pf_r": 0.889
+     },
+     "short": {
+      "trades": 14,
+      "pf_r": 0.257
+     }
+    },
+    "haelfte_1": {
+     "trades": 36,
+     "pf_r": 0.604,
+     "summe_r": -3.319,
+     "r_je_trade": -0.092,
+     "je_woche": 0.69,
+     "rueckgang_r": 5.235,
+     "long": {
+      "trades": 28,
+      "pf_r": 0.7
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.315
+     }
+    },
+    "haelfte_2": {
+     "trades": 25,
+     "pf_r": 0.917,
+     "summe_r": -0.34,
+     "r_je_trade": -0.014,
+     "je_woche": 0.48,
+     "rueckgang_r": 2.728,
+     "long": {
+      "trades": 19,
+      "pf_r": 1.354
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.192
+     }
+    },
+    "jahr_2026": {
+     "trades": 25,
+     "pf_r": 0.917,
+     "summe_r": -0.34,
+     "r_je_trade": -0.014,
+     "je_woche": 0.58,
+     "rueckgang_r": 2.728,
+     "long": {
+      "trades": 19,
+      "pf_r": 1.354
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.192
+     }
+    },
+    "kontrolle": {
+     "trades": 68,
+     "pf_r": 1.275,
+     "summe_r": 2.432,
+     "r_je_trade": 0.036,
+     "je_woche": 0.65,
+     "rueckgang_r": 2.763,
+     "long": {
+      "trades": 67,
+      "pf_r": 1.267
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "gruende": [
+     "PF 0.707 unter 1,2",
+     "robust 0.704 unter 1,0",
+     "haelfte_1 0.604 nicht über 1,0",
+     "haelfte_2 0.917 nicht über 1,0",
+     "jahr_2026 0.917 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "NSXUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 46,
+     "pf_r": 0.432,
+     "summe_r": -7.46,
+     "r_je_trade": -0.162,
+     "je_woche": 0.44,
+     "rueckgang_r": 8.074,
+     "long": {
+      "trades": 36,
+      "pf_r": 0.54
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 0.079
+     }
+    },
+    "robust": {
+     "trades": 46,
+     "pf_r": 0.431,
+     "summe_r": -7.473,
+     "r_je_trade": -0.162,
+     "je_woche": 0.44,
+     "rueckgang_r": 8.086,
+     "long": {
+      "trades": 36,
+      "pf_r": 0.54
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 0.077
+     }
+    },
+    "haelfte_1": {
+     "trades": 29,
+     "pf_r": 0.783,
+     "summe_r": -1.291,
+     "r_je_trade": -0.045,
+     "je_woche": 0.56,
+     "rueckgang_r": 2.616,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.952
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.184
+     }
+    },
+    "haelfte_2": {
+     "trades": 17,
+     "pf_r": 0.14,
+     "summe_r": -6.17,
+     "r_je_trade": -0.363,
+     "je_woche": 0.33,
+     "rueckgang_r": 6.17,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.186
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 13,
+     "pf_r": 0.112,
+     "summe_r": -4.596,
+     "r_je_trade": -0.354,
+     "je_woche": 0.3,
+     "rueckgang_r": 4.596,
+     "long": {
+      "trades": 8,
+      "pf_r": 0.169
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.0
+     }
+    },
+    "kontrolle": {
+     "trades": 45,
+     "pf_r": 0.463,
+     "summe_r": -7.411,
+     "r_je_trade": -0.165,
+     "je_woche": 0.43,
+     "rueckgang_r": 8.394,
+     "long": {
+      "trades": 44,
+      "pf_r": 0.487
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "gruende": [
+     "PF 0.432 unter 1,2",
+     "robust 0.431 unter 1,0",
+     "haelfte_1 0.783 nicht über 1,0",
+     "haelfte_2 0.14 nicht über 1,0",
+     "jahr_2026 0.112 nicht über 1,0",
+     "kontrolle 0.463 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 73,
+     "pf_r": 1.015,
+     "summe_r": 0.152,
+     "r_je_trade": 0.002,
+     "je_woche": 0.7,
+     "rueckgang_r": 4.402,
+     "long": {
+      "trades": 56,
+      "pf_r": 1.015
+     },
+     "short": {
+      "trades": 17,
+      "pf_r": 1.014
+     }
+    },
+    "robust": {
+     "trades": 72,
+     "pf_r": 1.004,
+     "summe_r": 0.044,
+     "r_je_trade": 0.001,
+     "je_woche": 0.69,
+     "rueckgang_r": 4.417,
+     "long": {
+      "trades": 55,
+      "pf_r": 1.006
+     },
+     "short": {
+      "trades": 17,
+      "pf_r": 0.998
+     }
+    },
+    "haelfte_1": {
+     "trades": 48,
+     "pf_r": 0.64,
+     "summe_r": -2.919,
+     "r_je_trade": -0.061,
+     "je_woche": 0.92,
+     "rueckgang_r": 4.402,
+     "long": {
+      "trades": 41,
+      "pf_r": 0.71
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.126
+     }
+    },
+    "haelfte_2": {
+     "trades": 25,
+     "pf_r": 2.442,
+     "summe_r": 3.071,
+     "r_je_trade": 0.123,
+     "je_woche": 0.48,
+     "rueckgang_r": 0.721,
+     "long": {
+      "trades": 15,
+      "pf_r": 2.965
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 1.864
+     }
+    },
+    "jahr_2026": {
+     "trades": 25,
+     "pf_r": 2.442,
+     "summe_r": 3.071,
+     "r_je_trade": 0.123,
+     "je_woche": 0.58,
+     "rueckgang_r": 0.721,
+     "long": {
+      "trades": 15,
+      "pf_r": 2.965
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 1.864
+     }
+    },
+    "kontrolle": {
+     "trades": 59,
+     "pf_r": 0.743,
+     "summe_r": -2.623,
+     "r_je_trade": -0.044,
+     "je_woche": 0.57,
+     "rueckgang_r": 3.174,
+     "long": {
+      "trades": 55,
+      "pf_r": 0.796
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 0.353
+     }
+    },
+    "gruende": [
+     "PF 1.015 unter 1,2",
+     "haelfte_1 0.64 nicht über 1,0",
+     "kontrolle 0.743 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "GRXEUR": {
+   "woche": {
+    "zeitraum": {
+     "trades": 38,
+     "pf_r": 0.34,
+     "summe_r": -7.012,
+     "r_je_trade": -0.185,
+     "je_woche": 0.37,
+     "rueckgang_r": 7.221,
+     "long": {
+      "trades": 38,
+      "pf_r": 0.34
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "robust": {
+     "trades": 38,
+     "pf_r": 0.34,
+     "summe_r": -7.012,
+     "r_je_trade": -0.185,
+     "je_woche": 0.37,
+     "rueckgang_r": 7.221,
+     "long": {
+      "trades": 38,
+      "pf_r": 0.34
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_1": {
+     "trades": 21,
+     "pf_r": 0.202,
+     "summe_r": -5.426,
+     "r_je_trade": -0.258,
+     "je_woche": 0.4,
+     "rueckgang_r": 5.543,
+     "long": {
+      "trades": 21,
+      "pf_r": 0.202
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 17,
+     "pf_r": 0.585,
+     "summe_r": -1.587,
+     "r_je_trade": -0.093,
+     "je_woche": 0.33,
+     "rueckgang_r": 1.764,
+     "long": {
+      "trades": 17,
+      "pf_r": 0.585
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 12,
+     "pf_r": 0.364,
+     "summe_r": -1.521,
+     "r_je_trade": -0.127,
+     "je_woche": 0.28,
+     "rueckgang_r": 1.764,
+     "long": {
+      "trades": 12,
+      "pf_r": 0.364
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 25,
+     "pf_r": 0.951,
+     "summe_r": -0.215,
+     "r_je_trade": -0.009,
+     "je_woche": 0.24,
+     "rueckgang_r": 2.77,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.565
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "gruende": [
+     "nur 38 Trades",
+     "PF 0.34 unter 1,2",
+     "robust 0.34 unter 1,0",
+     "haelfte_1 0.202 nicht über 1,0",
+     "haelfte_2 0.585 nicht über 1,0",
+     "jahr_2026 0.364 nicht über 1,0",
+     "kontrolle 0.951 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 69,
+     "pf_r": 0.519,
+     "summe_r": -6.569,
+     "r_je_trade": -0.095,
+     "je_woche": 0.66,
+     "rueckgang_r": 8.685,
+     "long": {
+      "trades": 60,
+      "pf_r": 0.482
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 0.7
+     }
+    },
+    "robust": {
+     "trades": 69,
+     "pf_r": 0.518,
+     "summe_r": -6.582,
+     "r_je_trade": -0.095,
+     "je_woche": 0.66,
+     "rueckgang_r": 8.691,
+     "long": {
+      "trades": 60,
+      "pf_r": 0.482
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 0.695
+     }
+    },
+    "haelfte_1": {
+     "trades": 37,
+     "pf_r": 0.397,
+     "summe_r": -5.4,
+     "r_je_trade": -0.146,
+     "je_woche": 0.71,
+     "rueckgang_r": 6.328,
+     "long": {
+      "trades": 35,
+      "pf_r": 0.456
+     },
+     "short": {
+      "trades": 2,
+      "pf_r": 0.0
+     }
+    },
+    "haelfte_2": {
+     "trades": 32,
+     "pf_r": 0.751,
+     "summe_r": -1.169,
+     "r_je_trade": -0.037,
+     "je_woche": 0.62,
+     "rueckgang_r": 2.814,
+     "long": {
+      "trades": 25,
+      "pf_r": 0.539
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 1.411
+     }
+    },
+    "jahr_2026": {
+     "trades": 30,
+     "pf_r": 0.851,
+     "summe_r": -0.618,
+     "r_je_trade": -0.021,
+     "je_woche": 0.7,
+     "rueckgang_r": 2.332,
+     "long": {
+      "trades": 23,
+      "pf_r": 0.638
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 1.411
+     }
+    },
+    "kontrolle": {
+     "trades": 35,
+     "pf_r": 0.976,
+     "summe_r": -0.152,
+     "r_je_trade": -0.004,
+     "je_woche": 0.34,
+     "rueckgang_r": 2.922,
+     "long": {
+      "trades": 34,
+      "pf_r": 1.078
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "gruende": [
+     "PF 0.519 unter 1,2",
+     "robust 0.518 unter 1,0",
+     "haelfte_1 0.397 nicht über 1,0",
+     "haelfte_2 0.751 nicht über 1,0",
+     "jahr_2026 0.851 nicht über 1,0",
+     "kontrolle 0.976 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "UKXGBP": {
+   "woche": {
+    "zeitraum": {
+     "trades": 51,
+     "pf_r": 1.156,
+     "summe_r": 1.448,
+     "r_je_trade": 0.028,
+     "je_woche": 0.49,
+     "rueckgang_r": 2.346,
+     "long": {
+      "trades": 46,
+      "pf_r": 1.381
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.113
+     }
+    },
+    "robust": {
+     "trades": 49,
+     "pf_r": 1.059,
+     "summe_r": 0.553,
+     "r_je_trade": 0.011,
+     "je_woche": 0.47,
+     "rueckgang_r": 2.844,
+     "long": {
+      "trades": 44,
+      "pf_r": 1.267
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.109
+     }
+    },
+    "haelfte_1": {
+     "trades": 32,
+     "pf_r": 1.28,
+     "summe_r": 1.458,
+     "r_je_trade": 0.046,
+     "je_woche": 0.62,
+     "rueckgang_r": 2.032,
+     "long": {
+      "trades": 27,
+      "pf_r": 1.826
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.113
+     }
+    },
+    "haelfte_2": {
+     "trades": 19,
+     "pf_r": 0.998,
+     "summe_r": -0.01,
+     "r_je_trade": -0.001,
+     "je_woche": 0.37,
+     "rueckgang_r": 2.346,
+     "long": {
+      "trades": 19,
+      "pf_r": 0.998
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 17,
+     "pf_r": 1.322,
+     "summe_r": 0.999,
+     "r_je_trade": 0.059,
+     "je_woche": 0.39,
+     "rueckgang_r": 1.835,
+     "long": {
+      "trades": 17,
+      "pf_r": 1.322
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 33,
+     "pf_r": 0.775,
+     "summe_r": -1.571,
+     "r_je_trade": -0.048,
+     "je_woche": 0.32,
+     "rueckgang_r": 2.969,
+     "long": {
+      "trades": 22,
+      "pf_r": 0.443
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 1.671
+     }
+    },
+    "gruende": [
+     "PF 1.156 unter 1,2",
+     "haelfte_2 0.998 nicht über 1,0",
+     "kontrolle 0.775 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 64,
+     "pf_r": 0.561,
+     "summe_r": -5.417,
+     "r_je_trade": -0.085,
+     "je_woche": 0.62,
+     "rueckgang_r": 5.668,
+     "long": {
+      "trades": 59,
+      "pf_r": 0.68
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.078
+     }
+    },
+    "robust": {
+     "trades": 62,
+     "pf_r": 0.526,
+     "summe_r": -5.852,
+     "r_je_trade": -0.094,
+     "je_woche": 0.6,
+     "rueckgang_r": 6.103,
+     "long": {
+      "trades": 57,
+      "pf_r": 0.638
+     },
+     "short": {
+      "trades": 5,
+      "pf_r": 0.075
+     }
+    },
+    "haelfte_1": {
+     "trades": 38,
+     "pf_r": 0.608,
+     "summe_r": -2.664,
+     "r_je_trade": -0.07,
+     "je_woche": 0.73,
+     "rueckgang_r": 4.241,
+     "long": {
+      "trades": 34,
+      "pf_r": 0.736
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 0.131
+     }
+    },
+    "haelfte_2": {
+     "trades": 26,
+     "pf_r": 0.503,
+     "summe_r": -2.752,
+     "r_je_trade": -0.106,
+     "je_woche": 0.5,
+     "rueckgang_r": 3.523,
+     "long": {
+      "trades": 25,
+      "pf_r": 0.614
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 23,
+     "pf_r": 0.418,
+     "summe_r": -2.77,
+     "r_je_trade": -0.12,
+     "je_woche": 0.53,
+     "rueckgang_r": 3.523,
+     "long": {
+      "trades": 22,
+      "pf_r": 0.529
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 0.0
+     }
+    },
+    "kontrolle": {
+     "trades": 61,
+     "pf_r": 0.69,
+     "summe_r": -2.587,
+     "r_je_trade": -0.042,
+     "je_woche": 0.58,
+     "rueckgang_r": 4.68,
+     "long": {
+      "trades": 41,
+      "pf_r": 0.734
+     },
+     "short": {
+      "trades": 20,
+      "pf_r": 0.634
+     }
+    },
+    "gruende": [
+     "PF 0.561 unter 1,2",
+     "robust 0.526 unter 1,0",
+     "haelfte_1 0.608 nicht über 1,0",
+     "haelfte_2 0.503 nicht über 1,0",
+     "jahr_2026 0.418 nicht über 1,0",
+     "kontrolle 0.69 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "JPXJPY": {
+   "woche": {
+    "zeitraum": {
+     "trades": 36,
+     "pf_r": 1.594,
+     "summe_r": 2.214,
+     "r_je_trade": 0.061,
+     "je_woche": 0.35,
+     "rueckgang_r": 1.133,
+     "long": {
+      "trades": 27,
+      "pf_r": 1.597
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 1.583
+     }
+    },
+    "robust": {
+     "trades": 36,
+     "pf_r": 1.572,
+     "summe_r": 2.154,
+     "r_je_trade": 0.06,
+     "je_woche": 0.35,
+     "rueckgang_r": 1.133,
+     "long": {
+      "trades": 27,
+      "pf_r": 1.597
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 1.488
+     }
+    },
+    "haelfte_1": {
+     "trades": 22,
+     "pf_r": 2.122,
+     "summe_r": 2.174,
+     "r_je_trade": 0.099,
+     "je_woche": 0.42,
+     "rueckgang_r": 0.852,
+     "long": {
+      "trades": 13,
+      "pf_r": 2.515
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 1.583
+     }
+    },
+    "haelfte_2": {
+     "trades": 14,
+     "pf_r": 1.022,
+     "summe_r": 0.04,
+     "r_je_trade": 0.003,
+     "je_woche": 0.27,
+     "rueckgang_r": 1.133,
+     "long": {
+      "trades": 14,
+      "pf_r": 1.022
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 8,
+     "pf_r": 2.337,
+     "summe_r": 0.811,
+     "r_je_trade": 0.101,
+     "je_woche": 0.19,
+     "rueckgang_r": 0.389,
+     "long": {
+      "trades": 8,
+      "pf_r": 2.337
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 30,
+     "pf_r": 0.935,
+     "summe_r": -0.219,
+     "r_je_trade": -0.007,
+     "je_woche": 0.29,
+     "rueckgang_r": 1.811,
+     "long": {
+      "trades": 26,
+      "pf_r": 0.937
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 0.911
+     }
+    },
+    "gruende": [
+     "nur 36 Trades",
+     "kontrolle 0.935 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 37,
+     "pf_r": 1.55,
+     "summe_r": 2.209,
+     "r_je_trade": 0.06,
+     "je_woche": 0.36,
+     "rueckgang_r": 0.854,
+     "long": {
+      "trades": 26,
+      "pf_r": 1.565
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 1.518
+     }
+    },
+    "robust": {
+     "trades": 35,
+     "pf_r": 1.197,
+     "summe_r": 0.798,
+     "r_je_trade": 0.023,
+     "je_woche": 0.34,
+     "rueckgang_r": 1.181,
+     "long": {
+      "trades": 24,
+      "pf_r": 1.072
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 1.458
+     }
+    },
+    "haelfte_1": {
+     "trades": 25,
+     "pf_r": 1.447,
+     "summe_r": 1.37,
+     "r_je_trade": 0.055,
+     "je_woche": 0.48,
+     "rueckgang_r": 0.854,
+     "long": {
+      "trades": 14,
+      "pf_r": 1.396
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 1.518
+     }
+    },
+    "haelfte_2": {
+     "trades": 12,
+     "pf_r": 1.88,
+     "summe_r": 0.838,
+     "r_je_trade": 0.07,
+     "je_woche": 0.23,
+     "rueckgang_r": 0.415,
+     "long": {
+      "trades": 12,
+      "pf_r": 1.88
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 9,
+     "pf_r": 2.951,
+     "summe_r": 1.142,
+     "r_je_trade": 0.127,
+     "je_woche": 0.21,
+     "rueckgang_r": 0.415,
+     "long": {
+      "trades": 9,
+      "pf_r": 2.951
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 41,
+     "pf_r": 0.531,
+     "summe_r": -3.409,
+     "r_je_trade": -0.083,
+     "je_woche": 0.39,
+     "rueckgang_r": 4.718,
+     "long": {
+      "trades": 39,
+      "pf_r": 0.537
+     },
+     "short": {
+      "trades": 2,
+      "pf_r": 0.434
+     }
+    },
+    "gruende": [
+     "nur 37 Trades",
+     "kontrolle 0.531 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "XAUUSD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 36,
+     "pf_r": 0.637,
+     "summe_r": -3.078,
+     "r_je_trade": -0.085,
+     "je_woche": 0.35,
+     "rueckgang_r": 3.541,
+     "long": {
+      "trades": 32,
+      "pf_r": 0.57
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 1.334
+     }
+    },
+    "robust": {
+     "trades": 35,
+     "pf_r": 0.543,
+     "summe_r": -3.881,
+     "r_je_trade": -0.111,
+     "je_woche": 0.34,
+     "rueckgang_r": 4.333,
+     "long": {
+      "trades": 31,
+      "pf_r": 0.468
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 1.319
+     }
+    },
+    "haelfte_1": {
+     "trades": 16,
+     "pf_r": 0.629,
+     "summe_r": -1.801,
+     "r_je_trade": -0.113,
+     "je_woche": 0.31,
+     "rueckgang_r": 3.116,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.629
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 20,
+     "pf_r": 0.649,
+     "summe_r": -1.277,
+     "r_je_trade": -0.064,
+     "je_woche": 0.39,
+     "rueckgang_r": 1.74,
+     "long": {
+      "trades": 16,
+      "pf_r": 0.471
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 1.334
+     }
+    },
+    "jahr_2026": {
+     "trades": 17,
+     "pf_r": 0.734,
+     "summe_r": -0.788,
+     "r_je_trade": -0.046,
+     "je_woche": 0.39,
+     "rueckgang_r": 1.251,
+     "long": {
+      "trades": 13,
+      "pf_r": 0.532
+     },
+     "short": {
+      "trades": 4,
+      "pf_r": 1.334
+     }
+    },
+    "kontrolle": {
+     "trades": 59,
+     "pf_r": 0.998,
+     "summe_r": -0.021,
+     "r_je_trade": -0.0,
+     "je_woche": 0.57,
+     "rueckgang_r": 4.106,
+     "long": {
+      "trades": 48,
+      "pf_r": 0.715
+     },
+     "short": {
+      "trades": 11,
+      "pf_r": 2.801
+     }
+    },
+    "gruende": [
+     "nur 36 Trades",
+     "PF 0.637 unter 1,2",
+     "robust 0.543 unter 1,0",
+     "haelfte_1 0.629 nicht über 1,0",
+     "haelfte_2 0.649 nicht über 1,0",
+     "jahr_2026 0.734 nicht über 1,0",
+     "kontrolle 0.998 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 83,
+     "pf_r": 1.373,
+     "summe_r": 4.221,
+     "r_je_trade": 0.051,
+     "je_woche": 0.8,
+     "rueckgang_r": 2.013,
+     "long": {
+      "trades": 75,
+      "pf_r": 1.625
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.315
+     }
+    },
+    "robust": {
+     "trades": 83,
+     "pf_r": 1.37,
+     "summe_r": 4.197,
+     "r_je_trade": 0.051,
+     "je_woche": 0.8,
+     "rueckgang_r": 2.013,
+     "long": {
+      "trades": 75,
+      "pf_r": 1.625
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.309
+     }
+    },
+    "haelfte_1": {
+     "trades": 50,
+     "pf_r": 1.25,
+     "summe_r": 1.843,
+     "r_je_trade": 0.037,
+     "je_woche": 0.96,
+     "rueckgang_r": 2.013,
+     "long": {
+      "trades": 50,
+      "pf_r": 1.25
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "haelfte_2": {
+     "trades": 33,
+     "pf_r": 1.603,
+     "summe_r": 2.378,
+     "r_je_trade": 0.072,
+     "je_woche": 0.64,
+     "rueckgang_r": 1.561,
+     "long": {
+      "trades": 25,
+      "pf_r": 3.203
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.315
+     }
+    },
+    "jahr_2026": {
+     "trades": 21,
+     "pf_r": 0.85,
+     "summe_r": -0.508,
+     "r_je_trade": -0.024,
+     "je_woche": 0.49,
+     "rueckgang_r": 1.561,
+     "long": {
+      "trades": 13,
+      "pf_r": 1.831
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.315
+     }
+    },
+    "kontrolle": {
+     "trades": 108,
+     "pf_r": 1.352,
+     "summe_r": 7.24,
+     "r_je_trade": 0.067,
+     "je_woche": 1.04,
+     "rueckgang_r": 3.718,
+     "long": {
+      "trades": 94,
+      "pf_r": 1.501
+     },
+     "short": {
+      "trades": 14,
+      "pf_r": 0.599
+     }
+    },
+    "gruende": [
+     "jahr_2026 0.85 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "AUDNZD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 38,
+     "pf_r": 0.419,
+     "summe_r": -4.388,
+     "r_je_trade": -0.115,
+     "je_woche": 0.37,
+     "rueckgang_r": 5.463,
+     "long": {
+      "trades": 31,
+      "pf_r": 0.441
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.252
+     }
+    },
+    "robust": {
+     "trades": 37,
+     "pf_r": 0.361,
+     "summe_r": -4.963,
+     "r_je_trade": -0.134,
+     "je_woche": 0.36,
+     "rueckgang_r": 5.697,
+     "long": {
+      "trades": 30,
+      "pf_r": 0.39
+     },
+     "short": {
+      "trades": 7,
+      "pf_r": 0.177
+     }
+    },
+    "haelfte_1": {
+     "trades": 13,
+     "pf_r": 0.34,
+     "summe_r": -1.176,
+     "r_je_trade": -0.09,
+     "je_woche": 0.25,
+     "rueckgang_r": 1.477,
+     "long": {
+      "trades": 7,
+      "pf_r": 0.649
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 0.0
+     }
+    },
+    "haelfte_2": {
+     "trades": 25,
+     "pf_r": 0.444,
+     "summe_r": -3.212,
+     "r_je_trade": -0.128,
+     "je_woche": 0.48,
+     "rueckgang_r": 3.986,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.407
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "jahr_2026": {
+     "trades": 21,
+     "pf_r": 0.502,
+     "summe_r": -2.295,
+     "r_je_trade": -0.109,
+     "je_woche": 0.49,
+     "rueckgang_r": 3.068,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.456
+     },
+     "short": {
+      "trades": 1,
+      "pf_r": 99.0
+     }
+    },
+    "kontrolle": {
+     "trades": 44,
+     "pf_r": 0.147,
+     "summe_r": -11.254,
+     "r_je_trade": -0.256,
+     "je_woche": 0.42,
+     "rueckgang_r": 11.587,
+     "long": {
+      "trades": 23,
+      "pf_r": 0.074
+     },
+     "short": {
+      "trades": 21,
+      "pf_r": 0.244
+     }
+    },
+    "gruende": [
+     "nur 38 Trades",
+     "PF 0.419 unter 1,2",
+     "robust 0.361 unter 1,0",
+     "haelfte_1 0.34 nicht über 1,0",
+     "haelfte_2 0.444 nicht über 1,0",
+     "jahr_2026 0.502 nicht über 1,0",
+     "kontrolle 0.147 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 47,
+     "pf_r": 1.115,
+     "summe_r": 0.599,
+     "r_je_trade": 0.013,
+     "je_woche": 0.45,
+     "rueckgang_r": 1.898,
+     "long": {
+      "trades": 41,
+      "pf_r": 0.93
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 1.732
+     }
+    },
+    "robust": {
+     "trades": 42,
+     "pf_r": 1.012,
+     "summe_r": 0.066,
+     "r_je_trade": 0.002,
+     "je_woche": 0.4,
+     "rueckgang_r": 2.176,
+     "long": {
+      "trades": 36,
+      "pf_r": 0.836
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 1.537
+     }
+    },
+    "haelfte_1": {
+     "trades": 23,
+     "pf_r": 2.104,
+     "summe_r": 2.461,
+     "r_je_trade": 0.107,
+     "je_woche": 0.44,
+     "rueckgang_r": 1.131,
+     "long": {
+      "trades": 17,
+      "pf_r": 2.539
+     },
+     "short": {
+      "trades": 6,
+      "pf_r": 1.732
+     }
+    },
+    "haelfte_2": {
+     "trades": 24,
+     "pf_r": 0.373,
+     "summe_r": -1.862,
+     "r_je_trade": -0.078,
+     "je_woche": 0.46,
+     "rueckgang_r": 1.862,
+     "long": {
+      "trades": 24,
+      "pf_r": 0.373
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "jahr_2026": {
+     "trades": 18,
+     "pf_r": 0.367,
+     "summe_r": -1.427,
+     "r_je_trade": -0.079,
+     "je_woche": 0.42,
+     "rueckgang_r": 1.479,
+     "long": {
+      "trades": 18,
+      "pf_r": 0.367
+     },
+     "short": {
+      "trades": 0,
+      "pf_r": null
+     }
+    },
+    "kontrolle": {
+     "trades": 43,
+     "pf_r": 1.075,
+     "summe_r": 0.305,
+     "r_je_trade": 0.007,
+     "je_woche": 0.41,
+     "rueckgang_r": 2.459,
+     "long": {
+      "trades": 34,
+      "pf_r": 0.847
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 3.217
+     }
+    },
+    "gruende": [
+     "PF 1.115 unter 1,2",
+     "haelfte_2 0.373 nicht über 1,0",
+     "jahr_2026 0.367 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  },
+  "GBPNZD": {
+   "woche": {
+    "zeitraum": {
+     "trades": 50,
+     "pf_r": 0.46,
+     "summe_r": -6.283,
+     "r_je_trade": -0.126,
+     "je_woche": 0.48,
+     "rueckgang_r": 6.434,
+     "long": {
+      "trades": 22,
+      "pf_r": 0.483
+     },
+     "short": {
+      "trades": 28,
+      "pf_r": 0.442
+     }
+    },
+    "robust": {
+     "trades": 48,
+     "pf_r": 0.368,
+     "summe_r": -7.503,
+     "r_je_trade": -0.156,
+     "je_woche": 0.46,
+     "rueckgang_r": 7.503,
+     "long": {
+      "trades": 20,
+      "pf_r": 0.327
+     },
+     "short": {
+      "trades": 28,
+      "pf_r": 0.397
+     }
+    },
+    "haelfte_1": {
+     "trades": 22,
+     "pf_r": 0.542,
+     "summe_r": -2.296,
+     "r_je_trade": -0.104,
+     "je_woche": 0.42,
+     "rueckgang_r": 2.714,
+     "long": {
+      "trades": 13,
+      "pf_r": 0.727
+     },
+     "short": {
+      "trades": 9,
+      "pf_r": 0.318
+     }
+    },
+    "haelfte_2": {
+     "trades": 28,
+     "pf_r": 0.397,
+     "summe_r": -3.987,
+     "r_je_trade": -0.142,
+     "je_woche": 0.54,
+     "rueckgang_r": 3.987,
+     "long": {
+      "trades": 9,
+      "pf_r": 0.18
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 0.507
+     }
+    },
+    "jahr_2026": {
+     "trades": 27,
+     "pf_r": 0.468,
+     "summe_r": -2.987,
+     "r_je_trade": -0.111,
+     "je_woche": 0.63,
+     "rueckgang_r": 3.736,
+     "long": {
+      "trades": 8,
+      "pf_r": 0.329
+     },
+     "short": {
+      "trades": 19,
+      "pf_r": 0.507
+     }
+    },
+    "kontrolle": {
+     "trades": 34,
+     "pf_r": 0.844,
+     "summe_r": -0.95,
+     "r_je_trade": -0.028,
+     "je_woche": 0.33,
+     "rueckgang_r": 3.604,
+     "long": {
+      "trades": 31,
+      "pf_r": 0.752
+     },
+     "short": {
+      "trades": 3,
+      "pf_r": 4.046
+     }
+    },
+    "gruende": [
+     "PF 0.46 unter 1,2",
+     "robust 0.368 unter 1,0",
+     "haelfte_1 0.542 nicht über 1,0",
+     "haelfte_2 0.397 nicht über 1,0",
+     "jahr_2026 0.468 nicht über 1,0",
+     "kontrolle 0.844 nicht über 1,0"
+    ],
+    "bestanden": false
+   },
+   "tag": {
+    "zeitraum": {
+     "trades": 63,
+     "pf_r": 0.517,
+     "summe_r": -6.05,
+     "r_je_trade": -0.096,
+     "je_woche": 0.61,
+     "rueckgang_r": 7.579,
+     "long": {
+      "trades": 39,
+      "pf_r": 0.495
+     },
+     "short": {
+      "trades": 24,
+      "pf_r": 0.565
+     }
+    },
+    "robust": {
+     "trades": 62,
+     "pf_r": 0.48,
+     "summe_r": -6.607,
+     "r_je_trade": -0.107,
+     "je_woche": 0.6,
+     "rueckgang_r": 7.844,
+     "long": {
+      "trades": 38,
+      "pf_r": 0.479
+     },
+     "short": {
+      "trades": 24,
+      "pf_r": 0.481
+     }
+    },
+    "haelfte_1": {
+     "trades": 35,
+     "pf_r": 0.326,
+     "summe_r": -6.48,
+     "r_je_trade": -0.185,
+     "je_woche": 0.67,
+     "rueckgang_r": 7.579,
+     "long": {
+      "trades": 27,
+      "pf_r": 0.372
+     },
+     "short": {
+      "trades": 8,
+      "pf_r": 0.152
+     }
+    },
+    "haelfte_2": {
+     "trades": 28,
+     "pf_r": 1.148,
+     "summe_r": 0.43,
+     "r_je_trade": 0.015,
+     "je_woche": 0.54,
+     "rueckgang_r": 1.105,
+     "long": {
+      "trades": 12,
+      "pf_r": 1.45
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 0.996
+     }
+    },
+    "jahr_2026": {
+     "trades": 24,
+     "pf_r": 1.047,
+     "summe_r": 0.123,
+     "r_je_trade": 0.005,
+     "je_woche": 0.56,
+     "rueckgang_r": 1.105,
+     "long": {
+      "trades": 8,
+      "pf_r": 1.19
+     },
+     "short": {
+      "trades": 16,
+      "pf_r": 0.996
+     }
+    },
+    "kontrolle": {
+     "trades": 63,
+     "pf_r": 0.949,
+     "summe_r": -0.54,
+     "r_je_trade": -0.009,
+     "je_woche": 0.6,
+     "rueckgang_r": 4.044,
+     "long": {
+      "trades": 53,
+      "pf_r": 0.76
+     },
+     "short": {
+      "trades": 10,
+      "pf_r": 4.061
+     }
+    },
+    "gruende": [
+     "PF 0.517 unter 1,2",
+     "robust 0.48 unter 1,0",
+     "haelfte_1 0.326 nicht über 1,0",
+     "kontrolle 0.949 nicht über 1,0"
+    ],
+    "bestanden": false
+   }
+  }
+ },
+ "teil_b_vorschlag": []
+}

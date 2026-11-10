@@ -35,7 +35,9 @@ def test_rule_is_registered_and_names_real_strategies():
     lb = dp.labor_regel()
     assert lb is not None, "Prüfsumme von VORAB_labor.yaml fehlt im Protokoll oder ist veraltet"
     aus = yaml.safe_load(open("suche/auswahl.yaml", encoding="utf-8"))["auswahl"]
-    assert set(lb["bots"]) == set(aus["labor"]) and not set(aus["labor"]) & set(aus["behalten"])
+    # Ein Labor-Bot verlässt das Labor nur mit Kirons datiertem Wort (Brent: Kirons Wort vom 10.11.2026 10:35 UTC)
+    raus = {b for b, w in aus["abschalten"].items() if b in lb["bots"] and dp.kirons_wort(w)}
+    assert set(lb["bots"]) == set(aus["labor"]) | raus and not set(aus["labor"]) & set(aus["behalten"])
     assert not set(aus["labor"]) & set(aus["abschalten"]) and lb["frei_lassen"] >= 2
     kont = json.load(open("journal/konten.json", encoding="utf-8"))
     alle = {str(k) for k in kont.get("start") or {}}

@@ -372,8 +372,9 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
     log += mess_vergeben(kont, mb, dateien, stamp)
     # Kirons Auswahl (suche/auswahl.yaml): abschalten ohne Nachfolger, das Konto wird frei
     for bot_id, warum in sorted((abschalten() if aus is None else aus).items()):
+        # Ein Labor-Bot (VORAB_labor.yaml) geht nur mit Kirons datiertem Wort, nie mit einer bloßen Auswahlliste
         if (bot_id in zu and bot_id != HAUPT_BOT and bot_id not in abl and bot_id not in demo_abl
-                and bot_id not in (kont.get("labor") or {})):
+                and (bot_id not in (kont.get("labor") or {}) or kirons_wort(warum))):
             # Erste Woche live (VORAB_eine_woche.yaml): eine Auswahlliste schaltet nichts ab, nur Kirons datiertes Wort
             bis = woche_bis(kont, bot_id, wo, (starts or {}).get(bot_id))
             if bis and pd.Timestamp(stamp) < pd.Timestamp(bis) and not kirons_wort(warum):

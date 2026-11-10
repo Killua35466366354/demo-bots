@@ -4,3 +4,5 @@
 {"time": "2026-11-10T10:03:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}
 {"time": "2026-11-10T10:33:26", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-722c-e0b2-049c-701f0015549e", "stopLevel": 4068.9, "profitLevel": 4084.45, "warum": "Fehltrade (0,5 R dagegen vor Ziel 1)"}
 {"time": "2026-11-10T10:33:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Abfänger greift", "gesendet": true}
+{"time": "2026-11-10T11:08:26", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-722c-e0b2-049c-701f0015549e", "kurs": 4068.84, "r": -1.004, "eur": -5.01, "quelle": "SL"}
+{"time": "2026-11-10T11:08:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG geschlossen", "gesendet": true}

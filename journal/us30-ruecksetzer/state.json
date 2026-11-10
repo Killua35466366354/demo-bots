@@ -2,18 +2,18 @@
  "konto_id": "332263750966269086",
  "konto": "…9086",
  "konto_name": "Account 5",
- "kontostand": 981.1,
+ "kontostand": 981.85,
  "waehrung": "EUR",
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-10T20:01:58.702579",
+  "zeit": "2026-11-10T20:16:34.078980",
   "action": "none",
-  "why": "kein Signal: {'schluss': 52226.2, 'sma200': 50758.72, 'sma5': 52273.46, 'rsi2': 51.9, 'atr20': 799.57}",
-  "bar": "2026-11-10 19:00:00"
+  "why": "heute schon entschieden",
+  "bar": null
  },
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "position": null,
- "stand_utc": "2026-11-10T20:01:58.702579",
+ "stand_utc": "2026-11-10T20:16:34.078980",
  "tag_erledigt": "2026-11-10"
 }

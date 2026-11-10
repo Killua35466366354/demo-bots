@@ -84,16 +84,10 @@
   "tag": "2026-11-10",
   "r": 0.0
  },
- "stand_utc": "2026-11-10T17:31:35.343689",
+ "stand_utc": "2026-11-10T17:46:41.892915",
  "phase": "laeuft",
  "positionen": {},
  "konten": {
-  "oil-brent": null,
-  "j225": null,
-  "us30": null,
-  "copper": null,
-  "intc": null,
-  "gold2": null,
-  "dax": null
+  "oil-brent": null
  }
 }

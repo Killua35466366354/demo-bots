@@ -16,8 +16,6 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 10 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 1,4 Trades, +0,30 R | 1 von 40 Demo-Trades |
 | 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 12 | Vortag GBP/JPY | behalten | 1 | -1,02 | 0,00 | -4,08 | 0,6 Trades, +0,13 R | 1 von 40 Demo-Trades |
-| 13 | DAX 15 min Long | abgeloest | 1 | -1,00 | 0,00 | -0,04 | – | – |
-| 14 | Dow 15 min Short | abgeloest | 3 | -3,00 | 0,00 | -0,21 | – | – |
 
 **Kombi (6 Kern-Strategien auf einem Konto):** 1 Trades, -1,02 R, Gewinnfaktor 0,00, Soll bisher 3,4 Trades und +0,71 R. Aufstieg: 1 von 60 Demo-Trades.
 

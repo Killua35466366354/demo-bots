@@ -316,6 +316,9 @@ def test_journal_ohne_neues_nur_alle_30_minuten(tmp_path, monkeypatch):
     assert gs.schreiben({**st, "stand": "2026-11-11T10:43:01"}, [], []) is True     # Lebenszeichen
     karte = json.loads((tmp_path / "gold-staffel.json").read_text(encoding="utf-8"))
     assert karte["stand"] == "2026-11-11T10:43:01" and karte["konto"] == "…5310"
+    assert karte["status"].startswith("Long offen")
+    assert gs.status({"offen": None}).startswith("wartet")
+    assert "TP2" in gs.status({"offen": {"richtung": -1, "stufe": 2, "stop": 3970.0, "tp": [4010.0, 3970.0, 3930.0]}})
     assert (tmp_path / "gold-staffel" / "log.jsonl").read_text(encoding="utf-8").count("\n") == 1
 
 

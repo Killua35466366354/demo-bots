@@ -362,6 +362,18 @@ def _ohne_stand(st: dict) -> dict:
     return s
 
 
+def status(st: dict) -> str:
+    """Eine Zeile für das Cockpit."""
+    o = st.get("offen")
+    if not isinstance(o, dict):
+        return "wartet auf den nächsten Trade des Gold-Bots"
+    seite = "Long" if int(o.get("richtung") or 1) > 0 else "Short"
+    tp = o.get("tp") or [None]
+    if o.get("stufe"):
+        return f"{seite} offen, Wächter hat den Stop auf TP{o['stufe']} gezogen ({o.get('stop')})"
+    return f"{seite} offen, Stop {o.get('stop')}, TP1 bei {tp[0]}"
+
+
 def schreiben(st: dict, log: list[dict], fertige: list[dict]) -> bool:
     """Nur eigene Dateien. Ohne Neues höchstens alle 30 Min. ein Lebenszeichen."""
     ordner = JOURNAL / BOT_ID
@@ -383,7 +395,7 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict]) -> bool:
     p = ordner / "trades.jsonl"
     alle = [json.loads(x) for x in p.read_text(encoding="utf-8").splitlines() if x.strip()] if p.exists() else []
     karte = {"bot": BOT_ID, "name": NAME, "epic": EPIC, "konto": "…" + KONTO[-4:], "konto_name": KONTO_NAME,
-             "stand": st.get("stand"), "start": st.get("start"), "regel": REGEL, "vorab": "suche/VORAB_gold_staffel.yaml",
+             "stand": st.get("stand"), "start": st.get("start"), "status": status(st), "regel": REGEL, "vorab": "suche/VORAB_gold_staffel.yaml",
              "test": TEST, "offen": st.get("offen"), "zusammenfassung": zusammenfassung(st, alle),
              "letzte_trades": alle[-5:]}
     (JOURNAL / f"{BOT_ID}.json").write_text(json.dumps(karte, ensure_ascii=False, indent=1, default=str) + "\n",

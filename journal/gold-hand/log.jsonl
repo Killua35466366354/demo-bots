@@ -12,3 +12,5 @@
 {"time": "2026-11-10T05:46:54", "event": "Nachricht", "titel": "Gold LONG eröffnet", "gesendet": true}
 {"time": "2026-11-10T07:31:49", "event": "Abfänger gesetzt", "dealId": "00000000-722b-7d56-049c-701f0015549e", "stopLevel": 4108.08, "profitLevel": 4123.87, "warum": "Fehltrade (0,5 R dagegen vor Ziel 1)"}
 {"time": "2026-11-10T07:31:49", "event": "Nachricht", "titel": "Gold: Abfänger greift", "gesendet": true}
+{"time": "2026-11-10T09:01:53", "event": "Trade zu", "dealId": "00000000-722b-7d56-049c-701f0015549e", "kurs": 4107.74, "r": -1.022, "quelle": "SL"}
+{"time": "2026-11-10T09:01:53", "event": "Nachricht", "titel": "Gold LONG geschlossen", "gesendet": true}

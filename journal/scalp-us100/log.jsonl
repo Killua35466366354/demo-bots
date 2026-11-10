@@ -1,0 +1,2 @@
+{"time": "2026-11-10T14:48:38", "bot": "scalp-us100", "event": "Open nicht lesbar", "art": "woche", "fehler": "GET /prices/US100 -> 400: {\"errorCode\":\"error.invalid.daterange\"}"}
+{"time": "2026-11-10T14:48:38", "bot": "scalp-us100", "event": "kein Trade", "tag": "2026-11-10", "warum": "Filter: Kurs 27751.3 nicht auf der Long-Seite des quartal-Opens 30441.9"}

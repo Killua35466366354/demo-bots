@@ -1,6 +1,11 @@
 """Gold-Hand-Bot: Gold Short und Long nach den drei Seiten des Gold-Short-Bots, ohne Stop und Ziel, mit Trade-Abfänger
 und einer Nachricht aufs Handy. Kiron geht selbst raus. Nur Capital.com-DEMOKONTO, nie echtes Geld.
 
+Seit Kirons Wort vom 10.11.2026 07:29 UTC handelt auf Account 5 der Pine-Gold-Hand-Bot (gold/pine5m_bot.py, Bot
+"pine-k5", suche/VORAB_pine5m_konto5.yaml). Dieser Bot öffnet nichts Neues mehr (NEUE_EINSTIEGE = False) und betreut
+nur noch seine offenen Trades (Abgleich und Trade-Abfänger), bis sie zu sind. Die Termin-Warnung kommt jetzt vom
+Pine-Bot. Seine Funktionen (Hintergrund, Termine, Nachrichten) nutzt der Pine-Bot weiter.
+
     python -m gold.hand_bot              # ein Lauf: Kerzen holen, Signal in der Kerze "jetzt"? Dann öffnen und melden
     python -m gold.hand_bot --dry-run    # nur rechnen und zeigen, keine Order, keine Nachricht
 
@@ -80,6 +85,7 @@ GOLD_BOT_DATEIEN = sb.GOLD_BOT_DATEIEN
 HG_SMA_TAGE, HG_EMA_4H = 50, 50
 NEWS_VOR, NEWS_NACH = pd.Timedelta(minutes=60), pd.Timedelta(minutes=30)   # Termin so nah: nur Hinweis
 TERMIN_PAUSE = True                # Kirons Wort vom 09.11.2026 20:38 UTC: Termine sperren, Kurssprünge nicht
+NEUE_EINSTIEGE = False             # Kirons Wort vom 10.11.2026 07:29 UTC: Account 5 bekommt die Pine-Strategien
 WARN_VOR = pd.Timedelta(minutes=45)
 FF_URL = "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
 FF_ALTER = pd.Timedelta(hours=6)
@@ -573,7 +579,10 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, post=None)
         q.eur_rate = eur_rate(client, q.currency, {})
         gold = [p for p in client.positions() if p.get("market", {}).get("epic") == EPIC]
         lauf.abgleich(gold)
-        lauf.warne(gold)
+        if not NEUE_EINSTIEGE and not lauf.st["offen"]:
+            return lauf.st, lauf.log, lauf.fertige, lauf.nachrichten     # nichts mehr zu betreuen
+        if NEUE_EINSTIEGE:
+            lauf.warne(gold)
         bars, spread = bars_from_prices(ts.fetch_candles(client, EPIC, chunks=sb.CHUNKS), lauf.now, "15min")
         if len(bars) < sb.MIN_BARS:
             lauf.ev("zu wenig Kerzen", kerzen=len(bars), braucht=sb.MIN_BARS)
@@ -583,8 +592,9 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, post=None)
             b = ts.basis(bars2, sp2)
             n = len(b) - 1
             lauf.abfaenger(b, gold)
-            trades, _ = sb.simuliere(b, n)
-            lauf.einstieg(b, n, trades, gold, available)
+            if NEUE_EINSTIEGE:
+                trades, _ = sb.simuliere(b, n)
+                lauf.einstieg(b, n, trades, gold, available)
             lauf.st["letzter_kurs"] = round(float(q.bid), 2)
         lauf.st["stand"] = lauf.stamp
         return lauf.st, lauf.log, lauf.fertige, lauf.nachrichten
@@ -611,7 +621,10 @@ def start_nachricht(st: dict, post=None) -> bool:
 
 def cockpit(st: dict, alle: list[dict]) -> dict:
     r = [float(t["r"]) for t in alle if t.get("r") is not None]
-    return {"bot": BOT_ID, "name": "Gold-Hand-Bot (Short und Long mit Trade-Abfänger, Kiron geht selbst raus)",
+    name = "Gold-Hand-Bot (Short und Long mit Trade-Abfänger, Kiron geht selbst raus)"
+    if not NEUE_EINSTIEGE:
+        name += ", seit 10.11.2026 keine neuen Trades (Account 5 hat jetzt den Pine-Bot)"
+    return {"bot": BOT_ID, "name": name,
             "konto": "…" + KONTO[-4:], "stand": st.get("stand"), "start": st.get("start"),
             "regel": ("Einstiege der drei Seiten des Gold-Short-Bots, Shorts und Longs, ohne Stop und Ziel. "
                       "Trade-Abfänger: bei Fehltrade (0,5 R dagegen vor Ziel 1) Stop 1 R und Ziel am Einstieg, "

@@ -1,0 +1,570 @@
+{
+ "vorab_sha256": "3a123fe5e6b1dfa03c24c922f4219b76e7de0f7176836e5ab2afe065746ac545",
+ "wahl": {
+  "hintergrund_live": true,
+  "live_variante": "k5_hedge_termin_hg",
+  "bestanden": false,
+  "verfehlt": [
+   "Gewinnfaktor 1.09",
+   "Kontrolle 2022-24 0.76"
+  ],
+  "alle": {
+   "abfaenger": [
+    false,
+    [
+     "Gewinnfaktor 1.05",
+     "mit 1,5-fachem Spread 0.97",
+     "1. Hälfte 0.97",
+     "Kontrolle 2022-24 0.72"
+    ]
+   ],
+   "k5_hedge": [
+    false,
+    [
+     "Gewinnfaktor 1.02",
+     "mit 1,5-fachem Spread 0.94",
+     "1. Hälfte 0.96",
+     "Kontrolle 2022-24 0.7"
+    ]
+   ],
+   "k5_hedge_termin": [
+    false,
+    [
+     "Gewinnfaktor 1.04",
+     "mit 1,5-fachem Spread 0.96",
+     "1. Hälfte 0.95",
+     "Kontrolle 2022-24 0.71"
+    ]
+   ],
+   "k5_hedge_termin_hg": [
+    false,
+    [
+     "Gewinnfaktor 1.09",
+     "Kontrolle 2022-24 0.76"
+    ]
+   ]
+  }
+ },
+ "varianten": {
+  "abfaenger": {
+   "zeitraum": {
+    "trades": 3199,
+    "je_woche": 30.72,
+    "pf_r": 1.05,
+    "summe_r": 66.4,
+    "max_rueckgang_r": 73.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": 21.1,
+    "short_r": 45.3,
+    "long_n": 1478,
+    "short_n": 1721,
+    "trefferquote_pct": 31.5,
+    "gruende": {
+     "fehltrade_stop": 934,
+     "pine": 1049,
+     "fehltrade_einstand": 1012,
+     "notbremse_stop": 204
+    },
+    "swap_r": 13.2
+   },
+   "robust": {
+    "trades": 3210,
+    "je_woche": 30.82,
+    "pf_r": 0.97,
+    "summe_r": -41.0,
+    "max_rueckgang_r": 121.5,
+    "haltedauer_std_median": 1.1,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": -27.1,
+    "short_r": -14.0,
+    "long_n": 1475,
+    "short_n": 1735,
+    "trefferquote_pct": 30.0,
+    "gruende": {
+     "fehltrade_stop": 963,
+     "pine": 1009,
+     "fehltrade_einstand": 1037,
+     "notbremse_stop": 201
+    },
+    "swap_r": 12.6
+   },
+   "haelfte_1": {
+    "trades": 1650,
+    "je_woche": 31.64,
+    "pf_r": 0.97,
+    "summe_r": -17.8,
+    "max_rueckgang_r": 70.6,
+    "haltedauer_std_median": 1.1,
+    "haltedauer_std_mittel": 2.1,
+    "long_r": 29.9,
+    "short_r": -47.7,
+    "long_n": 763,
+    "short_n": 887,
+    "trefferquote_pct": 30.1,
+    "gruende": {
+     "fehltrade_stop": 494,
+     "pine": 521,
+     "fehltrade_einstand": 532,
+     "notbremse_stop": 103
+    },
+    "swap_r": 7.8
+   },
+   "haelfte_2": {
+    "trades": 1549,
+    "je_woche": 29.79,
+    "pf_r": 1.14,
+    "summe_r": 84.1,
+    "max_rueckgang_r": 73.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.4,
+    "long_r": -8.9,
+    "short_r": 93.0,
+    "long_n": 715,
+    "short_n": 834,
+    "trefferquote_pct": 32.9,
+    "gruende": {
+     "fehltrade_stop": 440,
+     "fehltrade_einstand": 480,
+     "pine": 528,
+     "notbremse_stop": 101
+    },
+    "swap_r": 5.3
+   },
+   "jahr_2026": {
+    "trades": 1302,
+    "je_woche": 30.08,
+    "pf_r": 1.15,
+    "summe_r": 80.6,
+    "max_rueckgang_r": 73.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": -10.9,
+    "short_r": 91.6,
+    "long_n": 631,
+    "short_n": 671,
+    "trefferquote_pct": 32.8,
+    "gruende": {
+     "fehltrade_einstand": 406,
+     "fehltrade_stop": 368,
+     "notbremse_stop": 86,
+     "pine": 442
+    },
+    "swap_r": 4.1
+   },
+   "kontrolle": {
+    "trades": 3210,
+    "je_woche": 30.74,
+    "pf_r": 0.72,
+    "summe_r": -401.1,
+    "max_rueckgang_r": 406.8,
+    "haltedauer_std_median": 1.0,
+    "haltedauer_std_mittel": 2.1,
+    "long_r": -154.1,
+    "short_r": -247.1,
+    "long_n": 1536,
+    "short_n": 1674,
+    "trefferquote_pct": 27.8,
+    "gruende": {
+     "notbremse_stop": 191,
+     "pine": 933,
+     "fehltrade_stop": 1067,
+     "fehltrade_einstand": 1019
+    },
+    "swap_r": 24.6
+   },
+   "groesster_verlust_r": -6.49,
+   "gegen_offene_seite": 0
+  },
+  "k5_hedge": {
+   "zeitraum": {
+    "trades": 3844,
+    "je_woche": 36.91,
+    "pf_r": 1.02,
+    "summe_r": 23.8,
+    "max_rueckgang_r": 96.9,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": 8.6,
+    "short_r": 15.2,
+    "long_n": 1806,
+    "short_n": 2038,
+    "trefferquote_pct": 31.6,
+    "gruende": {
+     "fehltrade_stop": 1130,
+     "pine": 1271,
+     "fehltrade_einstand": 1192,
+     "notbremse_stop": 251
+    },
+    "swap_r": 17.4
+   },
+   "robust": {
+    "trades": 3849,
+    "je_woche": 36.96,
+    "pf_r": 0.94,
+    "summe_r": -97.1,
+    "max_rueckgang_r": 157.6,
+    "haltedauer_std_median": 1.1,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": -45.2,
+    "short_r": -51.9,
+    "long_n": 1808,
+    "short_n": 2041,
+    "trefferquote_pct": 30.2,
+    "gruende": {
+     "fehltrade_stop": 1163,
+     "pine": 1219,
+     "fehltrade_einstand": 1223,
+     "notbremse_stop": 244
+    },
+    "swap_r": 16.8
+   },
+   "haelfte_1": {
+    "trades": 1973,
+    "je_woche": 37.84,
+    "pf_r": 0.96,
+    "summe_r": -35.6,
+    "max_rueckgang_r": 84.1,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": 26.9,
+    "short_r": -62.6,
+    "long_n": 922,
+    "short_n": 1051,
+    "trefferquote_pct": 30.4,
+    "gruende": {
+     "fehltrade_stop": 589,
+     "pine": 632,
+     "fehltrade_einstand": 623,
+     "notbremse_stop": 129
+    },
+    "swap_r": 10.5
+   },
+   "haelfte_2": {
+    "trades": 1871,
+    "je_woche": 35.98,
+    "pf_r": 1.08,
+    "summe_r": 59.5,
+    "max_rueckgang_r": 78.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": -18.3,
+    "short_r": 77.8,
+    "long_n": 884,
+    "short_n": 987,
+    "trefferquote_pct": 32.9,
+    "gruende": {
+     "fehltrade_stop": 541,
+     "pine": 639,
+     "fehltrade_einstand": 569,
+     "notbremse_stop": 122
+    },
+    "swap_r": 6.9
+   },
+   "jahr_2026": {
+    "trades": 1549,
+    "je_woche": 35.79,
+    "pf_r": 1.1,
+    "summe_r": 65.0,
+    "max_rueckgang_r": 78.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": -22.2,
+    "short_r": 87.2,
+    "long_n": 746,
+    "short_n": 803,
+    "trefferquote_pct": 32.8,
+    "gruende": {
+     "fehltrade_einstand": 477,
+     "fehltrade_stop": 446,
+     "notbremse_stop": 98,
+     "pine": 528
+    },
+    "swap_r": 5.1
+   },
+   "kontrolle": {
+    "trades": 3906,
+    "je_woche": 37.4,
+    "pf_r": 0.7,
+    "summe_r": -523.6,
+    "max_rueckgang_r": 532.6,
+    "haltedauer_std_median": 1.0,
+    "haltedauer_std_mittel": 2.0,
+    "long_r": -197.8,
+    "short_r": -325.8,
+    "long_n": 1902,
+    "short_n": 2004,
+    "trefferquote_pct": 27.5,
+    "gruende": {
+     "notbremse_stop": 223,
+     "pine": 1127,
+     "fehltrade_stop": 1309,
+     "fehltrade_einstand": 1247
+    },
+    "swap_r": 29.2
+   },
+   "groesster_verlust_r": -6.49,
+   "gegen_offene_seite": 803
+  },
+  "k5_hedge_termin": {
+   "zeitraum": {
+    "trades": 3796,
+    "je_woche": 36.45,
+    "pf_r": 1.04,
+    "summe_r": 54.2,
+    "max_rueckgang_r": 92.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": 14.9,
+    "short_r": 39.4,
+    "long_n": 1792,
+    "short_n": 2004,
+    "trefferquote_pct": 31.8,
+    "gruende": {
+     "fehltrade_stop": 1111,
+     "pine": 1265,
+     "fehltrade_einstand": 1178,
+     "notbremse_stop": 242
+    },
+    "swap_r": 17.4
+   },
+   "robust": {
+    "trades": 3801,
+    "je_woche": 36.5,
+    "pf_r": 0.96,
+    "summe_r": -67.4,
+    "max_rueckgang_r": 150.9,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": -38.9,
+    "short_r": -28.5,
+    "long_n": 1794,
+    "short_n": 2007,
+    "trefferquote_pct": 30.3,
+    "gruende": {
+     "fehltrade_stop": 1145,
+     "pine": 1213,
+     "fehltrade_einstand": 1208,
+     "notbremse_stop": 235
+    },
+    "swap_r": 16.8
+   },
+   "haelfte_1": {
+    "trades": 1949,
+    "je_woche": 37.38,
+    "pf_r": 0.95,
+    "summe_r": -36.7,
+    "max_rueckgang_r": 84.8,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": 30.7,
+    "short_r": -67.4,
+    "long_n": 911,
+    "short_n": 1038,
+    "trefferquote_pct": 30.4,
+    "gruende": {
+     "fehltrade_stop": 582,
+     "pine": 626,
+     "fehltrade_einstand": 613,
+     "notbremse_stop": 128
+    },
+    "swap_r": 10.5
+   },
+   "haelfte_2": {
+    "trades": 1847,
+    "je_woche": 35.52,
+    "pf_r": 1.12,
+    "summe_r": 90.9,
+    "max_rueckgang_r": 69.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": -15.8,
+    "short_r": 106.8,
+    "long_n": 881,
+    "short_n": 966,
+    "trefferquote_pct": 33.3,
+    "gruende": {
+     "fehltrade_stop": 529,
+     "pine": 639,
+     "fehltrade_einstand": 565,
+     "notbremse_stop": 114
+    },
+    "swap_r": 6.9
+   },
+   "jahr_2026": {
+    "trades": 1531,
+    "je_woche": 35.37,
+    "pf_r": 1.14,
+    "summe_r": 88.1,
+    "max_rueckgang_r": 69.5,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.3,
+    "long_r": -22.2,
+    "short_r": 110.2,
+    "long_n": 745,
+    "short_n": 786,
+    "trefferquote_pct": 33.2,
+    "gruende": {
+     "fehltrade_einstand": 473,
+     "fehltrade_stop": 437,
+     "notbremse_stop": 93,
+     "pine": 528
+    },
+    "swap_r": 5.1
+   },
+   "kontrolle": {
+    "trades": 3873,
+    "je_woche": 37.09,
+    "pf_r": 0.71,
+    "summe_r": -504.8,
+    "max_rueckgang_r": 513.9,
+    "haltedauer_std_median": 1.0,
+    "haltedauer_std_mittel": 2.0,
+    "long_r": -190.5,
+    "short_r": -314.3,
+    "long_n": 1888,
+    "short_n": 1985,
+    "trefferquote_pct": 27.7,
+    "gruende": {
+     "notbremse_stop": 214,
+     "pine": 1124,
+     "fehltrade_stop": 1297,
+     "fehltrade_einstand": 1238
+    },
+    "swap_r": 29.1
+   },
+   "groesster_verlust_r": -6.49,
+   "gegen_offene_seite": 792
+  },
+  "k5_hedge_termin_hg": {
+   "zeitraum": {
+    "trades": 2381,
+    "je_woche": 22.86,
+    "pf_r": 1.09,
+    "summe_r": 76.2,
+    "max_rueckgang_r": 48.2,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.1,
+    "long_r": 35.8,
+    "short_r": 40.4,
+    "long_n": 1341,
+    "short_n": 1040,
+    "trefferquote_pct": 34.4,
+    "gruende": {
+     "fehltrade_stop": 663,
+     "pine": 847,
+     "fehltrade_einstand": 745,
+     "notbremse_stop": 126
+    },
+    "swap_r": 9.2
+   },
+   "robust": {
+    "trades": 2383,
+    "je_woche": 22.88,
+    "pf_r": 1.0,
+    "summe_r": -3.9,
+    "max_rueckgang_r": 71.8,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.0,
+    "long_r": -5.9,
+    "short_r": 2.0,
+    "long_n": 1341,
+    "short_n": 1042,
+    "trefferquote_pct": 33.1,
+    "gruende": {
+     "fehltrade_stop": 690,
+     "pine": 814,
+     "fehltrade_einstand": 757,
+     "notbremse_stop": 122
+    },
+    "swap_r": 9.3
+   },
+   "haelfte_1": {
+    "trades": 1219,
+    "je_woche": 23.38,
+    "pf_r": 1.04,
+    "summe_r": 18.9,
+    "max_rueckgang_r": 31.9,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.0,
+    "long_r": 34.2,
+    "short_r": -15.3,
+    "long_n": 794,
+    "short_n": 425,
+    "trefferquote_pct": 32.6,
+    "gruende": {
+     "fehltrade_stop": 340,
+     "pine": 419,
+     "fehltrade_einstand": 396,
+     "notbremse_stop": 64
+    },
+    "swap_r": 5.5
+   },
+   "haelfte_2": {
+    "trades": 1162,
+    "je_woche": 22.35,
+    "pf_r": 1.13,
+    "summe_r": 57.4,
+    "max_rueckgang_r": 48.2,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.2,
+    "long_r": 1.7,
+    "short_r": 55.7,
+    "long_n": 547,
+    "short_n": 615,
+    "trefferquote_pct": 36.2,
+    "gruende": {
+     "fehltrade_stop": 323,
+     "pine": 428,
+     "fehltrade_einstand": 349,
+     "notbremse_stop": 62
+    },
+    "swap_r": 3.7
+   },
+   "jahr_2026": {
+    "trades": 972,
+    "je_woche": 22.46,
+    "pf_r": 1.13,
+    "summe_r": 48.3,
+    "max_rueckgang_r": 48.2,
+    "haltedauer_std_median": 1.2,
+    "haltedauer_std_mittel": 2.1,
+    "long_r": -4.7,
+    "short_r": 53.0,
+    "long_n": 411,
+    "short_n": 561,
+    "trefferquote_pct": 35.5,
+    "gruende": {
+     "fehltrade_einstand": 295,
+     "fehltrade_stop": 277,
+     "notbremse_stop": 52,
+     "pine": 348
+    },
+    "swap_r": 2.8
+   },
+   "kontrolle": {
+    "trades": 2426,
+    "je_woche": 23.23,
+    "pf_r": 0.76,
+    "summe_r": -247.0,
+    "max_rueckgang_r": 287.3,
+    "haltedauer_std_median": 1.0,
+    "haltedauer_std_mittel": 1.9,
+    "long_r": -155.9,
+    "short_r": -91.1,
+    "long_n": 1514,
+    "short_n": 912,
+    "trefferquote_pct": 28.5,
+    "gruende": {
+     "notbremse_stop": 118,
+     "pine": 721,
+     "fehltrade_stop": 795,
+     "fehltrade_einstand": 792
+    },
+    "swap_r": 17.3
+   },
+   "groesster_verlust_r": -6.49,
+   "gegen_offene_seite": 227
+  }
+ }
+}

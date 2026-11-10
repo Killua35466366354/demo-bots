@@ -89,6 +89,7 @@ def welt(monkeypatch):
     monkeypatch.setattr(rules, "bars_from_prices", lambda prices, now, tf: modell["kerzen"])
     monkeypatch.setattr(sb, "simuliere", simuliere)
     monkeypatch.setattr(hb, "vorab_ok", lambda: True)
+    monkeypatch.setattr(hb, "NEUE_EINSTIEGE", True)       # die alten Regeln weiter prüfen; live seit 10.11. aus
     modell["holen"] = Holen()
     monkeypatch.setattr(hb, "_holen", lambda url: modell["holen"](url))
     modell["kerzen"] = _bars_fuer(NOW)
@@ -448,3 +449,28 @@ def test_trockenlauf_setzt_nichts(welt):
     k = HandKonto(bid=4010.0, offer=4010.3)
     st, log, _, _ = hb.run(k, _offener_short(k), NOW, send_orders=False, post=Post())
     assert not _puts(k) and "abfang" not in st["offen"][0] and any(e["event"] == "würde setzen" for e in log)
+
+
+# ---- Seit Kirons Wort vom 10.11.2026 07:29 UTC: Account 5 hat den Pine-Bot, dieser Bot betreut nur noch Offenes ----
+
+def test_live_keine_neuen_einstiege_mehr():
+    assert hb.NEUE_EINSTIEGE is False
+
+
+def test_ohne_neue_einstiege_kein_trade_und_keine_abfrage(welt, monkeypatch):
+    monkeypatch.setattr(hb, "NEUE_EINSTIEGE", False)
+    welt["trades"]["gross_box_kerze"] = [_signal(dist=20.0)]
+    welt["kerzen"] = None                                         # Kerzen würden gar nicht gebraucht
+    k, post = HandKonto(), Post()
+    st, log, _, msg = hb.run(k, {}, NOW, post=post)
+    assert not [c for c in k.calls if c[0] == "POST"] and not msg and not post.calls
+    assert "stand" not in st                                      # nichts Neues, die Dateien bleiben gleich
+
+
+def test_ohne_neue_einstiege_betreut_offene_trades(welt, monkeypatch):
+    monkeypatch.setattr(hb, "NEUE_EINSTIEGE", False)
+    welt["trades"]["gross_box_kerze"] = [_signal(dist=20.0)]
+    k = HandKonto(bid=4009.7, offer=4010.0)                      # 0,5 R dagegen vor Ziel 1: Fehltrade
+    st, _, _, msg = hb.run(k, _offener_short(k), NOW, post=Post())
+    assert _puts(k) == [{"stopLevel": 4020.0, "profitLevel": 4000.0}] and "Abfänger greift" in msg[0]["titel"]
+    assert not [c for c in k.calls if c[0] == "POST"]

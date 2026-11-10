@@ -3,16 +3,23 @@
 Kirons Wunsch vom 09.11.2026 20:41 UTC, Regeln und Test in suche/VORAB_pine5m.yaml (Gold war der beste Markt, der Test
 ist trotzdem nicht bestanden, beide Bots laufen als reiner Demo-Vorwärtstest).
 
-- Bot "pine-hand" (Konto "Vortag USDJPY" …4094): jeder Einstieg als Marktorder ohne Stop und Ziel, Nachricht aufs
-  Handy über ntfy, Kiron geht selbst raus. Trade-Abfänger wie beim Gold-Hand-Bot: Fehltrade (0,5 R dagegen, bevor
-  0,75 R dafür kamen) setzt Stop 1 R und Ziel auf den Einstieg, Notbremse ab 1 R im Minus setzt den Stop 0,5 R hinter den
-  Kurs. Meldet, wenn die Strategie selbst rausgehen würde (Pine-Ausstiegssignal), schließt aber nie selbst.
+- Bot "pine-k5" (Account 5 …9086, seit Kirons Wort vom 10.11.2026 07:29 UTC, suche/VORAB_pine5m_konto5.yaml): jeder
+  Einstieg als Marktorder ohne Stop und Ziel, Nachricht aufs Handy über ntfy, Kiron geht selbst raus. Trade-Abfänger wie
+  beim Gold-Hand-Bot: Fehltrade (0,5 R dagegen, bevor 0,75 R dafür kamen) setzt Stop 1 R und Ziel auf den Einstieg,
+  Notbremse ab 1 R im Minus setzt den Stop 0,5 R hinter den Kurs. Meldet, wenn die Strategie selbst rausgehen würde
+  (Pine-Ausstiegssignal), schließt aber nie selbst. Dazu der Gold-Prüfer des Gold-Hand-Bots: kein Einstieg 60 Min. vor
+  bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach Kurssprüngen), Warnung vor Terminen, Hintergrund (Tag über
+  SMA 50 und 4 Std. über EMA 50: kein Short, beide darunter: kein Long). Hedging: Long und Short dürfen gleichzeitig
+  offen sein, der Bot schaltet den Hedging-Modus des Kontos ein (PUT /accounts/preferences). Ist er aus, gilt wie
+  vorher "nie gegen die Gegenrichtung".
+- Bot "pine-hand" (Konto "Vortag USDJPY" …4094): lief dort vom 10.11. 03:48 bis zum Umzug auf Account 5, öffnet nichts
+  Neues mehr und betreut nur noch seine offenen Trades (Abfänger, Pine-Ausstiegshinweis).
 - Bot "pine-tp3" (Konto "US500" …8878): jeder Einstieg mit Take-Profit +3 € und ohne Stop. Notausstieg nur, wenn seine
   offenen Trades zusammen 250 € im Minus sind (schützt die anderen Bots auf dem Konto), sonst schließt er nie selbst.
 
 Beide: Einstieg auf dem Schluss jeder fertigen 5-Min.-Kerze von 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14) der 5-Min.-Kerzen,
 5 € je R, höchstens 1 oz je Trade, höchstens 4 Goldpositionen auf dem Konto, nie gegen eine offene Goldposition der
-Gegenrichtung (kein Hedging). Die anderen Bots auf dem Konto handeln andere Märkte und behalten Marge: Ein Pine-Bot
+Gegenrichtung (außer pine-k5 mit Hedging). Die anderen Bots auf dem Konto handeln andere Märkte und behalten Marge: Ein Pine-Bot
 belegt höchstens 250 € Marge, und nach jeder Order bleiben mindestens 250 € frei. Nie auf dem Hauptkonto des Gold-Bots.
 """
 from __future__ import annotations
@@ -55,6 +62,9 @@ PRUEF_STOP_R = 1.0                     # Stop so weit hinter dem Einstieg, wenn 
 PRUEF_LANG = pd.Timedelta(hours=24)    # nach so langem Warten im Plus raus, im Minus Ziel auf den Einstieg
 VORAB_PRUEFER = ROOT / "suche" / "VORAB_pine5m_pruefer.yaml"
 KEY_PRUEFER = "VORAB_pine5m_pruefer sha256 "
+VORAB_K5 = ROOT / "suche" / "VORAB_pine5m_konto5.yaml"
+KEY_K5 = "VORAB_pine5m_konto5 sha256 "
+HEDGING_WIEDER = pd.Timedelta(hours=1)  # schlug das Einschalten fehl, erst nach 1 Std. neu versuchen
 KERZEN_MAX = 1000
 LEBENSZEICHEN = pd.Timedelta(minutes=30)
 GOLD_BOT_DATEIEN = sb.GOLD_BOT_DATEIEN
@@ -67,13 +77,20 @@ class Bot:
     konto_name: str
     art: str                           # "hand" oder "tp3"
     name: str
+    neu: bool = True                   # False: keine neuen Einstiege, nur offene Trades betreuen
+    hedging: bool = False              # Long und Short gleichzeitig (Hedging-Modus des Kontos)
+    gold_pruefer: bool = False         # Termin-Pause, Termin-Warnung und Hintergrund wie beim Gold-Hand-Bot
 
 
 BOTS = (
-    Bot("pine-hand", "332325912027944094", "Vortag USDJPY", "hand",
-        "Pine-Gold Hand (Kirons Long A und Short B auf 5 Min., Kiron geht selbst raus)"),
+    Bot("pine-k5", hb.KONTO, "Account 5", "hand",
+        "Pine-Gold Hand auf Account 5 (Kirons Long A und Short B auf 5 Min., Long und Short gleichzeitig, Kiron geht "
+        "selbst raus)", hedging=True, gold_pruefer=True),
     Bot("pine-tp3", "332317231899038878", "US500", "tp3",
         "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)"),
+    Bot("pine-hand", "332325912027944094", "Vortag USDJPY", "hand",
+        "Pine-Gold Hand auf Vortag USDJPY (seit 10.11.2026 auf Account 5 umgezogen, betreut nur noch offene Trades)",
+        neu=False),
 )
 
 
@@ -81,7 +98,7 @@ def vorab_ok() -> bool:
     from suche.runde1 import journal_lines, last_value, sha256_text
     zeilen = journal_lines()
     return all(v.exists() and last_value(zeilen, k) == sha256_text(v.read_text(encoding="utf-8"))
-               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER)))
+               for v, k in ((VORAB, KEY), (VORAB_PRUEFER, KEY_PRUEFER), (VORAB_K5, KEY_K5)))
 
 
 def atr_rma(bars: pd.DataFrame, n: int = ATR_N) -> pd.Series:
@@ -376,10 +393,79 @@ class Lauf:
                    f"-{NOT_AUS_EUR:.0f} €). Er hat sie geschlossen, damit die anderen Bots auf dem Konto "
                    f"„{self.bot.konto_name}“ genug Marge behalten, und fängt mit dem nächsten Signal neu an.", ["warning"])
 
+    # ---- Hedging und Gold-Prüfer (nur pine-k5) ----
+
+    def hedging_an(self) -> bool:
+        """Ist der Hedging-Modus des aktiven Kontos an? Wenn nicht, einmal einschalten (Kirons Wort vom 10.11.2026
+        07:29 UTC: Long und Short gleichzeitig). Schlägt das fehl, gilt "nie gegen die Gegenrichtung", und der Bot
+        versucht es frühestens nach 1 Std. wieder."""
+        try:
+            an = bool((self.client._get("/accounts/preferences") or {}).get("hedgingMode"))
+        except Exception as err:            # noqa: BLE001 - dann ohne Hedging
+            self.ev("Hedging nicht lesbar", fehler=str(err)[:200])
+            return False
+        if an:
+            self.st["hedging"] = True
+            self.st.pop("hedging_fehler", None)
+            return True
+        if self.st.get("hedging"):
+            self.ev("Hedging ist aus")      # jemand hat es ausgeschaltet: wieder einschalten wie beim ersten Mal
+            self.st["hedging"] = False
+        if not self.send:
+            self.ev("würde Hedging einschalten")
+            return False
+        letzt = self.st.get("hedging_versuch")
+        if letzt and self.now - pd.Timestamp(letzt) < HEDGING_WIEDER:
+            return False
+        self.st["hedging_versuch"] = self.stamp
+        try:
+            self.client._request("PUT", "/accounts/preferences", json={"hedgingMode": True})
+            an = bool((self.client._get("/accounts/preferences") or {}).get("hedgingMode"))
+            fehler = None if an else "Capital.com meldet den Hedging-Modus weiter als aus"
+        except Exception as err:            # noqa: BLE001
+            an, fehler = False, str(err)[:200]
+        if an:
+            self.st["hedging"] = True
+            self.st.pop("hedging_fehler", None)
+            self.ev("Hedging eingeschaltet")
+            self.melde("Pine-Gold: Hedging an",
+                       f"Auf „{self.bot.konto_name}“ ist jetzt der Hedging-Modus an. Long und Short in Gold können "
+                       f"gleichzeitig offen sein, eine Gegen-Order schließt die alte Position nicht mehr. Schließ "
+                       f"Positionen in der App einzeln.", ["information_source"])
+            return True
+        self.ev("Hedging einschalten fehlgeschlagen", fehler=fehler)
+        if not self.st.get("hedging_fehler"):
+            self.melde("Pine-Gold: Hedging nicht eingeschaltet",
+                       f"Capital.com hat den Hedging-Modus auf „{self.bot.konto_name}“ nicht eingeschaltet ({fehler}). "
+                       f"Bis es klappt, öffnet der Bot nichts gegen eine offene Goldposition. Er versucht es jede "
+                       f"Stunde wieder.", ["warning"])
+        self.st["hedging_fehler"] = self.stamp
+        return False
+
+    def warne(self, gold: list[dict]) -> None:
+        """Bis 45 Min. vor einem wichtigen US-Termin einmal warnen, wenn Gold offen ist (wie der Gold-Hand-Bot)."""
+        if not gold:
+            return
+        try:
+            ev = hb.alle_termine(self.st, self.now)
+        except Exception as err:            # noqa: BLE001
+            self.ev("Termine nicht lesbar", fehler=str(err)[:120])
+            return
+        gewarnt = list(self.st.get("gewarnt") or [])
+        bald = [(t, s) for t, s in ev if self.now < t <= self.now + hb.WARN_VOR and f"{t.isoformat()} {s}" not in gewarnt]
+        if not bald:
+            return
+        n_s = sum(1 for p in gold if hb.richtung(p) < 0)
+        was = ", ".join(f"{s} um {hb._berlin(t)} Uhr" for t, s in bald)
+        self.melde("Pine-Gold: wichtiger Termin bald",
+                   f"{was}. Auf „{self.bot.konto_name}“ sind {n_s} Short und {len(gold) - n_s} Long in Gold offen. Der "
+                   f"Kurs kann dann stark springen. Jetzt prüfen, ob du rausgehen willst.", ["warning"])
+        self.st["gewarnt"] = (gewarnt + [f"{t.isoformat()} {s}" for t, s in bald])[-50:]
+
     # ---- Einstiege ----
 
     def einstiege(self, sig: pd.DataFrame, spread: pd.Series, neue: list[pd.Timestamp], gold: list[dict],
-                  available: float | None) -> None:
+                  available: float | None, hedge: bool = False) -> None:
         q = self.q
         for t in neue:
             ende = t + KERZE
@@ -404,12 +490,32 @@ class Lauf:
                 still = True
             if not q.tradeable:
                 gruende.append("Markt zu")
-            if any(hb.richtung(p) != d for p in gold):
+            if not hedge and any(hb.richtung(p) != d for p in gold):
                 gruende.append("eine Goldposition in die andere Richtung ist offen")
                 still = True
             if len(gold) >= MAX_OFFEN:
                 gruende.append(f"schon {MAX_OFFEN} Goldpositionen offen")
                 still = True
+            lage = ""
+            if self.bot.gold_pruefer and not still:
+                try:
+                    nl = hb.news_lage(self.st, self.now)
+                except Exception as err:    # noqa: BLE001 - ohne Termine keine Sperre
+                    nl = {"pause": False, "gruende": [], "naechster": None}
+                    self.ev("Termine nicht lesbar", fehler=str(err)[:120])
+                if nl["pause"]:
+                    gruende.append("News-Pause: " + ", ".join(nl["gruende"]))
+                hg = hb.hintergrund(self.client, self.now)
+                info["hintergrund"] = hg
+                if hg.get("richtung") == -d:
+                    gruende.append("gegen den Hintergrund (" + ("Gold steigt" if d < 0 else "Gold fällt")
+                                   + " auf Tag und 4 Std.)")
+                    still = True        # kommt oft vor: nur im Journal, keine Nachricht
+                lage = hb.hg_text(hg) + (f" Nächster wichtiger Termin: {nl['naechster']}." if nl.get("naechster")
+                                         else "")
+                if hedge and any(hb.richtung(p) != d for p in gold):
+                    lage += " Gegenposition offen, mit Hedging erlaubt."
+            info["lage"] = lage
             atr = float(sig.at[t, "atr"])
             sp = float(spread.get(t, q.offer - q.bid))
             if not np.isfinite(atr):
@@ -498,7 +604,8 @@ class Lauf:
                        f"{info['strategie']}, 5-Min.-Kerze bis {hb._berlin(pd.Timestamp(info['kerze']) + KERZE)} Uhr. "
                        f"Ohne Stop und ohne Ziel, raus gehst du selbst. Läuft er 0,5 R gegen dich ({hb._de(fehl)}), "
                        f"bevor {hb._de(ziel1)} kommt, setzt der Abfänger Stop {hb._de(stop1)} (1 R = "
-                       f"{hb._de(dist)} $ = etwa 5 €) und Ziel auf den Einstieg.",
+                       f"{hb._de(dist)} $ = etwa 5 €) und Ziel auf den Einstieg." +
+                       (f" {info['lage']}" if info.get("lage") else ""),
                        ["chart_with_upwards_trend" if d > 0 else "chart_with_downwards_trend"])
         return {"market": {"epic": EPIC}, "position": {"dealId": deal, "direction": body["direction"], "size": size,
                                                        "level": level}}
@@ -520,6 +627,8 @@ def lauf_bot(bot: Bot, client, state: dict, now, bars: pd.DataFrame, spread: pd.
     lauf = Lauf(bot, client, state, now, send_orders, post)
     if send_orders and lauf.st.get("nachholen"):
         lauf.nachholen()
+    if not bot.neu and not lauf.st["offen"]:
+        return lauf.st, lauf.log, [], []          # ausgelaufen: nichts mehr zu betreuen, nichts abfragen
     konto = next((a for a in client.accounts() if str(a.get("accountId")) == bot.konto), None)
     if konto is None or bot.konto.endswith(HAUPT_ENDUNG):
         lauf.ev("kein Konto", konto="…" + bot.konto[-4:])
@@ -537,16 +646,20 @@ def lauf_bot(bot: Bot, client, state: dict, now, bars: pd.DataFrame, spread: pd.
         gold = [p for p in client.positions() if (p.get("market") or {}).get("epic") == EPIC]
         lauf.abgleich(gold)
         neue = neue_kerzen(bars, lauf.st.get("letzte_kerze"))
+        hedge = lauf.hedging_an() if bot.hedging and bot.neu else False
         if bot.art == "hand":
             lauf.abfaenger(bars, spread, gold)
             lauf.ausstieg_hinweis(sig, neue)
+            if bot.gold_pruefer:
+                lauf.warne(gold)
         else:
             lauf.pruefer(bars, spread, gold)
             lauf.notausstieg(gold)
             if send_orders and any(e["event"] == "Notausstieg" for e in lauf.log):
                 gold = [p for p in client.positions() if (p.get("market") or {}).get("epic") == EPIC]
                 lauf.abgleich(gold)
-        lauf.einstiege(sig, spread, neue, gold, available)
+        if bot.neu:
+            lauf.einstiege(sig, spread, neue, gold, available, hedge)
         if neue:
             lauf.st["letzte_kerze"] = str(neue[-1])
         lauf.st["letzter_kurs"] = round(float(q.bid), 2)
@@ -573,17 +686,25 @@ def kerzen(client, now) -> tuple[pd.DataFrame, pd.Series]:
     return bars_from_prices(client.prices(EPIC, "MINUTE_5", KERZEN_MAX), now, "5min")
 
 
-START_TEXT = ("Der Pine-Gold-Bot läuft jetzt auf dem Demokonto „Vortag USDJPY“ von Capital.com: deine Strategien A "
-              "(Long) und B (Short) auf 5-Min.-Gold-Kerzen, 7 bis 20 Uhr UTC. Er meldet jeden Einstieg ohne Stop und "
-              "Ziel, greift mit dem Trade-Abfänger ein und sagt Bescheid, wenn die Strategie selbst rausgehen würde. "
-              "Rausgehen machst du selbst. Daneben handelt der TP-Bot dieselben Signale auf dem Konto „US500“ mit "
-              "+3 € Take-Profit.")
+START_TEXT = ("Der Pine-Gold-Hand-Bot handelt ab jetzt auf Account 5: deine Strategien A (Long) und B (Short) auf "
+              "5-Min.-Gold-Kerzen, 8 bis 21 Uhr deutscher Zeit, Long und Short auch gleichzeitig (Hedging). Er meldet "
+              "jeden Einstieg ohne Stop und Ziel, macht vor wichtigen US-Terminen Pause, nimmt nichts gegen den "
+              "Hintergrund (Tag und 4 Std.) und greift mit dem Trade-Abfänger ein. Eine Sperre nach Kurssprüngen gibt "
+              "es nicht. Rausgehen machst du selbst. Der Box-Bot auf Account 5 nimmt keine neuen Trades mehr, auf "
+              "„Vortag USDJPY“ kommen keine neuen Pine-Trades mehr. Der TP-Bot auf „US500“ bleibt, wie er ist.")
+START_BOT = "pine-k5"
 
 
 def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
     r = [float(t["r"]) for t in alle if t.get("r") is not None]
     regel = ("Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, "
-             "1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, nie gegen die Gegenrichtung. ")
+             "1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, "
+             + ("Long und Short gleichzeitig erlaubt (Hedging). " if bot.hedging else "nie gegen die Gegenrichtung. "))
+    if bot.gold_pruefer:
+        regel += ("Gold-Prüfer: keine Einstiege 60 Min. vor bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach "
+                  "Kurssprüngen), nichts gegen den Hintergrund (Tag über SMA 50 und 4 Std. über EMA 50). ")
+    if not bot.neu:
+        regel = "Seit 10.11.2026 auf Account 5 umgezogen, hier keine neuen Einstiege mehr. " + regel
     regel += ("Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger: Fehltrade (0,5 R dagegen vor 0,75 R dafür) "
               "Stop 1 R und Ziel am Einstieg, Notbremse ab 1 R Minus. Hinweis beim Pine-Ausstiegssignal."
               if bot.art == "hand" else
@@ -591,8 +712,11 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
               "Minus seit dem Einstieg) Stop 1 R und Ziel am Einstieg, nach 24 Std. im Plus raus. Äußerste Grenze: "
               f"Notausstieg aller eigenen Trades bei zusammen -{NOT_AUS_EUR:.0f} €.")
     return {"bot": bot.bot_id, "name": bot.name, "konto": "…" + bot.konto[-4:], "konto_name": bot.konto_name,
-            "stand": st.get("stand"), "start": st.get("start"), "regel": regel, "vorab": "suche/VORAB_pine5m.yaml",
-            "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
+            "stand": st.get("stand"), "start": st.get("start"), "regel": regel,
+            "vorab": "suche/VORAB_pine5m_konto5.yaml" if bot.gold_pruefer else "suche/VORAB_pine5m.yaml",
+            "test": ("nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 "
+                     "0,76)" if bot.gold_pruefer else
+                     "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)"),
             "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": sb.ts.pf(r) if r else None, "summe_r": round(sum(r), 2),
                                 "summe_eur": round(sum(float(t.get("pnl_eur") or 0) for t in alle), 2),
@@ -665,7 +789,7 @@ def main(argv: list[str]) -> int:
     for bot in BOTS:
         p = ROOT / "journal" / bot.bot_id / "state.json"
         states[bot.bot_id] = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
-        erster = erster or (bot.art == "hand" and not p.exists())
+        erster = erster or (bot.bot_id == START_BOT and not p.exists())
     client = CapitalClient(*creds, environment="demo")
     client.login()
     try:
@@ -680,8 +804,8 @@ def main(argv: list[str]) -> int:
         print(bot.bot_id, json.dumps({"ereignisse": log, "fertig": fertige, "nachrichten": nachrichten,
                                       "offen": len(st.get("offen", []))}, ensure_ascii=False, default=str))
         if not args.dry_run:
-            if bot.art == "hand" and erster:
-                ok = hb.sende(START_TEXT, "Pine-Gold-Bots sind live", ["rocket"])
+            if bot.bot_id == START_BOT and erster:
+                ok = hb.sende(START_TEXT, "Pine-Gold jetzt auf Account 5", ["rocket"])
                 print("Start-Nachricht", "gesendet" if ok else "nicht gesendet")
             schreiben(bot, states[bot.bot_id], st, log, fertige, nachrichten)
     return 1 if fehler else 0

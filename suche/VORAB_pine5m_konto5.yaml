@@ -1,0 +1,34 @@
+# Pine-Gold-Hand-Bot auf Account 5, Nachtrag zu suche/VORAB_pine5m.yaml.
+# Kirons Wort vom 10.11.2026 07:29 UTC: Shorts und Longs dürfen gleichzeitig offen sein. Auf Account 5 sollen statt der
+# Box-Seiten des Gold-Short-Bots seine Pine-Strategien A (Long) und B (Short) auf 5 Min. laufen, mit dem Gold-Prüfer wie
+# bisher (News-Termine, Trade-Abfänger, der schlechte Trades früh abfängt), aber ohne Sperre nach Kurssprüngen
+# ("kein 1 % Bewegungslimit").
+# Festgelegt, bevor etwas gerechnet wurde. Code suche/pine5m_konto5.py. Einstiege, Kosten, R, Abfänger, Zeiträume und
+# Bestanden-Regel genau wie in VORAB_pine5m.yaml (Variante abfaenger), Markt nur XAUUSD.
+
+format: 1
+pine5m_konto5:
+  live_auf_jeden_fall: >-
+    Kirons Wünsche gehen live, egal wie der Test ausgeht (reiner Demo-Vorwärtstest): Bot pine-hand zieht vom Konto
+    "Vortag USDJPY" auf Account 5 (…9086). Hedging-Modus auf Account 5 an (der Bot schaltet ihn über
+    PUT /accounts/preferences ein, wenn er aus ist; klappt das nicht, bleibt die alte Regel "nie gegen die
+    Gegenrichtung"). Termin-Pause wie beim Gold-Hand-Bot (60 Min. vor bis 30 Min. nach Fed, CPI, NFP und roten
+    USD-Terminen), keine Pause nach Kurssprüngen. Abfänger und Pine-Ausstiegshinweis wie bisher. Der Box-Bot auf
+    Account 5 (gold/hand_bot.py) öffnet nichts Neues mehr und betreut nur noch seine offenen Trades.
+  varianten:
+    abfaenger: wie heute (VORAB_pine5m), nie gegen die Gegenrichtung, höchstens 4 offen
+    k5_hedge: dazu Gegenrichtung erlaubt (Hedging), höchstens 4 offen zusammen. Long und Short in derselben Kerze
+      bleiben widersprüchlich (nur aufstocken, wenn genau eine Seite offen ist)
+    k5_hedge_termin: dazu kein Einstieg, wenn der Signalschluss 60 Min. vor bis 30 Min. nach einem Termin aus
+      gold/v2/termine.yaml liegt (Fed, CPI, NFP; ForexFactory-Termine gibt es rückwirkend nicht)
+    k5_hedge_termin_hg: dazu der Hintergrund des Gold-Hand-Bots. Letzter fertiger Tagesschluss (UTC-Tag) über seinem
+      50-Tage-Schnitt und letzter fertiger 4-Std.-Schluss (UTC 0, 4, 8 ...) über seiner EMA 50 heißt kein Short, beide
+      darunter heißt kein Long, sonst beides erlaubt
+  hintergrund_regel: >-
+    Der Hintergrund kommt nur in den Live-Bot, wenn k5_hedge_termin_hg im Zeitraum UND in der Kontrolle einen höheren
+    Gewinnfaktor hat als k5_hedge_termin. Sonst bleibt er draußen.
+  masse: wie VORAB_pine5m (Zeitraum, 1,5-facher Spread, Hälften, 2026, Kontrolle), dazu Anteil Long und Short und
+    größter Einzelverlust
+  bestanden: wie VORAB_pine5m (Gewinnfaktor mindestens 1,2, robust 1,0, Hälften, 2026 und Kontrolle über 1,0, 100 Trades)
+  keine_nachbesserung: keine anderen Fenster, Schwellen oder Filter nach dem Ergebnis.
+  live: nur Demo, nur über einen PR, den Kiron merged. Urteil nach 40 Trades.

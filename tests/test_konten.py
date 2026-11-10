@@ -148,14 +148,17 @@ def test_open_position_on_the_main_account_moves_only_after_it_is_closed(monkeyp
 
 def test_config_extra_bots_only_on_an_own_account_and_end_moved():
     cfg = yaml.safe_load(Path("suche/demo_bots.yaml").read_text(encoding="utf-8"))
-    assert cfg["extra_bots"] and all(b.get("eigenes_konto") is True for b in cfg["extra_bots"] if b["epic"] == "GOLD")
+    assert all(b.get("eigenes_konto") is True for b in cfg["extra_bots"] if b["epic"] == "GOLD")
     assert not {b["epic"] for b in cfg["extra_bots"]} & {b["epic"] for b in cfg["bots"]}
     ids = [b["id"] for b in db.alle_bots(cfg)]
     assert len(ids) == len(set(ids))
     assert cfg["wochentest_ende_utc"] == "2026-11-10T09:45:00" and cfg["ende_utc"] > cfg["wochentest_ende_utc"]
     # Bewertung 2025-2026: nur nicht bestandene Bots geben ihr Konto ab, jeder an einen anderen Nachfolger
     abl = cfg["abgeloest"]
-    assert set(abl) <= set(ids) and "oil-brent" not in abl and len({n["an"] for n in abl.values()}) == len(abl)
+    assert "oil-brent" not in abl and len({n["an"] for n in abl.values()}) == len(abl)
+    # D6 (10.11.2026): die abgelösten Bots ohne offene Position sind aus Liste und Wochenbericht raus, der Nachweis bleibt
+    assert set(abl) == {"j225", "us30", "copper", "intc", "gold2", "dax"} and not set(abl) & set(ids)
+    assert ids == ["oil-brent"] and cfg["extra_bots"] == []
 
 
 def test_gold_runner_uses_the_main_account(tmp_path):
@@ -177,22 +180,25 @@ def test_weekly_report_reads_the_journal_and_names_every_bot(monkeypatch, tmp_pa
     (tmp_path / "demo-bots").mkdir()
     (tmp_path / "demo-bots.json").write_text(json.dumps({
         "start_utc": "2026-11-03T07:14:21", "bots": [
-            {"id": "us30", "status": "Position offen", "konto": {"id": "…1002", "eigen": True, "seit_start": -3.5},
-             "position": {"side": "short", "entry": 47000, "upl": -3.5, "opened_utc": "2026-11-03T15:01:00"}}]}))
-    (tmp_path / "demo-bots" / "trades.jsonl").write_text(json.dumps(
-        {"bot": "copper", "r": 2.0, "pnl_eur": 4.0, "side": "long", "closed_utc": "2026-11-03T14:00:00"}) + "\n")
+            {"id": "oil-brent", "status": "Position offen", "konto": {"id": "…1002", "eigen": True, "seit_start": -3.5},
+             "position": {"side": "long", "entry": 65.2, "upl": -3.5, "opened_utc": "2026-11-03T15:01:00"}}]}))
+    # D6 (10.11.2026): die abgelösten Bots (hier Kupfer) stehen nicht mehr im Wochenbericht, auch nicht ihre alten Trades
+    (tmp_path / "demo-bots" / "trades.jsonl").write_text("".join(json.dumps(x) + "\n" for x in (
+        {"bot": "copper", "r": 5.0, "pnl_eur": 9.0, "side": "long", "closed_utc": "2026-11-03T12:00:00"},
+        {"bot": "oil-brent", "r": 2.0, "pnl_eur": 4.0, "side": "long", "closed_utc": "2026-11-03T14:00:00"})))
     (tmp_path / "gold-trades.jsonl").write_text(json.dumps(
         {"r": -1.01, "pnl_eur": -4.83, "side": "short", "closed_utc": "2026-11-03T01:11:37+00:00"}) + "\n")
     monkeypatch.setattr(wb, "J", tmp_path)
     s = wb.stand(datetime(2026, 11, 3, 19, 0, tzinfo=timezone.utc), seit=wb._ts("2026-11-03T08:00"))
     ids = [b["id"] for b in s["bots"]]
-    assert ids[:2] == ["gold", "oil-brent"] and {"gold2", "dax"} <= set(ids)
+    assert ids[:2] == ["gold", "oil-brent"]
+    assert not {"j225", "us30", "copper", "intc", "gold2", "dax"} & set(ids)
     assert s["bots"][0]["live"]["trades"] == 1            # Gold zählt jeden Demo-Trade seit 31.10. (Kritik D7)
     assert s["gesamt"] == {"trades": 2, "gewonnen": 1, "sum_r": 0.99, "pf_r": 1.98, "eur": -0.83}
     assert [e["art"] for e in s["neu"]] == ["zu", "auf"]
     t = wb.text(s)
-    assert "Dow Jones (US30 15-Min.) | eigenes …1002, -3,50 € |" in t and "Verkauf offen" in t
-    assert "wartet auf ein eigenes Demokonto" in t and "Kupfer" in t
+    assert "eigenes …1002, -3,50 € |" in t and "Kauf offen" in t
+    assert "Brent" in t and "Kupfer" not in t and "Gold-Bot 2.0 (" not in t
 
 
 # ---------- Schluss beim Broker richtig buchen (Fehler vom 03.11.2026: Dow-Trades zum Einstiegskurs gebucht) ----------

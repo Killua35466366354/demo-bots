@@ -423,3 +423,87 @@ def test_anderes_konto_aktiv_nichts_tun(welt):
     k.aktiv_falsch = HAUPT
     out = pb.run(k, {}, NOW, post=Post())
     assert not _orders(k) and all(e["event"].startswith("anderes Konto") for b in out for e in out[b][1])
+
+
+# ---- Prüfer des TP-Bots (suche/VORAB_pine5m_pruefer.yaml, Kirons Wort vom 10.11.2026 02:48 UTC) ----
+
+def _tp_pos(k, welt, seit, entry=4000.0, tp=4005.4, d="BUY"):
+    k.pos[TP3.konto]["T"] = {"dealId": "T", "level": entry, "size": 0.6, "direction": d, "profitLevel": tp}
+    return {"offen": [{"dealId": "T", "richtung": 1 if d == "BUY" else -1, "size": 0.6, "entry": entry, "dist": 9.0,
+                       "tp": tp, "opened_utc": seit}], "letzte_kerze": str(welt["bars"].index[-1])}
+
+
+def test_pruefer_wartet_drei_stunden(welt):
+    k = Konto(bid=3994.0, offer=3994.3)                          # 0,67 R im Minus, aber erst 2 Std. offen
+    st = _tp_pos(k, welt, "2026-03-04T13:17:00")
+    pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    assert not [c for c in k.calls if c[0] in ("PUT", "DELETE")]
+
+
+def test_pruefer_fehltrade_stop_und_einstand(welt):
+    k = Konto(bid=3994.0, offer=3994.3)                          # 3 Std. 17 Min. offen, 0,67 R im Minus
+    st = _tp_pos(k, welt, "2026-03-04T12:00:00")
+    out = pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    p = k.pos[TP3.konto]["T"]
+    assert p["stopLevel"] == 3991.0 and p["profitLevel"] == 4000.0
+    tr = out["pine-tp3"][0]["offen"][0]
+    assert tr["pruefer"]["warum"].startswith("Fehltrade") and tr["tp"] == 4000.0
+    k2 = Konto(bid=3994.0, offer=3994.3)                         # nur einmal je Position
+    k2.pos = k.pos
+    pb.run(k2, {"pine-tp3": out["pine-tp3"][0]}, NOW, post=Post())
+    assert not [c for c in k2.calls if c[0] == "PUT"]
+
+
+def test_pruefer_hinter_dem_stop_halbes_r_hinter_den_kurs(welt):
+    k = Konto(bid=3988.0, offer=3988.3)                          # 1,33 R im Minus
+    st = _tp_pos(k, welt, "2026-03-04T12:00:00")
+    pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    p = k.pos[TP3.konto]["T"]
+    assert p["stopLevel"] == pytest.approx(3983.5) and p["profitLevel"] == 4000.0
+
+
+def test_pruefer_short_fehltrade(welt):
+    k = Konto(bid=4005.5, offer=4005.8)                          # Short von 4000: 0,64 R im Minus
+    st = _tp_pos(k, welt, "2026-03-04T12:00:00", tp=3994.6, d="SELL")
+    pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    p = k.pos[TP3.konto]["T"]
+    assert p["stopLevel"] == 4009.0 and p["profitLevel"] == 4000.0
+
+
+def test_pruefer_fehltrade_wieder_im_plus_ziel_bleibt(welt):
+    bars = welt["bars"].copy()
+    bars.iloc[-20, bars.columns.get_loc("low")] = 3994.0          # lag nach dem Einstieg 0,67 R im Minus
+    welt["bars"] = bars
+    k = Konto(bid=4002.0, offer=4002.3)                          # jetzt wieder im Plus
+    st = _tp_pos(k, welt, "2026-03-04T12:00:00")
+    pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    p = k.pos[TP3.konto]["T"]
+    assert p["stopLevel"] == 3991.0 and p["profitLevel"] == 4005.4
+
+
+def test_pruefer_langes_warten_im_plus_raus(welt):
+    k = Konto(bid=4001.0, offer=4001.3)                          # 25 Std. offen, nie 0,5 R im Minus, jetzt im Plus
+    st = _tp_pos(k, welt, "2026-03-03T14:00:00")
+    pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    assert ("DELETE", "T", TP3.konto) in k.calls and "T" not in k.pos[TP3.konto]
+
+
+def test_pruefer_langes_warten_im_minus_einstand(welt):
+    k = Konto(bid=3998.0, offer=3998.3)                          # 25 Std. offen, 0,22 R im Minus
+    st = _tp_pos(k, welt, "2026-03-03T14:00:00")
+    pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    p = k.pos[TP3.konto]["T"]
+    assert p["stopLevel"] == 3991.0 and p["profitLevel"] == 4000.0
+
+
+def test_pruefer_aus_wenn_ziel_von_hand_geaendert(welt):
+    k = Konto(bid=3994.0, offer=3994.3)
+    st = _tp_pos(k, welt, "2026-03-04T12:00:00")
+    k.pos[TP3.konto]["T"]["profitLevel"] = 4020.0
+    out = pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    assert not [c for c in k.calls if c[0] == "PUT"] and out["pine-tp3"][0]["offen"][0]["agent"] == "aus"
+
+
+def test_pruefer_vorab_ist_versiegelt():
+    from suche.runde1 import journal_lines, last_value, sha256_text
+    assert last_value(journal_lines(), pb.KEY_PRUEFER) == sha256_text(pb.VORAB_PRUEFER.read_text(encoding="utf-8"))

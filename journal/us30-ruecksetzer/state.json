@@ -7,13 +7,13 @@
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-10T13:46:34.664970",
+  "zeit": "2026-11-10T14:01:34.686111",
   "action": "none",
   "why": "wartet auf 15 Uhr New York",
   "bar": null
  },
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "position": null,
- "stand_utc": "2026-11-10T13:46:34.664970",
+ "stand_utc": "2026-11-10T14:01:34.686111",
  "tag_erledigt": "2026-11-09"
 }

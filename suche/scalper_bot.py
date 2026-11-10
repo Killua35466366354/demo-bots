@@ -131,12 +131,17 @@ def open_aus_kerzen(kerzen: pd.DataFrame, tag: pd.Timestamp, art: str) -> float 
     return None
 
 
-def hole_open(client, epic: str, tag: pd.Timestamp, art: str) -> float | None:
-    """Open der Periode aus Capital.com-Stundenkerzen (Bid) rund um den Beginn der Periode."""
+def hole_open(client, epic: str, tag: pd.Timestamp, art: str, jetzt: pd.Timestamp | None = None) -> float | None:
+    """Open der Periode aus Capital.com-Stundenkerzen (Bid) rund um den Beginn der Periode.
+
+    Capital.com lehnt ein Ende in der Zukunft ab (error.invalid.daterange, erster Lauf 10.11.2026 beim Wochen-Open),
+    darum endet das Fenster spätestens jetzt (UTC, naiv)."""
     from gold.bot.rules import bars_from_prices
     _, erster = periode(tag, art)
     von = sc.ortszeit(erster - pd.Timedelta(days=1), "16:00", NY)
     bis = von + pd.Timedelta(days=5)
+    if jetzt is not None:
+        bis = min(bis, pd.Timestamp(jetzt).floor("min") - pd.Timedelta(minutes=1))
     fmt = "%Y-%m-%dT%H:%M:%S"
     raw = client._get(f"/prices/{epic}", resolution="HOUR", max=200,
                       **{"from": von.strftime(fmt), "to": bis.strftime(fmt)}).get("prices", [])
@@ -297,7 +302,7 @@ class Lauf:
             key = f"{art}:{periode(tag, art)[0]}"
             if key not in self.st["opens"]:
                 try:
-                    o = hole_open(self.client, self.bot.epic, tag, art)
+                    o = hole_open(self.client, self.bot.epic, tag, art, self.now)
                 except Exception as err:     # noqa: BLE001 - dann fehlt das Open, kein Trade
                     self.ev("Open nicht lesbar", art=art, fehler=str(err)[:160])
                     o = None
@@ -453,12 +458,27 @@ def zusammenfassung(st: dict, fertige_alle: list[dict]) -> dict:
             "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"}
 
 
-def schreiben(bot: Scalper, st: dict, log: list[dict], fertige: list[dict]) -> None:
+LEBENSZEICHEN = pd.Timedelta(minutes=30)
+
+
+def _ohne_stand(st: dict) -> dict:
+    return {k: v for k, v in st.items() if k != "stand"}
+
+
+def schreiben(bot: Scalper, st: dict, log: list[dict], fertige: list[dict]) -> bool:
+    """Nur eigene Dateien. Ohne Neues höchstens alle 30 Min. ein Lebenszeichen (weniger Commits, wie Pine-Gold)."""
     ordner = JOURNAL / bot.bot_id
+    alt = None
+    with contextlib.suppress(OSError, ValueError):
+        alt = json.loads((ordner / "state.json").read_text(encoding="utf-8"))
+    wichtig = [e for e in log if e["event"] not in ("würde öffnen", "würde schließen (Zeit)")]
+    if (isinstance(alt, dict) and alt.get("stand") and st.get("stand") and not wichtig and not fertige
+            and _ohne_stand(alt) == _ohne_stand(json.loads(json.dumps(st, default=str)))
+            and pd.Timestamp(st["stand"]) - pd.Timestamp(alt["stand"]) < LEBENSZEICHEN):
+        return False
     ordner.mkdir(parents=True, exist_ok=True)
     (ordner / "state.json").write_text(json.dumps(st, ensure_ascii=False, indent=1, default=str) + "\n",
                                        encoding="utf-8")
-    wichtig = [e for e in log if e["event"] not in ("würde öffnen", "würde schließen (Zeit)")]
     if wichtig:
         with open(ordner / "log.jsonl", "a", encoding="utf-8") as fh:
             for e in wichtig:
@@ -478,6 +498,7 @@ def schreiben(bot: Scalper, st: dict, log: list[dict], fertige: list[dict]) -> N
              "letzte_trades": alle[-5:]}
     (JOURNAL / f"{bot.bot_id}.json").write_text(json.dumps(karte, ensure_ascii=False, indent=1, default=str) + "\n",
                                                 encoding="utf-8")
+    return True
 
 
 def main(argv: list[str]) -> int:

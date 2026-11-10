@@ -1,6 +1,8 @@
-"""Tests für gold/pine5m_bot.py: Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, zwei Bots auf zwei Konten.
+"""Tests für gold/pine5m_bot.py: Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Bots auf drei Konten.
 
-Bot Hand: Marktorder ohne Stop und Ziel, Nachricht, Trade-Abfänger, Hinweis beim Pine-Ausstieg, schließt nie selbst.
+Bot Hand (pine-k5, Account 5): Marktorder ohne Stop und Ziel, Nachricht, Trade-Abfänger, Hinweis beim Pine-Ausstieg,
+schließt nie selbst, Hedging (Long und Short gleichzeitig), Termin-Pause, Hintergrund, Termin-Warnung.
+Bot pine-hand (Vortag USDJPY): ausgelaufen, betreut nur noch offene Trades.
 Bot TP 3 €: Take-Profit +3 €, kein Stop, Notausstieg bei zusammen -250 €. Beide: nur 7 bis 20 Uhr UTC, frische Signale,
 höchstens 4 Goldpositionen, nie gegen die Gegenrichtung, Marge für die anderen Bots, nie das Hauptkonto, eigene Dateien."""
 import json
@@ -13,7 +15,7 @@ from gold import pine5m_bot as pb
 from gold.backtest import pine_port as pp
 
 HAUPT = "111111113150"
-HAND, TP3 = pb.BOTS
+HAND, TP3, ALT = pb.BOTS
 NOW = pd.Timestamp("2026-03-04 15:17", tz="UTC").to_pydatetime()
 
 
@@ -30,9 +32,11 @@ class Konto:
     def __init__(self, bid=4000.0, offer=4000.3, frei=1000.0):
         self.account_id = HAUPT
         self.bid, self.offer = bid, offer
-        self.frei = {HAND.konto: frei, TP3.konto: frei}
-        self.pos: dict[str, dict[str, dict]] = {HAND.konto: {}, TP3.konto: {}}
-        self.fremd: dict[str, list] = {HAND.konto: [], TP3.konto: []}
+        self.frei = {HAND.konto: frei, TP3.konto: frei, ALT.konto: frei}
+        self.pos: dict[str, dict[str, dict]] = {HAND.konto: {}, TP3.konto: {}, ALT.konto: {}}
+        self.fremd: dict[str, list] = {HAND.konto: [], TP3.konto: [], ALT.konto: []}
+        self.hedging = {HAND.konto: True, TP3.konto: False, ALT.konto: False}
+        self.hedging_sperre = False
         self.acts: dict[str, list] = {}
         self.calls: list = []
         self.refs: dict = {}
@@ -62,10 +66,16 @@ class Konto:
                 + self.fremd[self.account_id])
 
     def _request(self, method, path, json=None):
-        assert self.account_id in (HAND.konto, TP3.konto), "nie auf dem Hauptkonto handeln"
+        assert self.account_id in (HAND.konto, TP3.konto, ALT.konto), "nie auf dem Hauptkonto handeln"
         self.calls.append((method, path, json, self.account_id))
         self.nr += 1
         ref = f"R{self.nr}"
+        if path == "/accounts/preferences":
+            assert method == "PUT" and json == {"hedgingMode": True}
+            if self.hedging_sperre:
+                raise RuntimeError("PUT /accounts/preferences -> 400: error.hedging")
+            self.hedging[self.account_id] = True
+            return type("A", (), {"json": lambda s: {"status": "SUCCESS"}})()
         if method == "POST" and path == "/positions":
             deal = f"D{self.nr}"
             lvl = self.offer if json["direction"] == "BUY" else self.bid
@@ -97,6 +107,8 @@ class Konto:
         return self.acts.get(deal_id, [])
 
     def _get(self, path, **params):
+        if path == "/accounts/preferences":
+            return {"hedgingMode": self.hedging[self.account_id], "leverages": {}}
         assert path == "/session"
         return {"accountId": self.aktiv_falsch or self.account_id}
 
@@ -126,6 +138,12 @@ def welt(monkeypatch):
     monkeypatch.setattr(pb, "signale", lambda b: modell["sig"])
     monkeypatch.setattr(pb, "vorab_ok", lambda: True)
     monkeypatch.setenv("NTFY_THEMA", "pine-test")
+    modell["news"] = {"pause": False, "gruende": [], "naechster": None, "termine": []}
+    modell["hg"] = {"richtung": 0}
+    modell["termine"] = []
+    monkeypatch.setattr(pb.hb, "news_lage", lambda st, now: modell["news"])
+    monkeypatch.setattr(pb.hb, "hintergrund", lambda client, now: modell["hg"])
+    monkeypatch.setattr(pb.hb, "alle_termine", lambda st, now: modell["termine"])
     return modell
 
 
@@ -141,9 +159,12 @@ def _orders(k, konto=None):
 
 def test_konten_und_nie_hauptkonto():
     assert {b.art for b in pb.BOTS} == {"hand", "tp3"}
-    assert HAND.konto.endswith("4094") and TP3.konto.endswith("8878")
+    assert HAND.konto.endswith("9086") and HAND.konto == pb.hb.KONTO and HAND.bot_id == "pine-k5"
+    assert HAND.hedging and HAND.gold_pruefer and HAND.neu
+    assert TP3.konto.endswith("8878") and not TP3.hedging and not TP3.gold_pruefer and TP3.neu
+    assert ALT.bot_id == "pine-hand" and ALT.konto.endswith("4094") and not ALT.neu
     assert not any(b.konto.endswith(pb.HAUPT_ENDUNG) for b in pb.BOTS)
-    assert HAND.konto != TP3.konto
+    assert len({b.konto for b in pb.BOTS}) == 3
 
 
 def test_long_signal_beide_bots_eroeffnen(welt):
@@ -157,7 +178,7 @@ def test_long_signal_beide_bots_eroeffnen(welt):
     assert hand[0][2]["size"] == 0.6 and tp3[0][2]["size"] == 0.6
     # TP 3 € = 3 * 1,08 / 0,6 = 5,40 $ über dem Einstieg (Ask 4000,30)
     assert tp3[0][2]["profitLevel"] == pytest.approx(4005.70) and "stopLevel" not in tp3[0][2]
-    st_h, _, _, msg_h = out["pine-hand"]
+    st_h, _, _, msg_h = out[HAND.bot_id]
     st_t, _, _, msg_t = out["pine-tp3"]
     assert st_h["offen"][0]["dist"] == 9.0 and st_t["offen"][0]["tp"] == pytest.approx(4005.70)
     assert len(msg_h) == 1 and msg_h[0]["titel"] == "Pine-Gold LONG eröffnet" and not msg_t
@@ -189,20 +210,137 @@ def test_altes_signal_verfaellt_still(welt):
     k, post = Konto(), Post()
     out = pb.run(k, {}, spaet, post=post)
     assert not _orders(k) and not post.calls
-    assert any("Signal zu alt" in e.get("gruende", []) for e in out["pine-hand"][1])
+    assert any("Signal zu alt" in e.get("gruende", []) for e in out[HAND.bot_id][1])
 
 
-def test_nie_gegen_die_gegenrichtung_und_hoechstens_vier(welt):
+def test_tp_bot_nie_gegen_die_gegenrichtung_und_hoechstens_vier(welt):
     _setze(welt, "long")
     k = Konto()
-    k.pos[HAND.konto]["X"] = {"dealId": "X", "level": 3990.0, "size": 0.5, "direction": "SELL"}
+    k.pos[TP3.konto]["X"] = {"dealId": "X", "level": 3990.0, "size": 0.5, "direction": "SELL"}
     for i in range(4):
-        k.pos[TP3.konto][f"L{i}"] = {"dealId": f"L{i}", "level": 3990.0, "size": 0.1, "direction": "BUY"}
+        k.pos[HAND.konto][f"L{i}"] = {"dealId": f"L{i}", "level": 3990.0, "size": 0.1, "direction": "SELL"}
     post = Post()
     out = pb.run(k, {}, NOW, post=post)
     assert not _orders(k) and not post.calls                         # beides still, nur im Log
-    assert any("andere Richtung" in g for e in out["pine-hand"][1] for g in e.get("gruende", []))
-    assert any("4 Goldpositionen" in g for e in out["pine-tp3"][1] for g in e.get("gruende", []))
+    assert any("andere Richtung" in g for e in out["pine-tp3"][1] for g in e.get("gruende", []))
+    assert any("4 Goldpositionen" in g for e in out[HAND.bot_id][1] for g in e.get("gruende", []))
+
+
+# ---- Account 5: Hedging, Termin-Pause, Hintergrund (Kirons Wort vom 10.11.2026 07:29 UTC) ----
+
+def test_k5_mit_hedging_long_neben_short(welt):
+    _setze(welt, "long")
+    k, post = Konto(), Post()
+    k.pos[HAND.konto]["X"] = {"dealId": "X", "level": 3990.0, "size": 0.5, "direction": "SELL"}
+    out = pb.run(k, {}, NOW, post=post)
+    hand = _orders(k, HAND.konto)
+    assert len(hand) == 1 and hand[0][2]["direction"] == "BUY" and "X" in k.pos[HAND.konto]
+    assert not [c for c in k.calls if c[1] == "/accounts/preferences"]      # war schon an: nichts umgestellt
+    assert out[HAND.bot_id][0]["hedging"] is True
+    assert "Gegenposition offen, mit Hedging erlaubt" in post.calls[0][1]["message"]
+
+
+def test_k5_schaltet_hedging_ein_und_meldet_es_einmal(welt):
+    _setze(welt, "short")
+    k, post = Konto(), Post()
+    k.hedging[HAND.konto] = False
+    k.pos[HAND.konto]["X"] = {"dealId": "X", "level": 3990.0, "size": 0.5, "direction": "BUY"}
+    out = pb.run(k, {}, NOW, post=post)
+    assert ("PUT", "/accounts/preferences", {"hedgingMode": True}, HAND.konto) in k.calls
+    assert not [c for c in k.calls if c[1] == "/accounts/preferences" and c[3] != HAND.konto]
+    assert [c[1]["title"] for c in post.calls] == ["Pine-Gold: Hedging an", "Pine-Gold SHORT eröffnet"]
+    assert len(_orders(k, HAND.konto)) == 1
+    pb.run(k, {b: out[b][0] for b in out}, NOW, post=Post())
+    assert len([c for c in k.calls if c[1] == "/accounts/preferences"]) == 1
+
+
+def test_k5_ohne_hedging_nie_gegen_und_versucht_es_stuendlich(welt):
+    _setze(welt, "short")
+    k, post = Konto(), Post()
+    k.hedging[HAND.konto], k.hedging_sperre = False, True
+    k.pos[HAND.konto]["X"] = {"dealId": "X", "level": 3990.0, "size": 0.5, "direction": "BUY"}
+    out = pb.run(k, {}, NOW, post=post)
+    assert not _orders(k, HAND.konto)
+    assert [c[1]["title"] for c in post.calls] == ["Pine-Gold: Hedging nicht eingeschaltet"]
+    st = out[HAND.bot_id][0]
+    st["letzte_kerze"] = str(welt["bars"].index[-2])
+    post2 = Post()
+    spaeter = pd.Timestamp(NOW) + pd.Timedelta(minutes=5)
+    pb.run(k, {HAND.bot_id: st}, spaeter.to_pydatetime(), post=post2)
+    assert len([c for c in k.calls if c[1] == "/accounts/preferences"]) == 1 and not post2.calls
+
+
+def test_k5_trockenlauf_schaltet_hedging_nicht_ein(welt):
+    k = Konto()
+    k.hedging[HAND.konto] = False
+    out = pb.run(k, {}, NOW, send_orders=False, post=Post())
+    assert not [c for c in k.calls if c[1] == "/accounts/preferences"] and not k.hedging[HAND.konto]
+    assert any(e["event"] == "würde Hedging einschalten" for e in out[HAND.bot_id][1])
+
+
+def test_k5_news_pause_mit_nachricht_tp_bot_ohne(welt):
+    _setze(welt, "long")
+    welt["news"] = {"pause": True, "gruende": ["US-Inflation (CPI) um 14:30 Uhr"], "naechster": None, "termine": []}
+    k, post = Konto(), Post()
+    pb.run(k, {}, NOW, post=post)
+    assert not _orders(k, HAND.konto) and len(_orders(k, TP3.konto)) == 1
+    assert post.calls[0][1]["title"] == "Pine-Gold LONG, nicht eröffnet"
+    assert "News-Pause: US-Inflation (CPI)" in post.calls[0][1]["message"]
+
+
+def test_k5_hintergrund_sperrt_still(welt):
+    _setze(welt, "short")
+    welt["hg"] = {"richtung": 1, "tag": 4100.0, "sma50": 4000.0}
+    k, post = Konto(), Post()
+    out = pb.run(k, {}, NOW, post=post)
+    assert not _orders(k, HAND.konto) and len(_orders(k, TP3.konto)) == 1 and not post.calls
+    assert any("gegen den Hintergrund" in g for e in out[HAND.bot_id][1] for g in e.get("gruende", []))
+    _setze(welt, "short", False)
+    _setze(welt, "long")
+    k2, post2 = Konto(), Post()
+    pb.run(k2, {}, NOW, post=post2)                               # Long mit dem Hintergrund: offen
+    assert len(_orders(k2, HAND.konto)) == 1 and "Gold steigt" in post2.calls[0][1]["message"]
+
+
+def test_k5_warnt_einmal_vor_termin(welt):
+    welt["termine"] = [(pd.Timestamp("2026-03-04 15:47"), "Fed-Zinsentscheid")]
+    k, post = Konto(), Post()
+    k.pos[HAND.konto]["X"] = {"dealId": "X", "level": 3990.0, "size": 0.5, "direction": "SELL"}
+    out = pb.run(k, {}, NOW, post=post)
+    assert [c[1]["title"] for c in post.calls] == ["Pine-Gold: wichtiger Termin bald"]
+    assert "1 Short und 0 Long" in post.calls[0][1]["message"]
+    post2 = Post()
+    pb.run(k, {b: out[b][0] for b in out}, NOW, post=post2)
+    assert not post2.calls
+
+
+def test_alter_bot_oeffnet_nichts_und_fragt_ohne_offene_trades_nichts_ab(welt, tmp_path):
+    _setze(welt, "long")
+    k = Konto()
+    alt = {"format": 1, "start": "2026-03-04T03:48:53", "offen": [], "trades": 0, "summe_r": 0.0, "summe_eur": 0.0,
+           "letzte_kerze": "2026-03-04 07:00:00", "stand": "2026-03-04T07:08:31"}
+    out = pb.run(k, {ALT.bot_id: alt}, NOW, post=Post())
+    assert not _orders(k, ALT.konto) and ("konto", ALT.konto) not in k.calls
+    st, log, fertig, msg = out[ALT.bot_id]
+    assert st == alt and not log and not fertig and not msg
+    assert pb.schreiben(ALT, alt, st, log, fertig, msg, root=tmp_path) is False      # keine Datei, kein Commit
+
+
+def test_alter_bot_betreut_seine_offenen_trades(welt):
+    _setze(welt, "long")
+    k, post = Konto(bid=3995.0, offer=3995.3), Post()
+    k.pos[ALT.konto]["A"] = {"dealId": "A", "level": 4000.0, "size": 0.6, "direction": "BUY"}
+    st = {"offen": [{"dealId": "A", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
+                     "opened_utc": "2026-03-04T15:00:00"}], "letzte_kerze": str(welt["bars"].index[-2])}
+    pb.run(k, {ALT.bot_id: st}, NOW, post=post)
+    assert not _orders(k, ALT.konto)
+    assert k.pos[ALT.konto]["A"]["stopLevel"] == 3991.0 and k.pos[ALT.konto]["A"]["profitLevel"] == 4000.0
+    assert not [c for c in k.calls if c[1] == "/accounts/preferences"]
+
+
+def test_vorab_konto5_ist_versiegelt():
+    from suche.runde1 import journal_lines, last_value, sha256_text
+    assert last_value(journal_lines(), pb.KEY_K5) == sha256_text(pb.VORAB_K5.read_text(encoding="utf-8"))
 
 
 def test_widerspruch_ohne_position_verfaellt_mit_long_stockt_auf(welt):
@@ -221,7 +359,7 @@ def test_marge_fuer_die_anderen_bots(welt):
     k, post = Konto(frei=300.0), Post()
     out = pb.run(k, {}, NOW, post=post)
     assert not _orders(k)
-    assert any("frei für die anderen Bots" in g for e in out["pine-hand"][1] for g in e.get("gruende", []))
+    assert any("frei für die anderen Bots" in g for e in out[HAND.bot_id][1] for g in e.get("gruende", []))
     assert len(post.calls) == 1 and "nicht eröffnet" in post.calls[0][1]["title"]
 
 
@@ -266,10 +404,10 @@ def test_abfaenger_fehltrade_setzt_stop_und_ziel(welt):
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T15:00:00"}], "letzte_kerze": str(welt["bars"].index[-1])}
     post = Post()
-    out = pb.run(k, {"pine-hand": st}, NOW, post=post)
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
     p = k.pos[HAND.konto]["H"]
     assert p["stopLevel"] == 3991.0 and p["profitLevel"] == 4000.0
-    assert out["pine-hand"][0]["offen"][0]["abfang"]["warum"].startswith("Fehltrade")
+    assert out[HAND.bot_id][0]["offen"][0]["abfang"]["warum"].startswith("Fehltrade")
     assert "Abfänger greift" in post.calls[0][1]["title"]
 
 
@@ -281,7 +419,7 @@ def test_abfaenger_notbremse_nach_ziel_1(welt):
     k.pos[HAND.konto]["H"] = {"dealId": "H", "level": 4000.0, "size": 0.6, "direction": "BUY"}
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T14:58:00"}], "letzte_kerze": str(bars.index[-1])}
-    pb.run(k, {"pine-hand": st}, NOW, post=Post())
+    pb.run(k, {HAND.bot_id: st}, NOW, post=Post())
     p = k.pos[HAND.konto]["H"]
     assert p["stopLevel"] == pytest.approx(3986.0) and "profitLevel" not in p
 
@@ -291,8 +429,8 @@ def test_abfaenger_aus_wenn_kiron_selbst_stop_setzt(welt):
     k.pos[HAND.konto]["H"] = {"dealId": "H", "level": 4000.0, "size": 0.6, "direction": "BUY", "stopLevel": 3980.0}
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T15:00:00"}], "letzte_kerze": str(welt["bars"].index[-1])}
-    out = pb.run(k, {"pine-hand": st}, NOW, post=Post())
-    assert out["pine-hand"][0]["offen"][0]["agent"] == "aus"
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=Post())
+    assert out[HAND.bot_id][0]["offen"][0]["agent"] == "aus"
     assert k.pos[HAND.konto]["H"]["stopLevel"] == 3980.0 and not [c for c in k.calls if c[0] == "PUT"]
 
 
@@ -312,13 +450,13 @@ def test_hinweis_beim_pine_ausstieg_einmal(welt):
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T15:00:00"}], "letzte_kerze": str(welt["bars"].index[-2])}
     post = Post()
-    out = pb.run(k, {"pine-hand": st}, NOW, post=post)
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=post)
     assert [c[1]["title"] for c in post.calls] == ["Pine-Gold: Strategie würde LONG schließen"]
     assert "H" in k.pos[HAND.konto] and not [c for c in k.calls if c[0] == "DELETE"]   # schließt nie selbst
-    st2 = out["pine-hand"][0]
+    st2 = out[HAND.bot_id][0]
     st2["letzte_kerze"] = str(welt["bars"].index[-2])
     post2 = Post()
-    pb.run(k, {"pine-hand": st2}, NOW, post=post2)
+    pb.run(k, {HAND.bot_id: st2}, NOW, post=post2)
     assert not post2.calls
 
 
@@ -357,8 +495,8 @@ def test_kirons_eigener_schluss_wird_gebucht(welt):
                     "details": {"level": 4012.0, "actions": [{"actionType": "POSITION_CLOSED"}]}}]
     st = {"offen": [{"dealId": "H", "richtung": 1, "size": 0.6, "entry": 4000.0, "dist": 9.0,
                      "opened_utc": "2026-03-04T15:00:00"}], "letzte_kerze": str(welt["bars"].index[-1])}
-    out = pb.run(k, {"pine-hand": st}, NOW, post=Post())
-    st2, _, fertig, _ = out["pine-hand"]
+    out = pb.run(k, {HAND.bot_id: st}, NOW, post=Post())
+    st2, _, fertig, _ = out[HAND.bot_id]
     assert not st2["offen"] and fertig[0]["r"] == pytest.approx(12 / 9, abs=1e-3)
     assert fertig[0]["pnl_eur"] == pytest.approx(12 * 0.6 / 1.08, abs=0.01) and st2["trades"] == 1
 
@@ -390,9 +528,12 @@ def test_r_mindestens_vier_spreads():
 def test_nur_eigene_dateien_und_weniger_commits(tmp_path):
     st = {"stand": "2026-03-04T15:17:00", "offen": [], "trades": 0}
     assert pb.schreiben(HAND, {}, st, [], [], [], root=tmp_path)
-    assert (tmp_path / "journal" / "pine-hand" / "state.json").exists()
-    cp = json.loads((tmp_path / "journal" / "pine-hand.json").read_text())
-    assert cp["konto"] == "…4094" and cp["vorab"] == "suche/VORAB_pine5m.yaml"
+    assert (tmp_path / "journal" / "pine-k5" / "state.json").exists()
+    cp = json.loads((tmp_path / "journal" / "pine-k5.json").read_text())
+    assert cp["konto"] == "…9086" and cp["vorab"] == "suche/VORAB_pine5m_konto5.yaml" and "Hedging" in cp["regel"]
+    assert pb.schreiben(ALT, {}, st, [], [], [], root=tmp_path)
+    alt = json.loads((tmp_path / "journal" / "pine-hand.json").read_text())
+    assert alt["konto"] == "…4094" and alt["regel"].startswith("Seit 10.11.2026 auf Account 5 umgezogen")
     st2 = dict(st, stand="2026-03-04T15:22:00", letzte_kerze="2026-03-04 15:15:00")
     assert not pb.schreiben(HAND, st, st2, [], [], [], root=tmp_path)          # nichts Neues, 5 Min. später
     st3 = dict(st, stand="2026-03-04T15:52:00")
@@ -413,7 +554,7 @@ def test_ein_fehler_haelt_den_anderen_bot_nicht_auf(welt):
 
     k = Kaputt()
     out = pb.run(k, {}, NOW, post=Post())
-    assert any(e["event"] == "Fehler" for e in out["pine-hand"][1])
+    assert any(e["event"] == "Fehler" for e in out[HAND.bot_id][1])
     assert len(_orders(k, TP3.konto)) == 1
 
 

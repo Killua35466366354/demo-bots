@@ -3,8 +3,10 @@ name: Pine-Gold-Bots (5 Min., nur Demokonto)
 # Kirons TradingView-Strategien A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, zwei Bots mit denselben Einstiegen
 # (gold/pine5m_bot.py, Regeln und Test suche/VORAB_pine5m.yaml). Kirons Wunsch vom 09.11.2026 20:41 UTC.
 # Nur Capital.com-DEMO, nie echtes Geld:
-#   pine-hand auf Konto "Vortag USDJPY" (…4094): ohne Stop und Ziel, Nachricht aufs Handy, Kiron geht selbst raus,
-#             Trade-Abfänger wie beim Gold-Hand-Bot.
+#   pine-k5   auf "Account 5" (…9086, seit Kirons Wort vom 10.11.2026 07:29 UTC): ohne Stop und Ziel, Nachricht aufs
+#             Handy, Kiron geht selbst raus, Long und Short gleichzeitig (Hedging), Termin-Pause, Hintergrund und
+#             Trade-Abfänger wie beim Gold-Hand-Bot (suche/VORAB_pine5m_konto5.yaml).
+#   pine-hand auf Konto "Vortag USDJPY" (…4094): umgezogen, betreut nur noch offene Trades.
 #   pine-tp3  auf Konto "US500" (…8878): Take-Profit +3 €, kein Stop, Notausstieg bei zusammen -250 €.
 #
 # Uhr: alle 5 Minuten, 3 Minuten nach jedem Kerzenschluss. GitHubs eigener Zeitplan ist die Reserve (er kann sich

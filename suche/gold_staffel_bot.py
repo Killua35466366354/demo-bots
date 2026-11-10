@@ -12,6 +12,9 @@ als der Gold-Bot, geht trotzdem als Demo-Vorwärtstest live). Läuft im 5-Min.-L
 - Staffel: TP1 +2 R, TP2 +4 R, TP3 +6 R als Take-Profit beim Broker. Wächter in jedem Lauf: Hat der Kurs seit dem
   Einstieg TP1 erreicht, kommt der Stop auf TP1, nach TP2 auf TP2. Nur nach vorn. Ist der Kurs schon zu nah am neuen
   Stop, schließt er sofort.
+- Abfänger wie auf Account 5 (Kirons Wort vom 10.11.2026 17:02 UTC, suche/VORAB_gold_staffel_abfang.yaml): Ist der
+  Trade 4 Std. nach dem Einstieg noch offen, hält der Abfänger den Stop 0,5 R hinter dem besten Kurs seit der Übernahme.
+  Nur nach vorn, nie hinter den Stop, den er schon hat. Ist der Kurs schon zu nah, schließt er sofort.
 - Ausstieg wie beim Gold-Bot: Schließt der Gold-Bot seinen Trade (eigenes Ausstiegssignal), schließt dieser Bot seinen
   auch, wenn er dann noch offen ist.
 - Der Gold-Bot selbst bleibt unverändert. Dieser Bot schreibt nur journal/gold-staffel/ und journal/gold-staffel.json.
@@ -41,18 +44,27 @@ KONTO = "332263725196465310"            # Account 1 (dort handeln sonst nur die 
 KONTO_NAME = "Account 1"
 EPIC = "GOLD"
 TP = (2.0, 4.0, 6.0)
+ABFANG = ROOT / "suche" / "VORAB_gold_staffel_abfang.yaml"
+KEY_ABFANG = "VORAB_gold_staffel_abfang sha256 "
+ABFANG_NACH = pd.Timedelta(hours=4)
+ABFANG_ABSTAND = 0.5                    # R hinter dem besten Kurs seit der Übernahme
+ABFANG_SCHRITT = 0.05                   # kleinster Schritt in R
 KOPIER_FENSTER = pd.Timedelta(minutes=60)
 LEBENSZEICHEN = pd.Timedelta(minutes=30)
 REGEL = ("Gleiche Einstiege, Größe und Stop wie der Gold-Bot C/B auf dem Hauptkonto, dazu Take-Profits verteilt: "
          "TP1 +2 R, TP2 +4 R, TP3 +6 R beim Broker. Wächter alle 5 Minuten: nach TP1 kommt der Stop auf TP1, nach TP2 "
-         "auf TP2, so endet ein Trade, der +2 R erreicht hat, nie mehr im Minus. Schließt der Gold-Bot, schließt er auch.")
+         "auf TP2, so endet ein Trade, der +2 R erreicht hat, nie mehr im Minus. Abfänger wie Account 5: nach 4 Std. "
+         "Stop 0,5 R hinter dem besten Kurs. Schließt der Gold-Bot, schließt er auch.")
 TEST = ("Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R "
-        "statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades).")
+        "statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf "
+        "Kirons Wunsch trotzdem live (Vergleich nach 40 Trades).")
 
 
 def vorab_ok() -> bool:
     from suche.runde1 import journal_lines, last_value, sha256_text
-    return VORAB.exists() and last_value(journal_lines(), KEY) == sha256_text(VORAB.read_text(encoding="utf-8"))
+    zeilen = journal_lines()
+    return all(v.exists() and last_value(zeilen, k) == sha256_text(v.read_text(encoding="utf-8"))
+               for v, k in ((VORAB, KEY), (ABFANG, KEY_ABFANG)))
 
 
 def _num(x) -> float | None:
@@ -97,6 +109,19 @@ def bester_kurs(tr: dict, raw5: list[dict], q, now: pd.Timestamp) -> float:
     for p in raw5:
         t = pd.Timestamp(p["snapshotTimeUTC"])
         if t >= ab and t + pd.Timedelta(minutes=5) <= now:
+            x = _num((p["highPrice"] if d > 0 else p["lowPrice"]).get("bid" if d > 0 else "ask"))
+            if x is not None:
+                werte.append(x)
+    return max(werte) if d > 0 else min(werte)
+
+
+def bester_seit(d: int, raw5: list[dict], q, ab: str, now: pd.Timestamp, start: float) -> float:
+    """Bester Kurs seit der Übernahme durch den Abfänger: Startwert, fertige 5-Min.-Kerzen ab der Übernahme, Kurs jetzt."""
+    werte = [start, q.bid if d > 0 else q.offer]
+    t0 = pd.Timestamp(ab)
+    for p in raw5:
+        t = pd.Timestamp(p["snapshotTimeUTC"])
+        if t >= t0 and t + pd.Timedelta(minutes=5) <= now:
             x = _num((p["highPrice"] if d > 0 else p["lowPrice"]).get("bid" if d > 0 else "ask"))
             if x is not None:
                 werte.append(x)
@@ -170,9 +195,10 @@ class Lauf:
             return
         level, quelle = broker_exit(self.client, {"dealId": tr["dealId"], "opened_utc": tr["opened_utc"]},
                                     self.now.to_pydatetime())
-        quelle, stufe = str(quelle or "").upper(), int(tr.get("stufe", 0))
+        quelle, von = str(quelle or "").upper(), tr.get("stop_von")
+        stop_name = "Abfänger-Stop" if von == "Abfänger" else (f"Wächter-Stop {von}" if von else "Stop")
         if level is None:                    # Kontoaktivität nicht lesbar: der Stop von zuletzt als Schätzung
-            name, level = ("Wächter-Stop TP%d" % stufe if stufe else "Stop") + " (geschätzt)", float(tr["stop"])
+            name, level = stop_name + " (geschätzt)", float(tr["stop"])
         elif quelle == "TP" or tr["richtung"] * (level - tr["tp"][2]) >= 0:
             name = "TP3"
         elif quelle == "USER":
@@ -180,41 +206,59 @@ class Lauf:
         elif quelle == "CLOSE_OUT":
             name = "Zwangsschließung (zu wenig Margin)"
         else:
-            name = "Wächter-Stop TP%d" % stufe if stufe else "Stop"
+            name = stop_name
         self.buche(tr, level, name, q)
 
-    # ---- Wächter: Stop auf TP1 bzw. TP2 nachziehen ----
+    # ---- Wächter (Stop auf TP1 bzw. TP2) und Abfänger (nach 4 Std. 0,5 R hinter dem besten Kurs) ----
     def waechter(self, q, raw5: list[dict]) -> None:
         tr = self.st["offen"]
         if not tr:
             return
+        d, dist = int(tr["richtung"]), float(tr["dist"])
+        kurs = q.bid if d > 0 else q.offer
         bestes = bester_kurs(tr, raw5, q, self.now)
         tr["bester"] = round(bestes, 2)
-        ziel = erreicht(tr, bestes)
-        if ziel <= int(tr.get("stufe", 0)):
+        ziel, stufe, stop = erreicht(tr, bestes), int(tr.get("stufe", 0)), float(tr["stop"])
+        kandidaten = []                      # (Stop, wer)
+        if ziel > stufe:
+            kandidaten.append((float(tr["tp"][ziel - 1]), f"TP{ziel}"))
+        if self.now >= pd.Timestamp(tr["opened_utc"]) + ABFANG_NACH:
+            ab = tr.get("abfang")
+            if ab is None:
+                ab = tr["abfang"] = {"zeit": self.stamp, "beste": round(kurs, 2)}
+                self.ev("Abfänger übernimmt", dealId=tr["dealId"], kurs=kurs)
+            ab["beste"] = round(bester_seit(d, raw5, q, ab["zeit"], self.now, float(ab["beste"])), 2)
+            neu = round(float(ab["beste"]) - d * ABFANG_ABSTAND * dist, 2)
+            if d * (neu - stop) >= ABFANG_SCHRITT * dist - 1e-9:
+                kandidaten.append((neu, "Abfänger"))
+        kandidaten = [k for k in kandidaten if d * (k[0] - stop) > 1e-9]
+        if not kandidaten:
+            if ziel > stufe:
+                tr["stufe"] = ziel           # Stufe erreicht, der Stop steht schon weiter vorn
             return
-        d, neu = int(tr["richtung"]), float(tr["tp"][ziel - 1])
-        kurs = q.bid if d > 0 else q.offer
+        neu, wer = max(kandidaten, key=lambda k: d * k[0])
         abstand = max(1.05 * (q.min_dist or 0.0), 0.01)
         if d * (kurs - neu) <= abstand:
-            self.ev("Wächter schließt", dealId=tr["dealId"], stufe=ziel, stop=neu, kurs=kurs)
-            self.schliessen(q, f"Wächter TP{ziel} (Kurs schon zu nah)")
+            self.ev("Wächter schließt" if wer != "Abfänger" else "Abfänger schließt", dealId=tr["dealId"], wer=wer,
+                    stop=neu, kurs=kurs)
+            self.schliessen(q, f"{'Wächter ' + wer if wer != 'Abfänger' else 'Abfänger'} (Kurs schon zu nah)")
             return
         body = {"stopLevel": round(neu, 2), "profitLevel": round(float(tr["tp"][2]), 2)}
         if not self.send:
-            self.ev("würde nachziehen", dealId=tr["dealId"], stufe=ziel, **body)
+            self.ev("würde nachziehen", dealId=tr["dealId"], wer=wer, **body)
             return
         try:
             ref = self.client._request("PUT", f"/positions/{tr['dealId']}", json=body).json().get("dealReference")
             conf = self.client.confirm(ref) if ref else {}
         except Exception as err:            # noqa: BLE001 - nächster Lauf versucht es wieder
-            self.ev("nachziehen fehlgeschlagen", dealId=tr["dealId"], stufe=ziel, fehler=str(err)[:200])
+            self.ev("nachziehen fehlgeschlagen", dealId=tr["dealId"], wer=wer, fehler=str(err)[:200])
             return
         if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
-            self.ev("nachziehen abgelehnt", dealId=tr["dealId"], stufe=ziel, grund=(conf or {}).get("reason"))
+            self.ev("nachziehen abgelehnt", dealId=tr["dealId"], wer=wer, grund=(conf or {}).get("reason"))
             return
-        tr["stufe"], tr["stop"] = ziel, body["stopLevel"]
-        self.ev("Wächter zieht nach", dealId=tr["dealId"], stufe=ziel, stop=body["stopLevel"])
+        tr["stufe"], tr["stop"], tr["stop_von"] = max(stufe, ziel), body["stopLevel"], wer
+        self.ev("Wächter zieht nach" if wer != "Abfänger" else "Abfänger zieht nach", dealId=tr["dealId"],
+                stufe=tr["stufe"], stop=body["stopLevel"], wer=wer)
 
     # ---- Gold-Bot zu: auch schließen ----
     def gold_zu(self, gold: dict | None, q) -> None:
@@ -369,6 +413,8 @@ def status(st: dict) -> str:
         return "wartet auf den nächsten Trade des Gold-Bots"
     seite = "Long" if int(o.get("richtung") or 1) > 0 else "Short"
     tp = o.get("tp") or [None]
+    if o.get("stop_von") == "Abfänger":
+        return f"{seite} offen, Abfänger hält den Stop bei {o.get('stop')}"
     if o.get("stufe"):
         return f"{seite} offen, Wächter hat den Stop auf TP{o['stufe']} gezogen ({o.get('stop')})"
     return f"{seite} offen, Stop {o.get('stop')}, TP1 bei {tp[0]}"
@@ -395,7 +441,8 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict]) -> bool:
     p = ordner / "trades.jsonl"
     alle = [json.loads(x) for x in p.read_text(encoding="utf-8").splitlines() if x.strip()] if p.exists() else []
     karte = {"bot": BOT_ID, "name": NAME, "epic": EPIC, "konto": "…" + KONTO[-4:], "konto_name": KONTO_NAME,
-             "stand": st.get("stand"), "start": st.get("start"), "status": status(st), "regel": REGEL, "vorab": "suche/VORAB_gold_staffel.yaml",
+             "stand": st.get("stand"), "start": st.get("start"), "status": status(st), "regel": REGEL,
+             "vorab_abfang": "suche/VORAB_gold_staffel_abfang.yaml", "vorab": "suche/VORAB_gold_staffel.yaml",
              "test": TEST, "offen": st.get("offen"), "zusammenfassung": zusammenfassung(st, alle),
              "letzte_trades": alle[-5:]}
     (JOURNAL / f"{BOT_ID}.json").write_text(json.dumps(karte, ensure_ascii=False, indent=1, default=str) + "\n",

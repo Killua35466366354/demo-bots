@@ -1,0 +1,45 @@
+# Pine-Gold-Hand-Bot auf Account 5 (pine-k5): Trade-Abfänger erst nach 4 Stunden, Nachtrag zu VORAB_pine5m_konto5.yaml.
+# Kirons Wort vom 10.11.2026 11:18 UTC: "Der gold bot in account 5 wo ich exit und alles mache, kannst du es so machen
+# das der trade abfänger erst nach 4h ohne exit in dem trade aktiviert wird damit der trade dann geschlossen wird im
+# nächsten meisten profit oder im wenigsten minus".
+# Festgelegt, bevor etwas gerechnet wurde. Code suche/pine5m_abfang4h.py (Test) und gold/pine5m_bot.py (Bot).
+
+format: 1
+pine5m_abfang4h:
+  live_auf_jeden_fall: >-
+    Kirons Wunsch geht live, egal wie der Test ausgeht (reiner Demo-Vorwärtstest), nur auf Bot pine-k5 (Account 5).
+    Einstiege, Termin-Pause, Hintergrund, Hedging, Größe, Nachrichten und Pine-Ausstiegshinweis bleiben, wie sie sind.
+  regel:
+    erste_4_stunden: >-
+      Der Abfänger tut nichts: kein Fehltrade-Stop, keine Notbremse. Kiron geht selbst raus.
+    nach_4_stunden: >-
+      Ist die Position 4 Stunden nach der Eröffnung noch offen und hat Kiron weder Stop noch Ziel gesetzt, übernimmt
+      der Abfänger einmal und meldet es aufs Handy. Ab dann merkt er sich den besten Kurs seit der Übernahme (Long:
+      höchster Bid, Short: tiefster Ask; Startwert der Kurs bei der Übernahme) und hält den Stop 0,5 R hinter diesem
+      besten Kurs (1 R = 3 x ATR(14) beim Einstieg, wie bisher). Der Stop rückt nur in Richtung des Trades nach, nie
+      zurück. So schließt der Trade am nächsten Hoch (Short: Tief) im Plus oder mit möglichst wenig Minus, sobald der
+      Kurs von dort 0,5 R zurückläuft.
+    zu_nah: >-
+      Liegt der Kurs schon nicht mehr weiter als der Mindestabstand von Capital.com vor dem neuen Stop, schließt der
+      Abfänger die Position sofort zum Marktkurs.
+    pruefung: in jedem Lauf des Bots (alle 5 Minuten) auf den fertigen 5-Min.-Kerzen seit der Übernahme und dem Kurs.
+    kiron: >-
+      Hat Kiron selbst Stop oder Ziel gesetzt oder geändert (vor oder nach der Übernahme), lässt der Abfänger die
+      Position in Ruhe (eine Nachricht), wie bisher.
+    alte_positionen: Positionen, bei denen der alte Abfänger schon eingegriffen hat, bleiben bei der alten Regel.
+    nachricht: Übernahme und Schluss durch den Abfänger.
+  test:
+    daten: wie VORAB_pine5m_konto5.yaml (XAUUSD 5 Min., Zeitraum, 1,5-facher Spread, Hälften, 2026, Kontrolle 2022-24)
+    varianten:
+      heute: k5_hedge_termin_hg aus VORAB_pine5m_konto5.yaml (der Bot, wie er heute läuft)
+      abfang4h: >-
+        wie heute, aber Abfänger nach der Regel oben. Übernahme zur Eröffnung der 49. Kerze nach der Füllung
+        (4 Std.), bester Kurs startet bei dieser Eröffnung. Je Kerze erst der Stop aus den Kerzen davor (Eröffnung
+        jenseits: raus zur Eröffnung, sonst Tief bzw. Hoch berührt: raus zum Stop), dann bester Kurs mit dem Hoch
+        (Short: Tief plus Spread) dieser Kerze nachgeführt. Kirons eigener Ausstieg steht wie bisher für das
+        Pine-Ausstiegssignal, vor und nach der Übernahme.
+      ohne_abfang: wie heute, aber ganz ohne Abfänger (nur Pine-Ausstieg), zum Vergleich
+    masse: wie VORAB_pine5m_konto5.yaml, dazu Anteil der Trades, die der Abfänger schließt
+    bestanden: wie VORAB_pine5m (Gewinnfaktor mindestens 1,2, robust 1,0, Hälften, 2026 und Kontrolle über 1,0, 100 Trades)
+  keine_nachbesserung: kein anderer Abstand, keine andere Wartezeit nach dem Ergebnis.
+  live: nur Demo, nur über einen PR, den Kiron merged. Urteil nach 40 Trades.

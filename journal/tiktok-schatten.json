@@ -1139,6 +1139,22 @@
   ]
  },
  "offen": {
+  "box_175": {
+   "signal": "2026-11-10 18:45:00",
+   "einstieg_zeit": "2026-11-10 18:45:00",
+   "richtung": 1,
+   "einstieg": 4033.19,
+   "stop": 4012.21,
+   "tp1": 4054.17,
+   "tp2": 4075.15,
+   "tp3": 4096.14,
+   "r_usd": 20.98,
+   "teile": [],
+   "ergebnis_r": -0.292,
+   "grund": "offen",
+   "ende": null,
+   "offen": true
+  },
   "box_1h": {
    "signal": "2026-11-10 10:00:00",
    "einstieg_zeit": "2026-11-10 10:00:00",
@@ -1157,7 +1173,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.405,
+   "ergebnis_r": 1.267,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1165,20 +1181,20 @@
  },
  "vorhersage": {
   "richtung": -1,
-  "linie": 4037.23,
+  "linie": 4034.89,
   "gerade_gedreht": false,
-  "kerze": "2026-11-10 18:00:00",
-  "kurs": 4018.3,
+  "kerze": "2026-11-10 19:00:00",
+  "kurs": 4027.07,
   "genauer_175": {
-   "richtung": -1,
-   "linie": 4034.87,
+   "richtung": 1,
+   "linie": 4014.7,
    "gerade_gedreht": false
   },
   "grosse_box": 0,
   "text": "Verkauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
-  "text_175": "Verkauf (SuperTrend 20/1,75, genauerer Nachbau)",
+  "text_175": "Kauf (SuperTrend 20/1,75, genauerer Nachbau)",
   "text_gross": "Keine große Box, 1 Std. und 4 Std. uneinig (gross_box_kerze, nur in dieser Richtung neue Trades)",
-  "text_gesamt": "Alle sieben zusammen: 0 Long und 1 Short offen (Gesamt-Strategie, alle Teile zugleich)"
+  "text_gesamt": "Alle sieben zusammen: 1 Long und 1 Short offen (Gesamt-Strategie, alle Teile zugleich)"
  },
  "zusammenfassung": {
   "stream_box": {
@@ -1231,8 +1247,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-10T18:11:28+00:00",
- "letzte_kerze": "2026-11-10 17:45:00",
+ "stand": "2026-11-10T19:11:25+00:00",
+ "letzte_kerze": "2026-11-10 18:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",
@@ -1252,7 +1268,7 @@
   "trefferquote": 0.326,
   "kaeufe": 25,
   "verkaeufe": 18,
-  "offen_long": 0,
+  "offen_long": 1,
   "offen_short": 1,
   "je_teil": {
    "gross_box_kerze": -3.34,

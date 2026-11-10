@@ -1122,7 +1122,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.06,
+   "ergebnis_r": 1.089,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1138,7 +1138,7 @@
    "tp3": null,
    "r_usd": 42.58,
    "teile": [],
-   "ergebnis_r": 0.28,
+   "ergebnis_r": 0.299,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1146,13 +1146,13 @@
  },
  "vorhersage": {
   "richtung": -1,
-  "linie": 4089.83,
+  "linie": 4085.94,
   "gerade_gedreht": false,
-  "kerze": "2026-11-10 11:00:00",
-  "kurs": 4074.83,
+  "kerze": "2026-11-10 12:00:00",
+  "kurs": 4074.02,
   "genauer_175": {
    "richtung": -1,
-   "linie": 4087.95,
+   "linie": 4084.16,
    "gerade_gedreht": false
   },
   "grosse_box": 0,
@@ -1212,8 +1212,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-10T11:11:26+00:00",
- "letzte_kerze": "2026-11-10 10:45:00",
+ "stand": "2026-11-10T12:11:26+00:00",
+ "letzte_kerze": "2026-11-10 11:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

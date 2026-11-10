@@ -4,3 +4,5 @@
 {"time": "2026-11-09T20:02:19", "event": "Nachricht", "titel": "Gold-Signal LONG, nicht eröffnet", "gesendet": true}
 {"time": "2026-11-10T01:31:55", "event": "eröffnet", "seite": "gross_box_kerze", "richtung": 1, "kerze": "2026-11-10 01:30:00", "signal": "2026-11-10 01:30:00", "dist": 16.57, "hintergrund": {"richtung": 0, "tag": 4138.84, "sma50": 4150.14, "h4": 4138.84, "ema50": 4048.74}, "news": [], "dealId": "00000000-722a-9fdc-049c-701f0015549e", "size": 0.33, "entry": 4136.5}
 {"time": "2026-11-10T01:31:55", "event": "Nachricht", "titel": "Gold LONG eröffnet", "gesendet": true}
+{"time": "2026-11-10T02:01:40", "event": "Abfänger gesetzt", "dealId": "00000000-722a-9fdc-049c-701f0015549e", "stopLevel": 4119.93, "profitLevel": 4136.5, "warum": "Fehltrade (0,5 R dagegen vor Ziel 1)"}
+{"time": "2026-11-10T02:01:40", "event": "Nachricht", "titel": "Gold: Abfänger greift", "gesendet": true}

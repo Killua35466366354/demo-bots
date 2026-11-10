@@ -13,13 +13,20 @@
    "einstieg_zeit": "2026-11-10 01:30:00",
    "opened_utc": "2026-11-10T01:31:55",
    "stop_strategie": 4119.93,
-   "ziel1_strategie": 4148.93
+   "ziel1_strategie": 4148.93,
+   "stop": 4119.93,
+   "ziel": 4136.5,
+   "abfang": {
+    "zeit": "2026-11-10T02:01:40",
+    "warum": "Fehltrade (0,5 R dagegen vor Ziel 1)"
+   },
+   "fehl": "2026-11-10T02:01:40"
   }
  ],
  "trades": 0,
  "summe_r": 0.0,
- "letzter_kurs": 4131.04,
- "stand": "2026-11-10T01:46:48",
+ "letzter_kurs": 4125.9,
+ "stand": "2026-11-10T02:01:40",
  "letzte_kerze": "2026-11-10 01:30:00",
  "ff": {
   "stand": "2026-11-09T20:02:19",

@@ -1,0 +1,51 @@
+# Gold-Staffel auf Account 1 bekommt einen Trade-Abfänger wie Account 5. Nachtrag zu VORAB_gold_staffel.yaml.
+# Kirons Wort vom 10.11.2026 17:02 UTC: "Der Account 1 soll aber dann eventuell auch einen Stop-Loss-Abfänger haben, der
+# sozusagen die Trades abfängt, wenn er das nicht schon hat. Und ja, ansonsten soll er nach dem Konzept halt versuchen,
+# eventuell Trades zu nehmen, wenn die nicht das komplette Take-Profit hätten, dass sie dann eventuell aufgefangen werden
+# irgendwo. Ja, sodass halt nicht so viel Minus passiert. Und wenn Minus passiert, dann soll es abgefangen werden, bevor
+# es zu schlimm wird."
+# Gelesen als: derselbe Abfänger wie auf Account 5 (VORAB_pine5m_abfang4h.yaml, "auch"), zusätzlich zur Staffel.
+# Festgelegt, bevor irgendetwas gerechnet wurde. Ein Stop beim Broker (1 R) hat die Staffel schon ab dem Einstieg.
+# Ehrlicher Hinweis vorab: ähnliche Regeln (Break-even bei +1 R, Gewinn sichern ab +x R, Trailing) haben am 04.11. auf
+# 2023-25 fast alle weniger gebracht als der Gold-Bot ohne Änderung (gold-bot/gewinne im Projektordner).
+
+format: 1
+gold_staffel_abfang:
+  live_auf_jeden_fall: >-
+    Kirons Wunsch geht live, egal wie die Rechnung ausgeht (Demo-Vorwärtstest), nur auf Bot gold-staffel (Account 1).
+    Einstiege, Größe, Stop beim Einstieg, Staffel (TP 2/4/6 R mit Wächter) und Schluss mit dem Gold-Bot bleiben.
+  regel:
+    erste_4_stunden: Der Abfänger tut nichts. Es gelten nur der Stop beim Broker (1 R) und die Staffel.
+    nach_4_stunden: >-
+      Ist der Trade 4 Stunden nach dem Einstieg noch offen, übernimmt der Abfänger. Ab dann merkt er sich den besten
+      Kurs seit der Übernahme (Long: höchster Bid, Short: tiefster Ask, Startwert der Kurs bei der Übernahme) und hält
+      den Stop 0,5 R hinter diesem besten Kurs (1 R = Abstand Einstieg zu Stop beim Einstieg). Der Stop rückt nur in
+      Richtung des Trades nach, nie zurück, und nie hinter den Stop, den er schon hat (Stop beim Einstieg oder Wächter-
+      Stop der Staffel). Kleinster Schritt 0,05 R. TP3 bleibt beim Broker.
+    zu_nah: >-
+      Liegt der Kurs schon nicht mehr weiter als der Mindestabstand von Capital.com vor dem neuen Stop, schließt der
+      Abfänger den Trade sofort zum Marktkurs.
+    pruefung: in jedem Lauf alle 5 Minuten (pine5m.yml) auf den fertigen 5-Min.-Kerzen seit der Übernahme und dem Kurs.
+  test:
+    daten: wie VORAB_gold_staffel.yaml (XAUUSD 5 Min., gleiche Trades und Kosten wie die Rechnung vom 10.11. 16:29 UTC).
+    varianten:
+      heute: der Gold-Bot C/B ohne Änderung
+      staffel: die Staffel wie in VORAB_gold_staffel.yaml (so steht sie in PR #34)
+      staffel_abfang4h: >-
+        Staffel plus Abfänger nach der Regel oben. Übernahme zur Eröffnung der 49. 5-Min.-Kerze nach der Füllung
+        (4 Std.), bester Kurs startet bei dieser Eröffnung, der Stop gilt ab da. Je Kerze erst der Stop aus den Kerzen
+        davor (Eröffnung jenseits: raus zur Eröffnung, sonst Tief bzw. Hoch plus Spread berührt: raus zum Stop), dann
+        TP-Stufen und bester Kurs mit dem Hoch (Short: Tief plus Spread) dieser Kerze nachgeführt.
+      staffel_be1r: >-
+        Nur Auskunft: Staffel plus Stop auf den Einstieg, sobald +1 R erreicht ist (ab der nächsten Kerze), ohne den
+        4-Stunden-Abfänger. Die einfachere Lesart von "auffangen, bevor es ins Minus läuft".
+    zeitraeume: wie VORAB_gold_staffel.yaml (2023-25 Entwicklung, 2026 und 2015-22 nur Auskunft).
+    masse: >-
+      wie VORAB_gold_staffel.yaml, dazu wie viele Trades der Abfänger schließt, wie viele Trades erst mindestens +1 R
+      im Plus waren und dann mit Verlust endeten, und der größte Verlust in R.
+    besser_heisst: mehr Summe R als die Staffel ohne Abfänger in allen drei Zeiträumen.
+  wahl: >-
+    Live geht staffel_abfang4h. Hat staffel_be1r in allen drei Zeiträumen mehr Summe R als staffel_abfang4h, bekommt
+    Kiron eine Karte und wählt zwischen beiden. Nichts anderes wird nach dem Ergebnis angeboten.
+  keine_nachbesserung: kein anderer Abstand, keine andere Wartezeit, keine anderen Stufen nach dem Ergebnis.
+  live: nur Demo, nur über einen PR, den Kiron merged. Urteil nach 40 Trades im Vergleich mit dem Gold-Bot.

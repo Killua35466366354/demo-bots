@@ -1,0 +1,274 @@
+{
+ "vorab": "demo-bots suche/VORAB_gold_staffel_abfang.yaml",
+ "abstand_r": 0.5,
+ "warte_kerzen_5min": 48,
+ "fenster": {
+  "entwicklung_2023_25": {
+   "zeitraum": [
+    "2023-01-01",
+    "2025-12-31 23:59"
+   ],
+   "heute": {
+    "trades": 208,
+    "summe_r": 109.7,
+    "pf_r": 1.69,
+    "rueckgang_r": 13.0,
+    "groesster_r": 15.7,
+    "groesster_verlust_r": -2.66,
+    "erst_1r_dann_verlust": 52
+   },
+   "staffel": {
+    "trades": 208,
+    "summe_r": 32.1,
+    "pf_r": 1.25,
+    "rueckgang_r": 10.7,
+    "groesster_r": 4.0,
+    "groesster_verlust_r": -2.66,
+    "ausstiege": {
+     "heute": 131,
+     "tp1": 72,
+     "tp2": 5,
+     "tp3": 0,
+     "abfang": 0,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 25
+   },
+   "staffel_abfang4h": {
+    "trades": 208,
+    "summe_r": 6.8,
+    "pf_r": 1.07,
+    "rueckgang_r": 14.2,
+    "groesster_r": 4.0,
+    "groesster_verlust_r": -2.66,
+    "ausstiege": {
+     "heute": 70,
+     "tp1": 31,
+     "tp2": 2,
+     "tp3": 0,
+     "abfang": 105,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 29
+   },
+   "staffel_be1r": {
+    "trades": 208,
+    "summe_r": 13.0,
+    "pf_r": 1.12,
+    "rueckgang_r": 11.5,
+    "groesster_r": 4.0,
+    "groesster_verlust_r": -2.66,
+    "ausstiege": {
+     "heute": 106,
+     "tp1": 55,
+     "tp2": 2,
+     "tp3": 0,
+     "abfang": 0,
+     "be": 45
+    },
+    "erst_1r_dann_verlust": 1
+   }
+  },
+  "info_2026": {
+   "zeitraum": [
+    "2026-01-01",
+    "2026-10-30 23:59"
+   ],
+   "heute": {
+    "trades": 49,
+    "summe_r": 8.0,
+    "pf_r": 1.21,
+    "rueckgang_r": 11.3,
+    "groesster_r": 8.0,
+    "groesster_verlust_r": -1.28,
+    "erst_1r_dann_verlust": 8
+   },
+   "staffel": {
+    "trades": 49,
+    "summe_r": -7.8,
+    "pf_r": 0.78,
+    "rueckgang_r": 17.1,
+    "groesster_r": 3.8,
+    "groesster_verlust_r": -1.28,
+    "ausstiege": {
+     "heute": 36,
+     "tp1": 12,
+     "tp2": 1,
+     "tp3": 0,
+     "abfang": 0,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 6
+   },
+   "staffel_abfang4h": {
+    "trades": 49,
+    "summe_r": -7.4,
+    "pf_r": 0.7,
+    "rueckgang_r": 13.3,
+    "groesster_r": 2.0,
+    "groesster_verlust_r": -1.21,
+    "ausstiege": {
+     "heute": 21,
+     "tp1": 2,
+     "tp2": 0,
+     "tp3": 0,
+     "abfang": 26,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 0
+   },
+   "staffel_be1r": {
+    "trades": 49,
+    "summe_r": -11.2,
+    "pf_r": 0.62,
+    "rueckgang_r": 15.5,
+    "groesster_r": 2.0,
+    "groesster_verlust_r": -1.28,
+    "ausstiege": {
+     "heute": 30,
+     "tp1": 9,
+     "tp2": 0,
+     "tp3": 0,
+     "abfang": 0,
+     "be": 10
+    },
+    "erst_1r_dann_verlust": 0
+   }
+  },
+  "info_2015_22": {
+   "zeitraum": [
+    "2015-01-01",
+    "2022-12-31 23:59"
+   ],
+   "heute": {
+    "trades": 536,
+    "summe_r": -199.5,
+    "pf_r": 0.58,
+    "rueckgang_r": 204.8,
+    "groesster_r": 10.3,
+    "groesster_verlust_r": -2.55,
+    "erst_1r_dann_verlust": 159
+   },
+   "staffel": {
+    "trades": 536,
+    "summe_r": -99.6,
+    "pf_r": 0.74,
+    "rueckgang_r": 99.6,
+    "groesster_r": 6.0,
+    "groesster_verlust_r": -2.55,
+    "ausstiege": {
+     "heute": 394,
+     "tp1": 138,
+     "tp2": 1,
+     "tp3": 3,
+     "abfang": 0,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 80
+   },
+   "staffel_abfang4h": {
+    "trades": 536,
+    "summe_r": -76.8,
+    "pf_r": 0.73,
+    "rueckgang_r": 79.1,
+    "groesster_r": 6.0,
+    "groesster_verlust_r": -2.55,
+    "ausstiege": {
+     "heute": 252,
+     "tp1": 56,
+     "tp2": 0,
+     "tp3": 2,
+     "abfang": 226,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 47
+   },
+   "staffel_be1r": {
+    "trades": 536,
+    "summe_r": -85.3,
+    "pf_r": 0.72,
+    "rueckgang_r": 86.3,
+    "groesster_r": 6.0,
+    "groesster_verlust_r": -2.55,
+    "ausstiege": {
+     "heute": 312,
+     "tp1": 102,
+     "tp2": 1,
+     "tp3": 3,
+     "abfang": 0,
+     "be": 118
+    },
+    "erst_1r_dann_verlust": 2
+   }
+  },
+  "info_2024_26": {
+   "zeitraum": [
+    "2024-01-01",
+    "2026-10-30 23:59"
+   ],
+   "heute": {
+    "trades": 188,
+    "summe_r": 50.1,
+    "pf_r": 1.34,
+    "rueckgang_r": 11.8,
+    "groesster_r": 8.3,
+    "groesster_verlust_r": -2.66,
+    "erst_1r_dann_verlust": 48
+   },
+   "staffel": {
+    "trades": 188,
+    "summe_r": 14.0,
+    "pf_r": 1.11,
+    "rueckgang_r": 17.1,
+    "groesster_r": 4.0,
+    "groesster_verlust_r": -2.66,
+    "ausstiege": {
+     "heute": 125,
+     "tp1": 58,
+     "tp2": 5,
+     "tp3": 0,
+     "abfang": 0,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 27
+   },
+   "staffel_abfang4h": {
+    "trades": 188,
+    "summe_r": -0.1,
+    "pf_r": 1.0,
+    "rueckgang_r": 13.3,
+    "groesster_r": 3.9,
+    "groesster_verlust_r": -2.66,
+    "ausstiege": {
+     "heute": 67,
+     "tp1": 24,
+     "tp2": 1,
+     "tp3": 0,
+     "abfang": 96,
+     "be": 0
+    },
+    "erst_1r_dann_verlust": 20
+   },
+   "staffel_be1r": {
+    "trades": 188,
+    "summe_r": 1.3,
+    "pf_r": 1.01,
+    "rueckgang_r": 15.5,
+    "groesster_r": 3.9,
+    "groesster_verlust_r": -2.66,
+    "ausstiege": {
+     "heute": 98,
+     "tp1": 45,
+     "tp2": 1,
+     "tp3": 0,
+     "abfang": 0,
+     "be": 44
+    },
+    "erst_1r_dann_verlust": 0
+   }
+  }
+ },
+ "besser_als_staffel": false,
+ "be1r_besser_als_abfang4h_ueberall": false,
+ "hinweis": "Ohne Übernacht-Kosten für Trades, die früher schließen (wie staffel.py und lock.py): leicht zugunsten der Varianten. Gleiche Trades wie die Rechnung vom 10.11. 16:29 UTC."
+}

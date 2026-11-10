@@ -5,6 +5,8 @@
   Größe und Stop, TP3 beim Broker.
 - Wächter: Stop nach TP1 auf TP1, nach TP2 auf TP2, nie zurück, nur fertige Kerzen; zu nah: sofort raus.
 - Schließt der Gold-Bot, schließt die Staffel auch. Schluss durch den Broker wird richtig benannt (TP3, Wächter-Stop).
+- Abfänger wie Account 5 (Kirons Wort vom 10.11.2026 17:02 UTC): erst nach 4 Std., dann Stop 0,5 R hinter dem besten
+  Kurs seit der Übernahme, nur nach vorn, nie hinter den Stop, den er schon hat; zu nah: sofort raus.
 """
 import json
 
@@ -133,6 +135,9 @@ def test_regeln_versiegelt_und_stufen_wie_vorab():
     assert "tp1: +2 R" in vorab and "tp2: +4 R" in vorab and "tp3: +6 R" in vorab
     assert gs.TP == (2.0, 4.0, 6.0)
     assert gs.KONTO.endswith("5310") and not gs.KONTO.endswith("3150")
+    abfang = gs.ABFANG.read_text(encoding="utf-8")
+    assert "4 Stunden" in abfang and "0,5 R hinter" in abfang and "0,05 R" in abfang
+    assert (gs.ABFANG_NACH, gs.ABFANG_ABSTAND, gs.ABFANG_SCHRITT) == (pd.Timedelta(hours=4), 0.5, 0.05)
 
 
 def test_stufen_und_erreicht():
@@ -250,6 +255,78 @@ def test_bester_kurs_bleibt_ueber_die_kerzen_hinaus():
     br.kerzen, br.bid = [], 4095.0
     lf = gs.run(br, st, _utc("2026-11-12 14:03"), gold=gold())
     assert br.puts == [("S1", {"stopLevel": 4092.4, "profitLevel": 4175.6})]
+
+
+# ---------- Abfänger (nach 4 Std.) ----------
+
+def test_abfaenger_erst_nach_4_stunden_dann_hinter_dem_besten_kurs():
+    br = Broker()
+    st = offen(br)                                        # Einstieg 10:03, 1 R = 20,8
+    br.bid = 4060.0
+    lf = gs.run(br, st, _utc("2026-11-11 13:58"), gold=gold())
+    assert lf.log == [] and not br.puts                   # vor 4 Std.: nichts
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:08"), gold=gold())
+    assert [e["event"] for e in lf.log] == ["Abfänger übernimmt", "Abfänger zieht nach"]
+    assert br.puts == [("S1", {"stopLevel": 4049.6, "profitLevel": 4175.6})]   # 4060 - 0,5 R
+    assert lf.st["offen"]["stop_von"] == "Abfänger" and lf.st["offen"]["stufe"] == 0
+    # neues Hoch in einer fertigen Kerze nach der Übernahme: Stop rückt nach
+    br.kerzen = [kerze("2026-11-11T13:30:00", 4090, 4050),     # vor der Übernahme: zählt nicht
+                 kerze("2026-11-11T14:10:00", 4075, 4058)]
+    br.bid = 4070.0
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:33"), gold=gold())
+    assert br.puts[-1] == ("S1", {"stopLevel": 4064.6, "profitLevel": 4175.6})
+    # Kurs fällt: Stop bleibt
+    br.bid = 4066.0
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:38"), gold=gold())
+    assert len(br.puts) == 2 and lf.st["offen"]["stop"] == 4064.6
+    # Broker schließt am Abfänger-Stop
+    br.pos.clear()
+    br.acts["S1"] = [{"dateUTC": "2026-11-11T14:40:00", "source": "SL", "type": "POSITION", "status": "ACCEPTED",
+                      "details": {"level": 4064.6, "actions": [{"actionType": "POSITION_CLOSED"}]}}]
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:43"), gold=gold())
+    t = lf.fertige[0]
+    assert t["quelle"] == "Abfänger-Stop" and t["r"] == pytest.approx((4064.6 - 4050.8) / 20.8, abs=1e-3)
+
+
+def test_abfaenger_im_minus_nie_hinter_den_stop_aber_enger():
+    br = Broker()
+    st = offen(br)
+    br.bid = 4040.0                                       # -0,52 R: 0,5 R dahinter wäre unter dem Stop 4030
+    lf = gs.run(br, st, _utc("2026-11-11 14:08"), gold=gold())
+    assert [e["event"] for e in lf.log] == ["Abfänger übernimmt"] and not br.puts
+    br.bid = 4045.0                                       # jetzt 4034,6: enger als der Stop beim Einstieg
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:13"), gold=gold())
+    assert br.puts == [("S1", {"stopLevel": 4034.6, "profitLevel": 4175.6})]
+
+
+def test_abfaenger_schliesst_wenn_kurs_schon_zu_nah():
+    br = Broker()
+    st = offen(br)
+    br.bid = 4060.0
+    lf = gs.run(br, st, _utc("2026-11-11 14:08"), gold=gold())
+    br.kerzen = [kerze("2026-11-11T14:10:00", 4080, 4060)]    # Hoch 4080 -> Stop 4069,6
+    br.bid = 4069.0                                           # Kurs schon darunter
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:23"), gold=gold())
+    assert br.closed == ["S1"] and lf.fertige[0]["quelle"] == "Abfänger (Kurs schon zu nah)"
+
+
+def test_abfaenger_und_staffel_der_bessere_stop_gilt():
+    br = Broker()
+    st = offen(br)
+    br.kerzen, br.bid = [kerze("2026-11-11T10:15:00", 4101, 4080)], 4100.0
+    lf = gs.run(br, st, _utc("2026-11-11 10:33"), gold=gold())           # TP1: Stop 4092,4
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:08"), gold=gold())        # Übernahme bei 4100: 4089,6 < TP1
+    assert len(br.puts) == 1 and lf.st["offen"]["stop"] == 4092.4
+    br.kerzen.append(kerze("2026-11-11T14:10:00", 4115, 4100))
+    br.bid = 4112.0
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:23"), gold=gold())        # 4115 - 10,4 = 4104,6 > TP1
+    assert br.puts[-1][1]["stopLevel"] == 4104.6 and lf.st["offen"]["stop_von"] == "Abfänger"
+    assert lf.st["offen"]["stufe"] == 1
+    br.kerzen.append(kerze("2026-11-11T14:25:00", 4136, 4110))
+    br.bid = 4135.0
+    lf = gs.run(br, lf.st, _utc("2026-11-11 14:33"), gold=gold())        # TP2 4134 > Abfänger 4125,6
+    assert br.puts[-1][1]["stopLevel"] == 4134.0 and lf.st["offen"]["stop_von"] == "TP2"
+    assert lf.st["offen"]["stufe"] == 2
 
 
 # ---------- Schluss ----------

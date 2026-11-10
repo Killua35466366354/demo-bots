@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-10T08:16:41.396975",
+ "stand_utc": "2026-11-10T08:31:42.613541",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -198,7 +198,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T08:16:41.396975",
+    "zeit": "2026-11-10T08:31:42.613541",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -376,10 +376,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T08:16:41.396975",
+    "zeit": "2026-11-10T08:31:42.613541",
     "action": "none",
     "why": [
-     "außerhalb 8:30 bis 17 Uhr London"
+     "Markt nicht ruhiger als sonst (Schwankung 0.892 > 0,866): heute kein Trade"
     ]
    },
    "zusammenfassung": {
@@ -694,7 +694,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T08:16:41.396975",
+    "zeit": "2026-11-10T08:31:42.613541",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -852,7 +852,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T08:16:41.396975",
+    "zeit": "2026-11-10T08:31:42.613541",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1010,7 +1010,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T08:16:41.396975",
+    "zeit": "2026-11-10T08:31:42.613541",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1208,7 +1208,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-10T08:16:41.396975",
+    "zeit": "2026-11-10T08:31:42.613541",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

@@ -1,0 +1,105 @@
+{
+ "vorab": "demo-bots suche/VORAB_gold_staffel.yaml",
+ "stufen_r": [
+  2.0,
+  4.0,
+  6.0
+ ],
+ "fenster": {
+  "entwicklung_2023_25": {
+   "zeitraum": [
+    "2023-01-01",
+    "2025-12-31 23:59"
+   ],
+   "heute": {
+    "trades": 208,
+    "summe_r": 109.7,
+    "pf_r": 1.69,
+    "rueckgang_r": 13.0,
+    "groesster_r": 15.7
+   },
+   "staffel": {
+    "trades": 208,
+    "summe_r": 32.1,
+    "pf_r": 1.25,
+    "rueckgang_r": 10.7,
+    "groesster_r": 4.0
+   },
+   "erst_2r_dann_verlust": {
+    "heute": 27,
+    "staffel": 0
+   },
+   "ausstiege": {
+    "tp1_stop": 72,
+    "tp2_stop": 5,
+    "tp3": 0,
+    "wie_heute": 131
+   },
+   "unterschied_r": -77.6
+  },
+  "info_2026": {
+   "zeitraum": [
+    "2026-01-01",
+    "2026-10-30 23:59"
+   ],
+   "heute": {
+    "trades": 49,
+    "summe_r": 8.0,
+    "pf_r": 1.21,
+    "rueckgang_r": 11.3,
+    "groesster_r": 8.0
+   },
+   "staffel": {
+    "trades": 49,
+    "summe_r": -7.8,
+    "pf_r": 0.78,
+    "rueckgang_r": 17.1,
+    "groesster_r": 3.8
+   },
+   "erst_2r_dann_verlust": {
+    "heute": 2,
+    "staffel": 0
+   },
+   "ausstiege": {
+    "tp1_stop": 12,
+    "tp2_stop": 1,
+    "tp3": 0,
+    "wie_heute": 36
+   },
+   "unterschied_r": -15.9
+  },
+  "info_2015_22": {
+   "zeitraum": [
+    "2015-01-01",
+    "2022-12-31 23:59"
+   ],
+   "heute": {
+    "trades": 536,
+    "summe_r": -199.5,
+    "pf_r": 0.58,
+    "rueckgang_r": 204.8,
+    "groesster_r": 10.3
+   },
+   "staffel": {
+    "trades": 536,
+    "summe_r": -99.6,
+    "pf_r": 0.74,
+    "rueckgang_r": 99.6,
+    "groesster_r": 6.0
+   },
+   "erst_2r_dann_verlust": {
+    "heute": 79,
+    "staffel": 0
+   },
+   "ausstiege": {
+    "tp1_stop": 138,
+    "tp2_stop": 1,
+    "tp3": 3,
+    "wie_heute": 394
+   },
+   "unterschied_r": 99.9
+  }
+ },
+ "besser": false,
+ "hinweis": "Ohne Übernacht-Kosten für Trades, die die Staffel früher schließt (wie lock.py): leicht zugunsten der Staffel. Datei liegt unter strategie-suche/daten/ (im VORAB steht gold-bot/data/, gleiche Daten)."
+}

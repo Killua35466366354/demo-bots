@@ -1,18 +1,18 @@
 {
- "stand_utc": "2026-11-10T11:31:47.766027",
+ "stand_utc": "2026-11-10T11:47:10.901259",
  "status": "wartet auf einen Schluss über dem Band (10:00-15:00 New York)",
  "regel": "Noise-Band nur Long auf dem Nasdaq (Runde 7): Schluss über dem Band (10:00-15:00 New York, alle 30 Minuten), nur wenn der Markt ruhiger ist als sonst; Notstop 5 x Tages-ATR, kein Ziel, raus um 16 Uhr New York am 5. Handelstag; kleinste Größe. Prüf-Jahre 2021-2026: 61 Trades, Gewinnfaktor 2,11, aber nur 1,0 R im Jahr und im Nasdaq-Aufschwung. Vorwärtstest vorab festgelegt (suche/VORAB_r7_nasdaq.yaml), Urteil nach 40 Trades (etwa 3 bis 4 Jahre).",
  "bot": "r7-nasdaq-noise-long",
  "epic": "US100",
  "konto": "…8878",
  "konto_name": "US500",
- "kontostand": 995.59,
+ "kontostand": 996.1,
  "start_kontostand": 1000.0,
  "start_utc": "2026-11-04T11:47:24.423150",
  "offen": null,
  "position": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-10T11:31:47.766027",
+  "zeit": "2026-11-10T11:47:10.901259",
   "action": "none",
   "why": "wartet auf den ersten Prüfpunkt (10:00 New York)",
   "bar": null

@@ -107,5 +107,7 @@ Gruppen (Stand 11.11.2026, 19 Bots):
 - Kursdaten liegen nicht im Repo, sondern im Projektordner `strategie-suche/daten/` (5-Minuten-Kerzen, Bid, UTC).
 - Was schon gerechnet wurde, steht in `suche/IDEEN.md`, in den Dateien `suche/ergebnis_*.md` und im Protokoll. Erst dort
   nachsehen, dann eine Idee neu testen. Die Trendfolge über viele Märkte ist zweimal durchgefallen (Runde 5 und
-  `suche/ergebnis_nachpruefung_runde5.md`), Zonen und News auf Gold einmal (`suche/ergebnis_gold_zonen.md`).
+  `suche/ergebnis_nachpruefung_runde5.md`), Zonen und News auf Gold einmal (`suche/ergebnis_gold_zonen.md`), die
+  Gold-Matrix über alle Zeitebenen von 1 Min. bis 4 Std. einmal (`suche/ergebnis_gold_matrix.md`, 54.375 Varianten,
+  0 bestanden, 3 Kandidaten).
 - Texte für Kiron: Deutsch, einfache ganze Sätze, zuerst was er tun muss, Schritte nummeriert mit direktem Link.

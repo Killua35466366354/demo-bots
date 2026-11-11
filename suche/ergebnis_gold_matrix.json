@@ -1,0 +1,2125 @@
+{
+ "vorab_sha256": "3037f7b5c02bd45735c7124c39ed587aa43d42bc7a8564f10257c75fa2a823f7",
+ "finalisten_sha256": "2ef85c2f10bf8f563a821e97d60d61becb08e94b829602da7085db6e5638028f",
+ "daten": {
+  "XAUUSD_1min_utc.csv.gz": "04a2c7f9a4a21c49",
+  "DFII10.csv": "90b96caa55d22827",
+  "EURUSD_5min.csv.gz": "792158e0ec1f04ab",
+  "USDJPY_5min.csv.gz": "fbdb20c0d675b28e",
+  "GBPUSD_5min.csv.gz": "c22c781aac5595b6",
+  "USDCAD_5min.csv.gz": "7c042519fe17ea5d",
+  "USDCHF_5min.csv.gz": "3e365c8c673e1ad7",
+  "XAGUSD_5min.csv.gz": "5aaf825aa6970f72",
+  "SPXUSD_5min.csv.gz": "c6249ed4b308f87a"
+ },
+ "numba": true,
+ "finalisten": {
+  "rund_bruch.5m.ohne.atr2_15m.ziel_1r": {
+   "trades": 1503,
+   "pf": 1.05,
+   "summe_r": 33.4,
+   "treffer": 51.4,
+   "rueckgang_r": 30.3,
+   "je_woche": 10.18,
+   "robust_pf": 1.0,
+   "h1": [
+    1.25,
+    413
+   ],
+   "h2": [
+    0.98,
+    1090
+   ],
+   "j2026": [
+    1.0,
+    772
+   ],
+   "long": {
+    "trades": 756,
+    "pf": 1.11,
+    "summe_r": 40.2,
+    "treffer": 53.0,
+    "rueckgang_r": 25.6
+   },
+   "short": {
+    "trades": 747,
+    "pf": 0.98,
+    "summe_r": -6.9,
+    "treffer": 49.8,
+    "rueckgang_r": 28.3
+   },
+   "je_jahr": {
+    "2024": 17.6,
+    "2025": 14.9,
+    "2026": 0.9
+   },
+   "letzte_2_jahre": {
+    "trades": 1313,
+    "pf": 1.03,
+    "summe_r": 22.4,
+    "treffer": 51.2,
+    "rueckgang_r": 30.3
+   },
+   "median_halte_min": 78.0,
+   "spread_r": 0.038,
+   "ohne_top3_r": 30.4,
+   "gruende": {
+    "ziel": 773,
+    "stop": 730
+   },
+   "zufall": {
+    "geschlagen_pct": 81.05,
+    "p": 0.19218241042345277,
+    "z": 0.862,
+    "median_r": -39.3,
+    "echt_r": -13.1,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 2.428,
+    "trades": 413,
+    "pf": 1.254,
+    "z": 3.865,
+    "rang_pct": 100.0
+   },
+   "einstieg": "rund_bruch",
+   "ebene": "5m",
+   "filter": "ohne",
+   "stop": "atr2_15m",
+   "ausstieg": "ziel_1r",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "GF 1.05",
+    "2. Hälfte 0.98",
+    "2026 1.0",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 1140,
+    "pf": 0.86,
+    "summe_r": -85.4,
+    "treffer": 46.9,
+    "rueckgang_r": 96.9,
+    "je_woche": 2.73
+   },
+   "letzte_4_jahre": {
+    "trades": 1690,
+    "pf": 1.03,
+    "summe_r": 24.7,
+    "treffer": 51.2,
+    "rueckgang_r": 30.3,
+    "je_woche": 8.1
+   }
+  },
+  "rund_bruch.1m.ohne.atr1_5m.supertrend_5m": {
+   "trades": 3004,
+   "pf": 1.0,
+   "summe_r": 0.6,
+   "treffer": 24.1,
+   "rueckgang_r": 120.2,
+   "je_woche": 20.34,
+   "robust_pf": 0.91,
+   "h1": [
+    1.25,
+    533
+   ],
+   "h2": [
+    0.95,
+    2471
+   ],
+   "j2026": [
+    1.0,
+    1800
+   ],
+   "long": {
+    "trades": 1466,
+    "pf": 1.08,
+    "summe_r": 76.0,
+    "treffer": 26.5,
+    "rueckgang_r": 60.4
+   },
+   "short": {
+    "trades": 1538,
+    "pf": 0.93,
+    "summe_r": -75.3,
+    "treffer": 21.9,
+    "rueckgang_r": 144.4
+   },
+   "je_jahr": {
+    "2024": 51.8,
+    "2025": -45.3,
+    "2026": -5.9
+   },
+   "letzte_2_jahre": {
+    "trades": 2845,
+    "pf": 0.99,
+    "summe_r": -10.9,
+    "treffer": 23.9,
+    "rueckgang_r": 120.2
+   },
+   "median_halte_min": 8.0,
+   "spread_r": 0.104,
+   "ohne_top3_r": -85.9,
+   "gruende": {
+    "stop": 1791,
+    "regel": 1213
+   },
+   "zufall": {
+    "geschlagen_pct": 87.91,
+    "p": 0.1237785016286645,
+    "z": 1.197,
+    "median_r": -229.2,
+    "echt_r": -82.1,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 2.223,
+    "trades": 533,
+    "pf": 1.253,
+    "z": 4.097,
+    "rang_pct": 100.0
+   },
+   "einstieg": "rund_bruch",
+   "ebene": "1m",
+   "filter": "ohne",
+   "stop": "atr1_5m",
+   "ausstieg": "supertrend_5m",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "GF 1.0",
+    "1,5x Spread 0.91",
+    "2. Hälfte 0.95",
+    "2026 1.0",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 541,
+    "pf": 0.67,
+    "summe_r": -115.0,
+    "treffer": 24.4,
+    "rueckgang_r": 126.5,
+    "je_woche": 1.3
+   },
+   "letzte_4_jahre": {
+    "trades": 3058,
+    "pf": 1.0,
+    "summe_r": -0.9,
+    "treffer": 24.3,
+    "rueckgang_r": 120.2,
+    "je_woche": 14.66
+   }
+  },
+  "rund_abprall.1m.trend_hoch.swing_1m.ziel_2r": {
+   "trades": 1146,
+   "pf": 1.05,
+   "summe_r": 38.8,
+   "treffer": 34.6,
+   "rueckgang_r": 39.5,
+   "je_woche": 7.76,
+   "robust_pf": 0.99,
+   "h1": [
+    1.28,
+    205
+   ],
+   "h2": [
+    1.01,
+    941
+   ],
+   "j2026": [
+    1.03,
+    734
+   ],
+   "long": {
+    "trades": 543,
+    "pf": 1.08,
+    "summe_r": 27.7,
+    "treffer": 35.2,
+    "rueckgang_r": 24.3
+   },
+   "short": {
+    "trades": 603,
+    "pf": 1.03,
+    "summe_r": 11.0,
+    "treffer": 34.0,
+    "rueckgang_r": 32.3
+   },
+   "je_jahr": {
+    "2024": -3.1,
+    "2025": 25.2,
+    "2026": 16.6
+   },
+   "letzte_2_jahre": {
+    "trades": 1072,
+    "pf": 1.06,
+    "summe_r": 40.8,
+    "treffer": 34.7,
+    "rueckgang_r": 39.5
+   },
+   "median_halte_min": 17.0,
+   "spread_r": 0.093,
+   "ohne_top3_r": 32.8,
+   "gruende": {
+    "stop": 750,
+    "ziel": 396
+   },
+   "zufall": {
+    "geschlagen_pct": 96.41,
+    "p": 0.03908794788273615,
+    "z": 1.928,
+    "median_r": -77.7,
+    "echt_r": 4.3,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 1.907,
+    "trades": 205,
+    "pf": 1.275,
+    "z": 3.599,
+    "rang_pct": 100.0
+   },
+   "einstieg": "rund_abprall",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "stop": "swing_1m",
+   "ausstieg": "ziel_2r",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "GF 1.05",
+    "1,5x Spread 0.99"
+   ],
+   "alt_2016_2023": {
+    "trades": 251,
+    "pf": 0.87,
+    "summe_r": -23.7,
+    "treffer": 30.7,
+    "rueckgang_r": 38.1,
+    "je_woche": 0.6
+   },
+   "letzte_4_jahre": {
+    "trades": 1172,
+    "pf": 1.04,
+    "summe_r": 32.8,
+    "treffer": 34.4,
+    "rueckgang_r": 39.5,
+    "je_woche": 5.62
+   }
+  },
+  "ema_kreuz.5m.trend_hoch.atr1_15m.ema_schluss_4h": {
+   "trades": 936,
+   "pf": 1.18,
+   "summe_r": 150.4,
+   "treffer": 10.8,
+   "rueckgang_r": 102.9,
+   "je_woche": 6.34,
+   "robust_pf": 1.07,
+   "h1": [
+    1.24,
+    410
+   ],
+   "h2": [
+    1.13,
+    526
+   ],
+   "j2026": [
+    1.0,
+    334
+   ],
+   "long": {
+    "trades": 411,
+    "pf": 1.94,
+    "summe_r": 345.3,
+    "treffer": 13.9,
+    "rueckgang_r": 51.2
+   },
+   "short": {
+    "trades": 525,
+    "pf": 0.6,
+    "summe_r": -194.9,
+    "treffer": 8.4,
+    "rueckgang_r": 220.0
+   },
+   "je_jahr": {
+    "2024": 4.6,
+    "2025": 146.0,
+    "2026": -0.1
+   },
+   "letzte_2_jahre": {
+    "trades": 705,
+    "pf": 1.28,
+    "summe_r": 179.1,
+    "treffer": 10.9,
+    "rueckgang_r": 102.9
+   },
+   "median_halte_min": 76.0,
+   "spread_r": 0.104,
+   "ohne_top3_r": -2.1,
+   "gruende": {
+    "stop": 820,
+    "regel": 115,
+    "haltezeit": 1
+   },
+   "zufall": {
+    "geschlagen_pct": 68.63,
+    "p": 0.31596091205211724,
+    "z": 0.322,
+    "median_r": 9.3,
+    "echt_r": 62.9,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 1.833,
+    "trades": 410,
+    "pf": 1.238,
+    "z": 2.624,
+    "rang_pct": 98.0
+   },
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "stop": "atr1_15m",
+   "ausstieg": "ema_schluss_4h",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "GF 1.18",
+    "2026 1.0",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 820,
+    "pf": 0.8,
+    "summe_r": -152.5,
+    "treffer": 10.4,
+    "rueckgang_r": 193.4,
+    "je_woche": 1.96
+   },
+   "letzte_4_jahre": {
+    "trades": 1104,
+    "pf": 1.04,
+    "summe_r": 42.2,
+    "treffer": 10.4,
+    "rueckgang_r": 161.4,
+    "je_woche": 5.29
+   }
+  },
+  "ruecksetzer.1m.trend_hoch.swing_1m.ema_schluss_1h": {
+   "trades": 1347,
+   "pf": 1.32,
+   "summe_r": 394.7,
+   "treffer": 8.7,
+   "rueckgang_r": 112.3,
+   "je_woche": 9.12,
+   "robust_pf": 1.18,
+   "h1": [
+    1.76,
+    223
+   ],
+   "h2": [
+    1.24,
+    1124
+   ],
+   "j2026": [
+    1.25,
+    835
+   ],
+   "long": {
+    "trades": 658,
+    "pf": 1.36,
+    "summe_r": 213.1,
+    "treffer": 9.9,
+    "rueckgang_r": 78.8
+   },
+   "short": {
+    "trades": 689,
+    "pf": 1.29,
+    "summe_r": 181.6,
+    "treffer": 7.5,
+    "rueckgang_r": 98.8
+   },
+   "je_jahr": {
+    "2024": 36.7,
+    "2025": 159.8,
+    "2026": 198.2
+   },
+   "letzte_2_jahre": {
+    "trades": 1258,
+    "pf": 1.33,
+    "summe_r": 382.8,
+    "treffer": 7.8,
+    "rueckgang_r": 112.3
+   },
+   "median_halte_min": 11.0,
+   "spread_r": 0.138,
+   "ohne_top3_r": 149.6,
+   "gruende": {
+    "stop": 1206,
+    "regel": 141
+   },
+   "zufall": {
+    "geschlagen_pct": 97.06,
+    "p": 0.03257328990228013,
+    "z": 2.249,
+    "median_r": -146.1,
+    "echt_r": 251.8,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 1.552,
+    "trades": 223,
+    "pf": 1.762,
+    "z": 4.546,
+    "rang_pct": 100.0
+   },
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "stop": "swing_1m",
+   "ausstieg": "ema_schluss_1h",
+   "holm": false,
+   "urteil": "kandidat",
+   "fehlt": [
+    "Holm",
+    "z unter 3,0"
+   ],
+   "alt_2016_2023": {
+    "trades": 353,
+    "pf": 0.76,
+    "summe_r": -75.6,
+    "treffer": 14.2,
+    "rueckgang_r": 96.6,
+    "je_woche": 0.85
+   },
+   "letzte_4_jahre": {
+    "trades": 1400,
+    "pf": 1.27,
+    "summe_r": 351.3,
+    "treffer": 8.7,
+    "rueckgang_r": 112.3,
+    "je_woche": 6.71
+   }
+  },
+  "ema_kreuz.5m.ohne.atr2_15m.trail_struktur_4h": {
+   "trades": 865,
+   "pf": 1.2,
+   "summe_r": 126.8,
+   "treffer": 20.8,
+   "rueckgang_r": 61.7,
+   "je_woche": 5.86,
+   "robust_pf": 1.12,
+   "h1": [
+    1.43,
+    398
+   ],
+   "h2": [
+    1.0,
+    467
+   ],
+   "j2026": [
+    0.96,
+    275
+   ],
+   "long": {
+    "trades": 405,
+    "pf": 1.55,
+    "summe_r": 162.7,
+    "treffer": 23.0,
+    "rueckgang_r": 51.4
+   },
+   "short": {
+    "trades": 460,
+    "pf": 0.9,
+    "summe_r": -35.9,
+    "treffer": 18.9,
+    "rueckgang_r": 92.6
+   },
+   "je_jahr": {
+    "2024": 99.3,
+    "2025": 35.6,
+    "2026": -8.1
+   },
+   "letzte_2_jahre": {
+    "trades": 626,
+    "pf": 1.13,
+    "summe_r": 59.8,
+    "treffer": 20.3,
+    "rueckgang_r": 61.7
+   },
+   "median_halte_min": 366.0,
+   "spread_r": 0.056,
+   "ohne_top3_r": 17.1,
+   "gruende": {
+    "stop": 865
+   },
+   "zufall": {
+    "geschlagen_pct": 51.96,
+    "p": 0.4820846905537459,
+    "z": -0.052,
+    "median_r": -3.8,
+    "echt_r": 0.6,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 1.513,
+    "trades": 398,
+    "pf": 1.434,
+    "z": 2.087,
+    "rang_pct": 98.0
+   },
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "ohne",
+   "stop": "atr2_15m",
+   "ausstieg": "trail_struktur_4h",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "2. Hälfte 1.0",
+    "2026 0.96",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 2389,
+    "pf": 0.76,
+    "summe_r": -461.4,
+    "treffer": 17.3,
+    "rueckgang_r": 500.3,
+    "je_woche": 5.72
+   },
+   "letzte_4_jahre": {
+    "trades": 1278,
+    "pf": 1.05,
+    "summe_r": 53.6,
+    "treffer": 19.2,
+    "rueckgang_r": 106.0,
+    "je_woche": 6.13
+   }
+  },
+  "enge_ausbruch.1h.realzins.atr1_4h.tagesende": {
+   "trades": 205,
+   "pf": 1.61,
+   "summe_r": 47.8,
+   "treffer": 48.8,
+   "rueckgang_r": 8.9,
+   "je_woche": 1.39,
+   "robust_pf": 1.57,
+   "h1": [
+    2.16,
+    102
+   ],
+   "h2": [
+    1.18,
+    103
+   ],
+   "j2026": [
+    0.99,
+    60
+   ],
+   "long": {
+    "trades": 104,
+    "pf": 1.97,
+    "summe_r": 33.8,
+    "treffer": 53.8,
+    "rueckgang_r": 7.7
+   },
+   "short": {
+    "trades": 101,
+    "pf": 1.32,
+    "summe_r": 14.0,
+    "treffer": 43.6,
+    "rueckgang_r": 9.5
+   },
+   "je_jahr": {
+    "2024": 29.8,
+    "2025": 18.1,
+    "2026": -0.1
+   },
+   "letzte_2_jahre": {
+    "trades": 144,
+    "pf": 1.49,
+    "summe_r": 28.1,
+    "treffer": 46.5,
+    "rueckgang_r": 8.9
+   },
+   "median_halte_min": 475.0,
+   "spread_r": 0.03,
+   "ohne_top3_r": 33.8,
+   "gruende": {
+    "regel": 142,
+    "stop": 63
+   },
+   "zufall": {
+    "geschlagen_pct": 80.39,
+    "p": 0.1986970684039088,
+    "z": 0.834,
+    "median_r": -1.5,
+    "echt_r": 7.9,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": false,
+    "zellwert": 2.463,
+    "trades": 102,
+    "pf": 2.161,
+    "z": 4.094,
+    "rang_pct": 100.0
+   },
+   "einstieg": "enge_ausbruch",
+   "ebene": "1h",
+   "filter": "realzins",
+   "stop": "atr1_4h",
+   "ausstieg": "tagesende",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "2026 0.99",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 575,
+    "pf": 0.91,
+    "summe_r": -23.2,
+    "treffer": 39.7,
+    "rueckgang_r": 43.4,
+    "je_woche": 1.38
+   },
+   "letzte_4_jahre": {
+    "trades": 270,
+    "pf": 1.38,
+    "summe_r": 41.1,
+    "treffer": 46.3,
+    "rueckgang_r": 11.2,
+    "je_woche": 1.29
+   }
+  },
+  "ausbruch.4h.realzins.atr1_4h.ziel_3r": {
+   "trades": 118,
+   "pf": 1.82,
+   "summe_r": 60.1,
+   "treffer": 39.0,
+   "rueckgang_r": 6.2,
+   "je_woche": 0.8,
+   "robust_pf": 1.78,
+   "h1": [
+    1.72,
+    64
+   ],
+   "h2": [
+    1.93,
+    54
+   ],
+   "j2026": [
+    1.52,
+    35
+   ],
+   "long": {
+    "trades": 77,
+    "pf": 2.2,
+    "summe_r": 53.6,
+    "treffer": 44.2,
+    "rueckgang_r": 7.2
+   },
+   "short": {
+    "trades": 41,
+    "pf": 1.22,
+    "summe_r": 6.5,
+    "treffer": 29.3,
+    "rueckgang_r": 9.3
+   },
+   "je_jahr": {
+    "2024": 18.3,
+    "2025": 29.6,
+    "2026": 12.2
+   },
+   "letzte_2_jahre": {
+    "trades": 82,
+    "pf": 1.91,
+    "summe_r": 45.5,
+    "treffer": 40.2,
+    "rueckgang_r": 6.2
+   },
+   "median_halte_min": 1349.5,
+   "spread_r": 0.029,
+   "ohne_top3_r": 51.1,
+   "gruende": {
+    "stop": 72,
+    "ziel": 45,
+    "haltezeit": 1
+   },
+   "zufall": {
+    "geschlagen_pct": 99.02,
+    "p": 0.013029315960912053,
+    "z": 2.448,
+    "median_r": -3.5,
+    "echt_r": 30.5,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": false,
+    "zellwert": 1.827,
+    "trades": 64,
+    "pf": 1.722,
+    "z": 2.277,
+    "rang_pct": 100.0
+   },
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "realzins",
+   "stop": "atr1_4h",
+   "ausstieg": "ziel_3r",
+   "holm": false,
+   "urteil": "kandidat",
+   "fehlt": [
+    "Holm",
+    "z unter 3,0"
+   ],
+   "alt_2016_2023": {
+    "trades": 324,
+    "pf": 0.89,
+    "summe_r": -28.7,
+    "treffer": 24.1,
+    "rueckgang_r": 45.9,
+    "je_woche": 0.78
+   },
+   "letzte_4_jahre": {
+    "trades": 161,
+    "pf": 1.53,
+    "summe_r": 57.6,
+    "treffer": 35.4,
+    "rueckgang_r": 19.4,
+    "je_woche": 0.77
+   }
+  },
+  "ausbruch.4h.trend_hoch.swing_4h.zeit_4h": {
+   "trades": 153,
+   "pf": 2.35,
+   "summe_r": 22.9,
+   "treffer": 62.1,
+   "rueckgang_r": 1.6,
+   "je_woche": 1.04,
+   "robust_pf": 2.23,
+   "h1": [
+    2.21,
+    78
+   ],
+   "h2": [
+    2.53,
+    75
+   ],
+   "j2026": [
+    2.09,
+    39
+   ],
+   "long": {
+    "trades": 133,
+    "pf": 2.56,
+    "summe_r": 21.0,
+    "treffer": 63.2,
+    "rueckgang_r": 1.6
+   },
+   "short": {
+    "trades": 20,
+    "pf": 1.54,
+    "summe_r": 1.9,
+    "treffer": 55.0,
+    "rueckgang_r": 2.2
+   },
+   "je_jahr": {
+    "2024": 7.7,
+    "2025": 9.5,
+    "2026": 5.7
+   },
+   "letzte_2_jahre": {
+    "trades": 107,
+    "pf": 2.34,
+    "summe_r": 15.6,
+    "treffer": 63.6,
+    "rueckgang_r": 1.6
+   },
+   "median_halte_min": 960.0,
+   "spread_r": 0.009,
+   "ohne_top3_r": 18.0,
+   "gruende": {
+    "regel": 149,
+    "stop": 4
+   },
+   "zufall": {
+    "geschlagen_pct": 100.0,
+    "p": 0.003257328990228013,
+    "z": 2.929,
+    "median_r": -1.2,
+    "echt_r": 11.6,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": false,
+    "zellwert": 1.744,
+    "trades": 78,
+    "pf": 2.206,
+    "z": 2.519,
+    "rang_pct": 100.0
+   },
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "trend_hoch",
+   "stop": "swing_4h",
+   "ausstieg": "zeit_4h",
+   "holm": true,
+   "urteil": "kandidat",
+   "fehlt": [
+    "z unter 3,0"
+   ],
+   "alt_2016_2023": {
+    "trades": 348,
+    "pf": 0.83,
+    "summe_r": -11.3,
+    "treffer": 41.4,
+    "rueckgang_r": 20.0,
+    "je_woche": 0.83
+   },
+   "letzte_4_jahre": {
+    "trades": 198,
+    "pf": 1.72,
+    "summe_r": 19.0,
+    "treffer": 56.6,
+    "rueckgang_r": 6.3,
+    "je_woche": 0.95
+   }
+  },
+  "enge_ausbruch.1m.news_richtung.atr1_5m.trail_atr_5m": {
+   "trades": 290,
+   "pf": 1.11,
+   "summe_r": 23.8,
+   "treffer": 27.9,
+   "rueckgang_r": 34.8,
+   "je_woche": 1.96,
+   "robust_pf": 1.04,
+   "h1": [
+    1.6,
+    69
+   ],
+   "h2": [
+    1.0,
+    221
+   ],
+   "j2026": [
+    1.21,
+    140
+   ],
+   "long": {
+    "trades": 176,
+    "pf": 0.95,
+    "summe_r": -7.0,
+    "treffer": 26.1,
+    "rueckgang_r": 32.4
+   },
+   "short": {
+    "trades": 114,
+    "pf": 1.42,
+    "summe_r": 30.7,
+    "treffer": 30.7,
+    "rueckgang_r": 19.4
+   },
+   "je_jahr": {
+    "2024": 21.1,
+    "2025": -17.9,
+    "2026": 20.6
+   },
+   "letzte_2_jahre": {
+    "trades": 248,
+    "pf": 1.01,
+    "summe_r": 1.9,
+    "treffer": 25.4,
+    "rueckgang_r": 34.1
+   },
+   "median_halte_min": 34.0,
+   "spread_r": 0.112,
+   "ohne_top3_r": -19.9,
+   "gruende": {
+    "stop": 290
+   },
+   "zufall": {
+    "geschlagen_pct": 75.16,
+    "p": 0.250814332247557,
+    "z": 0.607,
+    "median_r": -28.3,
+    "echt_r": -0.2,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": false,
+    "zellwert": 1.622,
+    "trades": 69,
+    "pf": 1.596,
+    "z": 2.453,
+    "rang_pct": 97.0
+   },
+   "einstieg": "enge_ausbruch",
+   "ebene": "1m",
+   "filter": "news_richtung",
+   "stop": "atr1_5m",
+   "ausstieg": "trail_atr_5m",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "GF 1.11",
+    "2. Hälfte 1.0",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 10,
+    "pf": 3.17,
+    "summe_r": 7.8,
+    "treffer": 60.0,
+    "rueckgang_r": 2.6,
+    "je_woche": 0.02
+   },
+   "letzte_4_jahre": {
+    "trades": 300,
+    "pf": 1.15,
+    "summe_r": 31.6,
+    "treffer": 29.0,
+    "rueckgang_r": 34.8,
+    "je_woche": 1.44
+   }
+  },
+  "ruecksetzer.1m.ohne.swing_1m.ema_schluss_1h": {
+   "trades": 1687,
+   "pf": 1.18,
+   "summe_r": 258.0,
+   "treffer": 11.1,
+   "rueckgang_r": 106.9,
+   "je_woche": 11.42,
+   "robust_pf": 1.05,
+   "h1": [
+    1.62,
+    275
+   ],
+   "h2": [
+    1.1,
+    1412
+   ],
+   "j2026": [
+    1.08,
+    1052
+   ],
+   "long": {
+    "trades": 837,
+    "pf": 1.16,
+    "summe_r": 113.5,
+    "treffer": 11.9,
+    "rueckgang_r": 117.5
+   },
+   "short": {
+    "trades": 850,
+    "pf": 1.19,
+    "summe_r": 144.6,
+    "treffer": 10.2,
+    "rueckgang_r": 91.5
+   },
+   "je_jahr": {
+    "2024": 40.2,
+    "2025": 139.4,
+    "2026": 78.4
+   },
+   "letzte_2_jahre": {
+    "trades": 1577,
+    "pf": 1.18,
+    "summe_r": 245.0,
+    "treffer": 10.3,
+    "rueckgang_r": 106.9
+   },
+   "median_halte_min": 10.0,
+   "spread_r": 0.137,
+   "ohne_top3_r": 12.9,
+   "gruende": {
+    "stop": 1440,
+    "regel": 247
+   },
+   "zufall": {
+    "geschlagen_pct": 94.12,
+    "p": 0.06188925081433225,
+    "z": 1.558,
+    "median_r": -183.1,
+    "echt_r": 122.2,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": true,
+    "zellwert": 1.487,
+    "trades": 275,
+    "pf": 1.616,
+    "z": 3.703,
+    "rang_pct": 100.0
+   },
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "ohne",
+   "stop": "swing_1m",
+   "ausstieg": "ema_schluss_1h",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "GF 1.18",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 481,
+    "pf": 0.75,
+    "summe_r": -97.6,
+    "treffer": 16.6,
+    "rueckgang_r": 109.9,
+    "je_woche": 1.15
+   },
+   "letzte_4_jahre": {
+    "trades": 1755,
+    "pf": 1.13,
+    "summe_r": 205.5,
+    "treffer": 11.0,
+    "rueckgang_r": 106.9,
+    "je_woche": 8.41
+   }
+  },
+  "silber_vorlauf.15m.trend_hoch.swing_15m.zeit_1h": {
+   "trades": 152,
+   "pf": 1.53,
+   "summe_r": 24.6,
+   "treffer": 50.7,
+   "rueckgang_r": 10.3,
+   "je_woche": 1.03,
+   "robust_pf": 1.38,
+   "h1": [
+    2.26,
+    75
+   ],
+   "h2": [
+    1.07,
+    77
+   ],
+   "j2026": [
+    0.77,
+    29
+   ],
+   "long": {
+    "trades": 105,
+    "pf": 1.53,
+    "summe_r": 18.9,
+    "treffer": 51.4,
+    "rueckgang_r": 7.9
+   },
+   "short": {
+    "trades": 47,
+    "pf": 1.52,
+    "summe_r": 5.7,
+    "treffer": 48.9,
+    "rueckgang_r": 7.3
+   },
+   "je_jahr": {
+    "2024": 21.1,
+    "2025": 5.7,
+    "2026": -2.2
+   },
+   "letzte_2_jahre": {
+    "trades": 103,
+    "pf": 1.33,
+    "summe_r": 11.9,
+    "treffer": 45.6,
+    "rueckgang_r": 10.3
+   },
+   "median_halte_min": 210.0,
+   "spread_r": 0.048,
+   "ohne_top3_r": 11.4,
+   "gruende": {
+    "regel": 116,
+    "stop": 36
+   },
+   "zufall": {
+    "geschlagen_pct": 73.53,
+    "p": 0.2671009771986971,
+    "z": 0.643,
+    "median_r": -4.5,
+    "echt_r": 2.2,
+    "laeufe": 306
+   },
+   "auswahl": {
+    "schnell": false,
+    "zellwert": 1.462,
+    "trades": 75,
+    "pf": 2.264,
+    "z": 3.045,
+    "rang_pct": 100.0
+   },
+   "einstieg": "silber_vorlauf",
+   "ebene": "15m",
+   "filter": "trend_hoch",
+   "stop": "swing_15m",
+   "ausstieg": "zeit_1h",
+   "holm": false,
+   "urteil": "durchgefallen",
+   "fehlt": [
+    "2026 0.77",
+    "Zufallsvergleich"
+   ],
+   "alt_2016_2023": {
+    "trades": 275,
+    "pf": 0.71,
+    "summe_r": -36.2,
+    "treffer": 39.3,
+    "rueckgang_r": 39.4,
+    "je_woche": 0.66
+   },
+   "letzte_4_jahre": {
+    "trades": 187,
+    "pf": 1.21,
+    "summe_r": 13.3,
+    "treffer": 47.6,
+    "rueckgang_r": 12.9,
+    "je_woche": 0.9
+   }
+  }
+ },
+ "varianten": 54375,
+ "zellen": 305,
+ "zellen_die_zaehlen": 153,
+ "zufalls_zaehlung": [
+  {
+   "einstieg": "ausbruch",
+   "varianten": 4515,
+   "wertbar": 3855,
+   "pf_ab_1_2": 463,
+   "zufall_pf_ab_1_2": 481.5,
+   "rang_ab_90": 350,
+   "zufall_rang_ab_90": 385.5,
+   "qualifiziert": 115
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "varianten": 4515,
+   "wertbar": 3709,
+   "pf_ab_1_2": 463,
+   "zufall_pf_ab_1_2": 547.5,
+   "rang_ab_90": 388,
+   "zufall_rang_ab_90": 370.9,
+   "qualifiziert": 86
+  },
+  {
+   "einstieg": "band_umkehr",
+   "varianten": 4515,
+   "wertbar": 3424,
+   "pf_ab_1_2": 391,
+   "zufall_pf_ab_1_2": 398.1,
+   "rang_ab_90": 203,
+   "zufall_rang_ab_90": 342.4,
+   "qualifiziert": 110
+  },
+  {
+   "einstieg": "schwungkerze",
+   "varianten": 4515,
+   "wertbar": 3534,
+   "pf_ab_1_2": 413,
+   "zufall_pf_ab_1_2": 366.0,
+   "rang_ab_90": 359,
+   "zufall_rang_ab_90": 353.4,
+   "qualifiziert": 125
+  },
+  {
+   "einstieg": "fehlausbruch",
+   "varianten": 4515,
+   "wertbar": 3919,
+   "pf_ab_1_2": 246,
+   "zufall_pf_ab_1_2": 383.6,
+   "rang_ab_90": 128,
+   "zufall_rang_ab_90": 391.9,
+   "qualifiziert": 33
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "varianten": 4515,
+   "wertbar": 3421,
+   "pf_ab_1_2": 640,
+   "zufall_pf_ab_1_2": 426.3,
+   "rang_ab_90": 525,
+   "zufall_rang_ab_90": 342.1,
+   "qualifiziert": 283
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "varianten": 4515,
+   "wertbar": 3657,
+   "pf_ab_1_2": 378,
+   "zufall_pf_ab_1_2": 372.6,
+   "rang_ab_90": 555,
+   "zufall_rang_ab_90": 365.7,
+   "qualifiziert": 126
+  },
+  {
+   "einstieg": "rund_bruch",
+   "varianten": 4515,
+   "wertbar": 3634,
+   "pf_ab_1_2": 779,
+   "zufall_pf_ab_1_2": 570.9,
+   "rang_ab_90": 1026,
+   "zufall_rang_ab_90": 363.4,
+   "qualifiziert": 291
+  },
+  {
+   "einstieg": "rund_abprall",
+   "varianten": 4515,
+   "wertbar": 3379,
+   "pf_ab_1_2": 242,
+   "zufall_pf_ab_1_2": 543.0,
+   "rang_ab_90": 256,
+   "zufall_rang_ab_90": 337.9,
+   "qualifiziert": 60
+  },
+  {
+   "einstieg": "pivot_abprall",
+   "varianten": 4515,
+   "wertbar": 2986,
+   "pf_ab_1_2": 225,
+   "zufall_pf_ab_1_2": 443.9,
+   "rang_ab_90": 38,
+   "zufall_rang_ab_90": 298.6,
+   "qualifiziert": 34
+  },
+  {
+   "einstieg": "dollar_nachlauf",
+   "varianten": 3435,
+   "wertbar": 2212,
+   "pf_ab_1_2": 110,
+   "zufall_pf_ab_1_2": 284.4,
+   "rang_ab_90": 47,
+   "zufall_rang_ab_90": 221.2,
+   "qualifiziert": 17
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "varianten": 3435,
+   "wertbar": 1648,
+   "pf_ab_1_2": 375,
+   "zufall_pf_ab_1_2": 224.7,
+   "rang_ab_90": 369,
+   "zufall_rang_ab_90": 164.8,
+   "qualifiziert": 193
+  },
+  {
+   "einstieg": "aktien_flucht",
+   "varianten": 2355,
+   "wertbar": 939,
+   "pf_ab_1_2": 64,
+   "zufall_pf_ab_1_2": 231.6,
+   "rang_ab_90": 7,
+   "zufall_rang_ab_90": 93.9,
+   "qualifiziert": 2
+  },
+  {
+   "einstieg": "alle",
+   "varianten": 54375,
+   "wertbar": 40317,
+   "pf_ab_1_2": 4789,
+   "zufall_pf_ab_1_2": 5274.1,
+   "rang_ab_90": 4251,
+   "zufall_rang_ab_90": 4031.7,
+   "qualifiziert": 1475
+  }
+ ],
+ "karte": {
+  "einstieg_ebene": [
+   {
+    "einstieg": "ausbruch",
+    "ebene": "1m",
+    "wertbar": 1056,
+    "pf_median": 0.78,
+    "z_median": 0.28,
+    "rang_ab_90_pct": 16.3
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "5m",
+    "wertbar": 1070,
+    "pf_median": 0.83,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 4.1
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "15m",
+    "wertbar": 921,
+    "pf_median": 0.93,
+    "z_median": -0.13,
+    "rang_ab_90_pct": 2.6
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "1h",
+    "wertbar": 642,
+    "pf_median": 1.08,
+    "z_median": 0.28,
+    "rang_ab_90_pct": 7.8
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "4h",
+    "wertbar": 166,
+    "pf_median": 1.33,
+    "z_median": 0.89,
+    "rang_ab_90_pct": 36.1
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "1m",
+    "wertbar": 1031,
+    "pf_median": 0.82,
+    "z_median": 0.66,
+    "rang_ab_90_pct": 24.8
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "5m",
+    "wertbar": 1015,
+    "pf_median": 0.83,
+    "z_median": -0.0,
+    "rang_ab_90_pct": 6.7
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "15m",
+    "wertbar": 923,
+    "pf_median": 0.95,
+    "z_median": 0.25,
+    "rang_ab_90_pct": 4.3
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "1h",
+    "wertbar": 620,
+    "pf_median": 1.04,
+    "z_median": -0.2,
+    "rang_ab_90_pct": 2.4
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "4h",
+    "wertbar": 120,
+    "pf_median": 1.42,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 7.5
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "1m",
+    "wertbar": 949,
+    "pf_median": 0.71,
+    "z_median": -0.08,
+    "rang_ab_90_pct": 8.4
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "5m",
+    "wertbar": 959,
+    "pf_median": 0.74,
+    "z_median": -0.5,
+    "rang_ab_90_pct": 4.0
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 0.87,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 3.9
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "1h",
+    "wertbar": 632,
+    "pf_median": 1.01,
+    "z_median": 0.05,
+    "rang_ab_90_pct": 8.1
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "4h",
+    "wertbar": 20,
+    "pf_median": 0.9,
+    "z_median": -0.23,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "1m",
+    "wertbar": 1056,
+    "pf_median": 0.73,
+    "z_median": -0.26,
+    "rang_ab_90_pct": 5.8
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "5m",
+    "wertbar": 924,
+    "pf_median": 0.88,
+    "z_median": 0.39,
+    "rang_ab_90_pct": 12.8
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 0.97,
+    "z_median": 0.21,
+    "rang_ab_90_pct": 12.5
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "1h",
+    "wertbar": 639,
+    "pf_median": 1.06,
+    "z_median": 0.36,
+    "rang_ab_90_pct": 10.2
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "4h",
+    "wertbar": 51,
+    "pf_median": 0.99,
+    "z_median": 0.42,
+    "rang_ab_90_pct": 13.7
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "1m",
+    "wertbar": 1032,
+    "pf_median": 0.73,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 3.9
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "5m",
+    "wertbar": 1056,
+    "pf_median": 0.77,
+    "z_median": 0.04,
+    "rang_ab_90_pct": 4.8
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "15m",
+    "wertbar": 929,
+    "pf_median": 0.86,
+    "z_median": 0.13,
+    "rang_ab_90_pct": 2.7
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "1h",
+    "wertbar": 668,
+    "pf_median": 0.78,
+    "z_median": -0.49,
+    "rang_ab_90_pct": 1.8
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "4h",
+    "wertbar": 234,
+    "pf_median": 0.62,
+    "z_median": -0.7,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "1m",
+    "wertbar": 1013,
+    "pf_median": 0.75,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 13.7
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "5m",
+    "wertbar": 893,
+    "pf_median": 0.81,
+    "z_median": -0.24,
+    "rang_ab_90_pct": 4.1
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 1.07,
+    "z_median": 0.49,
+    "rang_ab_90_pct": 17.7
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "1h",
+    "wertbar": 628,
+    "pf_median": 1.23,
+    "z_median": 0.78,
+    "rang_ab_90_pct": 31.2
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "4h",
+    "wertbar": 23,
+    "pf_median": 0.91,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "1m",
+    "wertbar": 1056,
+    "pf_median": 0.8,
+    "z_median": 0.45,
+    "rang_ab_90_pct": 16.6
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "5m",
+    "wertbar": 1052,
+    "pf_median": 0.86,
+    "z_median": 0.61,
+    "rang_ab_90_pct": 23.4
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 0.9,
+    "z_median": -0.03,
+    "rang_ab_90_pct": 4.4
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "1h",
+    "wertbar": 648,
+    "pf_median": 1.07,
+    "z_median": 0.39,
+    "rang_ab_90_pct": 14.8
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "4h",
+    "wertbar": 37,
+    "pf_median": 0.94,
+    "z_median": 0.1,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "1m",
+    "wertbar": 964,
+    "pf_median": 0.88,
+    "z_median": 0.8,
+    "rang_ab_90_pct": 32.4
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "5m",
+    "wertbar": 894,
+    "pf_median": 1.01,
+    "z_median": 1.02,
+    "rang_ab_90_pct": 39.5
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "15m",
+    "wertbar": 863,
+    "pf_median": 1.1,
+    "z_median": 0.74,
+    "rang_ab_90_pct": 29.0
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "1h",
+    "wertbar": 646,
+    "pf_median": 1.1,
+    "z_median": 0.14,
+    "rang_ab_90_pct": 13.0
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "4h",
+    "wertbar": 267,
+    "pf_median": 1.17,
+    "z_median": 0.22,
+    "rang_ab_90_pct": 10.1
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "1m",
+    "wertbar": 870,
+    "pf_median": 0.76,
+    "z_median": 0.2,
+    "rang_ab_90_pct": 18.2
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "5m",
+    "wertbar": 864,
+    "pf_median": 0.84,
+    "z_median": 0.17,
+    "rang_ab_90_pct": 9.7
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "15m",
+    "wertbar": 863,
+    "pf_median": 0.79,
+    "z_median": -0.56,
+    "rang_ab_90_pct": 1.0
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "1h",
+    "wertbar": 616,
+    "pf_median": 0.97,
+    "z_median": -0.23,
+    "rang_ab_90_pct": 0.8
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "4h",
+    "wertbar": 166,
+    "pf_median": 0.81,
+    "z_median": -0.94,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "1m",
+    "wertbar": 600,
+    "pf_median": 0.63,
+    "z_median": -0.41,
+    "rang_ab_90_pct": 2.0
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "5m",
+    "wertbar": 663,
+    "pf_median": 0.6,
+    "z_median": -0.79,
+    "rang_ab_90_pct": 0.3
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "15m",
+    "wertbar": 860,
+    "pf_median": 0.7,
+    "z_median": -0.51,
+    "rang_ab_90_pct": 2.6
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "1h",
+    "wertbar": 637,
+    "pf_median": 0.68,
+    "z_median": -0.94,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "4h",
+    "wertbar": 226,
+    "pf_median": 0.91,
+    "z_median": -0.25,
+    "rang_ab_90_pct": 0.9
+   },
+   {
+    "einstieg": "dollar_nachlauf",
+    "ebene": "5m",
+    "wertbar": 864,
+    "pf_median": 0.81,
+    "z_median": 0.12,
+    "rang_ab_90_pct": 4.2
+   },
+   {
+    "einstieg": "dollar_nachlauf",
+    "ebene": "15m",
+    "wertbar": 863,
+    "pf_median": 0.79,
+    "z_median": -0.43,
+    "rang_ab_90_pct": 1.2
+   },
+   {
+    "einstieg": "dollar_nachlauf",
+    "ebene": "1h",
+    "wertbar": 485,
+    "pf_median": 0.68,
+    "z_median": -0.98,
+    "rang_ab_90_pct": 0.2
+   },
+   {
+    "einstieg": "silber_vorlauf",
+    "ebene": "5m",
+    "wertbar": 864,
+    "pf_median": 0.92,
+    "z_median": 0.68,
+    "rang_ab_90_pct": 22.5
+   },
+   {
+    "einstieg": "silber_vorlauf",
+    "ebene": "15m",
+    "wertbar": 784,
+    "pf_median": 1.12,
+    "z_median": 0.6,
+    "rang_ab_90_pct": 22.3
+   },
+   {
+    "einstieg": "aktien_flucht",
+    "ebene": "15m",
+    "wertbar": 854,
+    "pf_median": 0.8,
+    "z_median": -0.61,
+    "rang_ab_90_pct": 0.8
+   },
+   {
+    "einstieg": "aktien_flucht",
+    "ebene": "1h",
+    "wertbar": 85,
+    "pf_median": 0.76,
+    "z_median": -0.89,
+    "rang_ab_90_pct": 0.0
+   }
+  ],
+  "filter": [
+   {
+    "filter": "ohne",
+    "wertbar": 10017,
+    "pf_median": 0.86,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 13.3
+   },
+   {
+    "filter": "trend_hoch",
+    "wertbar": 8968,
+    "pf_median": 0.97,
+    "z_median": 0.25,
+    "rang_ab_90_pct": 14.8
+   },
+   {
+    "filter": "dollar_wind",
+    "wertbar": 9508,
+    "pf_median": 0.83,
+    "z_median": -0.07,
+    "rang_ab_90_pct": 7.1
+   },
+   {
+    "filter": "realzins",
+    "wertbar": 9340,
+    "pf_median": 0.83,
+    "z_median": 0.09,
+    "rang_ab_90_pct": 8.2
+   },
+   {
+    "filter": "news_richtung",
+    "wertbar": 2484,
+    "pf_median": 0.71,
+    "z_median": -0.11,
+    "rang_ab_90_pct": 5.9
+   }
+  ],
+  "stop": [
+   {
+    "stop_art": "atr1",
+    "stop_abstand": 0,
+    "wertbar": 4518,
+    "pf_median": 0.86,
+    "z_median": -0.02,
+    "rang_ab_90_pct": 9.8
+   },
+   {
+    "stop_art": "atr2",
+    "stop_abstand": 0,
+    "wertbar": 4663,
+    "pf_median": 0.87,
+    "z_median": 0.14,
+    "rang_ab_90_pct": 11.8
+   },
+   {
+    "stop_art": "swing",
+    "stop_abstand": 0,
+    "wertbar": 4489,
+    "pf_median": 0.9,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 13.8
+   },
+   {
+    "stop_art": "atr1",
+    "stop_abstand": 1,
+    "wertbar": 4659,
+    "pf_median": 0.85,
+    "z_median": 0.04,
+    "rang_ab_90_pct": 11.6
+   },
+   {
+    "stop_art": "atr2",
+    "stop_abstand": 1,
+    "wertbar": 4591,
+    "pf_median": 0.86,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 9.9
+   },
+   {
+    "stop_art": "swing",
+    "stop_abstand": 1,
+    "wertbar": 4534,
+    "pf_median": 0.86,
+    "z_median": 0.1,
+    "rang_ab_90_pct": 11.4
+   },
+   {
+    "stop_art": "atr1",
+    "stop_abstand": 2,
+    "wertbar": 4407,
+    "pf_median": 0.85,
+    "z_median": 0.03,
+    "rang_ab_90_pct": 9.1
+   },
+   {
+    "stop_art": "atr2",
+    "stop_abstand": 2,
+    "wertbar": 4234,
+    "pf_median": 0.85,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 9.5
+   },
+   {
+    "stop_art": "swing",
+    "stop_abstand": 2,
+    "wertbar": 4222,
+    "pf_median": 0.84,
+    "z_median": 0.02,
+    "rang_ab_90_pct": 7.7
+   }
+  ],
+  "ausstieg": [
+   {
+    "ausstieg_art": "ziel_1r",
+    "ausstieg_abstand": -1,
+    "wertbar": 1761,
+    "pf_median": 0.83,
+    "z_median": -0.14,
+    "rang_ab_90_pct": 9.7
+   },
+   {
+    "ausstieg_art": "ziel_2r",
+    "ausstieg_abstand": -1,
+    "wertbar": 1694,
+    "pf_median": 0.88,
+    "z_median": -0.07,
+    "rang_ab_90_pct": 10.2
+   },
+   {
+    "ausstieg_art": "ziel_3r",
+    "ausstieg_abstand": -1,
+    "wertbar": 1642,
+    "pf_median": 0.9,
+    "z_median": -0.06,
+    "rang_ab_90_pct": 8.8
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 0,
+    "wertbar": 1935,
+    "pf_median": 0.7,
+    "z_median": -0.16,
+    "rang_ab_90_pct": 12.9
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 0,
+    "wertbar": 1858,
+    "pf_median": 0.81,
+    "z_median": -0.05,
+    "rang_ab_90_pct": 9.4
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 0,
+    "wertbar": 1927,
+    "pf_median": 0.75,
+    "z_median": -0.02,
+    "rang_ab_90_pct": 11.4
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 0,
+    "wertbar": 1918,
+    "pf_median": 0.72,
+    "z_median": 0.05,
+    "rang_ab_90_pct": 12.8
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 0,
+    "wertbar": 1878,
+    "pf_median": 0.73,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 14.2
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 1,
+    "wertbar": 1866,
+    "pf_median": 0.77,
+    "z_median": -0.14,
+    "rang_ab_90_pct": 10.9
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 1,
+    "wertbar": 1750,
+    "pf_median": 0.88,
+    "z_median": 0.1,
+    "rang_ab_90_pct": 10.6
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 1,
+    "wertbar": 1794,
+    "pf_median": 0.83,
+    "z_median": 0.13,
+    "rang_ab_90_pct": 11.9
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 1,
+    "wertbar": 1818,
+    "pf_median": 0.82,
+    "z_median": 0.17,
+    "rang_ab_90_pct": 11.7
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 1,
+    "wertbar": 1802,
+    "pf_median": 0.86,
+    "z_median": 0.21,
+    "rang_ab_90_pct": 7.6
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 2,
+    "wertbar": 1718,
+    "pf_median": 0.87,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 13.0
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 2,
+    "wertbar": 1554,
+    "pf_median": 0.94,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 9.9
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 2,
+    "wertbar": 1643,
+    "pf_median": 0.91,
+    "z_median": 0.18,
+    "rang_ab_90_pct": 12.2
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 2,
+    "wertbar": 1687,
+    "pf_median": 0.89,
+    "z_median": 0.14,
+    "rang_ab_90_pct": 10.7
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 2,
+    "wertbar": 1681,
+    "pf_median": 0.91,
+    "z_median": 0.03,
+    "rang_ab_90_pct": 7.8
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 3,
+    "wertbar": 1319,
+    "pf_median": 0.91,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 12.3
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 3,
+    "wertbar": 1284,
+    "pf_median": 1.0,
+    "z_median": 0.2,
+    "rang_ab_90_pct": 8.3
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 3,
+    "wertbar": 1293,
+    "pf_median": 0.98,
+    "z_median": 0.26,
+    "rang_ab_90_pct": 13.4
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 3,
+    "wertbar": 1306,
+    "pf_median": 0.92,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 7.0
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 3,
+    "wertbar": 1308,
+    "pf_median": 0.96,
+    "z_median": 0.0,
+    "rang_ab_90_pct": 4.4
+   },
+   {
+    "ausstieg_art": "tagesende",
+    "ausstieg_abstand": -1,
+    "wertbar": 1881,
+    "pf_median": 0.94,
+    "z_median": -0.07,
+    "rang_ab_90_pct": 9.5
+   }
+  ]
+ },
+ "kerzen": [
+  "2023-01-02 23:00:00",
+  "2026-11-06 21:58:00"
+ ],
+ "kombi": {
+  "bestanden": {
+   "trades": 0,
+   "pf": null,
+   "summe_r": 0.0,
+   "treffer": null,
+   "rueckgang_r": 0.0
+  },
+  "bestanden_und_kandidaten": {
+   "trades": 1618,
+   "pf": 1.36,
+   "summe_r": 477.7,
+   "treffer": 15.9,
+   "rueckgang_r": 116.1,
+   "je_woche": 10.95,
+   "je_jahr": {
+    "2024": 62.6,
+    "2025": 198.9,
+    "2026": 216.1
+   }
+  }
+ }
+}

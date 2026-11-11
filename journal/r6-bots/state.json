@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-11T21:16:38.145587",
+   "stand_utc": "2026-11-11T21:31:33.474714",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,16 +24,16 @@
   },
   "r6-london-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-11T21:16:38.145587",
+   "stand_utc": "2026-11-11T21:31:33.474714",
    "konto_id": "332263759556203678",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 993.73,
+   "kontostand": 993.86,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T21:16:38.145587",
+    "zeit": "2026-11-11T21:31:33.474714",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -48,7 +48,7 @@
   },
   "r6-noise-usdjpy": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-11T21:16:38.145587",
+   "stand_utc": "2026-11-11T21:31:33.474714",
    "konto_id": "332264120333456542",
    "konto": "…6542",
    "konto_name": "Account 7",
@@ -99,7 +99,7 @@
     "vortag_schluss": 158.76
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T21:16:38.145587",
+    "zeit": "2026-11-11T21:31:33.474714",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -117,7 +117,7 @@
   },
   "r6-vortag-eurusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-11T21:16:38.145587",
+   "stand_utc": "2026-11-11T21:31:33.474714",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
@@ -126,7 +126,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T21:16:38.145587",
+    "zeit": "2026-11-11T21:31:33.474714",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -143,7 +143,7 @@
   },
   "r6-vortag-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-11T21:16:38.145587",
+   "stand_utc": "2026-11-11T21:31:33.474714",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
@@ -152,7 +152,7 @@
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T21:16:38.145587",
+    "zeit": "2026-11-11T21:31:33.474714",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -178,50 +178,23 @@
    "start_utc": "2026-11-05T11:46:51.956368",
    "start_kontostand": 999.79,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T21:16:38.145587",
+    "zeit": "2026-11-11T21:31:33.474714",
     "action": "none",
     "why": [
-     "Stop-Orders liegen"
-    ]
+     "heute erledigt"
+    ],
+    "bar": null
    },
    "versuche": {
     "2026-11-05": 1,
     "2026-11-09": 1,
     "2026-11-11": 1
    },
-   "orders": {
-    "tag": "2026-11-11",
-    "ph": 212.641,
-    "pl": 211.428,
-    "gelegt_utc": "2026-11-11T09:31:38.751753",
-    "bis_utc": "2026-11-11 21:30:00",
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 177.018,
-    "konto_kurz": "…4494",
-    "long": {
-     "dealId": "00000000-7271-f1f9-049c-701d0015549e",
-     "level": 212.668,
-     "marke": 212.641,
-     "stop": 212.593,
-     "ziel": 212.944,
-     "size": 12400.0
-    },
-    "short": {
-     "dealId": "00000000-7271-f201-049c-701d0015549e",
-     "level": 211.428,
-     "marke": 211.428,
-     "stop": 211.476,
-     "ziel": 211.125,
-     "size": 12400.0
-    },
-    "stop_abstand": 0.047763100640641154,
-    "atr15": 0.09552620128128231
-   },
-   "status": "Stop-Orders liegen",
+   "orders": null,
+   "status": "wartet auf das nächste Signal",
    "position": null,
-   "stand_utc": "2026-11-11T21:16:38.145587",
-   "tag_erledigt": "2026-11-10",
+   "stand_utc": "2026-11-11T21:31:33.474714",
+   "tag_erledigt": "2026-11-11",
    "nachgeprueft": [
     "2026-11-05"
    ]
@@ -235,7 +208,7 @@
    "start_utc": "2026-11-05T17:32:02.353890",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T21:16:38.145587",
+    "zeit": "2026-11-11T21:31:33.474714",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -249,7 +222,7 @@
    "orders": null,
    "status": "wartet auf das nächste Signal",
    "position": null,
-   "stand_utc": "2026-11-11T21:16:38.145587",
+   "stand_utc": "2026-11-11T21:31:33.474714",
    "tag_erledigt": "2026-11-11"
   }
  },
@@ -356,5 +329,5 @@
    }
   }
  },
- "stand_utc": "2026-11-11T21:16:38.145587"
+ "stand_utc": "2026-11-11T21:31:33.474714"
 }

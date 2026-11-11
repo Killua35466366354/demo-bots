@@ -34,3 +34,4 @@
 {"time": "2026-11-11T13:03:30", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-11 12:55:00", "strategie": "A Long", "hintergrund": {"richtung": -1, "tag": 4038.78, "sma50": 4144.26, "h4": 4044.28, "ema50": 4052.03}, "lage": "Hintergrund: Gold fällt (Tag unter 50-Tage-Schnitt, 4 Std. unter EMA 50). Nächster wichtiger Termin: Core PPI m/m am 13.11. 14:30 Uhr.", "gruende": ["gegen den Hintergrund (Gold fällt auf Tag und 4 Std.)", "mehr als 250 € Marge für diesen Bot"]}
 {"time": "2026-11-11T13:08:29", "bot": "pine-k5", "event": "Abfänger schließt", "dealId": "00000000-7271-b1c5-049c-701f0015549e", "kurs": 4040.48, "bestes": 4045.62}
 {"time": "2026-11-11T13:08:29", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG geschlossen", "gesendet": true}
+{"time": "2026-11-11T13:13:32", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-7271-b1c5-049c-701f0015549e", "kurs": 4040.52, "r": -1.975, "eur": -9.76, "quelle": "USER"}

@@ -3,34 +3,12 @@
  "name": "Pine-Gold Hand auf Account 5 (Kirons Long A und Short B auf 5 Min., Long und Short gleichzeitig, Kiron geht selbst raus)",
  "konto": "…9086",
  "konto_name": "Account 5",
- "stand": "2026-11-11T13:08:29",
+ "stand": "2026-11-11T13:13:32",
  "start": "2026-11-10T09:28:32",
  "regel": "Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, Long und Short gleichzeitig erlaubt (Hedging). Gold-Prüfer: keine Einstiege 60 Min. vor bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach Kurssprüngen), nichts gegen den Hintergrund (Tag über SMA 50 und 4 Std. über EMA 50). Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger (seit 10.11.2026): die ersten 4 Std. nichts, danach Stop 0,5 R hinter dem besten Kurs, nur nachgezogen (raus am nächsten Hoch bzw. Tief). Hinweis beim Pine-Ausstiegssignal.",
  "vorab": "suche/VORAB_pine5m_abfang4h.yaml",
  "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
  "offen": [
-  {
-   "dealId": "00000000-7271-b1c5-049c-701f0015549e",
-   "richtung": 1,
-   "size": 0.56,
-   "entry": 4059.91,
-   "dist": 9.82,
-   "einstieg_kerze": "2026-11-11 08:30:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-11T08:38:30",
-   "nachzieh": {
-    "seit": "2026-11-11T12:38:30",
-    "bestes": 4045.62,
-    "stop_seit": "2026-11-11T12:38:30",
-    "zu": "2026-11-11T13:08:29"
-   },
-   "abfang": {
-    "zeit": "2026-11-11T12:38:30",
-    "warum": "4 Std. ohne Ausstieg"
-   },
-   "stop": 4038.57,
-   "ziel": null
-  },
   {
    "dealId": "00000000-7272-02c6-049c-701f0015549e",
    "richtung": 1,
@@ -43,10 +21,10 @@
   }
  ],
  "zusammenfassung": {
-  "trades": 2,
+  "trades": 3,
   "pf_r": 0.0,
-  "summe_r": -1.76,
-  "summe_eur": -8.78,
+  "summe_r": -3.73,
+  "summe_eur": -18.54,
   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
  },
  "letzte_trades": [
@@ -97,6 +75,33 @@
    "closed_utc": "2026-11-11T01:13:28",
    "r": -0.755,
    "pnl_eur": -3.77
+  },
+  {
+   "dealId": "00000000-7271-b1c5-049c-701f0015549e",
+   "richtung": 1,
+   "size": 0.56,
+   "entry": 4059.91,
+   "dist": 9.82,
+   "einstieg_kerze": "2026-11-11 08:30:00",
+   "strategie": "A Long",
+   "opened_utc": "2026-11-11T08:38:30",
+   "nachzieh": {
+    "seit": "2026-11-11T12:38:30",
+    "bestes": 4045.62,
+    "stop_seit": "2026-11-11T12:38:30",
+    "zu": "2026-11-11T13:08:29"
+   },
+   "abfang": {
+    "zeit": "2026-11-11T12:38:30",
+    "warum": "4 Std. ohne Ausstieg"
+   },
+   "stop": 4038.57,
+   "ziel": null,
+   "exit": 4040.52,
+   "quelle": "USER",
+   "closed_utc": "2026-11-11T13:13:32",
+   "r": -1.975,
+   "pnl_eur": -9.76
   }
  ]
 }

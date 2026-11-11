@@ -15,3 +15,4 @@
 {"time": "2026-11-11T12:53:26", "bot": "pine-tp3", "event": "Abfänger gesetzt", "dealId": "00000000-7272-02d4-049c-a0c30015549e", "stopLevel": 4041.62, "profitLevel": 4051.56, "warum": "Fehltrade (0,5 R im Minus)"}
 {"time": "2026-11-11T12:53:26", "bot": "pine-tp3", "event": "Prüfer greift", "dealId": "00000000-7272-02d4-049c-a0c30015549e", "stop": 4041.62, "ziel": 4051.56, "warum": "Fehltrade (0,5 R im Minus)"}
 {"time": "2026-11-11T12:58:28", "bot": "pine-tp3", "event": "Trade zu", "dealId": "00000000-7272-02d4-049c-a0c30015549e", "kurs": 4041.55, "r": -1.007, "eur": -5.04, "quelle": "SL"}
+{"time": "2026-11-11T13:03:30", "bot": "pine-tp3", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-11 12:55:00", "strategie": "A Long", "lage": "", "dealId": "00000000-7272-f3e0-049c-a0c30015549e", "size": 0.66, "entry": 4042.39, "tp": 4047.42}

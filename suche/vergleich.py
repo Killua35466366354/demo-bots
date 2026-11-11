@@ -11,6 +11,11 @@ Repo. Dieses Modul liest nur Dateien (journal/, suche/*.yaml), spricht mit keine
    mit Monatssummen.
 3. Aufstieg nach suche/VORAB_aufstieg.yaml (nur wenn ihre Prüfsumme im Protokoll steht): je Strategie und für die Kombi
    "reif für Kirons Entscheidung" oder warum noch nicht. Es entscheidet immer Kiron.
+4. Eigene Gruppe "auf Kirons Wunsch" (Projekt-Prüfung 11.11.2026, Befund B-19): die Bots mit festem Konto aus
+   suche/mitnutzer.py (Pine-Bots, Scalper, Gold-Staffel, Groß-Box). Sie stehen nicht unter der Prüfung nach 15/40 Trades,
+   nicht in der Rangliste und nicht in der Kombi. Über sie urteilt ihre eigene Regeldatei. Hier stehen sie nur zur
+   Anzeige, damit kein Urteil vergessen wird: Demo-Trades und R aus ihrer eigenen Trade-Datei, das Urteil als der
+   Text, den der Bot selbst schreibt.
 
     python -m suche.vergleich                # Text
     python -m suche.vergleich --schreiben    # dazu journal/vergleich.json und journal/vergleich.md
@@ -155,6 +160,28 @@ def _zwilling_stand(bid: str, e: dict, rg: dict | None, trades: list[dict], laeu
     return {"status": st["status"], "text": st["text"], "original": org}
 
 
+def _wunsch() -> tuple[list[dict], str | None]:
+    """Bots mit festem Konto (suche/mitnutzer.py), die neue Trades öffnen: eine Zeile je Bot aus seinem eigenen Journal
+    (journal/<bot>.json und journal/<bot>/trades.jsonl). Nur Anzeige. Ein Fehler hier hält den Vergleich nie auf."""
+    try:
+        from suche import mitnutzer
+        liste = mitnutzer.aktive()
+    except Exception as e:                              # noqa: BLE001
+        return [], f"suche/mitnutzer.py nicht lesbar ({type(e).__name__})"
+    out = []
+    for b in liste:
+        bid = b["bot"]
+        karte = wb._read(J / f"{bid}.json", {})
+        karte = karte if isinstance(karte, dict) else {}
+        trades = _sortiert([t for t in wb._lines(J / bid / "trades.jsonl") if t.get("r") is not None])
+        z = karte.get("zusammenfassung") if isinstance(karte.get("zusammenfassung"), dict) else {}
+        out.append({"id": bid, "name": str(karte.get("name") or bid).split(" (")[0], "konto": b["konto_name"],
+                    "seit": str(karte.get("start") or "")[:10] or None, "ist": kennzahlen(trades),
+                    "urteil": z.get("urteil"), "vorab": karte.get("vorab"),
+                    "test": karte.get("test") or karte.get("backtest")})
+    return out, None
+
+
 def vergleich(now: datetime | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     tag = pd.Timestamp(now.astimezone(timezone.utc).date())
@@ -249,9 +276,10 @@ def vergleich(now: datetime | None = None) -> dict:
              "aufstieg": {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"} if rg is None
              else pruefe(kt, rg["kombi"])}
     letzte = max((str(t.get("closed_utc")) for ts in alle_trades.values() for t in ts if t.get("closed_utc")), default=None)
+    wunsch, wunsch_fehler = _wunsch()
     return {"format": 1, "tag": tag.date().isoformat(), "letzter_trade_utc": letzte,
             "regel_aufstieg": "festgelegt" if rg else "Prüfsumme fehlt",
-            "rangliste": zeilen, "kombi": kombi,
+            "rangliste": zeilen, "kombi": kombi, "wunsch": wunsch, "wunsch_fehler": wunsch_fehler,
             "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung "
                        "2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast "
                        "nichts; über echtes Geld entscheidet immer Kiron (suche/VORAB_aufstieg.yaml)."}
@@ -281,6 +309,22 @@ def text(v: dict) -> str:
         z += ["", "| Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |", "|---|---|---|---|"]
         for m, e in k["monate"].items():
             z.append(f"| {m} | {e['trades']} | {de(e['summe_r'])} | {de(e['summe_r'] * EUR_JE_R, 0)} € |")
+    w = v.get("wunsch") or []
+    if w or v.get("wunsch_fehler"):
+        z += ["", "## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades", "",
+              "Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der Rangliste und nicht in der "
+              "Kombi. Über jeden urteilt seine eigene Regeldatei, hier stehen sie nur, damit kein Urteil vergessen wird.", ""]
+    if v.get("wunsch_fehler"):
+        z.append(f"Die Liste ließ sich nicht lesen: {v['wunsch_fehler']}.")
+    if w:
+        z += ["| Bot | Konto | seit | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Urteil laut Bot | Regeldatei |",
+              "|---|---|---|---|---|---|---|---|---|"]
+        for b in w:
+            i = b["ist"]
+            z.append(f"| {b['name']} | {b['konto']} | {b['seit'] or '–'} | {i['trades']} | {de(i['summe_r'])} | "
+                     f"{de(i['pf_r'], 2, False)} | {de(i['eur'])} | {b['urteil'] or '–'} | {b['vorab'] or '–'} |")
+    z += ["", f"Der Gold-Bot zählt hier ab {GOLD_START[:10]} {GOLD_START[11:16]} UTC (seit dem Stop 1 x ATR). Der "
+          "Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen."]
     return "\n".join(z) + "\n"
 
 

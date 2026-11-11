@@ -68,3 +68,33 @@ def test_report_ranks_live_bots_and_kombi_only_holds_kept_strategies():
     assert vg.GOLD_START == "2026-11-03T09:05:00"               # fürs Urteil zählt nur die jetzige Regel (1-ATR-Stop)
     assert all(b["aufstieg"] is None for b in v["rangliste"] if not b["aktiv"])
     assert "| # | Strategie |" in vg.text(v) and v["tag"] == "2026-11-07"
+
+
+def test_wunsch_bots_stehen_in_eigener_gruppe_und_nie_in_rangliste_oder_kombi():
+    from suche import mitnutzer as mn
+    v = vg.vergleich(datetime(2026, 11, 11, 8, 0, tzinfo=timezone.utc))
+    w = {b["id"]: b for b in v["wunsch"]}
+    assert set(w) == {b["bot"] for b in mn.aktive()} and v["wunsch_fehler"] is None
+    assert {"pine-k5", "pine-tp3", "scalp-us100", "scalp-de40", "scalp-j225", "gold-staffel", "gold-grossbox"} <= set(w)
+    assert not set(w) & {b["id"] for b in v["rangliste"]}
+    assert not set(w) & (set(v["kombi"]["mitglieder"]) | {d["id"] for d in v["kombi"]["draussen"]})
+    for bid, b in w.items():
+        p = vg.J / bid / "trades.jsonl"
+        n = sum(1 for z in p.read_text(encoding="utf-8").splitlines() if z.strip()) if p.exists() else 0
+        assert b["ist"]["trades"] <= n and b["konto"] and b["vorab"], bid
+    t = vg.text(v)
+    assert "## Auf Kirons Wunsch" in t and "Pine-Gold TP 3 €" in t and "suche/VORAB_scalping_opens.yaml" in t
+    assert "Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC" in t
+    # die Dateien hängen weiter nur vom Tag und den Trades ab, nicht von der Uhrzeit des Laufs
+    assert vg.vergleich(datetime(2026, 11, 11, 20, 0, tzinfo=timezone.utc)) == v
+
+
+def test_wunsch_gruppe_haelt_den_vergleich_nie_auf(monkeypatch):
+    from suche import mitnutzer as mn
+
+    def kaputt():
+        raise RuntimeError("Bot-Code fehlt")
+    monkeypatch.setattr(mn, "aktive", kaputt)
+    v = vg.vergleich(datetime(2026, 11, 11, 8, 0, tzinfo=timezone.utc))
+    assert v["wunsch"] == [] and "nicht lesbar" in v["wunsch_fehler"] and v["rangliste"]
+    assert "ließ sich nicht lesen" in vg.text(v)

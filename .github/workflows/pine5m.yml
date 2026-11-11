@@ -61,6 +61,7 @@ jobs:
         run: python -m pytest -q tests/test_pine5m.py
 
       - name: Pine-Gold-Bots
+        id: pine
         env:
           CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
           CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
@@ -76,6 +77,7 @@ jobs:
           fi
 
       - name: Scalper mit Open-Filter (Account 1)
+        id: scalper
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -92,6 +94,7 @@ jobs:
           fi
 
       - name: Gold-Staffel (Account 1)
+        id: staffel
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -106,6 +109,17 @@ jobs:
           else
             python -m suche.gold_staffel_bot
           fi
+
+      # Wache (Projekt-Prüfung 11.11.2026, suche/wache.py): zählt, ob der Scalper- oder Staffel-Schritt in Folge
+      # scheitert (beide laufen mit continue-on-error und ließen den Lauf bisher grün). Schreibt nur
+      # journal/pine-wache.json und nur, wenn sich die Zählung ändert. Gemeldet wird im 15-Minuten-Lauf (demo-bots.yml).
+      - name: Wache (stille Fehler der Bot-Schritte)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          STEPS_JSON: ${{ toJSON(steps) }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: python -m suche.wache --lauf pine5m
 
       - name: Journal sichern
         if: ${{ !cancelled() && inputs.dry_run != true }}
@@ -129,3 +143,21 @@ jobs:
             done
             exit 1
           fi
+
+      # Alarm von außen (healthchecks.io, Projekt-Prüfung 11.11.2026): Bleibt diese Meldung aus, bekommt Kiron eine
+      # E-Mail. In diesem Lauf handeln zwei Bots ohne Stop, und ihr Abfänger arbeitet nur hier. Bisher hätte niemand
+      # gemerkt, wenn der Lauf ausfällt. Zeitplan und Wartezeit richtet takt.yml im privaten Repo ein
+      # (ops/lebenszeichen.py, Check "pine5m"). Ohne das Secret HC_PING_KEY passiert nichts. Der Schlüssel ist ein
+      # Secret und erscheint im Protokoll nur als ***.
+      - name: Lebenszeichen
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          HC_PING_KEY: ${{ secrets.HC_PING_KEY }}
+          ERGEBNIS: ${{ job.status }}
+        run: |
+          if [ -z "$HC_PING_KEY" ]; then echo "Kein HC_PING_KEY: kein Lebenszeichen"; exit 0; fi
+          pfad=""
+          if [ "$ERGEBNIS" != "success" ]; then pfad="/fail"; fi
+          curl -fsS -m 10 --retry 3 -o /dev/null "https://hc-ping.com/${HC_PING_KEY}/pine5m${pfad}?create=1"
+          echo "Lebenszeichen pine5m gesendet ($ERGEBNIS)"

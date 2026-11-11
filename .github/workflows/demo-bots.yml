@@ -1,9 +1,12 @@
 name: Demo-Bots (Strategie-Suche, nur Demokonto)
 
-# Alle Demo-Bots außer dem Gold-Bot in EINEM Lauf (nur Capital.com-DEMO, nie echtes Geld). Stand 05.11.2026 handeln:
-# Vortag EUR/USD und GBP/USD (suche/r6_bots.py) und die Top 3 auf dem Konto "US500" (US500-Rücksetzer, US100-Rücksetzer,
-# Nasdaq Noise-Band Long; suche/us500_bot.py, suche/r7_nasdaq_bot.py). Die alten Runde-3-Bots in suche/demo_bots.py
-# sind alle abgelöst und öffnen nichts mehr.
+# Alle Demo-Bots außer dem Gold-Bot und dem 5-Minuten-Lauf in EINEM Lauf (nur Capital.com-DEMO, nie echtes Geld).
+# Stand 11.11.2026 handeln hier: Vortag EUR/USD, GBP/USD, GBP/JPY und der Mess-Bot Vortag EUR/USD 1 x ATR, London
+# GBP/USD und Noise USD/JPY (alle suche/r6_bots.py), die Top 3 auf dem Konto "US500" (US500-Rücksetzer,
+# US100-Rücksetzer, Nasdaq Noise-Band Long; suche/us500_bot.py, suche/r7_nasdaq_bot.py), der Dow-Rücksetzer und die
+# Gold Groß-Box (gold/grossbox_bot.py). Gold-Short-Bot und Gold-Hand-Bot ruhen. Die alten Runde-3-Bots in
+# suche/demo_bots.py sind alle abgelöst und öffnen nichts mehr. Pine-Bots, Scalper und Gold-Staffel laufen im
+# 5-Minuten-Lauf (pine5m.yml). Welcher Bot auf welchem Konto handelt, steht in CLAUDE.md.
 #
 # Uhr: Kirons cron-job.org-Auftrag "Demo-Bots", Minute 1, 16, 31 und 46, seit Kirons Wunsch vom 05.11.2026 17:33 UTC
 # jeden Tag rund um die Uhr. Im öffentlichen Repo kostet ein Lauf keine Minuten, das Fenster 10 bis 22 Uhr Berlin
@@ -83,6 +86,7 @@ jobs:
           fi
 
       - name: Prüfung nach 15/40 Demo-Trades (deutlich schlechtere Bots wechseln, suche/VORAB_wechsel.yaml)
+        id: pruefung
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -99,7 +103,11 @@ jobs:
             python -m suche.demo_pruefung
           fi
 
+      # Die Runde-3-Bots dieses Schritts sind alle abgelöst und öffnen nichts mehr. Der Schritt bleibt trotzdem: Er liest
+      # bei jedem Lauf die Kontoliste von Capital.com und hält journal/konten.json (Namen und Kontostände aller Konten)
+      # und journal/demo-bots.json aktuell. Vergleich, Wochenbericht und Cockpit lesen diese Dateien.
       - name: Demo-Bots
+        id: demo_bots
         env:
           CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
           CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
@@ -116,6 +124,7 @@ jobs:
       # Vorwärtstest auf einem eigenen neuen Demokonto (Name "US500"), Entscheidung einmal am Tag um 15 Uhr New York
       # (suche/us500_bot.py, suche/VORAB_us500.yaml). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
       - name: Trend-Rücksetzer US500
+        id: us500
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -141,6 +150,7 @@ jobs:
       # fertigen Tages, mit EUR/USD und GBP/USD als Schatten (suche/r6_bots.py, suche/VORAB_r6_demo.yaml). Ein Fehler hier
       # hält die anderen Bots und das Journal nie auf.
       - name: Runde-6-Bots (Vortag USD/JPY, EUR/USD, GBP/USD; London GBP/USD; Noise USD/JPY)
+        id: r6
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -164,6 +174,7 @@ jobs:
       # Tages-ATR, raus am 5. Handelstag um 16 Uhr New York, nur auf einem eigenen Demokonto mit "Nasdaq" im Namen
       # (suche/r7_nasdaq_bot.py, suche/VORAB_r7_nasdaq.yaml). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
       - name: Noise-Band Long Nasdaq (Runde 7)
+        id: r7
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -192,6 +203,7 @@ jobs:
       # dieselben Shorts ohne Stop nimmt. Zwei Gold-Bots ohne Hedging auf einem Konto würden sich gegenseitig Positionen
       # schließen. Die Tests laufen weiter, der Bot öffnet nichts mehr. Er hatte bis dahin keinen Trade.
       - name: Gold-Short-Bot (ruht, Konto 5 an den Gold-Hand-Bot)
+        id: gold_short
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -213,6 +225,7 @@ jobs:
       # nie das Hauptkonto des Gold-Bots. Regeln in suche/VORAB_gold_hand.yaml, Code gold/hand_bot.py. Schreibt nur
       # journal/gold-hand/ und journal/gold-hand.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
       - name: Gold-Hand-Bot (Short und Long mit Trade-Abfänger, Nachricht aufs Handy)
+        id: gold_hand
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -240,6 +253,7 @@ jobs:
       # Hauptkonto des Gold-Bots. Regeln in suche/VORAB_gold_grossbox.yaml, Code gold/grossbox_bot.py. Schreibt nur
       # journal/gold-grossbox/ und journal/gold-grossbox.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
       - name: Gold Groß-Box (Account 6)
+        id: grossbox
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -259,31 +273,12 @@ jobs:
             python -m gold.grossbox_bot
           fi
 
-      # London-Breakout EUR/USD und Asien-ORB GBP/NZD: beendet am 04.11.2026, Kirons Entscheidung nach der
-      # Langzeit-Prüfung 2015-2025 (suche/VORAB_langzeit.yaml, Gewinnfaktor 0,93 und 0,77, beide unter 1,0). Beide hatten
-      # noch kein eigenes Konto und keinen Trade. Der Code (suche/london_bot.py, suche/asien_bot.py) bleibt im Repo,
-      # läuft aber nicht mehr. Dieser Schritt hält nur ihren Stand im Journal richtig.
-      - name: Beendete Vorwärtstests markieren (London, Asien)
-        if: ${{ !cancelled() && inputs.dry_run != true }}
-        continue-on-error: true
-        run: |
-          python - <<'EOF'
-          import json, pathlib
-          neu = "beendet am 04.11.2026 (Kirons Entscheidung nach der Langzeit-Prüfung 2015-2025)"
-          for name in ("london-bot", "asien-bot"):
-              p = pathlib.Path("journal") / f"{name}.json"
-              if p.exists():
-                  d = json.loads(p.read_text(encoding="utf-8"))
-                  if d.get("status") != neu:
-                      d["status"] = neu
-                      p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
-          EOF
-
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
       # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
       # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens
       # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den acht Testgruppen.
       - name: Demo-Vergleich aller Bots
+        id: vergleich
         if: ${{ !cancelled() && inputs.dry_run != true }}
         continue-on-error: true
         env:
@@ -308,6 +303,21 @@ jobs:
         with:
           path: .tests-ok
           key: ${{ steps.code.outputs.key }}
+
+      # Wache (Projekt-Prüfung 11.11.2026, suche/wache.py): prüft alle Siegel der Regeldateien und zählt, welcher
+      # Bot-Schritt in Folge gescheitert ist. Die Bot-Schritte laufen mit continue-on-error, ein Fehler dort ließ den
+      # Lauf und das Lebenszeichen bisher grün. Fehlt ein Siegel oder scheitert ein Schritt dreimal in Folge, geht eine
+      # Meldung an healthchecks.io (Checks "siegel" und "bot-schritte"), Kiron bekommt eine E-Mail. Liest nur, ändert
+      # keinen Bot, schreibt nur journal/wache.json und nur, wenn sich die Zählung ändert. Zählt nicht zu den acht
+      # Testgruppen. Ein Fehler hier hält nichts auf.
+      - name: Wache (Siegel und stille Fehler der Bot-Schritte)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          STEPS_JSON: ${{ toJSON(steps) }}
+          HC_PING_KEY: ${{ secrets.HC_PING_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: python -m suche.wache --lauf demo-bots
 
       - name: Journal sichern
         if: ${{ !cancelled() && inputs.dry_run != true }}

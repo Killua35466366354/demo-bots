@@ -1,0 +1,191 @@
+# Finalisten der Gold-Matrix. Gewählt nur aus der Auswahl-Hälfte (Einstieg 01.01.2024 bis vor 2025-05-31 12:00 UTC)
+# nach der Regel in suche/VORAB_gold_matrix.yaml, Abschnitt auswahl. Die Bestätigungs-Hälfte war dabei nicht geladen.
+# Diese Datei wird versiegelt, bevor die Bestätigungs-Hälfte gerechnet wird, und danach nie geändert.
+
+format: 1
+gold_matrix_finalisten:
+  vorab_sha256: 3037f7b5c02bd45735c7124c39ed587aa43d42bc7a8564f10257c75fa2a823f7
+  varianten_gerechnet: 54375
+  zellen_die_zaehlen: 153
+  tabelle_sha256: 43026d2eb4f371832db9d111113fb04e856637b66ff5e632e56056a17aae74d3
+  finalisten:
+  - key: rund_bruch.5m.ohne.atr2_15m.ziel_1r
+    einstieg: rund_bruch
+    ebene: 5m
+    filter: ohne
+    stop: atr2_15m
+    ausstieg: ziel_1r
+    schnell: true
+    zellwert: 2.428
+    trades: 413
+    je_woche: 5.6
+    pf: 1.254
+    pf_robust: 1.15
+    z: 3.865
+    rang_pct: 100.0
+    median_halte_min: 73.0
+  - key: rund_bruch.1m.ohne.atr1_5m.supertrend_5m
+    einstieg: rund_bruch
+    ebene: 1m
+    filter: ohne
+    stop: atr1_5m
+    ausstieg: supertrend_5m
+    schnell: true
+    zellwert: 2.223
+    trades: 533
+    je_woche: 7.22
+    pf: 1.253
+    pf_robust: 1.074
+    z: 4.097
+    rang_pct: 100.0
+    median_halte_min: 8.0
+  - key: rund_abprall.1m.trend_hoch.swing_1m.ziel_2r
+    einstieg: rund_abprall
+    ebene: 1m
+    filter: trend_hoch
+    stop: swing_1m
+    ausstieg: ziel_2r
+    schnell: true
+    zellwert: 1.907
+    trades: 205
+    je_woche: 2.78
+    pf: 1.275
+    pf_robust: 1.154
+    z: 3.599
+    rang_pct: 100.0
+    median_halte_min: 20.0
+  - key: ema_kreuz.5m.trend_hoch.atr1_15m.ema_schluss_4h
+    einstieg: ema_kreuz
+    ebene: 5m
+    filter: trend_hoch
+    stop: atr1_15m
+    ausstieg: ema_schluss_4h
+    schnell: true
+    zellwert: 1.833
+    trades: 410
+    je_woche: 5.56
+    pf: 1.238
+    pf_robust: 1.121
+    z: 2.624
+    rang_pct: 98.0
+    median_halte_min: 76.5
+  - key: ruecksetzer.1m.trend_hoch.swing_1m.ema_schluss_1h
+    einstieg: ruecksetzer
+    ebene: 1m
+    filter: trend_hoch
+    stop: swing_1m
+    ausstieg: ema_schluss_1h
+    schnell: true
+    zellwert: 1.552
+    trades: 223
+    je_woche: 3.02
+    pf: 1.762
+    pf_robust: 1.28
+    z: 4.546
+    rang_pct: 100.0
+    median_halte_min: 26.0
+  - key: ema_kreuz.5m.ohne.atr2_15m.trail_struktur_4h
+    einstieg: ema_kreuz
+    ebene: 5m
+    filter: ohne
+    stop: atr2_15m
+    ausstieg: trail_struktur_4h
+    schnell: true
+    zellwert: 1.513
+    trades: 398
+    je_woche: 5.39
+    pf: 1.434
+    pf_robust: 1.256
+    z: 2.087
+    rang_pct: 98.0
+    median_halte_min: 402.5
+  - key: enge_ausbruch.1h.realzins.atr1_4h.tagesende
+    einstieg: enge_ausbruch
+    ebene: 1h
+    filter: realzins
+    stop: atr1_4h
+    ausstieg: tagesende
+    schnell: false
+    zellwert: 2.463
+    trades: 102
+    je_woche: 1.38
+    pf: 2.161
+    pf_robust: 2.088
+    z: 4.094
+    rang_pct: 100.0
+    median_halte_min: 475.0
+  - key: ausbruch.4h.realzins.atr1_4h.ziel_3r
+    einstieg: ausbruch
+    ebene: 4h
+    filter: realzins
+    stop: atr1_4h
+    ausstieg: ziel_3r
+    schnell: false
+    zellwert: 1.827
+    trades: 64
+    je_woche: 0.87
+    pf: 1.722
+    pf_robust: 1.685
+    z: 2.277
+    rang_pct: 100.0
+    median_halte_min: 1257.5
+  - key: ausbruch.4h.trend_hoch.swing_4h.zeit_4h
+    einstieg: ausbruch
+    ebene: 4h
+    filter: trend_hoch
+    stop: swing_4h
+    ausstieg: zeit_4h
+    schnell: false
+    zellwert: 1.744
+    trades: 78
+    je_woche: 1.06
+    pf: 2.206
+    pf_robust: 2.062
+    z: 2.519
+    rang_pct: 100.0
+    median_halte_min: 960.0
+  - key: enge_ausbruch.1m.news_richtung.atr1_5m.trail_atr_5m
+    einstieg: enge_ausbruch
+    ebene: 1m
+    filter: news_richtung
+    stop: atr1_5m
+    ausstieg: trail_atr_5m
+    schnell: false
+    zellwert: 1.622
+    trades: 69
+    je_woche: 0.94
+    pf: 1.596
+    pf_robust: 1.438
+    z: 2.453
+    rang_pct: 97.0
+    median_halte_min: 44.0
+  - key: ruecksetzer.1m.ohne.swing_1m.ema_schluss_1h
+    einstieg: ruecksetzer
+    ebene: 1m
+    filter: ohne
+    stop: swing_1m
+    ausstieg: ema_schluss_1h
+    schnell: true
+    zellwert: 1.487
+    trades: 275
+    je_woche: 3.73
+    pf: 1.616
+    pf_robust: 1.154
+    z: 3.703
+    rang_pct: 100.0
+    median_halte_min: 18.0
+  - key: silber_vorlauf.15m.trend_hoch.swing_15m.zeit_1h
+    einstieg: silber_vorlauf
+    ebene: 15m
+    filter: trend_hoch
+    stop: swing_15m
+    ausstieg: zeit_1h
+    schnell: false
+    zellwert: 1.462
+    trades: 75
+    je_woche: 1.02
+    pf: 2.264
+    pf_robust: 2.037
+    z: 3.045
+    rang_pct: 100.0
+    median_halte_min: 210.0

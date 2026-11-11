@@ -1,0 +1,1856 @@
+{
+ "vorab_sha256": "3037f7b5c02bd45735c7124c39ed587aa43d42bc7a8564f10257c75fa2a823f7",
+ "daten": {
+  "XAUUSD_1min_utc.csv.gz": "04a2c7f9a4a21c49",
+  "DFII10.csv": "90b96caa55d22827",
+  "EURUSD_5min.csv.gz": "792158e0ec1f04ab",
+  "USDJPY_5min.csv.gz": "fbdb20c0d675b28e",
+  "GBPUSD_5min.csv.gz": "c22c781aac5595b6",
+  "USDCAD_5min.csv.gz": "7c042519fe17ea5d",
+  "USDCHF_5min.csv.gz": "3e365c8c673e1ad7",
+  "XAGUSD_5min.csv.gz": "5aaf825aa6970f72",
+  "SPXUSD_5min.csv.gz": "c6249ed4b308f87a"
+ },
+ "kerzen": [
+  "2023-01-02 23:00:00",
+  "2025-06-13 20:59:00"
+ ],
+ "varianten": 54375,
+ "zellen": 305,
+ "zellen_die_zaehlen": 153,
+ "finalisten": [
+  {
+   "key": "rund_bruch.5m.ohne.atr2_15m.ziel_1r",
+   "einstieg": "rund_bruch",
+   "ebene": "5m",
+   "filter": "ohne",
+   "stop": "atr2_15m",
+   "ausstieg": "ziel_1r",
+   "schnell": true,
+   "zellwert": 2.428,
+   "trades": 413,
+   "je_woche": 5.6,
+   "pf": 1.254,
+   "pf_robust": 1.15,
+   "z": 3.865,
+   "rang_pct": 100.0,
+   "median_halte_min": 73.0
+  },
+  {
+   "key": "rund_bruch.1m.ohne.atr1_5m.supertrend_5m",
+   "einstieg": "rund_bruch",
+   "ebene": "1m",
+   "filter": "ohne",
+   "stop": "atr1_5m",
+   "ausstieg": "supertrend_5m",
+   "schnell": true,
+   "zellwert": 2.223,
+   "trades": 533,
+   "je_woche": 7.22,
+   "pf": 1.253,
+   "pf_robust": 1.074,
+   "z": 4.097,
+   "rang_pct": 100.0,
+   "median_halte_min": 8.0
+  },
+  {
+   "key": "rund_abprall.1m.trend_hoch.swing_1m.ziel_2r",
+   "einstieg": "rund_abprall",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "stop": "swing_1m",
+   "ausstieg": "ziel_2r",
+   "schnell": true,
+   "zellwert": 1.907,
+   "trades": 205,
+   "je_woche": 2.78,
+   "pf": 1.275,
+   "pf_robust": 1.154,
+   "z": 3.599,
+   "rang_pct": 100.0,
+   "median_halte_min": 20.0
+  },
+  {
+   "key": "ema_kreuz.5m.trend_hoch.atr1_15m.ema_schluss_4h",
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "stop": "atr1_15m",
+   "ausstieg": "ema_schluss_4h",
+   "schnell": true,
+   "zellwert": 1.833,
+   "trades": 410,
+   "je_woche": 5.56,
+   "pf": 1.238,
+   "pf_robust": 1.121,
+   "z": 2.624,
+   "rang_pct": 98.0,
+   "median_halte_min": 76.5
+  },
+  {
+   "key": "ruecksetzer.1m.trend_hoch.swing_1m.ema_schluss_1h",
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "stop": "swing_1m",
+   "ausstieg": "ema_schluss_1h",
+   "schnell": true,
+   "zellwert": 1.552,
+   "trades": 223,
+   "je_woche": 3.02,
+   "pf": 1.762,
+   "pf_robust": 1.28,
+   "z": 4.546,
+   "rang_pct": 100.0,
+   "median_halte_min": 26.0
+  },
+  {
+   "key": "ema_kreuz.5m.ohne.atr2_15m.trail_struktur_4h",
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "ohne",
+   "stop": "atr2_15m",
+   "ausstieg": "trail_struktur_4h",
+   "schnell": true,
+   "zellwert": 1.513,
+   "trades": 398,
+   "je_woche": 5.39,
+   "pf": 1.434,
+   "pf_robust": 1.256,
+   "z": 2.087,
+   "rang_pct": 98.0,
+   "median_halte_min": 402.5
+  },
+  {
+   "key": "enge_ausbruch.1h.realzins.atr1_4h.tagesende",
+   "einstieg": "enge_ausbruch",
+   "ebene": "1h",
+   "filter": "realzins",
+   "stop": "atr1_4h",
+   "ausstieg": "tagesende",
+   "schnell": false,
+   "zellwert": 2.463,
+   "trades": 102,
+   "je_woche": 1.38,
+   "pf": 2.161,
+   "pf_robust": 2.088,
+   "z": 4.094,
+   "rang_pct": 100.0,
+   "median_halte_min": 475.0
+  },
+  {
+   "key": "ausbruch.4h.realzins.atr1_4h.ziel_3r",
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "realzins",
+   "stop": "atr1_4h",
+   "ausstieg": "ziel_3r",
+   "schnell": false,
+   "zellwert": 1.827,
+   "trades": 64,
+   "je_woche": 0.87,
+   "pf": 1.722,
+   "pf_robust": 1.685,
+   "z": 2.277,
+   "rang_pct": 100.0,
+   "median_halte_min": 1257.5
+  },
+  {
+   "key": "ausbruch.4h.trend_hoch.swing_4h.zeit_4h",
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "trend_hoch",
+   "stop": "swing_4h",
+   "ausstieg": "zeit_4h",
+   "schnell": false,
+   "zellwert": 1.744,
+   "trades": 78,
+   "je_woche": 1.06,
+   "pf": 2.206,
+   "pf_robust": 2.062,
+   "z": 2.519,
+   "rang_pct": 100.0,
+   "median_halte_min": 960.0
+  },
+  {
+   "key": "enge_ausbruch.1m.news_richtung.atr1_5m.trail_atr_5m",
+   "einstieg": "enge_ausbruch",
+   "ebene": "1m",
+   "filter": "news_richtung",
+   "stop": "atr1_5m",
+   "ausstieg": "trail_atr_5m",
+   "schnell": false,
+   "zellwert": 1.622,
+   "trades": 69,
+   "je_woche": 0.94,
+   "pf": 1.596,
+   "pf_robust": 1.438,
+   "z": 2.453,
+   "rang_pct": 97.0,
+   "median_halte_min": 44.0
+  },
+  {
+   "key": "ruecksetzer.1m.ohne.swing_1m.ema_schluss_1h",
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "ohne",
+   "stop": "swing_1m",
+   "ausstieg": "ema_schluss_1h",
+   "schnell": true,
+   "zellwert": 1.487,
+   "trades": 275,
+   "je_woche": 3.73,
+   "pf": 1.616,
+   "pf_robust": 1.154,
+   "z": 3.703,
+   "rang_pct": 100.0,
+   "median_halte_min": 18.0
+  },
+  {
+   "key": "silber_vorlauf.15m.trend_hoch.swing_15m.zeit_1h",
+   "einstieg": "silber_vorlauf",
+   "ebene": "15m",
+   "filter": "trend_hoch",
+   "stop": "swing_15m",
+   "ausstieg": "zeit_1h",
+   "schnell": false,
+   "zellwert": 1.462,
+   "trades": 75,
+   "je_woche": 1.02,
+   "pf": 2.264,
+   "pf_robust": 2.037,
+   "z": 3.045,
+   "rang_pct": 100.0,
+   "median_halte_min": 210.0
+  }
+ ],
+ "zufalls_zaehlung": [
+  {
+   "einstieg": "ausbruch",
+   "varianten": 4515,
+   "wertbar": 3855,
+   "pf_ab_1_2": 463,
+   "zufall_pf_ab_1_2": 481.5,
+   "rang_ab_90": 350,
+   "zufall_rang_ab_90": 385.5,
+   "qualifiziert": 115
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "varianten": 4515,
+   "wertbar": 3709,
+   "pf_ab_1_2": 463,
+   "zufall_pf_ab_1_2": 547.5,
+   "rang_ab_90": 388,
+   "zufall_rang_ab_90": 370.9,
+   "qualifiziert": 86
+  },
+  {
+   "einstieg": "band_umkehr",
+   "varianten": 4515,
+   "wertbar": 3424,
+   "pf_ab_1_2": 391,
+   "zufall_pf_ab_1_2": 398.1,
+   "rang_ab_90": 203,
+   "zufall_rang_ab_90": 342.4,
+   "qualifiziert": 110
+  },
+  {
+   "einstieg": "schwungkerze",
+   "varianten": 4515,
+   "wertbar": 3534,
+   "pf_ab_1_2": 413,
+   "zufall_pf_ab_1_2": 366.0,
+   "rang_ab_90": 359,
+   "zufall_rang_ab_90": 353.4,
+   "qualifiziert": 125
+  },
+  {
+   "einstieg": "fehlausbruch",
+   "varianten": 4515,
+   "wertbar": 3919,
+   "pf_ab_1_2": 246,
+   "zufall_pf_ab_1_2": 383.6,
+   "rang_ab_90": 128,
+   "zufall_rang_ab_90": 391.9,
+   "qualifiziert": 33
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "varianten": 4515,
+   "wertbar": 3421,
+   "pf_ab_1_2": 640,
+   "zufall_pf_ab_1_2": 426.3,
+   "rang_ab_90": 525,
+   "zufall_rang_ab_90": 342.1,
+   "qualifiziert": 283
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "varianten": 4515,
+   "wertbar": 3657,
+   "pf_ab_1_2": 378,
+   "zufall_pf_ab_1_2": 372.6,
+   "rang_ab_90": 555,
+   "zufall_rang_ab_90": 365.7,
+   "qualifiziert": 126
+  },
+  {
+   "einstieg": "rund_bruch",
+   "varianten": 4515,
+   "wertbar": 3634,
+   "pf_ab_1_2": 779,
+   "zufall_pf_ab_1_2": 570.9,
+   "rang_ab_90": 1026,
+   "zufall_rang_ab_90": 363.4,
+   "qualifiziert": 291
+  },
+  {
+   "einstieg": "rund_abprall",
+   "varianten": 4515,
+   "wertbar": 3379,
+   "pf_ab_1_2": 242,
+   "zufall_pf_ab_1_2": 543.0,
+   "rang_ab_90": 256,
+   "zufall_rang_ab_90": 337.9,
+   "qualifiziert": 60
+  },
+  {
+   "einstieg": "pivot_abprall",
+   "varianten": 4515,
+   "wertbar": 2986,
+   "pf_ab_1_2": 225,
+   "zufall_pf_ab_1_2": 443.9,
+   "rang_ab_90": 38,
+   "zufall_rang_ab_90": 298.6,
+   "qualifiziert": 34
+  },
+  {
+   "einstieg": "dollar_nachlauf",
+   "varianten": 3435,
+   "wertbar": 2212,
+   "pf_ab_1_2": 110,
+   "zufall_pf_ab_1_2": 284.4,
+   "rang_ab_90": 47,
+   "zufall_rang_ab_90": 221.2,
+   "qualifiziert": 17
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "varianten": 3435,
+   "wertbar": 1648,
+   "pf_ab_1_2": 375,
+   "zufall_pf_ab_1_2": 224.7,
+   "rang_ab_90": 369,
+   "zufall_rang_ab_90": 164.8,
+   "qualifiziert": 193
+  },
+  {
+   "einstieg": "aktien_flucht",
+   "varianten": 2355,
+   "wertbar": 939,
+   "pf_ab_1_2": 64,
+   "zufall_pf_ab_1_2": 231.6,
+   "rang_ab_90": 7,
+   "zufall_rang_ab_90": 93.9,
+   "qualifiziert": 2
+  },
+  {
+   "einstieg": "alle",
+   "varianten": 54375,
+   "wertbar": 40317,
+   "pf_ab_1_2": 4789,
+   "zufall_pf_ab_1_2": 5274.1,
+   "rang_ab_90": 4251,
+   "zufall_rang_ab_90": 4031.7,
+   "qualifiziert": 1475
+  }
+ ],
+ "karte": {
+  "einstieg_ebene": [
+   {
+    "einstieg": "ausbruch",
+    "ebene": "1m",
+    "wertbar": 1056,
+    "pf_median": 0.78,
+    "z_median": 0.28,
+    "rang_ab_90_pct": 16.3
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "5m",
+    "wertbar": 1070,
+    "pf_median": 0.83,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 4.1
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "15m",
+    "wertbar": 921,
+    "pf_median": 0.93,
+    "z_median": -0.13,
+    "rang_ab_90_pct": 2.6
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "1h",
+    "wertbar": 642,
+    "pf_median": 1.08,
+    "z_median": 0.28,
+    "rang_ab_90_pct": 7.8
+   },
+   {
+    "einstieg": "ausbruch",
+    "ebene": "4h",
+    "wertbar": 166,
+    "pf_median": 1.33,
+    "z_median": 0.89,
+    "rang_ab_90_pct": 36.1
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "1m",
+    "wertbar": 1031,
+    "pf_median": 0.82,
+    "z_median": 0.66,
+    "rang_ab_90_pct": 24.8
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "5m",
+    "wertbar": 1015,
+    "pf_median": 0.83,
+    "z_median": -0.0,
+    "rang_ab_90_pct": 6.7
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "15m",
+    "wertbar": 923,
+    "pf_median": 0.95,
+    "z_median": 0.25,
+    "rang_ab_90_pct": 4.3
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "1h",
+    "wertbar": 620,
+    "pf_median": 1.04,
+    "z_median": -0.2,
+    "rang_ab_90_pct": 2.4
+   },
+   {
+    "einstieg": "ruecksetzer",
+    "ebene": "4h",
+    "wertbar": 120,
+    "pf_median": 1.42,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 7.5
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "1m",
+    "wertbar": 949,
+    "pf_median": 0.71,
+    "z_median": -0.08,
+    "rang_ab_90_pct": 8.4
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "5m",
+    "wertbar": 959,
+    "pf_median": 0.74,
+    "z_median": -0.5,
+    "rang_ab_90_pct": 4.0
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 0.87,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 3.9
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "1h",
+    "wertbar": 632,
+    "pf_median": 1.01,
+    "z_median": 0.05,
+    "rang_ab_90_pct": 8.1
+   },
+   {
+    "einstieg": "band_umkehr",
+    "ebene": "4h",
+    "wertbar": 20,
+    "pf_median": 0.9,
+    "z_median": -0.23,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "1m",
+    "wertbar": 1056,
+    "pf_median": 0.73,
+    "z_median": -0.26,
+    "rang_ab_90_pct": 5.8
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "5m",
+    "wertbar": 924,
+    "pf_median": 0.88,
+    "z_median": 0.39,
+    "rang_ab_90_pct": 12.8
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 0.97,
+    "z_median": 0.21,
+    "rang_ab_90_pct": 12.5
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "1h",
+    "wertbar": 639,
+    "pf_median": 1.06,
+    "z_median": 0.36,
+    "rang_ab_90_pct": 10.2
+   },
+   {
+    "einstieg": "schwungkerze",
+    "ebene": "4h",
+    "wertbar": 51,
+    "pf_median": 0.99,
+    "z_median": 0.42,
+    "rang_ab_90_pct": 13.7
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "1m",
+    "wertbar": 1032,
+    "pf_median": 0.73,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 3.9
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "5m",
+    "wertbar": 1056,
+    "pf_median": 0.77,
+    "z_median": 0.04,
+    "rang_ab_90_pct": 4.8
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "15m",
+    "wertbar": 929,
+    "pf_median": 0.86,
+    "z_median": 0.13,
+    "rang_ab_90_pct": 2.7
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "1h",
+    "wertbar": 668,
+    "pf_median": 0.78,
+    "z_median": -0.49,
+    "rang_ab_90_pct": 1.8
+   },
+   {
+    "einstieg": "fehlausbruch",
+    "ebene": "4h",
+    "wertbar": 234,
+    "pf_median": 0.62,
+    "z_median": -0.7,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "1m",
+    "wertbar": 1013,
+    "pf_median": 0.75,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 13.7
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "5m",
+    "wertbar": 893,
+    "pf_median": 0.81,
+    "z_median": -0.24,
+    "rang_ab_90_pct": 4.1
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 1.07,
+    "z_median": 0.49,
+    "rang_ab_90_pct": 17.7
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "1h",
+    "wertbar": 628,
+    "pf_median": 1.23,
+    "z_median": 0.78,
+    "rang_ab_90_pct": 31.2
+   },
+   {
+    "einstieg": "enge_ausbruch",
+    "ebene": "4h",
+    "wertbar": 23,
+    "pf_median": 0.91,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "1m",
+    "wertbar": 1056,
+    "pf_median": 0.8,
+    "z_median": 0.45,
+    "rang_ab_90_pct": 16.6
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "5m",
+    "wertbar": 1052,
+    "pf_median": 0.86,
+    "z_median": 0.61,
+    "rang_ab_90_pct": 23.4
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "15m",
+    "wertbar": 864,
+    "pf_median": 0.9,
+    "z_median": -0.03,
+    "rang_ab_90_pct": 4.4
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "1h",
+    "wertbar": 648,
+    "pf_median": 1.07,
+    "z_median": 0.39,
+    "rang_ab_90_pct": 14.8
+   },
+   {
+    "einstieg": "ema_kreuz",
+    "ebene": "4h",
+    "wertbar": 37,
+    "pf_median": 0.94,
+    "z_median": 0.1,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "1m",
+    "wertbar": 964,
+    "pf_median": 0.88,
+    "z_median": 0.8,
+    "rang_ab_90_pct": 32.4
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "5m",
+    "wertbar": 894,
+    "pf_median": 1.01,
+    "z_median": 1.02,
+    "rang_ab_90_pct": 39.5
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "15m",
+    "wertbar": 863,
+    "pf_median": 1.1,
+    "z_median": 0.74,
+    "rang_ab_90_pct": 29.0
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "1h",
+    "wertbar": 646,
+    "pf_median": 1.1,
+    "z_median": 0.14,
+    "rang_ab_90_pct": 13.0
+   },
+   {
+    "einstieg": "rund_bruch",
+    "ebene": "4h",
+    "wertbar": 267,
+    "pf_median": 1.17,
+    "z_median": 0.22,
+    "rang_ab_90_pct": 10.1
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "1m",
+    "wertbar": 870,
+    "pf_median": 0.76,
+    "z_median": 0.2,
+    "rang_ab_90_pct": 18.2
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "5m",
+    "wertbar": 864,
+    "pf_median": 0.84,
+    "z_median": 0.17,
+    "rang_ab_90_pct": 9.7
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "15m",
+    "wertbar": 863,
+    "pf_median": 0.79,
+    "z_median": -0.56,
+    "rang_ab_90_pct": 1.0
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "1h",
+    "wertbar": 616,
+    "pf_median": 0.97,
+    "z_median": -0.23,
+    "rang_ab_90_pct": 0.8
+   },
+   {
+    "einstieg": "rund_abprall",
+    "ebene": "4h",
+    "wertbar": 166,
+    "pf_median": 0.81,
+    "z_median": -0.94,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "1m",
+    "wertbar": 600,
+    "pf_median": 0.63,
+    "z_median": -0.41,
+    "rang_ab_90_pct": 2.0
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "5m",
+    "wertbar": 663,
+    "pf_median": 0.6,
+    "z_median": -0.79,
+    "rang_ab_90_pct": 0.3
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "15m",
+    "wertbar": 860,
+    "pf_median": 0.7,
+    "z_median": -0.51,
+    "rang_ab_90_pct": 2.6
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "1h",
+    "wertbar": 637,
+    "pf_median": 0.68,
+    "z_median": -0.94,
+    "rang_ab_90_pct": 0.0
+   },
+   {
+    "einstieg": "pivot_abprall",
+    "ebene": "4h",
+    "wertbar": 226,
+    "pf_median": 0.91,
+    "z_median": -0.25,
+    "rang_ab_90_pct": 0.9
+   },
+   {
+    "einstieg": "dollar_nachlauf",
+    "ebene": "5m",
+    "wertbar": 864,
+    "pf_median": 0.81,
+    "z_median": 0.12,
+    "rang_ab_90_pct": 4.2
+   },
+   {
+    "einstieg": "dollar_nachlauf",
+    "ebene": "15m",
+    "wertbar": 863,
+    "pf_median": 0.79,
+    "z_median": -0.43,
+    "rang_ab_90_pct": 1.2
+   },
+   {
+    "einstieg": "dollar_nachlauf",
+    "ebene": "1h",
+    "wertbar": 485,
+    "pf_median": 0.68,
+    "z_median": -0.98,
+    "rang_ab_90_pct": 0.2
+   },
+   {
+    "einstieg": "silber_vorlauf",
+    "ebene": "5m",
+    "wertbar": 864,
+    "pf_median": 0.92,
+    "z_median": 0.68,
+    "rang_ab_90_pct": 22.5
+   },
+   {
+    "einstieg": "silber_vorlauf",
+    "ebene": "15m",
+    "wertbar": 784,
+    "pf_median": 1.12,
+    "z_median": 0.6,
+    "rang_ab_90_pct": 22.3
+   },
+   {
+    "einstieg": "aktien_flucht",
+    "ebene": "15m",
+    "wertbar": 854,
+    "pf_median": 0.8,
+    "z_median": -0.61,
+    "rang_ab_90_pct": 0.8
+   },
+   {
+    "einstieg": "aktien_flucht",
+    "ebene": "1h",
+    "wertbar": 85,
+    "pf_median": 0.76,
+    "z_median": -0.89,
+    "rang_ab_90_pct": 0.0
+   }
+  ],
+  "filter": [
+   {
+    "filter": "ohne",
+    "wertbar": 10017,
+    "pf_median": 0.86,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 13.3
+   },
+   {
+    "filter": "trend_hoch",
+    "wertbar": 8968,
+    "pf_median": 0.97,
+    "z_median": 0.25,
+    "rang_ab_90_pct": 14.8
+   },
+   {
+    "filter": "dollar_wind",
+    "wertbar": 9508,
+    "pf_median": 0.83,
+    "z_median": -0.07,
+    "rang_ab_90_pct": 7.1
+   },
+   {
+    "filter": "realzins",
+    "wertbar": 9340,
+    "pf_median": 0.83,
+    "z_median": 0.09,
+    "rang_ab_90_pct": 8.2
+   },
+   {
+    "filter": "news_richtung",
+    "wertbar": 2484,
+    "pf_median": 0.71,
+    "z_median": -0.11,
+    "rang_ab_90_pct": 5.9
+   }
+  ],
+  "stop": [
+   {
+    "stop_art": "atr1",
+    "stop_abstand": 0,
+    "wertbar": 4518,
+    "pf_median": 0.86,
+    "z_median": -0.02,
+    "rang_ab_90_pct": 9.8
+   },
+   {
+    "stop_art": "atr2",
+    "stop_abstand": 0,
+    "wertbar": 4663,
+    "pf_median": 0.87,
+    "z_median": 0.14,
+    "rang_ab_90_pct": 11.8
+   },
+   {
+    "stop_art": "swing",
+    "stop_abstand": 0,
+    "wertbar": 4489,
+    "pf_median": 0.9,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 13.8
+   },
+   {
+    "stop_art": "atr1",
+    "stop_abstand": 1,
+    "wertbar": 4659,
+    "pf_median": 0.85,
+    "z_median": 0.04,
+    "rang_ab_90_pct": 11.6
+   },
+   {
+    "stop_art": "atr2",
+    "stop_abstand": 1,
+    "wertbar": 4591,
+    "pf_median": 0.86,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 9.9
+   },
+   {
+    "stop_art": "swing",
+    "stop_abstand": 1,
+    "wertbar": 4534,
+    "pf_median": 0.86,
+    "z_median": 0.1,
+    "rang_ab_90_pct": 11.4
+   },
+   {
+    "stop_art": "atr1",
+    "stop_abstand": 2,
+    "wertbar": 4407,
+    "pf_median": 0.85,
+    "z_median": 0.03,
+    "rang_ab_90_pct": 9.1
+   },
+   {
+    "stop_art": "atr2",
+    "stop_abstand": 2,
+    "wertbar": 4234,
+    "pf_median": 0.85,
+    "z_median": 0.01,
+    "rang_ab_90_pct": 9.5
+   },
+   {
+    "stop_art": "swing",
+    "stop_abstand": 2,
+    "wertbar": 4222,
+    "pf_median": 0.84,
+    "z_median": 0.02,
+    "rang_ab_90_pct": 7.7
+   }
+  ],
+  "ausstieg": [
+   {
+    "ausstieg_art": "ziel_1r",
+    "ausstieg_abstand": -1,
+    "wertbar": 1761,
+    "pf_median": 0.83,
+    "z_median": -0.14,
+    "rang_ab_90_pct": 9.7
+   },
+   {
+    "ausstieg_art": "ziel_2r",
+    "ausstieg_abstand": -1,
+    "wertbar": 1694,
+    "pf_median": 0.88,
+    "z_median": -0.07,
+    "rang_ab_90_pct": 10.2
+   },
+   {
+    "ausstieg_art": "ziel_3r",
+    "ausstieg_abstand": -1,
+    "wertbar": 1642,
+    "pf_median": 0.9,
+    "z_median": -0.06,
+    "rang_ab_90_pct": 8.8
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 0,
+    "wertbar": 1935,
+    "pf_median": 0.7,
+    "z_median": -0.16,
+    "rang_ab_90_pct": 12.9
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 0,
+    "wertbar": 1858,
+    "pf_median": 0.81,
+    "z_median": -0.05,
+    "rang_ab_90_pct": 9.4
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 0,
+    "wertbar": 1927,
+    "pf_median": 0.75,
+    "z_median": -0.02,
+    "rang_ab_90_pct": 11.4
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 0,
+    "wertbar": 1918,
+    "pf_median": 0.72,
+    "z_median": 0.05,
+    "rang_ab_90_pct": 12.8
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 0,
+    "wertbar": 1878,
+    "pf_median": 0.73,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 14.2
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 1,
+    "wertbar": 1866,
+    "pf_median": 0.77,
+    "z_median": -0.14,
+    "rang_ab_90_pct": 10.9
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 1,
+    "wertbar": 1750,
+    "pf_median": 0.88,
+    "z_median": 0.1,
+    "rang_ab_90_pct": 10.6
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 1,
+    "wertbar": 1794,
+    "pf_median": 0.83,
+    "z_median": 0.13,
+    "rang_ab_90_pct": 11.9
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 1,
+    "wertbar": 1818,
+    "pf_median": 0.82,
+    "z_median": 0.17,
+    "rang_ab_90_pct": 11.7
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 1,
+    "wertbar": 1802,
+    "pf_median": 0.86,
+    "z_median": 0.21,
+    "rang_ab_90_pct": 7.6
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 2,
+    "wertbar": 1718,
+    "pf_median": 0.87,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 13.0
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 2,
+    "wertbar": 1554,
+    "pf_median": 0.94,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 9.9
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 2,
+    "wertbar": 1643,
+    "pf_median": 0.91,
+    "z_median": 0.18,
+    "rang_ab_90_pct": 12.2
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 2,
+    "wertbar": 1687,
+    "pf_median": 0.89,
+    "z_median": 0.14,
+    "rang_ab_90_pct": 10.7
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 2,
+    "wertbar": 1681,
+    "pf_median": 0.91,
+    "z_median": 0.03,
+    "rang_ab_90_pct": 7.8
+   },
+   {
+    "ausstieg_art": "zeit",
+    "ausstieg_abstand": 3,
+    "wertbar": 1319,
+    "pf_median": 0.91,
+    "z_median": 0.15,
+    "rang_ab_90_pct": 12.3
+   },
+   {
+    "ausstieg_art": "trail_atr",
+    "ausstieg_abstand": 3,
+    "wertbar": 1284,
+    "pf_median": 1.0,
+    "z_median": 0.2,
+    "rang_ab_90_pct": 8.3
+   },
+   {
+    "ausstieg_art": "trail_struktur",
+    "ausstieg_abstand": 3,
+    "wertbar": 1293,
+    "pf_median": 0.98,
+    "z_median": 0.26,
+    "rang_ab_90_pct": 13.4
+   },
+   {
+    "ausstieg_art": "ema_schluss",
+    "ausstieg_abstand": 3,
+    "wertbar": 1306,
+    "pf_median": 0.92,
+    "z_median": 0.06,
+    "rang_ab_90_pct": 7.0
+   },
+   {
+    "ausstieg_art": "supertrend",
+    "ausstieg_abstand": 3,
+    "wertbar": 1308,
+    "pf_median": 0.96,
+    "z_median": 0.0,
+    "rang_ab_90_pct": 4.4
+   },
+   {
+    "ausstieg_art": "tagesende",
+    "ausstieg_abstand": -1,
+    "wertbar": 1881,
+    "pf_median": 0.94,
+    "z_median": -0.07,
+    "rang_ab_90_pct": 9.5
+   }
+  ]
+ },
+ "zellen_tabelle": [
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "1h",
+   "filter": "realzins",
+   "varianten": 171,
+   "wertbar": 153,
+   "qualifiziert": 76,
+   "zellwert": 2.4625269925,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.1h.realzins.atr1_4h.tagesende",
+   "schnell": false
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "5m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 31,
+   "zellwert": 2.4281866142,
+   "zaehlt": true,
+   "finalist": "rund_bruch.5m.ohne.atr2_15m.ziel_1r",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "1m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 6,
+   "zellwert": 2.2231953621,
+   "zaehlt": true,
+   "finalist": "rund_bruch.1m.ohne.atr1_5m.supertrend_5m",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "15m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 54,
+   "zellwert": 2.1904048085,
+   "zaehlt": true,
+   "finalist": "rund_bruch.15m.ohne.atr2_15m.trail_atr_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 13,
+   "zellwert": 2.1506155188,
+   "zaehlt": true,
+   "finalist": "rund_bruch.1m.trend_hoch.atr2_1m.ziel_3r",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 30,
+   "zellwert": 1.9527031511,
+   "zaehlt": true,
+   "finalist": "rund_bruch.5m.trend_hoch.atr1_5m.ziel_2r",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_abprall",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 213,
+   "qualifiziert": 26,
+   "zellwert": 1.9071140632,
+   "zaehlt": true,
+   "finalist": "rund_abprall.1m.trend_hoch.swing_1m.ziel_2r",
+   "schnell": true
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 7,
+   "zellwert": 1.8333901579,
+   "zaehlt": true,
+   "finalist": "ema_kreuz.5m.trend_hoch.atr1_15m.ema_schluss_4h",
+   "schnell": true
+  },
+  {
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "realzins",
+   "varianten": 84,
+   "wertbar": 28,
+   "qualifiziert": 14,
+   "zellwert": 1.8271231183,
+   "zaehlt": true,
+   "finalist": "ausbruch.4h.realzins.atr1_4h.ziel_3r",
+   "schnell": false
+  },
+  {
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "trend_hoch",
+   "varianten": 84,
+   "wertbar": 19,
+   "qualifiziert": 11,
+   "zellwert": 1.743676693,
+   "zaehlt": true,
+   "finalist": "ausbruch.4h.trend_hoch.swing_4h.zeit_4h",
+   "schnell": false
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "1m",
+   "filter": "news_richtung",
+   "varianten": 216,
+   "wertbar": 172,
+   "qualifiziert": 13,
+   "zellwert": 1.6220608357,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.1m.news_richtung.atr1_5m.trail_atr_5m",
+   "schnell": false
+  },
+  {
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "dollar_wind",
+   "varianten": 84,
+   "wertbar": 54,
+   "qualifiziert": 20,
+   "zellwert": 1.5897499504,
+   "zaehlt": true,
+   "finalist": "ausbruch.4h.dollar_wind.swing_1d.tagesende",
+   "schnell": false
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 1.5519816185,
+   "zaehlt": true,
+   "finalist": "ruecksetzer.1m.trend_hoch.swing_1m.ema_schluss_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 5,
+   "zellwert": 1.5130276105,
+   "zaehlt": true,
+   "finalist": "ema_kreuz.5m.ohne.atr2_15m.trail_struktur_4h",
+   "schnell": true
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "1h",
+   "filter": "ohne",
+   "varianten": 171,
+   "wertbar": 164,
+   "qualifiziert": 28,
+   "zellwert": 1.4888411765,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.1h.ohne.atr1_4h.tagesende",
+   "schnell": true
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 1.4873349482,
+   "zaehlt": true,
+   "finalist": "ruecksetzer.1m.ohne.swing_1m.ema_schluss_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "15m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 47,
+   "zellwert": 1.4843815356,
+   "zaehlt": true,
+   "finalist": "rund_bruch.15m.trend_hoch.atr1_15m.ziel_3r",
+   "schnell": true
+  },
+  {
+   "einstieg": "ausbruch",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 0,
+   "zellwert": 1.4794693047,
+   "zaehlt": false,
+   "finalist": null,
+   "schnell": false
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "15m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 181,
+   "qualifiziert": 59,
+   "zellwert": 1.4615751526,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.15m.trend_hoch.swing_15m.zeit_1h",
+   "schnell": false
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "1h",
+   "filter": "dollar_wind",
+   "varianten": 171,
+   "wertbar": 160,
+   "qualifiziert": 44,
+   "zellwert": 1.4339129356,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.1h.dollar_wind.swing_4h.trail_struktur_1h",
+   "schnell": false
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 24,
+   "zellwert": 1.4189802274,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.5m.trend_hoch.swing_15m.ema_schluss_4h",
+   "schnell": false
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "5m",
+   "filter": "dollar_wind",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 10,
+   "zellwert": 1.4160573667,
+   "zaehlt": true,
+   "finalist": "rund_bruch.5m.dollar_wind.atr1_5m.supertrend_5m",
+   "schnell": true
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "5m",
+   "filter": "dollar_wind",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 6,
+   "zellwert": 1.374368856,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.5m.dollar_wind.swing_1h.trail_struktur_5m",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "1h",
+   "filter": "ohne",
+   "varianten": 171,
+   "wertbar": 163,
+   "qualifiziert": 21,
+   "zellwert": 1.3497796102,
+   "zaehlt": true,
+   "finalist": "rund_bruch.1h.ohne.atr1_1h.trail_atr_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "1m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 1.3399976459,
+   "zaehlt": true,
+   "finalist": "ema_kreuz.1m.ohne.atr1_1m.trail_atr_15m",
+   "schnell": true
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "5m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 0,
+   "zellwert": 1.3336828097,
+   "zaehlt": false,
+   "finalist": null,
+   "schnell": false
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "15m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 185,
+   "qualifiziert": 46,
+   "zellwert": 1.3299707541,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.15m.realzins.atr1_15m.supertrend_15m",
+   "schnell": false
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "1h",
+   "filter": "ohne",
+   "varianten": 171,
+   "wertbar": 167,
+   "qualifiziert": 29,
+   "zellwert": 1.2892555338,
+   "zaehlt": true,
+   "finalist": "ema_kreuz.1h.ohne.swing_4h.trail_atr_1d",
+   "schnell": false
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "5m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 10,
+   "zellwert": 1.271019446,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.5m.ohne.swing_1h.zeit_4h",
+   "schnell": true
+  },
+  {
+   "einstieg": "ausbruch",
+   "ebene": "4h",
+   "filter": "ohne",
+   "varianten": 84,
+   "wertbar": 65,
+   "qualifiziert": 15,
+   "zellwert": 1.2281691708,
+   "zaehlt": true,
+   "finalist": "ausbruch.4h.ohne.swing_4h.zeit_4h",
+   "schnell": false
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 3,
+   "zellwert": 1.2272964308,
+   "zaehlt": true,
+   "finalist": "ema_kreuz.1m.trend_hoch.atr1_1m.zeit_1h",
+   "schnell": false
+  },
+  {
+   "einstieg": "ema_kreuz",
+   "ebene": "1h",
+   "filter": "realzins",
+   "varianten": 171,
+   "wertbar": 160,
+   "qualifiziert": 35,
+   "zellwert": 1.2172549665,
+   "zaehlt": true,
+   "finalist": "ema_kreuz.1h.realzins.swing_4h.tagesende",
+   "schnell": true
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "news_richtung",
+   "varianten": 216,
+   "wertbar": 167,
+   "qualifiziert": 3,
+   "zellwert": 1.213405603,
+   "zaehlt": true,
+   "finalist": "ruecksetzer.1m.news_richtung.swing_15m.ema_schluss_15m",
+   "schnell": false
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "15m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 6,
+   "zellwert": 1.2109602991,
+   "zaehlt": true,
+   "finalist": "schwungkerze.15m.trend_hoch.swing_1h.trail_struktur_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 0,
+   "zellwert": 1.1624272867,
+   "zaehlt": false,
+   "finalist": null,
+   "schnell": false
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "15m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 34,
+   "zellwert": 1.1617486041,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.15m.realzins.swing_4h.trail_atr_1d",
+   "schnell": false
+  },
+  {
+   "einstieg": "rund_abprall",
+   "ebene": "1m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 1.1517098534,
+   "zaehlt": true,
+   "finalist": "rund_abprall.1m.ohne.swing_1m.trail_atr_5m",
+   "schnell": true
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "15m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 11,
+   "zellwert": 1.1402356293,
+   "zaehlt": true,
+   "finalist": "schwungkerze.15m.realzins.atr2_15m.ema_schluss_4h",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "4h",
+   "filter": "dollar_wind",
+   "varianten": 84,
+   "wertbar": 66,
+   "qualifiziert": 13,
+   "zellwert": 1.0782815784,
+   "zaehlt": true,
+   "finalist": "rund_bruch.4h.dollar_wind.swing_4h.ema_schluss_4h",
+   "schnell": false
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "1h",
+   "filter": "realzins",
+   "varianten": 171,
+   "wertbar": 160,
+   "qualifiziert": 20,
+   "zellwert": 1.0767789533,
+   "zaehlt": true,
+   "finalist": "schwungkerze.1h.realzins.swing_1d.supertrend_1d",
+   "schnell": false
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "15m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 14,
+   "zellwert": 1.0756753097,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.15m.trend_hoch.swing_1h.ema_schluss_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 1.0749007369,
+   "zaehlt": true,
+   "finalist": "schwungkerze.1m.trend_hoch.atr2_1m.trail_struktur_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "15m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 23,
+   "zellwert": 1.0532921309,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.15m.ohne.swing_4h.trail_atr_1d",
+   "schnell": false
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "15m",
+   "filter": "dollar_wind",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 31,
+   "zellwert": 1.0531270777,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.15m.dollar_wind.atr1_15m.supertrend_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "1h",
+   "filter": "dollar_wind",
+   "varianten": 171,
+   "wertbar": 161,
+   "qualifiziert": 19,
+   "zellwert": 1.0516898282,
+   "zaehlt": true,
+   "finalist": "rund_bruch.1h.dollar_wind.swing_1d.zeit_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "1m",
+   "filter": "dollar_wind",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 1,
+   "zellwert": 1.0473422176,
+   "zaehlt": true,
+   "finalist": "rund_bruch.1m.dollar_wind.atr1_5m.supertrend_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 20,
+   "zellwert": 1.0379279847,
+   "zaehlt": true,
+   "finalist": "schwungkerze.5m.trend_hoch.atr1_5m.supertrend_5m",
+   "schnell": true
+  },
+  {
+   "einstieg": "ausbruch",
+   "ebene": "1m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 0,
+   "zellwert": 1.0328075776,
+   "zaehlt": false,
+   "finalist": null,
+   "schnell": false
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "5m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 0,
+   "zellwert": 1.0310705714,
+   "zaehlt": false,
+   "finalist": null,
+   "schnell": false
+  },
+  {
+   "einstieg": "enge_ausbruch",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 211,
+   "qualifiziert": 1,
+   "zellwert": 1.0302043285,
+   "zaehlt": true,
+   "finalist": "enge_ausbruch.1m.trend_hoch.atr2_1m.supertrend_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "15m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 23,
+   "zellwert": 1.0248575682,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.15m.ohne.atr1_15m.supertrend_4h",
+   "schnell": false
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "1h",
+   "filter": "trend_hoch",
+   "varianten": 171,
+   "wertbar": 156,
+   "qualifiziert": 24,
+   "zellwert": 1.0178995432,
+   "zaehlt": true,
+   "finalist": "schwungkerze.1h.trend_hoch.swing_1h.trail_struktur_1h",
+   "schnell": false
+  },
+  {
+   "einstieg": "schwungkerze",
+   "ebene": "5m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 1,
+   "zellwert": 0.9984136378,
+   "zaehlt": true,
+   "finalist": "schwungkerze.5m.ohne.swing_5m.trail_struktur_4h",
+   "schnell": true
+  },
+  {
+   "einstieg": "silber_vorlauf",
+   "ebene": "15m",
+   "filter": "dollar_wind",
+   "varianten": 216,
+   "wertbar": 202,
+   "qualifiziert": 22,
+   "zellwert": 0.9926170083,
+   "zaehlt": true,
+   "finalist": "silber_vorlauf.15m.dollar_wind.atr1_15m.supertrend_4h",
+   "schnell": false
+  },
+  {
+   "einstieg": "fehlausbruch",
+   "ebene": "1m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 0,
+   "zellwert": 0.9902078412,
+   "zaehlt": false,
+   "finalist": null,
+   "schnell": false
+  },
+  {
+   "einstieg": "band_umkehr",
+   "ebene": "1h",
+   "filter": "dollar_wind",
+   "varianten": 171,
+   "wertbar": 150,
+   "qualifiziert": 16,
+   "zellwert": 0.9898896207,
+   "zaehlt": true,
+   "finalist": "band_umkehr.1h.dollar_wind.atr2_4h.ziel_2r",
+   "schnell": false
+  },
+  {
+   "einstieg": "rund_bruch",
+   "ebene": "15m",
+   "filter": "realzins",
+   "varianten": 216,
+   "wertbar": 215,
+   "qualifiziert": 11,
+   "zellwert": 0.9454340712,
+   "zaehlt": true,
+   "finalist": "rund_bruch.15m.realzins.swing_4h.ziel_3r",
+   "schnell": false
+  },
+  {
+   "einstieg": "ruecksetzer",
+   "ebene": "1m",
+   "filter": "dollar_wind",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 0.9433992878,
+   "zaehlt": true,
+   "finalist": "ruecksetzer.1m.dollar_wind.swing_1m.ema_schluss_1h",
+   "schnell": true
+  },
+  {
+   "einstieg": "fehlausbruch",
+   "ebene": "5m",
+   "filter": "ohne",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 4,
+   "zellwert": 0.9319958099,
+   "zaehlt": true,
+   "finalist": "fehlausbruch.5m.ohne.swing_1h.trail_struktur_4h",
+   "schnell": true
+  },
+  {
+   "einstieg": "rund_abprall",
+   "ebene": "5m",
+   "filter": "trend_hoch",
+   "varianten": 216,
+   "wertbar": 216,
+   "qualifiziert": 5,
+   "zellwert": 0.9254647733,
+   "zaehlt": true,
+   "finalist": "rund_abprall.5m.trend_hoch.atr1_5m.ema_schluss_5m",
+   "schnell": true
+  }
+ ]
+}

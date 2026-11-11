@@ -2,6 +2,7 @@
 from datetime import datetime, timezone
 from pathlib import Path
 
+import pandas as pd
 import pytest
 import yaml
 
@@ -222,6 +223,34 @@ def test_broker_exit_never_takes_the_opening_as_the_close():
     assert db.broker_exit(C(), {"dealId": "D1", "opened_utc": "2026-11-03T10:46:47.387"}, now) == (51765.9, "SL")
     C.acts["D1"] = C.acts["D1"][1:]                       # nur die Eröffnung: kein Schluss, dann schätzt der Bot den Stop
     assert db.broker_exit(C(), {"dealId": "D1", "opened_utc": "2026-11-03T10:46:47.387"}, now) == (None, "")
+
+
+def test_broker_exit_never_asks_more_than_one_day():
+    """Capital.com: zwischen from und to höchstens 1 Tag. Ein Trade, der 3 Tage offen war und gerade am Ziel schloss,
+    muss trotzdem seinen echten Schluss bekommen (nicht den geschätzten Stop)."""
+    class C:
+        fragen = []
+
+        def activity(self, deal_id, since, until):
+            self.fragen.append((since, until))
+            if (pd.Timestamp(until).tz_localize(None) if pd.Timestamp(until).tzinfo else pd.Timestamp(until)) \
+                    - pd.Timestamp(since) > pd.Timedelta(days=1):
+                raise RuntimeError("GET /history/activity -> 400: error.invalid.daterange")
+            return [{"dateUTC": "2026-11-11T10:58:02.000", "source": "TP", "type": "POSITION", "status": "ACCEPTED",
+                     "details": {"level": 3998.55, "actions": [{"actionType": "POSITION_CLOSED"}]}}]
+
+    c = C()
+    for now in (datetime(2026, 11, 11, 11, 1, tzinfo=timezone.utc), datetime(2026, 11, 11, 11, 1)):
+        assert db.broker_exit(c, {"dealId": "D2", "opened_utc": "2026-11-08T19:01:44.100"}, now) == (3998.55, "TP")
+    since, until = c.fragen[-1]
+    assert pd.Timestamp(since) == pd.Timestamp("2026-11-10 11:02:00")      # jetzt minus 23 Std. 59 Min.
+    # ein kurzer Trade fragt wie bisher ab Eröffnung minus 1 Std.
+    db.broker_exit(c, {"dealId": "D3", "opened_utc": "2026-11-11T09:30:00"}, datetime(2026, 11, 11, 11, 1))
+    assert pd.Timestamp(c.fragen[-1][0]) == pd.Timestamp("2026-11-11 08:30:00")
+    # nachbuchen mit `until`: das Fenster endet dort, nicht jetzt
+    db.broker_exit(c, {"dealId": "D4", "opened_utc": "2026-11-05T10:00:00"}, datetime(2026, 11, 11, 11, 1),
+                   until=datetime(2026, 11, 7, 12, 0))
+    assert pd.Timestamp(c.fragen[-1][0]) == pd.Timestamp("2026-11-06 12:01:00")
 
 
 def test_wrongly_booked_trades_are_rebooked_from_their_own_account(monkeypatch, tmp_path):

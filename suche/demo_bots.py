@@ -251,15 +251,28 @@ def own_position(positions: list[dict], epic: str, deal_ids: set[str] | None = N
     return [p for p in out if p["position"].get("dealId") in deal_ids] if deal_ids is not None else out
 
 
+def _utc_naiv(t) -> pd.Timestamp:
+    """Zeitpunkt als UTC ohne Zeitzone (Journal-Zeiten sind UTC ohne Zone, `now` der Läufe hat oft eine)."""
+    ts = pd.Timestamp(t)
+    return ts.tz_convert("UTC").tz_localize(None) if ts.tzinfo is not None else ts
+
+
 def broker_exit(client, op: dict, now: datetime, until: datetime | None = None) -> tuple[float | None, str]:
     """Schlusskurs und Grund, wenn der Broker die Position geschlossen hat (Stop, Ziel), aus der Kontoaktivität des
     aktiven Kontos. Dort steht auch die Eröffnung durch den Bot (source USER, Einstiegskurs). Die darf nie als Schluss
     gelten: Bis zum 03.11.2026 abends wurden so drei Dow-Trades zum Einstiegskurs als "von Hand geschlossen" gebucht,
     obwohl der Stop ausgelöst hatte (Konto -0,21 €). Darum dieselbe Auswahl wie beim Gold-Bot (close_activity).
-    Ohne eindeutigen Schluss: (None, ""), dann schätzt trade_record den Stop."""
+    Ohne eindeutigen Schluss: (None, ""), dann schätzt trade_record den Stop.
+    Capital.com erlaubt zwischen from und to höchstens 1 Tag (open-api.capital.com, GET /history/activity). Bis zum
+    11.11.2026 fragte diese Funktion ab Eröffnung minus 1 Std. bis jetzt: Für jeden Trade, der länger als rund 23 Std.
+    offen war, kam dann kein Schluss zurück und der Bot buchte den Stop als Schätzung, auch wenn das Ziel getroffen
+    hatte. Darum wie beim Gold-Bot (gold/bot/runner.py closed_outside) höchstens die letzten 23 Std. 59 Min. Die Bots
+    laufen alle 5 bis 15 Minuten, der Schluss liegt also immer in diesem Fenster."""
     from gold.bot.runner import close_activity
     try:
-        since = pd.Timestamp(op.get("opened_utc") or now) - pd.Timedelta(hours=1)
+        bis = _utc_naiv(until or now)
+        since = max(_utc_naiv(op.get("opened_utc") or bis) - pd.Timedelta(hours=1),
+                    bis - pd.Timedelta(hours=23, minutes=59))
         acts = client.activity(op["dealId"], since.to_pydatetime(), until or now)
         raw = [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"), "status": a.get("status"),
                 "level": (a.get("details") or {}).get("level"),

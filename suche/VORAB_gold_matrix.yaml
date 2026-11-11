@@ -1,0 +1,366 @@
+# Gold-Matrix: große, vorab festgelegte Suche nach Gold-Strategien über 1 Min., 5 Min., 15 Min., 1 Std. und 4 Std.
+# Kirons Wunsch vom 11.11.2026 15:07 UTC (gekürzt): "... Backtests und Strategien ... vom Gold-Chart im 5 Minuten,
+# 1 Minuten, 15 Minuten, 1 Stunden und 4 Stunden Chart und alle quer durcheinander, sodass Trades zum Beispiel in
+# 5 Minuten genommen werden, aber dann im 1 Stunde der Exit genommen wird ... mit allen verschiedenen Stop-Loss und
+# Exit-Möglichkeiten ... ganz viele verschiedene Goldbot-Strategien zu finden, die profitabel sind ... in den letzten
+# 2 Jahren oder über die letzten 4 Jahre ... bevorzugend sind immer welche, die nicht lange brauchen, um Profite zu
+# machen, beziehungsweise die wenig Verlust haben ... und wo viele Trades genommen werden ... Support-Level ... News
+# ... Gold ist ja auch abhängig von den anderen Aktien ..."
+# Festgelegt, bevor irgendeine Strategie dieser Datei mit echten Kursen gerechnet wurde. Vorher angesehen wurden nur die
+# Daten selbst (Lücken, Uhrzeit, Spread). Das Rechenwerk (suche/gold_matrix.py) wurde nur mit erfundenen Kursen gebaut
+# und getestet (tests/test_gold_matrix.py).
+
+format: 1
+gold_matrix:
+  kurz: >-
+    13 Einstiege mit je einer festen Einstellung auf bis zu 5 Zeitebenen, 5 Filter, 9 Stops und 24 Ausstiege. Stop und
+    Ausstieg dürfen von einer höheren Zeitebene kommen als der Einstieg. Das sind 305 Zellen (Einstieg, Zeitebene,
+    Filter) und 54.375 Varianten. Die erste Hälfte des Hauptfensters wählt höchstens 12 Finalisten aus, die zweite
+    Hälfte prüft sie. Die zweite Hälfte wird erst gerechnet, wenn die Finalisten mit Prüfsumme im Protokoll stehen.
+  zellen: 305
+  varianten: 54375
+
+  daten:
+    gold: XAUUSD 1-Minuten-Bid von HistData, Datei XAUUSD_1min_utc.csv.gz im Projektordner strategie-suche/daten
+    uhr: >-
+      Echte UTC. Die HistData-Uhr ist eine osteuropäische Server-Uhr minus 7 Stunden. Die bisherige Umrechnung im
+      Projekt (plus 5 Stunden) stimmt nur in der europäischen Winterzeit, im Sommer ist dort jede Kerze 1 Stunde zu spät
+      gestempelt (strategie-suche/daten/LIESMICH_zeit.md). Umrechnung der 5-Minuten-Dateien: Spalte utc plus 2 Stunden
+      ist Athener Ortszeit, diese wird nach UTC gewandelt. Die Gold-Datei ist schon umgerechnet.
+    andere_maerkte: [EURUSD, USDJPY, GBPUSD, USDCAD, USDCHF, XAGUSD, SPXUSD]     # 5-Minuten-Bid von HistData
+    realzins: DFII10 von FRED (US-Realzins 10 Jahre, Tageswerte), Datei DFII10.csv im selben Ordner
+    termine: gold/v2/termine.yaml (Fed-Entscheid, US-Inflation, US-Arbeitsmarkt)
+    vorlauf_ab: "2023-01-01"       # ab hier laufen die Indikatoren ein, gehandelt wird erst im Fenster
+    nachlauf_tage: 15              # so lange dürfen Trades nach dem Ende eines Fensters noch auslaufen
+
+  kosten:
+    spread_usd: 0.50               # fest. Gemessen an echten Capital.com-Kerzen 12/2025 bis 11/2026: Median 0,50, p90 0,75
+    robust_faktor: 1.5             # Robust-Rechnung: Spread und Übernachtgebühr mal 1,5
+    uebernacht_pct_jahr: {long: 6.5, short: 2.0}
+    uebernacht_regel: je Nacht auf den Einstiegskurs. Der Handelstag endet um 17:00 New York, das Wochenende zählt mit.
+
+  fenster:
+    haupt_von: "2024-01-01"
+    haupt_bis: "2026-10-31"        # Einstiege bis 30.10.2026 einschließlich
+    mitte: "2025-05-31 12:00"      # dieselbe Mitte wie in VORAB_gold_zonen
+    auswahl: >-
+      Einstieg ab haupt_von und vor mitte. Für die Auswahl werden keine Kerzen nach mitte plus nachlauf_tage geladen.
+    bestaetigung: Einstieg ab mitte und vor haupt_bis.
+
+  zeitebenen:
+    leiter: [1m, 5m, 15m, 1h, 4h, 1d]
+    bau: >-
+      Alle Kerzen entstehen aus den 1-Minuten-Kerzen. 5m, 15m und 1h liegen auf vollen UTC-Zeiten. 4h beginnt um 18, 22,
+      2, 6, 10 und 14 Uhr New York. 1d ist der Handelstag, der um 17:00 New York endet. 1d dient nur für Stops,
+      Ausstiege und Filter, nie für Einstiege.
+    kein_blick_voraus: >-
+      Eine Kerze zählt erst, wenn ihre letzte 1-Minuten-Kerze vorbei ist. Ein Signal handelt zur Eröffnung der nächsten
+      1-Minuten-Kerze. Beginnt diese mehr als luecke_min Minuten nach der letzten 1-Minuten-Kerze der Signalkerze
+      (Wochenende, Handelspause, Datenlücke), verfällt das Signal. Stops, Ausstiege und Filter sehen immer nur die
+      letzte Kerze ihrer Zeitebene, die vor der aktuellen 1-Minuten-Kerze fertig war.
+    luecke_min: 5
+
+  # Jeder Einstieg hat genau eine Einstellung. Short ist das Spiegelbild von Long. "Frisch" heißt: Die Bedingung gilt an
+  # der Signalkerze und galt an der Kerze davor nicht. Gelten Long und Short an derselben Kerze, gibt es kein Signal.
+  # ATR ist ATR 14 nach Wilder, EMA der übliche exponentielle Schnitt, RSI nach Wilder.
+  einstiege:
+    ausbruch:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      kerzen: 20
+      regel: Schluss über dem höchsten Hoch der 20 Kerzen davor, frisch.
+    ruecksetzer:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      ema_schnell: 50
+      ema_langsam: 200
+      rsi_laenge: 2
+      rsi_unter: 10
+      regel: EMA 50 über EMA 200, Schluss über EMA 200 und RSI 2 unter 10, frisch. Short mit RSI 2 über 90.
+    band_umkehr:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      laenge: 20
+      breite_sd: 2.5
+      regel: Schluss unter dem Schnitt der letzten 20 Schlüsse minus 2,5 Standardabweichungen, frisch. Long gegen die Bewegung.
+    schwungkerze:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      spanne_atr: 2.0
+      rand_anteil: 0.25
+      regel: >-
+        Spanne der Kerze mindestens 2 ATR (ATR der Kerze davor), Schluss im oberen Viertel der Kerze und über der
+        Eröffnung. Long mit der Bewegung.
+    fehlausbruch:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      kerzen: 20
+      regel: Tief unter dem tiefsten Tief der 20 Kerzen davor, Schluss wieder darüber. Long.
+    enge_ausbruch:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      laenge: 20
+      breite_sd: 2.0
+      rang_kerzen: 120
+      rang_anteil: 0.20
+      regel: >-
+        Bänder aus Schnitt 20 plus und minus 2 Standardabweichungen. Die Bandbreite (obere minus untere Linie, geteilt
+        durch den Schnitt) der Kerze davor gehört zu den engsten 20 % der 120 Kerzen bis dorthin, und der Schluss liegt
+        über der oberen Linie der Kerze davor. Frisch.
+    ema_kreuz:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      ema_schnell: 9
+      ema_langsam: 21
+      regel: EMA 9 liegt über EMA 21 und lag an der Kerze davor darunter oder gleich.
+    rund_bruch:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      raster_usd: 50
+      regel: Der Schluss liegt in einem höheren 50-USD-Fach als der Schluss davor (runde Marke nach oben durchbrochen).
+    rund_abprall:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      raster_usd: 50
+      abstand_atr: 0.25
+      regel: >-
+        Runde Marke ist das größte Vielfache von 50 USD, das nicht über dem Schluss davor liegt. Das Tief der Kerze
+        berührt sie, und der Schluss liegt mindestens 0,25 ATR darüber. Long. Short an der nächsten Marke darüber.
+    pivot_abprall:
+      zeitebenen: [1m, 5m, 15m, 1h, 4h]
+      regel: >-
+        Marken aus Hoch H, Tief T und Schluss S des letzten fertigen Handelstags vor dem Handelstag der Signalkerze:
+        P = (H + T + S) / 3, S1 = 2 P - H, R1 = 2 P - T. Long: Tief der Kerze höchstens S1, Schluss über S1 und der
+        Schluss davor über S1. Short spiegelbildlich an R1.
+    dollar_nachlauf:
+      zeitebenen: [5m, 15m, 1h, 4h]
+      kerzen: 12
+      z_kerzen: 500
+      z_schwelle: 1.5
+      z_gold_max: 0.5
+      regel: >-
+        Der Dollar-Korb fällt stark (z höchstens -1,5) und Gold ist noch nicht gefolgt (z höchstens 0,5). Long, frisch.
+        z ist die Änderung des Logarithmus über 12 Kerzen, geteilt durch die Standardabweichung dieser Änderung über
+        die 500 Kerzen davor (mindestens 250 gültige Werte).
+    silber_vorlauf:
+      zeitebenen: [5m, 15m, 1h, 4h]
+      kerzen: 12
+      z_kerzen: 500
+      z_schwelle: 2.0
+      z_gold_max: 1.0
+      regel: Silber steigt stark (z mindestens 2,0) und Gold ist noch nicht gefolgt (z höchstens 1,0). Long, frisch.
+    aktien_flucht:
+      zeitebenen: [15m, 1h, 4h]
+      kerzen: 12
+      z_kerzen: 500
+      z_schwelle: 2.0
+      regel: >-
+        Der S&P 500 fällt stark (z höchstens -2,0) und Gold steigt über dieselben 12 Kerzen. Long, frisch. Short, wenn
+        der S&P 500 stark steigt und Gold fällt.
+
+  fremdkurse:
+    regel: >-
+      Zum Schluss einer Gold-Kerze gilt von einem anderen Markt der Schluss seiner letzten fertigen 5-Minuten-Kerze. Ist
+      sie dann älter als max_alter_min Minuten, gibt es keinen Wert und damit kein Signal.
+    max_alter_min: 15
+    dollar_korb: >-
+      Summe aus Gewicht mal Logarithmus des Kurses. Gewichte des Dollar-Index ohne die Schwedische Krone, mit Minus für
+      EURUSD und GBPUSD (dort steht der Dollar im Nenner).
+    gewichte: {EURUSD: -0.576, USDJPY: 0.136, GBPUSD: -0.119, USDCAD: 0.091, USDCHF: 0.036}
+
+  filter:
+    ohne:
+      regel: kein Filter
+    trend_hoch:
+      ebene: {1m: 15m, 5m: 1h, 15m: 4h, 1h: 1d, 4h: 1d}
+      ema: 50
+      steigung_kerzen: 5
+      regel: >-
+        Long nur, wenn auf der höheren Ebene der Schluss über EMA 50 liegt und EMA 50 höher ist als 5 Kerzen davor.
+        Short spiegelbildlich.
+    dollar_wind:
+      ebene: 1h
+      ema: 50
+      regel: Long nur, wenn der Dollar-Korb auf 1h unter seinem EMA 50 liegt. Short nur, wenn er darüber liegt.
+    realzins:
+      verzug_tage: 2
+      abstand_werte: 5
+      regel: >-
+        Es zählen nur Tageswerte, deren Datum mindestens 2 Kalendertage vor dem Tag des Einstiegs liegt. Long nur, wenn
+        der letzte solche Wert unter dem Wert 5 Tageswerte davor liegt (Realzins fällt). Short nur, wenn er darüber liegt.
+    news_richtung:
+      ab_min: 60
+      bis_std: 24
+      vor_min: 5
+      min_atr: 0.5
+      alt_min: 30
+      regel: >-
+        Einstieg nur von 60 Minuten bis 24 Stunden nach einem Termin (Fed, Inflation, Arbeitsmarkt) und nur in die
+        Richtung, in die Gold von 5 Minuten vor dem Termin bis 60 Minuten danach gelaufen ist. Ist dieser Weg kleiner
+        als 0,5 ATR (1h, letzte fertige Kerze vor dem Termin) oder fehlt einer der beiden Kurse (älter als 30 Minuten),
+        hat der Termin keine Richtung und es gibt in seinem Fenster keinen Einstieg. Überlappen sich Fenster, zählt
+        der jüngste Termin.
+
+  stops:
+    arten:
+      atr1: {atr: 1.0}
+      atr2: {atr: 2.0}
+      swing: {kerzen: 10, puffer_atr: 0.1, min_atr: 0.5, max_atr: 4.0}
+    ebenen: 3                      # Zeitebene des Einstiegs und die beiden nächsten der Leiter (bei 4h nur 4h und 1d)
+    min_abstand_usd: 2.50          # das Fünffache des Spreads. Kleinerer Stop: Das Signal verfällt, auch in der Robust-Rechnung
+    regel: >-
+      R ist der Abstand des Stops vom Einstiegskurs. atr1 und atr2: 1 oder 2 ATR der letzten fertigen Kerze der
+      Stop-Ebene. swing: Long unter dem tiefsten Tief der letzten 10 fertigen Kerzen der Stop-Ebene minus 0,1 ATR,
+      gemessen ab der Bid-Eröffnung der Einstiegskerze, mindestens 0,5 und höchstens 4 ATR. Short spiegelbildlich über
+      dem höchsten Hoch.
+
+  ausstiege:
+    ziel: {r: [1, 2, 3]}
+    zeit: {kerzen: 4}
+    trail_atr: {atr: 3.0}
+    trail_struktur: {kerzen: 5}
+    ema_schluss: {ema: 20}
+    supertrend: {laenge: 10, faktor: 3.0}
+    tagesende: {utc: "20:55"}
+    ebenen: 4                      # zeit bis supertrend je mit der Zeitebene des Einstiegs und den drei nächsten der Leiter
+    regel: >-
+      Der erste Stop gilt bei jedem Ausstieg bis zum Ende. ziel: festes Ziel bei 1, 2 oder 3 R. zeit: Ausstieg zur
+      Eröffnung, sobald nach dem Einstieg 4 Kerzen der Ausstiegs-Ebene fertig geworden sind. trail_atr: Nach jeder
+      fertigen Kerze der Ausstiegs-Ebene rückt der Stop auf das höchste Hoch seit dem Einstieg minus 3 ATR dieser
+      Ebene nach, nie zurück. trail_struktur: Nach jeder fertigen Kerze rückt der Stop auf das tiefste Tief der letzten
+      5 fertigen Kerzen nach, nie zurück. ema_schluss: Ausstieg zur Eröffnung, sobald eine nach dem Einstieg fertige
+      Kerze der Ausstiegs-Ebene unter EMA 20 schließt. supertrend: Ausstieg zur Eröffnung, sobald SuperTrend (10, 3)
+      einer nach dem Einstieg fertigen Kerze gegen den Trade steht. tagesende: Ausstieg zur Eröffnung der ersten
+      1-Minuten-Kerze ab 20:55 UTC. Short jeweils spiegelbildlich.
+
+  allgemein:
+    einstieg: >-
+      Eröffnung der nächsten 1-Minuten-Kerze nach der Signalkerze. Long kauft zum Ask (Bid plus Spread), Short verkauft
+      zum Bid. Long steigt zum Bid aus, Short zum Ask.
+    reihenfolge: >-
+      Zuerst Ausstiege zur Eröffnung (Haltezeit, zeit, ema_schluss, supertrend, tagesende), dann der Stop, dann das
+      Ziel. Stop und Ziel gelten ab der Einstiegskerze. Liegen Stop und Ziel in derselben Kerze, zählt der Stop.
+      Eröffnet eine Kerze jenseits des Stops, gilt ihre Eröffnung. Das Ziel wird nie besser gefüllt als am Ziel.
+    sperre_utc: {von: "20:55", bis: "23:05"}      # kein Einstieg in dieser Zeit (Handelspause, weiter Spread)
+    termin_sperre_min: 15                         # kein Einstieg 15 Minuten vor bis 15 Minuten nach einem Termin
+    halte_tage: 14                                # danach Ausstieg zur nächsten Eröffnung
+    datenende: Offene Trades am Ende der Daten schließen zum letzten Schluss.
+    eine_position: >-
+      Je Variante höchstens ein Trade gleichzeitig. Ein neuer Einstieg ist erst an einer 1-Minuten-Kerze nach der
+      Kerze des letzten Ausstiegs möglich. Signale dazwischen verfallen.
+    ergebnis: >-
+      R = Richtung mal (Ausstiegskurs minus Einstiegskurs) geteilt durch den Stop-Abstand, minus Übernachtgebühr in R.
+
+  zwilling:
+    regel: >-
+      Ein Zwillings-Lauf ist die ganze Strategie, als Block um dieselbe Zahl von Handelstagen nach vorn verschoben. Jeder
+      echte Trade bekommt darin einen Zwilling in dieselbe Richtung und mit demselben Ausstieg. Der Zwilling eröffnet am
+      verschobenen Handelstag zur selben Uhrzeit in New York (Minuten seit 17:00 New York, dem Beginn des Handelstags),
+      sonst an der nächsten erlaubten 1-Minuten-Kerze danach. Nach dem letzten Handelstag des Fensters geht es an seinem
+      ersten weiter. Erlaubt heißt: im selben Fenster, nicht gesperrt, nicht direkt nach einer Lücke. Zwillinge dürfen
+      sich überschneiden. Verglichen wird die Summe in R.
+    verschiebungen: >-
+      1 bis N minus 61 Handelstage, N ist die Zahl der Handelstage mit erlaubten Kerzen im Fenster. So liegt kein
+      Zwilling am Tag des echten Einstiegs oder in den 60 Handelstagen davor. Die Auswahl rechnet 100 Verschiebungen,
+      gleichmäßig über alle verteilt, und für alle Varianten dieselben. Die Bestätigung rechnet alle. Es gibt keine
+      Zufallszahlen.
+    schwankung: >-
+      Stop-Abstand und Spread des Zwillings sind die des echten Trades mal ATR 14 der Stop-Ebene (letzte fertige Kerze)
+      am Zwilling geteilt durch denselben ATR am echten Einstieg. Die Übernachtgebühr je Nacht in R ist die des echten
+      Trades. So passt der Stop beim Zwilling so gut zur Schwankung wie beim echten Trade, und die Kosten in R sind
+      dieselben.
+    warum_als_block: >-
+      Probeläufe auf erfundenen Märkten ohne Vorteil haben zwei Fehler früherer Zwillinge gezeigt. Zwillinge aus
+      demselben Monat: Ein Zwilling kurz vor dem Signal macht die Bewegung mit, aus der das Signal entstand. Vor einem
+      Ausbruch gewinnt er, vor einer Umkehr verliert er, ganz ohne Können. Darum liegt kein Zwilling kurz vor dem
+      Einstieg. Einzeln gewürfelte Zwillinge: Ihr Mittel schwankt von Lauf zu Lauf zu wenig, weil das Glück einer
+      Strategie mit der Richtung der folgenden Tage an allen Trades zugleich hängt. Ein Finalist ohne Vorteil bestand
+      so mit p = 0,0004. Als Block verschoben trägt jeder Lauf dieses Glück mit.
+    atr: 14
+    sperre_davor_tage: 60
+
+  auswahl:
+    verschiebungen: 100
+    wertbar_min_trades: 50         # in der Auswahl-Hälfte. Nur wertbare Varianten bekommen Zwillinge
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    min_rang_pct: 90               # die Variante schlägt mindestens 90 von 100 Zwillings-Läufen
+    kennzahl: z = (Summe echt minus Mittel der Zwillings-Läufe) geteilt durch deren Standardabweichung
+    zelle_min_wertbar: 8
+    zellwert_quantil: 0.75         # Zellwert = z, das ein Viertel der wertbaren Varianten der Zelle übertrifft
+    zelle_zaehlt: mindestens 8 wertbare Varianten und mindestens eine, die alle vier Hürden schafft (qualifiziert)
+    finalist: die qualifizierte Variante der Zelle mit dem höchsten z (bei Gleichstand der höhere Gewinnfaktor)
+    schnell: {min_trades_je_woche: 2.0, max_median_halte_tage: 1.0}
+    finalisten_max: 12             # mit rund 300 Verschiebungen ist p mindestens 0,0033. Holm bei 12 braucht 0,0042
+    plaetze_schnell: 6             # zuerst die 6 Zellen mit dem höchsten Zellwert, deren Finalist schnell ist
+    max_je_einstieg: 2             # höchstens 2 Finalisten je Einstiegs-Art, über alle Zeitebenen und Filter
+    reihenfolge: >-
+      Erst bis zu 6 schnelle Zellen nach Zellwert, dann aus allen übrigen Zellen nach Zellwert auffüllen, bis 12
+      Finalisten gewählt sind. Gibt es keine Zelle, die zählt, gibt es keinen Finalisten, und die Bestätigungs-Hälfte
+      bleibt ungeöffnet.
+    siegel: >-
+      Die Finalisten stehen in suche/VORAB_gold_matrix_finalisten.yaml. Ihre Prüfsumme kommt ins Protokoll, bevor die
+      Bestätigungs-Hälfte gerechnet wird.
+
+  bestaetigung:
+    verschiebungen: alle
+    p: (1 + Zahl der Zwillings-Läufe mit mindestens der echten Summe) geteilt durch (Zahl der Läufe + 1), nur Trades der Bestätigungs-Hälfte
+    min_rang_pct: 95
+    holm_alpha: 0.05               # Holm über alle Finalisten
+    min_z: 3.0                     # z = (Summe echt minus Mittel der Zwillings-Läufe) geteilt durch deren Standardabweichung
+    huerden: >-
+      Wie suche/VORAB_bewertung_2024_26.yaml, unverändert, gerechnet als ein durchgehender Lauf über das ganze
+      Hauptfenster: mindestens 100 Trades, Gewinnfaktor ab 1,2, mit 1,5-fachen Kosten ab 1,0, beide Hälften über 1,0,
+      2026 allein über 1,0 (ab 20 Trades). Der Zufallsvergleich zählt nur in der Bestätigungs-Hälfte.
+    urteile:
+      bestanden: alle Hürden, in der Bestätigungs-Hälfte mindestens 95 % der Zwillings-Läufe geschlagen, Holm und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Zwillings-Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden
+      durchgefallen: alles andere
+    live: nur nach Kirons Wahl auf einer Karte und über einen PR, als Demo-Bot mit Urteil nach 40 Trades.
+
+  auskunft:
+    je_finalist: >-
+      2016 bis 2023 und die letzten 4 Jahre (01.11.2022 bis 30.10.2026) als eigene Läufe, die letzten 2 Jahre
+      (01.11.2024 bis 30.10.2026) aus dem Hauptlauf, Long und Short getrennt, je Jahr, Trades je Woche, mittlere
+      Haltezeit, größter Rückgang in R, Spread je Trade in R, Summe ohne die 3 größten Gewinner. Termine gibt es erst
+      ab 2023, davor fehlen die Termin-Sperre und der Filter news_richtung.
+    kombi: Alle bestandenen Finalisten zusammen, und bestandene plus Kandidaten, je als eine Liste von Trades in R.
+    zufalls_zaehlung: >-
+      Je Einstiegs-Art: wie viele wertbare Varianten in der Auswahl-Hälfte einen Gewinnfaktor ab 1,2 haben, und wie viele
+      es um Tage verschoben im Mittel wären (Anteil der Zwillings-Läufe mit Gewinnfaktor ab 1,2, über die Varianten
+      summiert).
+    karte: >-
+      Aus der Auswahl-Hälfte, nur wertbare Varianten: Median von Gewinnfaktor und z und der Anteil, der 90 % der
+      Zwillinge schlägt, je Einstieg und Zeitebene, je Filter, je Stop (Art und Abstand der Stop-Ebene zur
+      Einstiegs-Ebene) und je Ausstieg (Art und Abstand der Ausstiegs-Ebene). Die Karte zeigt, was zusammen gut lief.
+      Sie ist kein Test und wählt nichts aus.
+    glueck: >-
+      Bei 12 Finalisten ohne echten Vorteil schaffen im Mittel 0,6 (12 mal 5 %) die 95 % in der Bestätigungs-Hälfte.
+      Darum ist ein Kandidat kein bestandener Test. Holm schafft ein Finalist nur, wenn er fast jede Verschiebung
+      schlägt. Im Probelauf ist das einem Finalisten ohne Vorteil einmal gelungen (Abschnitt probelauf). Darum zählt
+      zusätzlich z ab 3.
+    zeigt_keine_schwaeche: Auskunft lässt keinen Finalisten bestehen oder durchfallen.
+
+  probelauf:
+    was: >-
+      Die ganze Suche unverändert auf erfundenen Märkten ohne Vorteil (python -m suche.gold_matrix_probelauf
+      <Arbeitsordner> [Seed]). Was dort besteht, besteht aus Glück oder wegen eines Fehlers im Verfahren. Gerechnet vor
+      dem Siegel, mit genau diesen Regeln.
+    seed_23: 12 Finalisten aus 154 Zellen, 0 bestanden, 0 Kandidaten. Kleinstes p 0,023, größtes z 1,95.
+    seed_24: >-
+      12 Finalisten aus 76 Zellen, 0 bestanden, 2 Kandidaten. Einer davon schlug alle 309 Verschiebungen (p 0,0032, z
+      2,90). Ohne die Hürde z ab 3 hätte er bestanden.
+    breite: >-
+      Nebenrechnung vor dem Siegel (Skript nicht im Repo): 16 Zellen (4 Einstiege, 1 Std. und 4 Std., Filter ohne und
+      trend_hoch) auf 8 weiteren erfundenen Märkten, 24.403 wertbare Varianten. 5,0 % schlagen 95 % ihrer Läufe, 1,6 %
+      schlagen 99 %, 0,27 % haben z über 3. Bei reinem Zufall wären es 5 %, 1 % und 0,13 %. Ganz oben liegen also bis
+      zu doppelt so viele wie erlaubt, am häufigsten bei Ausstiegen nach Zeit (tagesende, zeit).
+    darum_z: >-
+      Holm allein ist darum etwas zu großzügig. Bestanden braucht zusätzlich z ab 3. In beiden Probeläufen besteht
+      damit kein Finalist.
+
+  nicht_wiederholt: >-
+    Schon gerechnet und durchgefallen, darum hier nicht wieder dabei: C/B auf 1 Min., kleines Ziel mit weitem Stop,
+    Stream- und Signal-Boxen, Einstand-Stop, Teilverkäufe, 4-Std.-Zonen, Asia-Spanne, London-Ausbruch, Vortageshoch und
+    -tief, Noise-Band, Nacht-Long, News-Momentum direkt nach dem Termin, Opens (suche/IDEEN.md, suche/ergebnis_*.md).
+  ehrlich: >-
+    54.375 Varianten sind eine sehr große Suche. Ohne die Teilung in Auswahl und Bestätigung fände man immer etwas, das
+    gut aussieht. Gold ist 2024 bis 2026 stark gestiegen. Der Zwillings-Vergleich misst darum, ob der Zeitpunkt des
+    Einstiegs etwas bringt, nicht ob Long in diesem Markt Geld verdient hat. Feste 0,50 USD Spread sind der Median. Um
+    Termine und in der Nacht ist der Spread weiter, darum die Sperren und die Robust-Rechnung. Ein Stop wird in der
+    Rechnung genau am Stop-Kurs gefüllt. Am echten Markt rutscht er oft ein paar Cent weiter. Bei engen Stops ist die
+    Rechnung darum etwas zu gut, auch das fängt die Robust-Rechnung mit 1,5-fachen Kosten auf.
+  keine_nachbesserung: >-
+    Keine andere Einstellung, kein anderes Fenster, keine andere Hürde und kein weiterer Finalist nach dem Ergebnis.
+    Eine neue Idee bekommt eine neue Datei.

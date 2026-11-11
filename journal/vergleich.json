@@ -579,7 +579,7 @@
    "id": "gold-zonen",
    "name": "Gold-Zonen Bruch",
    "konto": "Account 2",
-   "seit": null,
+   "seit": "2026-11-11",
    "ist": {
     "trades": 0,
     "gewonnen": 0,

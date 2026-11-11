@@ -34,7 +34,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
 | Gold-Staffel | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml |
 | Gold Groß-Box | Account 6 | 2026-11-10 | 2 | -2,01 | 0,00 | -9,67 | läuft (2 von 40 Trades) | suche/VORAB_gold_grossbox.yaml |
-| Gold-Zonen Bruch | Account 2 | – | 0 | +0,00 | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml |
+| Gold-Zonen Bruch | Account 2 | 2026-11-11 | 0 | +0,00 | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 2 | -1,76 | 0,00 | -8,78 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml |
 | Pine-Gold TP 3 € | US500 | 2026-11-10 | 3 | -2,02 | 0,00 | -10,02 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml |
 

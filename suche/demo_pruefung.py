@@ -20,6 +20,10 @@ Capital.com-Demo. Die Prüfung liest nur Dateien (kein Broker) und läuft im Wor
    Account 2. Rutsch-Regel (Kirons Ja vom selben Zeitpunkt, suche/VORAB_rutschen.yaml): rutscht ein Vortag-Bot beim
    Einstieg im Median der letzten 10 Trades mehr als seine Grenze, wird er abgelöst wie in Schritt 2.
 8. Feste Frist (Kritik D1, suche/VORAB_frist.yaml): alle 6 Monate auf dem Konto ein Urteil, auch ohne 40 Trades.
+9. Geteilte Konten (Projekt-Prüfung 11.11.2026, suche/mitnutzer.py): Ein freies Konto, auf dem Bots mit festem Konto
+   handeln (Scalper und Gold-Staffel auf Account 1, Kirons Wort vom 10.11.2026), wird nie automatisch vergeben, weder
+   an die nächste bestandene Strategie noch an Labor- oder Mess-Bots. Es bleibt unter "frei" stehen. Das ändert keine
+   VORAB-Regel: Die Regeln vergeben freie Konten, und ein Konto mit Mitnutzern ist nicht frei.
 
     python -m suche.demo_pruefung             # prüfen und speichern
     python -m suche.demo_pruefung --dry-run   # nur ausgeben
@@ -169,9 +173,10 @@ def frist_grund(kont: dict, bot_id: str, k: dict, rg: dict, fr: dict | None, sta
     return None
 
 
-def mess_vergeben(kont: dict, mb: dict | None, lauf_ids, stamp: str) -> list[dict]:
+def mess_vergeben(kont: dict, mb: dict | None, lauf_ids, stamp: str, gesperrt=frozenset()) -> list[dict]:
     """Mess-Bots (VORAB_messbots.yaml): ein Mess-Bot mit festem Konto bekommt es genau einmal, wenn es frei ist und danach
-    noch vergabe["frei_lassen"] Konten frei bleiben. Ändert `kont` (zuordnung, frei, uebergaben, messung)."""
+    noch vergabe["frei_lassen"] Konten frei bleiben. Ändert `kont` (zuordnung, frei, uebergaben, messung).
+    gesperrt: Konten mit Mitnutzern (suche/mitnutzer.py), sie zählen hier nicht als frei."""
     if not mb:
         return []
     zu = kont.setdefault("zuordnung", {})
@@ -180,7 +185,7 @@ def mess_vergeben(kont: dict, mb: dict | None, lauf_ids, stamp: str) -> list[dic
     log = []
     for bot_id, m in mb.items():
         aid = str((m or {}).get("konto") or "") if isinstance(m, dict) else ""
-        frei = [str(x) for x in kont.get("frei") or []]
+        frei = [str(x) for x in kont.get("frei") or [] if str(x) not in gesperrt]
         if (not aid or bot_id in schon or bot_id in zu or bot_id not in lauf_ids or bot_id == HAUPT_BOT
                 or bot_id in (kont.get("abgeloest") or {}) or aid not in frei or len(frei) - 1 < halten):
             continue
@@ -216,10 +221,12 @@ def rutsch_grund(bot_id: str, trades: list[dict], ru: dict | None) -> str | None
             f"Trades), über der Grenze von {grenze} Pips (suche/VORAB_rutschen.yaml)")
 
 
-def labor_vergeben(kont: dict, lb: dict | None, lauf_ids, demo_abl: dict, stamp: str) -> list[dict]:
+def labor_vergeben(kont: dict, lb: dict | None, lauf_ids, demo_abl: dict, stamp: str,
+                   gesperrt=frozenset()) -> list[dict]:
     """Labor-Vorwärtstest (VORAB_labor.yaml): jeder Labor-Bot bekommt einmal ein freies Konto, am liebsten sein altes,
     solange danach noch lb["frei_lassen"] Konten frei sind. Nur Bots, die Kirons Auswahl abgeschaltet hat, nie einen,
-    den die Prüfung nach 15/40 Trades abgelöst hat. Ändert `kont` (abgeloest, zuordnung, frei, uebergaben, labor)."""
+    den die Prüfung nach 15/40 Trades abgelöst hat. Ändert `kont` (abgeloest, zuordnung, frei, uebergaben, labor).
+    gesperrt: Konten mit Mitnutzern (suche/mitnutzer.py), sie zählen hier nicht als frei."""
     if not lb:
         return []
     zu = kont.setdefault("zuordnung", {})
@@ -231,7 +238,7 @@ def labor_vergeben(kont: dict, lb: dict | None, lauf_ids, demo_abl: dict, stamp:
         if (bot_id in schon or bot_id in zu or bot_id not in lauf_ids or bot_id in demo_abl or bot_id == HAUPT_BOT
                 or a.get("messung") or a.get("an") or (bot_id in abl and "Kirons Auswahl" not in str(a.get("grund")))):
             continue
-        frei = [str(x) for x in kont.get("frei") or []]
+        frei = [str(x) for x in kont.get("frei") or [] if str(x) not in gesperrt]
         if len(frei) <= int(lb.get("frei_lassen", 2)):
             break
         alt = str((wunsch or {}).get("konto") or "")
@@ -349,14 +356,37 @@ def ersatz(kont: dict, pf: dict, lauf_ids, demo_abl: dict) -> str | None:
     return None
 
 
+def mitnutzer_konten(kont: dict) -> dict[str, list[str]]:
+    """Konto-ID -> Mitnutzer (suche/mitnutzer.py). Lässt sich die Liste nicht lesen, gilt jedes freie Konto als
+    geteilt: Lieber bleibt ein Konto frei, als dass ein weiterer Bot auf ein besetztes Konto kommt."""
+    try:
+        from suche import mitnutzer
+        return mitnutzer.konten()
+    except Exception as e:                # noqa: BLE001 - die Prüfung darf daran nie scheitern
+        return {str(a): [f"unbekannt (suche/mitnutzer.py nicht lesbar: {type(e).__name__})"]
+                for a in kont.get("frei") or []}
+
+
+def mitnutzer_merken(kont: dict, aid, wer: list[str], stamp: str) -> list[dict]:
+    """Ein freies Konto mit Mitnutzern bleibt frei stehen. Einmal je Besetzung ins Log (kont["mitnutzer"] merkt sie)."""
+    k = _kurz(aid)
+    if ((kont.get("mitnutzer") or {}).get(k) or {}).get("bots") == list(wer):
+        return []
+    kont.setdefault("mitnutzer", {})[k] = {"bots": list(wer), "seit": stamp}
+    return [{"time": stamp, "event": "freies Konto bleibt bei den Mitnutzern", "konto": k, "bots": list(wer),
+             "why": "auf dem Konto handeln Bots mit festem Konto (suche/mitnutzer.py), es wird nie automatisch vergeben"}]
+
+
 def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | None = None,
             dateien: dict[str, Path] | None = None, aus: dict | None = None,
             lb: dict | None = None, mb: dict | None = None, ru: dict | None = None,
             fr: dict | None = None, wo: dict | None = None,
-            starts: dict[str, str] | None = None) -> tuple[list[dict], dict]:
+            starts: dict[str, str] | None = None,
+            mit: dict[str, list[str]] | None = None) -> tuple[list[dict], dict]:
     """Eine Prüfung (reine Funktion bis auf das Lesen der Trade-Dateien). Ändert `kont` (abgeloest, zuordnung für
     freie Konten). Rückgabe: Ereignisse fürs Log und Demo-Stand je Bot. wo/starts: VORAB_eine_woche.yaml und start_utc je
-    Bot; die eingefrorenen Prüfungen (Wechsel, Rutschen, Frist, Labor, Mess-Bots) setzt die Woche nicht aus."""
+    Bot; die eingefrorenen Prüfungen (Wechsel, Rutschen, Frist, Labor, Mess-Bots) setzt die Woche nicht aus.
+    mit: Konto-ID -> Mitnutzer (suche/mitnutzer.py). Diese Konten vergibt die Prüfung nie, auch wenn sie frei sind."""
     import pandas as pd
     rg = rg or regel()
     if rg is None:
@@ -366,10 +396,11 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
     zu = kont.setdefault("zuordnung", {})
     abl = kont.setdefault("abgeloest", {})
     log, stand = [], {}
+    gesperrt = frozenset(str(a) for a in (mit or {}))
     # Labor (suche/VORAB_labor.yaml): abgeschaltete, aber bestandene Strategien bekommen einmal ein freies Konto
-    log += labor_vergeben(kont, lb, dateien, demo_abl, stamp)
+    log += labor_vergeben(kont, lb, dateien, demo_abl, stamp, gesperrt)
     # Mess-Bots (suche/VORAB_messbots.yaml): Vortag EUR/USD mit 1 x ATR bekommt einmal sein festes freies Konto
-    log += mess_vergeben(kont, mb, dateien, stamp)
+    log += mess_vergeben(kont, mb, dateien, stamp, gesperrt)
     # Kirons Auswahl (suche/auswahl.yaml): abschalten ohne Nachfolger, das Konto wird frei
     for bot_id, warum in sorted((abschalten() if aus is None else aus).items()):
         # Ein Labor-Bot (VORAB_labor.yaml) geht nur mit Kirons datiertem Wort, nie mit einer bloßen Auswahlliste
@@ -403,8 +434,13 @@ def pruefen(kont: dict, pf: dict | None, demo_cfg: dict, stamp: str, rg: dict | 
             abl[bot_id] = {"an": nach, "seit": stamp, "grund": grund, "messung": k}
             stand[bot_id]["pruefung"] = "abgelöst: " + grund
             log.append({"time": stamp, "event": "Bot abgelöst", "bot": bot_id, "an": nach, "why": grund})
+            if str(zu.get(bot_id)) in gesperrt:      # nur als Hinweis im Log: der Nachfolger teilt das Konto weiter
+                log[-1]["mitnutzer"] = list((mit or {})[str(zu[bot_id])])
     # Freie Konten (abgelöst ohne Nachfolger) an die nächste bestandene Strategie mit Bot-Lauf
     for aid in list(kont.get("frei") or []):
+        if str(aid) in gesperrt:          # geteiltes Konto: bleibt frei stehen, niemand bekommt es automatisch
+            log += mitnutzer_merken(kont, aid, (mit or {})[str(aid)], stamp)
+            continue
         nach = ersatz(kont, pf, dateien, demo_abl)
         if not nach:
             break
@@ -468,7 +504,7 @@ def main(argv: list[str]) -> int:
     wo = woche_regel()
     starts = {b: v for b in kont.get("zuordnung") or {} if (v := start_utc(b))}
     log, stand = pruefen(kont, pf, demo_cfg, stamp, lb=labor_regel(), mb=mess_regel(), ru=rutsch_regel(),
-                         fr=frist_regel(), wo=wo, starts=starts)
+                         fr=frist_regel(), wo=wo, starts=starts, mit=mitnutzer_konten(kont))
     print(json.dumps({"log": log, "stand": stand}, ensure_ascii=False, indent=1))
     if "--dry-run" in argv:
         return 0

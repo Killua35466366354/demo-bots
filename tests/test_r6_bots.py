@@ -651,6 +651,33 @@ def test_markt_bots_oeffnen_mit_stop_ziel_und_notstop(monkeypatch):
     assert fb.account_id == HAUPT
 
 
+def test_andere_maerkte_auf_dem_konto_nur_bei_aenderung_im_journal(monkeypatch):
+    """Account 6 teilt sich der London-Bot mit der Gold Groß-Box. Solange dort Gold offen ist, schrieb jeder Lauf die
+    Zeile neu (11.11.2026: 40 von 68 Zeilen). Jetzt einmal beim Auftauchen und einmal, wenn das Konto wieder leer ist.
+    Der Bot selbst handelt dabei wie immer."""
+    ohne_zwilling(monkeypatch)
+    fb = FakeBroker()
+    monkeypatch.setattr(rb, "kerzen", lambda c, e, r, n, t: (rb.LEER, pd.Series(dtype=float)))
+    monkeypatch.setattr(rb, "entscheidung_markt", lambda *a: {"action": "none", "tag": "2026-11-04", "why": ["test"]})
+    gold = {"market": {"epic": "GOLD"}, "position": {"dealId": "G1", "direction": "SELL", "size": 0.2, "level": 4000.0}}
+    fb.pos[LD].append(gold)
+    kont = {"haupt": HAUPT, "zuordnung": {"r6-london-gbpusd": LD}}      # wie im Betrieb: Konto aus der Zuordnung
+
+    def zeilen(log):
+        return [(e["bot"], e["event"], e.get("maerkte")) for e in log if "Märkte" in e["event"]]
+
+    st, _, log, _ = rb.run(fb, {}, kont, utc("2026-11-04", "10:01", LON))
+    assert zeilen(log) == [("r6-london-gbpusd", "andere Märkte auf dem Konto", ["GOLD"])]
+    for minute in ("10:16", "10:31", "10:46"):
+        st, _, log, _ = rb.run(fb, st, kont, utc("2026-11-04", minute, LON))
+        assert zeilen(log) == []
+    fb.pos[LD].remove(gold)
+    st, _, log, _ = rb.run(fb, st, kont, utc("2026-11-04", "11:01", LON))
+    assert zeilen(log) == [("r6-london-gbpusd", "keine anderen Märkte mehr auf dem Konto", None)]
+    st, _, log, _ = rb.run(fb, st, kont, utc("2026-11-04", "11:16", LON))
+    assert zeilen(log) == [] and fb.account_id == HAUPT
+
+
 def test_ohne_konto_wartet_der_bot_und_handelt_nirgends(monkeypatch):
     ohne_zwilling(monkeypatch)
     vortag_usdjpy_aktiv(monkeypatch)

@@ -14,6 +14,9 @@ name: Pine-Gold-Bots (5 Min., nur Demokonto)
 # Dazu die Gold-Staffel auf "Account 1" (Kirons Wahl vom 10.11.2026 16:37 UTC, suche/gold_staffel_bot.py, Regeln
 # suche/VORAB_gold_staffel.yaml): kopiert neue Trades des Gold-Bots C/B mit Take-Profits bei 2/4/6 R, der Wächter zieht
 # den Stop nach TP1 bzw. TP2 nach. Der Gold-Bot selbst bleibt unverändert. Auch ein eigener Schritt.
+# Dazu der Gold-Zonen-Bot auf "Account 2" (…2606, Kirons Wahl vom 11.11.2026 10:20 UTC, gold/zonen_bot.py, Regeln
+# suche/VORAB_gold_zonen_bot.yaml): Bruch mit Rollenwechsel an Zonen des 4-Std.-Charts, höchstens eine Limit-Order
+# und ein Trade. Der Test ist durchgefallen, der Bot läuft als Vorwärtstest auf Kirons Wunsch. Auch ein eigener Schritt.
 #
 # Uhr: alle 5 Minuten, 3 Minuten nach jedem Kerzenschluss. GitHubs eigener Zeitplan ist die Reserve (er kann sich
 # verspäten). Pünktlich wird es mit einem cron-job.org-Auftrag auf workflow_dispatch zu denselben Minuten. Laufen
@@ -61,6 +64,7 @@ jobs:
         run: python -m pytest -q tests/test_pine5m.py
 
       - name: Pine-Gold-Bots
+        id: pine
         env:
           CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
           CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
@@ -76,6 +80,7 @@ jobs:
           fi
 
       - name: Scalper mit Open-Filter (Account 1)
+        id: scalper
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -92,6 +97,7 @@ jobs:
           fi
 
       - name: Gold-Staffel (Account 1)
+        id: staffel
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
@@ -107,6 +113,34 @@ jobs:
             python -m suche.gold_staffel_bot
           fi
 
+      - name: Gold-Zonen Bruch (Account 2)
+        id: zonen
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          python -m pytest -q tests/test_zonen_bot.py
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m gold.zonen_bot --dry-run
+          else
+            python -m gold.zonen_bot
+          fi
+
+      # Wache (Projekt-Prüfung 11.11.2026, suche/wache.py): zählt, ob der Scalper-, Staffel- oder Zonen-Schritt in Folge
+      # scheitert (sie laufen mit continue-on-error und ließen den Lauf bisher grün). Schreibt nur
+      # journal/pine-wache.json und nur, wenn sich die Zählung ändert. Gemeldet wird im 15-Minuten-Lauf (demo-bots.yml).
+      - name: Wache (stille Fehler der Bot-Schritte)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          STEPS_JSON: ${{ toJSON(steps) }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: python -m suche.wache --lauf pine5m
+
       - name: Journal sichern
         if: ${{ !cancelled() && inputs.dry_run != true }}
         run: |
@@ -115,6 +149,7 @@ jobs:
           git add -A -- 'journal/pine-*' || true
           git add -A -- 'journal/scalp-*' 2>/dev/null || true   # getrennt: fehlen diese Dateien, bleibt Pine dabei
           git add -A -- 'journal/gold-staffel*' 2>/dev/null || true
+          git add -A -- 'journal/gold-zonen*' 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Nichts Neues im Journal"
           else
@@ -129,3 +164,21 @@ jobs:
             done
             exit 1
           fi
+
+      # Alarm von außen (healthchecks.io, Projekt-Prüfung 11.11.2026): Bleibt diese Meldung aus, bekommt Kiron eine
+      # E-Mail. In diesem Lauf handeln zwei Bots ohne Stop, und ihr Abfänger arbeitet nur hier. Bisher hätte niemand
+      # gemerkt, wenn der Lauf ausfällt. Zeitplan und Wartezeit richtet takt.yml im privaten Repo ein
+      # (ops/lebenszeichen.py, Check "pine5m"). Ohne das Secret HC_PING_KEY passiert nichts. Der Schlüssel ist ein
+      # Secret und erscheint im Protokoll nur als ***.
+      - name: Lebenszeichen
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          HC_PING_KEY: ${{ secrets.HC_PING_KEY }}
+          ERGEBNIS: ${{ job.status }}
+        run: |
+          if [ -z "$HC_PING_KEY" ]; then echo "Kein HC_PING_KEY: kein Lebenszeichen"; exit 0; fi
+          pfad=""
+          if [ "$ERGEBNIS" != "success" ]; then pfad="/fail"; fi
+          curl -fsS -m 10 --retry 3 -o /dev/null "https://hc-ping.com/${HC_PING_KEY}/pine5m${pfad}?create=1"
+          echo "Lebenszeichen pine5m gesendet ($ERGEBNIS)"

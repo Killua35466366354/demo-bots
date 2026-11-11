@@ -1,4 +1,5 @@
 """The demo bot must trade exactly like the 250-EUR backtest (`run_live`) and never send orders on its own."""
+import math
 from datetime import datetime, timezone
 
 import numpy as np
@@ -90,14 +91,68 @@ def test_limits_block_new_entries_but_never_the_exit():
     assert any("Spread" in r for r in decide(Signals(True, False, False, False), 0, OPEN, RICH, wide).reasons)
 
 
+def acc(eur):
+    return Account(equity_eur=eur, balance_eur=eur, available_eur=eur, peak_eur=eur, day_start_eur=eur, week_start_eur=eur)
+
+
 def test_2_percent_rule_with_one_ounce_and_5_60_stop():
-    """5.60 $ / 1.117 = 5.01 EUR: just over 2 % of 250 EUR, fine from 251 EUR on."""
-    def acc(eur):
-        return Account(equity_eur=eur, balance_eur=eur, available_eur=eur, peak_eur=eur, day_start_eur=eur, week_start_eur=eur)
+    """5.60 $ / 1.117 = 5.01 EUR: just over 2 % of 250 EUR, fine from 251 EUR on.
+
+    Bis 11.11.2026 fiel das Signal bei 250 EUR ganz weg ("Stop kostet 5.01"). Kirons Wahl vom 11.11.2026 09:42 UTC
+    ("Ja, kleiner handeln"): Der Bot nimmt dann weniger als 1 Kontrakt. Die 2 % selbst gelten unverändert."""
     sig = Signals(True, False, False, False)
-    assert any("Stop kostet 5.01" in r for r in decide(sig, 0, GoldLimits(), acc(250), QUOTE).reasons)
-    assert decide(sig, 0, GoldLimits(), acc(251), QUOTE).action == "open"
+    klein = decide(sig, 0, GoldLimits(), acc(250), QUOTE)
+    assert klein.action == "open" and klein.size == 0.99
+    assert klein.size * 5.6 / QUOTE.eurusd <= 250 * 0.02          # nie mehr als 2 % vom Konto
+    voll = decide(sig, 0, GoldLimits(), acc(251), QUOTE)
+    assert voll.action == "open" and voll.size == 1.0
     assert stop_level(1, QUOTE, 5.6) == pytest.approx(3994.7) and stop_level(-1, QUOTE, 5.6) == pytest.approx(4005.6)
+
+
+def test_trade_size_shrinks_instead_of_skipping_the_signal():
+    """Der Fall vom 05.11.2026 17:11 UTC (journal/gold-decisions.jsonl): Konto 995,17 EUR, Stop 22,92 $ = 20,40 EUR,
+    erlaubt 19,90 EUR. Vorher kein Trade, jetzt 0,97 Kontrakte."""
+    from gold.bot.rules import entry_blocks, trade_size
+    limits = GoldLimits(stop_usd=22.92)
+    q = Quote(bid=4000.0, offer=4000.3, eurusd=1.1235, margin_rate=0.05)
+    size = trade_size(limits, acc(995.17), q)
+    assert size == 0.97 and entry_blocks(limits, acc(995.17), q, 1) == []
+    assert size * 22.92 / 1.1235 <= 995.17 * 0.02 < (size + 0.01) * 22.92 / 1.1235   # größte erlaubte Stufe
+    d = decide(Signals(False, False, True, False), 0, limits, acc(995.17), q)
+    assert (d.action, d.side, d.size) == ("open", -1, 0.97)
+
+
+def test_trade_size_never_above_the_limit_and_never_above_the_risk():
+    from gold.bot.rules import trade_size
+    q = Quote(bid=4000.0, offer=4000.3, eurusd=1.117, margin_rate=0.05)
+    assert trade_size(GoldLimits(stop_usd=20.0), acc(1e6), q) == 1.0             # reiches Konto: nie mehr als size
+    assert trade_size(GoldLimits(size=0.5, stop_usd=20.0), acc(1e6), q) == 0.5
+    for eur in (150, 300, 600, 973.76, 1200):
+        for stop in (5.6, 12.0, 18.67, 22.92, 35.0, 60.0):
+            size = trade_size(GoldLimits(stop_usd=stop), acc(eur), q)
+            assert 0 <= size <= 1.0
+            assert size * stop / q.eurusd <= eur * 0.02 + 1e-9
+            assert round(size * 100) == pytest.approx(size * 100)                # ganze 0,01er Schritte
+
+
+def test_trade_size_uses_the_brokers_step_and_blocks_below_the_smallest_order():
+    from gold.bot.rules import trade_size
+    grob = Quote(bid=4000.0, offer=4000.3, eurusd=1.117, margin_rate=0.05, min_size=0.1, size_step=0.1)
+    assert trade_size(GoldLimits(stop_usd=22.92), acc(995.17), grob) == 0.9
+    sig = Signals(True, False, False, False)
+    arm = decide(sig, 0, GoldLimits(stop_usd=22.92), acc(2.0), QUOTE)          # 0,01 Kontrakte kosten 0,21 EUR > 0,04 EUR
+    assert arm.action == "none" and arm.size == 0.0
+    assert any(r.startswith("Stop kostet 0.21 € schon bei der kleinsten Größe 0.01") for r in arm.reasons)
+
+
+def test_margin_check_uses_the_smaller_size():
+    """1 Kontrakt braucht 4000,3 * 0,05 / 1,117 = 179 EUR Margin. Mit 0,5 Kontrakten reichen 100 EUR frei."""
+    knapp = Account(equity_eur=250.0, balance_eur=250.0, available_eur=100.0, peak_eur=250.0, day_start_eur=250.0,
+                    week_start_eur=250.0)
+    sig = Signals(True, False, False, False)
+    assert any("Margin" in r for r in decide(sig, 0, GoldLimits(stop_usd=5.6, risk_per_trade_pct=100), knapp, QUOTE).reasons)
+    d = decide(sig, 0, GoldLimits(stop_usd=11.2), knapp, QUOTE)                  # 2 % = 5 EUR -> 0,49 Kontrakte
+    assert d.action == "open" and d.size == 0.49
 
 
 def test_account_marks_roll_by_utc_day_and_week():
@@ -583,6 +638,42 @@ def test_atr_stop_counts_in_the_risk_check(tmp_path, monkeypatch):
                      notify=lambda m: None)
     assert rec["action"] == "none" and client.orders == []
     assert any(r.startswith("Stop kostet") for r in rec["reasons"])
+
+
+def test_runner_sends_the_smaller_size_and_journals_it(tmp_path, monkeypatch):
+    """Konto 300 EUR, 2 % = 6 EUR. Stop 1 x ATR(14) der Signalkerze: Der Bot schickt so viele Kontrakte, dass der Stop
+    höchstens 6 EUR kostet, und schreibt Größe und Grund ins Journal. Der Stop-Kurs bleibt derselbe wie bei 1 Kontrakt."""
+    from gold.backtest.sizing import atr_rma
+    force_long_signal(monkeypatch)
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    client = FillingClient(bars)
+    rec = runner.run(client, GoldLimits(stage=1, stop_atr=1.0), tmp_path, NOW, notify=lambda m: None)
+    done, _ = runner.bars_from_prices(client.prices("GOLD", "HOUR", 1000), NOW)
+    atr = round(float(atr_rma(done, 14)[-1]), 2)
+    assert atr / 1.117 > 6.0                                                    # 1 Kontrakt wäre zu teuer gewesen
+    want = math.floor(6.0 / (atr / 1.117) / 0.01 + 1e-9) * 0.01
+    assert rec["action"] == "open" and rec["size"] == pytest.approx(want) and 0 < rec["size"] < 1.0
+    assert "höchstens 2 %" in rec["size_why"]
+    [order] = client.orders
+    assert order[:3] == ("open", "GOLD", "BUY") and order[3] == pytest.approx(want)
+    assert order[4] == round(4000.3 - atr, 2)                                   # Stop wie bei 1 Kontrakt
+    assert order[3] * atr / 1.117 <= 6.0
+    state = runner.json.loads((tmp_path / "gold-state.json").read_text(encoding="utf-8"))
+    assert state["open_trade"]["size"] == pytest.approx(want, abs=0.005)
+    chart = runner.json.loads((tmp_path / "gold-chart.json").read_text(encoding="utf-8"))
+    assert chart["position"]["size"] == pytest.approx(want, abs=0.005)          # das kopiert die Gold-Staffel
+
+
+def test_runner_reads_smallest_order_and_step_from_the_broker():
+    class C(FakeClient):
+        def market(self, epic):
+            m = super().market(epic)
+            m["dealingRules"] = {"minDealSize": {"value": 0.05}, "minSizeIncrement": {"value": 0.05}}
+            return m
+    q = runner.quote_for(C(None), "GOLD", "EUR")
+    assert (q.min_size, q.size_step) == (0.05, 0.05)
+    q = runner.quote_for(FakeClient(None), "GOLD", "EUR")                       # ohne Angabe: 0,01
+    assert (q.min_size, q.size_step) == (0.01, 0.01)
 
 
 def test_stop_atr_must_be_sensible(tmp_path):

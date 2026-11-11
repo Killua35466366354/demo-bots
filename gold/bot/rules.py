@@ -11,6 +11,7 @@ Fehlt er, läuft der Bot in Stufe 0: er rechnet und schreibt ins Journal, sendet
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field, replace
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -25,10 +26,11 @@ DEFAULT_LIMITS = Path(__file__).resolve().parents[2] / "config" / "limits.yaml"
 class GoldLimits:
     stage: int = 0                     # 0 = nur rechnen, 1 = Demo-Orders, Live gibt es hier nicht
     epic: str = "GOLD"
-    size: float = 1.0                  # Kontrakte; mal lotSize des Instruments = Unzen
+    size: float = 1.0                  # Kontrakte, höchstens (siehe trade_size); mal lotSize des Instruments = Unzen
     stop_usd: float = 5.6              # Notfall-Stop, Abstand zum Einstiegskurs
     stop_atr: float | None = None      # gesetzt: Stop = stop_atr x ATR(14) der Signalkerze statt stop_usd
-    risk_per_trade_pct: float = 2.0    # Stop-Abstand mal Unzen darf höchstens so viel vom Konto kosten
+    risk_per_trade_pct: float = 2.0    # Stop-Abstand mal Unzen darf höchstens so viel vom Konto kosten: Kostet
+                                       # `size` mehr, handelt der Bot kleiner (trade_size), er lässt das Signal nicht aus
     day_loss_pct: float = 4.0
     week_loss_pct: float = 8.0
     kill_dd_pct: float = 25.0          # unter dem Höchststand des Gold-Kontos: keine neuen Einstiege mehr
@@ -84,6 +86,8 @@ class Quote:
     margin_rate: float                 # 0.05 bei Hebel 1:20
     oz_per_contract: float = 1.0
     tradeable: bool = True
+    min_size: float = 0.01             # kleinste Ordergröße des Brokers in Kontrakten
+    size_step: float = 0.01            # Schrittweite der Ordergröße
 
 
 @dataclass
@@ -91,6 +95,7 @@ class Decision:
     action: str                        # none, open, close, reverse
     side: int = 0                      # Richtung der neuen Position: +1 long, -1 short
     reasons: list[str] = field(default_factory=list)
+    size: float = 0.0                  # Kontrakte der neuen Position (bei open und reverse), sonst 0
 
 
 def bars_from_prices(prices: list[dict], now: datetime, timeframe: str = "60min") -> tuple[pd.DataFrame, pd.Series]:
@@ -117,6 +122,24 @@ def last_bar_is_current(bars: pd.DataFrame, now: datetime, timeframe: str = "60m
     return bars.index[-1] == expected
 
 
+def trade_size(limits: GoldLimits, account: Account, quote: Quote) -> float:
+    """Kontrakte für den nächsten Einstieg: `limits.size`, aber nie so viel, dass der Stop mehr als
+    `risk_per_trade_pct` des Kontos kostet. Dann handelt der Bot kleiner, abgerundet auf die Schrittweite des Brokers.
+    Rückgabe 0, wenn schon die kleinste Ordergröße zu teuer wäre.
+
+    Kirons Wahl vom 11.11.2026 09:42 UTC ("Ja, kleiner handeln"). Vorher fiel das ganze Signal weg, sobald 1 Kontrakt
+    mehr als 2 % kostete (journal/gold-decisions.jsonl, 05.11.2026 17:11 UTC: 20,40 € statt 19,90 €). Der Backtest
+    (gold/backtest/engine.py run_live) kennt diese Sperre nicht, er nimmt jedes Signal. Einstieg, Stop und Ausstieg
+    bleiben, wie sie sind; das Risiko je Trade wird nie größer als vorher."""
+    step = quote.size_step if quote.size_step > 0 else 0.01
+    erlaubt = account.equity_eur * limits.risk_per_trade_pct / 100
+    je_kontrakt = limits.stop_usd * quote.oz_per_contract / quote.eurusd
+    if je_kontrakt <= 0 or je_kontrakt * limits.size <= erlaubt:
+        return float(limits.size)
+    size = round(math.floor(erlaubt / je_kontrakt / step + 1e-9) * step, 8)
+    return size if size >= quote.min_size - 1e-12 else 0.0
+
+
 def entry_blocks(limits: GoldLimits, account: Account, quote: Quote, side: int) -> list[str]:
     """Gründe, warum gerade kein neuer Einstieg erlaubt ist. Leer = erlaubt."""
     blocks = []
@@ -132,15 +155,16 @@ def entry_blocks(limits: GoldLimits, account: Account, quote: Quote, side: int) 
     spread = quote.offer - quote.bid
     if spread > limits.max_spread_usd:
         blocks.append(f"Spread {spread:.2f} $ über der Grenze von {limits.max_spread_usd:.2f} $")
-    oz = limits.size * quote.oz_per_contract
+    size = trade_size(limits, account, quote)
+    oz = (size or quote.min_size) * quote.oz_per_contract
     price = quote.offer if side > 0 else quote.bid
     margin = price * oz * quote.margin_rate / quote.eurusd
     if margin > account.available_eur:
         blocks.append(f"Margin {margin:.2f} € nötig, nur {account.available_eur:.2f} € frei")
-    risk = limits.stop_usd * oz / quote.eurusd
-    if risk > account.equity_eur * limits.risk_per_trade_pct / 100:
-        blocks.append(f"Stop kostet {risk:.2f} €, erlaubt sind {limits.risk_per_trade_pct:g} % "
-                      f"= {account.equity_eur * limits.risk_per_trade_pct / 100:.2f} €")
+    if not size:                       # selbst die kleinste Ordergröße kostet mehr als erlaubt
+        risk = limits.stop_usd * oz / quote.eurusd
+        blocks.append(f"Stop kostet {risk:.2f} € schon bei der kleinsten Größe {quote.min_size:g}, erlaubt sind "
+                      f"{limits.risk_per_trade_pct:g} % = {account.equity_eur * limits.risk_per_trade_pct / 100:.2f} €")
     return blocks
 
 
@@ -157,7 +181,9 @@ def decide(sig: Signals, position: int, limits: GoldLimits, account: Account, qu
             return Decision("none")
         want = 1 if sig.long_entry else -1
         blocks = ([pause] if pause else []) + entry_blocks(limits, account, quote, want)
-        return Decision("none", reasons=blocks) if blocks else Decision("open", want)
+        if blocks:
+            return Decision("none", reasons=blocks)
+        return Decision("open", want, size=trade_size(limits, account, quote))
 
     own_exit = sig.long_exit if position > 0 else sig.short_exit
     same_in = sig.long_entry if position > 0 else sig.short_entry
@@ -167,7 +193,8 @@ def decide(sig: Signals, position: int, limits: GoldLimits, account: Account, qu
     if other_in and limits.conflict == "reverse":
         blocks = ([pause] if pause else []) + entry_blocks(limits, account, quote, -position)
         if not blocks:
-            return Decision("reverse", -position, ["Gegensignal, Regel reverse"])
+            return Decision("reverse", -position, ["Gegensignal, Regel reverse"],
+                            size=trade_size(limits, account, quote))
         return Decision("none", reasons=["Gegensignal, Umdrehen gesperrt"] + blocks)
     if other_in:
         return Decision("none", reasons=["Gegensignal, Regel first: Position bleibt"])

@@ -2,6 +2,8 @@
 gold:
   stage: 1
   epic: GOLD
+  # size ist die Obergrenze. Kostet der Stop damit mehr als risk_per_trade_pct vom Konto, handelt der Bot kleiner
+  # (gold/bot/rules.py trade_size), er lässt das Signal nicht mehr aus. Kirons Wahl vom 11.11.2026 09:42 UTC.
   size: 1.0
   stop_usd: 5.6
   stop_atr: 1.0

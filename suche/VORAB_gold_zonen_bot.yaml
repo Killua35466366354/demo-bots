@@ -1,0 +1,128 @@
+# Vorwärtstest "Gold-Zonen Bruch": Bruch mit Rollenwechsel an Zonen des 4-Std.-Charts, live auf einem Capital.com-DEMOKONTO.
+# Nie echtes Geld. Festgelegt, BEVOR der Bot einen Trade hatte (Prüfsumme im Protokoll). Code: gold/zonen_bot.py.
+#
+# Kirons Wahl vom 11.11.2026 10:20 UTC auf der Karte "Gold-Bot mit Zonen trotz durchgefallenem Test auf einem Demokonto
+# starten?": "Ja, Bruch-Variante als Demo-Bot".
+#
+# Ehrlich vorab:
+# - Die Regel ist die Variante B_alle aus suche/VORAB_gold_zonen.yaml, unverändert. Sie ist im Test DURCHGEFALLEN
+#   (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades, 1,23 je Woche, Gewinnfaktor 1,51, +68,0 R, jedes Jahr im Plus,
+#   aber der Zufallsvergleich schlägt nur 78,2 % der Zufallsläufe (nötig 95 % und Holm). Zufällige Einstiege in dieselbe
+#   Richtung mit demselben Stop und Ziel schaffen im Median +41,6 R. Der Gewinn kam also vor allem aus dem Goldanstieg.
+# - Trefferquote im Test etwa 15 %. Lange Verlustserien sind normal. Größter Rückgang im Test 33,2 R.
+# - Shorts haben im Test verloren (89 Trades, Gewinnfaktor 0,81). Der Bot nimmt sie trotzdem, weil die Regel so ist.
+# - 2015 bis 2023 war die Regel im Minus (690 Trades, Gewinnfaktor 0,90).
+# - Es ist der sechste Bot, der Gold handelt. Die Gold-Bots verlieren oft gemeinsam.
+
+format: 1
+gold_zonen_bot:
+  bot: gold-zonen
+  konto: Account 2 (Endung 2606), geteilt mit dem Mess-Bot Vortag EUR/USD 1 ATR (anderer Markt). Nie das Hauptkonto.
+  markt: Gold (Capital.com GOLD), Lauf alle 5 Minuten im Workflow pine5m.yml
+
+  regel: >-
+    Variante B_alle aus suche/VORAB_gold_zonen.yaml (Abschnitte zonen, bruch_rollenwechsel und fuehrung), unverändert.
+    Kurz: Zonen aus bestätigten Swing-Hochs und Swing-Tiefs fertiger 4-Std.-Kerzen. Schließt eine 4-Std.-Kerze jenseits
+    der äußeren Linie, ist die Zone gebrochen. Limit-Order auf der äußeren Linie in Richtung des Bruchs, 30 fertige
+    4-Std.-Kerzen gültig, früher weg bei einem 4-Std.-Schluss zurück jenseits der inneren Linie. Stop 0,25 ATR (Stand
+    der Bruch-Kerze) jenseits der inneren Linie. Nach 2 R Stop auf den Einstieg. Ziel die innere Linie der
+    nächstgelegenen gültigen Zone der Gegenseite, die mindestens 4 R entfernt ist, sonst 10 R. Spätestens nach 14
+    Kalendertagen raus. Höchstens ein Trade gleichzeitig. Jede Zone wird höchstens einmal gehandelt.
+
+  ausfuehrung:
+    kerzen: >-
+      Fertige Stundenkerzen (Bid) von Capital.com, etwa 75 Tage zurück, zu 4-Std.-Kerzen wie im Test zusammengefasst
+      (Beginn 18, 22, 2, 6, 10, 14 Uhr New York). Die Rechnung nutzt dieselben Funktionen wie der Test
+      (suche/gold_zonen.py). Der Plan (wartende Zonen und die Linien für das Ziel) wird einmal je Stunde neu gerechnet,
+      am Wochenende nicht. Unter 250 fertigen 4-Std.-Kerzen gibt es keinen Plan. Fehlt die letzte Stundenkerze noch,
+      bleibt der alte Plan. Ohne Plan aus der laufenden Stunde legt der Bot keine neue Order. Ist der Plan älter als
+      4 Stunden, löscht er die liegende Order.
+    order: >-
+      Es liegt höchstens eine Limit-Order beim Broker. Das ist die wartende Zone, deren Linie dem Kurs am nächsten ist
+      (Kauf-Linie gegen den Ask, Verkaufs-Linie gegen den Bid). Die Order trägt den Stop und ein vorläufiges Ziel,
+      gerechnet mit der Linie als Einstieg. Wird eine andere Linie die nähere, löscht der Bot die Order und legt die
+      andere. Lässt sich die alte Order nicht löschen, wartet die neue auf den nächsten Lauf. Solange ein Trade offen
+      ist, liegt keine Order. Grund für die eine Order: Account 2 hat kein Hedging. Eine Order der Gegenrichtung könnte
+      einen offenen Trade schließen. Lässt sich die Order für eine Zone 3-mal nicht legen (abgelehnt, Fehler, Stop näher
+      als der Mindestabstand des Brokers oder Größe zu grob), ist die Zone verbraucht. Ist nur der Kurs gerade zu nah an
+      der Linie, die freie Marge zu klein oder der Kurs EUR/USD nicht lesbar, wartet die Order auf den nächsten Lauf.
+      Kommt beim Legen keine Bestätigung vom Broker, legt der Bot keine zweite Order. Er sucht die erste im nächsten
+      Lauf an Richtung und Kurs.
+    beruehrung: >-
+      Eine Zone ohne liegende Order ist verbraucht, sobald der Ask (Kauf) oder der Bid (Verkauf) ihre Linie seit dem
+      Bruch erreicht hat. Gemessen wird an fertigen Stundenkerzen, an den 5-Minuten-Kerzen seit der letzten Rechnung und
+      am aktuellen Kurs. Das gilt auch, während ein Trade offen ist, wie im Test. Liegt die Order der Zone beim Broker,
+      entscheidet der Broker. Füllt er nicht, gilt die Linie als nicht berührt.
+    ziel: >-
+      Das Ziel wird im ersten Lauf nach der Füllung aus dem Füllkurs gerechnet, mit den Linien des Plans, der vor diesem
+      Lauf galt, und beim Broker gesetzt. Steht der Kurs dann schon am Ziel oder dahinter, schließt der Bot zum Markt.
+    einstand: >-
+      Hat der Kurs nach der Füllkerze 2 R im Plus erreicht (Bid beim Kauf, Ask beim Verkauf, gemessen an
+      5-Minuten-Kerzen und am aktuellen Kurs), setzt der Bot den Stop beim Broker auf den Einstieg. Ist der Kurs dafür
+      schon zu nah am Einstieg, schließt er zum Markt.
+    zeit: Der erste Lauf, der mindestens 14 Kalendertage nach der Füllung liegt, schließt zum Markt.
+    wochenende: >-
+      Von Freitag 16:45 Uhr bis Sonntag 18:05 Uhr New York liegt keine Order beim Broker (jede Order läuft dort
+      spätestens Freitag 16:45 Uhr ab). So gibt es keine Füllung in einer Kurslücke über das Wochenende. Ein offener
+      Trade bleibt über das Wochenende offen, wie im Test.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Abstand vom Füllkurs zum Stop, minus
+      Übernachtgebühr. Die Gebühr rechnet der Bot mit den Sätzen des Tests je Nacht (17:00 Uhr New York). Das
+      Euro-Ergebnis im Journal ist ohne Gebühr. Die echte Gebühr des Brokers steht nur im Kontostand. Den Ausstiegskurs
+      bei Stop und Ziel liest der Bot aus der Kontoaktivität des Brokers. Steht der Schluss dort eine Stunde lang nicht,
+      zählt der Stop-Kurs, und der Trade ist als geschätzt markiert. Füllt eine Order und treffen Stop oder Ziel schon
+      vor dem nächsten Lauf, bucht der Bot den Trade aus der Kontoaktivität.
+
+  abweichungen_vom_test:
+    - >-
+      Nur eine Order: Der Test nimmt jede wartende Linie, die der Kurs erreicht. Der Bot hat nur an der näheren Linie
+      eine Order. Springt der Kurs zwischen zwei Läufen zur anderen Linie, gibt es dort keinen Trade, und die Zone ist
+      verbraucht. Gegenprobe mit den Kursen des Tests: Seit 2024 hat der Kurs 316-mal eine wartende Linie erreicht.
+      11-mal wartete dabei auch auf der Gegenseite eine Zone. In allen 11 Fällen war die erreichte Linie die nähere,
+      auch 5, 10 und 15 Minuten vorher.
+    - >-
+      Verpasste Berührung: Liegt der Kurs beim Legen der Order schon an oder hinter der Linie, ist die Zone verbraucht
+      und es gibt keinen Trade. Der Test hätte in so einem Fall zur Eröffnung gefüllt. Das betrifft vor allem Lücken
+      nach dem Wochenende und die ersten Minuten nach einem Bruch.
+    - >-
+      Füllt eine Order trotzdem jenseits der inneren Linie, schließt der Bot sofort zum Markt. Der Trade zählt mit
+      seinem echten Ergebnis (Grund "kurslücke"). Als 1 R gilt dann der Abstand von der Linie zum Stop.
+    - Der Test rechnete mit festem Spread von 0,50 USD. Live gilt der echte Spread des Brokers.
+    - >-
+      Stop auf Einstand, Ziel aus dem Füllkurs und Zeit-Ausstieg greifen erst im nächsten Lauf (alle 5 Minuten), nicht
+      in der nächsten 5-Minuten-Kerze. Fällt ein Lauf aus, greifen sie später. Stop und vorläufiges Ziel liegen immer
+      beim Broker.
+    - >-
+      Die ATR startet live mit etwa 75 Tagen Vorlauf statt mit Daten ab 2015. Gegenprobe mit den Kursen des Tests: Vor
+      allen 316 Berührungen seit 2024 stand dieselbe Zone mit demselben Stop im Plan (Abweichung 0,0000 R), das Ziel
+      wich höchstens 0,0002 R ab.
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade von der Linie bis zum Stop, wie die Gold Groß-Box
+    max_unzen: 1.0
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keine Order. Braucht die Order mehr als 80 % der freien Marge des Kontos, wartet sie.
+
+  sperren:
+    - Ohne passende Prüfsumme dieser Datei im Protokoll legt der Bot keine Order und löscht eine liegende.
+    - >-
+      Liegt eine Gold-Position oder eine Gold-Order auf dem Konto, die nicht von ihm ist, legt er keine neue Order und
+      löscht seine eigene. Fremde Positionen und fremde Orders fasst er nie an.
+    - Vergibt journal/konten.json das Konto an einen anderen Gold-Bot, legt er keine neue Order und löscht seine eigene.
+    - Ab -25 R seit Start keine neue Order mehr. Ein offener Trade läuft zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/gold-zonen/ und journal/gold-zonen.json.
+
+  urteil:
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades. Dann entscheidet Kiron
+      über den nächsten Schritt.
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: Bei 1,23 Trades je Woche wie im Test etwa 33 Wochen bis zum Urteil.
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).
+    echtes_geld: Nie durch diesen Test allein. Den Schritt entscheidet nur Kiron.

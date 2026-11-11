@@ -1,0 +1,152 @@
+# Gold-Zonen und News: Swing-Trades an Unterstützungs- und Widerstandszonen. Vorab festgelegt, BEVOR gerechnet wird
+# (Prüfsumme ins Protokoll). Code: suche/gold_zonen.py. Nur Rechnung, kein Bot. Live nur nach Kirons Wahl auf einer Karte.
+#
+# Kirons Wunsch vom 11.11.2026 09:47 UTC (Thread "Ganzes Projekt mit Fable prüfen und optimieren"): "optimiere einen
+# gold bot auch so das er support zones nutzt und news um gold in grosen bewegungen / swing zu nehmen wenn möglich,...
+# da kann dann ein sehr strenges risk managemnt genutzt werden für wenn die entrys aussen an den support lines sind und
+# als long oder short gnutzt werden,... oder so das wenn news stimmen es über die support area einbricht die die alte
+# als hoch areas zu neuen low areas machen..."
+#
+# So lese ich das:
+#   A "Abpraller": Zonen aus den Hochs und Tiefs des 4-Std.-Charts. Einstieg an der Zone (außen an der Linie oder innen
+#     am Rand), Long an der Unterstützung, Short am Widerstand, mit sehr engem Stop knapp hinter der Zone. Ziel ist die
+#     große Bewegung bis zur nächsten Zone auf der anderen Seite.
+#   B "Bruch mit Rollenwechsel": Bricht der Kurs nach wichtigen US-Nachrichten durch eine Zone, wird das alte Hoch zum
+#     neuen Tief (und umgekehrt). Einstieg beim Rücklauf an die gebrochene Zone in Richtung des Bruchs.
+#
+# Ehrlich, was ich vorher weiß:
+# - Runde 12 (06.11.2026, portfolio-manager suche/VORAB_runde12.yaml) hat "Schlüssel-Level bricht, Rücktest, Ziel das
+#   letzte Hoch" auf 1 Std. und 4 Std. gerechnet (ki_level), ohne Zonen und ohne News. Das ist durchgefallen. Variante
+#   B_alle unten ist damit verwandt, B_news ist neu.
+# - Abpraller an Zonen mit engem Stop hat das Projekt auf Gold nie gerechnet.
+# - "News stimmen" kann ich in alten Daten nicht als Richtung der Nachricht lesen. Es gibt nur die Liste der Termine
+#   (Fed, Inflation, Arbeitsmarkt, gold/v2/termine.yaml, ab 2023). Ich lese es so: Der Bruch passiert in den 24 Stunden
+#   nach einem dieser Termine. Die Richtung der Nachricht ist dann die Richtung, in die der Kurs gebrochen ist.
+# - Mit 32 Terminen im Jahr erwarte ich für B_news weit weniger als 100 Trades. Dann ist B_news laut Grundregel nur
+#   Auskunft und kann nicht bestehen.
+# - 2024 bis 2026 war für Gold ein starker Aufwärtstrend. Darum vergleicht der Zufallstest mit Einstiegen in dieselbe
+#   Richtung zu zufälligen Zeiten im selben Monat. So zeigt er, ob die Zone etwas bringt, und nicht nur der Trend.
+# - Einzige Zahl, die ich aus den Gold-Daten schon kenne: Die Stunden-ATR(14) lag 2026 im Median bei etwa 19 USD (heute
+#   für die Größen-Frage des Gold-Bots gerechnet). Von diesem Test habe ich nichts gerechnet. Alle Werte unten (Swing 5,
+#   Zonenhöhe 0,15 bis 0,75 ATR, Stop 0,25 ATR, Einstand nach 2 R, Ziel ab 4 R, sonst 10 R, 14 Tage, 180 und 30 Kerzen,
+#   24 Stunden nach dem Termin) habe ich gewählt, ohne eine Variante zu rechnen. Es gibt 6 Varianten. Alle werden
+#   berichtet, keine wird ausgesucht, jede muss die Hürden allein schaffen.
+
+format: 1
+gold_zonen:
+  daten:
+    quelle: HistData.com 5-Minuten-Bid-Kerzen XAUUSD (Projektdateien strategie-suche/daten/XAUUSD_5min.csv.gz), Zeit UTC
+    von: "2015-01-01"
+    bis: "2026-10-30"
+    kerzen_4h: 4-Stunden-Kerzen wie TradingView bei OANDA XAUUSD, Beginn 18, 22, 2, 6, 10 und 14 Uhr New York
+    tag: Handelstag endet 17:00 New York
+    kerze_fertig: Eine Kerze ist fertig, wenn ihre Zeit um ist. Zonen, Brüche und Filter nutzen nur fertige Kerzen.
+    ausfuehrung: Einstieg, Stop, Ziel und Ausstieg auf den 5-Minuten-Kerzen.
+    termine: gold/v2/termine.yaml (Fed-Entscheid, Inflation CPI, Arbeitsmarkt NFP), ab Januar 2023
+
+  zonen:
+    atr: ATR(14) der 4-Std.-Kerzen nach Wilder, Stand der Kerze, an der die Zone bestätigt wird
+    swing: >-
+      Swing-Hoch an Kerze i: Hoch[i] größer als die 5 Hochs davor und mindestens so groß wie die 5 Hochs danach,
+      bestätigt am Schluss der Kerze i+5. Swing-Tief spiegelbildlich. Wie in Runde 12.
+    widerstand: >-
+      Aus jedem bestätigten Swing-Hoch. Äußere Linie = das Hoch. Innere Linie = der Kerzenkörper (das Höhere aus
+      Eröffnung und Schluss der Kerze i), aber die Zone ist mindestens 0,15 ATR und höchstens 0,75 ATR hoch.
+    unterstuetzung: Spiegelbildlich aus jedem bestätigten Swing-Tief. Äußere Linie = das Tief.
+    gilt_ab: der ersten 5-Minuten-Kerze nach der Bestätigung
+    ablauf: 180 fertige 4-Std.-Kerzen nach der Bestätigung (etwa 30 Handelstage)
+    bruch: >-
+      Eine fertige 4-Std.-Kerze schließt jenseits der äußeren Linie (Widerstand: darüber, Unterstützung: darunter). Ab
+      dann ist die Zone kein Abpraller mehr. Für B wechselt sie die Rolle.
+    einmal: Jede Zone wird je Rolle höchstens einmal gehandelt. Die erste Berührung der Einstiegslinie verbraucht sie.
+
+  abpraller:                         # Familie A
+    richtung: Unterstützung Long, Widerstand Short
+    einstieg:
+      aussen: Limit-Order auf der äußeren Linie (dem Swing-Hoch oder Swing-Tief selbst)
+      innen: Limit-Order auf der inneren Linie (erste Berührung der Zone)
+    fuellung: >-
+      Long füllt, wenn der Ask (Bid plus Spread) die Linie erreicht, zum Linienkurs (eröffnet eine Kerze schon darunter,
+      zur Eröffnung). Short füllt, wenn der Bid die Linie erreicht. Läge die Füllung jenseits der äußeren Linie
+      (Kurslücke), gibt es keinen Trade.
+    stop: 0,25 ATR jenseits der äußeren Linie, als fester Kurs. 1 R = Abstand Füllung bis Stop.
+    filter:
+      alle: kein Filter
+      hintergrund: >-
+        Wie beim Gold-Hand-Bot (gold/hand_bot.py hintergrund): Liegt der letzte Tagesschluss über dem Schnitt der
+        letzten 50 Tagesschlüsse und der letzte 4-Std.-Schluss über seinem EMA 50, gibt es keinen Short. Liegen beide
+        darunter, keinen Long. Sonst ist beides erlaubt. Stand bei der Füllung, nur fertige Kerzen.
+    eine_position: >-
+      Je Variante höchstens ein Trade gleichzeitig. Berührt der Kurs währenddessen eine andere Zone, verfällt sie.
+      Verbietet der Filter die Richtung, verfällt sie ebenso.
+
+  bruch_rollenwechsel:               # Familie B
+    ausloeser: Bruch einer Zone (siehe oben). Bruch nach oben gibt einen Long, Bruch nach unten einen Short.
+    news:
+      B_news: >-
+        Nur Brüche, bei denen ein Termin aus gold/v2/termine.yaml in den 24 Stunden vor dem Schluss der Bruch-Kerze
+        lag (Termin später als Schluss minus 24 Stunden und spätestens zum Schluss).
+      B_alle: jeder Bruch, ohne News-Bedingung (zum Vergleich)
+    einstieg: >-
+      Limit-Order auf der äußeren Linie der gebrochenen Zone (das alte Hoch ist jetzt die Oberkante der neuen
+      Unterstützung), gültig für 30 fertige 4-Std.-Kerzen nach dem Bruch. Sie verfällt früher, wenn eine 4-Std.-Kerze
+      wieder jenseits der inneren Linie schließt (Long: darunter). Füllung wie bei A. Läge die Füllung jenseits der
+      inneren Linie (Kurslücke), gibt es keinen Trade.
+    stop: 0,25 ATR (Stand der Bruch-Kerze) jenseits der inneren Linie. 1 R = Abstand Füllung bis Stop.
+    eine_position: wie bei A
+
+  fuehrung:                          # für A und B gleich
+    einstand: >-
+      Erreicht der Kurs 2 R im Plus (Long am Bid, Short am Ask, frühestens in der Kerze nach der Füllung), steht der
+      Stop ab der nächsten 5-Minuten-Kerze auf dem Einstiegskurs.
+    ziel: >-
+      Die innere Linie der nächstgelegenen gültigen Zone der Gegenseite, die mindestens 4 R vom Einstieg entfernt ist
+      (Long: der nächste Widerstand über dem Einstieg, nähere Zonen werden übersprungen). Gibt es keine, liegt das Ziel
+      bei 10 R. Gültig heißt: bei der Füllung bestätigt, nicht gebrochen und nicht abgelaufen. Fester Kurs.
+    zeit: Spätestens 14 Kalendertage nach der Füllung zur nächsten Eröffnung raus.
+    gleiche_kerze: >-
+      Treffen Stop und Ziel oder Stop und die 2-R-Marke in derselben 5-Minuten-Kerze zusammen, zählt der Stop. In der
+      Kerze der Füllung zählt nur der Stop.
+
+  varianten:
+    - {key: A_aussen_alle, familie: abpraller, einstieg: aussen, filter: alle}
+    - {key: A_aussen_hintergrund, familie: abpraller, einstieg: aussen, filter: hintergrund}
+    - {key: A_innen_alle, familie: abpraller, einstieg: innen, filter: alle}
+    - {key: A_innen_hintergrund, familie: abpraller, einstieg: innen, filter: hintergrund}
+    - {key: B_news, familie: bruch_rollenwechsel, news: true}
+    - {key: B_alle, familie: bruch_rollenwechsel, news: false}
+
+  kosten:
+    spread_usd: 0.50                 # wie suche/VORAB.yaml für XAUUSD, zu jeder Uhrzeit
+    uebernacht_pct_jahr: {long: 6.5, short: 2.0}   # wie gold/tiktok_schatten.py SATZ, je Nacht auf den Einstiegskurs
+    robust_faktor: 1.5               # Spread und Übernachtgebühr mal 1,5
+    preise: Long kauft zum Ask (Bid plus Spread) und verkauft zum Bid, Short umgekehrt. Stops und Ziele entsprechend.
+
+  bewertung:
+    regel: suche/VORAB_bewertung_2024_26.yaml (2024 bis 2026 zählt am meisten), unverändert
+    hauptfenster: Einstieg 01.01.2024 bis 30.10.2026
+    bestanden_wenn: >-
+      Mindestens 100 Trades im Hauptfenster, Gewinnfaktor mindestens 1,2, mit 1,5-fachen Kosten mindestens 1,0, beide
+      zeitlichen Hälften über 1,0, 2026 allein über 1,0 (ab 20 Trades) und der Zufallsvergleich bestanden. Jede
+      Variante allein.
+    zufall:
+      art: >-
+        Je echtem Trade im Hauptfenster ein Zwilling in dieselbe Richtung, mit demselben Stop-Abstand in USD, demselben
+        Ziel-Abstand in R und derselben Führung, eröffnet per Marktorder zur Eröffnung einer zufälligen 5-Minuten-Kerze
+        im selben Kalendermonat (UTC). Verglichen wird die Summe in R.
+      laeufe: 1000
+      seed: 20261111
+      bestanden: >-
+        Die echte Summe schlägt mindestens 95 % der Zufallsläufe UND besteht Holm über alle 6 Varianten auf 5 %
+        (p = Anteil der Zufallsläufe, die mindestens so gut sind, mindestens 1/1001; die k-kleinste p muss höchstens
+        0,05 / (6 - k + 1) sein, sonst fallen sie und alle größeren durch).
+    aeltere_jahre: 2015 bis 2023 nur als Auskunft (B_news erst ab 2023, weil die Termine dort beginnen).
+    auskunft: >-
+      Trades je Woche, Trefferquote, Summe R, größter Rückgang in R, Long und Short getrennt, Gründe der Ausstiege,
+      Anteil der Trades, die am Einstand enden.
+    keine_nachbesserung: >-
+      Kein anderer Wert, keine neue Variante und kein anderes Fenster nach dem Ergebnis. Fällt alles durch, ist die
+      Idee in dieser Form erledigt und steht so im Bericht.
+    live: >-
+      Nur nach Kirons Wahl auf einer Karte und über einen PR, den Kiron merged, als Demo-Bot mit Urteil nach 40 Trades.
+      Eine Variante mit weniger als 100 Trades im Hauptfenster kann nicht bestehen.

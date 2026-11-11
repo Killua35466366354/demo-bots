@@ -1069,9 +1069,15 @@ def run(client, state: dict, kont: dict, now, send_orders: bool = True,
                 st.setdefault("start_kontostand", bal.get("balance"))
                 lauf.positionen(aid)
                 q = lauf.quote(bot.epic)
-                fremd = [p for p in lauf.positionen(aid) if (p.get("market") or {}).get("epic") != bot.epic]
-                if fremd:
-                    lauf.ereignis(bot, "andere Märkte auf dem Konto", anzahl=len(fremd))
+                # Nur bei einer Änderung ins Journal. Bis 11.11.2026 schrieb jeder Lauf diese Zeile neu, solange die
+                # Gold Groß-Box auf Account 6 einen Trade offen hatte (40 von 68 Zeilen in journal/r6-bots/log.jsonl).
+                fremd = sorted({str((p.get("market") or {}).get("epic")) for p in lauf.positionen(aid)} - {bot.epic})
+                if fremd != (st.get("fremd") or []):
+                    if fremd:
+                        lauf.ereignis(bot, "andere Märkte auf dem Konto", maerkte=fremd)
+                    else:
+                        lauf.ereignis(bot, "keine anderen Märkte mehr auf dem Konto")
+                    st["fremd"] = fremd
                 if bot.strategie == "vortag_stop_oco":
                     lauf_vortag(lauf, bot, st, aid, q)
                 else:

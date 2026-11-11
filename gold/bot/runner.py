@@ -68,8 +68,11 @@ def quote_for(client: CapitalClient, epic: str, currency: str) -> Quote:
         fx = (float(eur["bid"]) + float(eur["offer"])) / 2
     else:
         raise CapitalError(f"Kontowährung {currency} wird nicht unterstützt, nur EUR oder USD")
+    rules = market.get("dealingRules") or {}
+    min_size = float((rules.get("minDealSize") or {}).get("value") or 0.01)
     return Quote(bid=float(snap["bid"]), offer=float(snap["offer"]), eurusd=fx, margin_rate=margin_rate,
-                 oz_per_contract=float(inst.get("lotSize", 1) or 1), tradeable=snap.get("marketStatus") == "TRADEABLE")
+                 oz_per_contract=float(inst.get("lotSize", 1) or 1), tradeable=snap.get("marketStatus") == "TRADEABLE",
+                 min_size=min_size, size_step=float((rules.get("minSizeIncrement") or {}).get("value") or min_size))
 
 
 def execute(client: CapitalClient, decision, deal_id: str | None, limits: GoldLimits, quote: Quote) -> list[dict]:
@@ -81,9 +84,10 @@ def execute(client: CapitalClient, decision, deal_id: str | None, limits: GoldLi
             return results
     if decision.action in ("open", "reverse"):
         stop = stop_level(decision.side, quote, limits.stop_usd)
-        res = client.open_position(limits.epic, "BUY" if decision.side > 0 else "SELL", limits.size, stop)
+        size = decision.size or limits.size        # kleiner als limits.size, wenn der Stop sonst zu teuer wäre
+        res = client.open_position(limits.epic, "BUY" if decision.side > 0 else "SELL", size, stop)
         results.append({"step": "open", "dealStatus": res.get("dealStatus"), "level": res.get("level"),
-                        "dealId": res.get("dealId"), "stopLevel": round(stop, 2)})
+                        "dealId": res.get("dealId"), "stopLevel": round(stop, 2), "size": size})
     return results
 
 
@@ -226,7 +230,8 @@ def open_trade_after(after: list[dict] | None, previous: dict | None, results: l
     opened = next((r for r in results if r.get("step") == "open" and r.get("dealStatus") == "ACCEPTED"), None)
     if opened:
         return {"side": "long" if side > 0 else "short", "direction": "BUY" if side > 0 else "SELL",
-                "entry": opened.get("level"), "size": limits.size, "stop": opened.get("stopLevel"),
+                "entry": opened.get("level"), "size": opened.get("size") or limits.size,
+                "stop": opened.get("stopLevel"),
                 "dealId": opened.get("dealId"), "opened_utc": None, "upl": None, "bar": last}
     closed = any(r.get("step") == "close" and r.get("dealStatus") == "ACCEPTED" for r in results)
     return None if closed else previous
@@ -309,6 +314,11 @@ def run(client: CapitalClient, limits: GoldLimits, journal_dir: Path, now: datet
               "missed_bars": len(missed), "equity": round(acc.equity_eur, 2), "currency": currency,
               "stage": limits.stage, "action": decision.action, "side": decision.side, "reasons": decision.reasons,
               "stop_usd": limits.stop_usd, "atr14": round(atr14, 2), "schalter": stand.journal()}
+    if decision.size:
+        record["size"] = decision.size
+        if decision.size < limits.size:
+            record["size_why"] = (f"kleiner als {limits.size:g}: der Stop darf höchstens "
+                                  f"{limits.risk_per_trade_pct:g} % vom Konto kosten")
     if decision.action != "none":
         if limits.stage >= 1 and send_orders:
             record["results"] = execute(client, decision, deal_id, limits, quote)

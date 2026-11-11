@@ -263,3 +263,110 @@ def test_code_und_versiegelte_regel_passen_zusammen():
                              "preise": cfg["kosten"]["preise"]}
     assert cfg["bewertung"]["zufall"]["laeufe"] == 1000 and cfg["bewertung"]["zufall"]["seed"] == 20261111
     assert str(gz.HAUPT_VON.date()) == "2024-01-01"
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Stand "jetzt" für den Demo-Bot (gold/zonen_bot.py): Er rechnet mit Stundenkerzen und nur mit fertigen 4-Std.-Kerzen.
+
+def stunden_vor(bars: pd.DataFrame, jetzt: pd.Timestamp) -> pd.DataFrame:
+    """Die fertigen Stundenkerzen vor dem Zeitpunkt jetzt, so wie sie der Demo-Bot vom Broker bekommt."""
+    st = bars[bars.index < jetzt].resample("1h").agg({"open": "first", "high": "max", "low": "min", "close": "last"})
+    st = st.dropna()
+    return st[st.index + pd.Timedelta(hours=1) <= jetzt]
+
+
+def test_fertige_4h_kerzen_und_feste_namen_der_zonen():
+    kerzen = ruhig(20) + [(104, 110, 103, 106)] + ruhig(9) + [(100, 112, 99, 111)] + ruhig(10, 114.0)
+    bars = bars_aus_4h(kerzen)
+    m = gz.markt(bars)
+    vier = pd.Timedelta(hours=4)
+    assert gz.fertige_4h(m, START) == 0 and gz.fertige_4h(m, START + vier - pd.Timedelta(minutes=1)) == 0
+    assert gz.fertige_4h(m, START + vier) == 1 and gz.fertige_4h(m, START + 7 * vier + pd.Timedelta(minutes=5)) == 7
+    assert gz.fertige_4h(m, START + 1000 * vier) == len(kerzen)
+    z = next(z for z in gz.zonen(m.o4, m.h4, m.l4, m.c4, m.atr4) if z.aussen == 110.0)
+    name = gz.zonen_name(m, z)
+    assert name.startswith("W2026") and len(name) == 11
+    # derselbe Markt ohne die ersten 4 Kerzen (der Abruf rollt weiter): Die Zone heißt gleich
+    m2 = gz.markt(bars.iloc[4 * 48:])
+    z2 = next(z for z in gz.zonen(m2.o4, m2.h4, m2.l4, m2.c4, m2.atr4) if z.aussen == 110.0)
+    assert gz.zonen_name(m2, z2) == name and z2.k_best == z.k_best - 4
+
+
+def test_wartende_order_gilt_30_kerzen_und_endet_beim_schluss_zurueck():
+    """Widerstand 110 wird in Kerze 30 gebrochen. Die Kauf-Order liegt, solange die laufende Kerze höchstens die 60. ist
+    und keine fertige Kerze unter der inneren Linie geschlossen hat. Eine Berührung wird gemeldet, nicht verschwiegen."""
+    kerzen = ruhig(20) + [(104, 110, 103, 106)] + ruhig(9) + [(100, 112, 99, 111)] + ruhig(40, 114.0)
+    m = gz.markt(bars_aus_4h(kerzen))
+    assert gz.wartende_bruch(m, 30, 0.5)[0] == []                 # Kerze 30 läuft noch: kein Bruch bekannt
+    w, linien = gz.wartende_bruch(m, 31, 0.5)
+    lang = [x for x in w if x["d"] == 1 and x["linie"] == 110.0]
+    assert len(lang) == 1 and lang[0]["rest"] == 30 and not lang[0]["beruehrt"]
+    assert lang[0]["stop"] < lang[0]["innen"] < 110.0
+    assert lang[0]["stop"] == pytest.approx(lang[0]["innen"] - 0.25 * m.atr4[30])
+    assert all(x > 110 for x in linien[-1]) and linien[1] == []   # als Ziel taugt nur ein gültiger Widerstand darüber
+    assert [x["rest"] for x in gz.wartende_bruch(m, 60, 0.5)[0] if x["linie"] == 110.0] == [1]
+    assert [x for x in gz.wartende_bruch(m, 61, 0.5)[0] if x["linie"] == 110.0] == []        # die 61. Kerze läuft: weg
+    # Schluss zurück unter die innere Linie in Kerze 35: ab dann keine Order mehr
+    k2 = list(kerzen)
+    k2[35] = (114, 115, 105, 106)
+    vor = [x for x in gz.wartende_bruch(gz.markt(bars_aus_4h(k2[:35])), 35, 0.5)[0] if x["linie"] == 110.0]
+    assert len(vor) == 1 and not vor[0]["beruehrt"]               # bis zum Beginn von Kerze 35 liegt die Order
+    m2 = gz.markt(bars_aus_4h(k2))
+    mitten = [x for x in gz.wartende_bruch(m2, 35, 0.5)[0] if x["linie"] == 110.0]
+    assert len(mitten) == 1 and mitten[0]["beruehrt"]             # Kerze 35 läuft und hat die Linie schon berührt
+    assert [x for x in gz.wartende_bruch(m2, 36, 0.5)[0] if x["linie"] == 110.0] == []
+    # Berührung ohne Schluss zurück (Tief 109,8, Schluss 114): die Order gälte noch, ist aber als berührt markiert
+    k3 = list(kerzen)
+    k3[35] = (114, 115, 109.4, 114)
+    nach = [x for x in gz.wartende_bruch(gz.markt(bars_aus_4h(k3)), 36, 0.5)[0] if x["linie"] == 110.0]
+    assert len(nach) == 1 and nach[0]["beruehrt"]
+
+
+def test_demo_bot_sieht_vor_jeder_fuellung_dieselbe_order_und_dasselbe_ziel_wie_die_rechnung():
+    """Für jede Füllung der Rechnung (B_alle): Aus den Stundenkerzen bis kurz davor muss genau diese Order als wartend
+    herauskommen, mit derselben Linie, demselben Stop und demselben Ziel. Sonst handelt der Bot etwas anderes als der
+    Test."""
+    bars = zufallsmarkt(40000)
+    m = gz.markt(bars)
+    zz = gz.zonen(m.o4, m.h4, m.l4, m.c4, m.atr4)
+    k_best = np.array([z.k_best for z in zz], dtype=int)
+    kand = gz.kandidaten_bruch(m, zz, False, np.array([], dtype="datetime64[ns]"), 0.5)
+    assert len(kand) >= 20
+    for x in kand:
+        jetzt, z, d = bars.index[x["j"]], zz[x["zone"]], x["d"]
+        mh = gz.markt(stunden_vor(bars, jetzt))
+        wartend, linien = gz.wartende_bruch(mh, gz.fertige_4h(mh, jetzt), 0.5)
+        w = [w for w in wartend if w["d"] == d and abs(w["linie"] - z.aussen) < 1e-9]
+        assert len(w) == 1 and not w[0]["beruehrt"], str(jetzt)
+        assert w[0]["stop"] == pytest.approx(x["stop"], abs=1e-9) and w[0]["innen"] == pytest.approx(z.innen, abs=1e-9)
+        assert 1 <= w[0]["rest"] <= 30
+        r = abs(x["fill"] - x["stop"])
+        assert gz.ziel_kurs(linien[-d], d, x["fill"], r) == pytest.approx(
+            gz.ziel_fuer(m, zz, k_best, x["j"], d, x["fill"], r), abs=1e-9), str(jetzt)
+
+
+def test_demo_bot_haelt_keine_order_die_die_rechnung_nicht_kennt():
+    """Umgekehrt, zu vielen Zeitpunkten: Jede Order, die der Bot als wartend und unberührt sieht, gehört zu einer
+    gebrochenen Zone der Rechnung, und die Rechnung hat sie nicht schon früher gefüllt."""
+    bars = zufallsmarkt(40000)
+    m = gz.markt(bars)
+    zz = gz.zonen(m.o4, m.h4, m.l4, m.c4, m.atr4)
+    fuellung = {x["zone"]: x["j"] for x in gz.kandidaten_bruch(m, zz, False, np.array([], dtype="datetime64[ns]"), 0.5)}
+    geprueft = spaeter_gefuellt = 0
+    for j in range(5003, 39000, 211):
+        jetzt = bars.index[j]
+        st = stunden_vor(bars, jetzt)
+        mh = gz.markt(st)
+        wartend, _ = gz.wartende_bruch(mh, gz.fertige_4h(mh, jetzt), 0.5)
+        rest = bars[(bars.index >= st.index[-1] + pd.Timedelta(hours=1)) & (bars.index < jetzt)]   # seit der letzten Stunde
+        for w in wartend:
+            d = w["d"]
+            if w["beruehrt"] or (len(rest) and ((rest["low"].min() + 0.5 <= w["linie"]) if d > 0
+                                                else (rest["high"].max() >= w["linie"]))):
+                continue
+            q = [i for i, z in enumerate(zz) if z.typ == -d and z.k_bruch >= 0 and abs(z.aussen - w["linie"]) < 1e-9]
+            assert len(q) == 1, str(jetzt)
+            assert fuellung.get(q[0], j) >= j, str(jetzt)
+            geprueft += 1
+            spaeter_gefuellt += q[0] in fuellung
+    assert geprueft >= 20 and spaeter_gefuellt >= 5

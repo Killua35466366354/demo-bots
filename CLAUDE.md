@@ -25,7 +25,9 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
    höchstens einer je Original, höchstens ein neuer pro Woche, nie für `gold-cb` oder Mess-Bots.
 9. **Live geht nur nach Kirons Wahl** auf einer Karte und über einen PR, auch wenn ein Test bestanden hat.
 10. **Keine Schlüssel, Passwörter oder Kontonummern** in Chat, Dokumenten, PR-Texten oder neuen Dateien. Das Repo ist
-    öffentlich. Konten heißen in Texten nach ihrem Namen ("Account 5", "US500"). In Tests nur erfundene Nummern.
+    öffentlich. Konten heißen in Texten nach ihrem Namen ("Account 5", "US500"). In Tests nur erfundene Nummern. Die
+    Nummer eines Demokontos steht nur dort, wo ein Bot sie zum Handeln braucht: als Konstante `KONTO` in seinem Code
+    und in `journal/konten.json`. Sie wird von dort gelesen und nie abgetippt oder ausgegeben.
 11. **Kein Test wird abgeschaltet, übersprungen oder gelockert**, damit etwas grün wird. Eine versiegelte VORAB-Datei
     wird nie geändert. Eine neue Regel bekommt eine neue Datei.
 12. **Keine Modellnamen** in Commits, PR-Titeln, PR-Texten oder Code.
@@ -49,7 +51,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
 | `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Vergleich, Wache |
-| `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Wache |
+| `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
 Angestoßen wird von außen über cron-job.org. Bot-Schritte laufen mit `continue-on-error`, damit ein Fehler die anderen
@@ -63,19 +65,20 @@ Alarme bei healthchecks.io (E-Mail an Kiron): `gold-bot`, `demo-bots`, `pine5m` 
 Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Quelle, keine zweite Liste führen.
 
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
-- `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Pine-Bots, Gold-Hand).
+- `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Pine-Bots,
+  Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
 eingetragen.
 
-Gruppen (Stand 11.11.2026, 18 Bots):
+Gruppen (Stand 11.11.2026, 19 Bots):
 
 - **Kern und Kombi** (Test bestanden): US500- und US100-Rücksetzer, Nasdaq Noise-Band, Vortag EUR/USD, GBP/USD, GBP/JPY.
 - **Labor** (knapp durchgefallen, läuft auf Kirons Wunsch): Dow-Rücksetzer, London GBP/USD, Noise USD/JPY.
 - **Mess-Bot:** Vortag EUR/USD mit 1-ATR-Stop. Misst nur, wird nie verbessert.
-- **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`. Fünf Bots auf einem Markt, sie verlieren oft
-  gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten.
+- **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`, `gold-zonen`. Sechs Bots auf einem Markt, sie
+  verlieren oft gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten.
 - **Scalper** (Test durchgefallen, läuft auf Kirons Wunsch): Nasdaq, DAX, Nikkei.
 
 ## Gold-Bot C/B
@@ -85,6 +88,16 @@ Gruppen (Stand 11.11.2026, 18 Bots):
   Größe, die darunter bleibt (`gold/bot/rules.py` `trade_size`, Kirons Wahl vom 11.11.2026). Erst wenn selbst die
   kleinste Größe des Brokers zu teuer wäre, fällt das Signal aus.
 - Feldnamen in `journal/gold-trades.jsonl` und im Zustand nicht umbenennen. Cockpit und Prüfungen lesen sie.
+
+## Gold-Zonen-Bot
+
+- `gold/zonen_bot.py`, Regeln `suche/VORAB_gold_zonen_bot.yaml` (versiegelt am 11.11.2026). Bruch mit Rollenwechsel an
+  Zonen des 4-Std.-Charts auf Account 2, den er mit dem Mess-Bot teilt. Der Test ist durchgefallen
+  (`suche/ergebnis_gold_zonen.md`). Der Bot läuft als Vorwärtstest auf Kirons Wahl vom 11.11.2026, Urteil nach 40 Trades.
+- Es liegt höchstens eine Limit-Order beim Broker. Account 2 hat kein Hedging, eine Order der Gegenrichtung könnte einen
+  offenen Trade schließen. Das nie lockern.
+- Die Rechnung (Zonen, wartende Orders, Ziel) kommt aus `suche/gold_zonen.py`, denselben Funktionen wie im Test.
+  `tests/test_gold_zonen.py` prüft, dass Bot und Test dieselbe Order sehen.
 
 ## Arbeiten im Repo
 

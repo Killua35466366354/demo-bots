@@ -87,14 +87,15 @@ def test_liste_nicht_lesbar_sperrt_jedes_freie_konto(monkeypatch):
 
 
 def test_liste_kommt_aus_dem_code_der_bots():
-    from gold import grossbox_bot, hand_bot, pine5m_bot
+    from gold import grossbox_bot, hand_bot, pine5m_bot, zonen_bot
     from suche import gold_staffel_bot, scalper_bot
     alle = {b["bot"]: b for b in mn.bots()}
     erwartet = ({b.bot_id for b in scalper_bot.BOTS} | {b.bot_id for b in pine5m_bot.BOTS}
-                | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID})
+                | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID, zonen_bot.BOT_ID})
     assert set(alle) == erwartet and len(mn.bots()) == len(erwartet)
     assert alle["gold-staffel"]["konto"] == gold_staffel_bot.KONTO == scalper_bot.KONTO
     assert alle["gold-grossbox"]["konto"] == grossbox_bot.KONTO
+    assert alle["gold-zonen"]["konto"] == zonen_bot.KONTO and alle["gold-zonen"]["konto_name"] == "Account 2"
     assert alle["gold-hand"]["neu"] is bool(hand_bot.NEUE_EINSTIEGE)
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG

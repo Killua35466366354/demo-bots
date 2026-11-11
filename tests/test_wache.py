@@ -35,11 +35,11 @@ def test_wache_rechnet_wie_die_bots():
 
 
 def test_jede_regeldatei_der_laufenden_bots_wird_bewacht():
-    from gold import grossbox_bot, hand_bot, pine5m_bot
+    from gold import grossbox_bot, hand_bot, pine5m_bot, zonen_bot
     from gold.bot import schalter
     from suche import demo_pruefung, gold_staffel_bot, scalper_bot, vergleich
     bewacht = {f"{p.stem} sha256 " for p in wache.vorab_dateien()}
-    keys = {grossbox_bot.KEY, hand_bot.KEY, pine5m_bot.KEY, pine5m_bot.KEY_PRUEFER, pine5m_bot.KEY_K5, pine5m_bot.KEY_4H,
+    keys = {grossbox_bot.KEY, hand_bot.KEY, zonen_bot.KEY, pine5m_bot.KEY, pine5m_bot.KEY_PRUEFER, pine5m_bot.KEY_K5, pine5m_bot.KEY_4H,
             schalter.KEY, gold_staffel_bot.KEY, gold_staffel_bot.KEY_ABFANG, scalper_bot.KEY, vergleich.KEY,
             demo_pruefung.KEY, demo_pruefung.LABOR_KEY, demo_pruefung.MESS_KEY, demo_pruefung.RUTSCH_KEY,
             demo_pruefung.FRIST_KEY, demo_pruefung.WOCHE_KEY}
@@ -227,10 +227,11 @@ def test_fuenf_minuten_lauf_hat_wache_und_lebenszeichen():
     steps = _schritte("pine5m.yml")
     w = steps[_pos(steps, "Wache")]
     assert w["run"] == "python -m suche.wache --lauf pine5m" and w["continue-on-error"] is True
-    assert {"pine", "scalper", "staffel"} <= {s.get("id") for s in steps}
+    assert {"pine", "scalper", "staffel", "zonen"} <= {s.get("id") for s in steps}
     assert _pos(steps, "Wache") < _pos(steps, "Journal sichern") < _pos(steps, "Lebenszeichen")
     sichern = steps[_pos(steps, "Journal sichern")]["run"]
     assert "'journal/pine-*'" in sichern                               # nimmt journal/pine-wache.json mit
+    assert "'journal/gold-zonen*'" in sichern
     leb = steps[-1]
     assert leb["name"] == "Lebenszeichen" and leb["continue-on-error"] is True and "!cancelled()" in leb["if"]
     assert "hc-ping.com/${HC_PING_KEY}/pine5m${pfad}?create=1" in leb["run"]

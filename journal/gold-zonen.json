@@ -1,0 +1,25 @@
+{
+ "bot": "gold-zonen",
+ "name": "Gold-Zonen Bruch (Rollenwechsel)",
+ "konto": "Account 2 …2606",
+ "stand": null,
+ "start": null,
+ "pausiert": null,
+ "status": "wartet auf den ersten Plan",
+ "regel": "Bruch mit Rollenwechsel: Schließt eine 4-Std.-Kerze jenseits einer Zone, liegt eine Limit-Order auf der alten Linie in Richtung des Bruchs (30 Kerzen gültig). Stop 0,25 ATR hinter der Zone, nach 2 R Einstand, Ziel die nächste Zone der Gegenseite ab 4 R, sonst 10 R, höchstens 14 Tage. Ein Trade und eine Order gleichzeitig, 5 € Risiko.",
+ "backtest": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest.",
+ "vorab": "suche/VORAB_gold_zonen_bot.yaml",
+ "vorab_ok": true,
+ "offen": [],
+ "orders": [],
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "trefferquote": null,
+  "summe_eur": 0.0,
+  "urteil": "läuft (0 von 40 Trades)"
+ },
+ "letzte_trades": [],
+ "blick": {}
+}

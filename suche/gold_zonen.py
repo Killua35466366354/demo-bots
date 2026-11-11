@@ -98,14 +98,22 @@ def _gruppen(g: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return i0, np.r_[i0[1:] - 1, len(g) - 1]
 
 
+def schluessel_4h(t) -> np.ndarray:
+    """Je Zeitpunkt (UTC, naiv) die 4-Std.-Kerze, in die er fällt: ihr Beginn in New-York-Zeit plus 6 Stunden (18 Uhr
+    New York steht als 0 Uhr des Folgetags). Gleiche Werte heißen gleiche Kerze, spätere Kerzen haben größere Werte."""
+    ny = pd.DatetimeIndex(t).tz_localize("UTC").tz_convert(NY).tz_localize(None)
+    return np.asarray((ny + pd.Timedelta(hours=6)).floor("4h").values)
+
+
 def markt(bars: pd.DataFrame) -> Markt:
-    """bars: 5-Minuten-Bid-Kerzen mit UTC-Index (naiv) und open, high, low, close."""
+    """bars: Bid-Kerzen mit UTC-Index (naiv) und open, high, low, close. Im Test 5-Minuten-Kerzen, im Demo-Bot
+    (gold/zonen_bot.py) Stundenkerzen. Die 4-Std.-Kerzen sind in beiden Fällen dieselben."""
     bars = bars[~bars.index.duplicated(keep="last")].sort_index()
     idx = pd.DatetimeIndex(bars.index)
     ny = idx.tz_localize("UTC").tz_convert(NY).tz_localize(None)
     o, h, lo, c = (bars[k].to_numpy(float) for k in ("open", "high", "low", "close"))
     tag = (ny + pd.Timedelta(hours=7)).normalize().values.astype("datetime64[D]").astype(np.int64)
-    i0, i1 = _gruppen(np.asarray((ny + pd.Timedelta(hours=6)).floor("4h").values))
+    i0, i1 = _gruppen(schluessel_4h(idx))
     o4, h4, l4, c4 = o[i0], np.maximum.reduceat(h, i0), np.minimum.reduceat(lo, i0), c[i1]
     # Hintergrund wie gold/hand_bot.py: Tagesschluss gegen den Schnitt der letzten 50 Tagesschlüsse, 4-Std.-Schluss
     # gegen EMA 50. Je 4-Std.-Kerze der Stand an ihrem Schluss, mit dem letzten Tag, der dann schon fertig ist.
@@ -236,6 +244,69 @@ def ziel_fuer(m: Markt, zz: list[Zone], k_best: np.ndarray, j: int, d: int, fill
             continue
         if d * (z.innen - fill) >= ZIEL_MIN_R * r and (bestes is None or d * (z.innen - bestes) < 0):
             bestes = z.innen
+    return float(bestes) if bestes is not None else fill + d * ZIEL_SONST_R * r
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Stand "jetzt" für den Demo-Bot (gold/zonen_bot.py, suche/VORAB_gold_zonen_bot.yaml). Die Rechnung oben bleibt, wie sie
+# ist. tests/test_gold_zonen.py prüft, dass jede Füllung der Rechnung vorher hier als wartende Order stand, mit
+# derselben Linie und demselben Stop, und dass das Ziel dasselbe ist.
+
+def fertige_4h(m: Markt, jetzt) -> int:
+    """Anzahl der 4-Std.-Kerzen von m, deren Zeit zum Zeitpunkt jetzt (UTC, naiv) um ist. Die letzte Kerze von m ist
+    live meist noch offen und zählt dann nicht."""
+    if not len(m.k_bis):
+        return 0
+    return int(np.searchsorted(schluessel_4h(m.t[m.k_bis]), schluessel_4h([jetzt])[0], side="left"))
+
+
+def zonen_name(m: Markt, z: Zone) -> str:
+    """Fester Name einer Zone: W (Widerstand) oder U (Unterstützung) und die 4-Std.-Kerze ihrer Bestätigung. Je Kerze
+    und Art gibt es höchstens eine Zone. Der Name bleibt gleich, auch wenn ältere Kerzen aus dem Abruf fallen."""
+    t = pd.Timestamp(schluessel_4h(m.t[m.k_bis[z.k_best]:m.k_bis[z.k_best] + 1])[0])
+    return f"{'U' if z.typ > 0 else 'W'}{t:%Y%m%d%H}"
+
+
+def wartende_bruch(m: Markt, n4: int, sp) -> tuple[list[dict], dict[int, list[float]]]:
+    """Stand nach den ersten n4 (fertigen) 4-Std.-Kerzen für B_alle.
+
+    Erster Wert: je gebrochener Zone, deren Rücklauf-Order jetzt noch gilt, name, d, linie (äußere Linie), innen, stop,
+    atr_bruch, bruch (Zeit der letzten Kerze der Bruch-Kerze), rest (so viele 4-Std.-Kerzen gilt sie noch, die laufende
+    mitgezählt) und beruehrt (der Kurs hat die Linie seit dem Bruch schon erreicht, gemessen an allen Kerzen von m:
+    Long Tief plus sp, Short Hoch; sp ist eine Zahl oder ein Wert je Kerze). Die Order gilt, solange die laufende
+    4-Std.-Kerze höchstens die 30. nach dem Bruch ist und seit dem Bruch keine fertige 4-Std.-Kerze zurück jenseits der
+    inneren Linie geschlossen hat.
+
+    Zweiter Wert: die inneren Linien der gültigen Zonen je Art (+1 Unterstützung, -1 Widerstand) als Ziele: bestätigt,
+    nicht gebrochen und nicht abgelaufen, wie in ziel_fuer."""
+    zz = zonen(m.o4[:n4], m.h4[:n4], m.l4[:n4], m.c4[:n4], m.atr4[:n4])
+    ask_l = m.l + sp
+    wartend = []
+    for z in zz:
+        kb = z.k_bruch
+        if kb < 0 or n4 > kb + RUECKLAUF_KERZEN:
+            continue
+        d = -z.typ
+        spaeter = m.c4[kb + 1:n4]
+        if np.any(spaeter < z.innen if d > 0 else spaeter > z.innen):
+            continue
+        j0 = int(m.k_bis[kb]) + 1
+        wartend.append({"name": zonen_name(m, z), "d": int(d), "linie": float(z.aussen), "innen": float(z.innen),
+                        "stop": float(z.innen - d * STOP_ATR * z.atr_bruch), "atr_bruch": float(z.atr_bruch),
+                        "bruch": str(pd.Timestamp(m.t[m.k_bis[kb]])), "rest": int(kb + RUECKLAUF_KERZEN - n4 + 1),
+                        "beruehrt": bool(np.any(ask_l[j0:] <= z.aussen if d > 0 else m.h[j0:] >= z.aussen))})
+    linien = {typ: sorted(float(z.innen) for z in zz
+                          if z.typ == typ and z.k_bruch < 0 and z.k_best + ABLAUF_KERZEN >= n4 - 1) for typ in (1, -1)}
+    return wartend, linien
+
+
+def ziel_kurs(linien: list[float], d: int, fill: float, r: float) -> float:
+    """Ziel wie ziel_fuer, aus den inneren Linien der Gegenseite (linien[-d] aus wartende_bruch): die nächstgelegene,
+    die mindestens 4 R entfernt ist, sonst 10 R."""
+    bestes = None
+    for x in linien:
+        if d * (x - fill) >= ZIEL_MIN_R * r and (bestes is None or d * (x - bestes) < 0):
+            bestes = x
     return float(bestes) if bestes is not None else fill + d * ZIEL_SONST_R * r
 
 

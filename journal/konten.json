@@ -58,7 +58,7 @@
    "name": "Account 3",
    "waehrung": "EUR",
    "balance": 995.27,
-   "frei": 499.17,
+   "frei": 499.2,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpjpy"
   },
@@ -75,8 +75,8 @@
    "id": "…9086",
    "name": "Account 5",
    "waehrung": "EUR",
-   "balance": 977.85,
-   "frei": 774.03,
+   "balance": 974.0,
+   "frei": 770.43,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us30"
   },
@@ -102,8 +102,8 @@
    "id": "…8878",
    "name": "US500",
    "waehrung": "EUR",
-   "balance": 991.46,
-   "frei": 787.64,
+   "balance": 988.33,
+   "frei": 886.54,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us100"
   },
@@ -111,13 +111,13 @@
    "id": "…4094",
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
-   "balance": 1000.56,
-   "frei": 496.84,
+   "balance": 996.63,
+   "frei": 996.63,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-11T11:31:30.196175",
+ "stand_utc": "2026-11-11T11:46:40.407582",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",
@@ -324,6 +324,17 @@
   "r6-vortag-eurusd-1atr": {
    "seit": "2026-11-05T17:31:33",
    "konto": "…2606"
+  }
+ },
+ "mitnutzer": {
+  "…5310": {
+   "bots": [
+    "gold-staffel",
+    "scalp-de40",
+    "scalp-j225",
+    "scalp-us100"
+   ],
+   "seit": "2026-11-11T11:46:39"
   }
  }
 }

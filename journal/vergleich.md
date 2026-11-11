@@ -11,14 +11,31 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 5 | Vortag EUR/USD | behalten | 0 | +0,00 | – | +0,00 | 1,3 Trades, +0,42 R | 0 von 40 Demo-Trades |
 | 6 | Trend-Rücksetzer Dow | labor | 0 | +0,00 | – | +0,00 | 0,2 Trades, +0,02 R | 0 von 40 Demo-Trades |
 | 7 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,05 R | 0 von 40 Demo-Trades |
-| 8 | Vortag GBP/USD | behalten | 0 | +0,00 | – | +0,00 | 1,3 Trades, +0,16 R | 0 von 40 Demo-Trades |
-| 9 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 0 | +0,00 | – | +0,00 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 8 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 0 | +0,00 | – | +0,00 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 9 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 1,3 Trades, +0,16 R | 1 von 40 Demo-Trades |
 | 10 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 1,6 Trades, +0,34 R | 1 von 40 Demo-Trades |
 | 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 12 | Vortag GBP/JPY | behalten | 1 | -1,02 | 0,00 | -4,08 | 0,8 Trades, +0,16 R | 1 von 40 Demo-Trades |
 
-**Kombi (6 Kern-Strategien auf einem Konto):** 1 Trades, -1,02 R, Gewinnfaktor 0,00, Soll bisher 4,1 Trades und +0,84 R. Aufstieg: 1 von 60 Demo-Trades.
+**Kombi (6 Kern-Strategien auf einem Konto):** 2 Trades, -2,02 R, Gewinnfaktor 0,00, Soll bisher 4,1 Trades und +0,84 R. Aufstieg: 2 von 60 Demo-Trades.
 
 | Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |
 |---|---|---|---|
-| 2026-11 | 1 | -1,02 | -10 € |
+| 2026-11 | 2 | -2,02 | -20 € |
+
+## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
+
+Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der Rangliste und nicht in der Kombi. Über jeden urteilt seine eigene Regeldatei, hier stehen sie nur, damit kein Urteil vergessen wird.
+
+| Bot | Konto | seit | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Urteil laut Bot | Regeldatei |
+|---|---|---|---|---|---|---|---|---|
+| Nasdaq Eröffnungskerze | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
+| DAX Eröffnungskerze | Account 1 | 2026-11-10 | 1 | -1,01 | 0,00 | -4,98 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
+| Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
+| Gold-Staffel | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml |
+| Gold Groß-Box | Account 6 | 2026-11-10 | 2 | -2,01 | 0,00 | -9,67 | läuft (2 von 40 Trades) | suche/VORAB_gold_grossbox.yaml |
+| Gold-Zonen Bruch | Account 2 | – | 0 | +0,00 | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml |
+| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 2 | -1,76 | 0,00 | -8,78 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml |
+| Pine-Gold TP 3 € | US500 | 2026-11-10 | 3 | -2,02 | 0,00 | -10,02 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml |
+
+Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

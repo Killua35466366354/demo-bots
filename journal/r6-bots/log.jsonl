@@ -69,3 +69,4 @@
 {"time": "2026-11-11T09:31:38.751753", "bot": "r6-vortag-gbpusd", "event": "Stop-Orders gelegt", "ph": 1.34586, "pl": 1.33113, "long": 1.34599, "short": 1.33113, "stop_abstand": 0.00029061571115518583, "atr15": 0.0005812314223103717, "size": 12500.0, "risiko_eur": 4.72, "margin_eur": 498.15}
 {"time": "2026-11-11T09:31:38.751753", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders gelegt", "ph": 212.641, "pl": 211.428, "long": 212.668, "short": 211.428, "stop_abstand": 0.047763100640641154, "atr15": 0.09552620128128231, "size": 12400.0, "risiko_eur": 5.24, "margin_eur": 494.18}
 {"time": "2026-11-11T11:31:36.755063", "bot": "r6-vortag-gbpusd", "event": "Stop-Order ausgelöst", "side": "short", "entry": 1.33112, "order": 1.33113, "rutschen_pips": 0.1, "dealId": "00000000-723b-edaa-049c-a8a80015549e"}
+{"time": "2026-11-11T11:47:06.027173", "bot": "r6-vortag-gbpusd", "event": "vom Broker geschlossen", "exit": 1.33142, "pct": -0.0225, "reason": "Stop beim Broker"}

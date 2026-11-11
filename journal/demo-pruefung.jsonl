@@ -9,3 +9,4 @@
 {"time": "2026-11-05T11:46:30", "event": "freies Konto vergeben", "an": "r6-vortag-gbpjpy", "konto": "…4494"}
 {"time": "2026-11-05T17:31:33", "event": "Mess-Konto vergeben", "bot": "r6-vortag-eurusd-1atr", "konto": "…2606", "why": "Kirons Ja vom 05.11.2026 17:07 UTC (suche/VORAB_messbots.yaml)"}
 {"time": "2026-11-10T10:46:37", "event": "Bot abgeschaltet", "bot": "oil-brent", "an": null, "why": "Kirons Wort vom 10.11.2026 10:35 UTC: Konto frei machen. Runde-3-Urteil durchgefallen, 0 Trades in rund 4 Handelstagen Labor, 2025 -177 €; Account 1 geht an den nächsten Bot, der seine Prüfung besteht und öfter handelt."}
+{"time": "2026-11-11T11:46:39", "event": "freies Konto bleibt bei den Mitnutzern", "konto": "…5310", "bots": ["gold-staffel", "scalp-de40", "scalp-j225", "scalp-us100"], "why": "auf dem Konto handeln Bots mit festem Konto (suche/mitnutzer.py), es wird nie automatisch vergeben"}

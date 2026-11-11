@@ -2,10 +2,10 @@
  "bot": "gold-grossbox",
  "name": "Gold Groß-Box (Runde 12d)",
  "konto": "Account 6 …3678",
- "stand": "2026-11-11T01:16:52",
+ "stand": "2026-11-11T01:31:43",
  "start": "2026-11-10T18:47:49",
  "pausiert": null,
- "status": "2 offen (Verkauf ab 4026.75, Verkauf ab 4028.06), große Box: Verkauf",
+ "status": "1 offen (Verkauf ab 4026.75), große Box: Verkauf",
  "regel": "Große Box aus Runde 12d: 1-Std.-SuperTrend 20/2 und 4-Std.-Strukturbruch gleich, Einstiege nur in Boxrichtung (Boxbeginn, 15-Min.-SuperTrend 20/1,75, 15-Min.-Strukturbruch), höchstens 3 offen. Ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box. 5 € Risiko je Trade.",
  "backtest": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
  "vorab": "suche/VORAB_gold_grossbox.yaml",
@@ -35,46 +35,58 @@
      "offen": true
     }
    ]
-  },
-  {
-   "id": "2026-11-11T01:15",
-   "art": "b",
-   "richtung": -1,
-   "einstieg_zeit": "2026-11-11 01:15:00",
-   "dist": 12.01,
-   "tp1": false,
-   "einstand": null,
-   "teile": [
-    {
-     "size": 0.15,
-     "entry": 4028.06,
-     "stop": 4040.07,
-     "ziel": 4016.05,
-     "offen": true
-    },
-    {
-     "size": 0.3,
-     "entry": 4028.39,
-     "stop": 4040.4,
-     "ziel": null,
-     "offen": true
-    }
-   ]
   }
  ],
  "zusammenfassung": {
-  "trades": 0,
-  "pf_r": null,
-  "summe_r": 0.0,
-  "trefferquote": null,
-  "summe_eur": 0.0,
-  "urteil": "läuft (0 von 40 Trades)"
+  "trades": 1,
+  "pf_r": 0.0,
+  "summe_r": -1.01,
+  "trefferquote": 0.0,
+  "summe_eur": -4.87,
+  "urteil": "läuft (1 von 40 Trades)"
  },
- "letzte_trades": [],
+ "letzte_trades": [
+  {
+   "id": "2026-11-11T01:15",
+   "art": "b",
+   "signal": "2026-11-11 01:15:00",
+   "einstieg_zeit": "2026-11-11 01:15:00",
+   "opened_utc": "2026-11-11T01:16:52",
+   "dist": 12.01,
+   "richtung": -1,
+   "seite": "Verkauf",
+   "size": 0.45,
+   "entry": 4028.28,
+   "exit": 4040.37,
+   "closed_utc": "2026-11-11T01:31:43",
+   "r": -1.006,
+   "pnl_usd": -5.44,
+   "pnl_eur": -4.87,
+   "teile": [
+    {
+     "dealId": "00000000-7247-944a-049c-70210015549e",
+     "size": 0.15,
+     "entry": 4028.06,
+     "exit": 4040.14,
+     "grund": "stop",
+     "ziel_nr": 1
+    },
+    {
+     "dealId": "00000000-7247-9460-049c-70210015549e",
+     "size": 0.3,
+     "entry": 4028.39,
+     "exit": 4040.48,
+     "grund": "stop",
+     "ziel_nr": 2
+    }
+   ],
+   "erstes_ziel": false
+  }
+ ],
  "blick": {
-  "kerzen": 2125,
-  "letzte_kerze": "2026-11-11 01:00:00",
-  "kurs": 4029.08,
+  "kerzen": 2126,
+  "letzte_kerze": "2026-11-11 01:15:00",
+  "kurs": 4041.05,
   "grosse_box": "Verkauf",
   "modell_offen": [
    {
@@ -83,13 +95,6 @@
     "art": "a",
     "einstieg": 4027.09,
     "stop": 4054.95
-   },
-   {
-    "einstieg_zeit": "2026-11-11 01:15:00",
-    "richtung": -1,
-    "art": "b",
-    "einstieg": 4029.08,
-    "stop": 4041.09
    }
   ]
  }

@@ -9,7 +9,7 @@ festgelegtes Urteil nach einer bestimmten Zahl von Trades.
 | Workflow | Was | Wann |
 |---|---|---|
 | `gold-bot.yml` | Gold-Bot (Strategien C und B aus `gold/strategies/`, Stop 1 x ATR), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) | jede Stunde zur Minute 11 |
-| `demo-bots.yml` | Kern-, Labor- und Mess-Bots (Vortag-Bots, US-Index-Rücksetzer, Nasdaq Noise-Band Long, London, Noise USD/JPY), Gold-Hand-Bot, Gold Groß-Box, Prüfung nach 15/40 Trades, Rutsch-Regel und Frist, Vergleich aller Bots, Wache | jeden Tag rund um die Uhr, alle 15 Minuten |
+| `demo-bots.yml` | Kern-, Labor- und Mess-Bots (Vortag-Bots, US-Index-Rücksetzer, Nasdaq Noise-Band Long, London, Noise USD/JPY), Gold-Hand-Bot, Gold Groß-Box, Gold 4-Std.-Ausbruch, Prüfung nach 15/40 Trades, Rutsch-Regel und Frist, Vergleich aller Bots, Wache | jeden Tag rund um die Uhr, alle 15 Minuten |
 | `pine5m.yml` | Pine-Gold-Bots, Scalper (Nasdaq, DAX, Nikkei), Gold-Staffel, Gold-Zonen Bruch | alle 5 Minuten |
 | `tests.yml` | alle Tests | bei jedem Pull Request |
 

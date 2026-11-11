@@ -50,7 +50,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Vergleich, Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, Vergleich, Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -65,20 +65,20 @@ Alarme bei healthchecks.io (E-Mail an Kiron): `gold-bot`, `demo-bots`, `pine5m` 
 Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Quelle, keine zweite Liste führen.
 
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
-- `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Pine-Bots,
-  Gold-Hand).
+- `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
+  4-Std.-Ausbruch, Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
 eingetragen.
 
-Gruppen (Stand 11.11.2026, 19 Bots):
+Gruppen (Stand 11.11.2026, 20 Bots):
 
 - **Kern und Kombi** (Test bestanden): US500- und US100-Rücksetzer, Nasdaq Noise-Band, Vortag EUR/USD, GBP/USD, GBP/JPY.
 - **Labor** (knapp durchgefallen, läuft auf Kirons Wunsch): Dow-Rücksetzer, London GBP/USD, Noise USD/JPY.
 - **Mess-Bot:** Vortag EUR/USD mit 1-ATR-Stop. Misst nur, wird nie verbessert.
-- **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`, `gold-zonen`. Sechs Bots auf einem Markt, sie
-  verlieren oft gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten.
+- **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`, `gold-zonen`, `gold-ausbruch4h`. Sieben Bots auf
+  einem Markt, sie verlieren oft gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten.
 - **Scalper** (Test durchgefallen, läuft auf Kirons Wunsch): Nasdaq, DAX, Nikkei.
 
 ## Gold-Bot C/B
@@ -98,6 +98,18 @@ Gruppen (Stand 11.11.2026, 19 Bots):
   offenen Trade schließen. Das nie lockern.
 - Die Rechnung (Zonen, wartende Orders, Ziel) kommt aus `suche/gold_zonen.py`, denselben Funktionen wie im Test.
   `tests/test_gold_zonen.py` prüft, dass Bot und Test dieselbe Order sehen.
+
+## Gold 4-Std.-Ausbruch
+
+- `gold/ausbruch4h_bot.py`, Regeln `suche/VORAB_gold_ausbruch4h_bot.yaml` (versiegelt am 11.11.2026). Der nächste
+  Kandidat der Gold-Matrix (`ausbruch.4h.trend_hoch.swing_4h.zeit_4h`) auf Account 4, den er mit dem Kern-Bot Vortag
+  EUR/USD teilt. Der Test ist knapp nicht bestanden (`suche/ergebnis_gold_matrix.md`). Der Bot läuft als Vorwärtstest
+  auf Kirons Wahl vom 11.11.2026, Urteil nach 40 Trades. Im Test brachte ein Trade im Schnitt nur +0,15 R.
+- Signal, Tagestrend, Sperre und Stop-Abstand rechnen die Funktionen des Tests (`suche/gold_matrix.py`). Alle Zahlen
+  der Regel kommen aus den versiegelten Dateien der Gold-Matrix. `tests/test_ausbruch4h_bot.py` und
+  `python -m suche.gold_ausbruch4h_gegenprobe <Datenordner>` prüfen, dass Bot und Test dieselben Einstiege, Stops und
+  Ausstiege sehen.
+- Höchstens ein Trade. Jede 4-Std.-Kerze bekommt höchstens eine Order, eine gescheiterte Order wird nie wiederholt.
 
 ## Arbeiten im Repo
 

@@ -556,9 +556,10 @@ class Lauf:
             conf = open_market(self.client, EPIC, d, {"size": size, "stop_dist": dist, "tp_dist": None}) or {}
         except Exception as err:            # noqa: BLE001 - kein zweiter Versuch, damit nichts doppelt entsteht
             self.ev("Order ohne Bestätigung", **info, fehler=str(err)[:200])
+            fertig(f"{SEITE[d]} gesendet, Bestätigung fehlt", **kurz_info)
         if conf is not None and str(conf.get("dealStatus") or "").upper() == "REJECTED":
             self.ev("Order abgelehnt", **info, grund=conf.get("reason"))
-            return
+            return fertig(f"Signal, aber die Order wurde abgelehnt ({conf.get('reason')})", **kurz_info)
         try:
             jetzt = [p["position"] for p in self.client.positions() if p.get("market", {}).get("epic") == EPIC]
         except Exception as err:            # noqa: BLE001
@@ -566,11 +567,11 @@ class Lauf:
             jetzt = None
         neu = [p for p in jetzt or [] if str(p.get("dealId")) not in vorher
                and p.get("direction", "BUY" if d > 0 else "SELL") == ("BUY" if d > 0 else "SELL")]
-        if len(neu) == 1:
-            return self.uebernehmen(neu[0], plan, self.stamp)
         deal = ((conf or {}).get("affectedDeals") or [{}])[0].get("dealId") or (conf or {}).get("dealId")
-        if conf and deal:                                   # bestätigt, aber noch nicht in der Liste der Positionen
-            return self.uebernehmen({"dealId": deal, "level": conf.get("level")}, plan, self.stamp)
+        if len(neu) == 1 or (conf and deal):                # sonst bestätigt, aber noch nicht in der Liste der Positionen
+            fertig(f"{SEITE[d]} eröffnet", **kurz_info)
+            return self.uebernehmen(neu[0] if len(neu) == 1 else {"dealId": deal, "level": conf.get("level")}, plan,
+                                    self.stamp)
         # keine Bestätigung und keine Position gefunden: Der nächste Lauf sucht sie an Richtung und Größe
         self.st["ungeklaert"] = {**plan, "seit": self.stamp, "vorher": sorted(vorher)}
 

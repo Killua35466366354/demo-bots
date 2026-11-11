@@ -2,7 +2,8 @@
 
 Projekt-Prüfung vom 11.11.2026, Befund B-04: Die drei Scalper und die Gold-Staffel handeln auf Account 1 (Kirons Wort
 vom 10.11.2026 12:16 und 16:37 UTC), die Pine-Bots auf Account 5 und "US500", die Groß-Box auf Account 6, der
-Gold-Zonen-Bot auf Account 2 (Kirons Wahl vom 11.11.2026 10:20 UTC). Ihr Konto steht als feste Konstante in ihrem Code,
+Gold-Zonen-Bot auf Account 2 (Kirons Wahl vom 11.11.2026 10:20 UTC), der Gold 4-Std.-Ausbruch auf Account 4 (Kirons
+Wahl vom 11.11.2026 19:59 UTC). Ihr Konto steht als feste Konstante in ihrem Code,
 nicht in der Zuordnung, denn dort stehen nur Bots unter der Prüfung nach 15/40 Trades (suche/VORAB_wechsel.yaml).
 Account 1 steht deshalb in journal/konten.json weiter unter "frei". Das soll auch so bleiben: "frei" schützt das Konto
 vor der Erst-Zuordnung in gold/bot/konten.py. Die Prüfung (suche/demo_pruefung.py) würde ein freies Konto aber an die
@@ -30,7 +31,7 @@ def bots() -> list[dict]:
 
     Ein Fehler beim Lesen eines Bots wird nicht geschluckt: Wer die Liste braucht, muss wissen, dass sie unvollständig
     wäre (suche/demo_pruefung.py vergibt dann gar kein freies Konto)."""
-    from gold import grossbox_bot, hand_bot, pine5m_bot, zonen_bot
+    from gold import ausbruch4h_bot, grossbox_bot, hand_bot, pine5m_bot, zonen_bot
     from suche import gold_staffel_bot, scalper_bot
 
     out = [{"bot": b.bot_id, "konto": scalper_bot.KONTO, "konto_name": scalper_bot.KONTO_NAME, "neu": True,
@@ -41,6 +42,8 @@ def bots() -> list[dict]:
                 "neu": True, "quelle": "gold/grossbox_bot.py"})
     out.append({"bot": zonen_bot.BOT_ID, "konto": zonen_bot.KONTO, "konto_name": zonen_bot.KONTO_NAME,
                 "neu": True, "quelle": "gold/zonen_bot.py"})
+    out.append({"bot": ausbruch4h_bot.BOT_ID, "konto": ausbruch4h_bot.KONTO,
+                "konto_name": ausbruch4h_bot.KONTO_NAME, "neu": True, "quelle": "gold/ausbruch4h_bot.py"})
     out += [{"bot": b.bot_id, "konto": b.konto, "konto_name": b.konto_name, "neu": bool(b.neu),
              "quelle": "gold/pine5m_bot.py"} for b in pine5m_bot.BOTS]
     # Der Gold-Hand-Bot öffnet seit dem 10.11.2026 nichts mehr (NEUE_EINSTIEGE), betreut aber offene Trades weiter.

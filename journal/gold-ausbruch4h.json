@@ -1,0 +1,24 @@
+{
+ "bot": "gold-ausbruch4h",
+ "name": "Gold 4-Std.-Ausbruch mit Tagestrend",
+ "konto": "Account 4 …1790",
+ "stand": null,
+ "start": null,
+ "pausiert": null,
+ "status": "kein Trade offen, wartet auf den Schluss der nächsten 4-Std.-Kerze",
+ "regel": "4-Std.-Ausbruch mit Tagestrend (Gold-Matrix, ausbruch.4h.trend_hoch.swing_4h.zeit_4h): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen. Ausstieg nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade, 5 € Risiko.",
+ "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
+ "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
+ "vorab_ok": true,
+ "offen": [],
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "trefferquote": null,
+  "summe_eur": 0.0,
+  "urteil": "läuft (0 von 40 Trades)"
+ },
+ "letzte_trades": [],
+ "blick": {}
+}

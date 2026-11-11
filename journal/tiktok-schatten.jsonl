@@ -92,3 +92,5 @@
 {"zeit": "2026-11-11T02:11:23+00:00", "strategie": "gross_box_kerze", "ereignis": "fertig", "einstieg_zeit": "2026-11-11 01:15:00", "richtung": -1, "einstieg": 4027.07, "grund": "stop", "ergebnis_r": -1.0}
 {"zeit": "2026-11-11T02:11:23+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-11 01:15:00", "richtung": -1, "einstieg": 4027.07, "grund": "stop", "ergebnis_r": -1.0}
 {"zeit": "2026-11-11T06:11:27+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 19:00:00", "richtung": -1, "einstieg": 4027.09, "grund": "stop", "ergebnis_r": -1.008}
+{"zeit": "2026-11-11T07:11:28+00:00", "strategie": "box_1h", "ereignis": "fertig", "einstieg_zeit": "2026-11-10 10:00:00", "richtung": -1, "einstieg": 4087.24, "grund": "gegensignal", "ergebnis_r": 0.774}
+{"zeit": "2026-11-11T07:11:28+00:00", "strategie": "box_1h", "ereignis": "einstieg", "einstieg_zeit": "2026-11-11 06:00:00", "richtung": 1, "einstieg": 4058.9, "stop": 4024.33, "tp1": 4093.47, "tp2": null, "tp3": null}

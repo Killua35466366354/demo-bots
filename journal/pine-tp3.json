@@ -3,12 +3,24 @@
  "name": "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)",
  "konto": "…8878",
  "konto_name": "US500",
- "stand": "2026-11-11T08:18:30",
+ "stand": "2026-11-11T08:38:30",
  "start": "2026-11-10T03:48:53",
  "regel": "Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, nie gegen die Gegenrichtung. Take-Profit +3 €, kein Stop beim Einstieg. Prüfer: erst 3 Std. nichts, dann bei Fehltrade (0,5 R im Minus seit dem Einstieg) Stop 1 R und Ziel am Einstieg, nach 24 Std. im Plus raus. Äußerste Grenze: Notausstieg aller eigenen Trades bei zusammen -250 €.",
  "vorab": "suche/VORAB_pine5m.yaml",
  "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
- "offen": [],
+ "offen": [
+  {
+   "dealId": "00000000-7271-b1cc-049c-a0c30015549e",
+   "richtung": 1,
+   "size": 0.56,
+   "entry": 4059.91,
+   "dist": 9.82,
+   "einstieg_kerze": "2026-11-11 08:30:00",
+   "strategie": "A Long",
+   "opened_utc": "2026-11-11T08:38:30",
+   "tp": 4065.88
+  }
+ ],
  "zusammenfassung": {
   "trades": 2,
   "pf_r": 0.002,

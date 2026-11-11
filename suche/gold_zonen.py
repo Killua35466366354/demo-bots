@@ -379,7 +379,11 @@ def bewerte(trades: list[dict], robust: list[dict]) -> dict:
     return {**k, "je_woche": round(k["trades"] / wochen, 2), "robust_pf": kennzahlen(fenster(robust, HAUPT_VON, HAUPT_BIS))["pf"],
             "h1": (h1["pf"], h1["trades"]), "h2": (h2["pf"], h2["trades"]), "j2026": (j26["pf"], j26["trades"]),
             "long": kennzahlen([t for t in h if t["d"] > 0]), "short": kennzahlen([t for t in h if t["d"] < 0]),
-            "gruende": gr, "vor_2024": kennzahlen(fenster(trades, pd.Timestamp("2015-01-01"), HAUPT_VON))}
+            "gruende": gr, "vor_2024": kennzahlen(fenster(trades, pd.Timestamp("2015-01-01"), HAUPT_VON)),
+            # Auskunft: Hängt das Ergebnis an wenigen Trades? Summe ohne die 3 größten Gewinner, und der größte allein.
+            "ohne_top3_r": round(float(sum(sorted(t["r"] for t in h)[:-3])), 1) if len(h) > 3 else None,
+            "groesster_r": round(float(max(t["r"] for t in h)), 1) if h else None,
+            "je_jahr": {str(j): round(float(sum(t["r"] for t in h if t["zeit"].year == j)), 1) for j in (2024, 2025, 2026)}}
 
 
 def _z(x, n: int = 2) -> str:
@@ -404,18 +408,22 @@ def bericht(res: dict) -> str:
     zeilen += [f"- {name}: {', '.join(v['fehlt']) if v['fehlt'] else 'nichts, alle Hürden geschafft'}"
                for name, v in res["varianten"].items()]
     zeilen += ["", "## Auskunft", "",
-               "| Variante | Long (Trades, GF, R) | Short (Trades, GF, R) | größter Rückgang | Ausstiege | 2015 bis 2023 "
-               "(Trades, GF, R) |", "|---|---|---|---|---|---|"]
+               "| Variante | Long (Trades, GF, R) | Short (Trades, GF, R) | größter Rückgang | Ausstiege | 2024, 2025, 2026 "
+               "in R | größter Gewinner | Summe ohne die 3 größten | Zufall Median | 2015 bis 2023 (Trades, GF, R) |",
+               "|---|---|---|---|---|---|---|---|---|---|"]
     for name, v in res["varianten"].items():
         lo, sh, alt = v["long"], v["short"], v["vor_2024"]
         gr = ", ".join(f"{k} {n}" for k, n in sorted(v["gruende"].items(), key=lambda x: -x[1]))
         zeilen.append(f"| {name} | {lo['trades']}, {_z(lo['pf'])}, {_z(lo['summe_r'], 1)} | {sh['trades']}, {_z(sh['pf'])}, "
-                      f"{_z(sh['summe_r'], 1)} | {_z(v['rueckgang_r'], 1)} R | {gr or '–'} | {alt['trades']}, "
+                      f"{_z(sh['summe_r'], 1)} | {_z(v['rueckgang_r'], 1)} R | {gr or '–'} | "
+                      f"{', '.join(_z(x, 1) for x in v['je_jahr'].values())} | {_z(v['groesster_r'], 1)} R | "
+                      f"{_z(v['ohne_top3_r'], 1)} R | {_z(v['zufall']['median_r'], 1)} R | {alt['trades']}, "
                       f"{_z(alt['pf'])}, {_z(alt['summe_r'], 1)} |")
     zeilen += ["", "Bestanden heißt: mindestens 100 Trades im Hauptfenster, Gewinnfaktor ab 1,2, mit 1,5-fachen Kosten ab "
                "1,0, beide Hälften und 2026 über 1,0, mindestens 95 % der Zufallsläufe geschlagen und Holm über alle 6 "
-               "Varianten. Der Zufallslauf eröffnet in dieselbe Richtung zu zufälligen Zeiten im selben Monat. Keine "
-               "Nachbesserung nach dem Ergebnis.", ""]
+               "Varianten. Der Zufallslauf eröffnet in dieselbe Richtung zu zufälligen Zeiten im selben Monat, mit demselben "
+               "Stop-Abstand, demselben Ziel und derselben Führung. \"Zufall Median\" ist die Summe, die so ein Zufallslauf "
+               "in der Mitte schafft. Keine Nachbesserung nach dem Ergebnis.", ""]
     return "\n".join(zeilen)
 
 

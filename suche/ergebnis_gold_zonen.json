@@ -1,0 +1,409 @@
+{
+ "vorab_sha256": "1975a3edd47c16f4e14569ebdb8d8021fc5d9cbe7147522c4599b071429de10b",
+ "zonen": 2313,
+ "daten": [
+  "2015-01-01 23:00:00",
+  "2026-10-30 20:55:00"
+ ],
+ "varianten": {
+  "A_aussen_alle": {
+   "trades": 352,
+   "pf": 1.16,
+   "summe_r": 44.3,
+   "treffer": 5.4,
+   "rueckgang_r": 52.1,
+   "je_woche": 2.38,
+   "robust_pf": 0.97,
+   "h1": [
+    0.92,
+    178
+   ],
+   "h2": [
+    1.39,
+    174
+   ],
+   "j2026": [
+    2.02,
+    95
+   ],
+   "long": {
+    "trades": 162,
+    "pf": 1.74,
+    "summe_r": 88.9,
+    "treffer": 7.4,
+    "rueckgang_r": 25.3
+   },
+   "short": {
+    "trades": 190,
+    "pf": 0.7,
+    "summe_r": -44.6,
+    "treffer": 3.7,
+    "rueckgang_r": 100.9
+   },
+   "gruende": {
+    "stop": 265,
+    "einstand": 68,
+    "ziel": 18,
+    "zeit": 1
+   },
+   "vor_2024": {
+    "trades": 1243,
+    "pf": 0.41,
+    "summe_r": -619.3,
+    "treffer": 3.2,
+    "rueckgang_r": 636.0
+   },
+   "ohne_top3_r": -80.3,
+   "groesster_r": 73.9,
+   "je_jahr": {
+    "2024": -22.6,
+    "2025": -7.2,
+    "2026": 74.1
+   },
+   "zufall": {
+    "geschlagen_pct": 93.8,
+    "p": 0.062,
+    "median_r": -54.9
+   },
+   "holm": false,
+   "bestanden": false,
+   "fehlt": [
+    "GF 1.16",
+    "1,5x Spread 0.97",
+    "1. Hälfte 0.92",
+    "Zufallsvergleich"
+   ]
+  },
+  "A_aussen_hintergrund": {
+   "trades": 173,
+   "pf": 1.7,
+   "summe_r": 89.4,
+   "treffer": 6.9,
+   "rueckgang_r": 22.0,
+   "je_woche": 1.17,
+   "robust_pf": 1.36,
+   "h1": [
+    1.21,
+    87
+   ],
+   "h2": [
+    2.16,
+    86
+   ],
+   "j2026": [
+    3.4,
+    49
+   ],
+   "long": {
+    "trades": 110,
+    "pf": 2.09,
+    "summe_r": 87.1,
+    "treffer": 7.3,
+    "rueckgang_r": 23.7
+   },
+   "short": {
+    "trades": 63,
+    "pf": 1.05,
+    "summe_r": 2.3,
+    "treffer": 6.3,
+    "rueckgang_r": 28.6
+   },
+   "gruende": {
+    "stop": 126,
+    "einstand": 35,
+    "ziel": 11,
+    "zeit": 1
+   },
+   "vor_2024": {
+    "trades": 639,
+    "pf": 0.51,
+    "summe_r": -261.6,
+    "treffer": 3.8,
+    "rueckgang_r": 300.1
+   },
+   "ohne_top3_r": -33.6,
+   "groesster_r": 73.9,
+   "je_jahr": {
+    "2024": -11.6,
+    "2025": 15.8,
+    "2026": 85.2
+   },
+   "zufall": {
+    "geschlagen_pct": 92.1,
+    "p": 0.079,
+    "median_r": 3.9
+   },
+   "holm": false,
+   "bestanden": false,
+   "fehlt": [
+    "Zufallsvergleich"
+   ]
+  },
+  "A_innen_alle": {
+   "trades": 284,
+   "pf": 0.95,
+   "summe_r": -11.3,
+   "treffer": 12.0,
+   "rueckgang_r": 54.2,
+   "je_woche": 1.92,
+   "robust_pf": 0.88,
+   "h1": [
+    1.1,
+    145
+   ],
+   "h2": [
+    0.8,
+    139
+   ],
+   "j2026": [
+    0.98,
+    84
+   ],
+   "long": {
+    "trades": 144,
+    "pf": 1.44,
+    "summe_r": 46.2,
+    "treffer": 17.4,
+    "rueckgang_r": 14.6
+   },
+   "short": {
+    "trades": 140,
+    "pf": 0.45,
+    "summe_r": -57.5,
+    "treffer": 6.4,
+    "rueckgang_r": 70.2
+   },
+   "gruende": {
+    "stop": 202,
+    "einstand": 48,
+    "zeit": 4,
+    "ziel": 30
+   },
+   "vor_2024": {
+    "trades": 923,
+    "pf": 0.7,
+    "summe_r": -213.2,
+    "treffer": 9.3,
+    "rueckgang_r": 217.3
+   },
+   "ohne_top3_r": -48.3,
+   "groesster_r": 17.7,
+   "je_jahr": {
+    "2024": 11.9,
+    "2025": -21.6,
+    "2026": -1.5
+   },
+   "zufall": {
+    "geschlagen_pct": 58.0,
+    "p": 0.42,
+    "median_r": -19.0
+   },
+   "holm": false,
+   "bestanden": false,
+   "fehlt": [
+    "GF 0.95",
+    "1,5x Spread 0.88",
+    "2. Hälfte 0.8",
+    "2026 0.98",
+    "Zufallsvergleich"
+   ]
+  },
+  "A_innen_hintergrund": {
+   "trades": 167,
+   "pf": 1.48,
+   "summe_r": 56.6,
+   "treffer": 16.8,
+   "rueckgang_r": 15.9,
+   "je_woche": 1.13,
+   "robust_pf": 1.38,
+   "h1": [
+    1.63,
+    87
+   ],
+   "h2": [
+    1.33,
+    80
+   ],
+   "j2026": [
+    1.47,
+    49
+   ],
+   "long": {
+    "trades": 111,
+    "pf": 1.82,
+    "summe_r": 63.9,
+    "treffer": 20.7,
+    "rueckgang_r": 8.8
+   },
+   "short": {
+    "trades": 56,
+    "pf": 0.81,
+    "summe_r": -7.3,
+    "treffer": 8.9,
+    "rueckgang_r": 31.3
+   },
+   "gruende": {
+    "stop": 112,
+    "einstand": 27,
+    "ziel": 23,
+    "zeit": 5
+   },
+   "vor_2024": {
+    "trades": 603,
+    "pf": 0.7,
+    "summe_r": -141.8,
+    "treffer": 8.8,
+    "rueckgang_r": 150.0
+   },
+   "ohne_top3_r": 19.4,
+   "groesster_r": 17.7,
+   "je_jahr": {
+    "2024": 25.6,
+    "2025": 13.9,
+    "2026": 17.1
+   },
+   "zufall": {
+    "geschlagen_pct": 69.5,
+    "p": 0.305,
+    "median_r": 39.9
+   },
+   "holm": false,
+   "bestanden": false,
+   "fehlt": [
+    "Zufallsvergleich"
+   ]
+  },
+  "B_news": {
+   "trades": 31,
+   "pf": 2.25,
+   "summe_r": 25.9,
+   "treffer": 16.1,
+   "rueckgang_r": 10.5,
+   "je_woche": 0.21,
+   "robust_pf": 2.19,
+   "h1": [
+    1.2,
+    20
+   ],
+   "h2": [
+    4.76,
+    11
+   ],
+   "j2026": [
+    3.3,
+    4
+   ],
+   "long": {
+    "trades": 15,
+    "pf": 3.83,
+    "summe_r": 27.0,
+    "treffer": 26.7,
+    "rueckgang_r": 6.4
+   },
+   "short": {
+    "trades": 16,
+    "pf": 0.91,
+    "summe_r": -1.1,
+    "treffer": 6.2,
+    "rueckgang_r": 10.2
+   },
+   "gruende": {
+    "stop": 20,
+    "einstand": 6,
+    "ziel": 4,
+    "zeit": 1
+   },
+   "vor_2024": {
+    "trades": 18,
+    "pf": 0.65,
+    "summe_r": -5.6,
+    "treffer": 11.1,
+    "rueckgang_r": 13.0
+   },
+   "ohne_top3_r": -3.4,
+   "groesster_r": 10.1,
+   "je_jahr": {
+    "2024": -3.9,
+    "2025": 22.8,
+    "2026": 7.1
+   },
+   "zufall": {
+    "geschlagen_pct": 76.2,
+    "p": 0.238,
+    "median_r": 14.7
+   },
+   "holm": false,
+   "bestanden": false,
+   "fehlt": [
+    "nur 31 Trades",
+    "Zufallsvergleich"
+   ]
+  },
+  "B_alle": {
+   "trades": 182,
+   "pf": 1.51,
+   "summe_r": 68.0,
+   "treffer": 15.4,
+   "rueckgang_r": 33.2,
+   "je_woche": 1.23,
+   "robust_pf": 1.46,
+   "h1": [
+    1.58,
+    92
+   ],
+   "h2": [
+    1.45,
+    90
+   ],
+   "j2026": [
+    1.63,
+    50
+   ],
+   "long": {
+    "trades": 93,
+    "pf": 2.22,
+    "summe_r": 80.7,
+    "treffer": 20.4,
+    "rueckgang_r": 18.0
+   },
+   "short": {
+    "trades": 89,
+    "pf": 0.81,
+    "summe_r": -12.7,
+    "treffer": 10.1,
+    "rueckgang_r": 36.7
+   },
+   "gruende": {
+    "ziel": 23,
+    "stop": 125,
+    "einstand": 29,
+    "zeit": 4,
+    "datenende": 1
+   },
+   "vor_2024": {
+    "trades": 690,
+    "pf": 0.9,
+    "summe_r": -49.9,
+    "treffer": 10.1,
+    "rueckgang_r": 91.2
+   },
+   "ohne_top3_r": 38.1,
+   "groesster_r": 10.1,
+   "je_jahr": {
+    "2024": 24.0,
+    "2025": 21.4,
+    "2026": 22.6
+   },
+   "zufall": {
+    "geschlagen_pct": 78.2,
+    "p": 0.218,
+    "median_r": 41.6
+   },
+   "holm": false,
+   "bestanden": false,
+   "fehlt": [
+    "Zufallsvergleich"
+   ]
+  }
+ }
+}

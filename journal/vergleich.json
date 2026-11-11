@@ -599,13 +599,13 @@
    "konto": "Account 5",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 2,
+    "trades": 3,
     "gewonnen": 0,
     "treffer_pct": 0.0,
-    "summe_r": -1.76,
+    "summe_r": -3.73,
     "pf_r": 0.0,
-    "eur": -8.78,
-    "rueckgang_r": 1.76
+    "eur": -18.54,
+    "rueckgang_r": 3.73
    },
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_pine5m_abfang4h.yaml",

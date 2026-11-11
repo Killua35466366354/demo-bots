@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-11T09:31:38.751753",
+ "stand_utc": "2026-11-11T09:46:38.592202",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -204,7 +204,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T09:31:38.751753",
+    "zeit": "2026-11-11T09:46:38.592202",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -370,7 +370,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T09:31:38.751753",
+    "zeit": "2026-11-11T09:46:38.592202",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.918 > 0,866): heute kein Trade"
@@ -669,12 +669,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T09:31:38.751753",
+    "zeit": "2026-11-11T09:46:38.592202",
     "action": "none",
     "why": [
-     "schon um 03:15 New York ausgebrochen (vor 4:30): heute kein Trade"
+     "heute erledigt"
     ],
-    "bar": "2026-11-11 09:15:00"
+    "bar": null
    },
    "zusammenfassung": {
     "trades": 0,
@@ -877,12 +877,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T09:31:38.751753",
-    "action": "orders",
+    "zeit": "2026-11-11T09:46:38.592202",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.34586 und 1.33113"
-    ],
-    "bar": "2026-11-11 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 0,
@@ -1085,12 +1084,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T09:31:38.751753",
-    "action": "orders",
+    "zeit": "2026-11-11T09:46:38.592202",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 212.641 und 211.428"
-    ],
-    "bar": "2026-11-11 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1315,12 +1313,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-11T09:31:38.751753",
+    "zeit": "2026-11-11T09:46:38.592202",
     "action": "none",
     "why": [
-     "schon um 03:15 New York ausgebrochen (vor 4:30): heute kein Trade"
+     "heute erledigt"
     ],
-    "bar": "2026-11-11 09:15:00"
+    "bar": null
    },
    "zusammenfassung": {
     "trades": 0,

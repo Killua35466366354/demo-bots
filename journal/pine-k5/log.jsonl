@@ -20,3 +20,5 @@
 {"time": "2026-11-11T00:03:29", "bot": "pine-k5", "event": "Pine-Ausstieg", "richtung": 1, "kerze": "2026-11-10 23:55:00", "deals": ["00000000-722f-3211-049c-701f0015549e"]}
 {"time": "2026-11-11T00:03:29", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Strategie würde LONG schließen", "gesendet": true}
 {"time": "2026-11-11T00:13:31", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-722f-3211-049c-701f0015549e", "stopLevel": 4028.69, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-11T01:13:28", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-722f-3211-049c-701f0015549e", "kurs": 4028.66, "r": -0.755, "eur": -3.77, "quelle": "SL"}
+{"time": "2026-11-11T01:13:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG geschlossen", "gesendet": true}

@@ -4,11 +4,11 @@
  "summe_r": 0.0,
  "trades": 0,
  "plan": {
-  "stunde": "2026-11-11 22:00:00",
+  "stunde": "2026-11-11 23:00:00",
   "gerechnet_bis": "2026-11-11 22:00:00",
-  "kerzen_4h": 317,
-  "letzte_4h": "2026-11-11 19:00:00",
-  "atr_4h": 34.74,
+  "kerzen_4h": 318,
+  "letzte_4h": "2026-11-11 22:00:00",
+  "atr_4h": 32.85,
   "kandidaten": [],
   "linien": {
    "1": [
@@ -32,8 +32,6 @@
  "trade": null,
  "verbraucht": {},
  "versuche": {},
- "keine_order": [
-  "Markt gerade nicht handelbar"
- ],
- "stand": "2026-11-11T22:03:47"
+ "keine_order": [],
+ "stand": "2026-11-11T23:03:40"
 }

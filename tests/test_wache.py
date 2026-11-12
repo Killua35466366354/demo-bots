@@ -35,11 +35,11 @@ def test_wache_rechnet_wie_die_bots():
 
 
 def test_jede_regeldatei_der_laufenden_bots_wird_bewacht():
-    from gold import grossbox_bot, hand_bot, pine5m_bot, zonen_bot
+    from gold import ausbruch4h_bot, grossbox_bot, hand_bot, pine5m_bot, zonen_bot
     from gold.bot import schalter
     from suche import demo_pruefung, gold_staffel_bot, scalper_bot, vergleich
     bewacht = {f"{p.stem} sha256 " for p in wache.vorab_dateien()}
-    keys = {grossbox_bot.KEY, hand_bot.KEY, zonen_bot.KEY, pine5m_bot.KEY, pine5m_bot.KEY_PRUEFER, pine5m_bot.KEY_K5, pine5m_bot.KEY_4H,
+    keys = {ausbruch4h_bot.KEY, grossbox_bot.KEY, hand_bot.KEY, zonen_bot.KEY, pine5m_bot.KEY, pine5m_bot.KEY_PRUEFER, pine5m_bot.KEY_K5, pine5m_bot.KEY_4H,
             schalter.KEY, gold_staffel_bot.KEY, gold_staffel_bot.KEY_ABFANG, scalper_bot.KEY, vergleich.KEY,
             demo_pruefung.KEY, demo_pruefung.LABOR_KEY, demo_pruefung.MESS_KEY, demo_pruefung.RUTSCH_KEY,
             demo_pruefung.FRIST_KEY, demo_pruefung.WOCHE_KEY}

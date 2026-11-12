@@ -3,8 +3,9 @@ name: Demo-Bots (Strategie-Suche, nur Demokonto)
 # Alle Demo-Bots außer dem Gold-Bot und dem 5-Minuten-Lauf in EINEM Lauf (nur Capital.com-DEMO, nie echtes Geld).
 # Stand 11.11.2026 handeln hier: Vortag EUR/USD, GBP/USD, GBP/JPY und der Mess-Bot Vortag EUR/USD 1 x ATR, London
 # GBP/USD und Noise USD/JPY (alle suche/r6_bots.py), die Top 3 auf dem Konto "US500" (US500-Rücksetzer,
-# US100-Rücksetzer, Nasdaq Noise-Band Long; suche/us500_bot.py, suche/r7_nasdaq_bot.py), der Dow-Rücksetzer und die
-# Gold Groß-Box (gold/grossbox_bot.py). Gold-Short-Bot und Gold-Hand-Bot ruhen. Die alten Runde-3-Bots in
+# US100-Rücksetzer, Nasdaq Noise-Band Long; suche/us500_bot.py, suche/r7_nasdaq_bot.py), der Dow-Rücksetzer, die
+# Gold Groß-Box (gold/grossbox_bot.py) und der Gold 4-Std.-Ausbruch (gold/ausbruch4h_bot.py). Gold-Short-Bot und
+# Gold-Hand-Bot ruhen. Die alten Runde-3-Bots in
 # suche/demo_bots.py sind alle abgelöst und öffnen nichts mehr. Pine-Bots, Scalper und Gold-Staffel laufen im
 # 5-Minuten-Lauf (pine5m.yml). Welcher Bot auf welchem Konto handelt, steht in CLAUDE.md.
 #
@@ -59,7 +60,7 @@ jobs:
 
       # Tests nur nach einer Code-Änderung und einmal am Tag (Minuten sparen, 05.11.2026): Die Tests brauchten gut die
       # Hälfte jedes 15-Minuten-Laufs, obwohl sich der Code zwischen zwei Läufen fast nie ändert. Der Schlüssel ist der
-      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle acht Testgruppen mit genau diesem Stand
+      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle neun Testgruppen mit genau diesem Stand
       # heute schon grün, springt jede Gruppe darüber. Sonst gilt wie immer: ohne grüne Tests kein Lauf.
       - name: Code-Stand für die Tests
         id: code
@@ -273,10 +274,38 @@ jobs:
             python -m gold.grossbox_bot
           fi
 
+      # Gold 4-Std.-Ausbruch mit Tagestrend (Kirons Wahl vom 11.11.2026 19:59 UTC auf der Karte zur Gold-Matrix): der
+      # nächste Kandidat der Gold-Matrix, im Test knapp nicht bestanden. Kauf und Verkauf nach dem Schluss einer
+      # 4-Std.-Kerze, Stop beim Broker, Ausstieg nach 4 fertigen 4-Std.-Kerzen, 5 € Risiko, höchstens ein Trade. Nur
+      # Demo, Account 4 (geteilt mit dem Kern-Bot Vortag EUR/USD), nie das Hauptkonto des Gold-Bots. Regeln in
+      # suche/VORAB_gold_ausbruch4h_bot.yaml, Code gold/ausbruch4h_bot.py. Er rechnet nur kurz nach dem Schluss einer
+      # 4-Std.-Kerze (sechsmal am Tag) und schreibt nur journal/gold-ausbruch4h/ und journal/gold-ausbruch4h.json. Ein
+      # Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: Gold 4-Std.-Ausbruch (Account 4)
+        id: ausbruch4h
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_ausbruch4h_bot.py
+            touch .tests-ok/gold_ausbruch4h
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m gold.ausbruch4h_bot --dry-run
+          else
+            python -m gold.ausbruch4h_bot
+          fi
+
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
       # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
       # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens
-      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den acht Testgruppen.
+      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den neun Testgruppen.
       - name: Demo-Vergleich aller Bots
         id: vergleich
         if: ${{ !cancelled() && inputs.dry_run != true }}
@@ -289,13 +318,13 @@ jobs:
           fi
           python -m suche.vergleich --schreiben
 
-      # Nur wenn alle acht Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
+      # Nur wenn alle neun Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
       - name: Alle Testgruppen grün?
         id: alle
         if: ${{ !cancelled() && steps.tests_ok.outputs.cache-hit != 'true' }}
         run: |
           n=$(ls .tests-ok | wc -l)
-          if [ "$n" -ge 8 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 8 Testgruppen grün"; fi
+          if [ "$n" -ge 9 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 9 Testgruppen grün"; fi
 
       - name: Grünen Stand merken
         if: ${{ !cancelled() && steps.alle.outputs.gruen == 'true' }}
@@ -308,7 +337,7 @@ jobs:
       # Bot-Schritt in Folge gescheitert ist. Die Bot-Schritte laufen mit continue-on-error, ein Fehler dort ließ den
       # Lauf und das Lebenszeichen bisher grün. Fehlt ein Siegel oder scheitert ein Schritt dreimal in Folge, geht eine
       # Meldung an healthchecks.io (Checks "siegel" und "bot-schritte"), Kiron bekommt eine E-Mail. Liest nur, ändert
-      # keinen Bot, schreibt nur journal/wache.json und nur, wenn sich die Zählung ändert. Zählt nicht zu den acht
+      # keinen Bot, schreibt nur journal/wache.json und nur, wenn sich die Zählung ändert. Zählt nicht zu den neun
       # Testgruppen. Ein Fehler hier hält nichts auf.
       - name: Wache (Siegel und stille Fehler der Bot-Schritte)
         if: ${{ !cancelled() }}

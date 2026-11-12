@@ -1,0 +1,141 @@
+# Vorwärtstest "Gold 4-Std.-Ausbruch mit Tagestrend": der nächste Kandidat der Gold-Matrix, live auf einem
+# Capital.com-DEMOKONTO. Nie echtes Geld. Festgelegt, BEVOR der Bot einen Trade hatte (Prüfsumme im Protokoll).
+# Code: gold/ausbruch4h_bot.py.
+#
+# Kirons Wahl vom 11.11.2026 19:59 UTC auf der Karte "4-Std.-Ausbruch auf Gold trotz knapp verfehltem Test mitlaufen
+# lassen?": "Besten als Demo-Bot starten".
+#
+# Ehrlich vorab:
+# - Die Regel ist die Variante ausbruch.4h.trend_hoch.swing_4h.zeit_4h aus suche/VORAB_gold_matrix.yaml, unverändert.
+#   Sie hat den Test NICHT bestanden. Sie ist ein Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades,
+#   1,04 je Woche, Gewinnfaktor 2,35, +22,9 R, mit 1,5-fachen Kosten 2,23, beide Hälften über 2 (2,21 und 2,53), 2026
+#   allein 2,09. Sie schlug alle 306 Verschiebungen des Zufallsvergleichs und hielt Holm. Die Summe lag aber nur 2,93
+#   Standardabweichungen über dem Zufall, nötig sind 3,0.
+# - Ein Kandidat ist kein Beleg. Von 54.375 gerechneten Varianten kam diese dem Bestehen am nächsten. Unter 12
+#   Finalisten sind im Schnitt 0,6 Kandidaten reines Glück. In den Probeläufen auf einem erfundenen Markt ohne
+#   Vorteil schlug ein Finalist ebenfalls alle Verschiebungen und kam auf 2,90 Standardabweichungen.
+# - Die Gewinne sind klein. Im Schnitt +0,15 R je Trade, bei 5 Euro Risiko also etwa 0,75 Euro je Trade. Ein Gewinn
+#   brachte im Schnitt 0,42 R, ein Verlust kostete 0,29 R, die Trefferquote war 62 %. Der Stop liegt weit weg (im Median
+#   62 USD, zwischen 23 und 199 USD). Nur 4 von 153 Trades endeten am Stop. Ein Stop kostet 1 R, so viel wie etwa
+#   7 Durchschnitts-Trades einbringen. Der größte Rückgang im Test war 1,6 R.
+# - 133 der 153 Trades waren Käufe. 2024 bis 2026 stieg Gold stark. 2016 bis 2023 war die Regel im Minus (348 Trades,
+#   Gewinnfaktor 0,83).
+# - Es ist der siebte Bot, der Gold handelt. Die Gold-Bots verlieren oft gemeinsam. CLAUDE.md rät, vor einem weiteren
+#   Gold-Bot erst die vorhandenen auszuwerten. Kiron hat diesen Bot auf der Karte gewählt.
+
+format: 1
+gold_ausbruch4h_bot:
+  bot: gold-ausbruch4h
+  konto: Account 4, geteilt mit dem Kern-Bot Vortag EUR/USD (anderer Markt). Nie das Hauptkonto des Gold-Bots.
+  markt: Gold (Capital.com GOLD), Lauf alle 15 Minuten im Workflow demo-bots.yml (Minute 1, 16, 31, 46)
+
+  regel: >-
+    Variante ausbruch.4h.trend_hoch.swing_4h.zeit_4h aus suche/VORAB_gold_matrix.yaml (Abschnitte zeitebenen,
+    einstiege.ausbruch, filter.trend_hoch, stops, ausstiege und allgemein), unverändert. Alle Zahlen liest der Code aus
+    dieser versiegelten Datei und aus suche/VORAB_gold_matrix_finalisten.yaml. Kurz: 4-Std.-Kerzen beginnen um 18, 22,
+    2, 6, 10 und 14 Uhr New York. Kauf, wenn eine 4-Std.-Kerze über dem höchsten Hoch der 20 Kerzen davor schließt und
+    die Kerze davor das nicht tat, und nur, wenn der letzte fertige Handelstag (Ende 17:00 New York) über seinem EMA 50
+    schloss und der EMA 50 höher steht als 5 Handelstage davor. Verkauf spiegelbildlich. Stop unter dem tiefsten Tief
+    der letzten 10 fertigen 4-Std.-Kerzen minus 0,1 ATR (14, Wilder), gemessen vom Kurs beim Einstieg, mindestens 0,5
+    und höchstens 4 ATR, mindestens 2,50 USD. Der Stop bleibt bis zum Ende. Ausstieg zum Markt, sobald nach dem
+    Einstieg 4 weitere 4-Std.-Kerzen fertig sind. Spätestens nach 14 Tagen raus. Höchstens ein Trade gleichzeitig.
+    Kein Einstieg von 20:55 bis 23:05 UTC und 15 Minuten vor bis 15 Minuten nach einem Termin (gold/v2/termine.yaml).
+
+  ausfuehrung:
+    frist_min: 25
+    vorlauf_tage: 400
+    min_handelstage: 150
+    kerzen: >-
+      Fertige Stundenkerzen (Bid) von Capital.com, zu 4-Std.-Kerzen und Handelstagen zusammengefasst wie im Test.
+      Signal, Tagestrend, Sperre und Stop-Abstand rechnen dieselben Funktionen wie der Test (suche/gold_matrix.py:
+      markt, roh_signale, filter_maske, stop_abstand). Für ein Signal holt der Bot vorlauf_tage Kalendertage
+      Stundenkerzen. Liefert der Broker weniger als min_handelstage fertige Handelstage, rechnet der Bot kein Signal.
+    einstieg: >-
+      Geprüft wird jede 4-Std.-Kerze genau einmal, in den ersten frist_min Minuten nach ihrem Schluss. Der Lauf kommt
+      zur Minute 1 und 16. Fehlt die letzte Stundenkerze vor dem Schluss noch, ist der Markt zu oder gilt gerade eine
+      Termin-Sperre, sieht der nächste Lauf in der Frist noch einmal nach. Danach ist die Kerze verfallen. Bei einem
+      Signal sendet der Bot eine Marktorder mit dem Stop-Abstand beim Broker, ohne Ziel. Der Stop-Abstand wird vom
+      aktuellen Bid gemessen. Die Sperren des Tests gelten für die erste Minute nach der Kerze und für den Moment der
+      Order. Fehlt die Stunde vor dem Schluss ganz (Handelspause am Abend, Wochenende), gibt es wie im Test kein
+      Signal. War beim Schluss der Kerze noch ein Trade offen, oder endete der letzte Trade erst danach, gibt es für
+      diese Kerze keinen Einstieg, wie im Test.
+    order: >-
+      Jede Kerze bekommt höchstens eine Order. Eine abgelehnte oder gescheiterte Order wird nie wiederholt. Kommt auf
+      die Order keine Bestätigung, sucht der Bot die Position sofort und im nächsten Lauf an Richtung und Größe und
+      übernimmt sie. Findet er keine, gilt die Order als nicht angekommen.
+    ausstieg: >-
+      Solange ein Trade offen ist, zählt jeder Lauf die fertigen 4-Std.-Kerzen seit dem Einstieg aus den Stundenkerzen
+      des Brokers, wie der Test. Sind es 4, schließt der Bot zum Markt. Ist der Markt dann zu (Wochenende), schließt
+      der erste Lauf nach der Öffnung. Scheitert das Schließen, versucht es der nächste Lauf. 14 Tage nach dem Einstieg
+      schließt der Bot in jedem Fall.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Stop-Abstand der Order, minus
+      Übernachtgebühr. Die Gebühr rechnet der Bot mit den Sätzen des Tests je Nacht (17:00 Uhr New York, das Wochenende
+      zählt mit). Das Euro-Ergebnis im Journal ist ohne Gebühr. Die echte Gebühr des Brokers steht nur im Kontostand.
+      Den Ausstiegskurs am Stop liest der Bot aus der Kontoaktivität des Brokers. Steht der Schluss dort eine Stunde
+      lang nicht, zählt der Stop-Kurs, und der Trade ist als geschätzt markiert.
+
+  gegenprobe: >-
+    Vor dem Siegel mit den Kursen des Tests gerechnet (python -m suche.gold_ausbruch4h_gegenprobe, Stundenkerzen aus
+    den 1-Minuten-Kerzen des Tests, 400 Tage Vorlauf, Kurs beim Einstieg wie im Test). Sie prüft nur die Umsetzung, sie
+    rechnet kein neues Ergebnis. Von 01/2024 bis 10/2026 4.385 Schlüsse von 4-Std.-Kerzen. Der Test erlaubt 206
+    Einstiege, der Bot dieselben 206 mit derselben Richtung. Der Stop-Abstand weicht um 0,0000 USD ab. Alle 153 Trades
+    des Tests findet der Bot. Bei allen 149 Trades mit Ausstieg nach Zeit ist der Ausstieg in derselben Minute fällig.
+
+  abweichungen_vom_test:
+    - >-
+      Später Einstieg und später Ausstieg: Der Test handelt zur Eröffnung der ersten Minute nach der Kerze. Der Bot
+      kommt etwa 1 bis 4 Minuten später, im Ausnahmefall bis zu 25 Minuten. Der Stop-Abstand wird dann vom späteren
+      Kurs gemessen. Bei im Schnitt +0,15 R je Trade kann schon ein kleiner Kursunterschied das Ergebnis ändern. Was
+      das kostet oder bringt, ist nicht getestet. Das Journal schreibt je Trade, wie viele Minuten der Bot zu spät war.
+    - >-
+      Andere Kurse: Der Test rechnete mit 1-Minuten-Kerzen von HistData, der Bot mit Stundenkerzen von Capital.com. Hoch,
+      Tief und Schluss einer Kerze können leicht abweichen. Ein knapper Ausbruch kann darum fehlen oder dazukommen.
+    - Der Test rechnete mit festem Spread von 0,50 USD. Live gilt der echte Spread des Brokers.
+    - >-
+      Der Test füllt einen Stop genau zum Stop-Kurs. Live füllt der Broker zum nächsten Kurs, in einer Kurslücke
+      schlechter.
+    - >-
+      Fällt ein Lauf aus oder scheitert der Abruf der Kerzen in der ganzen Frist, verfällt das Signal. Im Test gibt es
+      das nicht.
+    - >-
+      Liest der Bot nach einem Stop den Schlusskurs noch nicht, gilt sein Trade bis zu einer Stunde als offen. Fällt in
+      diese Stunde ein Schluss einer 4-Std.-Kerze, nimmt er dort kein Signal.
+    - >-
+      Der EMA 50 der Handelstage und die ATR starten live mit 400 Tagen Vorlauf, im Test mit Kerzen ab 2023. In der
+      Gegenprobe änderte das keinen einzigen Einstieg.
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade vom Einstieg bis zum Stop, wie die anderen neuen Gold-Bots
+    max_unzen: 1.0
+    margin_anteil: 0.2
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keinen Einstieg. Braucht die Order mehr als margin_anteil des freien Gelds auf dem Konto als
+      Margin, gibt es keinen Einstieg. So bleibt dem Vortag EUR/USD auf demselben Konto genug freies Geld.
+
+  sperren:
+    - >-
+      Ohne passende Prüfsumme dieser Datei im Protokoll öffnet der Bot nichts. Dasselbe gilt, wenn die Prüfsumme von
+      suche/VORAB_gold_matrix.yaml oder suche/VORAB_gold_matrix_finalisten.yaml nicht mehr passt.
+    - >-
+      Liegt eine Gold-Position auf dem Konto, die nicht von ihm ist, öffnet er nichts Neues. Fremde Positionen fasst er
+      nie an. Seine eigene erkennt er an der Deal-ID.
+    - Vergibt journal/konten.json das Konto an einen anderen Gold-Bot, öffnet er nichts Neues.
+    - Ab -25 R seit Start nichts Neues mehr. Ein offener Trade läuft zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/gold-ausbruch4h/ und journal/gold-ausbruch4h.json.
+
+  urteil:
+    pause_r: -25.0
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades. Dann entscheidet Kiron
+      über den nächsten Schritt.
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: Bei 1,04 Trades je Woche wie im Test etwa 38 Wochen bis zum Urteil.
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).
+    echtes_geld: Nie durch diesen Test allein. Den Schritt entscheidet nur Kiron.

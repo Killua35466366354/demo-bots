@@ -66,8 +66,8 @@
    "id": "…1790",
    "name": "Account 4",
    "waehrung": "EUR",
-   "balance": 999.99,
-   "frei": 991.0,
+   "balance": 999.92,
+   "frei": 990.93,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd"
   },
@@ -84,8 +84,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 991.26,
-   "frei": 975.08,
+   "balance": 991.14,
+   "frei": 974.96,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -117,7 +117,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-12T03:46:29.908570",
+ "stand_utc": "2026-11-12T04:01:36.905822",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

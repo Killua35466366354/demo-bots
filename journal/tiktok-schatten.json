@@ -1706,7 +1706,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.815,
+   "ergebnis_r": 1.551,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1735,7 +1735,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.729,
+   "ergebnis_r": 1.466,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1760,7 +1760,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 1.852,
+    "ergebnis_r": 1.583,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1784,7 +1784,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 1.79,
+    "ergebnis_r": 1.266,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1810,7 +1810,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 1.852,
+    "ergebnis_r": 1.583,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1834,7 +1834,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 4.026,
+    "ergebnis_r": 3.029,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1858,7 +1858,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 1.79,
+    "ergebnis_r": 1.266,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1882,7 +1882,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.852,
+   "ergebnis_r": 1.583,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1905,7 +1905,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.964,
+   "ergebnis_r": 1.434,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1913,18 +1913,18 @@
  },
  "vorhersage": {
   "richtung": -1,
-  "linie": 3951.53,
+  "linie": 3945.59,
   "gerade_gedreht": false,
-  "kerze": "2026-11-12 09:00:00",
-  "kurs": 3928.46,
+  "kerze": "2026-11-12 10:00:00",
+  "kurs": 3943.68,
   "genauer_175": {
-   "richtung": -1,
-   "linie": 3949.47,
-   "gerade_gedreht": false
+   "richtung": 1,
+   "linie": 3928.13,
+   "gerade_gedreht": true
   },
   "grosse_box": -1,
   "text": "Verkauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
-  "text_175": "Verkauf (SuperTrend 20/1,75, genauerer Nachbau)",
+  "text_175": "Gerade auf Kauf gedreht, neuer Trade zur nächsten Eröffnung (SuperTrend 20/1,75, genauerer Nachbau)",
   "text_gross": "Große Box Verkauf (gross_box_kerze, nur in dieser Richtung neue Trades)",
   "text_gesamt": "Alle sieben zusammen: 0 Long und 9 Short offen (Gesamt-Strategie, alle Teile zugleich)"
  },
@@ -1979,8 +1979,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-12T09:11:24+00:00",
- "letzte_kerze": "2026-11-12 08:45:00",
+ "stand": "2026-11-12T10:11:32+00:00",
+ "letzte_kerze": "2026-11-12 09:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

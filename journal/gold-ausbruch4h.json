@@ -2,15 +2,26 @@
  "bot": "gold-ausbruch4h",
  "name": "Gold 4-Std.-Ausbruch mit Tagestrend",
  "konto": "Account 4 …1790",
- "stand": null,
- "start": null,
+ "stand": "2026-11-12T03:02:46",
+ "start": "2026-11-12T03:02:46",
  "pausiert": null,
- "status": "kein Trade offen, wartet auf den Schluss der nächsten 4-Std.-Kerze",
+ "status": "Verkauf offen ab 3980.67, Stop 4083.15, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 0)",
  "regel": "4-Std.-Ausbruch mit Tagestrend (Gold-Matrix, ausbruch.4h.trend_hoch.swing_4h.zeit_4h): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen. Ausstieg nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
  "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
  "vorab_ok": true,
- "offen": [],
+ "offen": [
+  {
+   "id": "2026-11-12T03:00",
+   "richtung": -1,
+   "entry": 3980.67,
+   "stop": 4083.15,
+   "size": 0.05,
+   "dist": 102.48,
+   "opened_utc": "2026-11-12T03:02:46",
+   "kerzen": 0
+  }
+ ],
  "zusammenfassung": {
   "trades": 0,
   "pf_r": null,
@@ -20,5 +31,34 @@
   "urteil": "läuft (0 von 40 Trades)"
  },
  "letzte_trades": [],
- "blick": {}
+ "blick": {
+  "kurs": 3980.38,
+  "naechste_4h_kerze_endet_utc": "2026-11-12 07:00:00",
+  "letzte_pruefung": {
+   "grenze": "2026-11-12 03:00:00",
+   "ergebnis": "Verkauf eröffnet",
+   "richtung": -1,
+   "schluss": 3980.4,
+   "hoch_davor": 4148.34,
+   "tief_davor": 3982.42,
+   "trend": true,
+   "dist": 102.476
+  },
+  "signal": {
+   "grenze": "2026-11-12 03:00:00",
+   "richtung": -1,
+   "trend": true,
+   "dist": 102.476,
+   "gesperrt": false,
+   "ok": true,
+   "warten": false,
+   "ergebnis": "Verkauf-Ausbruch mit dem Tagestrend",
+   "kerzen_4h": 1695,
+   "tageskerzen": 283,
+   "schluss": 3980.4,
+   "hoch_davor": 4148.34,
+   "tief_davor": 3982.42,
+   "gesperrt_jetzt": false
+  }
+ }
 }

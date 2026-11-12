@@ -4,23 +4,12 @@
  "epic": "J225",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-12T06:03:53",
+ "stand": "2026-11-12T06:33:30",
  "start": "2026-11-10T12:43:38",
  "regel": "30 Min. vor Schluss (15:00 Uhr Tokio) gegen die Bewegung seit dem Vortagsschluss, ohne Stop, raus um 15:30 Uhr Tokio. Nur wenn der Kurs auf der Seite des Wochen-Opens liegt (Long darüber, Short darunter). Kleinste Größe.",
  "vorab": "suche/VORAB_scalping_opens.yaml",
  "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe",
- "offen": {
-  "dealId": "00000000-7295-e61a-049c-70190015549e",
-  "richtung": 1,
-  "size": 0.1,
-  "entry": 60719.5,
-  "stop": null,
-  "ziel": null,
-  "dist": null,
-  "opened_utc": "2026-11-12T06:03:53",
-  "aus_utc": "2026-11-12T06:30:00",
-  "tag": "2026-11-12"
- },
+ "offen": null,
  "letzte_entscheidung": {
   "zeit": "2026-11-12T06:03:53",
   "tag": "2026-11-12",
@@ -32,12 +21,30 @@
   "kurs_filter": 60684.5
  },
  "zusammenfassung": {
-  "trades": 0,
+  "trades": 1,
   "pf_r": null,
   "summe_r": 0.0,
-  "summe_pct": 0.0,
-  "summe_eur": 0.0,
+  "summe_pct": 0.0329,
+  "summe_eur": 0.01,
   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
  },
- "letzte_trades": []
+ "letzte_trades": [
+  {
+   "dealId": "00000000-7295-e61a-049c-70190015549e",
+   "richtung": 1,
+   "size": 0.1,
+   "entry": 60719.5,
+   "stop": null,
+   "ziel": null,
+   "dist": null,
+   "opened_utc": "2026-11-12T06:03:53",
+   "aus_utc": "2026-11-12T06:30:00",
+   "tag": "2026-11-12",
+   "exit": 60739.5,
+   "quelle": "Zeit",
+   "closed_utc": "2026-11-12T06:33:30",
+   "pct": 0.0329,
+   "pnl_eur": 0.01
+  }
+ ]
 }

@@ -509,13 +509,13 @@
    "konto": "Account 1",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 1,
+    "trades": 2,
     "gewonnen": 0,
     "treffer_pct": 0.0,
-    "summe_r": -1.01,
+    "summe_r": -2.02,
     "pf_r": 0.0,
-    "eur": -4.98,
-    "rueckgang_r": 1.01
+    "eur": -9.82,
+    "rueckgang_r": 2.02
    },
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",

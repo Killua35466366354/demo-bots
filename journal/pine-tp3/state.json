@@ -22,33 +22,12 @@
     "zeit": "2026-11-12T10:58:29",
     "warum": "Fehltrade (0,5 R im Minus)"
    }
-  },
-  {
-   "dealId": "00000000-7287-47c6-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.37,
-   "entry": 3966.29,
-   "dist": 14.86,
-   "einstieg_kerze": "2026-11-12 07:50:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-12T07:58:25",
-   "tp": 3966.29,
-   "stop": 3951.43,
-   "ziel": 3966.29,
-   "abfang": {
-    "zeit": "2026-11-12T10:58:29",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   },
-   "pruefer": {
-    "zeit": "2026-11-12T10:58:29",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   }
   }
  ],
- "trades": 8,
- "summe_r": -10.452,
- "summe_eur": -51.76,
- "letzte_kerze": "2026-11-12 10:50:00",
- "letzter_kurs": 3954.06,
- "stand": "2026-11-12T10:58:29"
+ "trades": 9,
+ "summe_r": -11.459,
+ "summe_eur": -56.75,
+ "letzte_kerze": "2026-11-12 11:05:00",
+ "letzter_kurs": 3950.97,
+ "stand": "2026-11-12T11:13:22"
 }

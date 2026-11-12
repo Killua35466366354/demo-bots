@@ -2,10 +2,10 @@
  "bot": "gold-ausbruch4h",
  "name": "Gold 4-Std.-Ausbruch mit Tagestrend",
  "konto": "Account 4 …1790",
- "stand": "2026-11-12T11:01:54",
+ "stand": "2026-11-12T15:02:00",
  "start": "2026-11-12T03:02:46",
  "pausiert": null,
- "status": "Verkauf offen ab 3980.67, Stop 4083.15, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 2)",
+ "status": "Verkauf offen ab 3980.67, Stop 4083.15, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 3)",
  "regel": "4-Std.-Ausbruch mit Tagestrend (Gold-Matrix, ausbruch.4h.trend_hoch.swing_4h.zeit_4h): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen. Ausstieg nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
  "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
@@ -19,7 +19,7 @@
    "size": 0.05,
    "dist": 102.48,
    "opened_utc": "2026-11-12T03:02:46",
-   "kerzen": 2
+   "kerzen": 3
   }
  ],
  "zusammenfassung": {
@@ -32,10 +32,10 @@
  },
  "letzte_trades": [],
  "blick": {
-  "kurs": 3954.57,
-  "naechste_4h_kerze_endet_utc": "2026-11-12 15:00:00",
+  "kurs": 3867.18,
+  "naechste_4h_kerze_endet_utc": "2026-11-12 19:00:00",
   "letzte_pruefung": {
-   "grenze": "2026-11-12 11:00:00",
+   "grenze": "2026-11-12 15:00:00",
    "ergebnis": "ein Trade ist offen, höchstens einer gleichzeitig"
   }
  }

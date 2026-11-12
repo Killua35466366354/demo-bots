@@ -1940,7 +1940,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 2.887,
+    "ergebnis_r": 2.727,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1964,7 +1964,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 3.807,
+    "ergebnis_r": 3.497,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1988,7 +1988,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 1.733,
+    "ergebnis_r": 1.492,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2014,7 +2014,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 2.887,
+    "ergebnis_r": 2.727,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2038,7 +2038,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 7.859,
+    "ergebnis_r": 7.269,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2062,7 +2062,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 3.807,
+    "ergebnis_r": 3.497,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2086,7 +2086,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 2.887,
+   "ergebnis_r": 2.727,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -2109,7 +2109,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 3.292,
+   "ergebnis_r": 2.885,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -2119,16 +2119,16 @@
   "richtung": -1,
   "linie": 3880.58,
   "gerade_gedreht": false,
-  "kerze": "2026-11-12 16:00:00",
-  "kurs": 3869.91,
+  "kerze": "2026-11-12 17:00:00",
+  "kurs": 3878.92,
   "genauer_175": {
-   "richtung": -1,
-   "linie": 3877.66,
-   "gerade_gedreht": false
+   "richtung": 1,
+   "linie": 3858.07,
+   "gerade_gedreht": true
   },
   "grosse_box": -1,
   "text": "Verkauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
-  "text_175": "Verkauf (SuperTrend 20/1,75, genauerer Nachbau)",
+  "text_175": "Gerade auf Kauf gedreht, neuer Trade zur nächsten Eröffnung (SuperTrend 20/1,75, genauerer Nachbau)",
   "text_gross": "Große Box Verkauf (gross_box_kerze, nur in dieser Richtung neue Trades)",
   "text_gesamt": "Alle sieben zusammen: 0 Long und 8 Short offen (Gesamt-Strategie, alle Teile zugleich)"
  },
@@ -2183,8 +2183,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-12T16:11:33+00:00",
- "letzte_kerze": "2026-11-12 15:45:00",
+ "stand": "2026-11-12T17:11:30+00:00",
+ "letzte_kerze": "2026-11-12 16:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

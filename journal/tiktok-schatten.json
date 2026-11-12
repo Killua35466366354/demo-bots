@@ -1456,10 +1456,55 @@
     "grund": "gegensignal",
     "ende": "2026-11-11 09:30:00",
     "offen": false
+   },
+   {
+    "signal": "2026-11-11 09:30:00",
+    "einstieg_zeit": "2026-11-11 09:30:00",
+    "richtung": -1,
+    "einstieg": 4049.26,
+    "stop": 4062.75,
+    "tp1": 4035.77,
+    "tp2": null,
+    "tp3": null,
+    "r_usd": 13.49,
+    "teile": [
+     {
+      "grund": "tp1",
+      "px": 4035.77,
+      "zeit": "2026-11-11 13:30:00",
+      "anteil": 0.333
+     },
+     {
+      "grund": "gegensignal",
+      "px": 3985.69,
+      "zeit": "2026-11-12 00:45:00",
+      "anteil": 0.667
+     }
+    ],
+    "ergebnis_r": 3.464,
+    "grund": "gegensignal",
+    "ende": "2026-11-12 00:45:00",
+    "offen": false
    }
   ]
  },
  "offen": {
+  "stream_box": {
+   "signal": "2026-11-12 00:45:00",
+   "einstieg_zeit": "2026-11-12 00:45:00",
+   "richtung": 1,
+   "einstieg": 3985.69,
+   "stop": 3972.46,
+   "tp1": 3998.92,
+   "tp2": 4012.16,
+   "tp3": 4025.39,
+   "r_usd": 13.23,
+   "teile": [],
+   "ergebnis_r": 0.639,
+   "grund": "offen",
+   "ende": null,
+   "offen": true
+  },
   "gross_klein_3": {
    "signal": "2026-11-11 23:30:00",
    "einstieg_zeit": "2026-11-11 23:30:00",
@@ -1471,7 +1516,23 @@
    "tp3": 3936.25,
    "r_usd": 15.16,
    "teile": [],
-   "ergebnis_r": 0.173,
+   "ergebnis_r": -0.851,
+   "grund": "offen",
+   "ende": null,
+   "offen": true
+  },
+  "box_175": {
+   "signal": "2026-11-12 00:45:00",
+   "einstieg_zeit": "2026-11-12 00:45:00",
+   "richtung": 1,
+   "einstieg": 3985.69,
+   "stop": 3973.95,
+   "tp1": 3997.43,
+   "tp2": 4009.18,
+   "tp3": 4020.92,
+   "r_usd": 11.74,
+   "teile": [],
+   "ergebnis_r": 0.72,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1488,8 +1549,15 @@
     "tp2": null,
     "tp3": null,
     "r_usd": 37.73,
-    "teile": [],
-    "ergebnis_r": 0.952,
+    "teile": [
+     {
+      "grund": "tp1",
+      "px": 3977.51,
+      "zeit": "2026-11-12 00:00:00",
+      "anteil": 0.333
+     }
+    ],
+    "ergebnis_r": 0.691,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1506,7 +1574,7 @@
     "tp3": null,
     "r_usd": 15.16,
     "teile": [],
-    "ergebnis_r": 0.173,
+    "ergebnis_r": -0.851,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1524,8 +1592,15 @@
     "tp2": null,
     "tp3": null,
     "r_usd": 37.73,
-    "teile": [],
-    "ergebnis_r": 0.952,
+    "teile": [
+     {
+      "grund": "tp1",
+      "px": 3977.51,
+      "zeit": "2026-11-12 00:00:00",
+      "anteil": 0.333
+     }
+    ],
+    "ergebnis_r": 0.691,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1542,7 +1617,7 @@
     "tp3": null,
     "r_usd": 15.16,
     "teile": [],
-    "ergebnis_r": 0.173,
+    "ergebnis_r": -0.851,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1558,52 +1633,52 @@
    "tp2": null,
    "tp3": null,
    "r_usd": 37.73,
-   "teile": [],
-   "ergebnis_r": 0.952,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3977.51,
+     "zeit": "2026-11-12 00:00:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.691,
    "grund": "offen",
    "ende": null,
    "offen": true
   },
   "box_laufen": {
-   "signal": "2026-11-11 09:30:00",
-   "einstieg_zeit": "2026-11-11 09:30:00",
-   "richtung": -1,
-   "einstieg": 4049.26,
-   "stop": 4062.75,
-   "tp1": 4035.77,
+   "signal": "2026-11-12 00:45:00",
+   "einstieg_zeit": "2026-11-12 00:45:00",
+   "richtung": 1,
+   "einstieg": 3985.69,
+   "stop": 3972.46,
+   "tp1": 3998.92,
    "tp2": null,
    "tp3": null,
-   "r_usd": 13.49,
-   "teile": [
-    {
-     "grund": "tp1",
-     "px": 4035.77,
-     "zeit": "2026-11-11 13:30:00",
-     "anteil": 0.333
-    }
-   ],
-   "ergebnis_r": 3.789,
+   "r_usd": 13.23,
+   "teile": [],
+   "ergebnis_r": 0.639,
    "grund": "offen",
    "ende": null,
    "offen": true
   }
  },
  "vorhersage": {
-  "richtung": -1,
-  "linie": 3991.08,
+  "richtung": 1,
+  "linie": 3977.29,
   "gerade_gedreht": false,
-  "kerze": "2026-11-12 00:00:00",
-  "kurs": 3978.61,
+  "kerze": "2026-11-12 01:00:00",
+  "kurs": 3994.14,
   "genauer_175": {
-   "richtung": -1,
-   "linie": 3989.78,
+   "richtung": 1,
+   "linie": 3978.84,
    "gerade_gedreht": false
   },
   "grosse_box": -1,
-  "text": "Verkauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
-  "text_175": "Verkauf (SuperTrend 20/1,75, genauerer Nachbau)",
+  "text": "Kauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
+  "text_175": "Kauf (SuperTrend 20/1,75, genauerer Nachbau)",
   "text_gross": "Große Box Verkauf (gross_box_kerze, nur in dieser Richtung neue Trades)",
-  "text_gesamt": "Alle sieben zusammen: 0 Long und 7 Short offen (Gesamt-Strategie, alle Teile zugleich)"
+  "text_gesamt": "Alle sieben zusammen: 3 Long und 6 Short offen (Gesamt-Strategie, alle Teile zugleich)"
  },
  "zusammenfassung": {
   "stream_box": {
@@ -1649,15 +1724,15 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   },
   "box_laufen": {
-   "trades": 10,
-   "pf_r": 0.66,
-   "summe_r": -1.18,
-   "trefferquote": 0.5,
+   "trades": 11,
+   "pf_r": 1.661,
+   "summe_r": 2.29,
+   "trefferquote": 0.545,
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-12T00:11:29+00:00",
- "letzte_kerze": "2026-11-11 23:45:00",
+ "stand": "2026-11-12T01:11:27+00:00",
+ "letzte_kerze": "2026-11-12 00:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",
@@ -1671,14 +1746,14 @@
  },
  "gesamt": {
   "start": "2026-11-06 10:00:00",
-  "trades": 55,
-  "pf_r": 0.573,
-  "summe_r": -11.56,
-  "trefferquote": 0.345,
+  "trades": 56,
+  "pf_r": 0.701,
+  "summe_r": -8.09,
+  "trefferquote": 0.357,
   "kaeufe": 30,
-  "verkaeufe": 25,
-  "offen_long": 0,
-  "offen_short": 7,
+  "verkaeufe": 26,
+  "offen_long": 3,
+  "offen_short": 6,
   "je_teil": {
    "gross_box_kerze": -4.34,
    "gross_box": -5.34,
@@ -1686,8 +1761,8 @@
    "box_175": 1.39,
    "gross_klein_3": -0.35,
    "box_1h": -2.56,
-   "box_laufen": -1.18
+   "box_laufen": 2.29
   },
-  "urteil": "läuft (55 von 200 Trades, Urteil frühestens 2026-12-04)"
+  "urteil": "läuft (56 von 200 Trades, Urteil frühestens 2026-12-04)"
  }
 }

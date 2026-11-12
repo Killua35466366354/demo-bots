@@ -1,16 +1,16 @@
 {
  "status": "wartet auf einen Schluss über dem Band (10:00-15:00 New York)",
- "stand_utc": "2026-11-12T15:01:47.756900",
+ "stand_utc": "2026-11-12T15:16:42.979975",
  "konto_id": "332317231899038878",
  "konto": "…8878",
  "konto_name": "US500",
- "kontostand": 931.78,
+ "kontostand": 929.76,
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:24.423150",
  "letzte_entscheidung": {
-  "zeit": "2026-11-12T15:01:47.756900",
+  "zeit": "2026-11-12T15:16:42.979975",
   "action": "none",
-  "why": "Markt nicht ruhiger als sonst (Schwankung 1.487 > 0,865): heute kein Trade",
+  "why": "heute schon entschieden",
   "bar": null
  },
  "position": null,

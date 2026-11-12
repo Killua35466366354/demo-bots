@@ -58,7 +58,7 @@
    "name": "Account 3",
    "waehrung": "EUR",
    "balance": 995.27,
-   "frei": 499.42,
+   "frei": 499.2,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpjpy"
   },
@@ -66,8 +66,8 @@
    "id": "…1790",
    "name": "Account 4",
    "waehrung": "EUR",
-   "balance": 1001.89,
-   "frei": 993.01,
+   "balance": 1002.68,
+   "frei": 993.83,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd"
   },
@@ -75,8 +75,8 @@
    "id": "…9086",
    "name": "Account 5",
    "waehrung": "EUR",
-   "balance": 970.71,
-   "frei": 802.0,
+   "balance": 985.69,
+   "frei": 817.57,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us30"
   },
@@ -84,8 +84,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 1002.42,
-   "frei": 952.69,
+   "balance": 1006.84,
+   "frei": 957.29,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -117,7 +117,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-12T13:01:31.664360",
+ "stand_utc": "2026-11-12T13:16:35.962271",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

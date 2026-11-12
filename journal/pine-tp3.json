@@ -3,7 +3,7 @@
  "name": "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)",
  "konto": "…8878",
  "konto_name": "US500",
- "stand": "2026-11-12T10:08:50",
+ "stand": "2026-11-12T10:18:28",
  "start": "2026-11-10T03:48:53",
  "regel": "Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, nie gegen die Gegenrichtung. Take-Profit +3 €, kein Stop beim Einstieg. Prüfer: erst 3 Std. nichts, dann bei Fehltrade (0,5 R im Minus seit dem Einstieg) Stop 1 R und Ziel am Einstieg, nach 24 Std. im Plus raus. Äußerste Grenze: Notausstieg aller eigenen Trades bei zusammen -250 €.",
  "vorab": "suche/VORAB_pine5m.yaml",
@@ -32,17 +32,6 @@
    "tp": 3975.28
   },
   {
-   "dealId": "00000000-7287-eea1-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.33,
-   "entry": 3937.34,
-   "dist": 16.79,
-   "einstieg_kerze": "2026-11-12 09:20:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-12T09:28:26",
-   "tp": 3947.43
-  },
-  {
    "dealId": "00000000-7287-fa1e-049c-a0c30015549e",
    "richtung": 1,
    "size": 0.33,
@@ -55,10 +44,10 @@
   }
  ],
  "zusammenfassung": {
-  "trades": 6,
-  "pf_r": 0.0,
-  "summe_r": -11.67,
-  "summe_eur": -57.79,
+  "trades": 7,
+  "pf_r": 0.052,
+  "summe_r": -11.07,
+  "summe_eur": -54.77,
   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
  },
  "letzte_trades": [
@@ -217,6 +206,22 @@
    "closed_utc": "2026-11-11T17:58:30",
    "r": -3.663,
    "pnl_eur": -18.02
+  },
+  {
+   "dealId": "00000000-7287-eea1-049c-a0c30015549e",
+   "richtung": 1,
+   "size": 0.33,
+   "entry": 3937.34,
+   "dist": 16.79,
+   "einstieg_kerze": "2026-11-12 09:20:00",
+   "strategie": "A Long",
+   "opened_utc": "2026-11-12T09:28:26",
+   "tp": 3947.43,
+   "exit": 3947.49,
+   "quelle": "TP",
+   "closed_utc": "2026-11-12T10:18:28",
+   "r": 0.605,
+   "pnl_eur": 3.02
   }
  ]
 }

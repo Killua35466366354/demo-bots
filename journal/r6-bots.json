@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-12T15:46:42.272421",
+ "stand_utc": "2026-11-12T16:01:33.184269",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -196,7 +196,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1019.58,
+   "kontostand": 1020.01,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -204,7 +204,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:46:42.272421",
+    "zeit": "2026-11-12T16:01:33.184269",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -357,7 +357,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:46:42.272421",
+    "zeit": "2026-11-12T16:01:33.184269",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -661,7 +661,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1004.95,
+   "kontostand": 1005.03,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -669,7 +669,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:46:42.272421",
+    "zeit": "2026-11-12T16:01:33.184269",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -849,7 +849,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:46:42.272421",
+    "zeit": "2026-11-12T16:01:33.184269",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1061,16 +1061,17 @@
    "kontostand": 990.99,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
-   "status": "Fehler: DELETE /workingorders/00000000-7287-f64a-049c-701d0015549e -> 404: {\"errorCode\":\"error.not-found.dealId\"}",
+   "status": "wartet auf das nächste Signal",
    "offen": null,
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:31:35.842359",
+    "zeit": "2026-11-12T16:01:33.184269",
     "action": "none",
     "why": [
-     "Stop-Orders liegen"
-    ]
+     "heute erledigt"
+    ],
+    "bar": null
    },
    "zusammenfassung": {
     "trades": 2,
@@ -1312,7 +1313,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:46:42.272421",
+    "zeit": "2026-11-12T16:01:33.184269",
     "action": "none",
     "why": [
      "heute erledigt"

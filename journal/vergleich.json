@@ -617,12 +617,12 @@
    "konto": "Account 5",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 4,
-    "gewonnen": 0,
-    "treffer_pct": 0.0,
-    "summe_r": -5.72,
-    "pf_r": 0.0,
-    "eur": -28.48,
+    "trades": 6,
+    "gewonnen": 2,
+    "treffer_pct": 33.3,
+    "summe_r": 4.58,
+    "pf_r": 1.8,
+    "eur": 22.45,
     "rueckgang_r": 5.72
    },
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",

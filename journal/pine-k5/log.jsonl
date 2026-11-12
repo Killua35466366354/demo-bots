@@ -54,3 +54,5 @@
 {"time": "2026-11-12T11:13:22", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT eröffnet", "gesendet": true}
 {"time": "2026-11-12T12:03:26", "bot": "pine-k5", "event": "Pine-Ausstieg", "richtung": -1, "kerze": "2026-11-12 11:55:00", "deals": ["00000000-7288-4cd6-049c-701f0015549e", "00000000-7288-7e61-049c-701f0015549e"]}
 {"time": "2026-11-12T12:03:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Strategie würde SHORT schließen", "gesendet": true}
+{"time": "2026-11-12T14:18:27", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-7288-4cd6-049c-701f0015549e", "kurs": 3890.06, "r": 4.431, "eur": 21.95, "quelle": "USER"}
+{"time": "2026-11-12T14:18:27", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-7288-7e61-049c-701f0015549e", "kurs": 3890.06, "r": 5.862, "eur": 28.98, "quelle": "USER"}

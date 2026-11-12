@@ -12,20 +12,14 @@
   "dist": 102.48,
   "opened_utc": "2026-11-12T03:02:46",
   "spaet_min": 2.8,
-  "kerzen": 0
+  "kerzen": 1
  },
  "summe_r": 0.0,
  "trades": 0,
- "letzte_grenze": "2026-11-12 03:00:00",
+ "letzte_grenze": "2026-11-12 07:00:00",
  "letzte_pruefung": {
-  "grenze": "2026-11-12 03:00:00",
-  "ergebnis": "Verkauf eröffnet",
-  "richtung": -1,
-  "schluss": 3980.4,
-  "hoch_davor": 4148.34,
-  "tief_davor": 3982.42,
-  "trend": true,
-  "dist": 102.476
+  "grenze": "2026-11-12 07:00:00",
+  "ergebnis": "ein Trade ist offen, höchstens einer gleichzeitig"
  },
- "stand": "2026-11-12T03:02:46"
+ "stand": "2026-11-12T07:01:43"
 }

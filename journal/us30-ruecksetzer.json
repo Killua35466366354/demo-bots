@@ -1,18 +1,18 @@
 {
- "stand_utc": "2026-11-12T19:01:39.745986",
+ "stand_utc": "2026-11-12T19:16:45.539298",
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "regel": "Trend-Rücksetzer Dow (US30) (Runde 5b/5c, gleiche Regel wie US500): einmal am Tag um 15 Uhr New York; über dem 200-Tage-Schnitt kaufen, wenn RSI(2) unter 10 schließt, darunter verkaufen bei RSI(2) über 90; raus über/unter dem 5-Tage-Schnitt, beim Gegensignal oder nach 5 Handelstagen; Notstop 3 x ATR(20), kein Ziel, kleinste Größe. Capital.com-Tageskerzen 2025 bis Oktober 2026: 23 Trades, Gewinnfaktor 1,48.",
  "bot": "r5-ruecksetzer-us30",
  "epic": "US30",
  "konto": "…9086",
  "konto_name": "Account 5",
- "kontostand": 1004.19,
+ "kontostand": 1005.06,
  "start_kontostand": 1000.0,
  "start_utc": "2026-11-05T11:17:01.629112",
  "offen": null,
  "position": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-12T19:01:39.745986",
+  "zeit": "2026-11-12T19:16:45.539298",
   "action": "none",
   "why": "wartet auf 15 Uhr New York",
   "bar": null

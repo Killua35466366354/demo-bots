@@ -11,13 +11,23 @@
    "einstieg_kerze": "2026-11-12 14:15:00",
    "strategie": "A Long",
    "opened_utc": "2026-11-12T14:23:29",
-   "tp": 3918.18
+   "tp": 3902.36,
+   "stop": 3858.12,
+   "ziel": 3902.36,
+   "abfang": {
+    "zeit": "2026-11-12T17:28:26",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   },
+   "pruefer": {
+    "zeit": "2026-11-12T17:28:26",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   }
   }
  ],
  "trades": 10,
  "summe_r": -12.46,
  "summe_eur": -61.75,
- "letzte_kerze": "2026-11-12 17:00:00",
- "letzter_kurs": 3872.96,
- "stand": "2026-11-12T17:08:27"
+ "letzte_kerze": "2026-11-12 17:20:00",
+ "letzter_kurs": 3871.0,
+ "stand": "2026-11-12T17:28:26"
 }

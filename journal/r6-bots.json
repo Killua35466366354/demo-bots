@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-12T15:16:38.504769",
+ "stand_utc": "2026-11-12T15:31:35.842359",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -196,7 +196,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1022.77,
+   "kontostand": 1021.18,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -204,7 +204,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:16:38.504769",
+    "zeit": "2026-11-12T15:31:35.842359",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -357,7 +357,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:16:38.504769",
+    "zeit": "2026-11-12T15:31:35.842359",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -661,7 +661,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1005.52,
+   "kontostand": 1005.25,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -669,7 +669,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:16:38.504769",
+    "zeit": "2026-11-12T15:31:35.842359",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -849,7 +849,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:16:38.504769",
+    "zeit": "2026-11-12T15:31:35.842359",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1094,7 +1094,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:16:38.504769",
+    "zeit": "2026-11-12T15:31:35.842359",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1310,7 +1310,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:16:38.504769",
+    "zeit": "2026-11-12T15:31:35.842359",
     "action": "none",
     "why": [
      "heute erledigt"

@@ -635,13 +635,13 @@
    "konto": "US500",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 9,
+    "trades": 10,
     "gewonnen": 3,
-    "treffer_pct": 33.3,
-    "summe_r": -11.46,
-    "pf_r": 0.1,
-    "eur": -56.75,
-    "rueckgang_r": 11.68
+    "treffer_pct": 30.0,
+    "summe_r": -12.46,
+    "pf_r": 0.09,
+    "eur": -61.75,
+    "rueckgang_r": 12.46
    },
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_pine5m.yaml",

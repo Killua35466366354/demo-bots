@@ -18,3 +18,4 @@
 {"time": "2026-11-12T02:46:49", "event": "geändert", "dealId": "00000000-72b4-32d1-049c-70210015549e", "stopLevel": 3984.98, "warum": "einstand"}
 {"time": "2026-11-12T03:46:43", "event": "Teil zu beim Broker", "trade": "2026-11-12T02:00", "dealId": "00000000-72b4-32d1-049c-70210015549e", "kurs": 3984.98, "grund": "einstand"}
 {"time": "2026-11-12T03:46:43", "event": "Trade fertig", "trade": "2026-11-12T02:00", "seite": "Verkauf", "r": 0.337, "pnl_eur": 1.68}
+{"time": "2026-11-12T05:31:43", "event": "Verkauf eröffnet", "seite": "Verkauf", "art": "c", "kerze": "2026-11-12 05:30:00", "signal": "2026-11-12 05:30:00", "dist": 19.36, "teile": [{"dealId": "00000000-72b5-2e80-049c-70210015549e", "size": 0.09, "entry": 3974.68, "stop": 3994.04, "ziel": 3955.32}, {"dealId": "00000000-72b5-2e8f-049c-70210015549e", "size": 0.19, "entry": 3974.68, "stop": 3994.04, "ziel": null}]}

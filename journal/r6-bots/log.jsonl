@@ -72,3 +72,4 @@
 {"time": "2026-11-11T11:47:06.027173", "bot": "r6-vortag-gbpusd", "event": "vom Broker geschlossen", "exit": 1.33142, "pct": -0.0225, "reason": "Stop beim Broker"}
 {"time": "2026-11-11T15:16:34.996525", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
 {"time": "2026-11-11T21:31:33.474714", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-12T03:16:39.361505", "bot": "r6-vortag-eurusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}

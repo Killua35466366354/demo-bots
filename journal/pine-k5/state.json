@@ -7,9 +7,9 @@
  "summe_eur": 22.45,
  "hedging_versuch": "2026-11-10T09:28:32",
  "hedging": true,
- "letzte_kerze": "2026-11-12 14:15:00",
- "letzter_kurs": 3901.85,
- "stand": "2026-11-12T14:23:29",
+ "letzte_kerze": "2026-11-12 14:45:00",
+ "letzter_kurs": 3882.0,
+ "stand": "2026-11-12T14:53:35",
  "ff": {
   "stand": "2026-11-12T13:58:29",
   "termine": [

@@ -1,7 +1,18 @@
 {
  "format": 1,
- "offen": null,
- "tag_erledigt": "2026-11-11",
+ "offen": {
+  "dealId": "00000000-7295-e61a-049c-70190015549e",
+  "richtung": 1,
+  "size": 0.1,
+  "entry": 60719.5,
+  "stop": null,
+  "ziel": null,
+  "dist": null,
+  "opened_utc": "2026-11-12T06:03:53",
+  "aus_utc": "2026-11-12T06:30:00",
+  "tag": "2026-11-12"
+ },
+ "tag_erledigt": "2026-11-12",
  "opens": {
   "woche:2026W46": 57721.0
  },
@@ -10,15 +21,15 @@
  "summe_pct": 0.0,
  "summe_eur": 0.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-11T06:03:34",
-  "tag": "2026-11-11",
-  "action": "none",
-  "why": "Filter: Kurs 61317.9 nicht auf der Short-Seite des woche-Opens 57721",
+  "zeit": "2026-11-12T06:03:53",
+  "tag": "2026-11-12",
+  "action": "open",
+  "why": "Signal",
   "opens": {
    "woche": 57721.0
   },
-  "kurs_filter": 61317.9
+  "kurs_filter": 60684.5
  },
- "stand": "2026-11-12T05:38:40",
+ "stand": "2026-11-12T06:03:53",
  "start": "2026-11-10T12:43:38"
 }

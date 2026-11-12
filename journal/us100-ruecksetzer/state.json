@@ -2,18 +2,18 @@
  "konto_id": "332317231899038878",
  "konto": "…8878",
  "konto_name": "US500",
- "kontostand": 931.85,
+ "kontostand": 932.58,
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:00.693559",
  "letzte_entscheidung": {
-  "zeit": "2026-11-12T16:31:34.719693",
+  "zeit": "2026-11-12T16:46:34.363030",
   "action": "none",
   "why": "wartet auf 15 Uhr New York",
   "bar": null
  },
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "position": null,
- "stand_utc": "2026-11-12T16:31:34.719693",
+ "stand_utc": "2026-11-12T16:46:34.363030",
  "start_kontostand": 1000.0,
  "tag_erledigt": "2026-11-11"
 }

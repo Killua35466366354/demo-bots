@@ -73,3 +73,4 @@
 {"time": "2026-11-11T15:16:34.996525", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
 {"time": "2026-11-11T21:31:33.474714", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
 {"time": "2026-11-12T03:16:39.361505", "bot": "r6-vortag-eurusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
+{"time": "2026-11-12T09:31:36.280680", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders gelegt", "ph": 212.352, "pl": 211.502, "long": 212.375, "short": 211.502, "stop_abstand": 0.06149140401526356, "atr15": 0.12298280803052712, "size": 12400.0, "risiko_eur": 5.91, "margin_eur": 494.66}

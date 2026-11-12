@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-12T09:16:34.711862",
+ "stand_utc": "2026-11-12T09:31:36.280680",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -196,7 +196,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1005.18,
+   "kontostand": 1002.36,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -204,7 +204,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T09:16:34.711862",
+    "zeit": "2026-11-12T09:31:36.280680",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -357,7 +357,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T09:16:34.711862",
+    "zeit": "2026-11-12T09:31:36.280680",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -661,7 +661,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1002.38,
+   "kontostand": 1001.88,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -669,12 +669,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T09:16:34.711862",
+    "zeit": "2026-11-12T09:31:36.280680",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 21:30 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-12 09:15:00"
    },
    "zusammenfassung": {
     "trades": 0,
@@ -849,12 +849,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T09:16:34.711862",
+    "zeit": "2026-11-12T09:31:36.280680",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 21:15 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-12 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1061,17 +1061,45 @@
    "kontostand": 995.27,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
-   "status": "wartet auf das nächste Signal",
+   "status": "Stop-Orders liegen",
    "offen": null,
-   "orders": null,
+   "orders": {
+    "tag": "2026-11-12",
+    "ph": 212.352,
+    "pl": 211.502,
+    "gelegt_utc": "2026-11-12T09:31:36.280680",
+    "bis_utc": "2026-11-12 21:30:00",
+    "lot": 1.0,
+    "currency": "JPY",
+    "eur_rate": 177.13299999999998,
+    "konto_kurz": "…4494",
+    "long": {
+     "dealId": "00000000-7287-f64a-049c-701d0015549e",
+     "level": 212.375,
+     "marke": 212.352,
+     "stop": 212.291,
+     "ziel": 212.565,
+     "size": 12400.0
+    },
+    "short": {
+     "dealId": "00000000-7287-f652-049c-701d0015549e",
+     "level": 211.502,
+     "marke": 211.502,
+     "stop": 211.563,
+     "ziel": 211.29,
+     "size": 12400.0
+    },
+    "stop_abstand": 0.06149140401526356,
+    "atr15": 0.12298280803052712
+   },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T09:16:34.711862",
-    "action": "none",
+    "zeit": "2026-11-12T09:31:36.280680",
+    "action": "orders",
     "why": [
-     "wartet bis 4:30 New York"
+     "kein Ausbruch bis jetzt, Stop-Orders an 212.352 und 211.502"
     ],
-    "bar": null
+    "bar": "2026-11-12 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1283,12 +1311,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T09:16:34.711862",
+    "zeit": "2026-11-12T09:31:36.280680",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 21:30 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-12 09:15:00"
    },
    "zusammenfassung": {
     "trades": 0,

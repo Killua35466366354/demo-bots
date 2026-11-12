@@ -4,7 +4,7 @@
  "epic": "DE40",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-12T06:48:33",
+ "stand": "2026-11-12T07:23:36",
  "start": "2026-11-10T12:43:38",
  "regel": "Erste 15-Min.-Kerze ab 09:00 Uhr Berlin: grün Long, rot Short, Einstieg danach, Stop am anderen Ende der Kerze, Ziel 10 R, sonst raus um 17:30 Uhr Berlin. Nur wenn der Kurs auf der Seite von Jahres-, Quartals-, Monats- und Wochen-Open liegt (Long darüber, Short darunter). 1 R = 5 €.",
  "vorab": "suche/VORAB_scalping_opens.yaml",

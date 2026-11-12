@@ -15,13 +15,13 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 9 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 1,5 Trades, +0,19 R | 1 von 40 Demo-Trades |
 | 10 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 1,8 Trades, +0,39 R | 1 von 40 Demo-Trades |
 | 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
-| 12 | Vortag GBP/JPY | behalten | 1 | -1,02 | 0,00 | -4,08 | 0,9 Trades, +0,19 R | 1 von 40 Demo-Trades |
+| 12 | Vortag GBP/JPY | behalten | 2 | -2,02 | 0,00 | -8,35 | 0,9 Trades, +0,19 R | 2 von 40 Demo-Trades |
 
-**Kombi (6 Kern-Strategien auf einem Konto):** 2 Trades, -2,02 R, Gewinnfaktor 0,00, Soll bisher 4,7 Trades und +0,99 R. Aufstieg: 2 von 60 Demo-Trades.
+**Kombi (6 Kern-Strategien auf einem Konto):** 3 Trades, -3,02 R, Gewinnfaktor 0,00, Soll bisher 4,7 Trades und +0,99 R. Aufstieg: 3 von 60 Demo-Trades.
 
 | Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |
 |---|---|---|---|
-| 2026-11 | 2 | -2,02 | -20 € |
+| 2026-11 | 3 | -3,02 | -30 € |
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
 

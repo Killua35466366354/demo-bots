@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-12T15:31:35.842359",
+ "stand_utc": "2026-11-12T15:46:42.272421",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -196,7 +196,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1021.18,
+   "kontostand": 1019.58,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -204,7 +204,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:31:35.842359",
+    "zeit": "2026-11-12T15:46:42.272421",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -357,7 +357,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:31:35.842359",
+    "zeit": "2026-11-12T15:46:42.272421",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -661,7 +661,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1005.25,
+   "kontostand": 1004.95,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -669,7 +669,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:31:35.842359",
+    "zeit": "2026-11-12T15:46:42.272421",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -849,7 +849,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:31:35.842359",
+    "zeit": "2026-11-12T15:46:42.272421",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1058,40 +1058,12 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4494",
    "konto_name": "Account 3",
-   "kontostand": 995.27,
+   "kontostand": 990.99,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
-   "status": "Stop-Orders liegen",
+   "status": "Fehler: DELETE /workingorders/00000000-7287-f64a-049c-701d0015549e -> 404: {\"errorCode\":\"error.not-found.dealId\"}",
    "offen": null,
-   "orders": {
-    "tag": "2026-11-12",
-    "ph": 212.352,
-    "pl": 211.502,
-    "gelegt_utc": "2026-11-12T09:31:36.280680",
-    "bis_utc": "2026-11-12 21:30:00",
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 177.13299999999998,
-    "konto_kurz": "…4494",
-    "long": {
-     "dealId": "00000000-7287-f64a-049c-701d0015549e",
-     "level": 212.375,
-     "marke": 212.352,
-     "stop": 212.291,
-     "ziel": 212.565,
-     "size": 12400.0
-    },
-    "short": {
-     "dealId": "00000000-7287-f652-049c-701d0015549e",
-     "level": 211.502,
-     "marke": 211.502,
-     "stop": 211.563,
-     "ziel": 211.29,
-     "size": 12400.0
-    },
-    "stop_abstand": 0.06149140401526356,
-    "atr15": 0.12298280803052712
-   },
+   "orders": null,
    "position": null,
    "letzte_entscheidung": {
     "zeit": "2026-11-12T15:31:35.842359",
@@ -1101,11 +1073,11 @@
     ]
    },
    "zusammenfassung": {
-    "trades": 1,
+    "trades": 2,
     "treffer_pct": 0.0,
     "pf": 0.0,
-    "summe_pct": -0.027,
-    "pnl_eur": -4.08
+    "summe_pct": -0.056,
+    "pnl_eur": -8.35
    },
    "letzte_trades": [
     {
@@ -1138,6 +1110,36 @@
      "nachgeholt": false,
      "einstieg_geschaetzt": true,
      "nachgebucht": "2026-11-06T06:31:51.682251"
+    },
+    {
+     "bot": "r6-vortag-gbpjpy",
+     "strategie": "vortag_stop_oco",
+     "epic": "GBPJPY",
+     "side": "short",
+     "dealId": null,
+     "tag": "2026-11-12",
+     "einstieg_kerze": null,
+     "signal_bar": null,
+     "size": 12400.0,
+     "entry": 211.502,
+     "exit": 211.563,
+     "stop_level": 211.563,
+     "ziel_level": 211.29,
+     "notstop": false,
+     "opened_utc": "2026-11-12T09:31:36.280680",
+     "closed_utc": "2026-11-12T15:39:04.150000",
+     "reason": "Stop beim Broker",
+     "pct": -0.0288,
+     "r": -1.0,
+     "pnl": -756.4,
+     "waehrung": "JPY",
+     "pnl_eur": -4.27,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…4494",
+     "uebernommen": false,
+     "nachgeholt": false,
+     "einstieg_geschaetzt": true
     }
    ],
    "zwilling": {
@@ -1310,7 +1312,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-12T15:31:35.842359",
+    "zeit": "2026-11-12T15:46:42.272421",
     "action": "none",
     "why": [
      "heute erledigt"

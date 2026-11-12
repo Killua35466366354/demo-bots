@@ -11,7 +11,17 @@
    "einstieg_kerze": "2026-11-12 07:45:00",
    "strategie": "A Long",
    "opened_utc": "2026-11-12T07:53:31",
-   "tp": 3971.46
+   "tp": 3962.44,
+   "stop": 3947.48,
+   "ziel": 3962.44,
+   "abfang": {
+    "zeit": "2026-11-12T10:58:29",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   },
+   "pruefer": {
+    "zeit": "2026-11-12T10:58:29",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   }
   },
   {
    "dealId": "00000000-7287-47c6-049c-a0c30015549e",
@@ -22,13 +32,23 @@
    "einstieg_kerze": "2026-11-12 07:50:00",
    "strategie": "A Long",
    "opened_utc": "2026-11-12T07:58:25",
-   "tp": 3975.28
+   "tp": 3966.29,
+   "stop": 3951.43,
+   "ziel": 3966.29,
+   "abfang": {
+    "zeit": "2026-11-12T10:58:29",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   },
+   "pruefer": {
+    "zeit": "2026-11-12T10:58:29",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   }
   }
  ],
  "trades": 8,
  "summe_r": -10.452,
  "summe_eur": -51.76,
- "letzte_kerze": "2026-11-12 10:25:00",
- "letzter_kurs": 3948.05,
- "stand": "2026-11-12T10:33:29"
+ "letzte_kerze": "2026-11-12 10:50:00",
+ "letzter_kurs": 3954.06,
+ "stand": "2026-11-12T10:58:29"
 }

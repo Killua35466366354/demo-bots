@@ -81,3 +81,9 @@
 {"time": "2026-11-12T21:13:33", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-728b-a39e-049c-701f0015549e", "stopLevel": 3882.86, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-12T21:13:33", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-728b-ad83-049c-701f0015549e", "stopLevel": 3882.88, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-12T21:18:31", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-728b-e3d1-049c-701f0015549e", "stopLevel": 3882.53, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-728b-a39e-049c-701f0015549e", "kurs": 3882.89, "r": -0.718, "eur": -3.5, "quelle": "SL"}
+{"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-728b-ad83-049c-701f0015549e", "kurs": 3882.89, "r": -0.818, "eur": -4.0, "quelle": "SL"}
+{"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-728b-e3d1-049c-701f0015549e", "kurs": 3882.69, "r": -0.481, "eur": -2.38, "quelle": "SL"}
+{"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}

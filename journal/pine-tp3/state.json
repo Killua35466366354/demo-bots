@@ -12,12 +12,23 @@
    "strategie": "A Long",
    "opened_utc": "2026-11-12T07:53:31",
    "tp": 3971.46
+  },
+  {
+   "dealId": "00000000-7287-47c6-049c-a0c30015549e",
+   "richtung": 1,
+   "size": 0.37,
+   "entry": 3966.29,
+   "dist": 14.86,
+   "einstieg_kerze": "2026-11-12 07:50:00",
+   "strategie": "A Long",
+   "opened_utc": "2026-11-12T07:58:25",
+   "tp": 3975.28
   }
  ],
  "trades": 6,
  "summe_r": -11.675,
  "summe_eur": -57.79,
- "letzte_kerze": "2026-11-12 07:45:00",
- "letzter_kurs": 3961.97,
- "stand": "2026-11-12T07:53:31"
+ "letzte_kerze": "2026-11-12 07:50:00",
+ "letzter_kurs": 3965.79,
+ "stand": "2026-11-12T07:58:25"
 }

@@ -1,1 +1,2 @@
 {"time": "2026-11-12T03:02:46", "event": "Verkauf eröffnet", "id": "2026-11-12T03:00", "dealId": "00000000-7295-0a3c-049c-701e0015549e", "size": 0.05, "entry": 3980.67, "stop": 4083.15, "dist": 102.48, "spaet_min": 2.8}
+{"time": "2026-11-12T19:01:56", "event": "Trade fertig", "trade": "2026-11-12T03:00", "seite": "Verkauf", "grund": "zeit", "r": 0.976, "pnl_eur": 4.52}

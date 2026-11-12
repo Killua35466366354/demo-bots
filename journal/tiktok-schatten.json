@@ -1658,7 +1658,7 @@
    "tp3": 3918.32,
    "r_usd": 19.18,
    "teile": [],
-   "ergebnis_r": -0.263,
+   "ergebnis_r": -0.381,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1681,7 +1681,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 0.625,
+   "ergebnis_r": 0.477,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1706,7 +1706,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 0.934,
+    "ergebnis_r": 0.894,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1732,7 +1732,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 0.934,
+    "ergebnis_r": 0.894,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1756,7 +1756,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 0.625,
+    "ergebnis_r": 0.477,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -1780,7 +1780,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 0.934,
+   "ergebnis_r": 0.894,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1796,7 +1796,7 @@
    "tp3": null,
    "r_usd": 19.18,
    "teile": [],
-   "ergebnis_r": -0.263,
+   "ergebnis_r": -0.381,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1806,8 +1806,8 @@
   "richtung": -1,
   "linie": 3992.94,
   "gerade_gedreht": false,
-  "kerze": "2026-11-12 03:00:00",
-  "kurs": 3980.4,
+  "kerze": "2026-11-12 04:00:00",
+  "kurs": 3982.66,
   "genauer_175": {
    "richtung": -1,
    "linie": 3991.16,
@@ -1870,8 +1870,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-12T03:11:29+00:00",
- "letzte_kerze": "2026-11-12 02:45:00",
+ "stand": "2026-11-12T04:11:33+00:00",
+ "letzte_kerze": "2026-11-12 03:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

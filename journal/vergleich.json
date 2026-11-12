@@ -1,6 +1,6 @@
 {
  "format": 1,
- "tag": "2026-11-11",
+ "tag": "2026-11-12",
  "letzter_trade_utc": "2026-11-11T11:47:06.027173",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
@@ -22,11 +22,11 @@
     "rueckgang_r": 0.05
    },
    "soll": {
-    "wochen": 0.8,
-    "trades": 2.1,
-    "summe_r": 0.04
+    "wochen": 0.9,
+    "trades": 2.5,
+    "summe_r": 0.05
    },
-   "abweichung_r": -0.03,
+   "abweichung_r": -0.04,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -64,11 +64,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.0,
+    "wochen": 1.1,
     "trades": 0.3,
-    "summe_r": 0.06
+    "summe_r": 0.07
    },
-   "abweichung_r": -0.06,
+   "abweichung_r": -0.07,
    "bewertung": {
     "rang": 1,
     "pf": 5.821,
@@ -100,11 +100,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 0.9,
+    "wochen": 1.1,
     "trades": 0.2,
-    "summe_r": 0.02
+    "summe_r": 0.03
    },
-   "abweichung_r": -0.02,
+   "abweichung_r": -0.03,
    "bewertung": {
     "rang": 2,
     "pf": 3.537,
@@ -136,11 +136,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 0.9,
-    "trades": 0.2,
-    "summe_r": 0.02
+    "wochen": 1.1,
+    "trades": 0.3,
+    "summe_r": 0.03
    },
-   "abweichung_r": -0.02,
+   "abweichung_r": -0.03,
    "bewertung": {
     "rang": 3,
     "pf": 1.91,
@@ -172,11 +172,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 0.9,
-    "trades": 1.3,
-    "summe_r": 0.42
+    "wochen": 1.1,
+    "trades": 1.5,
+    "summe_r": 0.48
    },
-   "abweichung_r": -0.42,
+   "abweichung_r": -0.48,
    "bewertung": {
     "rang": 4,
     "pf": 1.671,
@@ -208,7 +208,7 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 0.8,
+    "wochen": 0.9,
     "trades": 0.2,
     "summe_r": 0.02
    },
@@ -244,11 +244,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 0.8,
-    "trades": 0.4,
-    "summe_r": 0.05
+    "wochen": 0.9,
+    "trades": 0.5,
+    "summe_r": 0.06
    },
-   "abweichung_r": -0.05,
+   "abweichung_r": -0.06,
    "bewertung": {
     "rang": 7,
     "pf": 1.448,
@@ -307,11 +307,11 @@
     "rueckgang_r": 1.0
    },
    "soll": {
-    "wochen": 0.9,
-    "trades": 1.3,
-    "summe_r": 0.16
+    "wochen": 1.1,
+    "trades": 1.5,
+    "summe_r": 0.19
    },
-   "abweichung_r": -1.16,
+   "abweichung_r": -1.19,
    "bewertung": {
     "rang": 9,
     "pf": 1.215,
@@ -349,11 +349,11 @@
     "rueckgang_r": 1.01
    },
    "soll": {
-    "wochen": 1.1,
-    "trades": 1.6,
-    "summe_r": 0.34
+    "wochen": 1.2,
+    "trades": 1.8,
+    "summe_r": 0.39
    },
-   "abweichung_r": -1.35,
+   "abweichung_r": -1.4,
    "bewertung": {
     "rang": 12,
     "pf": 1.171,
@@ -424,11 +424,11 @@
     "rueckgang_r": 1.02
    },
    "soll": {
-    "wochen": 0.8,
-    "trades": 0.8,
-    "summe_r": 0.16
+    "wochen": 0.9,
+    "trades": 0.9,
+    "summe_r": 0.19
    },
-   "abweichung_r": -1.18,
+   "abweichung_r": -1.21,
    "bewertung": {
     "rang": 18,
     "pf": 1.451,
@@ -476,8 +476,8 @@
    }
   },
   "soll": {
-   "trades": 4.1,
-   "summe_r": 0.84
+   "trades": 4.7,
+   "summe_r": 0.99
   },
   "aufstieg": {
    "status": "sammelt",

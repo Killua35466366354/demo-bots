@@ -84,8 +84,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 995.08,
-   "frei": 907.22,
+   "balance": 995.24,
+   "frei": 907.38,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -117,7 +117,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-11T23:46:32.027000",
+ "stand_utc": "2026-11-12T00:01:34.364892",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

@@ -4,3 +4,4 @@
 {"time": "2026-11-12T08:18:38", "bot": "scalp-de40", "event": "eröffnet", "tag": "2026-11-12", "richtung": 1, "size": 0.049, "stop": 26859.2, "ziel": 27962.5, "dealId": "00000000-7296-cdea-049c-70190015549e", "entry": 26957.5}
 {"time": "2026-11-12T10:58:38", "bot": "scalp-de40", "event": "Trade zu", "dealId": "00000000-7296-cdea-049c-70190015549e", "kurs": 26858.7, "r": -1.005, "pct": -0.3665, "eur": -4.84, "quelle": "SL"}
 {"time": "2026-11-13T08:18:51", "bot": "scalp-de40", "event": "eröffnet", "tag": "2026-11-13", "richtung": 1, "size": 0.072, "stop": 26668.7, "ziel": 27431.0, "dealId": "00000000-72ff-3495-049c-70190015549e", "entry": 26737.5}
+{"time": "2026-11-13T16:33:28", "bot": "scalp-de40", "event": "Trade zu", "dealId": "00000000-72ff-3495-049c-70190015549e", "kurs": 26759.3, "r": 0.317, "pct": 0.0815, "eur": 1.57, "quelle": "Zeit"}

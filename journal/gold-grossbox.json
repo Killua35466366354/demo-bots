@@ -2,15 +2,34 @@
  "bot": "gold-grossbox",
  "name": "Gold Groß-Box (Runde 12d)",
  "konto": "Account 6 …3678",
- "stand": "2026-11-13T13:46:48",
+ "stand": "2026-11-13T14:01:55",
  "start": "2026-11-10T18:47:49",
  "pausiert": null,
- "status": "kein Trade offen, große Box: keine (1 Std. und 4 Std. uneinig)",
+ "status": "1 offen (Verkauf ab 3882.45), große Box: Verkauf",
  "regel": "Große Box aus Runde 12d: 1-Std.-SuperTrend 20/2 und 4-Std.-Strukturbruch gleich, Einstiege nur in Boxrichtung (Boxbeginn, 15-Min.-SuperTrend 20/1,75, 15-Min.-Strukturbruch), höchstens 3 offen. Ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box. 5 € Risiko je Trade.",
  "backtest": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
  "vorab": "suche/VORAB_gold_grossbox.yaml",
  "vorab_ok": true,
- "offen": [],
+ "offen": [
+  {
+   "id": "2026-11-13T14:00",
+   "art": "a",
+   "richtung": -1,
+   "einstieg_zeit": "2026-11-13 14:00:00",
+   "dist": 39.72,
+   "tp1": false,
+   "einstand": null,
+   "teile": [
+    {
+     "size": 0.04,
+     "entry": 3882.45,
+     "stop": 3922.17,
+     "ziel": 3842.73,
+     "offen": true
+    }
+   ]
+  }
+ ],
  "zusammenfassung": {
   "trades": 6,
   "pf_r": 1.674,
@@ -239,9 +258,17 @@
  ],
  "blick": {
   "kerzen": 2287,
-  "letzte_kerze": "2026-11-13 13:30:00",
-  "kurs": 3889.35,
-  "grosse_box": "keine (1 Std. und 4 Std. uneinig)",
-  "modell_offen": []
+  "letzte_kerze": "2026-11-13 13:45:00",
+  "kurs": 3882.24,
+  "grosse_box": "Verkauf",
+  "modell_offen": [
+   {
+    "einstieg_zeit": "2026-11-13 14:00:00",
+    "richtung": -1,
+    "art": "a",
+    "einstieg": 3882.24,
+    "stop": 3921.96
+   }
+  ]
  }
 }

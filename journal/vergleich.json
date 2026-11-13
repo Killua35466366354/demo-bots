@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-13",
- "letzter_trade_utc": "2026-11-13T12:57:41.839000",
+ "letzter_trade_utc": "2026-11-13T18:14:50.609000",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
   {
@@ -427,20 +427,20 @@
    "konto": "Account 3",
    "seit": "2026-11-05T11:46:30",
    "ist": {
-    "trades": 2,
+    "trades": 3,
     "gewonnen": 0,
     "treffer_pct": 0.0,
-    "summe_r": -2.02,
+    "summe_r": -3.02,
     "pf_r": 0.0,
-    "eur": -8.35,
-    "rueckgang_r": 2.02
+    "eur": -13.05,
+    "rueckgang_r": 3.02
    },
    "soll": {
     "wochen": 1.1,
     "trades": 1.1,
     "summe_r": 0.21
    },
-   "abweichung_r": -2.23,
+   "abweichung_r": -3.23,
    "bewertung": {
     "rang": 18,
     "pf": 1.451,
@@ -449,14 +449,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 2,
-     "summe_r": -2.02,
-     "eur": -8.35
+     "trades": 3,
+     "summe_r": -3.02,
+     "eur": -13.05
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "2 von 40 Demo-Trades"
+    "text": "3 von 40 Demo-Trades"
    },
    "rang": 12
   }
@@ -472,19 +472,19 @@
   ],
   "draussen": [],
   "ist": {
-   "trades": 4,
+   "trades": 5,
    "gewonnen": 0,
    "treffer_pct": 0.0,
-   "summe_r": -4.06,
+   "summe_r": -5.06,
    "pf_r": 0.0,
-   "eur": -15.38,
-   "rueckgang_r": 4.06
+   "eur": -20.08,
+   "rueckgang_r": 5.06
   },
   "monate": {
    "2026-11": {
-    "trades": 4,
-    "summe_r": -4.06,
-    "eur": -15.38
+    "trades": 5,
+    "summe_r": -5.06,
+    "eur": -20.08
    }
   },
   "soll": {
@@ -493,7 +493,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "4 von 60 Demo-Trades"
+   "text": "5 von 60 Demo-Trades"
   }
  },
  "wunsch": [

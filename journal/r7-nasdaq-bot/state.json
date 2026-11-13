@@ -1,14 +1,14 @@
 {
  "status": "wartet auf einen Schluss über dem Band (10:00-15:00 New York)",
- "stand_utc": "2026-11-13T12:46:48.617383",
+ "stand_utc": "2026-11-13T13:01:40.231025",
  "konto_id": "332317231899038878",
  "konto": "…8878",
  "konto_name": "US500",
- "kontostand": 938.89,
+ "kontostand": 940.73,
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:24.423150",
  "letzte_entscheidung": {
-  "zeit": "2026-11-13T12:46:48.617383",
+  "zeit": "2026-11-13T13:01:40.231025",
   "action": "none",
   "why": "wartet auf den ersten Prüfpunkt (10:00 New York)",
   "bar": null

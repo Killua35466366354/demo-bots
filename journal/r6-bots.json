@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-13T12:46:43.243142",
+ "stand_utc": "2026-11-13T13:01:34.870057",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T12:46:43.243142",
+    "zeit": "2026-11-13T13:01:34.870057",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -370,7 +370,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T12:46:43.243142",
+    "zeit": "2026-11-13T13:01:34.870057",
     "action": "none",
     "why": [
      "kein Signal"
@@ -654,40 +654,12 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1004.52,
+   "kontostand": 1000.72,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "Stop-Orders liegen",
+   "status": "Fehler: DELETE /workingorders/00000000-72ff-bb47-049c-701e0015549e -> 404: {\"errorCode\":\"error.not-found.dealId\"}",
    "offen": null,
-   "orders": {
-    "tag": "2026-11-13",
-    "ph": 1.11024,
-    "pl": 1.10453,
-    "gelegt_utc": "2026-11-13T09:31:42.181936",
-    "bis_utc": "2026-11-13 21:30:00",
-    "lot": 1.0,
-    "currency": "USD",
-    "eur_rate": 1.105855,
-    "konto_kurz": "…1790",
-    "long": {
-     "dealId": "00000000-72ff-bb47-049c-701e0015549e",
-     "level": 1.11031,
-     "marke": 1.11024,
-     "stop": 1.10998,
-     "ziel": 1.11167,
-     "size": 15000.0
-    },
-    "short": {
-     "dealId": "00000000-72ff-bb4f-049c-701e0015549e",
-     "level": 1.10453,
-     "marke": 1.10453,
-     "stop": 1.10479,
-     "ziel": 1.1031,
-     "size": 15000.0
-    },
-    "stop_abstand": 0.00026199442550085665,
-    "atr15": 0.0005239888510017133
-   },
+   "orders": null,
    "position": null,
    "letzte_entscheidung": {
     "zeit": "2026-11-13T12:46:43.243142",
@@ -697,13 +669,44 @@
     ]
    },
    "zusammenfassung": {
-    "trades": 0,
-    "treffer_pct": null,
-    "pf": null,
-    "summe_pct": 0.0,
-    "pnl_eur": 0.0
+    "trades": 1,
+    "treffer_pct": 0.0,
+    "pf": 0.0,
+    "summe_pct": -0.024,
+    "pnl_eur": -3.66
    },
-   "letzte_trades": [],
+   "letzte_trades": [
+    {
+     "bot": "r6-vortag-eurusd",
+     "strategie": "vortag_stop_oco",
+     "epic": "EURUSD",
+     "side": "short",
+     "dealId": null,
+     "tag": "2026-11-13",
+     "einstieg_kerze": null,
+     "signal_bar": null,
+     "size": 15000.0,
+     "entry": 1.10453,
+     "exit": 1.1048,
+     "stop_level": 1.10479,
+     "ziel_level": 1.1031,
+     "notstop": false,
+     "opened_utc": "2026-11-13T09:31:42.181936",
+     "closed_utc": "2026-11-13T12:51:11.025000",
+     "reason": "Stop beim Broker",
+     "pct": -0.0244,
+     "r": -1.038,
+     "pnl": -4.05,
+     "waehrung": "USD",
+     "pnl_eur": -3.66,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…1790",
+     "uebernommen": false,
+     "nachgeholt": false,
+     "einstieg_geschaetzt": true
+    }
+   ],
    "zwilling": {
     "tage": 8,
     "abweichungen": 0,
@@ -882,7 +885,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T12:46:43.243142",
+    "zeit": "2026-11-13T13:01:34.870057",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1140,7 +1143,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T12:46:43.243142",
+    "zeit": "2026-11-13T13:01:34.870057",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1390,40 +1393,12 @@
    "konto_vorschlag": "Account 2 (Mess-Bot)",
    "konto": "…2606",
    "konto_name": "Account 2",
-   "kontostand": 995.15,
+   "kontostand": 988.0,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-05T17:32:02.353890",
-   "status": "Stop-Orders liegen",
+   "status": "Fehler: DELETE /workingorders/00000000-72e1-f1a2-049c-701a0015549e -> 404: {\"errorCode\":\"error.not-found.dealId\"}",
    "offen": null,
-   "orders": {
-    "tag": "2026-11-13",
-    "ph": 1.11024,
-    "pl": 1.10453,
-    "gelegt_utc": "2026-11-13T09:31:42.181936",
-    "bis_utc": "2026-11-13 21:30:00",
-    "lot": 1.0,
-    "currency": "USD",
-    "eur_rate": 1.105855,
-    "konto_kurz": "…2606",
-    "long": {
-     "dealId": "00000000-72e1-f1a2-049c-701a0015549e",
-     "level": 1.11031,
-     "marke": 1.11024,
-     "stop": 1.10972,
-     "ziel": 1.11167,
-     "size": 14900.0
-    },
-    "short": {
-     "dealId": "00000000-72e1-f1aa-049c-701a0015549e",
-     "level": 1.10453,
-     "marke": 1.10453,
-     "stop": 1.10505,
-     "ziel": 1.1031,
-     "size": 14900.0
-    },
-    "stop_abstand": 0.0005239888510017133,
-    "atr15": 0.0005239888510017133
-   },
+   "orders": null,
    "position": null,
    "letzte_entscheidung": {
     "zeit": "2026-11-13T12:46:43.243142",
@@ -1433,13 +1408,44 @@
     ]
    },
    "zusammenfassung": {
-    "trades": 0,
-    "treffer_pct": null,
-    "pf": null,
-    "summe_pct": 0.0,
-    "pnl_eur": 0.0
+    "trades": 1,
+    "treffer_pct": 0.0,
+    "pf": 0.0,
+    "summe_pct": -0.047,
+    "pnl_eur": -7.01
    },
-   "letzte_trades": [],
+   "letzte_trades": [
+    {
+     "bot": "r6-vortag-eurusd-1atr",
+     "strategie": "vortag_stop_oco",
+     "epic": "EURUSD",
+     "side": "short",
+     "dealId": null,
+     "tag": "2026-11-13",
+     "einstieg_kerze": null,
+     "signal_bar": null,
+     "size": 14900.0,
+     "entry": 1.10453,
+     "exit": 1.10505,
+     "stop_level": 1.10505,
+     "ziel_level": 1.1031,
+     "notstop": false,
+     "opened_utc": "2026-11-13T09:31:42.181936",
+     "closed_utc": "2026-11-13T12:57:41.839000",
+     "reason": "Stop beim Broker",
+     "pct": -0.0471,
+     "r": -1.0,
+     "pnl": -7.748,
+     "waehrung": "USD",
+     "pnl_eur": -7.01,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…2606",
+     "uebernommen": false,
+     "nachgeholt": false,
+     "einstieg_geschaetzt": true
+    }
+   ],
    "zwilling": {
     "tage": 7,
     "abweichungen": 0,

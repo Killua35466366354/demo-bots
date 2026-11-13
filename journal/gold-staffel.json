@@ -4,9 +4,9 @@
  "epic": "GOLD",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-13T11:33:38",
+ "stand": "2026-11-13T11:38:38",
  "start": "2026-11-10T17:08:37",
- "status": "Short offen, Abfänger hält den Stop bei 3896.56",
+ "status": "Short offen, Abfänger hält den Stop bei 3894.94",
  "regel": "Gleiche Einstiege, Größe und Stop wie der Gold-Bot C/B auf dem Hauptkonto, dazu Take-Profits verteilt: TP1 +2 R, TP2 +4 R, TP3 +6 R beim Broker. Wächter alle 5 Minuten: nach TP1 kommt der Stop auf TP1, nach TP2 auf TP2, so endet ein Trade, der +2 R erreicht hat, nie mehr im Minus. Abfänger wie Account 5: nach 4 Std. Stop 0,5 R hinter dem besten Kurs. Schließt der Gold-Bot, schließt er auch.",
  "vorab_abfang": "suche/VORAB_gold_staffel_abfang.yaml",
  "vorab": "suche/VORAB_gold_staffel.yaml",
@@ -17,7 +17,7 @@
   "richtung": -1,
   "size": 1.0,
   "entry": 3898.92,
-  "stop": 3896.56,
+  "stop": 3894.94,
   "dist": 16.2,
   "tp": [
    3866.52,
@@ -26,10 +26,10 @@
   ],
   "stufe": 0,
   "opened_utc": "2026-11-13T06:13:39",
-  "bester": 3887.85,
+  "bester": 3886.84,
   "abfang": {
    "zeit": "2026-11-13T10:13:42",
-   "beste": 3887.85
+   "beste": 3886.84
   },
   "stop_von": "Abfänger"
  },

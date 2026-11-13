@@ -10,3 +10,4 @@
 {"time": "2026-11-13T02:03:39", "event": "Plan neu", "kerzen_4h": 324, "atr_4h": 35.44, "wartend": [{"zone": "U2026110404", "seite": "Verkauf", "linie": 3895.29, "stop": 3914.44, "rest": 28, "beruehrt": true}]}
 {"time": "2026-11-13T03:03:43", "event": "Plan neu", "kerzen_4h": 325, "atr_4h": 35.87, "wartend": []}
 {"time": "2026-11-13T21:48:50", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)"]}
+{"time": "2026-11-13T22:03:54", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)", "Plan nicht aus dieser Stunde", "Markt gerade nicht handelbar"]}

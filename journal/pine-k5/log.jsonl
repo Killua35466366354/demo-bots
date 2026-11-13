@@ -98,3 +98,4 @@
 {"time": "2026-11-13T12:13:28", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-730b-11bd-049c-701f0015549e", "stopLevel": 3900.02, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-13T12:33:27", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-730b-11bd-049c-701f0015549e", "stopLevel": 3898.38, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-13T12:38:29", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-730b-11bd-049c-701f0015549e", "stopLevel": 3896.76, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-13T12:43:30", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-730b-11bd-049c-701f0015549e", "stopLevel": 3895.84, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}

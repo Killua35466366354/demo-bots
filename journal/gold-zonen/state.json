@@ -36,8 +36,10 @@
   }
  },
  "versuche": {},
- "keine_order": [],
- "stand": "2026-11-13T21:03:42",
+ "keine_order": [
+  "Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)"
+ ],
+ "stand": "2026-11-13T21:48:50",
  "letzte_deals": [
   "00000000-72df-3ed0-049c-701a0015549e"
  ]

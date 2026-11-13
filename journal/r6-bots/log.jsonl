@@ -81,3 +81,6 @@
 {"time": "2026-11-13T01:16:35.645892", "bot": "r6-vortag-eurusd-1atr", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
 {"time": "2026-11-13T01:31:33.445733", "bot": "r6-vortag-eurusd-1atr", "event": "keine anderen Märkte mehr auf dem Konto"}
 {"time": "2026-11-13T02:16:34.923384", "bot": "r6-london-gbpusd", "event": "keine anderen Märkte mehr auf dem Konto"}
+{"time": "2026-11-13T09:31:42.181936", "bot": "r6-vortag-eurusd", "event": "Stop-Orders gelegt", "ph": 1.11024, "pl": 1.10453, "long": 1.11031, "short": 1.10453, "stop_abstand": 0.00026199442550085665, "atr15": 0.0005239888510017133, "size": 15000.0, "risiko_eur": 4.5, "margin_eur": 500.02}
+{"time": "2026-11-13T09:31:42.181936", "bot": "r6-vortag-gbpjpy", "event": "Stop-Orders gelegt", "ph": 212.131, "pl": 210.949, "long": 212.155, "short": 210.949, "stop_abstand": 0.06717051841163063, "atr15": 0.13434103682326126, "size": 12400.0, "risiko_eur": 6.39, "margin_eur": 494.7}
+{"time": "2026-11-13T09:31:42.181936", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders gelegt", "ph": 1.11024, "pl": 1.10453, "long": 1.11031, "short": 1.10453, "stop_abstand": 0.0005239888510017133, "atr15": 0.0005239888510017133, "size": 14900.0, "risiko_eur": 8.0, "margin_eur": 496.68}

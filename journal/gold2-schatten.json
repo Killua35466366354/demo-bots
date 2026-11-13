@@ -23,25 +23,32 @@
    "usd_oz": 8.66,
    "r": 0.313,
    "why": "ziel"
+  },
+  {
+   "side": "short",
+   "signal": "2026-11-13 05:00:00",
+   "in": "2026-11-13 06:00:00",
+   "out": "2026-11-13 06:00:00",
+   "in_px": 3903.88,
+   "out_px": 3895.2,
+   "stop_usd": 26.05,
+   "usd_oz": 8.68,
+   "r": 0.333,
+   "why": "ziel"
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-13 05:00:00",
- "updated_utc": "2026-11-13T06:11:25+00:00",
- "open_detail": {
-  "side": "short",
-  "signal": "2026-11-13 05:00:00",
-  "atr": 17.37,
-  "stand": "wartet auf die Füllung zur nächsten Eröffnung"
- },
+ "cursor": "2026-11-13 06:00:00",
+ "updated_utc": "2026-11-13T07:11:31+00:00",
+ "open_detail": null,
  "richtung": -1,
  "summary": {
-  "trades": 2,
+  "trades": 3,
   "win_pct": 100.0,
-  "sum_r": 0.65,
+  "sum_r": 0.98,
   "pf_r": null,
-  "usd_oz": 17.36,
-  "konto_eur": 253.24,
+  "usd_oz": 26.04,
+  "konto_eur": 254.93,
   "konto_start_eur": 250.0,
   "vorwaerts_ziel": "Auswertung nach 30 Trades: Summe R über 0 und Gewinnfaktor mindestens 1,2"
  },
@@ -53,7 +60,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-13T06:11:25+00:00",
+  "abgerufen_utc": "2026-11-13T07:11:31+00:00",
   "naechste": [
    "2026-11-13 13:30 Core PPI m/m",
    "2026-11-13 13:30 PPI m/m"
@@ -73,8 +80,5 @@
   "richtung": true,
   "news": true
  },
- "open": {
-  "side": -1,
-  "t_sig": "2026-11-13 05:00:00"
- }
+ "open": null
 }

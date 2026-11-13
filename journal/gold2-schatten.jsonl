@@ -8,3 +8,4 @@
 {"time": "2026-11-06T08:11:31+00:00", "event": "gesperrt", "bar": "2026-11-06 07:00:00", "side": "long", "why": ["Markt-Richtung uneinig"]}
 {"time": "2026-11-06T09:11:27+00:00", "event": "gesperrt", "bar": "2026-11-06 08:00:00", "side": "long", "why": ["Markt-Richtung uneinig"]}
 {"time": "2026-11-13T06:11:25+00:00", "event": "signal", "bar": "2026-11-13 05:00:00", "side": "short", "forexfactory_haette_gesperrt": []}
+{"time": "2026-11-13T07:11:31+00:00", "event": "ausstieg", "side": "short", "signal": "2026-11-13 05:00:00", "in": "2026-11-13 06:00:00", "out": "2026-11-13 06:00:00", "in_px": 3903.88, "out_px": 3895.2, "stop_usd": 26.05, "usd_oz": 8.68, "r": 0.333, "why": "ziel"}

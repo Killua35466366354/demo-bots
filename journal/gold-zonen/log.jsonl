@@ -6,3 +6,4 @@
 {"time": "2026-11-13T01:18:37", "event": "Zone verbraucht", "zone": "U2026110404", "grund": "gehandelt"}
 {"time": "2026-11-13T01:18:37", "event": "Verkauf gefüllt", "trade": "2026-11-13T01:16", "zone": "U2026110404", "entry": 3895.29, "linie": 3895.29, "stop": 3914.44, "size": 0.28, "dealId": "00000000-72df-3ed0-049c-701a0015549e"}
 {"time": "2026-11-13T01:18:37", "event": "keine neue Order", "gruende": ["ein Trade ist offen"]}
+{"time": "2026-11-13T01:28:36", "event": "Trade fertig", "trade": "2026-11-13T01:16", "seite": "Verkauf", "grund": "stop", "r": -1.001, "pnl_eur": -4.85}

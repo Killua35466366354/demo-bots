@@ -78,3 +78,4 @@
 {"time": "2026-11-12T15:46:42.272421", "bot": "r6-vortag-gbpjpy", "event": "ausgelöst und schon wieder zu", "side": "short", "exit": 211.563, "pct": -0.0288, "reason": "Stop beim Broker"}
 {"time": "2026-11-12T15:46:42.272421", "bot": "r6-vortag-gbpjpy", "event": "fehler", "why": "DELETE /workingorders/00000000-7287-f64a-049c-701d0015549e -> 404: {\"errorCode\":\"error.not-found.dealId\"}"}
 {"time": "2026-11-12T19:16:47.244886", "bot": "r6-vortag-eurusd", "event": "keine anderen Märkte mehr auf dem Konto"}
+{"time": "2026-11-13T01:16:35.645892", "bot": "r6-vortag-eurusd-1atr", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}

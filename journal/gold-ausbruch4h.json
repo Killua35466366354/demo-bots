@@ -2,10 +2,10 @@
  "bot": "gold-ausbruch4h",
  "name": "Gold 4-Std.-Ausbruch mit Tagestrend",
  "konto": "Account 4 …1790",
- "stand": "2026-11-13T07:01:46",
+ "stand": "2026-11-13T11:01:47",
  "start": "2026-11-12T03:02:46",
  "pausiert": null,
- "status": "kein Trade offen. Letzte Kerze (bis 2026-11-13 07:00 UTC): kein Ausbruch",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-13 11:00 UTC): kein Ausbruch",
  "regel": "4-Std.-Ausbruch mit Tagestrend (Gold-Matrix, ausbruch.4h.trend_hoch.swing_4h.zeit_4h): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen. Ausstieg nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
  "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
@@ -45,20 +45,20 @@
   }
  ],
  "blick": {
-  "kurs": 3904.46,
-  "naechste_4h_kerze_endet_utc": "2026-11-13 11:00:00",
+  "kurs": 3891.21,
+  "naechste_4h_kerze_endet_utc": "2026-11-13 15:00:00",
   "letzte_pruefung": {
-   "grenze": "2026-11-13 07:00:00",
+   "grenze": "2026-11-13 11:00:00",
    "ergebnis": "kein Ausbruch",
    "richtung": 0,
-   "schluss": 3900.38,
-   "hoch_davor": 4148.34,
+   "schluss": 3891.23,
+   "hoch_davor": 4146.23,
    "tief_davor": 3852.32,
    "trend": null,
    "dist": null
   },
   "signal": {
-   "grenze": "2026-11-13 07:00:00",
+   "grenze": "2026-11-13 11:00:00",
    "richtung": 0,
    "trend": null,
    "dist": null,
@@ -68,8 +68,8 @@
    "ergebnis": "kein Ausbruch",
    "kerzen_4h": 1695,
    "tageskerzen": 283,
-   "schluss": 3900.38,
-   "hoch_davor": 4148.34,
+   "schluss": 3891.23,
+   "hoch_davor": 4146.23,
    "tief_davor": 3852.32,
    "gesperrt_jetzt": false
   }

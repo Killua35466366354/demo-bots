@@ -4,17 +4,17 @@
  "trade": null,
  "summe_r": 0.976,
  "trades": 1,
- "letzte_grenze": "2026-11-13 07:00:00",
+ "letzte_grenze": "2026-11-13 11:00:00",
  "letzte_pruefung": {
-  "grenze": "2026-11-13 07:00:00",
+  "grenze": "2026-11-13 11:00:00",
   "ergebnis": "kein Ausbruch",
   "richtung": 0,
-  "schluss": 3900.38,
-  "hoch_davor": 4148.34,
+  "schluss": 3891.23,
+  "hoch_davor": 4146.23,
   "tief_davor": 3852.32,
   "trend": null,
   "dist": null
  },
- "stand": "2026-11-13T07:01:46",
+ "stand": "2026-11-13T11:01:47",
  "letzter_schluss": "2026-11-12T19:01:56"
 }

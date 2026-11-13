@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-13T18:16:39.602657",
+ "stand_utc": "2026-11-13T18:31:38.434113",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -209,7 +209,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1009.34,
+   "kontostand": 1009.53,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T18:16:39.602657",
+    "zeit": "2026-11-13T18:31:38.434113",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T18:16:39.602657",
+    "zeit": "2026-11-13T18:31:38.434113",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -637,7 +637,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T18:16:39.602657",
+    "zeit": "2026-11-13T18:31:38.434113",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -861,7 +861,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T18:16:39.602657",
+    "zeit": "2026-11-13T18:31:38.434113",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1086,16 +1086,17 @@
    "kontostand": 986.27,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
-   "status": "Fehler: DELETE /workingorders/00000000-730b-91c8-049c-701d0015549e -> 404: {\"errorCode\":\"error.not-found.dealId\"}",
+   "status": "wartet auf das nächste Signal",
    "offen": null,
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T18:01:37.567660",
+    "zeit": "2026-11-13T18:31:38.434113",
     "action": "none",
     "why": [
-     "Stop-Orders liegen"
-    ]
+     "heute erledigt"
+    ],
+    "bar": null
    },
    "zusammenfassung": {
     "trades": 3,
@@ -1379,7 +1380,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T18:16:39.602657",
+    "zeit": "2026-11-13T18:31:38.434113",
     "action": "none",
     "why": [
      "heute erledigt"

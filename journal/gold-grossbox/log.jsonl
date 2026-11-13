@@ -21,3 +21,9 @@
 {"time": "2026-11-12T05:31:43", "event": "Verkauf eröffnet", "seite": "Verkauf", "art": "c", "kerze": "2026-11-12 05:30:00", "signal": "2026-11-12 05:30:00", "dist": 19.36, "teile": [{"dealId": "00000000-72b5-2e80-049c-70210015549e", "size": 0.09, "entry": 3974.68, "stop": 3994.04, "ziel": 3955.32}, {"dealId": "00000000-72b5-2e8f-049c-70210015549e", "size": 0.19, "entry": 3974.68, "stop": 3994.04, "ziel": null}]}
 {"time": "2026-11-12T07:46:45", "event": "Teil zu beim Broker", "trade": "2026-11-12T05:30", "dealId": "00000000-72b5-2e80-049c-70210015549e", "kurs": 3955.29, "grund": "ziel"}
 {"time": "2026-11-12T07:46:45", "event": "geändert", "dealId": "00000000-72b5-2e8f-049c-70210015549e", "stopLevel": 3974.68, "warum": "einstand"}
+{"time": "2026-11-13T02:01:47", "event": "Box zu Ende", "trade": "2026-11-11T15:00", "box_jetzt": 0}
+{"time": "2026-11-13T02:01:47", "event": "geschlossen", "dealId": "00000000-72ae-f76f-049c-70210015549e", "kurs": 3910.81, "warum": "neue_box"}
+{"time": "2026-11-13T02:01:47", "event": "Box zu Ende", "trade": "2026-11-12T05:30", "box_jetzt": 0}
+{"time": "2026-11-13T02:01:47", "event": "geschlossen", "dealId": "00000000-72b5-2e8f-049c-70210015549e", "kurs": 3910.79, "warum": "neue_box"}
+{"time": "2026-11-13T02:01:47", "event": "Trade fertig", "trade": "2026-11-11T15:00", "seite": "Verkauf", "r": 2.15, "pnl_eur": 9.84}
+{"time": "2026-11-13T02:01:47", "event": "Trade fertig", "trade": "2026-11-12T05:30", "seite": "Verkauf", "r": 2.561, "pnl_eur": 12.55}

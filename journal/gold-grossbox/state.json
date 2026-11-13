@@ -1,92 +1,9 @@
 {
  "format": 1,
  "start": "2026-11-10T18:47:49",
- "offen": [
-  {
-   "id": "2026-11-11T15:00",
-   "art": "a",
-   "richtung": -1,
-   "signal": "2026-11-11 15:00:00",
-   "einstieg_zeit": "2026-11-11 15:00:00",
-   "opened_utc": "2026-11-11T15:01:55",
-   "dist": 38.94,
-   "sim_einstieg": 4014.03,
-   "teile": [
-    {
-     "dealId": "00000000-72ae-f754-049c-70210015549e",
-     "size": 0.04,
-     "entry": 4014.41,
-     "ziel_nr": 1,
-     "stop": 4053.35,
-     "ziel": 3975.47,
-     "ziel_orig": 3975.47,
-     "offen": false,
-     "exit": 3975.36,
-     "grund": "ziel",
-     "closed_utc": "2026-11-12T00:03:10"
-    },
-    {
-     "dealId": "00000000-72ae-f76f-049c-70210015549e",
-     "size": 0.09,
-     "entry": 4014.41,
-     "ziel_nr": 2,
-     "stop": 4014.41,
-     "ziel": null,
-     "ziel_orig": null,
-     "offen": true,
-     "exit": null,
-     "grund": null,
-     "closed_utc": null
-    }
-   ],
-   "tp1": true,
-   "einstand": "2026-11-12T00:03:10",
-   "box_ende": null
-  },
-  {
-   "id": "2026-11-12T05:30",
-   "art": "c",
-   "richtung": -1,
-   "signal": "2026-11-12 05:30:00",
-   "einstieg_zeit": "2026-11-12 05:30:00",
-   "opened_utc": "2026-11-12T05:31:43",
-   "dist": 19.36,
-   "sim_einstieg": 3974.93,
-   "teile": [
-    {
-     "dealId": "00000000-72b5-2e80-049c-70210015549e",
-     "size": 0.09,
-     "entry": 3974.68,
-     "ziel_nr": 1,
-     "stop": 3994.04,
-     "ziel": 3955.32,
-     "ziel_orig": 3955.32,
-     "offen": false,
-     "exit": 3955.29,
-     "grund": "ziel",
-     "closed_utc": "2026-11-12T07:46:45"
-    },
-    {
-     "dealId": "00000000-72b5-2e8f-049c-70210015549e",
-     "size": 0.19,
-     "entry": 3974.68,
-     "ziel_nr": 2,
-     "stop": 3974.68,
-     "ziel": null,
-     "ziel_orig": null,
-     "offen": true,
-     "exit": null,
-     "grund": null,
-     "closed_utc": null
-    }
-   ],
-   "tp1": true,
-   "einstand": "2026-11-12T07:46:45",
-   "box_ende": null
-  }
- ],
- "summe_r": -2.678,
- "trades": 4,
- "stand": "2026-11-13T01:46:49",
+ "offen": [],
+ "summe_r": 2.033,
+ "trades": 6,
+ "stand": "2026-11-13T02:01:47",
  "letzte_kerze": "2026-11-12 05:30:00"
 }

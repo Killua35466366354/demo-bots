@@ -1,2 +1,4 @@
 {"time": "2026-11-10T17:08:37", "bot": "gold-staffel", "event": "Gold-Trade nicht kopiert", "gold_deal": "00000000-715a-8ba6-049b-eb710015549e", "warum": "vor dem Start dieses Bots"}
 {"time": "2026-11-13T06:13:39", "bot": "gold-staffel", "event": "eröffnet", "gold_deal": "00000000-72e0-c315-049b-eb710015549e", "richtung": -1, "size": 1.0, "stop": 3915.12, "tp": [3866.31, 3833.77, 3801.23], "dealId": "00000000-72fe-2d54-049c-70190015549e", "entry": 3898.92}
+{"time": "2026-11-13T10:13:42", "bot": "gold-staffel", "event": "Abfänger übernimmt", "dealId": "00000000-72fe-2d54-049c-70190015549e", "kurs": 3902.13}
+{"time": "2026-11-13T10:13:42", "bot": "gold-staffel", "event": "Abfänger zieht nach", "dealId": "00000000-72fe-2d54-049c-70190015549e", "stufe": 0, "stop": 3910.23, "wer": "Abfänger"}

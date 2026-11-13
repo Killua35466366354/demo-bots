@@ -48,8 +48,8 @@
    "id": "…2606",
    "name": "Account 2",
    "waehrung": "EUR",
-   "balance": 1000.0,
-   "frei": 950.69,
+   "balance": 995.15,
+   "frei": 995.15,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd-1atr"
   },
@@ -84,8 +84,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 1013.4,
-   "frei": 964.08,
+   "balance": 1008.43,
+   "frei": 958.88,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -102,8 +102,8 @@
    "id": "…8878",
    "name": "US500",
    "waehrung": "EUR",
-   "balance": 936.55,
-   "frei": 899.57,
+   "balance": 938.08,
+   "frei": 938.08,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us100"
   },
@@ -117,7 +117,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-13T01:16:29.289048",
+ "stand_utc": "2026-11-13T01:31:29.748043",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

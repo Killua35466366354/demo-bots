@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-13T09:31:42.181936",
+ "stand_utc": "2026-11-13T09:46:34.980958",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:31:42.181936",
+    "zeit": "2026-11-13T09:46:34.980958",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -370,7 +370,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:31:42.181936",
+    "zeit": "2026-11-13T09:46:34.980958",
     "action": "none",
     "why": [
      "kein Signal"
@@ -690,12 +690,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:31:42.181936",
-    "action": "orders",
+    "zeit": "2026-11-13T09:46:34.980958",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.11024 und 1.10453"
-    ],
-    "bar": "2026-11-13 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 0,
@@ -883,12 +882,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:31:42.181936",
+    "zeit": "2026-11-13T09:46:34.980958",
     "action": "none",
     "why": [
-     "schon um 01:30 New York ausgebrochen (vor 4:30): heute kein Trade"
+     "heute erledigt"
     ],
-    "bar": "2026-11-13 09:15:00"
+    "bar": null
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1141,12 +1140,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:31:42.181936",
-    "action": "orders",
+    "zeit": "2026-11-13T09:46:34.980958",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 212.131 und 210.949"
-    ],
-    "bar": "2026-11-13 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 2,
@@ -1428,12 +1426,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:31:42.181936",
-    "action": "orders",
+    "zeit": "2026-11-13T09:46:34.980958",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.11024 und 1.10453"
-    ],
-    "bar": "2026-11-13 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 0,

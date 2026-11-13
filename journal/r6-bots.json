@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-13T09:46:34.980958",
+ "stand_utc": "2026-11-13T10:01:42.484406",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,10 +217,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:46:34.980958",
+    "zeit": "2026-11-13T10:01:42.484406",
     "action": "none",
     "why": [
-     "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
+     "Markt nicht ruhiger als sonst (Schwankung 1.139 > 0,876): heute kein Trade"
     ]
    },
    "zusammenfassung": {
@@ -370,7 +370,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:46:34.980958",
+    "zeit": "2026-11-13T10:01:42.484406",
     "action": "none",
     "why": [
      "kein Signal"
@@ -690,7 +690,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:46:34.980958",
+    "zeit": "2026-11-13T10:01:42.484406",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -882,7 +882,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:46:34.980958",
+    "zeit": "2026-11-13T10:01:42.484406",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1140,7 +1140,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:46:34.980958",
+    "zeit": "2026-11-13T10:01:42.484406",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1426,7 +1426,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-13T09:46:34.980958",
+    "zeit": "2026-11-13T10:01:42.484406",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

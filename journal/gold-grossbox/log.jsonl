@@ -30,3 +30,4 @@
 {"time": "2026-11-13T14:01:55", "event": "Order fehlgeschlagen", "teil": 2, "fehler": "GET /confirms/o_790e42d6-bee2-4992-99c6-16077d817b3c -> 404: {\"errorCode\":\"error.not-found.dealReference\"}"}
 {"time": "2026-11-13T14:01:55", "event": "Verkauf eröffnet", "seite": "Verkauf", "art": "a", "kerze": "2026-11-13 14:00:00", "signal": "2026-11-13 14:00:00", "dist": 39.72, "teile": [{"dealId": "00000000-7338-63a5-049c-70210015549e", "size": 0.04, "entry": 3882.45, "stop": 3922.17, "ziel": 3842.73}]}
 {"time": "2026-11-13T14:16:43", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
+{"time": "2026-11-13T14:31:41", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}

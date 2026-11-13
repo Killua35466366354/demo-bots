@@ -87,3 +87,5 @@
 {"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
 {"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-728b-e3d1-049c-701f0015549e", "kurs": 3882.69, "r": -0.481, "eur": -2.38, "quelle": "SL"}
 {"time": "2026-11-12T23:48:31", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-13T08:03:24", "bot": "pine-k5", "event": "eröffnet", "richtung": -1, "kerze": "2026-11-13 07:55:00", "strategie": "B Short", "hintergrund": {"richtung": -1, "tag": 3880.3, "sma50": 4130.01, "h4": 3897.03, "ema50": 4009.75}, "lage": "Hintergrund: Gold fällt (Tag unter 50-Tage-Schnitt, 4 Std. unter EMA 50). Nächster wichtiger Termin: Core PPI m/m am 13.11. 14:30 Uhr.", "dealId": "00000000-730b-11bd-049c-701f0015549e", "size": 0.41, "entry": 3900.04, "tp": null}
+{"time": "2026-11-13T08:03:24", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT eröffnet", "gesendet": true}

@@ -4,8 +4,8 @@
  "summe_r": -1.001,
  "trades": 1,
  "plan": {
-  "stunde": "2026-11-13 01:00:00",
-  "gerechnet_bis": "2026-11-13 01:00:00",
+  "stunde": "2026-11-13 02:00:00",
+  "gerechnet_bis": "2026-11-13 02:00:00",
   "kerzen_4h": 324,
   "letzte_4h": "2026-11-12 22:00:00",
   "atr_4h": 35.44,
@@ -19,7 +19,7 @@
     "atr_bruch": 37.183677855303586,
     "bruch": "2026-11-12 14:00:00",
     "rest": 28,
-    "beruehrt": false
+    "beruehrt": true
    }
   ],
   "linien": {
@@ -48,7 +48,7 @@
  },
  "versuche": {},
  "keine_order": [],
- "stand": "2026-11-13T01:28:36",
+ "stand": "2026-11-13T02:03:39",
  "letzte_deals": [
   "00000000-72df-3ed0-049c-701a0015549e"
  ]

@@ -91,3 +91,4 @@
 {"time": "2026-11-13T08:03:24", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT eröffnet", "gesendet": true}
 {"time": "2026-11-13T11:13:28", "bot": "pine-k5", "event": "Pine-Ausstieg", "richtung": -1, "kerze": "2026-11-13 11:05:00", "deals": ["00000000-730b-11bd-049c-701f0015549e"]}
 {"time": "2026-11-13T11:13:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Strategie würde SHORT schließen", "gesendet": true}
+{"time": "2026-11-13T11:53:27", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-13 11:45:00", "strategie": "A Long", "hintergrund": {"richtung": -1, "tag": 3880.3, "sma50": 4130.01, "h4": 3897.03, "ema50": 4009.75}, "lage": "Hintergrund: Gold fällt (Tag unter 50-Tage-Schnitt, 4 Std. unter EMA 50). Nächster wichtiger Termin: Core PPI m/m am 13.11. 14:30 Uhr. Gegenposition offen, mit Hedging erlaubt.", "gruende": ["gegen den Hintergrund (Gold fällt auf Tag und 4 Std.)"]}

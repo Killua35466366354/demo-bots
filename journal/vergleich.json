@@ -647,12 +647,12 @@
    "konto": "US500",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 12,
-    "gewonnen": 5,
-    "treffer_pct": 41.7,
-    "summe_r": -11.84,
-    "pf_r": 0.14,
-    "eur": -58.69,
+    "trades": 13,
+    "gewonnen": 6,
+    "treffer_pct": 46.2,
+    "summe_r": -11.21,
+    "pf_r": 0.18,
+    "eur": -55.6,
     "rueckgang_r": 12.46
    },
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",

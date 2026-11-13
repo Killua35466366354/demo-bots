@@ -26,8 +26,8 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-12 21:00:00",
- "updated_utc": "2026-11-12T22:11:27+00:00",
+ "cursor": "2026-11-12 23:00:00",
+ "updated_utc": "2026-11-13T00:11:30+00:00",
  "open_detail": null,
  "richtung": -1,
  "summary": {
@@ -48,7 +48,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-12T22:11:27+00:00",
+  "abgerufen_utc": "2026-11-13T00:11:30+00:00",
   "naechste": [
    "2026-11-13 13:30 Core PPI m/m",
    "2026-11-13 13:30 PPI m/m"

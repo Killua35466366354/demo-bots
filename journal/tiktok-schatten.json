@@ -1959,8 +1959,15 @@
    "tp2": 3925.76,
    "tp3": 3947.62,
    "r_usd": 21.85,
-   "teile": [],
-   "ergebnis_r": 0.123,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3903.91,
+     "zeit": "2026-11-13 01:15:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 1.084,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -1975,8 +1982,15 @@
    "tp2": 3922.14,
    "tp3": 3943.5,
    "r_usd": 21.36,
-   "teile": [],
-   "ergebnis_r": 0.249,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3900.79,
+     "zeit": "2026-11-13 01:15:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 1.183,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -2001,7 +2015,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 2.608,
+    "ergebnis_r": 2.211,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2025,7 +2039,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 3.265,
+    "ergebnis_r": 2.489,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2049,7 +2063,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 1.311,
+    "ergebnis_r": 0.708,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2075,7 +2089,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 2.608,
+    "ergebnis_r": 2.211,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2099,7 +2113,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 6.828,
+    "ergebnis_r": 5.354,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2123,7 +2137,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 3.265,
+    "ergebnis_r": 2.489,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -2147,7 +2161,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 2.608,
+   "ergebnis_r": 2.211,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -2162,8 +2176,15 @@
    "tp2": null,
    "tp3": null,
    "r_usd": 21.85,
-   "teile": [],
-   "ergebnis_r": 0.123,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3903.91,
+     "zeit": "2026-11-13 01:15:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 1.084,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -2171,13 +2192,13 @@
  },
  "vorhersage": {
   "richtung": 1,
-  "linie": 3873.46,
+  "linie": 3895.15,
   "gerade_gedreht": false,
-  "kerze": "2026-11-13 01:00:00",
-  "kurs": 3885.44,
+  "kerze": "2026-11-13 02:00:00",
+  "kurs": 3907.7,
   "genauer_175": {
    "richtung": 1,
-   "linie": 3875.22,
+   "linie": 3897.22,
    "gerade_gedreht": false
   },
   "grosse_box": -1,
@@ -2237,8 +2258,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-13T01:11:26+00:00",
- "letzte_kerze": "2026-11-13 00:45:00",
+ "stand": "2026-11-13T02:11:29+00:00",
+ "letzte_kerze": "2026-11-13 01:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

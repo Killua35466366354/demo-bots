@@ -32,7 +32,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Nasdaq Eröffnungskerze | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
 | DAX Eröffnungskerze | Account 1 | 2026-11-10 | 2 | -2,02 | 0,00 | -9,82 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
 | Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml |
-| Gold-Staffel | Account 1 | 2026-11-10 | 0 | +0,00 | – | +0,00 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml |
+| Gold-Staffel | Account 1 | 2026-11-10 | 1 | +0,25 | – | +3,60 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml |
 | Gold Groß-Box | Account 6 | 2026-11-10 | 6 | +2,03 | 1,67 | +9,44 | läuft (6 von 40 Trades) | suche/VORAB_gold_grossbox.yaml |
 | Gold-Zonen Bruch | Account 2 | 2026-11-11 | 1 | -1,00 | 0,00 | -4,85 | läuft (1 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml |
 | Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 1 | +0,98 | – | +4,52 | läuft (1 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml |

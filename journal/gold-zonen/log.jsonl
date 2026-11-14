@@ -11,3 +11,4 @@
 {"time": "2026-11-13T03:03:43", "event": "Plan neu", "kerzen_4h": 325, "atr_4h": 35.87, "wartend": []}
 {"time": "2026-11-13T21:48:50", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)"]}
 {"time": "2026-11-13T22:03:54", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)", "Plan nicht aus dieser Stunde", "Markt gerade nicht handelbar"]}
+{"time": "2026-11-14T01:03:43", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)", "Plan älter als 4 Stunden", "Markt gerade nicht handelbar"]}

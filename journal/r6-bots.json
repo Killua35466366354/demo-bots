@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-14T00:01:48.361950",
+ "stand_utc": "2026-11-14T00:16:38.172552",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-14T00:01:48.361950",
+    "zeit": "2026-11-14T00:16:38.172552",
     "action": "none",
     "why": [
      "Wochenende"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-14T00:01:48.361950",
+    "zeit": "2026-11-14T00:16:38.172552",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -637,7 +637,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-14T00:01:48.361950",
+    "zeit": "2026-11-14T00:16:38.172552",
     "action": "none",
     "why": [
      "Wochenende"
@@ -878,7 +878,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-14T00:01:48.361950",
+    "zeit": "2026-11-14T00:16:38.172552",
     "action": "none",
     "why": [
      "Wochenende"
@@ -1108,7 +1108,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-14T00:01:48.361950",
+    "zeit": "2026-11-14T00:16:38.172552",
     "action": "none",
     "why": [
      "Wochenende"
@@ -1414,7 +1414,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-14T00:01:48.361950",
+    "zeit": "2026-11-14T00:16:38.172552",
     "action": "none",
     "why": [
      "Wochenende"

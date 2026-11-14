@@ -4,7 +4,7 @@
  "epic": "US100",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-14T09:38:38",
+ "stand": "2026-11-14T10:08:38",
  "start": "2026-11-10T12:43:38",
  "regel": "Erste 15-Min.-Kerze ab 09:30 Uhr New York: grün Long, rot Short, Einstieg danach, Stop am anderen Ende der Kerze, Ziel 10 R, sonst raus um 16:00 Uhr New York. Nur wenn der Kurs auf der Seite von Jahres-, Quartals-, Monats- und Wochen-Open liegt (Long darüber, Short darunter). 1 R = 5 €.",
  "vorab": "suche/VORAB_scalping_opens.yaml",

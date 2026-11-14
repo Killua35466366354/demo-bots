@@ -521,6 +521,57 @@ def test_vortag_ausgeloest_und_zwischen_zwei_laeufen_ausgestoppt(monkeypatch):
     assert neu == [] and not [r for r in fb.requests if r[2] == "/workingorders" and r[1] == "POST"][2:]
 
 
+class StrengerBroker(FakeBroker):
+    """Wie Capital.com: Eine Order zu löschen, die es nicht (mehr) gibt, gibt 404."""
+
+    def _request(self, method, path, **kw):
+        if method == "DELETE" and path.startswith("/workingorders/"):
+            did = path.rsplit("/", 1)[1]
+            if did not in {w["dealId"] for w in self.wo[self.account_id]}:
+                self.requests.append((self.account_id, method, path, None))
+                raise RuntimeError(f'DELETE {path} -> 404: {{"errorCode":"error.not-found.dealId"}}')
+        return super()._request(method, path, **kw)
+
+
+def test_vortag_ausgeloest_und_zu_echter_einstieg_und_nur_einmal_loeschen(monkeypatch):
+    """12. und 13.11.2026 (GBP/JPY, EUR/USD): Die Verkaufs-Order löst aus und wird nach wenigen Minuten ausgestoppt, die
+    Kauf-Order liegt noch. Capital.com schreibt die Eröffnung ohne POSITION_OPENED, als POSITION mit Quelle USER und
+    derselben dealId wie der Schluss. Der Bot nimmt diesen echten Einstieg und löscht die Kauf-Order genau einmal (vorher
+    ein zweites Mal als "Stop-Order ohne Zustand", 404, Lauf mit "fehler")."""
+    ohne_zwilling(monkeypatch)
+    vortag_usdjpy_aktiv(monkeypatch)
+    fb = StrengerBroker()
+    monkeypatch.setattr(rb, "kerzen", lambda c, e, r, n, t: (vt_bars(t - pd.Timedelta(minutes=1)), pd.Series(dtype=float)))
+    monkeypatch.setattr(rb, "entscheidung_markt", lambda *a: {"action": "none", "tag": "2026-11-04", "why": ["test"]})
+    kont = {"haupt": HAUPT, "zuordnung": {}}
+    st, _, _, _ = rb.run(fb, {}, kont, utc("2026-11-04", "04:31", NY))
+    o = st["bots"]["r6-vortag-usdjpy"]["orders"]
+    sell = next(w for w in fb.wo[VT] if w["direction"] == "SELL")
+    fb.wo[VT].remove(sell)
+    fb.activities = [                                      # neueste zuerst, Form wie im Log vom 13.11.2026
+        {"epic": "USDJPY", "dealId": "P7", "dateUTC": "2026-11-04T10:12:00.025", "source": "SL", "type": "POSITION",
+         "status": "ACCEPTED", "details": {"level": 149.61, "direction": "BUY", "stopLevel": 149.609, "actions": []}},
+        {"epic": "USDJPY", "dealId": "W8", "dateUTC": "2026-11-04T10:12:00.025", "source": "SL", "type": "WORKING_ORDER",
+         "status": "EXECUTED", "details": {"level": 149.609, "direction": "BUY", "actions": []}},
+        {"epic": "USDJPY", "dealId": "P7", "dateUTC": "2026-11-04T10:09:30.813", "source": "USER", "type": "POSITION",
+         "status": "ACCEPTED", "details": {"level": 149.497, "direction": "SELL", "stopLevel": 149.609, "actions": []}},
+        {"epic": "USDJPY", "dealId": sell["dealId"], "dateUTC": "2026-11-04T10:09:30.813", "source": "USER",
+         "type": "WORKING_ORDER", "status": "EXECUTED",
+         "details": {"level": o["short"]["level"], "direction": "SELL", "actions": []}}]
+    st, neu, log, _ = rb.run(fb, st, kont, utc("2026-11-04", "05:16", NY))
+    assert len(neu) == 1
+    t = neu[0]
+    assert t["side"] == "short" and t["entry"] == 149.497 and t["exit"] == 149.61 and not t["einstieg_geschaetzt"]
+    assert t["einstieg_kerze"] == "2026-11-04 10:00:00" and t["opened_utc"].startswith("2026-11-04 10:09:30")
+    assert t["rutschen_pips"] == round((o["short"]["level"] - 149.497) / 0.01, 1)
+    events = [e["event"] for e in log if e.get("bot") == "r6-vortag-usdjpy"]
+    assert "ausgelöst und schon wieder zu" in events
+    assert not {"fehler", "unbekannte Stop-Orders gelöscht", "Einstieg nicht in der Kontoaktivität"} & set(events)
+    assert len([r for r in fb.requests if r[1] == "DELETE"]) == 1 and fb.wo[VT] == []
+    s = st["bots"]["r6-vortag-usdjpy"]
+    assert s["orders"] is None and s["tag_erledigt"] == "2026-11-04" and not s["status"].startswith("Fehler")
+
+
 def test_vortag_beide_orders_weg_einer_ausgeloest_und_zu_wird_gebucht(monkeypatch):
     """Fehler vom 05.11.2026 (GBP/JPY): Die Verkaufs-Order löst kurz vor 21:30 UTC aus und wird ausgestoppt, die
     Kauf-Order läuft um 21:30 ab. Beide sind beim nächsten Lauf weg; der Trade muss trotzdem aus der Kontoaktivität

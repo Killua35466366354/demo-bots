@@ -61,9 +61,10 @@ def regel() -> dict | None:
     return yaml.safe_load(text)["aufstieg"]
 
 
-def kennzahlen(trades: list[dict]) -> dict:
-    """Trades nach Schlusszeit sortiert: Anzahl, Treffer, Summe R, Gewinnfaktor, Euro, größter Rückgang in R."""
-    r = [float(t["r"]) for t in trades if t.get("r") is not None]
+def kennzahlen(trades: list[dict], feld: str = "r") -> dict:
+    """Trades nach Schlusszeit sortiert: Anzahl, Treffer, Summe R, Gewinnfaktor, Euro, größter Rückgang in R. Mit
+    feld="pct" dieselben Zahlen in Prozent vom Kurs (für Bots ohne Stop, die kein R haben); die Schlüssel heißen gleich."""
+    r = [float(t[feld]) for t in trades if t.get(feld) is not None]
     g, v = sum(x for x in r if x > 0), -sum(x for x in r if x < 0)
     hoch = summe = rueck = 0.0
     for x in r:
@@ -160,6 +161,15 @@ def _zwilling_stand(bid: str, e: dict, rg: dict | None, trades: list[dict], laeu
     return {"status": st["status"], "text": st["text"], "original": org}
 
 
+def _einheit(trades: list[dict]) -> str:
+    """"r", wenn die Trades R haben. "pct" nur, wenn kein Trade R hat, aber jeder Prozent vom Kurs (Bot ohne Stop,
+    z. B. der Nikkei-Scalper scalp-j225); dann misst er in Prozent, und ohne das stünde er mit 0 Trades da."""
+    zu = [t for t in trades if t.get("closed_utc")]
+    if zu and not any(t.get("r") is not None for t in zu) and all(t.get("pct") is not None for t in zu):
+        return "pct"
+    return "r"
+
+
 def _wunsch() -> tuple[list[dict], str | None]:
     """Bots mit festem Konto (suche/mitnutzer.py), die neue Trades öffnen: eine Zeile je Bot aus seinem eigenen Journal
     (journal/<bot>.json und journal/<bot>/trades.jsonl). Nur Anzeige. Ein Fehler hier hält den Vergleich nie auf."""
@@ -173,10 +183,13 @@ def _wunsch() -> tuple[list[dict], str | None]:
         bid = b["bot"]
         karte = wb._read(J / f"{bid}.json", {})
         karte = karte if isinstance(karte, dict) else {}
-        trades = _sortiert([t for t in wb._lines(J / bid / "trades.jsonl") if t.get("r") is not None])
+        alle = wb._lines(J / bid / "trades.jsonl")
+        feld = _einheit(alle)
+        trades = _sortiert([t for t in alle if t.get(feld) is not None])
         z = karte.get("zusammenfassung") if isinstance(karte.get("zusammenfassung"), dict) else {}
         out.append({"id": bid, "name": str(karte.get("name") or bid).split(" (")[0], "konto": b["konto_name"],
-                    "seit": str(karte.get("start") or "")[:10] or None, "ist": kennzahlen(trades),
+                    "seit": str(karte.get("start") or "")[:10] or None, "ist": kennzahlen(trades, feld),
+                    "einheit": "%" if feld == "pct" else "R",
                     "urteil": z.get("urteil"), "vorab": karte.get("vorab"),
                     "test": karte.get("test") or karte.get("backtest")})
     return out, None
@@ -317,11 +330,12 @@ def text(v: dict) -> str:
     if v.get("wunsch_fehler"):
         z.append(f"Die Liste ließ sich nicht lesen: {v['wunsch_fehler']}.")
     if w:
-        z += ["| Bot | Konto | seit | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Urteil laut Bot | Regeldatei |",
+        z += ["| Bot | Konto | seit | Demo-Trades | Summe | Gewinnfaktor | Demo-€ | Urteil laut Bot | Regeldatei |",
               "|---|---|---|---|---|---|---|---|---|"]
         for b in w:
             i = b["ist"]
-            z.append(f"| {b['name']} | {b['konto']} | {b['seit'] or '–'} | {i['trades']} | {de(i['summe_r'])} | "
+            summe = f"{de(i['summe_r'])} {b.get('einheit') or 'R'}"
+            z.append(f"| {b['name']} | {b['konto']} | {b['seit'] or '–'} | {i['trades']} | {summe} | "
                      f"{de(i['pf_r'], 2, False)} | {de(i['eur'])} | {b['urteil'] or '–'} | {b['vorab'] or '–'} |")
     z += ["", f"Der Gold-Bot zählt hier ab {GOLD_START[:10]} {GOLD_START[11:16]} UTC (seit dem Stop 1 x ATR). Der "
           "Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen."]

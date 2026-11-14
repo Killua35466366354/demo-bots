@@ -98,3 +98,16 @@ def test_wunsch_gruppe_haelt_den_vergleich_nie_auf(monkeypatch):
     v = vg.vergleich(datetime(2026, 11, 11, 8, 0, tzinfo=timezone.utc))
     assert v["wunsch"] == [] and "nicht lesbar" in v["wunsch_fehler"] and v["rangliste"]
     assert "ließ sich nicht lesen" in vg.text(v)
+
+
+def test_bots_ohne_stop_zaehlen_in_prozent():
+    # Nikkei-Scalper (scalp-j225): kein Stop, darum kein R, nur Prozent vom Kurs; vorher stand er mit 0 Trades da
+    ohne_r = [{"pct": 0.03, "pnl_eur": 0.01, "closed_utc": "2026-11-12T06:33:30"},
+              {"pct": -0.05, "closed_utc": "2026-11-13T06:33:30"}, {"pct": None, "opened_utc": "2026-11-14T06:00:00"}]
+    assert vg._einheit(ohne_r) == "pct"
+    z = vg.kennzahlen(ohne_r, "pct")
+    assert z["trades"] == 2 and z["summe_r"] == -0.02 and z["pf_r"] == 0.6 and z["gewonnen"] == 1
+    mit_r = [{"r": -1.0, "pct": -0.3, "closed_utc": "2026-11-11T09:18:36"}, {"pct": 0.1, "closed_utc": "2026-11-12"}]
+    assert vg._einheit(mit_r) == "r" and vg._einheit([]) == "r"
+    v = vg.vergleich(datetime(2026, 11, 14, 8, 0, tzinfo=timezone.utc))
+    assert all(b["einheit"] in ("R", "%") for b in v["wunsch"])

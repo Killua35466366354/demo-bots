@@ -4,7 +4,7 @@
  "epic": "GOLD",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-14T06:23:40",
+ "stand": "2026-11-14T06:58:44",
  "start": "2026-11-10T17:08:37",
  "status": "wartet auf den nächsten Trade des Gold-Bots",
  "regel": "Gleiche Einstiege, Größe und Stop wie der Gold-Bot C/B auf dem Hauptkonto, dazu Take-Profits verteilt: TP1 +2 R, TP2 +4 R, TP3 +6 R beim Broker. Wächter alle 5 Minuten: nach TP1 kommt der Stop auf TP1, nach TP2 auf TP2, so endet ein Trade, der +2 R erreicht hat, nie mehr im Minus. Abfänger wie Account 5: nach 4 Std. Stop 0,5 R hinter dem besten Kurs. Schließt der Gold-Bot, schließt er auch.",

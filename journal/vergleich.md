@@ -1,23 +1,23 @@
-# Demo-Vergleich, Stand 2026-11-13
+# Demo-Vergleich, Stand 2026-11-14
 
 Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt der Bewertung 2025-2026 im selben Zeitraum.
 
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Noise USD/JPY | labor | 3 | +0,01 | 1,12 | +0,09 | 2,9 Trades, +0,06 R | 3 von 40 Demo-Trades |
-| 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,3 Trades, +0,07 R | 0 von 40 Demo-Trades |
+| 1 | Noise USD/JPY | labor | 3 | +0,01 | 1,12 | +0,09 | 3,2 Trades, +0,06 R | 3 von 40 Demo-Trades |
+| 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,08 R | 0 von 40 Demo-Trades |
 | 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,3 Trades, +0,03 R | 0 von 40 Demo-Trades |
 | 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,3 Trades, +0,03 R | 0 von 40 Demo-Trades |
 | 5 | Trend-Rücksetzer Dow | labor | 0 | +0,00 | – | +0,00 | 0,3 Trades, +0,02 R | 0 von 40 Demo-Trades |
-| 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,07 R | 0 von 40 Demo-Trades |
-| 7 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 1,7 Trades, +0,21 R | 1 von 40 Demo-Trades |
+| 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,08 R | 0 von 40 Demo-Trades |
+| 7 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 1,9 Trades, +0,23 R | 1 von 40 Demo-Trades |
 | 8 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
-| 9 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 2,0 Trades, +0,43 R | 1 von 40 Demo-Trades |
+| 9 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 2,2 Trades, +0,47 R | 1 von 40 Demo-Trades |
 | 10 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
-| 11 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 1,7 Trades, +0,54 R | 1 von 40 Demo-Trades |
-| 12 | Vortag GBP/JPY | behalten | 3 | -3,02 | 0,00 | -13,05 | 1,1 Trades, +0,21 R | 3 von 40 Demo-Trades |
+| 11 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 1,9 Trades, +0,61 R | 1 von 40 Demo-Trades |
+| 12 | Vortag GBP/JPY | behalten | 3 | -3,02 | 0,00 | -13,05 | 1,2 Trades, +0,24 R | 3 von 40 Demo-Trades |
 
-**Kombi (6 Kern-Strategien auf einem Konto):** 5 Trades, -5,06 R, Gewinnfaktor 0,00, Soll bisher 5,4 Trades und +1,09 R. Aufstieg: 5 von 60 Demo-Trades.
+**Kombi (6 Kern-Strategien auf einem Konto):** 5 Trades, -5,06 R, Gewinnfaktor 0,00, Soll bisher 6,0 Trades und +1,22 R. Aufstieg: 5 von 60 Demo-Trades.
 
 | Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |
 |---|---|---|---|

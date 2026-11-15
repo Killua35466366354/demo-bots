@@ -448,9 +448,27 @@ def _aktivitaet(lauf: Lauf, bot: Bot, von: pd.Timestamp, bis: pd.Timestamp) -> l
         return None
     lauf.aktivitaet_roh = acts
     return [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"), "status": a.get("status"),
+             "dealId": a.get("dealId"),
              "level": (a.get("details") or {}).get("level"), "direction": (a.get("details") or {}).get("direction"),
              "actions": [x.get("actionType") for x in (a.get("details") or {}).get("actions", [])]}
             for a in acts if a.get("epic") == bot.epic]
+
+
+def _eroeffnungen(rows: list[dict], zu: dict) -> list[dict]:
+    """Die Eröffnung der Position, die mit zu geschlossen wurde, älteste zuerst. Zuerst Zeilen mit POSITION_OPENED. Fehlt
+    die, die Zeile, die Capital.com dafür schreibt: POSITION, Quelle USER, angenommen, mit Kurs, dieselbe dealId wie der
+    Schluss und nicht später (so am 12. und 13.11.2026 bei allen vier Vortag-Trades, actions war leer)."""
+    def nach_zeit(r: dict) -> str:
+        return str(r.get("dateUTC") or "")
+
+    auf = sorted((r for r in rows if "POSITION_OPENED" in (r.get("actions") or []) and r.get("level") is not None),
+                 key=nach_zeit)
+    if auf or not zu.get("dealId"):
+        return auf
+    return sorted((r for r in rows if r.get("type") == "POSITION" and r.get("source") == "USER"
+                   and r.get("status", "ACCEPTED") == "ACCEPTED" and r.get("level") is not None
+                   and r.get("dealId") == zu.get("dealId") and r is not zu and nach_zeit(r) <= nach_zeit(zu)),
+                  key=nach_zeit)
 
 
 def _seite(orders: dict, weg: list[str], auf: list[dict], zu: dict) -> str:
@@ -483,8 +501,7 @@ def _gefuellt_und_zu(lauf: Lauf, bot: Bot, orders: dict, weg: list[str], rows: l
     if zu is None or (zu.get("source") not in ("SL", "TP", "CLOSE_OUT")
                       and "POSITION_CLOSED" not in (zu.get("actions") or [])):
         return None
-    auf = sorted((r for r in rows if "POSITION_OPENED" in (r.get("actions") or []) and r.get("level") is not None),
-                 key=lambda r: str(r.get("dateUTC") or ""))
+    auf = _eroeffnungen(rows, zu)
     seite = _seite(orders, weg, auf, zu)
     o, side = orders[seite], 1 if seite == "long" else -1
     entry = float(auf[0]["level"]) if auf else float(o["level"])
@@ -591,9 +608,15 @@ def lauf_vortag(lauf: Lauf, bot: Bot, st: dict, aid: str, q, neu: bool = True) -
                     lauf.ereignis(bot, "ausgelöst und schon wieder zu", **{k: tr[k] for k in ("side", "exit", "pct", "reason")})
                 else:
                     lauf.ereignis(bot, "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", weg=weg)
+                geloescht = set()
                 for s in ("long", "short"):
                     if orders.get(s) and str(orders[s]["dealId"]) in wo_ids and lauf.send:
                         loesche_order(c, orders[s]["dealId"])
+                        geloescht.add(str(orders[s]["dealId"]))
+                # Die eben gelöschte Order steht noch in wos (am Anfang gelesen). Ohne das hier hielt der Teil
+                # "Stop-Orders ohne Zustand" weiter unten sie für fremd und löschte sie ein zweites Mal: 404, der Lauf
+                # endete mit "fehler" (12. und 13.11.2026 bei GBP/JPY und EUR/USD).
+                wos = [w for w in wos if str(w.get("dealId")) not in geloescht]
                 st["tag_erledigt"] = orders["tag"]
                 st["orders"], orders = None, None
 

@@ -1,6 +1,6 @@
 {
  "format": 1,
- "tag": "2026-11-14",
+ "tag": "2026-11-15",
  "letzter_trade_utc": "2026-11-13T18:14:50.609000",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
@@ -22,11 +22,11 @@
     "rueckgang_r": 0.05
    },
    "soll": {
-    "wochen": 1.2,
-    "trades": 3.2,
-    "summe_r": 0.06
+    "wochen": 1.4,
+    "trades": 3.6,
+    "summe_r": 0.07
    },
-   "abweichung_r": -0.05,
+   "abweichung_r": -0.06,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -64,11 +64,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.4,
+    "wochen": 1.6,
     "trades": 0.4,
-    "summe_r": 0.08
+    "summe_r": 0.09
    },
-   "abweichung_r": -0.08,
+   "abweichung_r": -0.09,
    "bewertung": {
     "rang": 1,
     "pf": 5.821,
@@ -100,11 +100,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.4,
+    "wochen": 1.5,
     "trades": 0.3,
-    "summe_r": 0.03
+    "summe_r": 0.04
    },
-   "abweichung_r": -0.03,
+   "abweichung_r": -0.04,
    "bewertung": {
     "rang": 2,
     "pf": 3.537,
@@ -136,11 +136,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.4,
-    "trades": 0.3,
-    "summe_r": 0.03
+    "wochen": 1.5,
+    "trades": 0.4,
+    "summe_r": 0.04
    },
-   "abweichung_r": -0.03,
+   "abweichung_r": -0.04,
    "bewertung": {
     "rang": 3,
     "pf": 1.91,
@@ -172,11 +172,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.2,
+    "wochen": 1.4,
     "trades": 0.3,
-    "summe_r": 0.02
+    "summe_r": 0.03
    },
-   "abweichung_r": -0.02,
+   "abweichung_r": -0.03,
    "bewertung": {
     "rang": 6,
     "pf": 1.479,
@@ -208,8 +208,8 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.2,
-    "trades": 0.7,
+    "wochen": 1.4,
+    "trades": 0.8,
     "summe_r": 0.08
    },
    "abweichung_r": -0.08,
@@ -244,11 +244,11 @@
     "rueckgang_r": 1.0
    },
    "soll": {
-    "wochen": 1.4,
-    "trades": 1.9,
-    "summe_r": 0.23
+    "wochen": 1.5,
+    "trades": 2.0,
+    "summe_r": 0.26
    },
-   "abweichung_r": -1.23,
+   "abweichung_r": -1.26,
    "bewertung": {
     "rang": 9,
     "pf": 1.215,
@@ -319,11 +319,11 @@
     "rueckgang_r": 1.01
    },
    "soll": {
-    "wochen": 1.5,
-    "trades": 2.2,
-    "summe_r": 0.47
+    "wochen": 1.7,
+    "trades": 2.4,
+    "summe_r": 0.52
    },
-   "abweichung_r": -1.48,
+   "abweichung_r": -1.53,
    "bewertung": {
     "rang": 12,
     "pf": 1.171,
@@ -394,11 +394,11 @@
     "rueckgang_r": 1.04
    },
    "soll": {
-    "wochen": 1.4,
-    "trades": 1.9,
-    "summe_r": 0.61
+    "wochen": 1.5,
+    "trades": 2.1,
+    "summe_r": 0.67
    },
-   "abweichung_r": -1.65,
+   "abweichung_r": -1.71,
    "bewertung": {
     "rang": 4,
     "pf": 1.671,
@@ -436,11 +436,11 @@
     "rueckgang_r": 3.02
    },
    "soll": {
-    "wochen": 1.2,
-    "trades": 1.2,
-    "summe_r": 0.24
+    "wochen": 1.4,
+    "trades": 1.3,
+    "summe_r": 0.27
    },
-   "abweichung_r": -3.26,
+   "abweichung_r": -3.29,
    "bewertung": {
     "rang": 18,
     "pf": 1.451,
@@ -488,8 +488,8 @@
    }
   },
   "soll": {
-   "trades": 6.0,
-   "summe_r": 1.22
+   "trades": 6.5,
+   "summe_r": 1.37
   },
   "aufstieg": {
    "status": "sammelt",
@@ -511,6 +511,7 @@
     "eur": 0,
     "rueckgang_r": 0.0
    },
+   "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",
    "test": "PF 2,06, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,11, schlägt 99 % der Zufallsläufe"
@@ -529,6 +530,7 @@
     "eur": -8.25,
     "rueckgang_r": 2.02
    },
+   "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",
    "test": "PF 1,63, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,13, schlägt 90,5 % der Zufallsläufe"
@@ -539,14 +541,15 @@
    "konto": "Account 1",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 0,
-    "gewonnen": 0,
-    "treffer_pct": null,
-    "summe_r": 0,
+    "trades": 1,
+    "gewonnen": 1,
+    "treffer_pct": 100.0,
+    "summe_r": 0.03,
     "pf_r": null,
-    "eur": 0,
+    "eur": 0.01,
     "rueckgang_r": 0.0
    },
+   "einheit": "%",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",
    "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe"
@@ -565,6 +568,7 @@
     "eur": 3.6,
     "rueckgang_r": 0.0
    },
+   "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades",
    "vorab": "suche/VORAB_gold_staffel.yaml",
    "test": "Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades)."
@@ -583,6 +587,7 @@
     "eur": 9.44,
     "rueckgang_r": 3.02
    },
+   "einheit": "R",
    "urteil": "läuft (6 von 40 Trades)",
    "vorab": "suche/VORAB_gold_grossbox.yaml",
    "test": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend."
@@ -601,6 +606,7 @@
     "eur": -4.85,
     "rueckgang_r": 1.0
    },
+   "einheit": "R",
    "urteil": "läuft (1 von 40 Trades)",
    "vorab": "suche/VORAB_gold_zonen_bot.yaml",
    "test": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest."
@@ -619,6 +625,7 @@
     "eur": 4.52,
     "rueckgang_r": 0.0
    },
+   "einheit": "R",
    "urteil": "läuft (1 von 40 Trades)",
    "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade."
@@ -637,6 +644,7 @@
     "eur": 15.37,
     "rueckgang_r": 5.72
    },
+   "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_pine5m_abfang4h.yaml",
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)"
@@ -655,6 +663,7 @@
     "eur": -52.6,
     "rueckgang_r": 12.46
    },
+   "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_pine5m.yaml",
    "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)"

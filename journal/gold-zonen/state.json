@@ -4,17 +4,37 @@
  "summe_r": -1.001,
  "trades": 1,
  "plan": {
-  "stunde": "2026-11-16 06:00:00",
-  "gerechnet_bis": "2026-11-16 06:00:00",
-  "kerzen_4h": 317,
-  "letzte_4h": "2026-11-16 03:00:00",
-  "atr_4h": 33.04,
-  "kandidaten": [],
+  "stunde": "2026-11-16 07:00:00",
+  "gerechnet_bis": "2026-11-16 07:00:00",
+  "kerzen_4h": 318,
+  "letzte_4h": "2026-11-16 07:00:00",
+  "atr_4h": 33.97,
+  "kandidaten": [
+   {
+    "name": "U2026110216",
+    "d": -1,
+    "linie": 3869.79,
+    "innen": 3875.2,
+    "stop": 3883.692019905836,
+    "atr_bruch": 33.96807962334374,
+    "bruch": "2026-11-16 06:00:00",
+    "rest": 30,
+    "beruehrt": false
+   },
+   {
+    "name": "U2026111312",
+    "d": -1,
+    "linie": 3852.32,
+    "innen": 3869.74,
+    "stop": 3878.232019905836,
+    "atr_bruch": 33.96807962334374,
+    "bruch": "2026-11-16 06:00:00",
+    "rest": 30,
+    "beruehrt": false
+   }
+  ],
   "linien": {
-   "1": [
-    3869.74,
-    3875.2
-   ],
+   "1": [],
    "-1": [
     4130.06,
     4136.365,
@@ -27,17 +47,34 @@
    ]
   }
  },
- "orders": [],
+ "orders": [
+  {
+   "name": "U2026110216",
+   "d": -1,
+   "linie": 3869.79,
+   "innen": 3875.2,
+   "stop": 3883.69,
+   "ziel": 3730.79,
+   "size": 0.39,
+   "dealId": "00000000-73b3-d3e3-049c-701a0015549e",
+   "gelegt_utc": "2026-11-16T07:03:41",
+   "gilt_bis": "2026-11-20T21:45:00"
+  }
+ ],
  "trade": null,
  "verbraucht": {
   "U2026110404": {
    "zeit": "2026-11-13T01:18:37",
    "grund": "gehandelt"
+  },
+  "U2026111312": {
+   "zeit": "2026-11-16T07:03:41",
+   "grund": "Linie berührt (5-Minuten-Kerzen), ohne dass eine Order lag"
   }
  },
  "versuche": {},
  "keine_order": [],
- "stand": "2026-11-16T06:03:37",
+ "stand": "2026-11-16T07:03:41",
  "letzte_deals": [
   "00000000-72df-3ed0-049c-701a0015549e"
  ]

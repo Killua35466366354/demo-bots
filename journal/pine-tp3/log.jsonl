@@ -53,3 +53,4 @@
 {"time": "2026-11-13T16:13:29", "bot": "pine-tp3", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-13 16:05:00", "strategie": "A Long", "lage": "", "dealId": "00000000-7358-5de4-049c-a0c30015549e", "size": 0.29, "entry": 3878.64, "tp": 3890.06}
 {"time": "2026-11-13T17:53:23", "bot": "pine-tp3", "event": "Trade zu", "dealId": "00000000-7358-5de4-049c-a0c30015549e", "kurs": 3890.06, "r": 0.614, "eur": 3.0, "quelle": "TP"}
 {"time": "2026-11-16T10:08:29", "bot": "pine-tp3", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-16 09:55:00", "strategie": "A Long", "lage": "", "dealId": "00000000-73c2-b10f-049c-a0c30015549e", "size": 0.43, "entry": 3860.75, "tp": 3868.44}
+{"time": "2026-11-16T10:43:32", "bot": "pine-tp3", "event": "Trade zu", "dealId": "00000000-73c2-b10f-049c-a0c30015549e", "kurs": 3868.44, "r": 0.606, "eur": 3.0, "quelle": "TP"}

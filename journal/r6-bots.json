@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-16T21:46:40.643128",
+ "stand_utc": "2026-11-16T22:01:38.744022",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -35,7 +35,7 @@
    },
    "letzte_trades": [],
    "zwilling": {
-    "tage": 9,
+    "tage": 10,
     "abweichungen": 0,
     "zusammenfassung": {
      "trades": 1,
@@ -45,25 +45,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-09",
-      "strategie": "vortag_stop_oco",
-      "markt": "USDJPY",
-      "schatten": true,
-      "schwankung": null,
-      "tag_gezaehlt": true,
-      "trades": [],
-      "berechnet_utc": "2026-11-09T22:01:37.525782",
-      "bot_trades": [],
-      "konto": false,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-10",
       "strategie": "vortag_stop_oco",
@@ -196,6 +177,38 @@
        "zwilling_pct": 0.0,
        "bot_pct": 0.0
       }
+     },
+     {
+      "tag": "2026-11-16",
+      "strategie": "vortag_stop_oco",
+      "markt": "USDJPY",
+      "schatten": true,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-16 05:00:00",
+        "side": "short",
+        "einstieg": 159.514,
+        "pct": -0.0322,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-16 05:15:00",
+        "uhrzeit": 360,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.051404
+       }
+      ],
+      "berechnet_utc": "2026-11-16T22:01:38.744022",
+      "bot_trades": [],
+      "konto": false,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -209,7 +222,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1013.25,
+   "kontostand": 1013.19,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -217,7 +230,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-16T21:46:40.643128",
+    "zeit": "2026-11-16T22:01:38.744022",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -370,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-16T21:46:40.643128",
+    "zeit": "2026-11-16T22:01:38.744022",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -616,7 +629,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1000.37,
+   "kontostand": 1000.32,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -624,7 +637,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-16T21:46:40.643128",
+    "zeit": "2026-11-16T22:01:38.744022",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -671,7 +684,7 @@
     }
    ],
    "zwilling": {
-    "tage": 9,
+    "tage": 10,
     "abweichungen": 1,
     "zusammenfassung": {
      "trades": 1,
@@ -681,25 +694,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-09",
-      "strategie": "vortag_stop_oco",
-      "markt": "EURUSD",
-      "schatten": false,
-      "schwankung": null,
-      "tag_gezaehlt": true,
-      "trades": [],
-      "berechnet_utc": "2026-11-09T22:01:37.525782",
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-10",
       "strategie": "vortag_stop_oco",
@@ -844,6 +838,38 @@
        "zwilling_pct": -0.0237,
        "bot_pct": -0.0244
       }
+     },
+     {
+      "tag": "2026-11-16",
+      "strategie": "vortag_stop_oco",
+      "markt": "EURUSD",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-15 23:00:00",
+        "side": "short",
+        "einstieg": 1.10195,
+        "pct": -0.0256,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-15 23:00:00",
+        "uhrzeit": 0,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.000282
+       }
+      ],
+      "berechnet_utc": "2026-11-16T22:01:38.744022",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -865,7 +891,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-16T21:46:40.643128",
+    "zeit": "2026-11-16T22:01:38.744022",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -911,7 +937,7 @@
     }
    ],
    "zwilling": {
-    "tage": 9,
+    "tage": 10,
     "abweichungen": 0,
     "zusammenfassung": {
      "trades": 1,
@@ -921,25 +947,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-09",
-      "strategie": "vortag_stop_oco",
-      "markt": "GBPUSD",
-      "schatten": false,
-      "schwankung": null,
-      "tag_gezaehlt": true,
-      "trades": [],
-      "berechnet_utc": "2026-11-09T22:01:37.525782",
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-10",
       "strategie": "vortag_stop_oco",
@@ -1074,6 +1081,38 @@
        "zwilling_pct": 0.0,
        "bot_pct": 0.0
       }
+     },
+     {
+      "tag": "2026-11-16",
+      "strategie": "vortag_stop_oco",
+      "markt": "GBPUSD",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-16 04:00:00",
+        "side": "short",
+        "einstieg": 1.32044,
+        "pct": -0.0286,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-16 04:45:00",
+        "uhrzeit": 300,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.000377
+       }
+      ],
+      "berechnet_utc": "2026-11-16T22:01:38.744022",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -1095,7 +1134,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-16T21:46:40.643128",
+    "zeit": "2026-11-16T22:01:38.744022",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1203,7 +1242,7 @@
     }
    ],
    "zwilling": {
-    "tage": 8,
+    "tage": 9,
     "abweichungen": 3,
     "zusammenfassung": {
      "trades": 3,
@@ -1213,25 +1252,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-09",
-      "strategie": "vortag_stop_oco",
-      "markt": "GBPJPY",
-      "schatten": false,
-      "schwankung": null,
-      "tag_gezaehlt": true,
-      "trades": [],
-      "berechnet_utc": "2026-11-09T22:01:37.525782",
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-10",
       "strategie": "vortag_stop_oco",
@@ -1380,6 +1400,38 @@
        "zwilling_pct": -0.0318,
        "bot_pct": -0.0318
       }
+     },
+     {
+      "tag": "2026-11-16",
+      "strategie": "vortag_stop_oco",
+      "markt": "GBPJPY",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-16 03:30:00",
+        "side": "short",
+        "einstieg": 210.788,
+        "pct": -0.0366,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-16 03:30:00",
+        "uhrzeit": 270,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.077233
+       }
+      ],
+      "berechnet_utc": "2026-11-16T22:01:38.744022",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -1401,7 +1453,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-16T21:46:40.643128",
+    "zeit": "2026-11-16T22:01:38.744022",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1448,7 +1500,7 @@
     }
    ],
    "zwilling": {
-    "tage": 8,
+    "tage": 9,
     "abweichungen": 1,
     "zusammenfassung": {
      "trades": 1,
@@ -1458,27 +1510,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-09",
-      "strategie": "vortag_stop_oco",
-      "markt": "EURUSD",
-      "schatten": false,
-      "schwankung": null,
-      "tag_gezaehlt": true,
-      "trades": [],
-      "berechnet_utc": "2026-11-09T22:01:37.525782",
-      "bot": "r6-vortag-eurusd-1atr",
-      "stop_atr": 1.0,
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-10",
       "strategie": "vortag_stop_oco",
@@ -1631,6 +1662,40 @@
        "zwilling_pct": -0.0474,
        "bot_pct": -0.0471
       }
+     },
+     {
+      "tag": "2026-11-16",
+      "strategie": "vortag_stop_oco",
+      "markt": "EURUSD",
+      "schatten": false,
+      "schwankung": null,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-15 23:00:00",
+        "side": "short",
+        "einstieg": 1.10195,
+        "pct": -0.0511,
+        "grund": "stop",
+        "ausstieg_kerze": "2026-11-15 23:45:00",
+        "uhrzeit": 0,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.000563
+       }
+      ],
+      "berechnet_utc": "2026-11-16T22:01:38.744022",
+      "bot": "r6-vortag-eurusd-1atr",
+      "stop_atr": 1.0,
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -1640,7 +1705,7 @@
   {
    "markt": "EURUSD",
    "strategie": "vortag_stop_oco",
-   "tage": 9,
+   "tage": 10,
    "zusammenfassung": {
     "trades": 1,
     "treffer_pct": 0.0,
@@ -1649,25 +1714,6 @@
     "pnl_eur": 0.0
    },
    "letzte": [
-    {
-     "tag": "2026-11-09",
-     "strategie": "vortag_stop_oco",
-     "markt": "EURUSD",
-     "schatten": false,
-     "schwankung": null,
-     "tag_gezaehlt": true,
-     "trades": [],
-     "berechnet_utc": "2026-11-09T22:01:37.525782",
-     "bot_trades": [],
-     "konto": true,
-     "vergleich": {
-      "gleich": true,
-      "nur_zwilling": [],
-      "nur_bot": [],
-      "zwilling_pct": 0.0,
-      "bot_pct": 0.0
-     }
-    },
     {
      "tag": "2026-11-10",
      "strategie": "vortag_stop_oco",
@@ -1812,30 +1858,29 @@
       "zwilling_pct": -0.0237,
       "bot_pct": -0.0244
      }
-    }
-   ]
-  },
-  {
-   "markt": "GBPUSD",
-   "strategie": "vortag_stop_oco",
-   "tage": 9,
-   "zusammenfassung": {
-    "trades": 1,
-    "treffer_pct": 0.0,
-    "pf": 0.0,
-    "summe_pct": -0.022,
-    "pnl_eur": 0.0
-   },
-   "letzte": [
+    },
     {
-     "tag": "2026-11-09",
+     "tag": "2026-11-16",
      "strategie": "vortag_stop_oco",
-     "markt": "GBPUSD",
+     "markt": "EURUSD",
      "schatten": false,
      "schwankung": null,
      "tag_gezaehlt": true,
-     "trades": [],
-     "berechnet_utc": "2026-11-09T22:01:37.525782",
+     "trades": [
+      {
+       "einstieg_kerze": "2026-11-15 23:00:00",
+       "side": "short",
+       "einstieg": 1.10195,
+       "pct": -0.0256,
+       "grund": "stop",
+       "ausstieg_kerze": "2026-11-15 23:00:00",
+       "uhrzeit": 0,
+       "bedingung": false,
+       "zaehlt": false,
+       "stop_abst": 0.000282
+      }
+     ],
+     "berechnet_utc": "2026-11-16T22:01:38.744022",
      "bot_trades": [],
      "konto": true,
      "vergleich": {
@@ -1845,7 +1890,21 @@
       "zwilling_pct": 0.0,
       "bot_pct": 0.0
      }
-    },
+    }
+   ]
+  },
+  {
+   "markt": "GBPUSD",
+   "strategie": "vortag_stop_oco",
+   "tage": 10,
+   "zusammenfassung": {
+    "trades": 1,
+    "treffer_pct": 0.0,
+    "pf": 0.0,
+    "summe_pct": -0.022,
+    "pnl_eur": 0.0
+   },
+   "letzte": [
     {
      "tag": "2026-11-10",
      "strategie": "vortag_stop_oco",
@@ -1971,6 +2030,38 @@
       }
      ],
      "berechnet_utc": "2026-11-13T22:01:39.154256",
+     "bot_trades": [],
+     "konto": true,
+     "vergleich": {
+      "gleich": true,
+      "nur_zwilling": [],
+      "nur_bot": [],
+      "zwilling_pct": 0.0,
+      "bot_pct": 0.0
+     }
+    },
+    {
+     "tag": "2026-11-16",
+     "strategie": "vortag_stop_oco",
+     "markt": "GBPUSD",
+     "schatten": false,
+     "schwankung": null,
+     "tag_gezaehlt": true,
+     "trades": [
+      {
+       "einstieg_kerze": "2026-11-16 04:00:00",
+       "side": "short",
+       "einstieg": 1.32044,
+       "pct": -0.0286,
+       "grund": "stop",
+       "ausstieg_kerze": "2026-11-16 04:45:00",
+       "uhrzeit": 300,
+       "bedingung": false,
+       "zaehlt": false,
+       "stop_abst": 0.000377
+      }
+     ],
+     "berechnet_utc": "2026-11-16T22:01:38.744022",
      "bot_trades": [],
      "konto": true,
      "vergleich": {

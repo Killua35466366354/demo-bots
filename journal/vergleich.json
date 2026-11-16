@@ -617,16 +617,16 @@
    "konto": "Account 4",
    "seit": "2026-11-12",
    "ist": {
-    "trades": 1,
+    "trades": 2,
     "gewonnen": 1,
-    "treffer_pct": 100.0,
-    "summe_r": 0.98,
-    "pf_r": null,
-    "eur": 4.52,
-    "rueckgang_r": 0.0
+    "treffer_pct": 50.0,
+    "summe_r": 0.89,
+    "pf_r": 10.73,
+    "eur": 4.09,
+    "rueckgang_r": 0.09
    },
    "einheit": "R",
-   "urteil": "läuft (1 von 40 Trades)",
+   "urteil": "läuft (2 von 40 Trades)",
    "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade."
   },

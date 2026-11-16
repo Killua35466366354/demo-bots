@@ -2,12 +2,12 @@
  "konto_id": "332263750966269086",
  "konto": "…9086",
  "konto_name": "Account 5",
- "kontostand": 1026.45,
+ "kontostand": 1026.75,
  "waehrung": "EUR",
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-16T21:01:32.987852",
+  "zeit": "2026-11-16T21:16:36.662530",
   "action": "none",
   "why": "heute schon entschieden",
   "bar": null
@@ -18,7 +18,7 @@
   "stop": 49312.0,
   "ziel": null
  },
- "stand_utc": "2026-11-16T21:01:32.987852",
+ "stand_utc": "2026-11-16T21:16:36.662530",
  "tag_erledigt": "2026-11-16",
  "open": {
   "dealId": "00000000-741f-8063-049c-701f0015549e",

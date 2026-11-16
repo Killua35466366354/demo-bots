@@ -17,3 +17,7 @@
 {"time": "2026-11-16T07:03:41", "event": "Zone verbraucht", "zone": "U2026111312", "grund": "Linie berührt (5-Minuten-Kerzen), ohne dass eine Order lag"}
 {"time": "2026-11-16T07:03:41", "event": "Order gelegt", "zone": "U2026110216", "seite": "Verkauf", "linie": 3869.79, "stop": 3883.69, "ziel": 3730.79, "size": 0.39, "risiko_usd": 13.9, "dealId": "00000000-73b3-d3e3-049c-701a0015549e", "gilt_bis": "2026-11-20T21:45:00"}
 {"time": "2026-11-16T08:03:35", "event": "Plan neu", "kerzen_4h": 318, "atr_4h": 33.97, "wartend": [{"zone": "U2026110216", "seite": "Verkauf", "linie": 3869.79, "stop": 3883.69, "rest": 30, "beruehrt": false}, {"zone": "U2026111312", "seite": "Verkauf", "linie": 3852.32, "stop": 3878.23, "rest": 30, "beruehrt": true}]}
+{"time": "2026-11-16T10:58:45", "event": "Zone verbraucht", "zone": "U2026110216", "grund": "gehandelt"}
+{"time": "2026-11-16T10:58:45", "event": "Verkauf gefüllt", "trade": "2026-11-16T10:53", "zone": "U2026110216", "entry": 3869.8, "linie": 3869.79, "stop": 3883.69, "size": 0.39, "dealId": "00000000-73b5-75fa-049c-701a0015549e"}
+{"time": "2026-11-16T10:58:45", "event": "geändert", "dealId": "00000000-73b5-75fa-049c-701a0015549e", "stopLevel": 3883.69, "profitLevel": 3730.9, "warum": "ziel aus dem Füllkurs"}
+{"time": "2026-11-16T10:58:45", "event": "keine neue Order", "gruende": ["ein Trade ist offen"]}

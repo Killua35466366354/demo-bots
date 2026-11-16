@@ -2,27 +2,31 @@
  "bot": "gold-zonen",
  "name": "Gold-Zonen Bruch (Rollenwechsel)",
  "konto": "Account 2 …2606",
- "stand": "2026-11-16T10:08:44",
+ "stand": "2026-11-16T10:58:45",
  "start": "2026-11-11T11:48:44",
  "pausiert": null,
- "status": "Order liegt: Verkauf bei 3869.79 (Stop 3883.69)",
+ "status": "Verkauf offen ab 3869.80, Stop 3883.69, Ziel 3730.90",
  "regel": "Bruch mit Rollenwechsel: Schließt eine 4-Std.-Kerze jenseits einer Zone, liegt eine Limit-Order auf der alten Linie in Richtung des Bruchs (30 Kerzen gültig). Stop 0,25 ATR hinter der Zone, nach 2 R Einstand, Ziel die nächste Zone der Gegenseite ab 4 R, sonst 10 R, höchstens 14 Tage. Ein Trade und eine Order gleichzeitig, 5 € Risiko.",
  "backtest": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest.",
  "vorab": "suche/VORAB_gold_zonen_bot.yaml",
  "vorab_ok": true,
- "offen": [],
- "orders": [
+ "offen": [
   {
-   "name": "U2026110216",
-   "d": -1,
-   "linie": 3869.79,
+   "id": "2026-11-16T10:53",
+   "zone": "U2026110216",
+   "richtung": -1,
+   "entry": 3869.8,
    "stop": 3883.69,
-   "ziel": 3730.79,
+   "ziel": 3730.9,
+   "ziel_r": 10.0,
    "size": 0.39,
-   "gelegt_utc": "2026-11-16T07:03:41",
-   "gilt_bis": "2026-11-20T21:45:00"
+   "r_usd": 13.89,
+   "opened_utc": "2026-11-16T10:53:47",
+   "bestes": 3870.4,
+   "einstand": null
   }
  ],
+ "orders": [],
  "zusammenfassung": {
   "trades": 1,
   "pf_r": 0.0,
@@ -60,7 +64,7 @@
   }
  ],
  "blick": {
-  "kurs": 3861.02,
+  "kurs": 3873.08,
   "plan_von": "2026-11-16 10:00:00",
   "letzte_4h_kerze_bis": "2026-11-16 07:00:00",
   "atr_4h": 33.97,
@@ -71,7 +75,7 @@
     "linie": 3869.79,
     "stop": 3883.69,
     "noch_kerzen": 30,
-    "stand": "Order liegt"
+    "stand": "verbraucht: gehandelt"
    },
    {
     "zone": "U2026111312",
@@ -82,6 +86,8 @@
     "stand": "verbraucht: Linie berührt (5-Minuten-Kerzen), ohne dass eine Order lag"
    }
   ],
-  "keine_order_weil": []
+  "keine_order_weil": [
+   "ein Trade ist offen"
+  ]
  }
 }

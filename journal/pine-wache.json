@@ -1,5 +1,14 @@
 {
  "format": 1,
  "lauf": "pine5m",
- "schritte": {}
+ "schritte": {
+  "staffel": {
+   "in_folge": 1,
+   "seit": "2026-11-16T14:48Z"
+  },
+  "zonen": {
+   "in_folge": 1,
+   "seit": "2026-11-16T14:48Z"
+  }
+ }
 }

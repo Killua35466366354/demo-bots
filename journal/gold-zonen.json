@@ -2,38 +2,23 @@
  "bot": "gold-zonen",
  "name": "Gold-Zonen Bruch (Rollenwechsel)",
  "konto": "Account 2 …2606",
- "stand": "2026-11-16T14:28:48",
+ "stand": "2026-11-16T14:38:41",
  "start": "2026-11-11T11:48:44",
  "pausiert": null,
- "status": "Verkauf offen ab 3869.80, Stop 3883.69, Ziel 3730.90",
+ "status": "keine Order, wartet auf den nächsten Bruch einer Zone",
  "regel": "Bruch mit Rollenwechsel: Schließt eine 4-Std.-Kerze jenseits einer Zone, liegt eine Limit-Order auf der alten Linie in Richtung des Bruchs (30 Kerzen gültig). Stop 0,25 ATR hinter der Zone, nach 2 R Einstand, Ziel die nächste Zone der Gegenseite ab 4 R, sonst 10 R, höchstens 14 Tage. Ein Trade und eine Order gleichzeitig, 5 € Risiko.",
  "backtest": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest.",
  "vorab": "suche/VORAB_gold_zonen_bot.yaml",
  "vorab_ok": true,
- "offen": [
-  {
-   "id": "2026-11-16T10:53",
-   "zone": "U2026110216",
-   "richtung": -1,
-   "entry": 3869.8,
-   "stop": 3883.69,
-   "ziel": 3730.9,
-   "ziel_r": 10.0,
-   "size": 0.39,
-   "r_usd": 13.89,
-   "opened_utc": "2026-11-16T10:53:47",
-   "bestes": 3861.69,
-   "einstand": null
-  }
- ],
+ "offen": [],
  "orders": [],
  "zusammenfassung": {
-  "trades": 1,
+  "trades": 2,
   "pf_r": 0.0,
-  "summe_r": -1.0,
+  "summe_r": -2.0,
   "trefferquote": 0.0,
-  "summe_eur": -4.85,
-  "urteil": "läuft (1 von 40 Trades)"
+  "summe_eur": -9.79,
+  "urteil": "läuft (2 von 40 Trades)"
  },
  "letzte_trades": [
   {
@@ -61,10 +46,36 @@
    "r": -1.001,
    "pnl_usd": -5.37,
    "pnl_eur": -4.85
+  },
+  {
+   "id": "2026-11-16T10:53",
+   "zone": "U2026110216",
+   "richtung": -1,
+   "linie": 3869.79,
+   "innen": 3875.2,
+   "dealId": "00000000-73b5-75fa-049c-701a0015549e",
+   "size": 0.39,
+   "entry": 3869.8,
+   "stop_plan": 3883.69,
+   "ziel": 3730.9,
+   "r_usd": 13.89,
+   "opened_utc": "2026-11-16T10:53:47",
+   "bestes": 3861.69,
+   "einstand": null,
+   "seite": "Verkauf",
+   "exit": 3883.75,
+   "grund": "stop",
+   "closed_utc": "2026-11-16T14:38:41",
+   "naechte": 0,
+   "r_roh": -1.004,
+   "gebuehr_r": 0.0,
+   "r": -1.004,
+   "pnl_usd": -5.44,
+   "pnl_eur": -4.94
   }
  ],
  "blick": {
-  "kurs": 3864.78,
+  "kurs": 3879.72,
   "plan_von": "2026-11-16 14:00:00",
   "letzte_4h_kerze_bis": "2026-11-16 11:00:00",
   "atr_4h": 33.37,
@@ -78,8 +89,6 @@
     "stand": "verbraucht: gehandelt"
    }
   ],
-  "keine_order_weil": [
-   "ein Trade ist offen"
-  ]
+  "keine_order_weil": []
  }
 }

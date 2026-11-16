@@ -2,7 +2,7 @@
  "bot": "gold-grossbox",
  "name": "Gold Groß-Box (Runde 12d)",
  "konto": "Account 6 …3678",
- "stand": "2026-11-16T06:01:41",
+ "stand": "2026-11-16T06:16:53",
  "start": "2026-11-10T18:47:49",
  "pausiert": null,
  "status": "kein Trade offen, große Box: Verkauf",
@@ -266,9 +266,9 @@
   }
  ],
  "blick": {
-  "kerzen": 2328,
-  "letzte_kerze": "2026-11-16 05:45:00",
-  "kurs": 3838.56,
+  "kerzen": 2329,
+  "letzte_kerze": "2026-11-16 06:00:00",
+  "kurs": 3857.58,
   "grosse_box": "Verkauf",
   "modell_offen": [
    {
@@ -289,8 +289,8 @@
     "einstieg_zeit": "2026-11-16 06:00:00",
     "richtung": -1,
     "art": "c",
-    "einstieg": 3838.56,
-    "stop": 3870.85
+    "einstieg": 3836.93,
+    "stop": 3869.22
    }
   ]
  }

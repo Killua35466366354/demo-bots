@@ -286,3 +286,7 @@
 {"time": "2026-11-16T05:16:40", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
 {"time": "2026-11-16T05:31:43", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
 {"time": "2026-11-16T05:46:53", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
+{"time": "2026-11-16T06:01:41", "event": "Teil zu beim Broker", "trade": "2026-11-13T14:00", "dealId": "00000000-7338-63a5-049c-70210015549e", "kurs": 3842.46, "grund": "ziel"}
+{"time": "2026-11-16T06:01:41", "event": "Trade fertig", "trade": "2026-11-13T14:00", "seite": "Verkauf", "r": 1.007, "pnl_eur": 1.45}
+{"time": "2026-11-16T06:01:41", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
+{"time": "2026-11-16T06:01:41", "event": "Einstieg ausgelassen", "seite": "Verkauf", "art": "c", "kerze": "2026-11-16 06:00:00", "signal": "2026-11-16 06:00:00", "dist": 32.29, "gruende": ["fremde Gold-Position auf dem Konto"]}

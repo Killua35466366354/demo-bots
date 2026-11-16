@@ -4,24 +4,24 @@
  "epic": "DE40",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-16T08:08:30",
+ "stand": "2026-11-16T08:18:47",
  "start": "2026-11-10T12:43:38",
  "regel": "Erste 15-Min.-Kerze ab 09:00 Uhr Berlin: grün Long, rot Short, Einstieg danach, Stop am anderen Ende der Kerze, Ziel 10 R, sonst raus um 17:30 Uhr Berlin. Nur wenn der Kurs auf der Seite von Jahres-, Quartals-, Monats- und Wochen-Open liegt (Long darüber, Short darunter). 1 R = 5 €.",
  "vorab": "suche/VORAB_scalping_opens.yaml",
  "test": "PF 1,63, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,13, schlägt 90,5 % der Zufallsläufe",
  "offen": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-13T08:18:51",
-  "tag": "2026-11-13",
-  "action": "open",
-  "why": "Signal",
+  "zeit": "2026-11-16T08:18:47",
+  "tag": "2026-11-16",
+  "action": "none",
+  "why": "Filter: Kurs 26753.3 nicht auf der Short-Seite des jahr-Opens 24503.7",
   "opens": {
    "jahr": 24503.7,
    "quartal": 25095.0,
    "monat": 25811.1,
-   "woche": 25628.2
+   "woche": 26838.2
   },
-  "kurs_filter": 26752.2
+  "kurs_filter": 26753.3
  },
  "zusammenfassung": {
   "trades": 3,

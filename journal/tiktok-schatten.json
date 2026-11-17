@@ -3144,7 +3144,7 @@
    "tp3": 3931.01,
    "r_usd": 21.45,
    "teile": [],
-   "ergebnis_r": -0.511,
+   "ergebnis_r": -0.22,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3160,7 +3160,7 @@
    "tp3": 3805.35,
    "r_usd": 17.8,
    "teile": [],
-   "ergebnis_r": 0.071,
+   "ergebnis_r": -0.257,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3176,7 +3176,7 @@
    "tp3": 3924.91,
    "r_usd": 19.42,
    "teile": [],
-   "ergebnis_r": -0.564,
+   "ergebnis_r": -0.243,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3194,7 +3194,7 @@
     "tp3": null,
     "r_usd": 17.8,
     "teile": [],
-    "ergebnis_r": 0.071,
+    "ergebnis_r": -0.257,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -3213,7 +3213,7 @@
     "tp3": null,
     "r_usd": 17.8,
     "teile": [],
-    "ergebnis_r": 0.071,
+    "ergebnis_r": -0.257,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -3230,7 +3230,7 @@
    "tp3": null,
    "r_usd": 21.45,
    "teile": [],
-   "ergebnis_r": -0.511,
+   "ergebnis_r": -0.22,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3240,8 +3240,8 @@
   "richtung": 1,
   "linie": 3847.86,
   "gerade_gedreht": false,
-  "kerze": "2026-11-16 22:00:00",
-  "kurs": 3855.69,
+  "kerze": "2026-11-17 00:00:00",
+  "kurs": 3862.61,
   "genauer_175": {
    "richtung": 1,
    "linie": 3849.82,
@@ -3304,8 +3304,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-16T22:11:46+00:00",
- "letzte_kerze": "2026-11-16 21:45:00",
+ "stand": "2026-11-17T00:11:28+00:00",
+ "letzte_kerze": "2026-11-16 23:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

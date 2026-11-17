@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-17T11:31:35.054501",
+ "stand_utc": "2026-11-17T11:46:38.025913",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -222,7 +222,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1012.97,
+   "kontostand": 1012.37,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -230,7 +230,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:31:35.054501",
+    "zeit": "2026-11-17T11:46:38.025913",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -375,7 +375,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.21,
+   "kontostand": 999.97,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "Position offen",
@@ -398,15 +398,15 @@
    },
    "orders": null,
    "position": {
-    "upl": -0.06,
+    "upl": -0.26,
     "stop": 160.924,
     "ziel": null
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:31:35.054501",
-    "action": "open",
+    "zeit": "2026-11-17T11:46:38.025913",
+    "action": "none",
     "why": [
-     "Schluss 159.11 unter dem Band (159.123)"
+     "Position bleibt"
     ]
    },
    "zusammenfassung": {
@@ -686,7 +686,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:31:35.054501",
+    "zeit": "2026-11-17T11:46:38.025913",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -940,7 +940,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:31:35.054501",
+    "zeit": "2026-11-17T11:46:38.025913",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1183,7 +1183,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:31:35.054501",
+    "zeit": "2026-11-17T11:46:38.025913",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1502,7 +1502,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:31:35.054501",
+    "zeit": "2026-11-17T11:46:38.025913",
     "action": "none",
     "why": [
      "heute erledigt"

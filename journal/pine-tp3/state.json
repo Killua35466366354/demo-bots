@@ -1,11 +1,23 @@
 {
  "format": 1,
  "start": "2026-11-10T03:48:53",
- "offen": [],
+ "offen": [
+  {
+   "dealId": "00000000-7425-d59b-049c-a0c30015549e",
+   "richtung": -1,
+   "size": 0.32,
+   "entry": 3862.61,
+   "dist": 17.16,
+   "einstieg_kerze": "2026-11-17 14:45:00",
+   "strategie": "B Short",
+   "opened_utc": "2026-11-17T14:53:35",
+   "tp": 3852.31
+  }
+ ],
  "trades": 26,
  "summe_r": -6.331,
  "summe_eur": -31.45,
- "letzte_kerze": "2026-11-17 14:30:00",
- "letzter_kurs": 3866.57,
- "stand": "2026-11-17T14:38:35"
+ "letzte_kerze": "2026-11-17 14:45:00",
+ "letzter_kurs": 3862.69,
+ "stand": "2026-11-17T14:53:35"
 }

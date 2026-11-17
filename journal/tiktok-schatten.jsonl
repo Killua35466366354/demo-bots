@@ -263,3 +263,8 @@
 {"zeit": "2026-11-17T17:11:36+00:00", "strategie": "stream_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 14:30:00", "richtung": 1, "einstieg": 3862.12, "grund": "einstand", "ergebnis_r": 0.333}
 {"zeit": "2026-11-17T17:11:36+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 14:30:00", "richtung": 1, "einstieg": 3862.12, "grund": "einstand", "ergebnis_r": 0.333}
 {"zeit": "2026-11-17T17:11:36+00:00", "strategie": "box_laufen", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 14:30:00", "richtung": 1, "einstieg": 3862.12, "grund": "einstand", "ergebnis_r": 0.333}
+{"zeit": "2026-11-17T19:11:27+00:00", "strategie": "stream_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 18:15:00", "richtung": -1, "einstieg": 3860.84, "stop": 3877.91, "tp1": 3843.77, "tp2": 3826.7, "tp3": 3809.63}
+{"zeit": "2026-11-17T19:11:27+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 18:00:00", "richtung": -1, "einstieg": 3862.99, "stop": 3878.43, "tp1": 3847.55, "tp2": 3832.11, "tp3": 3816.67}
+{"zeit": "2026-11-17T19:11:27+00:00", "strategie": "gross_box_kerze", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 18:00:00", "richtung": -1, "einstieg": 3862.99, "stop": 3878.43, "tp1": 3847.55, "art": "b"}
+{"zeit": "2026-11-17T19:11:27+00:00", "strategie": "gross_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 18:00:00", "richtung": -1, "einstieg": 3862.99, "stop": 3878.43, "tp1": 3847.55, "art": "b"}
+{"zeit": "2026-11-17T19:11:27+00:00", "strategie": "box_laufen", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 18:15:00", "richtung": -1, "einstieg": 3860.84, "stop": 3877.91, "tp1": 3843.77, "tp2": null, "tp3": null}

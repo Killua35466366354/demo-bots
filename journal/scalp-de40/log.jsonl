@@ -6,3 +6,4 @@
 {"time": "2026-11-13T08:18:51", "bot": "scalp-de40", "event": "eröffnet", "tag": "2026-11-13", "richtung": 1, "size": 0.072, "stop": 26668.7, "ziel": 27431.0, "dealId": "00000000-72ff-3495-049c-70190015549e", "entry": 26737.5}
 {"time": "2026-11-13T16:33:28", "bot": "scalp-de40", "event": "Trade zu", "dealId": "00000000-72ff-3495-049c-70190015549e", "kurs": 26759.3, "r": 0.317, "pct": 0.0815, "eur": 1.57, "quelle": "Zeit"}
 {"time": "2026-11-16T08:18:47", "bot": "scalp-de40", "event": "kein Trade", "tag": "2026-11-16", "warum": "Filter: Kurs 26753.3 nicht auf der Short-Seite des jahr-Opens 24503.7"}
+{"time": "2026-11-17T08:18:40", "bot": "scalp-de40", "event": "kein Trade", "tag": "2026-11-17", "warum": "Filter: Kurs 26375.4 nicht auf der Short-Seite des jahr-Opens 24503.7"}

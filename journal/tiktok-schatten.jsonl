@@ -245,3 +245,5 @@
 {"zeit": "2026-11-17T09:11:39+00:00", "strategie": "box_laufen", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 08:15:00", "richtung": -1, "einstieg": 3864.24, "stop": 3880.47, "tp1": 3848.01, "tp2": null, "tp3": null}
 {"zeit": "2026-11-17T10:11:28+00:00", "strategie": "gross_klein_3", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 09:30:00", "richtung": -1, "einstieg": 3862.75, "stop": 3882.07, "tp1": 3843.43, "tp2": 3824.11, "tp3": 3804.79}
 {"zeit": "2026-11-17T10:11:28+00:00", "strategie": "gross_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-17 09:30:00", "richtung": -1, "einstieg": 3862.75, "stop": 3882.07, "tp1": 3843.43, "art": "c"}
+{"zeit": "2026-11-17T13:11:27+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 08:15:00", "richtung": -1, "einstieg": 3864.24, "grund": "gegensignal", "ergebnis_r": -0.289}
+{"zeit": "2026-11-17T13:11:27+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 12:00:00", "richtung": 1, "einstieg": 3868.43, "grund": "stop", "ergebnis_r": -1.0}

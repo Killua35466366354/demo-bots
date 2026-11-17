@@ -6,14 +6,14 @@
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:00.693559",
  "letzte_entscheidung": {
-  "zeit": "2026-11-17T20:01:45.628905",
+  "zeit": "2026-11-17T20:16:34.009196",
   "action": "none",
-  "why": "kein Signal: {'schluss': 26806.9, 'sma200': 28137.53, 'sma5': 27752.94, 'rsi2': 6.4, 'atr20': 754.28}",
-  "bar": "2026-11-17 19:00:00"
+  "why": "heute schon entschieden",
+  "bar": null
  },
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "position": null,
- "stand_utc": "2026-11-17T20:01:45.628905",
+ "stand_utc": "2026-11-17T20:16:34.009196",
  "start_kontostand": 1000.0,
  "tag_erledigt": "2026-11-17"
 }

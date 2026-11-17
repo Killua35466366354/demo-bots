@@ -14,14 +14,14 @@
    "hinweis": "2026-11-17T18:43:25",
    "nachzieh": {
     "seit": "2026-11-17T18:58:27",
-    "bestes": 3847.36,
-    "stop_seit": "2026-11-17T19:48:44"
+    "bestes": 3845.56,
+    "stop_seit": "2026-11-17T20:03:43"
    },
    "abfang": {
     "zeit": "2026-11-17T18:58:27",
     "warum": "4 Std. ohne Ausstieg"
    },
-   "stop": 3856.69,
+   "stop": 3854.14,
    "ziel": null
   },
   {
@@ -36,14 +36,14 @@
    "hinweis": "2026-11-17T18:43:25",
    "nachzieh": {
     "seit": "2026-11-17T19:03:33",
-    "bestes": 3847.36,
-    "stop_seit": "2026-11-17T19:48:44"
+    "bestes": 3845.56,
+    "stop_seit": "2026-11-17T20:03:43"
    },
    "abfang": {
     "zeit": "2026-11-17T19:03:33",
     "warum": "4 Std. ohne Ausstieg"
    },
-   "stop": 3857.41,
+   "stop": 3854.86,
    "ziel": null
   }
  ],
@@ -52,9 +52,9 @@
  "summe_eur": 21.14,
  "hedging_versuch": "2026-11-10T09:28:32",
  "hedging": true,
- "letzte_kerze": "2026-11-17 19:50:00",
- "letzter_kurs": 3846.86,
- "stand": "2026-11-17T19:58:38",
+ "letzte_kerze": "2026-11-17 19:55:00",
+ "letzter_kurs": 3845.06,
+ "stand": "2026-11-17T20:03:43",
  "ff": {
   "stand": "2026-11-17T19:13:34",
   "termine": [

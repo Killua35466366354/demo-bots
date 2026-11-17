@@ -3623,8 +3623,15 @@
    "tp2": 3894.42,
    "tp3": 3910.57,
    "r_usd": 16.15,
-   "teile": [],
-   "ergebnis_r": -0.175,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3878.27,
+     "zeit": "2026-11-17 15:30:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.891,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3639,8 +3646,15 @@
    "tp2": 3890.74,
    "tp3": 3905.05,
    "r_usd": 14.31,
-   "teile": [],
-   "ergebnis_r": -0.197,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3876.43,
+     "zeit": "2026-11-17 15:30:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.962,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3655,8 +3669,15 @@
    "tp2": null,
    "tp3": null,
    "r_usd": 16.15,
-   "teile": [],
-   "ergebnis_r": -0.175,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3878.27,
+     "zeit": "2026-11-17 15:30:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.891,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -3664,13 +3685,13 @@
  },
  "vorhersage": {
   "richtung": 1,
-  "linie": 3850.64,
+  "linie": 3862.3,
   "gerade_gedreht": false,
-  "kerze": "2026-11-17 15:00:00",
-  "kurs": 3859.3,
+  "kerze": "2026-11-17 16:00:00",
+  "kurs": 3875.62,
   "genauer_175": {
    "richtung": 1,
-   "linie": 3852.56,
+   "linie": 3864.68,
    "gerade_gedreht": false
   },
   "grosse_box": -1,
@@ -3730,8 +3751,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-17T15:11:29+00:00",
- "letzte_kerze": "2026-11-17 14:45:00",
+ "stand": "2026-11-17T16:11:32+00:00",
+ "letzte_kerze": "2026-11-17 15:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

@@ -22,23 +22,12 @@
     "zeit": "2026-11-17T10:13:30",
     "warum": "Fehltrade (0,5 R im Minus)"
    }
-  },
-  {
-   "dealId": "00000000-7424-1ce8-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.59,
-   "entry": 3855.62,
-   "dist": 9.3,
-   "einstieg_kerze": "2026-11-17 10:25:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-17T10:33:30",
-   "tp": 3861.23
   }
  ],
- "trades": 23,
- "summe_r": -5.089,
- "summe_eur": -25.34,
- "letzte_kerze": "2026-11-17 11:15:00",
- "letzter_kurs": 3859.34,
- "stand": "2026-11-17T11:23:30"
+ "trades": 24,
+ "summe_r": -4.486,
+ "summe_eur": -22.33,
+ "letzte_kerze": "2026-11-17 11:25:00",
+ "letzter_kurs": 3862.41,
+ "stand": "2026-11-17T11:33:33"
 }

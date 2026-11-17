@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-17",
- "letzter_trade_utc": "2026-11-13T18:14:50.609000",
+ "letzter_trade_utc": "2026-11-17T11:01:39.095124",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
   {
@@ -13,12 +13,12 @@
    "konto": "Account 7",
    "seit": "2026-11-05T11:16:36",
    "ist": {
-    "trades": 3,
-    "gewonnen": 1,
-    "treffer_pct": 33.3,
-    "summe_r": 0.01,
-    "pf_r": 1.12,
-    "eur": 0.09,
+    "trades": 4,
+    "gewonnen": 2,
+    "treffer_pct": 50.0,
+    "summe_r": 0.02,
+    "pf_r": 1.48,
+    "eur": 0.25,
     "rueckgang_r": 0.05
    },
    "soll": {
@@ -26,7 +26,7 @@
     "trades": 4.4,
     "summe_r": 0.08
    },
-   "abweichung_r": -0.07,
+   "abweichung_r": -0.06,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -35,14 +35,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 3,
-     "summe_r": 0.01,
-     "eur": 0.09
+     "trades": 4,
+     "summe_r": 0.03,
+     "eur": 0.25
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "3 von 40 Demo-Trades"
+    "text": "4 von 40 Demo-Trades"
    },
    "rang": 1
   },

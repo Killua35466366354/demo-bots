@@ -4,7 +4,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Noise USD/JPY | labor | 3 | +0,01 | 1,12 | +0,09 | 4,4 Trades, +0,08 R | 3 von 40 Demo-Trades |
+| 1 | Noise USD/JPY | labor | 4 | +0,02 | 1,48 | +0,25 | 4,4 Trades, +0,08 R | 4 von 40 Demo-Trades |
 | 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,11 R | 0 von 40 Demo-Trades |
 | 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |
 | 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |

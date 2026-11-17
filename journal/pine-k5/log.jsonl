@@ -152,3 +152,6 @@
 {"time": "2026-11-17T16:28:30", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
 {"time": "2026-11-17T18:43:25", "bot": "pine-k5", "event": "Pine-Ausstieg", "richtung": -1, "kerze": "2026-11-17 18:35:00", "deals": ["00000000-7425-d589-049c-701f0015549e", "00000000-7425-e242-049c-701f0015549e"]}
 {"time": "2026-11-17T18:43:25", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Strategie würde SHORT schließen", "gesendet": true}
+{"time": "2026-11-17T18:58:27", "bot": "pine-k5", "event": "Abfänger übernimmt", "dealId": "00000000-7425-d589-049c-701f0015549e", "kurs": 3856.41}
+{"time": "2026-11-17T18:58:27", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Abfänger übernimmt", "gesendet": true}
+{"time": "2026-11-17T18:58:27", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-7425-d589-049c-701f0015549e", "stopLevel": 3864.99, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}

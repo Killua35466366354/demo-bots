@@ -401,3 +401,4 @@
 {"time": "2026-11-17T08:16:42", "event": "Einstieg ausgelassen", "seite": "Verkauf", "art": "b", "kerze": "2026-11-17 08:15:00", "signal": "2026-11-17 08:15:00", "dist": 15.92, "gruende": ["fremde Gold-Position auf dem Konto"]}
 {"time": "2026-11-17T08:31:52", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
 {"time": "2026-11-17T08:46:47", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}
+{"time": "2026-11-17T09:01:49", "event": "fremde Gold-Position", "deals": ["00000000-7338-63b4-049c-70210015549e"]}

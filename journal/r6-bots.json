@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-17T11:16:52.593142",
+ "stand_utc": "2026-11-17T11:31:35.054501",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -222,7 +222,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1013.18,
+   "kontostand": 1012.97,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -230,7 +230,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:16:52.593142",
+    "zeit": "2026-11-17T11:31:35.054501",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -378,15 +378,35 @@
    "kontostand": 1000.21,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "wartet auf das nächste Signal",
-   "offen": null,
+   "status": "Position offen",
+   "offen": {
+    "dealId": "00000000-7433-ed21-049c-70750015549e",
+    "side": -1,
+    "tag": "2026-11-17",
+    "signal_bar": "2026-11-17 11:15:00",
+    "einstieg_kerze": "2026-11-17 11:30:00",
+    "entry": 159.144,
+    "stop_level": 160.924,
+    "ziel_level": null,
+    "notstop": true,
+    "size": 900.0,
+    "lot": 1.0,
+    "currency": "JPY",
+    "eur_rate": 174.94650000000001,
+    "opened_utc": "2026-11-17T11:31:36.721",
+    "konto_kurz": "…6542"
+   },
    "orders": null,
-   "position": null,
+   "position": {
+    "upl": -0.06,
+    "stop": 160.924,
+    "ziel": null
+   },
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:16:52.593142",
-    "action": "none",
+    "zeit": "2026-11-17T11:31:35.054501",
+    "action": "open",
     "why": [
-     "kein Signal"
+     "Schluss 159.11 unter dem Band (159.123)"
     ]
    },
    "zusammenfassung": {
@@ -666,7 +686,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:16:52.593142",
+    "zeit": "2026-11-17T11:31:35.054501",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -920,7 +940,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:16:52.593142",
+    "zeit": "2026-11-17T11:31:35.054501",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1163,7 +1183,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:16:52.593142",
+    "zeit": "2026-11-17T11:31:35.054501",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1482,7 +1502,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:16:52.593142",
+    "zeit": "2026-11-17T11:31:35.054501",
     "action": "none",
     "why": [
      "heute erledigt"

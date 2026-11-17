@@ -1,7 +1,7 @@
 {
  "format": 1,
  "offen": null,
- "tag_erledigt": "2026-11-16",
+ "tag_erledigt": "2026-11-17",
  "opens": {
   "woche:2026W47": 61226.6
  },
@@ -10,15 +10,15 @@
  "summe_pct": 0.0329,
  "summe_eur": 0.01,
  "letzte_entscheidung": {
-  "zeit": "2026-11-16T06:03:30",
-  "tag": "2026-11-16",
+  "zeit": "2026-11-17T06:03:36",
+  "tag": "2026-11-17",
   "action": "none",
-  "why": "Filter: Kurs 59739.1 nicht auf der Long-Seite des woche-Opens 61226.6",
+  "why": "Filter: Kurs 59068.9 nicht auf der Long-Seite des woche-Opens 61226.6",
   "opens": {
    "woche": 61226.6
   },
-  "kurs_filter": 59739.1
+  "kurs_filter": 59068.9
  },
- "stand": "2026-11-17T05:48:41",
+ "stand": "2026-11-17T06:03:36",
  "start": "2026-11-10T12:43:38"
 }

@@ -4,12 +4,12 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Noise USD/JPY | labor | 4 | +0,02 | 1,48 | +0,25 | 4,4 Trades, +0,08 R | 4 von 40 Demo-Trades |
-| 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,11 R | 0 von 40 Demo-Trades |
-| 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |
-| 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |
-| 5 | Trend-Rücksetzer Dow | labor | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,03 R | 0 von 40 Demo-Trades |
-| 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 0,9 Trades, +0,10 R | 0 von 40 Demo-Trades |
+| 1 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,11 R | 0 von 40 Demo-Trades |
+| 2 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |
+| 3 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,04 R | 0 von 40 Demo-Trades |
+| 4 | Trend-Rücksetzer Dow | labor | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,03 R | 0 von 40 Demo-Trades |
+| 5 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 0,9 Trades, +0,10 R | 0 von 40 Demo-Trades |
+| 6 | Noise USD/JPY | labor | 5 | -0,02 | 0,76 | -0,18 | 4,4 Trades, +0,08 R | 5 von 40 Demo-Trades |
 | 7 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 2,4 Trades, +0,31 R | 1 von 40 Demo-Trades |
 | 8 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
 | 9 | Gold-Bot C/B | verbessern | 1 | -1,01 | 0,00 | -19,16 | 2,8 Trades, +0,61 R | 1 von 40 Demo-Trades |

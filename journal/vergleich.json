@@ -1,51 +1,9 @@
 {
  "format": 1,
  "tag": "2026-11-17",
- "letzter_trade_utc": "2026-11-17T11:01:39.095124",
+ "letzter_trade_utc": "2026-11-17T12:01:38.919838",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
-  {
-   "id": "r6-noise-usdjpy",
-   "name": "Noise USD/JPY",
-   "markt": "USDJPY",
-   "gruppe": "labor",
-   "aktiv": true,
-   "konto": "Account 7",
-   "seit": "2026-11-05T11:16:36",
-   "ist": {
-    "trades": 4,
-    "gewonnen": 2,
-    "treffer_pct": 50.0,
-    "summe_r": 0.02,
-    "pf_r": 1.48,
-    "eur": 0.25,
-    "rueckgang_r": 0.05
-   },
-   "soll": {
-    "wochen": 1.6,
-    "trades": 4.4,
-    "summe_r": 0.08
-   },
-   "abweichung_r": -0.06,
-   "bewertung": {
-    "rang": 8,
-    "pf": 1.389,
-    "eur_1000": 49.0,
-    "bestanden": true
-   },
-   "monate": {
-    "2026-11": {
-     "trades": 4,
-     "summe_r": 0.03,
-     "eur": 0.25
-    }
-   },
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "4 von 40 Demo-Trades"
-   },
-   "rang": 1
-  },
   {
    "id": "us500-ruecksetzer",
    "name": "Trend-Rücksetzer US500",
@@ -80,7 +38,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 2
+   "rang": 1
   },
   {
    "id": "r7-nasdaq-noise-long",
@@ -116,7 +74,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 3
+   "rang": 2
   },
   {
    "id": "r5-ruecksetzer-us100",
@@ -152,7 +110,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 4
+   "rang": 3
   },
   {
    "id": "r5-ruecksetzer-us30",
@@ -188,7 +146,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 5
+   "rang": 4
   },
   {
    "id": "r6-london-gbpusd",
@@ -223,6 +181,48 @@
    "aufstieg": {
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
+   },
+   "rang": 5
+  },
+  {
+   "id": "r6-noise-usdjpy",
+   "name": "Noise USD/JPY",
+   "markt": "USDJPY",
+   "gruppe": "labor",
+   "aktiv": true,
+   "konto": "Account 7",
+   "seit": "2026-11-05T11:16:36",
+   "ist": {
+    "trades": 5,
+    "gewonnen": 2,
+    "treffer_pct": 40.0,
+    "summe_r": -0.02,
+    "pf_r": 0.76,
+    "eur": -0.18,
+    "rueckgang_r": 0.08
+   },
+   "soll": {
+    "wochen": 1.6,
+    "trades": 4.4,
+    "summe_r": 0.08
+   },
+   "abweichung_r": -0.1,
+   "bewertung": {
+    "rang": 8,
+    "pf": 1.389,
+    "eur_1000": 49.0,
+    "bestanden": true
+   },
+   "monate": {
+    "2026-11": {
+     "trades": 5,
+     "summe_r": -0.02,
+     "eur": -0.18
+    }
+   },
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "5 von 40 Demo-Trades"
    },
    "rang": 6
   },

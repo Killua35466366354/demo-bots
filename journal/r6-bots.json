@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-17T11:46:38.025913",
+ "stand_utc": "2026-11-17T12:01:38.919838",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -222,7 +222,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1012.37,
+   "kontostand": 1012.27,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -230,7 +230,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:46:38.025913",
+    "zeit": "2026-11-17T12:01:38.919838",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -375,46 +375,26 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 999.97,
+   "kontostand": 999.8,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "Position offen",
-   "offen": {
-    "dealId": "00000000-7433-ed21-049c-70750015549e",
-    "side": -1,
-    "tag": "2026-11-17",
-    "signal_bar": "2026-11-17 11:15:00",
-    "einstieg_kerze": "2026-11-17 11:30:00",
-    "entry": 159.144,
-    "stop_level": 160.924,
-    "ziel_level": null,
-    "notstop": true,
-    "size": 900.0,
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 174.94650000000001,
-    "opened_utc": "2026-11-17T11:31:36.721",
-    "konto_kurz": "…6542"
-   },
+   "status": "wartet auf das nächste Signal",
+   "offen": null,
    "orders": null,
-   "position": {
-    "upl": -0.26,
-    "stop": 160.924,
-    "ziel": null
-   },
+   "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:46:38.025913",
-    "action": "none",
+    "zeit": "2026-11-17T12:01:38.919838",
+    "action": "close",
     "why": [
-     "Position bleibt"
+     "Schluss zurück hinter Band bzw. VWAP"
     ]
    },
    "zusammenfassung": {
-    "trades": 4,
-    "treffer_pct": 50.0,
-    "pf": 1.455,
-    "summe_pct": 0.025,
-    "pnl_eur": 0.25
+    "trades": 5,
+    "treffer_pct": 40.0,
+    "pf": 0.75,
+    "summe_pct": -0.027,
+    "pnl_eur": -0.18
    },
    "letzte_trades": [
     {
@@ -527,6 +507,35 @@
      "pnl": 28.8,
      "waehrung": "JPY",
      "pnl_eur": 0.16,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…6542",
+     "uebernommen": false,
+     "nachgeholt": false
+    },
+    {
+     "bot": "r6-noise-usdjpy",
+     "strategie": "noise_band",
+     "epic": "USDJPY",
+     "side": "short",
+     "dealId": "00000000-7433-ed21-049c-70750015549e",
+     "tag": "2026-11-17",
+     "einstieg_kerze": "2026-11-17 11:30:00",
+     "signal_bar": "2026-11-17 11:15:00",
+     "size": 900.0,
+     "entry": 159.144,
+     "exit": 159.227,
+     "stop_level": 160.924,
+     "ziel_level": null,
+     "notstop": true,
+     "opened_utc": "2026-11-17T11:31:36.721",
+     "closed_utc": "2026-11-17T12:01:38.919838",
+     "reason": "Gegensignal (Band/VWAP)",
+     "pct": -0.0522,
+     "r": -0.047,
+     "pnl": -74.7,
+     "waehrung": "JPY",
+     "pnl_eur": -0.43,
      "geschaetzt": false,
      "rutschen_pips": null,
      "konto": "…6542",
@@ -686,7 +695,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:46:38.025913",
+    "zeit": "2026-11-17T12:01:38.919838",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -940,7 +949,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:46:38.025913",
+    "zeit": "2026-11-17T12:01:38.919838",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1183,7 +1192,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:46:38.025913",
+    "zeit": "2026-11-17T12:01:38.919838",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1502,7 +1511,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T11:46:38.025913",
+    "zeit": "2026-11-17T12:01:38.919838",
     "action": "none",
     "why": [
      "heute erledigt"

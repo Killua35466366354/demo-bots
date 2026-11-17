@@ -636,12 +636,12 @@
    "konto": "Account 5",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 13,
+    "trades": 14,
     "gewonnen": 5,
-    "treffer_pct": 38.5,
-    "summe_r": 4.73,
-    "pf_r": 1.6,
-    "eur": 23.31,
+    "treffer_pct": 35.7,
+    "summe_r": 4.29,
+    "pf_r": 1.52,
+    "eur": 21.14,
     "rueckgang_r": 5.72
    },
    "einheit": "R",

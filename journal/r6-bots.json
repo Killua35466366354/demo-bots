@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-17T16:46:40.806842",
+ "stand_utc": "2026-11-17T17:01:41.158100",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -222,7 +222,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1012.45,
+   "kontostand": 1012.5,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -230,7 +230,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T16:46:40.806842",
+    "zeit": "2026-11-17T17:01:41.158100",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -245,7 +245,7 @@
    },
    "letzte_trades": [],
    "zwilling": {
-    "tage": 10,
+    "tage": 11,
     "abweichungen": 0,
     "zusammenfassung": {
      "trades": 0,
@@ -255,25 +255,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-10",
-      "strategie": "london_stunde_long",
-      "markt": "GBPUSD",
-      "schatten": false,
-      "schwankung": 0.9988464873881217,
-      "tag_gezaehlt": true,
-      "trades": [],
-      "berechnet_utc": "2026-11-10T17:01:43.572482",
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-11",
       "strategie": "london_stunde_long",
@@ -362,6 +343,38 @@
        "zwilling_pct": 0.0,
        "bot_pct": 0.0
       }
+     },
+     {
+      "tag": "2026-11-17",
+      "strategie": "london_stunde_long",
+      "markt": "GBPUSD",
+      "schatten": false,
+      "schwankung": 1.1306263641230467,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-17 16:00:00",
+        "side": "long",
+        "einstieg": 1.32046,
+        "pct": 0.0841,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-17 16:45:00",
+        "uhrzeit": 960,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.00194
+       }
+      ],
+      "berechnet_utc": "2026-11-17T17:01:41.158100",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -383,10 +396,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T16:46:40.806842",
+    "zeit": "2026-11-17T17:01:41.158100",
     "action": "none",
     "why": [
-     "kein Signal"
+     "außerhalb 8:30 bis 17 Uhr London"
     ]
    },
    "zusammenfassung": {
@@ -544,48 +557,16 @@
     }
    ],
    "zwilling": {
-    "tage": 10,
+    "tage": 11,
     "abweichungen": 0,
     "zusammenfassung": {
-     "trades": 5,
-     "treffer_pct": 60.0,
-     "pf": 10.599,
-     "summe_pct": 0.328,
+     "trades": 7,
+     "treffer_pct": 57.1,
+     "pf": 3.626,
+     "summe_pct": 0.294,
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-10",
-      "strategie": "noise_band",
-      "markt": "USDJPY",
-      "schatten": false,
-      "schwankung": 0.8915529000867708,
-      "tag_gezaehlt": true,
-      "trades": [
-       {
-        "einstieg_kerze": "2026-11-10 14:00:00",
-        "side": "long",
-        "einstieg": 158.525,
-        "pct": 0.1482,
-        "grund": "zeit",
-        "ausstieg_kerze": "2026-11-10 16:45:00",
-        "uhrzeit": 840,
-        "bedingung": false,
-        "zaehlt": false,
-        "stop_abst": null
-       }
-      ],
-      "berechnet_utc": "2026-11-10T17:01:43.572482",
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-11",
       "strategie": "noise_band",
@@ -674,6 +655,63 @@
        "zwilling_pct": 0.0,
        "bot_pct": 0.0
       }
+     },
+     {
+      "tag": "2026-11-17",
+      "strategie": "noise_band",
+      "markt": "USDJPY",
+      "schatten": false,
+      "schwankung": 0.8361603452533075,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-17 08:30:00",
+        "side": "short",
+        "einstieg": 159.229,
+        "pct": 0.044,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-17 11:00:00",
+        "uhrzeit": 510,
+        "bedingung": true,
+        "zaehlt": true,
+        "stop_abst": null
+       },
+       {
+        "einstieg_kerze": "2026-11-17 11:30:00",
+        "side": "short",
+        "einstieg": 159.111,
+        "pct": -0.0779,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-17 12:00:00",
+        "uhrzeit": 690,
+        "bedingung": true,
+        "zaehlt": true,
+        "stop_abst": null
+       }
+      ],
+      "berechnet_utc": "2026-11-17T17:01:41.158100",
+      "bot_trades": [
+       {
+        "einstieg_kerze": "2026-11-17 08:30:00",
+        "side": "short",
+        "pct": 0.0201,
+        "reason": "Gegensignal (Band/VWAP)"
+       },
+       {
+        "einstieg_kerze": "2026-11-17 11:30:00",
+        "side": "short",
+        "pct": -0.0522,
+        "reason": "Gegensignal (Band/VWAP)"
+       }
+      ],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": -0.0339,
+       "bot_pct": -0.0321
+      }
      }
     ]
    }
@@ -695,7 +733,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T16:46:40.806842",
+    "zeit": "2026-11-17T17:01:41.158100",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -949,7 +987,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T16:46:40.806842",
+    "zeit": "2026-11-17T17:01:41.158100",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1192,7 +1230,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T16:46:40.806842",
+    "zeit": "2026-11-17T17:01:41.158100",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1511,7 +1549,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-17T16:46:40.806842",
+    "zeit": "2026-11-17T17:01:41.158100",
     "action": "none",
     "why": [
      "heute erledigt"

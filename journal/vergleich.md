@@ -36,7 +36,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Gold Groß-Box | Account 6 | 2026-11-10 | 7 | +3,04 R | 2,01 | +10,89 | läuft (7 von 40 Trades) | suche/VORAB_gold_grossbox.yaml |
 | Gold-Zonen Bruch | Account 2 | 2026-11-11 | 2 | -2,00 R | 0,00 | -9,79 | läuft (2 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml |
 | Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 2 | +0,89 R | 10,73 | +4,09 | läuft (2 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml |
-| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 14 | +4,29 R | 1,52 | +21,14 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml |
+| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 16 | +5,51 R | 1,66 | +27,22 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml |
 | Pine-Gold TP 3 € | US500 | 2026-11-10 | 29 | -5,70 R | 0,65 | -28,40 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml |
 
 Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

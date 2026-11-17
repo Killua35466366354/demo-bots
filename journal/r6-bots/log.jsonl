@@ -98,3 +98,4 @@
 {"time": "2026-11-16T11:01:43.935600", "bot": "r6-vortag-eurusd-1atr", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
 {"time": "2026-11-16T14:46:49.170218", "bot": "r6-vortag-eurusd-1atr", "event": "keine anderen Märkte mehr auf dem Konto"}
 {"time": "2026-11-16T23:16:33.933095", "bot": "r6-vortag-eurusd", "event": "keine anderen Märkte mehr auf dem Konto"}
+{"time": "2026-11-17T08:31:40.867439", "bot": "r6-noise-usdjpy", "event": "eröffnet", "entry": 159.188, "dealId": "00000000-7433-111d-049c-70750015549e", "side": "short", "bar": "2026-11-17 08:15:00", "size": 900.0, "risiko_eur": 9.15, "margin_eur": 27.26, "stop_level": null, "stop_dist": 1.78, "ziel_level": null}

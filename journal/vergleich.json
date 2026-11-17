@@ -1,6 +1,6 @@
 {
  "format": 1,
- "tag": "2026-11-16",
+ "tag": "2026-11-17",
  "letzter_trade_utc": "2026-11-13T18:14:50.609000",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
@@ -22,8 +22,8 @@
     "rueckgang_r": 0.05
    },
    "soll": {
-    "wochen": 1.5,
-    "trades": 4.0,
+    "wochen": 1.6,
+    "trades": 4.4,
     "summe_r": 0.08
    },
    "abweichung_r": -0.07,
@@ -64,11 +64,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.7,
-    "trades": 0.4,
-    "summe_r": 0.1
+    "wochen": 1.9,
+    "trades": 0.5,
+    "summe_r": 0.11
    },
-   "abweichung_r": -0.1,
+   "abweichung_r": -0.11,
    "bewertung": {
     "rang": 1,
     "pf": 5.821,
@@ -100,8 +100,8 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.6,
-    "trades": 0.3,
+    "wochen": 1.8,
+    "trades": 0.4,
     "summe_r": 0.04
    },
    "abweichung_r": -0.04,
@@ -136,7 +136,7 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.6,
+    "wochen": 1.8,
     "trades": 0.4,
     "summe_r": 0.04
    },
@@ -172,7 +172,7 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.5,
+    "wochen": 1.6,
     "trades": 0.4,
     "summe_r": 0.03
    },
@@ -208,11 +208,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 1.5,
-    "trades": 0.8,
-    "summe_r": 0.09
+    "wochen": 1.6,
+    "trades": 0.9,
+    "summe_r": 0.1
    },
-   "abweichung_r": -0.09,
+   "abweichung_r": -0.1,
    "bewertung": {
     "rang": 7,
     "pf": 1.448,
@@ -244,11 +244,11 @@
     "rueckgang_r": 1.0
    },
    "soll": {
-    "wochen": 1.6,
-    "trades": 2.2,
-    "summe_r": 0.28
+    "wochen": 1.8,
+    "trades": 2.4,
+    "summe_r": 0.31
    },
-   "abweichung_r": -1.28,
+   "abweichung_r": -1.31,
    "bewertung": {
     "rang": 9,
     "pf": 1.215,
@@ -319,11 +319,11 @@
     "rueckgang_r": 1.01
    },
    "soll": {
-    "wochen": 1.8,
-    "trades": 2.6,
-    "summe_r": 0.56
+    "wochen": 1.9,
+    "trades": 2.8,
+    "summe_r": 0.61
    },
-   "abweichung_r": -1.57,
+   "abweichung_r": -1.62,
    "bewertung": {
     "rang": 12,
     "pf": 1.171,
@@ -394,11 +394,11 @@
     "rueckgang_r": 1.04
    },
    "soll": {
-    "wochen": 1.6,
-    "trades": 2.3,
-    "summe_r": 0.74
+    "wochen": 1.8,
+    "trades": 2.5,
+    "summe_r": 0.8
    },
-   "abweichung_r": -1.78,
+   "abweichung_r": -1.84,
    "bewertung": {
     "rang": 4,
     "pf": 1.671,
@@ -436,11 +436,11 @@
     "rueckgang_r": 3.02
    },
    "soll": {
-    "wochen": 1.5,
-    "trades": 1.5,
-    "summe_r": 0.3
+    "wochen": 1.6,
+    "trades": 1.6,
+    "summe_r": 0.33
    },
-   "abweichung_r": -3.32,
+   "abweichung_r": -3.35,
    "bewertung": {
     "rang": 18,
     "pf": 1.451,
@@ -488,8 +488,8 @@
    }
   },
   "soll": {
-   "trades": 7.1,
-   "summe_r": 1.5
+   "trades": 7.8,
+   "summe_r": 1.63
   },
   "aufstieg": {
    "status": "sammelt",
@@ -636,12 +636,12 @@
    "konto": "Account 5",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 12,
+    "trades": 13,
     "gewonnen": 5,
-    "treffer_pct": 41.7,
-    "summe_r": 4.88,
-    "pf_r": 1.63,
-    "eur": 24.06,
+    "treffer_pct": 38.5,
+    "summe_r": 4.73,
+    "pf_r": 1.6,
+    "eur": 23.31,
     "rueckgang_r": 5.72
    },
    "einheit": "R",

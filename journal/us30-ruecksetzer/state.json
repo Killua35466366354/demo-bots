@@ -2,23 +2,23 @@
  "konto_id": "332263750966269086",
  "konto": "…9086",
  "konto_name": "Account 5",
- "kontostand": 1020.8,
+ "kontostand": 1020.77,
  "waehrung": "EUR",
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-17T12:01:37.062905",
+  "zeit": "2026-11-17T12:16:34.452535",
   "action": "none",
   "why": "wartet auf 15 Uhr New York",
   "bar": null
  },
  "status": "Position offen",
  "position": {
-  "upl": -0.19,
+  "upl": -0.22,
   "stop": 49312.0,
   "ziel": null
  },
- "stand_utc": "2026-11-17T12:01:37.062905",
+ "stand_utc": "2026-11-17T12:16:34.452535",
  "tag_erledigt": "2026-11-16",
  "open": {
   "dealId": "00000000-741f-8063-049c-701f0015549e",

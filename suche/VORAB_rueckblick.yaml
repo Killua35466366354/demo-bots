@@ -1,0 +1,158 @@
+# Runde "Starker Rückblick" (18.11.2026): zwei Regel-Familien, sechs Varianten, auf Indizes, Silber und Devisen.
+# Festgelegt, BEVOR mit Kursen ab 2024 gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/rueckblick.py, Daten: suche/rueckblick_daten.py.
+#
+# Kirons Wunsch vom 18.11.2026 20:10 UTC: "versuche Strategien zu finden, die im Backtest super laufen bis jetzt, und
+# nutze die, um zu gucken, ob die live auch so gut laufen", und 20:12 UTC: großes Research, viele Strategien probieren.
+#
+# Ehrlich vorab:
+# - Das Programm wurde nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.rueckblick entwicklung / probelauf). Die Kurse ab 2024 hat es vor dem Siegel nie gesehen.
+# - Die Regeln kommen aus dem Projekt selbst und aus veröffentlichten Quellen. Kein Wert wurde hier abgestimmt.
+#   Familie A ist der Gold-Kandidat der Gold-Matrix (suche/VORAB_gold_matrix.yaml, ausbruch.4h.trend_hoch.swing_4h.
+#   zeit_4h), unverändert auf andere Märkte übertragen. Familie D ist der "Turnaround Tuesday" in der einfachen
+#   Fassung von Quantified Strategies.
+# - Auf den Entwicklungs-Daten (März 2021 bis Dezember 2023) war Familie A auf allen vier Marktgruppen im Minus
+#   (Gewinnfaktor 0,38 bis 0,84), Familie D auf US-Indizes bei 1,21 und auf den anderen Indizes bei 0,93. Das passt
+#   zum Gold-Kandidaten, der 2016 bis 2023 auch im Minus war (0,83) und erst 2024 bis 2026 gut aussah. Die Frage dieser
+#   Runde ist, ob dieselbe Regel 2024 bis 2026 auch auf anderen Märkten trägt.
+# - Probelauf vor dem Siegel: 24 erfundene Märkte ohne Vorteil (jede 5-Minuten-Kerze mit zufälligem Vorzeichen). Keine
+#   der sechs Varianten bestand oder wurde Kandidat. Ihr z lag im Mittel bei -0,3 bis 0,2 mit Streuung 0,6 bis 1,0,
+#   das größte z war 2,5. 7 von 144 Läufen schlugen 95 % der Zwillinge (erwartet etwa 7).
+# - Zwei weitere Familien standen im Entwurf und sind NICHT Teil dieser Datei: die Vortag-Regel auf Indizes und
+#   Metallen, mit und ohne Tagestrend. Einwand des Komitees vom 18.11.2026 21:36 UTC, vom Probelauf bestätigt: Ihr
+#   enger Stop liegt oft in der Einstiegskerze, dann entscheidet auf 5-Minuten-Kerzen die angenommene Reihenfolge von
+#   Hoch und Tief. Im Probelauf streute ihr z mit 3,4 statt 1 und erreichte ohne jeden Vorteil 4,4. Nach der Messung
+#   des Komitees auf Gold bis 2023 lösen auch 1-Minuten-Kerzen das nicht auf. Diese Regel lässt sich mit Kerzen nicht
+#   fair rechnen, nur mit Tick-Daten oder live. Sie steht im Ideen-Vorrat.
+# - Die Recherche vom 18.11.2026 (Studien, Bücher, Blogs, Foren) fand nichts Stärkeres, das sich mit unseren Kursen
+#   sauber rechnen lässt. Was liegen blieb, steht im Ideen-Vorrat (suche/ergebnis_rueckblick.md).
+# - Die Kurse 2024 bis 2026 hat das Projekt für andere Regeln schon oft geöffnet. Aktien stiegen in dieser Zeit
+#   stark. Der Zufallsvergleich misst darum, ob der ZEITPUNKT der Trades besser ist als dieselben Trades an anderen
+#   Tagen. Eine Regel, die nur mit dem Markt steigt, schlägt ihn nicht.
+# - Die Hürde ist hoch. Ein kleiner echter Vorteil (Gewinnfaktor 1,3) schafft z ab 3 mit 150 Trades nur selten. Das
+#   Ergebnis nennt je Variante, welche Summe in R für z = 3 nötig gewesen wäre.
+
+format: 1
+rueckblick:
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der Daten
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: >-
+      Es gibt keine Auswahl-Stufe. Alle sechs Varianten stehen hier fest und werden einmal über das ganze Hauptfenster
+      gerechnet. Holm zählt über alle sechs.
+
+  daten:
+    quelle: HistData 5-Minuten-Kerzen (Bid) aus dem Projektordner strategie-suche/daten, auf echtes UTC umgerechnet (LIESMICH_zeit.md)
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Montag bis Freitag.
+    min_kerzen_je_tag: 60        # Handelstage mit weniger Kerzen gelten nicht (Feiertage, Lücken)
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026). Mit Vorlauf handelt der DAX etwa ab Mai 2024
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+
+  trend:
+    regel: >-
+      Tagestrend wie trend_hoch der Gold-Matrix. Aufwärts, wenn der letzte fertige Handelstag über seinem EMA 50 schloss
+      und der EMA 50 höher steht als 5 Handelstage davor. Abwärts spiegelbildlich. Sonst kein Trend.
+    vorlauf_tage: 100            # vorher gilt kein Trend
+
+  kosten:
+    spread: >-
+      Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (strategie-suche/runde3/kerzen, Bid und
+      Ask, Dezember 2025 bis November 2026). Für alle 20 Märkte vorhanden. Long kauft zum Ask und verkauft zum Bid.
+    rutschen_spread: 0.5         # Stop-Orders (Einstieg und Schutz-Stop) füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen, gleiche Einstiege
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York, wie Runde 5
+      index: {long: 0.065, short: 0.02}
+      metall: {long: 0.065, short: 0.02}
+      fx: {long: 0.02, short: 0.02}
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    abstaende: >-
+      Stop- und Ziel-Abstand zählen vom Bid beim Einstieg, bei einer Stop-Order von ihrer Marke (wie suche/runde4.py
+      im privaten Repo). Der Long-Stop löst aus, wenn das Bid die Marke berührt, der Short-Stop, wenn das Ask sie berührt.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand
+    eine_position: Je Regel und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  regeln:
+    ausbruch4h:
+      quelle: suche/VORAB_gold_matrix.yaml, Variante ausbruch.4h.trend_hoch.swing_4h.zeit_4h (läuft als gold-ausbruch4h)
+      regel: >-
+        4-Std.-Kerzen beginnen um 18, 22, 2, 6, 10 und 14 Uhr New York, die Stunde 17 bis 18 Uhr zählt zur Kerze ab
+        14 Uhr. Kauf, wenn eine 4-Std.-Kerze über dem höchsten Hoch der 20 Kerzen davor schließt und die Kerze davor
+        das nicht tat, und nur im Aufwärts-Tagestrend. Verkauf spiegelbildlich. Einstieg zur Eröffnung der nächsten
+        5-Minuten-Kerze. Stop unter dem tiefsten Tief der letzten 10 fertigen 4-Std.-Kerzen minus 0,1 ATR (14, Wilder),
+        gemessen vom Bid beim Einstieg, mindestens 0,5 und höchstens 4 ATR. Ausstieg zum Markt, sobald 4 weitere
+        4-Std.-Kerzen fertig sind, spätestens nach 14 Tagen.
+      kanal: 20
+      stop_kerzen: 10
+      stop_puffer_atr: 0.1
+      stop_min_atr: 0.5
+      stop_max_atr: 4.0
+      atr_n: 14
+      halte_kerzen: 4
+      halte_tage_max: 14
+      min_kerzen: 24             # eine 4-Std.-Kerze zählt nur mit mindestens 24 Fünf-Minuten-Kerzen
+      frist_min: 60              # die nächste Kerze muss binnen 60 Minuten nach dem Schluss eröffnen, sonst kein Einstieg
+      sperre_utc: [1255, 1385]   # kein Einstieg 20:55 bis 23:05 UTC
+      termin_sperre_min: 15      # kein Einstieg 15 Minuten vor bis nach Fed, CPI, NFP (gold/v2/termine.yaml)
+      abweichung: Der Mindest-Stop von 2,50 USD der Gold-Regel entfällt, weil er nur für Gold gilt. Kerzen aus 5 statt 1 Minute.
+    dienstag:
+      quelle: Quantified Strategies, "Turnaround Tuesday" in der einfachen Fassung
+      regel: >-
+        Schließt der Markt am Montag unter dem Schluss vom Freitag, Kauf zum Börsenschluss am Montag, Verkauf zum
+        Börsenschluss am Dienstag. Börsenschluss: 16:00 New York (S&P 500, Nasdaq), 17:30 Berlin (DAX), 16:30 London
+        (FTSE), 15:00 Tokio (Nikkei). Kurs ist die Eröffnung der ersten 5-Minuten-Kerze ab dieser Uhrzeit. Für das Signal
+        zählt am Montag der Schluss der Kerze davor, damit der Einstieg nichts vorwegnimmt. Nur wenn
+        Freitag, Montag und Dienstag gehandelt werden. Die Quelle nennt keinen Stop. Für die Größe gilt ein Not-Stop.
+      stop_atr: 3.0              # Not-Stop: 3 mal ATR 14 der Handelstage bis zum Vortag, wie der US500-Bot
+      toleranz_min: 30
+
+  varianten:                     # genau diese sechs, Holm über alle sechs
+    ausbruch4h_silber: {regel: ausbruch4h, maerkte: [XAGUSD]}
+    ausbruch4h_us_index: {regel: ausbruch4h, maerkte: [SPXUSD, NSXUSD]}
+    ausbruch4h_welt_index: {regel: ausbruch4h, maerkte: [GRXEUR, UKXGBP, JPXJPY]}
+    ausbruch4h_fx: {regel: ausbruch4h, maerkte: [EURUSD, GBPUSD, USDJPY, USDCHF, USDCAD, AUDUSD, NZDUSD]}
+    dienstag_us_index: {regel: dienstag, maerkte: [SPXUSD, NSXUSD]}
+    dienstag_welt_index: {regel: dienstag, maerkte: [GRXEUR, UKXGBP, JPXJPY]}
+
+  zwilling:
+    regel: >-
+      Wie in der Gold-Matrix. Ein Zwillings-Lauf ist die ganze Variante, als Block um dieselbe Zahl gültiger Handelstage
+      nach vorn verschoben, je Markt. Jeder echte Trade des Hauptfensters bekommt einen Zwilling in dieselbe Richtung,
+      zur selben Uhrzeit seit 17:00 New York, als Marktorder zur Eröffnung der ersten Kerze ab dieser Zeit. Nach dem
+      letzten Handelstag des Fensters geht es an seinem ersten weiter. Der späteste Ausstieg liegt gleich viele
+      Handelstage und Minuten nach dem Einstieg wie beim echten Trade. Zwillinge dürfen sich überschneiden.
+    schwankung: Stop-Abstand, Ziel-Abstand und Spread des Zwillings sind die des echten Trades mal ATR 14 der Handelstage am Zwilling geteilt durch denselben ATR am echten Einstieg.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Variante. Alle werden gerechnet, es gibt keine Zufallszahlen.
+    sperre_davor_tage: 60        # so liegt kein Zwilling am Tag des Einstiegs oder in den 60 Handelstagen davor
+    spaet_min: 60                # gibt es binnen 60 Minuten keine Kerze am selben Handelstag, entfällt der Zwilling
+    kennzahlen: >-
+      p = (1 + Zahl der Läufe mit mindestens der echten Summe in R) geteilt durch (Zahl der Läufe + 1).
+      z = (echte Summe minus Mittel der Läufe) geteilt durch deren Standardabweichung.
+
+  huerden:                       # suche/VORAB_bewertung_2024_26.yaml, dazu der Zufallsvergleich der Gold-Matrix
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0              # Gewinnfaktor mit 1,5-fachen Kosten
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20      # 2026 allein Gewinnfaktor über 1,0, wenn es dort mindestens 20 Trades gibt
+    min_rang_pct: 95             # die Variante schlägt mindestens 95 % der Zwillings-Läufe
+    holm_alpha: 0.05             # Holm über alle sechs Varianten
+    min_z: 3.0
+    urteile:
+      bestanden: alle Hürden, Holm und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: Kein anderes Fenster, keine andere Schwelle, keine weitere Variante nach dem Ergebnis.
+
+  melden:
+    je_variante: >-
+      Trades, Trades je Woche, Gewinnfaktor, Summe in R, 1,5-fache Kosten, beide Hälften, 2026, long und short getrennt,
+      Ergebnis ohne die 5 besten Trades, je Markt, Zufallsvergleich (geschlagen in %, p, z, nötige Summe für z = 3),
+      ältere Jahre als Auskunft.
+    probelauf: Wie viele der sechs Varianten auf erfundenen Märkten ohne Vorteil welche Hürde schaffen (mehrere Saaten).
+    live: >-
+      Nur nach Kirons Wahl auf einer Karte und über einen PR. Ein Kandidat kann höchstens als Schattenlauf ohne Order
+      mitlaufen. Kein neuer Gold-Bot, bevor die sieben vorhandenen ausgewertet sind (CLAUDE.md).

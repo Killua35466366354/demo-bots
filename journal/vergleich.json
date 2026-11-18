@@ -655,12 +655,12 @@
    "konto": "US500",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 36,
+    "trades": 37,
     "gewonnen": 27,
-    "treffer_pct": 75.0,
-    "summe_r": -1.42,
-    "pf_r": 0.91,
-    "eur": -7.24,
+    "treffer_pct": 73.0,
+    "summe_r": -2.42,
+    "pf_r": 0.86,
+    "eur": -12.06,
     "rueckgang_r": 12.46
    },
    "einheit": "R",

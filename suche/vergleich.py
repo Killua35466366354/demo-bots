@@ -9,13 +9,18 @@ Repo. Dieses Modul liest nur Dateien (journal/, suche/*.yaml), spricht mit keine
    Bewertung 2025-2026 gemacht (journal/portfolio.json, 1 % Risiko auf 1.000 € = 10 € je R).
 2. Die Kombi: alle Strategien unter "behalten" (suche/auswahl.yaml) zusammen, so wie sie später auf einem Konto lägen,
    mit Monatssummen.
-3. Aufstieg nach suche/VORAB_aufstieg.yaml (nur wenn ihre Prüfsumme im Protokoll steht): je Strategie und für die Kombi
-   "reif für Kirons Entscheidung" oder warum noch nicht. Es entscheidet immer Kiron.
+3. Aufstieg je Strategie und für die Kombi: "reif für Kirons Entscheidung" oder warum noch nicht. Es gilt
+   suche/VORAB_aufstieg_alle.yaml (Punkt 5), solange ihre Prüfsumme im Protokoll steht, sonst suche/VORAB_aufstieg.yaml.
+   Es entscheidet immer Kiron.
 4. Eigene Gruppe "auf Kirons Wunsch" (Projekt-Prüfung 11.11.2026, Befund B-19): die Bots mit festem Konto aus
    suche/mitnutzer.py (Pine-Bots, Scalper, Gold-Staffel, Groß-Box). Sie stehen nicht unter der Prüfung nach 15/40 Trades,
-   nicht in der Rangliste und nicht in der Kombi. Über sie urteilt ihre eigene Regeldatei. Hier stehen sie nur zur
-   Anzeige, damit kein Urteil vergessen wird: Demo-Trades und R aus ihrer eigenen Trade-Datei, das Urteil als der
+   nicht in der Rangliste und nicht in der Kombi. Über sie urteilt ihre eigene Regeldatei, den Aufstieg prüft Punkt 5.
+   Hier stehen sie, damit kein Urteil vergessen wird: Demo-Trades und R aus ihrer eigenen Trade-Datei, das Urteil als der
    Text, den der Bot selbst schreibt.
+5. Aufstieg nach suche/VORAB_aufstieg_alle.yaml (Kirons Wahl vom 18.11.2026 "2 Monate und 100 Trades", nur wenn ihre
+   Prüfsumme im Protokoll steht): jeder Bot allein, die Kombi und die feste Gruppe aller Bots brauchen 100 Trades,
+   mindestens 61 Tage und in den letzten 61 Tagen eine Summe über 0. Gewinnfaktor 1,2 für die sechs Kern-Bots und ihre
+   Kombi, 1,3 für alle anderen und die Gruppe. Auch hier entscheidet immer Kiron.
 
     python -m suche.vergleich                # Text
     python -m suche.vergleich --schreiben    # dazu journal/vergleich.json und journal/vergleich.md
@@ -40,6 +45,8 @@ ROOT = Path(__file__).resolve().parents[1]
 J = ROOT / "journal"
 VORAB = ROOT / "suche" / "VORAB_aufstieg.yaml"
 KEY = "VORAB_aufstieg sha256 "
+VORAB_ALLE = ROOT / "suche" / "VORAB_aufstieg_alle.yaml"
+KEY_ALLE = "VORAB_aufstieg_alle sha256 "
 AUSWAHL = ROOT / "suche" / "auswahl.yaml"
 WOCHEN_BEWERTUNG = (pd.Timestamp("2026-10-30") - pd.Timestamp("2025-01-01")).days / 7   # Fenster der Bewertung
 EUR_JE_R = 10.0                     # 1 % Risiko auf 1.000 €
@@ -51,14 +58,25 @@ MESS_TEXT = {"status": "messung", "text": "Mess-Bot: Vergleich mit Vortag EUR/US
 GOLD_START = "2026-11-03T09:05:00"
 
 
-def regel() -> dict | None:
-    """Die Regel aus VORAB_aufstieg.yaml, nur wenn ihre Prüfsumme im Protokoll steht."""
+def _versiegelt(datei: Path, key: str, abschnitt: str) -> dict | None:
     from suche.runde1 import journal_lines, last_value
     from suche.runde3 import sha256_text
-    text = VORAB.read_text(encoding="utf-8")
-    if last_value(journal_lines(), KEY) != sha256_text(text):
+    if not datei.exists():
         return None
-    return yaml.safe_load(text)["aufstieg"]
+    text = datei.read_text(encoding="utf-8")
+    if last_value(journal_lines(), key) != sha256_text(text):
+        return None
+    return yaml.safe_load(text)[abschnitt]
+
+
+def regel() -> dict | None:
+    """Die Regel aus VORAB_aufstieg.yaml, nur wenn ihre Prüfsumme im Protokoll steht."""
+    return _versiegelt(VORAB, KEY, "aufstieg")
+
+
+def regel_alle() -> dict | None:
+    """Die Regel aus VORAB_aufstieg_alle.yaml (alle Bots, die Kombi und die Gruppe), nur wenn versiegelt."""
+    return _versiegelt(VORAB_ALLE, KEY_ALLE, "aufstieg_alle")
 
 
 def kennzahlen(trades: list[dict], feld: str = "r") -> dict:
@@ -82,18 +100,49 @@ def _pf_ok(pf: float | None, mindestens: float) -> bool:
     return pf is None or pf >= mindestens          # ohne Verlust-Trade gilt der Gewinnfaktor als hoch
 
 
-def pruefe(trades: list[dict], k: dict, rueckgang_max: float | None = None) -> dict:
-    """Aufstieg nach den Kriterien k (einzeln oder kombi aus VORAB_aufstieg.yaml). trades nach Schlusszeit sortiert."""
-    z = kennzahlen(trades)
+def _tage(start, tag: pd.Timestamp | None) -> int:
+    """Ganze Tage vom Start bis zum Tag der Prüfung (UTC), ohne Start 0."""
+    s = wb._ts(start) if start is not None and not isinstance(start, pd.Timestamp) else start
+    if s is None or tag is None:
+        return 0
+    return max((tag.date() - s.date()).days, 0)
+
+
+def _start(trades: list[dict], start=None):
+    """Der Start aus der Karte oder Zählung, sonst der erste Trade (Einstieg, sonst Schluss)."""
+    if start:
+        return start
+    zeiten = [str(t.get("opened_utc") or t.get("closed_utc") or "") for t in trades]
+    zeiten = [z for z in zeiten if z]
+    return min(zeiten) if zeiten else None
+
+
+def pruefe(trades: list[dict], k: dict, rueckgang_max: float | None = None, feld: str = "r",
+           zeit: dict | None = None, start=None, tag: pd.Timestamp | None = None) -> dict:
+    """Aufstieg nach den Kriterien k (einzeln oder kombi aus VORAB_aufstieg.yaml, einzeln_kern, einzeln oder kombi aus
+    VORAB_aufstieg_alle.yaml). trades nach Schlusszeit sortiert. feld="pct" für einen Bot ohne Stop, der in Prozent vom
+    Kurs misst. Mit zeit (VORAB_aufstieg_alle.yaml) zählen dazu die Tage seit start bis tag und die Summe der letzten
+    Tage."""
+    z = kennzahlen(trades, feld)
     n, ab = z["trades"], k["ab_trades"]
-    if n < ab:
-        return {"status": "sammelt", "text": f"{n} von {ab} Demo-Trades"}
+    einheit = "R" if feld == "r" else "%"
+    tage = _tage(start, tag) if zeit else None
+    if n < ab or (zeit and tage < zeit["mindestens_tage"]):
+        txt = f"{n} von {ab} Demo-Trades"
+        return {"status": "sammelt", "text": txt if not zeit else f"{txt}, {tage} von {zeit['mindestens_tage']} Tagen"}
     fehlt = []
     if not _pf_ok(z["pf_r"], k["pf_mindestens"]):
         fehlt.append(f"Gewinnfaktor {z['pf_r']:.2f} unter {k['pf_mindestens']}")
     if z["summe_r"] <= k["summe_r_ueber"]:
-        fehlt.append(f"Summe {z['summe_r']:+.2f} R nicht über {k['summe_r_ueber']}")
-    zweite = kennzahlen(trades[n // 2:])
+        fehlt.append(f"Summe {z['summe_r']:+.2f} {einheit} nicht über {k['summe_r_ueber']}")
+    if zeit:
+        ab_tag = (tag - pd.Timedelta(days=zeit["letzte_tage"])).date().isoformat()
+        letzte = round(sum(float(t[feld]) for t in trades
+                           if t.get(feld) is not None and str(t.get("closed_utc") or "") >= ab_tag), 2)
+        if letzte <= zeit["summe_letzte_tage_ueber"]:
+            fehlt.append(f"letzte {zeit['letzte_tage']} Tage {letzte:+.2f} {einheit} nicht über "
+                         f"{zeit['summe_letzte_tage_ueber']}")
+    zweite = kennzahlen([t for t in trades if t.get(feld) is not None][n // 2:], feld)
     if not _pf_ok(zweite["pf_r"], k["zweite_haelfte_pf_mindestens"]):
         fehlt.append(f"neuere Hälfte Gewinnfaktor {zweite['pf_r']:.2f} unter {k['zweite_haelfte_pf_mindestens']}")
     if rueckgang_max is not None and z["rueckgang_r"] > rueckgang_max:
@@ -101,6 +150,42 @@ def pruefe(trades: list[dict], k: dict, rueckgang_max: float | None = None) -> d
     if fehlt:
         return {"status": "nicht_reif", "text": "; ".join(fehlt)}
     return {"status": "reif", "text": "reif für Kirons Entscheidung (echtes Geld nur nach seinem Ja und einem PR)"}
+
+
+def pruefe_gruppe(mitglied_trades: dict[str, list[dict]], g: dict, zeit: dict | None = None, start=None,
+                  tag: pd.Timestamp | None = None) -> dict:
+    """Die feste Gruppe aus VORAB_aufstieg_alle.yaml: alle Mitglieder zusammen, nur Trades mit R. Ein Mitglied ab
+    jedes_mitglied.ab_trades mit Gewinnfaktor darunter fällt heraus, dann braucht der Rest pf_nach_ausfall. Ohne das
+    Mitglied mit der höchsten Summe R (alle Gold-Bots als eines) muss der Rest über ohne_bestes_pf_ueber liegen. start
+    ist der früheste Start der Mitglieder."""
+    jm = g["jedes_mitglied"]
+    mit_r = {bid: _sortiert([t for t in ts if t.get("r") is not None]) for bid, ts in mitglied_trades.items()}
+    draussen, drin = [], []
+    for bid in g["mitglieder"]:
+        if bid not in mit_r:
+            continue
+        z = kennzahlen(mit_r[bid])
+        if z["trades"] >= jm["ab_trades"] and not _pf_ok(z["pf_r"], jm["pf_mindestens"]):
+            draussen.append({"id": bid, "warum": f"Gewinnfaktor {z['pf_r']:.2f} nach {z['trades']} Trades"})
+        else:
+            drin.append(bid)
+    alle = _sortiert([t for bid in drin for t in mit_r[bid]])
+    k = dict(g)
+    if draussen:
+        k["pf_mindestens"] = g["pf_nach_ausfall"]
+    a = pruefe(alle, k, zeit=zeit, start=start, tag=tag)
+    einheiten: dict[str, list[dict]] = {}
+    for bid in drin:
+        einheiten.setdefault("gold" if bid in set(g.get("gold") or []) else bid, []).extend(mit_r[bid])
+    bestes = max(einheiten, key=lambda e: (round(sum(float(t["r"]) for t in einheiten[e]), 6), e), default=None)
+    ohne = kennzahlen(_sortiert([t for e, ts in einheiten.items() if e != bestes for t in ts]))
+    if a["status"] == "reif" and not (ohne["trades"] and (ohne["pf_r"] is None or ohne["pf_r"] > g["ohne_bestes_pf_ueber"])):
+        pf = "–" if ohne["pf_r"] is None else f"{ohne['pf_r']:.2f}"
+        a = {"status": "nicht_reif", "text": f"ohne ihr bestes Mitglied ({bestes}) Gewinnfaktor {pf}, nötig über "
+                                              f"{g['ohne_bestes_pf_ueber']}"}
+    return {"fest": len(g["mitglieder"]), "mitglieder": drin, "draussen": draussen, "ist": kennzahlen(alle),
+            "monate": _monate(alle),
+            "bestes": bestes, "ohne_bestes": ohne, "aufstieg": a}
 
 
 def _monate(trades: list[dict]) -> dict:
@@ -170,15 +255,17 @@ def _einheit(trades: list[dict]) -> str:
     return "r"
 
 
-def _wunsch() -> tuple[list[dict], str | None]:
+def _wunsch(rg_alle: dict | None = None, tag: pd.Timestamp | None = None
+            ) -> tuple[list[dict], str | None, dict[str, list[dict]]]:
     """Bots mit festem Konto (suche/mitnutzer.py), die neue Trades öffnen: eine Zeile je Bot aus seinem eigenen Journal
-    (journal/<bot>.json und journal/<bot>/trades.jsonl). Nur Anzeige. Ein Fehler hier hält den Vergleich nie auf."""
+    (journal/<bot>.json und journal/<bot>/trades.jsonl), mit dem Aufstieg nach VORAB_aufstieg_alle.yaml (einzeln). Dazu
+    die Trades je Bot für die Gruppe. Ein Fehler hier hält den Vergleich nie auf."""
     try:
         from suche import mitnutzer
         liste = mitnutzer.aktive()
     except Exception as e:                              # noqa: BLE001
-        return [], f"suche/mitnutzer.py nicht lesbar ({type(e).__name__})"
-    out = []
+        return [], f"suche/mitnutzer.py nicht lesbar ({type(e).__name__})", {}
+    out, alle_trades = [], {}
     for b in liste:
         bid = b["bot"]
         karte = wb._read(J / f"{bid}.json", {})
@@ -186,19 +273,27 @@ def _wunsch() -> tuple[list[dict], str | None]:
         alle = wb._lines(J / bid / "trades.jsonl")
         feld = _einheit(alle)
         trades = _sortiert([t for t in alle if t.get(feld) is not None])
+        alle_trades[bid] = trades
         z = karte.get("zusammenfassung") if isinstance(karte.get("zusammenfassung"), dict) else {}
+        seit = str(karte.get("start") or "")[:10] or None
         out.append({"id": bid, "name": str(karte.get("name") or bid).split(" (")[0], "konto": b["konto_name"],
-                    "seit": str(karte.get("start") or "")[:10] or None, "ist": kennzahlen(trades, feld),
+                    "seit": seit, "start": _start(trades, seit), "ist": kennzahlen(trades, feld),
                     "einheit": "%" if feld == "pct" else "R",
                     "urteil": z.get("urteil"), "vorab": karte.get("vorab"),
-                    "test": karte.get("test") or karte.get("backtest")})
-    return out, None
+                    "test": karte.get("test") or karte.get("backtest"),
+                    "aufstieg": {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg_alle.yaml fehlt"}
+                    if rg_alle is None else pruefe(trades, rg_alle["einzeln"], None, feld, rg_alle["zeit"],
+                                                   _start(trades, seit), tag)})
+    return out, None, alle_trades
 
 
 def vergleich(now: datetime | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     tag = pd.Timestamp(now.astimezone(timezone.utc).date())
     rg = regel()
+    rg_alle = regel_alle()
+    kern = set((rg_alle or {}).get("kern") or [])
+    zeit = (rg_alle or {}).get("zeit")
     aus = (yaml.safe_load(AUSWAHL.read_text(encoding="utf-8")) or {}).get("auswahl") or {} if AUSWAHL.exists() else {}
     seit_aus = (aus.get("seit") or "2026-11-04")
     pf = wb._read(J / "portfolio.json", {})
@@ -215,7 +310,7 @@ def vergleich(now: datetime | None = None) -> dict:
 
     laeufe = {GOLD: J / "gold-trades.jsonl", **dp.laeufe()}
     zwl, zw_rg = _zwillinge(laeufe)
-    zeilen, alle_trades = [], {}
+    zeilen, alle_trades, starts = [], {}, {}
     for bid, datei in {**laeufe, **{z: ROOT / e["trades"] for z, e in zwl.items()}}.items():
         if bid in zwl:
             seit = str(zwl[bid]["start_utc"])           # ein Zwilling zählt ab seinem Start (suche/VORAB_zwilling.yaml)
@@ -234,10 +329,16 @@ def vergleich(now: datetime | None = None) -> dict:
         p = rang.get(bid, {})
         z = kennzahlen(trades)
         start = wb._ts(seit or seit_aus) or tag
+        starts[bid] = start
         soll = _soll(p, start, tag) if aktiv else None
+        # Nach VORAB_aufstieg_alle.yaml (Kirons Wahl vom 18.11.2026), solange versiegelt, sonst nach VORAB_aufstieg.yaml
+        if rg_alle is not None:
+            ek = rg_alle["einzeln_kern"] if bid in kern else rg_alle["einzeln"]
+        else:
+            ek = (rg or {}).get("einzeln")
         rueck_max = None
-        if rg and p.get("eur_1000_rueckgang") is not None:
-            rr = rg["einzeln"]["rueckgang_r"]
+        if ek and p.get("eur_1000_rueckgang") is not None:
+            rr = ek["rueckgang_r"]
             rueck_max = max(rr["mal_bewertung"] * p["eur_1000_rueckgang"] / EUR_JE_R, rr["mindestens"])
         name, markt = namen.get(bid, (p.get("name") or ("Gold C/B" if bid == GOLD else bid), p.get("markt")))
         if bid in zwl:
@@ -258,7 +359,7 @@ def vergleich(now: datetime | None = None) -> dict:
             "aufstieg": _zwilling_stand(bid, zwl[bid], zw_rg, trades, laeufe, kont, now) if bid in zwl
             else None if not aktiv else MESS_TEXT if bid in mess else (
                 {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"}
-                if rg is None else pruefe(trades, rg["einzeln"], rueck_max))})
+                if ek is None else pruefe(trades, ek, rueck_max, zeit=zeit, start=start, tag=tag))})
     # ---- Mess-Zeile "Gold nur Long" (Kritik F2/D4, suche/VORAB_messbots.yaml): die C-Trades des Hauptkontos ----
     if GOLD in alle_trades:
         lt = [t for t in alle_trades[GOLD] if (t.get("strategy") or ("C" if t.get("side") == "long" else "B")) == "C"]
@@ -274,7 +375,8 @@ def vergleich(now: datetime | None = None) -> dict:
     # ---- Kombi: alle "behalten" zusammen, so wie sie später auf einem Konto lägen ----
     mitglieder = [bid for bid in (aus.get("behalten") or {}) if bid in alle_trades]
     k_aus, drin = [], []
-    jm = (rg or {}).get("kombi", {}).get("jedes_mitglied") or {"ab_trades": 10, "pf_mindestens": 1.0}
+    kr = rg_alle["kombi"] if rg_alle is not None else (rg or {}).get("kombi")
+    jm = (kr or {}).get("jedes_mitglied") or {"ab_trades": 10, "pf_mindestens": 1.0}
     for bid in mitglieder:
         z = kennzahlen(alle_trades[bid])
         if z["trades"] >= jm["ab_trades"] and not _pf_ok(z["pf_r"], jm["pf_mindestens"]):
@@ -286,16 +388,36 @@ def vergleich(now: datetime | None = None) -> dict:
     kombi = {"mitglieder": drin, "draussen": k_aus, "ist": kennzahlen(kt), "monate": _monate(kt),
              "soll": {"trades": round(sum(s["trades"] for s in soll_k), 1),
                       "summe_r": round(sum(s["summe_r"] or 0 for s in soll_k), 2)},
-             "aufstieg": {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"} if rg is None
-             else pruefe(kt, rg["kombi"])}
+             "aufstieg": {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"} if kr is None
+             else pruefe(kt, kr, zeit=zeit, start=min((starts[b] for b in mitglieder), default=None), tag=tag)}
     letzte = max((str(t.get("closed_utc")) for ts in alle_trades.values() for t in ts if t.get("closed_utc")), default=None)
-    wunsch, wunsch_fehler = _wunsch()
+    wunsch, wunsch_fehler, wunsch_trades = _wunsch(rg_alle, tag)
+    starts.update({b["id"]: wb._ts(b["start"]) for b in wunsch if b.get("start")})
+    # ---- Gruppe aller Bots (VORAB_aufstieg_alle.yaml): Mitglieder fest seit dem Siegel, auch abgeschaltete zählen ----
+    gruppe = None
+    if rg_alle is not None:
+        gt = {}
+        for bid in rg_alle["gruppe"]["mitglieder"]:
+            if bid in alle_trades:
+                gt[bid] = alle_trades[bid]
+            elif bid in wunsch_trades:
+                gt[bid] = wunsch_trades[bid]
+            elif (J / bid / "trades.jsonl").exists():
+                gt[bid] = _sortiert(wb._lines(J / bid / "trades.jsonl"))
+                starts.setdefault(bid, wb._ts(_start(gt[bid])))
+        st = [starts[b] for b in gt if starts.get(b) is not None]
+        gruppe = pruefe_gruppe(gt, rg_alle["gruppe"], zeit, min(st, default=None), tag)
     return {"format": 1, "tag": tag.date().isoformat(), "letzter_trade_utc": letzte,
             "regel_aufstieg": "festgelegt" if rg else "Prüfsumme fehlt",
-            "rangliste": zeilen, "kombi": kombi, "wunsch": wunsch, "wunsch_fehler": wunsch_fehler,
+            "regel_aufstieg_alle": "festgelegt" if rg_alle else "Prüfsumme fehlt",
+            "rangliste": zeilen, "kombi": kombi, "gruppe": gruppe, "wunsch": wunsch, "wunsch_fehler": wunsch_fehler,
             "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung "
                        "2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast "
-                       "nichts; über echtes Geld entscheidet immer Kiron (suche/VORAB_aufstieg.yaml)."}
+                       "nichts; über echtes Geld entscheidet immer Kiron. " + (
+                           "Aufstieg nach suche/VORAB_aufstieg_alle.yaml: 100 Trades und mindestens 61 Tage, die "
+                           "letzten 61 Tage im Plus, Gewinnfaktor 1,2 für die Kern-Bots und ihre Kombi, 1,3 für alle "
+                           "anderen und die Gruppe." if rg_alle is not None else
+                           "Aufstieg nach suche/VORAB_aufstieg.yaml (40 Trades, Kombi 60).")}
 
 
 def text(v: dict) -> str:
@@ -322,21 +444,32 @@ def text(v: dict) -> str:
         z += ["", "| Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |", "|---|---|---|---|"]
         for m, e in k["monate"].items():
             z.append(f"| {m} | {e['trades']} | {de(e['summe_r'])} | {de(e['summe_r'] * EUR_JE_R, 0)} € |")
+    g = v.get("gruppe")
+    if g:
+        i = g["ist"]
+        z += ["", f"**Gruppe aller Bots ({g['fest']} feste Mitglieder, davon {len(g['draussen'])} herausgefallen, "
+              "suche/VORAB_aufstieg_alle.yaml):** "
+              f"{i['trades']} Trades, {de(i['summe_r'])} R, Gewinnfaktor {de(i['pf_r'], 2, False)}. "
+              f"Aufstieg: {g['aufstieg']['text']}."]
+        if g["draussen"]:
+            z.append("Aus der Gruppe gefallen: " + ", ".join(f"{d['id']} ({d['warum']})" for d in g["draussen"]) + ".")
     w = v.get("wunsch") or []
     if w or v.get("wunsch_fehler"):
         z += ["", "## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades", "",
               "Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der Rangliste und nicht in der "
-              "Kombi. Über jeden urteilt seine eigene Regeldatei, hier stehen sie nur, damit kein Urteil vergessen wird.", ""]
+              "Kombi. Ihr Urteil nach 40 Trades steht in ihrer eigenen Regeldatei. Den Weg zu echtem Geld regelt "
+              "suche/VORAB_aufstieg_alle.yaml (Spalte Aufstieg).", ""]
     if v.get("wunsch_fehler"):
         z.append(f"Die Liste ließ sich nicht lesen: {v['wunsch_fehler']}.")
     if w:
-        z += ["| Bot | Konto | seit | Demo-Trades | Summe | Gewinnfaktor | Demo-€ | Urteil laut Bot | Regeldatei |",
-              "|---|---|---|---|---|---|---|---|---|"]
+        z += ["| Bot | Konto | seit | Demo-Trades | Summe | Gewinnfaktor | Demo-€ | Urteil laut Bot | Regeldatei | "
+              "Aufstieg |", "|---|---|---|---|---|---|---|---|---|---|"]
         for b in w:
             i = b["ist"]
             summe = f"{de(i['summe_r'])} {b.get('einheit') or 'R'}"
+            auf = (b.get("aufstieg") or {}).get("text") or "–"
             z.append(f"| {b['name']} | {b['konto']} | {b['seit'] or '–'} | {i['trades']} | {summe} | "
-                     f"{de(i['pf_r'], 2, False)} | {de(i['eur'])} | {b['urteil'] or '–'} | {b['vorab'] or '–'} |")
+                     f"{de(i['pf_r'], 2, False)} | {de(i['eur'])} | {b['urteil'] or '–'} | {b['vorab'] or '–'} | {auf} |")
     z += ["", f"Der Gold-Bot zählt hier ab {GOLD_START[:10]} {GOLD_START[11:16]} UTC (seit dem Stop 1 x ATR). Der "
           "Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen."]
     return "\n".join(z) + "\n"

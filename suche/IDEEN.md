@@ -94,7 +94,7 @@ Bots steht nach jedem Lauf in `journal/vergleich.md`.
 | Die besten 3 auf einem Konto | live seit 04.11.2026 | `kombi.yaml` |
 | Kombi-Konto je Monat, Woche und Tag ansehen | im Cockpit | Cockpit |
 | Profite aller Demo-Bots abgleichen und bewerten | live ab diesem PR | `suche/vergleich.py`, `journal/vergleich.md` |
-| Profitables zusammenführen und mit echtem Geld auf ein Konto | Regel vorab festgelegt, entscheiden wird Kiron | `VORAB_aufstieg.yaml` |
+| Profitables zusammenführen und mit echtem Geld auf ein Konto | Regel vorab festgelegt, entscheiden wird Kiron | `VORAB_aufstieg_alle.yaml` (seit 18.11.2026, vorher `VORAB_aufstieg.yaml`) |
 | Viele Strategien, die nicht gleichzeitig verlieren | **offen**, siehe N2 | |
 | Gewinnquote 30/70 und ähnliche Verlustserien | teilweise: Pause nach Verlusten kostet mehr; Verlustserien gemeinsam siehe N2 | |
 | Monatsinformationen für Trades | **offen**, siehe N5 | |
@@ -119,10 +119,12 @@ Bots steht nach jedem Lauf in `journal/vergleich.md`.
 
 ## 5. So kommt eine Strategie zu echtem Geld
 
-Die Regel steht vorab in `suche/VORAB_aufstieg.yaml`: einzeln ab 40 Demo-Trades, Gewinnfaktor mindestens 1,2,
-die neuere Hälfte der Trades nicht im Minus, Rückgang höchstens doppelt so groß wie in der Bewertung; oder die Kombi
-der Kern-Strategien ab 60 Trades mit denselben Hürden. `journal/vergleich.md` zeigt nach jedem Lauf, wer reif ist.
+Seit dem 18.11.2026 steht die Regel vorab in `suche/VORAB_aufstieg_alle.yaml` (Kirons Wahl "2 Monate und 100
+Trades"). Jeder Bot allein, die Kombi der Kern-Strategien und eine feste Gruppe aller Bots brauchen 100 Demo-Trades,
+mindestens 61 Tage, in den letzten 61 Tagen eine Summe über 0, die neuere Hälfte der Trades nicht im Minus und
+Gewinnfaktor mindestens 1,2 (die sechs Kern-Bots und ihre Kombi) oder 1,3 (alle anderen und die Gruppe). Vorher galt
+`suche/VORAB_aufstieg.yaml` mit 40 Trades und Kombi 60. `journal/vergleich.md` zeigt nach jedem Lauf, wer reif ist.
 Dann entscheidet Kiron, und echtes Geld gibt es nur über einen PR im privaten Repo.
 
-Ehrlich: Beim Tempo der Bewertung erreicht die Kombi 60 Trades frühestens etwa im März 2027, eine einzelne
-Vortag-Strategie 40 Trades etwa im Mai 2027.
+Ehrlich: Auch so besteht ein Bot ohne Vorteil die Hürde mit Gewinnfaktor 1,3 noch in etwa einem von zehn Fällen. Beim
+Tempo vom 18.11.2026 wäre Pine-Gold auf Account 5 im Januar 2027 so weit, die Kern-Bots als Kombi etwa im Sommer 2027.

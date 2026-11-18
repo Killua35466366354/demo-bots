@@ -1,0 +1,140 @@
+# Aufstieg vom Demokonto zu echtem Geld für alle Bots, allein, als Kombi der Kern-Bots und als feste Gruppe aller Bots
+# (suche/vergleich.py). Diese Datei entscheidet nichts allein. Sie sagt nur, wann ein Bot, die Kombi oder die Gruppe
+# reif für Kirons Entscheidung ist. Sie ersetzt für den Aufstieg suche/VORAB_aufstieg.yaml (40 Trades, Kombi 60). Die
+# alte Datei bleibt versiegelt und unverändert. Sie gilt nur noch, solange die Prüfsumme dieser Datei im Protokoll fehlt.
+#
+# Kirons Wunsch vom 18.11.2026, 19:27 UTC: "dass die halt generell alle Bots sobald sie profitabel genug sind, um halt
+# dem Portfolio zu helfen oder halt kombiniert profitabel genug sind, um dem Portfolio generell genug oder richtig gut zu
+# helfen, dann werden sie direkt mit Geld verbunden. Aber sie müssen halt erstmal beweisen und halt zeigen und halt
+# Backtests als auch im Live oder halt im spätesten Backtest oder besonders live zeigen, dass sie halt profitabel sind
+# und gut funktionieren".
+# Kiron am 18.11.2026, 20:10 UTC: "Okay, dann erhöhe die Trade-Anzahl auf nicht 40, sondern 100 oder 200 und gehe aber
+# halt auch sicher, dass eventuell, es soll nicht auf 40 Trades beschränkt sein, sondern halt auf irgendwie 2 Monate und
+# es soll in 2 Monaten live profitabel sein und halt dann eventuell auch im Backtest profitabel sein. Aber das Wichtige
+# ist halt, dass es auch live profitabel ist, weil live ist es meistens nicht profitabel, auch wenn es im Backtest
+# profitabel ist."
+# Kirons Wahl vom 18.11.2026, 20:19 UTC auf der Karte "Wähle, wie viele Live-Trades ein Bot vor echtem Geld braucht":
+# "2 Monate und 100 Trades". Sie löst seine Wahl von 20:04 UTC ab ("Strenger, 60 Trades mit GF 1,3").
+#
+# Warum Gewinnfaktor 1,2 für die Kern-Bots und 1,3 für alle anderen: Nur die sechs Kern-Bots haben ihren eigenen, vorab
+# versiegelten Test bestanden. Alle anderen sind durchgefallen oder haben nur eine Nachprüfung nach dem Ergebnis
+# bestanden. Ein Bot ohne Vorteil schafft 100 Trades mit Gewinnfaktor 1,3 durch Glück in etwa 10 bis 12 von 100 Fällen,
+# mit 1,2 in etwa 18 bis 20 von 100 (zwei Rechnungen vom 18.11.2026 mit derselben Prüfung der neueren Hälfte, Zufallsstart
+# 20261118 mit 20.000 Läufen und eine zweite mit 40.000 Läufen). Die zwei Monate kommen dazu, damit ein kurzer Glückslauf
+# nicht reicht. Plan mit Bild: https://claude.ai/artifact/AtuG7kXUZXpbfj4Xpo43pb
+#
+# Festgelegt am 18.11.2026, bevor ein Bot nach dieser Regel geprüft wurde. Gesehen waren da schon die Demo-Trades in
+# journal/vergleich.json (zum Beispiel pine-k5 mit 22 Trades und Gewinnfaktor 2,35, pine-tp3 mit 37 Trades und 0,86, die
+# Kombi der Kern-Bots mit 5 Trades und -5,06 R). Die Hürden kommen nicht aus diesen Zahlen, sondern aus Kirons Wahl und
+# der Glücksrechnung.
+
+format: 1
+aufstieg_alle:
+  kern:                                      # die sechs Bots mit bestandenem eigenem Test
+    - r6-vortag-eurusd
+    - r6-vortag-gbpusd
+    - us500-ruecksetzer
+    - r5-ruecksetzer-us100
+    - r7-nasdaq-noise-long
+    - r6-vortag-gbpjpy
+  nie: >-
+    Mess-Bots (journal/konten.json "messung" und die Mess-Zeile Gold nur Long) und Zwillinge (über die urteilt
+    VORAB_zwilling.yaml gegen ihr Original) steigen nie auf. Ein Mess-Bot zählt auch nicht in der Gruppe.
+  messung: >-
+    Geschlossene Demo-Trades. Bei Bots aus der Rangliste wie in VORAB_aufstieg.yaml seit dem jetzigen Konto (Gold-Bot
+    C/B seit dem 1-ATR-Stop am 03.11.2026 09:05 UTC). Bei Bots mit festem Konto (suche/mitnutzer.py) alle Trades ihrer
+    eigenen Trade-Datei journal/<bot>/trades.jsonl. Regeln laufender Bots ändern sich nach VORAB_zwilling.yaml nur über
+    einen Zwilling mit eigenem Start. Gewinnfaktor auf R (Gewinne in R geteilt durch Verluste in R, ohne Verlust-Trade
+    gilt er als hoch). Ein Bot ohne Stop (der Nikkei-Scalper) misst allein in Prozent vom Kurs, der Gewinnfaktor rechnet
+    gleich.
+  zeit:                                      # gilt für jeden Bot allein, die Kombi und die Gruppe
+    mindestens_tage: 61                      # seit dem Start (zwei volle Monate)
+    letzte_tage: 61                          # und die Summe der Trades mit Schluss in den letzten 61 Tagen
+    summe_letzte_tage_ueber: 0               # muss über 0 liegen (in den letzten zwei Monaten live profitabel)
+    start: >-
+      Bei Bots aus der Rangliste der Beginn ihrer Zählung (siehe messung). Bei Bots mit festem Konto der Start aus ihrer
+      Karte journal/<bot>.json, ohne Start der erste Trade. Bei der Kombi und der Gruppe der früheste Start ihrer
+      Mitglieder. Gezählt wird in ganzen Tagen bis zum Tag der Prüfung (UTC).
+  einzeln_kern:                              # jeder Kern-Bot allein
+    ab_trades: 100
+    pf_mindestens: 1.2
+    summe_r_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0        # die neuere Hälfte der Trades darf nicht verlieren
+    rueckgang_r:                             # wie VORAB_aufstieg.yaml, nur wo die Bewertung 2025-2026 einen Rückgang hat
+      mal_bewertung: 2
+      mindestens: 3
+  einzeln:                                   # jeder andere Bot allein, außer Mess-Bots und Zwillingen
+    ab_trades: 100
+    pf_mindestens: 1.3
+    summe_r_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0
+    rueckgang_r:
+      mal_bewertung: 2
+      mindestens: 3
+  kombi:                                     # die Kern-Bots zusammen auf einem Konto
+    mitglieder: Alle Strategien unter "behalten" in suche/auswahl.yaml am Tag der Prüfung (wie VORAB_aufstieg.yaml)
+    ab_trades: 100                           # zusammen
+    pf_mindestens: 1.2
+    summe_r_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0
+    jedes_mitglied:                          # ein Mitglied darunter fällt aus der Kombi, die Kombi zählt ohne es
+      ab_trades: 10
+      pf_mindestens: 1.0
+  gruppe:                                    # alle Bots zusammen, so wie sie später auf einem Konto lägen
+    mitglieder:                              # fest seit diesem Siegel, nie nach dem Ergebnis ausgesucht
+      - r6-vortag-eurusd
+      - r6-vortag-gbpusd
+      - us500-ruecksetzer
+      - r5-ruecksetzer-us100
+      - r7-nasdaq-noise-long
+      - r6-vortag-gbpjpy
+      - r5-ruecksetzer-us30
+      - r6-london-gbpusd
+      - r6-noise-usdjpy
+      - gold-cb
+      - scalp-us100
+      - scalp-de40
+      - scalp-j225
+      - gold-staffel
+      - gold-grossbox
+      - gold-zonen
+      - gold-ausbruch4h
+      - pine-k5
+      - pine-tp3
+    gold:                                    # handeln denselben Markt und verlieren oft gemeinsam
+      - gold-cb
+      - gold-staffel
+      - gold-grossbox
+      - gold-zonen
+      - gold-ausbruch4h
+      - pine-k5
+      - pine-tp3
+    nur_r: >-
+      Es zählen nur Trades mit R. Ein Mitglied, das in Prozent vom Kurs misst, zählt in der Gruppe nicht mit, weil sich
+      Prozent und R nicht addieren lassen.
+    abgeschaltet: >-
+      Ein Mitglied, das später abgeschaltet wird, zählt mit seinen Trades weiter. Sonst würde die Gruppe nach dem
+      Ergebnis aussortiert.
+    ab_trades: 100                           # zusammen
+    pf_mindestens: 1.3
+    summe_r_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0
+    jedes_mitglied:                          # ein Mitglied darunter fällt heraus, die Gruppe zählt ohne es
+      ab_trades: 20
+      pf_mindestens: 1.0
+    pf_nach_ausfall: 1.4                     # fällt ein Mitglied heraus, braucht der Rest 0,1 mehr, weil das Aussortieren
+                                             # nach dem Ergebnis dem Glück hilft
+    ohne_bestes_pf_ueber: 1.0                # ohne das Mitglied mit der höchsten Summe R muss der Rest über 1,0 liegen,
+                                             # alle Gold-Bots zählen dabei zusammen als ein Mitglied
+  dann: >-
+    suche/vergleich.py zeigt "reif für Kirons Entscheidung". Claude legt Kiron eine Entscheidungskarte vor. Sie nennt
+    zuerst, wie der Rückblick des Bots ausging und mit welchem Gewinnfaktor, dann die Live-Zahlen, die Glückschance und
+    das Risiko in Euro. Echtes Geld erst nach Kirons Ja und einem PR im privaten Repo, den Kiron selbst merged. Start mit
+    der kleinsten Größe, Grenzen aus config/limits.yaml des privaten Repos.
+  nie_von_selbst: >-
+    Kein Bot handelt von selbst mit echtem Geld, kein Bot ändert seine eigenen Regeln, kein Demo-Bot wechselt von selbst
+    das Konto in Richtung echtes Geld. Diese Datei ändert sich nie. Eine neue Regel bekommt eine neue Datei.
+  ehrlich: >-
+    Auch 100 Trades und zwei Monate sind kein Beweis. Ein Bot ohne Vorteil besteht die Hürde mit Gewinnfaktor 1,3 noch in
+    etwa einem von zehn Fällen. Darum ist es nur der Punkt, an dem Kiron entscheidet. Beim Tempo vom 18.11.2026 wäre
+    Pine-Gold auf Account 5 im Januar 2027 so weit, die Kern-Bots als Kombi etwa im Sommer 2027.

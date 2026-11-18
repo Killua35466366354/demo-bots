@@ -111,3 +111,144 @@ def test_bots_ohne_stop_zaehlen_in_prozent():
     assert vg._einheit(mit_r) == "r" and vg._einheit([]) == "r"
     v = vg.vergleich(datetime(2026, 11, 14, 8, 0, tzinfo=timezone.utc))
     assert all(b["einheit"] in ("R", "%") for b in v["wunsch"])
+
+
+# ---- Aufstieg für alle Bots (suche/VORAB_aufstieg_alle.yaml, Kirons Wahl vom 18.11.2026 "2 Monate und 100 Trades") ----
+ALLE = yaml.safe_load(open("suche/VORAB_aufstieg_alle.yaml", encoding="utf-8"))["aufstieg_alle"]
+Z = ALLE["zeit"]
+START = "2027-01-01"                                             # erster Trade von _t()
+TAG = pd.Timestamp("2027-04-20")                                 # 109 Tage nach START, alle Trades von _t() bis 102 davor
+
+
+def _td(paare):
+    """Trades als (R, Tag nach START)."""
+    t0 = pd.Timestamp("2027-01-01 15:00")
+    return [{"r": r, "closed_utc": (t0 + pd.Timedelta(days=d)).isoformat()} for r, d in paare]
+
+
+def test_regel_alle_ist_versiegelt_und_haelt_kirons_wahl():
+    assert vg.regel_alle() == ALLE, "Prüfsumme von VORAB_aufstieg_alle.yaml fehlt im Protokoll oder ist veraltet"
+    assert vg.regel() == REGEL                                   # die alte Datei bleibt versiegelt und unverändert
+    for teil, pf in (("einzeln_kern", 1.2), ("einzeln", 1.3), ("kombi", 1.2), ("gruppe", 1.3)):
+        assert ALLE[teil]["ab_trades"] == 100 and ALLE[teil]["pf_mindestens"] == pf, teil
+        assert ALLE[teil]["zweite_haelfte_pf_mindestens"] == 1.0 and ALLE[teil]["summe_r_ueber"] == 0, teil
+    assert Z["mindestens_tage"] == 61 and Z["letzte_tage"] == 61 and Z["summe_letzte_tage_ueber"] == 0
+    aus = yaml.safe_load(open("suche/auswahl.yaml", encoding="utf-8"))["auswahl"]
+    assert set(ALLE["kern"]) == set(aus["behalten"])              # genau die sechs Kern-Bots
+    assert set(ALLE["kern"]) <= set(ALLE["gruppe"]["mitglieder"])
+    assert set(ALLE["gruppe"]["gold"]) <= set(ALLE["gruppe"]["mitglieder"])
+    mess = set(json.load(open("journal/konten.json", encoding="utf-8")).get("messung") or {})
+    assert not mess & set(ALLE["gruppe"]["mitglieder"]) and vg.GOLD_LONG not in ALLE["gruppe"]["mitglieder"]
+
+
+def test_einzeln_braucht_100_trades_und_61_tage():
+    e = ALLE["einzeln"]
+    gut = [1.0, -1.0, 1.0] * 34                                  # 102 Trades, Gewinnfaktor 2
+    p = vg.pruefe(_t(gut[:99]), e, None, "r", Z, START, TAG)
+    assert p["status"] == "sammelt" and p["text"] == "99 von 100 Demo-Trades, 109 von 61 Tagen"
+    assert vg.pruefe(_t(gut), e, None, "r", Z, START, TAG)["status"] == "reif"
+    p = vg.pruefe(_t(gut), e, None, "r", Z, "2027-02-19", TAG)    # 100 Trades, aber erst 60 Tage
+    assert p["status"] == "sammelt" and p["text"] == "102 von 100 Demo-Trades, 60 von 61 Tagen"
+    assert vg.pruefe(_t(gut), e, None, "r", Z, "2027-02-18", TAG)["status"] == "reif"   # genau 61 Tage reichen
+    assert vg.pruefe(_t(gut), e, None, "r", Z, None, TAG)["status"] == "sammelt"         # ohne Start kein Aufstieg
+
+
+def test_kern_braucht_1_2_alle_anderen_1_3():
+    knapp = [1.25, -1.0] * 51                                    # 102 Trades, Gewinnfaktor 1,25
+    assert vg.pruefe(_t(knapp), ALLE["einzeln_kern"], 30, "r", Z, START, TAG)["status"] == "reif"
+    p = vg.pruefe(_t(knapp), ALLE["einzeln"], 30, "r", Z, START, TAG)
+    assert p["status"] == "nicht_reif" and "unter 1.3" in p["text"]
+
+
+def test_die_letzten_61_tage_muessen_im_plus_sein():
+    e = ALLE["einzeln"]
+    gut = list(zip([1.0, -1.0, 1.0] * 34, range(102)))           # Tag 0 bis 101, Gewinnfaktor 2
+    spaet = gut + [(-1.0, 150), (-1.0, 151), (-1.0, 152)]         # danach nur noch drei Verluste
+    tag = pd.Timestamp("2027-06-20")                             # 170 Tage nach START, die letzten 61 ab Tag 109
+    p = vg.pruefe(_td(spaet), e, None, "r", Z, START, tag)
+    assert p["status"] == "nicht_reif" and p["text"] == "letzte 61 Tage -3.00 R nicht über 0"
+    p = vg.pruefe(_td(gut), e, None, "r", Z, START, tag)           # gar kein Trade in den letzten 61 Tagen
+    assert p["status"] == "nicht_reif" and "letzte 61 Tage +0.00 R" in p["text"]
+    assert vg.pruefe(_td(spaet + [(4.0, 160)]), e, None, "r", Z, START, tag)["status"] == "reif"
+    assert vg.pruefe(_td(spaet), e)["status"] == "reif"          # die alte Regel ohne Zeit hätte ihn durchgelassen
+
+
+def test_einzeln_rechnet_auch_in_prozent():
+    t0 = pd.Timestamp("2027-01-01 15:00")
+    tr = [{"pct": x, "r": None, "closed_utc": (t0 + pd.Timedelta(days=i)).isoformat()}
+          for i, x in enumerate([0.4, -0.2, 0.3] * 34)]
+    assert vg.pruefe(tr, ALLE["einzeln"], None, "pct", Z, START, TAG)["status"] == "reif"
+    assert vg.pruefe(tr, ALLE["einzeln"], None, "r", Z, START, TAG)["status"] == "sammelt"  # ohne R zählt er in R nicht
+
+
+def _g(**mitglieder):
+    g = dict(ALLE["gruppe"])
+    g["mitglieder"] = list(mitglieder)
+    g["gold"] = [m for m in mitglieder if m.startswith("gold")]
+    return g, {m: _t(rs) for m, rs in mitglieder.items()}
+
+
+def test_gruppe_braucht_100_trades_61_tage_und_nicht_nur_ein_starkes_mitglied():
+    g, tr = _g(a=[1.0, -1.0, 1.0] * 20, b=[1.0, -1.0, 1.0] * 14)          # 102 Trades, beide gut
+    p = vg.pruefe_gruppe(tr, g, Z, START, TAG)
+    assert p["aufstieg"]["status"] == "reif" and p["ist"]["trades"] == 102 and not p["draussen"]
+    assert vg.pruefe_gruppe(tr, g, Z, "2027-03-01", TAG)["aufstieg"]["status"] == "sammelt"   # erst 50 Tage
+    g, tr = _g(a=[1.0, -1.0, 1.0] * 20, b=[1.0, -1.0, 1.0] * 13)          # 99 Trades
+    assert vg.pruefe_gruppe(tr, g, Z, START, TAG)["aufstieg"]["status"] == "sammelt"
+    # a trägt alles, b verliert (Gewinnfaktor 0,81, bleibt drin, weil unter 20 Trades): ohne a nicht über 1,0
+    g, tr = _g(a=[3.0, -1.0] * 45, b=[0.9, -1.0] * 9 + [-1.0])
+    p = vg.pruefe_gruppe(tr, g, Z, START, TAG)
+    assert p["bestes"] == "a" and p["aufstieg"]["status"] == "nicht_reif" and "ohne ihr bestes Mitglied" in p["aufstieg"]["text"]
+
+
+def test_gruppe_mitglied_faellt_heraus_und_dann_gilt_1_4():
+    schwach = [1.0, -1.0, -1.0] * 8                                          # 24 Trades, Gewinnfaktor 0,5
+    g, tr = _g(a=[1.35, -1.0] * 30, b=[1.35, -1.0] * 30, c=schwach)          # Rest: Gewinnfaktor 1,35
+    p = vg.pruefe_gruppe(tr, g, Z, START, TAG)
+    assert [d["id"] for d in p["draussen"]] == ["c"] and p["mitglieder"] == ["a", "b"]
+    assert p["aufstieg"]["status"] == "nicht_reif" and "unter 1.4" in p["aufstieg"]["text"]
+    g, tr = _g(a=[1.35, -1.0] * 30, b=[1.35, -1.0] * 30)                     # ohne Ausfall reicht 1,35
+    assert vg.pruefe_gruppe(tr, g, Z, START, TAG)["aufstieg"]["status"] == "reif"
+    g, tr = _g(a=[1.25, -1.0] * 30, b=[1.25, -1.0] * 30)                     # 1,25 reicht der Gruppe nie
+    assert vg.pruefe_gruppe(tr, g, Z, START, TAG)["aufstieg"]["status"] == "nicht_reif"
+
+
+def test_gruppe_zaehlt_alle_gold_bots_als_ein_mitglied():
+    gold = [2.0, -1.0] * 25                                                  # je 50 Trades, +25 R
+    rest = [1.0, -1.05] * 25                                                 # 50 Trades, knapp unter 1,0
+    g, tr = _g(gold_a=gold, gold_b=gold, x=rest)
+    p = vg.pruefe_gruppe(tr, g, Z, START, TAG)
+    assert p["bestes"] == "gold" and p["aufstieg"]["status"] == "nicht_reif"
+    g["gold"] = []                                                           # zählten sie einzeln, bliebe Gold im Rest
+    assert vg.pruefe_gruppe(tr, g, Z, START, TAG)["aufstieg"]["status"] == "reif"
+
+
+def test_vergleich_nutzt_100_trades_und_61_tage_fuer_alle():
+    v = vg.vergleich(datetime(2026, 11, 18, 21, 0, tzinfo=timezone.utc))
+    assert v["regel_aufstieg_alle"] == "festgelegt"
+    for b in v["rangliste"] + v["wunsch"]:
+        if b.get("gruppe") in ("messung", "zwilling") or not b.get("aktiv", True):
+            continue
+        a = b["aufstieg"]
+        assert a["status"] in ("sammelt", "nicht_reif", "reif"), b["id"]
+        assert a["status"] != "sammelt" or ("von 100 Demo-Trades" in a["text"] and "von 61 Tagen" in a["text"]), b["id"]
+    k = v["kombi"]["aufstieg"]
+    assert k["status"] != "sammelt" or "von 100 Demo-Trades" in k["text"]
+    g = v["gruppe"]
+    assert g["fest"] == len(ALLE["gruppe"]["mitglieder"]) and g["aufstieg"]["status"] in ("sammelt", "nicht_reif", "reif")
+    assert set(g["mitglieder"]) | {d["id"] for d in g["draussen"]} <= set(ALLE["gruppe"]["mitglieder"])
+    t = vg.text(v)
+    assert "**Gruppe aller Bots (" in t and "| Aufstieg |" in t and "61 Tage" in v["hinweis"]
+    assert vg.vergleich(datetime(2026, 11, 18, 8, 0, tzinfo=timezone.utc)) == v       # hängt nur vom Tag ab
+
+
+def test_ohne_siegel_der_neuen_datei_gilt_die_alte_regel(monkeypatch):
+    monkeypatch.setattr(vg, "regel_alle", lambda: None)
+    v = vg.vergleich(datetime(2026, 11, 18, 21, 0, tzinfo=timezone.utc))
+    assert v["regel_aufstieg_alle"] == "Prüfsumme fehlt" and v["gruppe"] is None
+    for b in v["rangliste"]:
+        if b["aktiv"] and b["gruppe"] not in ("messung", "zwilling") and b["aufstieg"]["status"] == "sammelt":
+            assert b["aufstieg"]["text"].endswith("von 40 Demo-Trades"), b["id"]
+    assert v["kombi"]["aufstieg"]["status"] != "sammelt" or v["kombi"]["aufstieg"]["text"].endswith("von 60 Demo-Trades")
+    assert all(b["aufstieg"]["status"] == "keine_regel" for b in v["wunsch"])
+    assert "40 Trades, Kombi 60" in v["hinweis"]

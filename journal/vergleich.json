@@ -541,13 +541,13 @@
    "konto": "Account 1",
    "seit": "2026-11-10",
    "ist": {
-    "trades": 1,
+    "trades": 2,
     "gewonnen": 1,
-    "treffer_pct": 100.0,
-    "summe_r": 0.03,
-    "pf_r": null,
-    "eur": 0.01,
-    "rueckgang_r": 0.0
+    "treffer_pct": 50.0,
+    "summe_r": -0.04,
+    "pf_r": 0.46,
+    "eur": -0.01,
+    "rueckgang_r": 0.07
    },
    "einheit": "%",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",

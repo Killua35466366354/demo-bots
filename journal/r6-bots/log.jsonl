@@ -102,3 +102,4 @@
 {"time": "2026-11-17T11:01:39.095124", "bot": "r6-noise-usdjpy", "event": "geschlossen", "exit": 159.156, "pct": 0.0201, "reason": "Gegensignal (Band/VWAP)"}
 {"time": "2026-11-17T11:31:35.054501", "bot": "r6-noise-usdjpy", "event": "eröffnet", "entry": 159.144, "dealId": "00000000-7433-ed21-049c-70750015549e", "side": "short", "bar": "2026-11-17 11:15:00", "size": 900.0, "risiko_eur": 9.16, "margin_eur": 27.29, "stop_level": null, "stop_dist": 1.78, "ziel_level": null}
 {"time": "2026-11-17T12:01:38.919838", "bot": "r6-noise-usdjpy", "event": "geschlossen", "exit": 159.227, "pct": -0.0522, "reason": "Gegensignal (Band/VWAP)"}
+{"time": "2026-11-18T03:16:34.712197", "bot": "r6-vortag-eurusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}

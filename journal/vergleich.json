@@ -3,6 +3,7 @@
  "tag": "2026-11-18",
  "letzter_trade_utc": "2026-11-18T07:11:16+00:00",
  "regel_aufstieg": "festgelegt",
+ "regel_aufstieg_alle": "festgelegt",
  "rangliste": [
   {
    "id": "gold-cb",
@@ -42,7 +43,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "2 von 40 Demo-Trades"
+    "text": "2 von 100 Demo-Trades, 15 von 61 Tagen"
    },
    "rang": 1
   },
@@ -78,7 +79,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 40 Demo-Trades"
+    "text": "0 von 100 Demo-Trades, 14 von 61 Tagen"
    },
    "rang": 2
   },
@@ -114,7 +115,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 40 Demo-Trades"
+    "text": "0 von 100 Demo-Trades, 14 von 61 Tagen"
    },
    "rang": 3
   },
@@ -150,7 +151,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 40 Demo-Trades"
+    "text": "0 von 100 Demo-Trades, 14 von 61 Tagen"
    },
    "rang": 4
   },
@@ -186,7 +187,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 40 Demo-Trades"
+    "text": "0 von 100 Demo-Trades, 13 von 61 Tagen"
    },
    "rang": 5
   },
@@ -222,7 +223,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 40 Demo-Trades"
+    "text": "0 von 100 Demo-Trades, 13 von 61 Tagen"
    },
    "rang": 6
   },
@@ -264,7 +265,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 40 Demo-Trades"
+    "text": "5 von 100 Demo-Trades, 13 von 61 Tagen"
    },
    "rang": 7
   },
@@ -306,7 +307,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "1 von 40 Demo-Trades"
+    "text": "1 von 100 Demo-Trades, 14 von 61 Tagen"
    },
    "rang": 8
   },
@@ -414,7 +415,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "1 von 40 Demo-Trades"
+    "text": "1 von 100 Demo-Trades, 14 von 61 Tagen"
    },
    "rang": 11
   },
@@ -456,7 +457,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "3 von 40 Demo-Trades"
+    "text": "3 von 100 Demo-Trades, 13 von 61 Tagen"
    },
    "rang": 12
   }
@@ -493,7 +494,66 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "5 von 60 Demo-Trades"
+   "text": "5 von 100 Demo-Trades, 14 von 61 Tagen"
+  }
+ },
+ "gruppe": {
+  "fest": 19,
+  "mitglieder": [
+   "r6-vortag-eurusd",
+   "r6-vortag-gbpusd",
+   "us500-ruecksetzer",
+   "r5-ruecksetzer-us100",
+   "r7-nasdaq-noise-long",
+   "r6-vortag-gbpjpy",
+   "r5-ruecksetzer-us30",
+   "r6-london-gbpusd",
+   "r6-noise-usdjpy",
+   "gold-cb",
+   "scalp-us100",
+   "scalp-de40",
+   "scalp-j225",
+   "gold-staffel",
+   "gold-grossbox",
+   "gold-zonen",
+   "gold-ausbruch4h",
+   "pine-k5"
+  ],
+  "draussen": [
+   {
+    "id": "pine-tp3",
+    "warum": "Gewinnfaktor 0.86 nach 37 Trades"
+   }
+  ],
+  "ist": {
+   "trades": 50,
+   "gewonnen": 24,
+   "treffer_pct": 48.0,
+   "summe_r": 13.41,
+   "pf_r": 1.62,
+   "eur": 132.64,
+   "rueckgang_r": 13.49
+  },
+  "monate": {
+   "2026-11": {
+    "trades": 50,
+    "summe_r": 13.42,
+    "eur": 132.64
+   }
+  },
+  "bestes": "gold",
+  "ohne_bestes": {
+   "trades": 13,
+   "gewonnen": 3,
+   "treffer_pct": 23.1,
+   "summe_r": -6.78,
+   "pf_r": 0.05,
+   "eur": -28.51,
+   "rueckgang_r": 6.83
+  },
+  "aufstieg": {
+   "status": "sammelt",
+   "text": "50 von 100 Demo-Trades, 15 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -502,6 +562,7 @@
    "name": "Nasdaq Eröffnungskerze",
    "konto": "Account 1",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 0,
     "gewonnen": 0,
@@ -514,13 +575,18 @@
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",
-   "test": "PF 2,06, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,11, schlägt 99 % der Zufallsläufe"
+   "test": "PF 2,06, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,11, schlägt 99 % der Zufallsläufe",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   },
   {
    "id": "scalp-de40",
    "name": "DAX Eröffnungskerze",
    "konto": "Account 1",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 3,
     "gewonnen": 1,
@@ -533,13 +599,18 @@
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",
-   "test": "PF 1,63, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,13, schlägt 90,5 % der Zufallsläufe"
+   "test": "PF 1,63, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,13, schlägt 90,5 % der Zufallsläufe",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "3 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   },
   {
    "id": "scalp-j225",
    "name": "Nikkei letzte halbe Stunde",
    "konto": "Account 1",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 2,
     "gewonnen": 1,
@@ -552,13 +623,18 @@
    "einheit": "%",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_scalping_opens.yaml",
-   "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe"
+   "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "2 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   },
   {
    "id": "gold-staffel",
    "name": "Gold-Staffel",
    "konto": "Account 1",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 1,
     "gewonnen": 1,
@@ -571,13 +647,18 @@
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades",
    "vorab": "suche/VORAB_gold_staffel.yaml",
-   "test": "Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades)."
+   "test": "Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades).",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "1 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   },
   {
    "id": "gold-grossbox",
    "name": "Gold Groß-Box",
    "konto": "Account 6",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 7,
     "gewonnen": 4,
@@ -590,13 +671,18 @@
    "einheit": "R",
    "urteil": "läuft (7 von 40 Trades)",
    "vorab": "suche/VORAB_gold_grossbox.yaml",
-   "test": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend."
+   "test": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "7 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   },
   {
    "id": "gold-zonen",
    "name": "Gold-Zonen Bruch",
    "konto": "Account 2",
    "seit": "2026-11-11",
+   "start": "2026-11-11",
    "ist": {
     "trades": 2,
     "gewonnen": 0,
@@ -609,13 +695,18 @@
    "einheit": "R",
    "urteil": "läuft (2 von 40 Trades)",
    "vorab": "suche/VORAB_gold_zonen_bot.yaml",
-   "test": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest."
+   "test": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "2 von 100 Demo-Trades, 7 von 61 Tagen"
+   }
   },
   {
    "id": "gold-ausbruch4h",
    "name": "Gold 4-Std.-Ausbruch mit Tagestrend",
    "konto": "Account 4",
    "seit": "2026-11-12",
+   "start": "2026-11-12",
    "ist": {
     "trades": 3,
     "gewonnen": 2,
@@ -628,13 +719,18 @@
    "einheit": "R",
    "urteil": "läuft (3 von 40 Trades)",
    "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
-   "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade."
+   "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "3 von 100 Demo-Trades, 6 von 61 Tagen"
+   }
   },
   {
    "id": "pine-k5",
    "name": "Pine-Gold Hand auf Account 5",
    "konto": "Account 5",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 22,
     "gewonnen": 13,
@@ -647,13 +743,18 @@
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_pine5m_abfang4h.yaml",
-   "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)"
+   "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "22 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   },
   {
    "id": "pine-tp3",
    "name": "Pine-Gold TP 3 €",
    "konto": "US500",
    "seit": "2026-11-10",
+   "start": "2026-11-10",
    "ist": {
     "trades": 37,
     "gewonnen": 27,
@@ -666,9 +767,13 @@
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
    "vorab": "suche/VORAB_pine5m.yaml",
-   "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)"
+   "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "37 von 100 Demo-Trades, 8 von 61 Tagen"
+   }
   }
  ],
  "wunsch_fehler": null,
- "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung 2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast nichts; über echtes Geld entscheidet immer Kiron (suche/VORAB_aufstieg.yaml)."
+ "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung 2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast nichts; über echtes Geld entscheidet immer Kiron. Aufstieg nach suche/VORAB_aufstieg_alle.yaml: 100 Trades und mindestens 61 Tage, die letzten 61 Tage im Plus, Gewinnfaktor 1,2 für die Kern-Bots und ihre Kombi, 1,3 für alle anderen und die Gruppe."
 }

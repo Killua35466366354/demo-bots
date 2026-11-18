@@ -1,9 +1,51 @@
 {
  "format": 1,
  "tag": "2026-11-18",
- "letzter_trade_utc": "2026-11-17T12:01:38.919838",
+ "letzter_trade_utc": "2026-11-18T07:11:16+00:00",
  "regel_aufstieg": "festgelegt",
  "rangliste": [
+  {
+   "id": "gold-cb",
+   "name": "Gold-Bot C/B",
+   "markt": "GOLD",
+   "gruppe": "verbessern",
+   "aktiv": true,
+   "konto": "Hauptkonto",
+   "seit": "2026-11-03T09:05:00",
+   "ist": {
+    "trades": 2,
+    "gewonnen": 1,
+    "treffer_pct": 50.0,
+    "summe_r": 1.77,
+    "pf_r": 2.75,
+    "eur": 24.96,
+    "rueckgang_r": 1.01
+   },
+   "soll": {
+    "wochen": 2.1,
+    "trades": 3.0,
+    "summe_r": 0.65
+   },
+   "abweichung_r": 1.12,
+   "bewertung": {
+    "rang": 12,
+    "pf": 1.171,
+    "eur_1000": 298.0,
+    "bestanden": false
+   },
+   "monate": {
+    "2026-11": {
+     "trades": 2,
+     "summe_r": 1.77,
+     "eur": 24.96
+    }
+   },
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "2 von 40 Demo-Trades"
+   },
+   "rang": 1
+  },
   {
    "id": "us500-ruecksetzer",
    "name": "Trend-Rücksetzer US500",
@@ -38,7 +80,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 1
+   "rang": 2
   },
   {
    "id": "r7-nasdaq-noise-long",
@@ -74,7 +116,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 2
+   "rang": 3
   },
   {
    "id": "r5-ruecksetzer-us100",
@@ -110,7 +152,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 3
+   "rang": 4
   },
   {
    "id": "r5-ruecksetzer-us30",
@@ -146,7 +188,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 4
+   "rang": 5
   },
   {
    "id": "r6-london-gbpusd",
@@ -182,7 +224,7 @@
     "status": "sammelt",
     "text": "0 von 40 Demo-Trades"
    },
-   "rang": 5
+   "rang": 6
   },
   {
    "id": "r6-noise-usdjpy",
@@ -224,7 +266,7 @@
     "status": "sammelt",
     "text": "5 von 40 Demo-Trades"
    },
-   "rang": 6
+   "rang": 7
   },
   {
    "id": "r6-vortag-gbpusd",
@@ -266,7 +308,7 @@
     "status": "sammelt",
     "text": "1 von 40 Demo-Trades"
    },
-   "rang": 7
+   "rang": 8
   },
   {
    "id": "r6-vortag-eurusd-1atr",
@@ -298,48 +340,6 @@
    "aufstieg": {
     "status": "messung",
     "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
-   },
-   "rang": 8
-  },
-  {
-   "id": "gold-cb",
-   "name": "Gold-Bot C/B",
-   "markt": "GOLD",
-   "gruppe": "verbessern",
-   "aktiv": true,
-   "konto": "Hauptkonto",
-   "seit": "2026-11-03T09:05:00",
-   "ist": {
-    "trades": 1,
-    "gewonnen": 0,
-    "treffer_pct": 0.0,
-    "summe_r": -1.01,
-    "pf_r": 0.0,
-    "eur": -19.16,
-    "rueckgang_r": 1.01
-   },
-   "soll": {
-    "wochen": 2.1,
-    "trades": 3.0,
-    "summe_r": 0.65
-   },
-   "abweichung_r": -1.66,
-   "bewertung": {
-    "rang": 12,
-    "pf": 1.171,
-    "eur_1000": 298.0,
-    "bestanden": false
-   },
-   "monate": {
-    "2026-11": {
-     "trades": 1,
-     "summe_r": -1.01,
-     "eur": -19.16
-    }
-   },
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "1 von 40 Demo-Trades"
    },
    "rang": 9
   },

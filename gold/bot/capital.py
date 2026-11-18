@@ -6,7 +6,8 @@ Doku: https://open-api.capital.com/
   10 Minuten nach der letzten Nutzung.
 - Eine Order (POST /positions) liefert nur eine dealReference. Ob sie wirklich ausgeführt wurde,
   steht erst in GET /confirms/{dealReference}.
-- Order- und Schließ-Aufrufe werden nie automatisch wiederholt, damit keine Position doppelt entsteht.
+- Order- und Schließ-Aufrufe werden nie automatisch wiederholt, damit keine Position doppelt entsteht. Nur die
+  Bestätigung (ein reines Lesen) fragt nach, wenn Capital.com die dealReference noch nicht kennt (siehe confirm).
 - Mehrere Konten (Kirons Wunsch vom 03.11.2026: jeder Bot ein eigenes Demokonto): GET /accounts listet alle Konten
   des Logins, PUT /session {"accountId"} wechselt das aktive Konto dieser Sitzung. Orders, Positionen und
   Kontoaktivität gelten immer für das aktive Konto. Nach dem Login ist das bevorzugte Konto aktiv
@@ -15,6 +16,7 @@ Doku: https://open-api.capital.com/
 
 from __future__ import annotations
 
+import time
 from datetime import datetime
 
 import requests
@@ -23,6 +25,10 @@ BASE_URLS = {
     "demo": "https://demo-api-capital.backend-capital.com/api/v1",
     "live": "https://api-capital.backend-capital.com/api/v1",
 }
+
+
+# Wartezeiten in Sekunden, bevor die Bestätigung nach 404 "error.not-found.dealReference" noch einmal gelesen wird
+BESTAETIGUNG_WARTEN = (0.5, 1.0, 2.0, 3.0)
 
 
 class CapitalError(RuntimeError):
@@ -110,7 +116,18 @@ class CapitalClient:
         return self._get("/history/activity", **params).get("activities", [])
 
     def confirm(self, deal_reference: str) -> dict:
-        return self._get(f"/confirms/{deal_reference}")
+        """GET /confirms/{dealReference}. Direkt nach der Order kennt Capital.com die Referenz manchmal noch nicht
+        und antwortet 404 "error.not-found.dealReference", obwohl die Order ausgeführt ist. Vom 13. bis 18.11.2026
+        geschah das fünfmal (Groß-Box, Pine K5, Pine TP3): Der Bot buchte "Order fehlgeschlagen", die Position lag
+        ohne ihn beim Broker. Darum liest es bei genau diesem Fehler bis zu viermal nach (zusammen höchstens 6,5 s).
+        Die Order selbst wird nie wiederholt."""
+        for warten in (*BESTAETIGUNG_WARTEN, None):
+            try:
+                return self._get(f"/confirms/{deal_reference}")
+            except CapitalError as err:
+                if warten is None or "error.not-found.dealReference" not in str(err):
+                    raise
+                time.sleep(warten)
 
     def open_position(self, epic: str, direction: str, size: float, stop_level: float | None = None) -> dict:
         if direction not in ("BUY", "SELL"):

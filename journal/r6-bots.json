@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-18T17:46:39.329156",
+ "stand_utc": "2026-11-18T18:01:42.518781",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1026.51,
+   "kontostand": 1026.69,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T17:46:39.329156",
+    "zeit": "2026-11-18T18:01:42.518781",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T17:46:39.329156",
+    "zeit": "2026-11-18T18:01:42.518781",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -707,7 +707,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1002.97,
+   "kontostand": 1003.05,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -715,7 +715,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T17:46:39.329156",
+    "zeit": "2026-11-18T18:01:42.518781",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -969,7 +969,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T17:46:39.329156",
+    "zeit": "2026-11-18T18:01:42.518781",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1212,7 +1212,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T17:46:39.329156",
+    "zeit": "2026-11-18T18:01:42.518781",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1531,7 +1531,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T17:46:39.329156",
+    "zeit": "2026-11-18T18:01:42.518781",
     "action": "none",
     "why": [
      "heute erledigt"

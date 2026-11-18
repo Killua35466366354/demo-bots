@@ -18,7 +18,7 @@ name: Demo-Bots (Strategie-Suche, nur Demokonto)
 # rechnet ein Lauf nur und öffnet nichts. Jeder Lauf soll unter einer Minute bleiben. Offene Positionen haben ihren
 # Stop beim Broker.
 #
-# Getrennt vom Gold-Bot-Lauf: Dieser Lauf schreibt nur journal/demo-bots* und journal/konten.json, der Gold-Bot nur seine eigenen Dateien. So
+# Getrennt vom Gold-Bot-Lauf: Dieser Lauf schreibt nur journal/demo-bots*, journal/konten.json und journal/stimmung.jsonl, der Gold-Bot nur seine eigenen Dateien. So
 # kann ein Fehler hier nie das Journal des Gold-Bots stören. Gleiche Gruppe wie der Gold-Bot: Beide laufen nie
 # gleichzeitig, der Gold-Bot hat damit immer seine eigene Sitzung bei Capital.com.
 # Öffentliches Repo seit November 2026: keine Actions-Minuten, die Uhr bleibt cron-job.org.
@@ -317,6 +317,27 @@ jobs:
             python -m pytest -q tests/test_vergleich.py
           fi
           python -m suche.vergleich --schreiben
+
+      # Kunden-Stimmung von Capital.com (Idee 6 aus Kirons Ideen-Buch, 18.11.2026, suche/stimmung.py): liest je Lauf,
+      # wie viel Prozent der Kunden auf den Märkten der Bots long sind, und hängt eine Zeile an journal/stimmung.jsonl
+      # an. Nur lesen: keine Order, kein Bot liest die Datei, keine Regel hängt daran. Ausgewertet wird erst nach der
+      # vorab versiegelten Regel suche/VORAB_stimmung.yaml. Fehlt die Stimmung (Capital.com, Anmeldung), steht der Grund
+      # in der Zeile unter "fehler", und der Schritt endet trotzdem ohne Fehler. Die Wache meldet ihn nur, wenn sein Test
+      # oder das Programm selbst kaputt ist. Ein Fehler hier hält die Bots und das Journal nie auf.
+      - name: Kunden-Stimmung mitschreiben
+        id: stimmung
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_stimmung.py
+          fi
+          python -m suche.stimmung
 
       # Nur wenn alle neun Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
       - name: Alle Testgruppen grün?

@@ -102,3 +102,4 @@
 {"time": "2026-11-18T09:58:29", "bot": "pine-tp3", "event": "Order fehlgeschlagen", "richtung": -1, "kerze": "2026-11-18 09:50:00", "strategie": "B Short", "lage": "", "fehler": "GET /confirms/o_7cbb1c38-ed01-4454-bade-eeb35513341b -> 404: {\"errorCode\":\"error.not-found.dealReference\"}"}
 {"time": "2026-11-18T10:03:31", "bot": "pine-tp3", "event": "eröffnet", "richtung": -1, "kerze": "2026-11-18 09:55:00", "strategie": "B Short", "lage": "", "dealId": "00000000-7479-c51e-049c-a0c30015549e", "size": 0.36, "entry": 3775.26, "tp": 3766.11}
 {"time": "2026-11-18T10:38:31", "bot": "pine-tp3", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-18 10:30:00", "strategie": "A Long", "lage": "", "gruende": ["eine Goldposition in die andere Richtung ist offen"]}
+{"time": "2026-11-18T11:13:33", "bot": "pine-tp3", "event": "Trade zu", "dealId": "00000000-7479-c51e-049c-a0c30015549e", "kurs": 3766.02, "r": 0.62, "eur": 3.03, "quelle": "TP"}

@@ -4123,7 +4123,23 @@
    "tp3": 3684.74,
    "r_usd": 24.47,
    "teile": [],
-   "ergebnis_r": 0.172,
+   "ergebnis_r": 0.504,
+   "grund": "offen",
+   "ende": null,
+   "offen": true
+  },
+  "gross_klein_3": {
+   "signal": "2026-11-18 16:30:00",
+   "einstieg_zeit": "2026-11-18 16:30:00",
+   "richtung": -1,
+   "einstieg": 3742.63,
+   "stop": 3774.31,
+   "tp1": 3710.95,
+   "tp2": 3679.27,
+   "tp3": 3647.59,
+   "r_usd": 31.68,
+   "teile": [],
+   "ergebnis_r": -0.1,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -4138,8 +4154,15 @@
    "tp2": 3728.29,
    "tp3": 3708.8,
    "r_usd": 19.49,
-   "teile": [],
-   "ergebnis_r": 0.684,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3747.78,
+     "zeit": "2026-11-18 16:00:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 1.068,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -4164,7 +4187,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 5.033,
+    "ergebnis_r": 5.384,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -4188,7 +4211,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 3.443,
+    "ergebnis_r": 3.738,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -4204,8 +4227,15 @@
     "tp2": null,
     "tp3": null,
     "r_usd": 19.49,
-    "teile": [],
-    "ergebnis_r": 0.684,
+    "teile": [
+     {
+      "grund": "tp1",
+      "px": 3747.78,
+      "zeit": "2026-11-18 16:00:00",
+      "anteil": 0.333
+     }
+    ],
+    "ergebnis_r": 1.068,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -4231,7 +4261,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 5.033,
+    "ergebnis_r": 5.384,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -4255,7 +4285,7 @@
       "anteil": 0.333
      }
     ],
-    "ergebnis_r": 3.443,
+    "ergebnis_r": 3.738,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -4271,8 +4301,15 @@
     "tp2": null,
     "tp3": null,
     "r_usd": 19.49,
-    "teile": [],
-    "ergebnis_r": 0.684,
+    "teile": [
+     {
+      "grund": "tp1",
+      "px": 3747.78,
+      "zeit": "2026-11-18 16:00:00",
+      "anteil": 0.333
+     }
+    ],
+    "ergebnis_r": 1.068,
     "grund": "offen",
     "ende": null,
     "offen": true
@@ -4289,7 +4326,7 @@
    "tp3": null,
    "r_usd": 24.47,
    "teile": [],
-   "ergebnis_r": 0.172,
+   "ergebnis_r": 0.504,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -4297,20 +4334,20 @@
  },
  "vorhersage": {
   "richtung": -1,
-  "linie": 3773.64,
+  "linie": 3758.96,
   "gerade_gedreht": false,
-  "kerze": "2026-11-18 16:00:00",
-  "kurs": 3753.43,
+  "kerze": "2026-11-18 17:00:00",
+  "kurs": 3745.3,
   "genauer_175": {
    "richtung": -1,
-   "linie": 3771.11,
+   "linie": 3756.44,
    "gerade_gedreht": false
   },
   "grosse_box": -1,
   "text": "Verkauf (SuperTrend 20/2 auf 15 Min., die Richtung der Stream-Box)",
   "text_175": "Verkauf (SuperTrend 20/1,75, genauerer Nachbau)",
   "text_gross": "Große Box Verkauf (gross_box_kerze, nur in dieser Richtung neue Trades)",
-  "text_gesamt": "Alle sieben zusammen: 0 Long und 9 Short offen (Gesamt-Strategie, alle Teile zugleich)"
+  "text_gesamt": "Alle sieben zusammen: 0 Long und 10 Short offen (Gesamt-Strategie, alle Teile zugleich)"
  },
  "zusammenfassung": {
   "stream_box": {
@@ -4363,8 +4400,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-18T16:11:42+00:00",
- "letzte_kerze": "2026-11-18 15:45:00",
+ "stand": "2026-11-18T17:11:32+00:00",
+ "letzte_kerze": "2026-11-18 16:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",
@@ -4385,7 +4422,7 @@
   "kaeufe": 63,
   "verkaeufe": 90,
   "offen_long": 0,
-  "offen_short": 9,
+  "offen_short": 10,
   "je_teil": {
    "gross_box_kerze": -2.97,
    "gross_box": -0.65,

@@ -12,15 +12,15 @@
   "dist": 96.34,
   "opened_utc": "2026-11-18T03:01:57",
   "spaet_min": 2.0,
-  "kerzen": 2
+  "kerzen": 3
  },
  "summe_r": 0.885,
  "trades": 2,
- "letzte_grenze": "2026-11-18 11:00:00",
+ "letzte_grenze": "2026-11-18 15:00:00",
  "letzte_pruefung": {
-  "grenze": "2026-11-18 11:00:00",
+  "grenze": "2026-11-18 15:00:00",
   "ergebnis": "ein Trade ist offen, höchstens einer gleichzeitig"
  },
- "stand": "2026-11-18T11:01:55",
+ "stand": "2026-11-18T15:01:56",
  "letzter_schluss": "2026-11-16T23:01:53"
 }

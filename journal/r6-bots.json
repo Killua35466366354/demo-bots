@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-18T22:46:42.311795",
+ "stand_utc": "2026-11-18T23:01:39.670156",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1028.49,
+   "kontostand": 1027.67,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T22:46:42.311795",
+    "zeit": "2026-11-18T23:01:39.670156",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T22:46:42.311795",
+    "zeit": "2026-11-18T23:01:39.670156",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -715,10 +715,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T22:46:42.311795",
+    "zeit": "2026-11-18T23:01:39.670156",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },
@@ -969,10 +969,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T22:46:42.311795",
+    "zeit": "2026-11-18T23:01:39.670156",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },
@@ -1205,10 +1205,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T22:46:42.311795",
+    "zeit": "2026-11-18T23:01:39.670156",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },
@@ -1537,10 +1537,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T22:46:42.311795",
+    "zeit": "2026-11-18T23:01:39.670156",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },

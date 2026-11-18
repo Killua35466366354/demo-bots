@@ -16,9 +16,13 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 5. **Bewertung:** `suche/VORAB_bewertung_2024_26.yaml`. 2024 bis 2026 zählt am meisten, ältere Jahre sind Auskunft.
    Bestanden heißt mindestens 100 Trades, Gewinnfaktor ab 1,2, mit 1,5-fachen Kosten ab 1,0, beide Hälften und 2026
    über 1,0 und der Zufallsvergleich geschlagen.
-6. **Urteil über laufende Bots:** 15 Trades (Frühwarnung und Ablösung), 40 Trades (Urteil), Kombi 60 Trades,
-   Gewinnfaktor mindestens 1,2 (`suche/VORAB_aufstieg.yaml`, `suche/VORAB_wechsel.yaml`). Den Schritt zu echtem Geld
-   entscheidet nur Kiron.
+6. **Urteil über laufende Bots:** 15 Trades (Frühwarnung und Ablösung), 40 Trades (Urteil), Gewinnfaktor mindestens
+   1,2 (`suche/VORAB_wechsel.yaml`). **Aufstieg zu echtem Geld** (`suche/VORAB_aufstieg_alle.yaml`, Kirons Wahl vom
+   18.11.2026 "2 Monate und 100 Trades", ersetzt dafür `suche/VORAB_aufstieg.yaml` mit 40 Trades und Kombi 60): jeder
+   Bot allein, die Kombi der Kern-Bots und eine feste Gruppe aller Bots brauchen 100 Demo-Trades, mindestens 61 Tage,
+   in den letzten 61 Tagen eine Summe über 0 und eine neuere Hälfte ohne Verlust. Gewinnfaktor 1,2 für die sechs
+   Kern-Bots und ihre Kombi, 1,3 für alle anderen und die Gruppe. Mess-Bots und Zwillinge nie. Den Schritt zu echtem
+   Geld entscheidet nur Kiron.
 7. **Eine Woche live** (`suche/VORAB_eine_woche.yaml`): 7 Tage ab Start, Kontoübergabe oder letzter Regeländerung
    keine Regeländerung und keine Abschaltung. Gilt nicht für `gold-cb`.
 8. **Zwilling-Regel** (`suche/VORAB_zwilling.yaml`): Verbesserungen laufen als Zwilling neben dem unveränderten Bot,

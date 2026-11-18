@@ -1,0 +1,55 @@
+# Kunden-Stimmung von Capital.com als Beobachtung neben den Demo-Bots (suche/stimmung.py, journal/stimmung.jsonl,
+# tests/test_stimmung.py). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Idee 6 aus Kirons Ideen-Buch vom 18.11.2026 ("arbeite eigene Ideen und so mehr aus und seie noch creativer und nutze
+# noch mehr quellen", Grundsatzfragen-Thread). Kirons Wahl vom 18.11.2026 10:18 UTC auf der Karte zu den Vorschlägen:
+# "Alles ohne Regeländerung". Darum ist das hier nur eine Beobachtung. Kein Bot liest die Stimmung, keine Regel hängt
+# daran, kein Trade ändert sich.
+#
+# Festgelegt am 18.11.2026, bevor es die erste Zeile in journal/stimmung.jsonl gab. Rückwirkend liefert Capital.com
+# keine Stimmung, die Frage kann also nur vorwärts beantwortet werden, und niemand kennt das Ergebnis.
+
+format: 1
+frage: >-
+  Verdienen die Demo-Bots mehr, wenn sie gegen die Mehrheit der Capital.com-Kunden handeln, als wenn sie mit ihr
+  handeln? Hintergrund: Viele Händler lesen die Stimmung der Privatkunden als Gegen-Signal.
+daten:
+  stimmung: >-
+    journal/stimmung.jsonl, eine Zeile je Lauf der Demo-Bots (alle 15 Minuten), "long" = Anteil der Kunden in Prozent,
+    die auf dem Markt long sind.
+  stimmung_beim_einstieg: >-
+    suche.stimmung.stimmung_bei(zeilen, epic, opened_utc): die letzte Zeile an oder vor dem Einstieg, höchstens 30
+    Minuten alt. Fehlt sie, zählt der Trade nicht mit.
+  trades: >-
+    Alle geschlossenen Trades aller Demo-Bots mit Einstieg (opened_utc) ab der ersten Zeile von journal/stimmung.jsonl,
+    aus den Trade-Dateien in journal/ (wie suche/vergleich.py sie liest). Gezählt wird in R (Feld "r"). Trades ohne R
+    zählen nicht mit und werden genannt.
+gruppen:
+  anteil_auf_seite_des_bots: >-
+    p = long-Anteil, wenn der Bot long geht, sonst 100 minus long-Anteil.
+  gegen_die_menge: "p unter 45"
+  mit_der_menge: "p über 55"
+  dazwischen: "45 bis 55 zählt in keiner Gruppe"
+wann:
+  zwischenstand: >-
+    Der Wochen-Check zeigt nur, wie viele Trades je Gruppe schon da sind, nie ihr Ergebnis. So wird nicht nach dem
+    Ergebnis gewartet oder abgebrochen.
+  auswertung: >-
+    Einmal, im ersten Wochen-Check, in dem beide Gruppen mindestens 30 Trades mit R haben. Spätestens im Wochen-Check
+    ab dem 05.06.2027 mit dem, was da ist. Hat dann eine Gruppe weniger als 30 Trades, ist es nur Auskunft.
+  programm: >-
+    Das Auswertungsprogramm wird geschrieben und mit Prüfsumme ins Protokoll eingetragen, bevor es zum ersten Mal mit
+    echten Trades rechnet.
+bestanden_wenn:                               # alle drei
+  mittel_r_gegen_minus_mit_groesser_als: 0
+  zufallsvergleich: >-
+    Die Gruppen-Zugehörigkeit der Trades 10.000-mal zufällig vertauschen (Seed 20261118). Der echte Unterschied der
+    mittleren R ist größer als in mindestens 90 % der vertauschten Läufe (einseitig, p unter 0,10).
+  gewinnfaktor_gegen_mindestens: 1.2
+auskunft: >-
+  Dazu, ohne Einfluss auf das Urteil: dasselbe nur für Gold-Bots und nur für die übrigen Bots, je Markt, und die Trades
+  zwischen 45 und 55.
+folge: >-
+  Bestanden heißt nur, dass Kiron eine Karte bekommt, ob ein Zwilling mit Stimmungs-Filter gebaut und vorab getestet
+  werden soll (suche/VORAB_zwilling.yaml). Durchgefallen heißt, die Stimmung wird nicht mehr ausgewertet. Das
+  Mitschreiben endet nur mit Kirons Ja. In keinem Fall ändert sich ein laufender Bot.

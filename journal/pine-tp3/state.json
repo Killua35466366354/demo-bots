@@ -1,23 +1,11 @@
 {
  "format": 1,
  "start": "2026-11-10T03:48:53",
- "offen": [
-  {
-   "dealId": "00000000-747b-082d-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.33,
-   "entry": 3770.9,
-   "dist": 16.57,
-   "einstieg_kerze": "2026-11-18 13:05:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-18T13:13:28",
-   "tp": 3780.87
-  }
- ],
- "trades": 33,
- "summe_r": -3.242,
- "summe_eur": -16.25,
- "letzte_kerze": "2026-11-18 13:05:00",
- "letzter_kurs": 3770.27,
- "stand": "2026-11-18T13:13:28"
+ "offen": [],
+ "trades": 34,
+ "summe_r": -2.64,
+ "summe_eur": -13.25,
+ "letzte_kerze": "2026-11-18 13:25:00",
+ "letzter_kurs": 3777.78,
+ "stand": "2026-11-18T13:33:41"
 }

@@ -763,3 +763,93 @@ def test_balance_after_a_bot_exit_is_cash_plus_the_result(tmp_path, monkeypatch)
     runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
     [t] = trades_of(tmp_path)
     assert t["balance_after_eur"] == round(300.0 + t["pnl_eur"], 2)
+
+
+# Schlusskurs nach einer Schließung durch den Bot (18.11.2026): Die Bestätigung nannte 3849,28, gefüllt wurde aber
+# bei etwa 3773 (Konto +113 € statt +44 €). Der Füllkurs kommt darum aus der Kontoaktivität wie beim Stop.
+
+def _close_row(level, when="2026-10-30T10:03:07.120"):
+    return {"dateUTC": when, "source": "USER", "type": "POSITION", "status": "ACCEPTED",
+            "details": {"level": level, "actions": []}}
+
+
+def test_exit_signal_takes_the_fill_from_the_activity_not_the_confirm(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch, exit_long=True)
+    client = BrokerClient(bars, position=open_long_state(tmp_path, bars), activities=[_close_row(4010.0)])
+    runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    [t] = trades_of(tmp_path)
+    assert (t["exit"], t["exit_confirm"], t["exit_geprueft"], t["reason"]) == (4010.0, 4012.5, True, "Ausstiegssignal")
+    assert t["pnl_usd"] == 9.7 and t["r"] == pytest.approx(9.7 / 5.6, abs=0.01)
+    assert t["pnl_eur"] == round(9.7 / 1.117, 2) and t["balance_after_eur"] == round(300.0 + t["pnl_eur"], 2)
+    assert client.asked and client.asked[-1][0] == "d1"
+
+
+def test_exit_signal_without_readable_activity_keeps_the_confirm_and_checks_later(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch, exit_long=True)
+    client = BrokerClient(bars, position=open_long_state(tmp_path, bars), activities=None)
+    runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    [t] = trades_of(tmp_path)
+    assert t["exit"] == 4012.5 and "exit_geprueft" not in t and "nicht lesbar" in t["broker"]
+
+
+def _bad_line():
+    # die Zeile vom 18.11.2026, wie der Bot sie mit dem Kurs aus der Bestätigung geschrieben hat
+    return {"dealId": "s1", "side": "short", "strategy": "B", "size": 1.0, "entry": 3897.71,
+            "opened_utc": "2026-10-25T06:11:24.299", "entry_bar": "2026-10-25 05:00:00", "stop": 3915.12,
+            "exit": 3849.28, "closed_utc": "2026-10-30T07:11:16+00:00", "exit_bar": "2026-10-30 06:00:00",
+            "reason": "Ausstiegssignal", "pnl_usd": 48.43, "r": 2.78, "pnl_eur": 44.12,
+            "balance_after_eur": 1019.17, "exit_estimated": False}
+
+
+def test_old_bot_close_is_corrected_once_from_the_activity(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch)
+    (tmp_path / "gold-trades.jsonl").write_text(runner.json.dumps(_bad_line()) + "\n", encoding="utf-8")
+    client = BrokerClient(bars, activities=[_close_row(3773.51, "2026-10-30T07:11:18.400")])
+    msgs = []
+    runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=msgs.append)
+    [t] = trades_of(tmp_path)
+    assert (t["exit"], t["exit_confirm"], t["exit_geprueft"]) == (3773.51, 3849.28, True)
+    assert t["pnl_usd"] == 124.2 and t["r"] == 7.13
+    fx = 48.43 / 44.12
+    assert t["pnl_eur"] == round(124.2 / fx, 2)
+    assert t["balance_after_eur"] == round(1019.17 - 44.12 + t["pnl_eur"], 2)
+    assert set(t) >= set(_bad_line())                  # keine Feldnamen verloren oder umbenannt
+    assert any("berichtigt" in m for m in msgs)
+    asked = len(client.asked)
+    (tmp_path / "gold-state.json").unlink()
+    runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    assert len(client.asked) == asked                  # nur einmal je Trade
+
+
+def test_old_bot_close_waits_when_the_activity_is_not_readable(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch)
+    (tmp_path / "gold-trades.jsonl").write_text(runner.json.dumps(_bad_line()) + "\n", encoding="utf-8")
+    runner.run(BrokerClient(bars, activities=None), GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    [t] = trades_of(tmp_path)
+    assert t == _bad_line()
+
+
+def test_broker_stops_are_never_rechecked(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch)
+    line = {**_bad_line(), "exit_bar": None, "reason": "Stop beim Broker", "exit": 3915.2}
+    (tmp_path / "gold-trades.jsonl").write_text(runner.json.dumps(line) + "\n", encoding="utf-8")
+    client = BrokerClient(bars, activities=[_close_row(3773.51)])
+    runner.run(client, GoldLimits(stage=1), tmp_path, NOW, notify=lambda m: None)
+    assert trades_of(tmp_path) == [line] and client.asked == []
+
+
+def test_safety_switch_counts_the_corrected_r(tmp_path, monkeypatch):
+    bars = hourly_bars(5, n=400, start="2026-10-13 18:00")
+    no_signals_patch(monkeypatch)
+    (tmp_path / "gold-trades.jsonl").write_text(runner.json.dumps(_bad_line()) + "\n", encoding="utf-8")
+    seen = []
+    real = runner.schalter.lese_trades
+    monkeypatch.setattr(runner.schalter, "lese_trades", lambda p: seen.append(real(p)) or seen[-1])
+    runner.run(BrokerClient(bars, activities=[_close_row(3773.51, "2026-10-30T07:11:18.400")]), GoldLimits(stage=1),
+               tmp_path, NOW, notify=lambda m: None)
+    assert [t.get("r") for t in seen[0]] == [7.13]       # der Schalter sieht schon den berichtigten Wert

@@ -199,15 +199,98 @@ def close_activity(raw: list[dict], opened_utc: str | None) -> dict | None:
     return later[0] if later else None
 
 
+def _activity_rows(client: CapitalClient, deal_id: str, since: datetime, until: datetime) -> list[dict]:
+    acts = client.activity(deal_id, since, until)
+    return [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"),
+             "status": a.get("status"), "level": (a.get("details") or {}).get("level"),
+             "actions": [x.get("actionType") for x in (a.get("details") or {}).get("actions", [])]} for a in acts]
+
+
+def bot_close_level(client: CapitalClient, deal_id: str, opened_utc: str | None, since: datetime,
+                    until: datetime) -> tuple[float | None, list[dict] | str]:
+    """Füllkurs eines Trades, den der Bot selbst geschlossen hat, aus der Kontoaktivität.
+
+    Die Bestätigung nach dem Schließen (confirm "level") ist nicht der Füllkurs: Am 18.11.2026 stand dort
+    3849,28, der Short wurde aber bei etwa 3773 geschlossen (Konto +113 € statt der gebuchten +44 €). Darum gilt
+    wie beim Stop die Kontoaktivität. Gibt (Kurs oder None, Rohzeilen oder Fehlertext) zurück."""
+    try:
+        raw = _activity_rows(client, deal_id, since, until)
+    except Exception as err:           # noqa: BLE001 - dann bleibt der Kurs aus der Bestätigung, später neu prüfen
+        return None, f"Kontoaktivität nicht lesbar: {err}"
+    close = close_activity(raw, opened_utc)
+    return (None if close is None else round(float(close["level"]), 2)), raw
+
+
+def corrected_exit(t: dict, level: float) -> dict:
+    """Eine Zeile aus gold-trades.jsonl mit dem Füllkurs aus der Kontoaktivität. Der alte Kurs bleibt in
+    exit_confirm, Feldnamen bleiben gleich. Euro mit demselben EURUSD wie beim Schreiben der Zeile."""
+    t = {**t, "exit_geprueft": True}
+    old = t.get("exit")
+    if old is not None and abs(float(level) - float(old)) < 0.005:
+        return t
+    side = 1 if t.get("side") == "long" else -1
+    size = float(t.get("size") or 1.0)
+    entry, stop = t.get("entry"), t.get("stop")
+    if entry is None:
+        return t
+    pnl = round((float(level) - float(entry)) * side * size, 2)
+    risk = None if stop is None else abs(float(entry) - float(stop)) * size
+    fx = (float(t["pnl_usd"]) / float(t["pnl_eur"])
+          if t.get("pnl_usd") not in (None, 0) and t.get("pnl_eur") not in (None, 0) else None)
+    t["exit_confirm"], t["exit"], t["pnl_usd"] = old, round(float(level), 2), pnl
+    t["r"] = round(pnl / risk, 2) if risk else None
+    if fx:
+        eur = round(pnl / fx, 2)
+        if t.get("balance_after_eur") is not None:
+            t["balance_after_eur"] = round(float(t["balance_after_eur"]) - float(t["pnl_eur"]) + eur, 2)
+        t["pnl_eur"] = eur
+    return t
+
+
+def check_bot_closes(client: CapitalClient, path: Path, now: datetime, days: int = 30) -> list[str]:
+    """Prüft einmal je Trade den Schlusskurs der Trades nach, die der Bot selbst geschlossen hat (exit_bar gesetzt,
+    noch kein exit_geprueft), und berichtigt die Zeile in gold-trades.jsonl. Ist die Aktivität gerade nicht
+    lesbar, versucht es der nächste Lauf wieder. Gibt Meldungen für Abweichungen zurück."""
+    if not path.exists():
+        return []
+    lines = path.read_text(encoding="utf-8").splitlines()
+    now_utc = _utc(now.isoformat()) or _EPOCH
+    changed, msgs = False, []
+    for i, line in enumerate(lines):
+        if not line.strip():
+            continue
+        t = json.loads(line)
+        closed = _utc(t.get("closed_utc"))
+        if (t.get("exit_bar") is None or "exit_geprueft" in t or not t.get("dealId") or closed is None
+                or closed < now_utc - timedelta(days=days)):
+            continue
+        level, raw = bot_close_level(client, t["dealId"], t.get("opened_utc"), closed - timedelta(hours=1),
+                                     min(closed + timedelta(minutes=10), now_utc))
+        if isinstance(raw, str):
+            continue
+        if level is None:
+            t = {**t, "exit_geprueft": False}
+        else:
+            new = corrected_exit(t, level)
+            if new.get("exit_confirm") is not None:
+                msgs.append(f"Gold-Bot: Schlusskurs vom {t.get('closed_utc')} berichtigt, {new['exit_confirm']} -> "
+                            f"{new['exit']} laut Kontoaktivität ({new['pnl_usd']} $, {new['r']} R)")
+            t = new
+        lines[i] = json.dumps(t, ensure_ascii=False, default=str)
+        changed = True
+    if changed:
+        tmp = path.with_suffix(".jsonl.tmp")
+        tmp.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        tmp.replace(path)
+    return msgs
+
+
 def closed_outside(client: CapitalClient, trade: dict, now: datetime) -> dict:
     """Die Position aus dem letzten Lauf ist weg, ohne dass der Bot sie geschlossen hat (meist der Notfall-Stop).
     Schlusskurs und Grund aus der Kontoaktivität; klappt das nicht, gilt der Stop-Kurs als Schätzung."""
     level, source, raw = None, None, None
     try:
-        acts = client.activity(trade["dealId"], now - timedelta(hours=23, minutes=59), now)
-        raw = [{"dateUTC": a.get("dateUTC"), "source": a.get("source"), "type": a.get("type"),
-                "status": a.get("status"), "level": (a.get("details") or {}).get("level"),
-                "actions": [x.get("actionType") for x in (a.get("details") or {}).get("actions", [])]} for a in acts]
+        raw = _activity_rows(client, trade["dealId"], now - timedelta(hours=23, minutes=59), now)
         close = close_activity(raw, trade.get("opened_utc"))
         if close:
             level, source = close["level"], close["source"]
@@ -284,6 +367,9 @@ def run(client: CapitalClient, limits: GoldLimits, journal_dir: Path, now: datet
     prev_trade = previous.get("open_trade")
     if send_orders and prev_trade and prev_trade.get("dealId") not in {p["position"].get("dealId") for p in gold}:
         trades.append(closed_outside(client, prev_trade, now))
+    if send_orders:                    # Schlusskurse früherer Bot-Schließungen nachprüfen, vor dem Sicherheitsschalter
+        for msg in check_bot_closes(client, journal_dir / "gold-trades.jsonl", now):
+            notify(msg)
 
     bal = account["balance"]
     # Capital.com meldet balance = deposit + profitLoss: Das offene Ergebnis steckt schon drin. Konto mit offenem
@@ -325,9 +411,16 @@ def run(client: CapitalClient, limits: GoldLimits, journal_dir: Path, now: datet
             done_close = next((r for r in record["results"]
                                if r["step"] == "close" and r.get("dealStatus") == "ACCEPTED"), None)
             if done_close and gold:
-                trades.append(trade_entry({**chart_position(gold[0]), "bar": (prev_trade or {}).get("bar")},
-                                          done_close.get("level"), now, str(last),
-                                          "Gegensignal" if decision.action == "reverse" else "Ausstiegssignal"))
+                pos = {**chart_position(gold[0]), "bar": (prev_trade or {}).get("bar")}
+                level, raw = bot_close_level(client, pos["dealId"], pos.get("opened_utc"), now - timedelta(hours=1),
+                                             datetime.now(timezone.utc))
+                t = trade_entry(pos, done_close.get("level") if level is None else level, now, str(last),
+                                "Gegensignal" if decision.action == "reverse" else "Ausstiegssignal", broker=raw)
+                if level is not None:  # sonst prüft der nächste Lauf nach (check_bot_closes)
+                    t["exit_geprueft"] = True
+                    if done_close.get("level") is not None and abs(float(done_close["level"]) - level) >= 0.005:
+                        t["exit_confirm"] = round(float(done_close["level"]), 2)
+                trades.append(t)
         else:
             record["results"] = [{"step": "nicht gesendet", "why": f"Stufe {limits.stage} oder Trockenlauf"}]
         notify(f"Gold-Bot ({client.environment}): {decision.action} "

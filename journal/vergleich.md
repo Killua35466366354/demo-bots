@@ -4,7 +4,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Gold-Bot C/B | verbessern | 2 | +1,77 | 2,75 | +24,96 | 3,0 Trades, +0,65 R | 2 von 40 Demo-Trades |
+| 1 | Gold-Bot C/B | verbessern | 2 | +6,12 | 7,06 | +94,00 | 3,0 Trades, +0,65 R | 2 von 40 Demo-Trades |
 | 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,12 R | 0 von 40 Demo-Trades |
 | 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,4 Trades, +0,05 R | 0 von 40 Demo-Trades |
 | 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,05 R | 0 von 40 Demo-Trades |

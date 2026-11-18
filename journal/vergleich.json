@@ -16,9 +16,9 @@
     "trades": 2,
     "gewonnen": 1,
     "treffer_pct": 50.0,
-    "summe_r": 1.77,
-    "pf_r": 2.75,
-    "eur": 24.96,
+    "summe_r": 6.12,
+    "pf_r": 7.06,
+    "eur": 94.0,
     "rueckgang_r": 1.01
    },
    "soll": {
@@ -26,7 +26,7 @@
     "trades": 3.0,
     "summe_r": 0.65
    },
-   "abweichung_r": 1.12,
+   "abweichung_r": 5.47,
    "bewertung": {
     "rang": 12,
     "pf": 1.171,
@@ -36,8 +36,8 @@
    "monate": {
     "2026-11": {
      "trades": 2,
-     "summe_r": 1.77,
-     "eur": 24.96
+     "summe_r": 6.12,
+     "eur": 94.0
     }
    },
    "aufstieg": {

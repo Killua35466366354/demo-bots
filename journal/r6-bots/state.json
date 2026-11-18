@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,22 +24,22 @@
   },
   "r6-london-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "konto_id": "332263759556203678",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1019.68,
+   "kontostand": 1019.83,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T09:46:50.775249",
+    "zeit": "2026-11-18T10:01:56.298514",
     "action": "none",
     "why": [
-     "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
+     "Markt nicht ruhiger als sonst (Schwankung 1.124 > 0,876): heute kein Trade"
     ]
    },
-   "tag_erledigt": "2026-11-17",
+   "tag_erledigt": "2026-11-18",
    "position": null,
    "uebergeben_an": null,
    "fremd": [
@@ -48,7 +48,7 @@
   },
   "r6-noise-usdjpy": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "konto_id": "332264120333456542",
    "konto": "…6542",
    "konto_name": "Account 7",
@@ -99,7 +99,7 @@
     "vortag_schluss": 159.272
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T09:46:50.775249",
+    "zeit": "2026-11-18T10:01:56.298514",
     "action": "none",
     "why": [
      "kein Signal"
@@ -117,16 +117,16 @@
   },
   "r6-vortag-eurusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1001.17,
+   "kontostand": 1001.25,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T09:46:50.775249",
+    "zeit": "2026-11-18T10:01:56.298514",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -147,7 +147,7 @@
   },
   "r6-vortag-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
@@ -156,7 +156,7 @@
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T09:46:50.775249",
+    "zeit": "2026-11-18T10:01:56.298514",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -182,7 +182,7 @@
    "start_utc": "2026-11-05T11:46:51.956368",
    "start_kontostand": 999.79,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T09:46:50.775249",
+    "zeit": "2026-11-18T10:01:56.298514",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -199,7 +199,7 @@
    "orders": null,
    "status": "wartet auf das nächste Signal",
    "position": null,
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "tag_erledigt": "2026-11-18",
    "nachgeprueft": [
     "2026-11-05"
@@ -214,7 +214,7 @@
    "start_utc": "2026-11-05T17:32:02.353890",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-18T09:46:50.775249",
+    "zeit": "2026-11-18T10:01:56.298514",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -229,7 +229,7 @@
    "orders": null,
    "status": "wartet auf das nächste Signal",
    "position": null,
-   "stand_utc": "2026-11-18T09:46:50.775249",
+   "stand_utc": "2026-11-18T10:01:56.298514",
    "tag_erledigt": "2026-11-18",
    "fremd": []
   }
@@ -246,12 +246,6 @@
  "maerkte": {
   "GBPUSD": {
    "tageswerte": {
-    "2026-11-04": {
-     "atr14": 0.006782857142857138,
-     "atr100": 0.006981399999999998,
-     "schwankung": 0.9715611686563068,
-     "bis": "2026-11-03"
-    },
     "2026-11-05": {
      "atr14": 0.006784999999999993,
      "atr100": 0.006905099999999997,
@@ -305,6 +299,12 @@
      "atr100": 0.006938000000000002,
      "schwankung": 1.1306263641230467,
      "bis": "2026-11-16"
+    },
+    "2026-11-18": {
+     "atr14": 0.007794285714285706,
+     "atr100": 0.006932600000000002,
+     "schwankung": 1.1242947399656267,
+     "bis": "2026-11-17"
     }
    }
   },
@@ -373,5 +373,5 @@
    }
   }
  },
- "stand_utc": "2026-11-18T09:46:50.775249"
+ "stand_utc": "2026-11-18T10:01:56.298514"
 }

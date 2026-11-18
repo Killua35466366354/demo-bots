@@ -1,14 +1,32 @@
 {
  "format": 1,
  "start": "2026-11-12T03:02:46",
- "trade": null,
+ "trade": {
+  "id": "2026-11-18T03:00",
+  "richtung": -1,
+  "grenze": "2026-11-18 03:00:00",
+  "dealId": "00000000-746a-5f97-049c-701e0015549e",
+  "size": 0.05,
+  "entry": 3797.41,
+  "stop": 3893.75,
+  "dist": 96.34,
+  "opened_utc": "2026-11-18T03:01:57",
+  "spaet_min": 2.0,
+  "kerzen": 0
+ },
  "summe_r": 0.885,
  "trades": 2,
- "letzte_grenze": "2026-11-17 23:00:00",
+ "letzte_grenze": "2026-11-18 03:00:00",
  "letzte_pruefung": {
-  "grenze": "2026-11-17 23:00:00",
-  "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+  "grenze": "2026-11-18 03:00:00",
+  "ergebnis": "Verkauf eröffnet",
+  "richtung": -1,
+  "schluss": 3797.93,
+  "hoch_davor": 3922.88,
+  "tief_davor": 3832.2,
+  "trend": true,
+  "dist": 96.3399
  },
- "stand": "2026-11-17T23:01:47",
+ "stand": "2026-11-18T03:01:57",
  "letzter_schluss": "2026-11-16T23:01:53"
 }

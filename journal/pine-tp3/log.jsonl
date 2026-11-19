@@ -122,3 +122,4 @@
 {"time": "2026-11-19T12:33:27", "bot": "pine-tp3", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-19 12:25:00", "strategie": "A Long", "lage": "", "dealId": "00000000-74ba-da5d-049c-a0c30015549e", "size": 0.47, "entry": 3716.19, "tp": 3723.21}
 {"time": "2026-11-19T12:43:29", "bot": "pine-tp3", "event": "Abfänger gesetzt", "dealId": "00000000-74b9-dda0-049c-a0c30015549e", "stopLevel": 3705.14, "profitLevel": 3734.72, "warum": "Fehltrade (0,5 R im Minus)"}
 {"time": "2026-11-19T12:43:29", "bot": "pine-tp3", "event": "Prüfer greift", "dealId": "00000000-74b9-dda0-049c-a0c30015549e", "stop": 3705.14, "ziel": 3734.72, "warum": "Fehltrade (0,5 R im Minus)"}
+{"time": "2026-11-19T12:53:23", "bot": "pine-tp3", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-19 12:45:00", "strategie": "A Long", "lage": "", "gruende": ["mehr als 250 € Marge für diesen Bot"]}

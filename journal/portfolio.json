@@ -1493,10 +1493,10 @@
     }
    ],
    "demo": {
-    "trades": 5,
-    "pf": 0.763,
-    "summe_r": -0.02,
-    "pruefung": "5 von 15 Trades bis zur ersten Prüfung"
+    "trades": 6,
+    "pf": 0.845,
+    "summe_r": -0.01,
+    "pruefung": "6 von 15 Trades bis zur ersten Prüfung"
    }
   },
   {

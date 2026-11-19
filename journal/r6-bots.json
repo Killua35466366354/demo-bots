@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-19T14:01:41.110730",
+ "stand_utc": "2026-11-19T14:16:39.480461",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1030.14,
+   "kontostand": 1030.96,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T14:01:41.110730",
+    "zeit": "2026-11-19T14:16:39.480461",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 999.75,
+   "kontostand": 999.76,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -391,10 +391,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T14:01:41.110730",
-    "action": "close",
+    "zeit": "2026-11-19T14:16:39.480461",
+    "action": "none",
     "why": [
-     "Schluss zurück hinter Band bzw. VWAP"
+     "kein Signal"
     ]
    },
    "zusammenfassung": {
@@ -773,7 +773,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T14:01:41.110730",
+    "zeit": "2026-11-19T14:16:39.480461",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1027,7 +1027,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T14:01:41.110730",
+    "zeit": "2026-11-19T14:16:39.480461",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1291,7 +1291,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T14:01:41.110730",
+    "zeit": "2026-11-19T14:16:39.480461",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1622,7 +1622,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T14:01:41.110730",
+    "zeit": "2026-11-19T14:16:39.480461",
     "action": "none",
     "why": [
      "heute erledigt"

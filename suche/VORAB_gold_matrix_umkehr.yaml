@@ -1,0 +1,101 @@
+# Gold-Matrix umgedreht: Werden die schlimmsten Verlierer der Gold-Matrix zu Gewinnern, wenn man sie umdreht?
+# Kirons Wunsch vom 19.11.2026 04:59 UTC (gekürzt): "... in dem einen Testing habe ich gesehen, dass ... eine Strategie
+# ... nur ins Minus gegangen ... kann man die Strategie nicht reversen und dann würde sie ins Plus gehen ... wenn du
+# sowas siehst, dann musst du es direkt machen ... alle Möglichkeiten in Bezug nehmen, die so die Strategie haben könnte."
+# Festgelegt, bevor irgendeine umgedrehte Variante mit echten Kursen gerechnet wurde. Angesehen wurde vorher nur die
+# versiegelte Tabelle der Auswahl-Hälfte der Gold-Matrix (Einstiege 01.01.2024 bis vor 31.05.2025 12:00 UTC). Aus der
+# Bestätigungs-Hälfte sind nur die 12 Finalisten der Gold-Matrix bekannt, keine der Varianten dieser Datei.
+
+format: 1
+gold_matrix_umkehr:
+  kurz: >-
+    Aus den 54.375 Varianten der Gold-Matrix kommen die Varianten, die in der ersten Hälfte am deutlichsten schlechter
+    waren als ihre verschobenen Zwillinge. Sie werden umgedreht (Kauf statt Verkauf und umgekehrt) und in der zweiten
+    Hälfte geprüft, mit denselben Kosten und denselben Hürden wie die Finalisten der Gold-Matrix. Nur Rechnung, kein Bot.
+
+  quelle:
+    regeln: >-
+      suche/VORAB_gold_matrix.yaml gilt unverändert für Daten, Uhr, Kosten, Fenster, Zeitebenen, Einstiege, Filter,
+      Stops, Ausstiege, Zwillinge und die Hürden der Bestätigung. Das Rechenwerk ist suche/gold_matrix.py, unverändert.
+    tabelle: strategie-suche/gold_matrix/auswahl_varianten.csv.gz im Projektordner
+    tabelle_sha256: 43026d2eb4f371832db9d111113fb04e856637b66ff5e632e56056a17aae74d3   # wie in VORAB_gold_matrix_finalisten.yaml
+
+  # Was die Tabelle der ersten Hälfte schon zeigt. Das ist Zählen in einem alten Ergebnis, keine neue Rechnung.
+  vorschau:
+    wertbare_varianten: 40317            # ab 50 Trades
+    im_plus: 11394
+    verlierer: 28923
+    verlust_aller_verlierer_r: -2777534
+    davon_verlieren_auch_die_zwillinge_r: -2701519   # Zwillinge handeln zu zufälligen Tagen mit denselben Kosten
+    umgedreht_im_plus_geschaetzt: 10970  # Schätzung 2 mal Zwillingsmittel minus Summe, eher zu freundlich
+    im_plus_ohne_jeden_vorteil_erwartet: 11075
+    z_bis_minus_3: 52                    # deutlich schlechter als die Zwillinge
+    z_bis_minus_3_ohne_jeden_vorteil_erwartet: 54
+    z_ab_plus_3: 119
+    lesart: >-
+      Es gibt nicht mehr auffällige Verlierer, als der Zufall allein liefert. Die Erwartung vor der Rechnung ist darum,
+      dass keine umgedrehte Variante besteht. Gerechnet wird trotzdem, einmal, damit die Frage mit frischen Kursen
+      beantwortet ist.
+
+  auswahl:
+    wertbar_min_trades: 50
+    max_z: -3.0                          # Spiegelbild der Hürde z ab 3,0 aus der Bestätigung der Gold-Matrix
+    umkehr_schaetzung: 2 mal zw_mittel minus summe_r muss über 0 liegen (umgedreht nach Kosten voraussichtlich im Plus)
+    reihenfolge: z aufsteigend, bei Gleichstand der Name der Variante
+    max_je_zelle: 1                      # Zelle = Einstieg, Zeitebene, Filter
+    max_je_einstieg: 2                   # wie in der Gold-Matrix
+    finalisten_max: 12                   # wie in der Gold-Matrix
+    qualifiziert: 23                     # so viele Varianten schaffen max_z und umkehr_schaetzung
+
+  # Die Umkehr-Finalisten nach dieser Regel. Zahlen aus der Tabelle (Original, erste Hälfte).
+  finalisten:
+    - {key: pivot_abprall.5m.ohne.atr1_1h.zeit_15m, trades: 534, pf: 0.529, summe_r: -96.9, zw_mittel: -41.4, z: -3.655}
+    - {key: dollar_nachlauf.15m.dollar_wind.atr1_4h.ziel_1r, trades: 262, pf: 0.562, summe_r: -73.5, zw_mittel: -15.1, z: -3.647}
+    - {key: dollar_nachlauf.15m.ohne.atr1_4h.ziel_1r, trades: 310, pf: 0.607, summe_r: -76.0, zw_mittel: -21.2, z: -3.251}
+    - {key: schwungkerze.1m.ohne.atr1_1m.zeit_1m, trades: 255, pf: 0.469, summe_r: -93.6, zw_mittel: -35.4, z: -3.204}
+    - {key: pivot_abprall.1m.dollar_wind.atr2_5m.zeit_15m, trades: 267, pf: 0.451, summe_r: -81.7, zw_mittel: -28.6, z: -3.198}
+    - {key: ruecksetzer.15m.realzins.swing_15m.ziel_2r, trades: 212, pf: 0.456, summe_r: -94.4, zw_mittel: -23.6, z: -3.17}
+    - {key: ausbruch.15m.dollar_wind.swing_4h.trail_struktur_15m, trades: 825, pf: 0.638, summe_r: -34.1, zw_mittel: -16.9, z: -3.101}
+    - {key: band_umkehr.15m.realzins.swing_15m.ziel_2r, trades: 125, pf: 0.404, summe_r: -62.0, zw_mittel: -15.4, z: -3.007}
+
+  umkehr:
+    regel: >-
+      Dieselben Signale wie das Original, nachdem dessen Filter mit der Richtung des Originals entschieden hat. Jedes
+      Signal handelt in der Gegenrichtung. Der Stop-Abstand in USD ist der des Originals und liegt auf der anderen
+      Seite. Die Ausstiegsregel bleibt dieselbe und gilt für die neue Richtung. Höchstens ein Trade gleichzeitig, mit
+      der Haltedauer des umgedrehten Trades. Spread 0,50 USD und Übernachtgebühr der neuen Richtung, wie in der
+      Gold-Matrix.
+    warum_so: >-
+      So ist die umgedrehte Variante eine handelbare Strategie mit eigenem Stop. Das genaue Spiegelbild (Stop und
+      Ausstieg des Originals vertauscht) hätte bei Zeit- und Nachzieh-Ausstiegen keinen Stop.
+
+  bestaetigung:
+    lauf: ein durchgehender Lauf je Umkehr-Finalist über das ganze Hauptfenster (01.01.2024 bis 30.10.2026)
+    huerden: >-
+      Genau wie gold_matrix.bestaetigung: mindestens 100 Trades, Gewinnfaktor ab 1,2, mit 1,5-fachen Kosten ab 1,0,
+      beide Hälften über 1,0, 2026 allein über 1,0 (ab 20 Trades), in der zweiten Hälfte besser als 95 % der Zwillinge
+      (alle Verschiebungen), Holm, z ab 3,0.
+    holm: >-
+      Über alle Umkehr-Finalisten dieser Datei, alpha 0,05. Mit rund 300 Verschiebungen ist p mindestens 0,0033, Holm
+      bei 8 braucht 0,00625. Zusammen mit den 12 Finalisten der Gold-Matrix (20 Prüfungen, nötig 0,0025) könnte Holm
+      rechnerisch nie gelingen, darum zählt diese Gruppe für sich. Der Bericht nennt beide Zahlen.
+    urteil: bestanden, Kandidat (alle Hürden außer Holm oder z, zählt als nicht bestanden) oder durchgefallen
+
+  auskunft:
+    - Original im selben Lauf (Trades, Gewinnfaktor, Summe R je Hälfte), damit man sieht, ob der Verlust weiterging.
+    - Genaues Spiegelbild der zweiten Hälfte als Näherung aus den Summen (minus Summe minus 4 mal Summe minus Robust-Summe).
+    - Euro-Beispiel mit 10 € Risiko je Trade.
+
+  probelauf: >-
+    Kein neuer Probelauf. Rechenwerk und Zwillinge sind die der Gold-Matrix, die fünfmal auf einem erfundenen Markt ohne
+    Vorteil lief (suche/gold_matrix_probelauf.py). In einem Markt ohne Vorteil ist die Gegenrichtung genauso ohne
+    Vorteil. Der linke Rand der echten Tabelle (52 Varianten gegen 54 erwartete) zeigt keine Auffälligkeit.
+
+  folge:
+    bestanden: >-
+      Vorschlag an Kiron auf einer Karte, die Variante als Schatten ohne Order mitlaufen zu lassen. Kein Bot und kein
+      Konto ohne Kirons Wahl und einen PR. Kein weiterer Gold-Bot, bevor die sieben laufenden ausgewertet sind.
+    sonst: >-
+      "Verlierer umdrehen" gilt für die Gold-Matrix als geprüft und wird auf diesen Daten nicht wiederholt. Es ändert
+      sich nichts an einem Bot.
+  einmal: Gerechnet wird genau einmal. Nach dem Ergebnis wird nichts an dieser Datei geändert.

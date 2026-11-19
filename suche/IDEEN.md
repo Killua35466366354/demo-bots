@@ -209,3 +209,7 @@ wurde oder durchgefiel, steht mit Grund in `suche/VERWORFEN.md`.
 Kirons Wahl vom 19.11.2026 11:08 UTC: Der Kandidat wird ohne Bot vorwärts gezählt (`suche/VORAB_notizen_vorwaerts.yaml`,
 `python -m suche.notizen_vorwaerts zaehlen <Arbeit>`). Nur Einstiege ab 20.11.2026, Urteil bei 40 Trades, erwartet
 etwa März 2027.
+
+Kirons Wahl vom 19.11.2026 12:23 UTC: Der Kandidat handelt zusätzlich als Demo-Bot auf Account 7 (`suche/welt4h_bot.py`,
+`suche/VORAB_welt_ausbruch4h_bot.yaml`). Dieselbe Regel, eigenes Urteil nach 40 Demo-Trades. Die Zählung ohne Bot
+bleibt, wie sie ist.

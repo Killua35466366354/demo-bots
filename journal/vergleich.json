@@ -228,6 +228,34 @@
    "rang": 6
   },
   {
+   "id": "gold-grossbox-weiter125",
+   "name": "Gold Groß-Box, Stop 1,25-fach (Schatten)",
+   "markt": null,
+   "gruppe": "zwilling",
+   "aktiv": true,
+   "konto": "Schatten (keine Order)",
+   "seit": "2026-11-20T00:00:00",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": null,
+   "monate": {},
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "Zwilling: 0 von 40 Trades",
+    "original": "gold-grossbox"
+   },
+   "rang": 7
+  },
+  {
    "id": "r6-noise-usdjpy",
    "name": "Noise USD/JPY",
    "markt": "USDJPY",
@@ -267,7 +295,7 @@
     "status": "sammelt",
     "text": "6 von 100 Demo-Trades, 14 von 61 Tagen"
    },
-   "rang": 7
+   "rang": 8
   },
   {
    "id": "r6-vortag-gbpusd",
@@ -309,7 +337,7 @@
     "status": "sammelt",
     "text": "1 von 100 Demo-Trades, 15 von 61 Tagen"
    },
-   "rang": 8
+   "rang": 9
   },
   {
    "id": "r6-vortag-eurusd-1atr",
@@ -342,7 +370,7 @@
     "status": "messung",
     "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
    },
-   "rang": 9
+   "rang": 10
   },
   {
    "id": "gold-cb-long",
@@ -375,7 +403,7 @@
     "status": "messung",
     "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
    },
-   "rang": 10
+   "rang": 11
   },
   {
    "id": "r6-vortag-eurusd",
@@ -417,7 +445,7 @@
     "status": "sammelt",
     "text": "1 von 100 Demo-Trades, 15 von 61 Tagen"
    },
-   "rang": 11
+   "rang": 12
   },
   {
    "id": "r6-vortag-gbpjpy",
@@ -459,7 +487,7 @@
     "status": "sammelt",
     "text": "3 von 100 Demo-Trades, 14 von 61 Tagen"
    },
-   "rang": 12
+   "rang": 13
   }
  ],
  "kombi": {

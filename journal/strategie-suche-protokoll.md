@@ -263,3 +263,4 @@ Jede Zeile wird nur angehängt. Prüfsummen stehen hier, bevor gerechnet wird.
 - 2026-11-19 05:13 UTC: Gold-Matrix umgedreht gerechnet (suche/ergebnis_gold_matrix_umkehr.md), einmal: keine der 8 umgedrehten Varianten besteht, kein Kandidat. Zweite Hälfte: 1 von 8 nach Kosten im Plus, zusammen -677,2 R, die Originale -795,8 R. Es ändert sich nichts an einem Bot.
 - 2026-11-19 07:15 UTC: VORAB_youtube_runde sha256 6b248b29d019b2c30924318c2ffc83e85fb9c3d2890b67bef21393a2c0d3209a
 - 2026-11-19 07:18 UTC: YouTube-Runde gerechnet (suche/ergebnis_youtube_runde.md), einmal: keine der 4 Varianten besteht, kein Kandidat. williams_us 77 Trades GF 2,66 (zu wenige Trades, z 2,35), ausbruch4h_krypto 319 Trades GF 1,23 (2026 0,91, z 2,35), cme_luecke_krypto 0,77, montag_krypto 0,69. Es ändert sich nichts an einem Bot.
+- 2026-11-19 07:42 UTC: VORAB_youtube_runde2 sha256 7309e3768bd8fe75b546b3231e7691173aba190d4058acf16673c5afa08454eb

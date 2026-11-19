@@ -1,0 +1,503 @@
+{
+ "kopf": {
+  "modus": "Rechnung",
+  "vorab_sha256": "244db0bd614d7e8ae59da06491a1609f2dec23a158c65115232931929f73c455",
+  "fenster": {
+   "von": "2024-01-01",
+   "bis": "2026-10-30",
+   "mitte": "2025-06-01",
+   "aeltere_jahre": "Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.",
+   "eine_stufe": "Es gibt keine Auswahl-Stufe. Alle sechs Varianten stehen hier fest und werden einmal über das ganze Hauptfenster gerechnet. Holm zählt über alle sechs."
+  }
+ },
+ "varianten": {
+  "ausbruch4h_silber": {
+   "regel": "ausbruch4h",
+   "maerkte": [
+    "XAGUSD"
+   ],
+   "trades": 139,
+   "trades_je_woche": 0.94,
+   "gewinnfaktor": 1.33,
+   "summe_R": 6.93,
+   "R_je_trade": 0.05,
+   "trefferquote": 0.55,
+   "gewinnfaktor_robust": 1.18,
+   "haelfte_1": {
+    "trades": 56,
+    "gewinnfaktor": 0.82
+   },
+   "haelfte_2": {
+    "trades": 83,
+    "gewinnfaktor": 1.9
+   },
+   "jahr_2026": {
+    "trades": 37,
+    "gewinnfaktor": 1.78
+   },
+   "long": {
+    "trades": 102,
+    "gewinnfaktor": 1.58,
+    "summe_R": 7.74
+   },
+   "short": {
+    "trades": 37,
+    "gewinnfaktor": 0.89,
+    "summe_R": -0.81
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 1.02,
+    "summe_R": 0.44
+   },
+   "je_markt": {
+    "XAGUSD": {
+     "trades": 139,
+     "gewinnfaktor": 1.33,
+     "summe_R": 6.93
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 360,
+    "gewinnfaktor": 0.51,
+    "summe_R": -45.65
+   },
+   "zufall": {
+    "laeufe": 670,
+    "geschlagen_pct": 98.7,
+    "p": 0.014903129657228018,
+    "mittel_R": -5.43,
+    "streuung_R": 5.4,
+    "z": 2.29,
+    "summe_fuer_z3": 10.78
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Hälften",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "ausbruch4h_us_index": {
+   "regel": "ausbruch4h",
+   "maerkte": [
+    "SPXUSD",
+    "NSXUSD"
+   ],
+   "trades": 332,
+   "trades_je_woche": 2.25,
+   "gewinnfaktor": 0.9,
+   "summe_R": -6.41,
+   "R_je_trade": -0.019,
+   "trefferquote": 0.49,
+   "gewinnfaktor_robust": 0.89,
+   "haelfte_1": {
+    "trades": 152,
+    "gewinnfaktor": 1.01
+   },
+   "haelfte_2": {
+    "trades": 180,
+    "gewinnfaktor": 0.8
+   },
+   "jahr_2026": {
+    "trades": 98,
+    "gewinnfaktor": 0.78
+   },
+   "long": {
+    "trades": 281,
+    "gewinnfaktor": 0.88,
+    "summe_R": -6.75
+   },
+   "short": {
+    "trades": 51,
+    "gewinnfaktor": 1.03,
+    "summe_R": 0.34
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.78,
+    "summe_R": -14.6
+   },
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 171,
+     "gewinnfaktor": 0.75,
+     "summe_R": -10.03
+    },
+    "NSXUSD": {
+     "trades": 161,
+     "gewinnfaktor": 1.13,
+     "summe_R": 3.62
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 947,
+    "gewinnfaktor": 0.8,
+    "summe_R": -36.62
+   },
+   "zufall": {
+    "laeufe": 670,
+    "geschlagen_pct": 31.9,
+    "p": 0.6810730253353204,
+    "mittel_R": -0.97,
+    "streuung_R": 11.04,
+    "z": -0.49,
+    "summe_fuer_z3": 32.15
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "ausbruch4h_welt_index": {
+   "regel": "ausbruch4h",
+   "maerkte": [
+    "GRXEUR",
+    "UKXGBP",
+    "JPXJPY"
+   ],
+   "trades": 389,
+   "trades_je_woche": 2.64,
+   "gewinnfaktor": 1.24,
+   "summe_R": 13.42,
+   "R_je_trade": 0.035,
+   "trefferquote": 0.53,
+   "gewinnfaktor_robust": 1.2,
+   "haelfte_1": {
+    "trades": 187,
+    "gewinnfaktor": 1.09
+   },
+   "haelfte_2": {
+    "trades": 202,
+    "gewinnfaktor": 1.4
+   },
+   "jahr_2026": {
+    "trades": 109,
+    "gewinnfaktor": 1.59
+   },
+   "long": {
+    "trades": 332,
+    "gewinnfaktor": 1.31,
+    "summe_R": 13.84
+   },
+   "short": {
+    "trades": 57,
+    "gewinnfaktor": 0.96,
+    "summe_R": -0.42
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 1.11,
+    "summe_R": 6.41
+   },
+   "je_markt": {
+    "GRXEUR": {
+     "trades": 121,
+     "gewinnfaktor": 1.94,
+     "summe_R": 12.24
+    },
+    "UKXGBP": {
+     "trades": 133,
+     "gewinnfaktor": 0.76,
+     "summe_R": -6.0
+    },
+    "JPXJPY": {
+     "trades": 135,
+     "gewinnfaktor": 1.37,
+     "summe_R": 7.18
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 719,
+    "gewinnfaktor": 0.87,
+    "summe_R": -16.78
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 96.6,
+    "p": 0.03582089552238806,
+    "mittel_R": -3.71,
+    "streuung_R": 9.48,
+    "z": 1.81,
+    "summe_fuer_z3": 24.74
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "Kandidat"
+  },
+  "ausbruch4h_fx": {
+   "regel": "ausbruch4h",
+   "maerkte": [
+    "EURUSD",
+    "GBPUSD",
+    "USDJPY",
+    "USDCHF",
+    "USDCAD",
+    "AUDUSD",
+    "NZDUSD"
+   ],
+   "trades": 955,
+   "trades_je_woche": 6.47,
+   "gewinnfaktor": 0.79,
+   "summe_R": -38.48,
+   "R_je_trade": -0.04,
+   "trefferquote": 0.45,
+   "gewinnfaktor_robust": 0.73,
+   "haelfte_1": {
+    "trades": 485,
+    "gewinnfaktor": 0.79
+   },
+   "haelfte_2": {
+    "trades": 470,
+    "gewinnfaktor": 0.79
+   },
+   "jahr_2026": {
+    "trades": 275,
+    "gewinnfaktor": 0.69
+   },
+   "long": {
+    "trades": 566,
+    "gewinnfaktor": 0.85,
+    "summe_R": -14.59
+   },
+   "short": {
+    "trades": 389,
+    "gewinnfaktor": 0.71,
+    "summe_R": -23.89
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.73,
+    "summe_R": -48.3
+   },
+   "je_markt": {
+    "EURUSD": {
+     "trades": 135,
+     "gewinnfaktor": 0.97,
+     "summe_R": -0.75
+    },
+    "GBPUSD": {
+     "trades": 134,
+     "gewinnfaktor": 0.81,
+     "summe_R": -4.64
+    },
+    "USDJPY": {
+     "trades": 139,
+     "gewinnfaktor": 1.02,
+     "summe_R": 0.38
+    },
+    "USDCHF": {
+     "trades": 130,
+     "gewinnfaktor": 0.92,
+     "summe_R": -2.05
+    },
+    "USDCAD": {
+     "trades": 161,
+     "gewinnfaktor": 0.51,
+     "summe_R": -17.03
+    },
+    "AUDUSD": {
+     "trades": 129,
+     "gewinnfaktor": 0.81,
+     "summe_R": -4.4
+    },
+    "NZDUSD": {
+     "trades": 127,
+     "gewinnfaktor": 0.62,
+     "summe_R": -9.98
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 3026,
+    "gewinnfaktor": 0.83,
+    "summe_R": -94.1
+   },
+   "zufall": {
+    "laeufe": 674,
+    "geschlagen_pct": 33.4,
+    "p": 0.6666666666666666,
+    "mittel_R": -30.57,
+    "streuung_R": 17.58,
+    "z": -0.45,
+    "summe_fuer_z3": 22.18
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "dienstag_us_index": {
+   "regel": "dienstag",
+   "maerkte": [
+    "SPXUSD",
+    "NSXUSD"
+   ],
+   "trades": 87,
+   "trades_je_woche": 0.59,
+   "gewinnfaktor": 0.99,
+   "summe_R": -0.04,
+   "R_je_trade": -0.0,
+   "trefferquote": 0.46,
+   "gewinnfaktor_robust": 0.98,
+   "haelfte_1": {
+    "trades": 47,
+    "gewinnfaktor": 0.96
+   },
+   "haelfte_2": {
+    "trades": 40,
+    "gewinnfaktor": 1.04
+   },
+   "jahr_2026": {
+    "trades": 25,
+    "gewinnfaktor": 1.23
+   },
+   "long": {
+    "trades": 87,
+    "gewinnfaktor": 0.99,
+    "summe_R": -0.04
+   },
+   "short": {
+    "trades": 0,
+    "gewinnfaktor": null,
+    "summe_R": 0.0
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.72,
+    "summe_R": -2.12
+   },
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 43,
+     "gewinnfaktor": 0.89,
+     "summe_R": -0.48
+    },
+    "NSXUSD": {
+     "trades": 44,
+     "gewinnfaktor": 1.13,
+     "summe_R": 0.43
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 306,
+    "gewinnfaktor": 1.29,
+    "summe_R": 7.28
+   },
+   "zufall": {
+    "laeufe": 670,
+    "geschlagen_pct": 37.3,
+    "p": 0.6274217585692996,
+    "mittel_R": 0.77,
+    "streuung_R": 3.1,
+    "z": -0.26,
+    "summe_fuer_z3": 10.07
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Trades",
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "dienstag_welt_index": {
+   "regel": "dienstag",
+   "maerkte": [
+    "GRXEUR",
+    "UKXGBP",
+    "JPXJPY"
+   ],
+   "trades": 188,
+   "trades_je_woche": 1.27,
+   "gewinnfaktor": 1.13,
+   "summe_R": 1.93,
+   "R_je_trade": 0.01,
+   "trefferquote": 0.56,
+   "gewinnfaktor_robust": 1.1,
+   "haelfte_1": {
+    "trades": 84,
+    "gewinnfaktor": 1.56
+   },
+   "haelfte_2": {
+    "trades": 104,
+    "gewinnfaktor": 0.88
+   },
+   "jahr_2026": {
+    "trades": 63,
+    "gewinnfaktor": 0.83
+   },
+   "long": {
+    "trades": 188,
+    "gewinnfaktor": 1.13,
+    "summe_R": 1.93
+   },
+   "short": {
+    "trades": 0,
+    "gewinnfaktor": null,
+    "summe_R": 0.0
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.91,
+    "summe_R": -1.33
+   },
+   "je_markt": {
+    "GRXEUR": {
+     "trades": 61,
+     "gewinnfaktor": 1.24,
+     "summe_R": 1.23
+    },
+    "UKXGBP": {
+     "trades": 64,
+     "gewinnfaktor": 0.67,
+     "summe_R": -2.15
+    },
+    "JPXJPY": {
+     "trades": 63,
+     "gewinnfaktor": 1.82,
+     "summe_R": 2.85
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 396,
+    "gewinnfaktor": 0.99,
+    "summe_R": -0.43
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 66.8,
+    "p": 0.3328358208955224,
+    "mittel_R": 0.37,
+    "streuung_R": 3.44,
+    "z": 0.45,
+    "summe_fuer_z3": 10.71
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  }
+ }
+}

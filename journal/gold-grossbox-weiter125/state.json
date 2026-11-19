@@ -1,0 +1,26 @@
+{
+ "format": 1,
+ "bot": "gold-grossbox-weiter125",
+ "start": "2026-11-20T00:00:00",
+ "fertig": [],
+ "trades": [],
+ "offen": [],
+ "letzte_kerze": "2026-11-19 13:45:00",
+ "stand": "2026-11-19T14:11:31+00:00",
+ "summe_r": 0.0,
+ "zwilling": {
+  "status": "sammelt",
+  "text": "Zwilling: 0 von 40 Trades",
+  "zwilling": {
+   "trades": 0,
+   "pf": null,
+   "summe_r": 0
+  },
+  "original": {
+   "trades": 0,
+   "pf": null,
+   "summe_r": 0
+  }
+ },
+ "neue_trades": true
+}

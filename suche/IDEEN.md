@@ -209,3 +209,19 @@ wurde oder durchgefiel, steht mit Grund in `suche/VERWORFEN.md`.
 Kirons Wahl vom 19.11.2026 11:08 UTC: Der Kandidat wird ohne Bot vorwärts gezählt (`suche/VORAB_notizen_vorwaerts.yaml`,
 `python -m suche.notizen_vorwaerts zaehlen <Arbeit>`). Nur Einstiege ab 20.11.2026, Urteil bei 40 Trades, erwartet
 etwa März 2027.
+
+Kirons Wahl vom 19.11.2026 12:23 UTC: Der Kandidat handelt zusätzlich als Demo-Bot auf Account 7 (`suche/welt4h_bot.py`,
+`suche/VORAB_welt_ausbruch4h_bot.yaml`). Dieselbe Regel, eigenes Urteil nach 40 Demo-Trades. Die Zählung ohne Bot
+bleibt, wie sie ist.
+
+## 10. Andere Ausstiege für laufende Bots (19.11.2026)
+
+Kirons Notizen Nr. 9, 11 und 13 aus dem Strategie-Katalog, versiegelt in `suche/VORAB_ausstiege_kern.yaml`, Code
+`suche/ausstiege_kern.py`, Ergebnis `suche/ergebnis_ausstiege_kern.md`. Gleiche Einstiege wie der Bot, nur der
+Ausstieg ändert sich, gepaarter Test über alle Jahre mit Holm über 8 Varianten, dazu die Hürden ab 2025.
+
+**Keine der 8 Varianten besteht, kein Bot ändert sich.** Stop auf Einstand ab +1 ATR und die Hälfte bei +1 ATR bringen
+beim US100-Rücksetzer keinen Beleg (p 0,25 und 0,38). Beim Nasdaq Noise Long beendet der Stop auf Einstand gute Trades
+zu früh, seit 2025 sinkt der Gewinnfaktor von 4,33 auf 3,33. Einziger Kandidat ist der DAX-Scalper mit Stop mal 0,75 und
+Ziel mal 1,5 (607 Trades, Gewinnfaktor 1,26 auf 1,41, seit 2025 1,70 auf 1,84, p 0,013, Holm verlangt 0,006). Er ist
+durchgefallen und wird kein Zwilling. Nr. 10 (Dow) ist nicht gerechnet, im Projekt liegen keine Dow-Kerzen.

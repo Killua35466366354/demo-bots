@@ -1,0 +1,32 @@
+{
+ "bot": "welt-ausbruch4h",
+ "name": "4-Std.-Ausbruch DAX, FTSE, Nikkei",
+ "konto": "Account 7",
+ "stand": null,
+ "start": null,
+ "pausiert": null,
+ "status": "startet nach Kirons Merge mit dem nächsten Lauf",
+ "regel": "4-Std.-Ausbruch mit Tagestrend auf DAX, FTSE 100 und Nikkei 225 (Fassung ausbruch4h_welt_ziel_1r): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, Ziel 1 R. Ausstieg spätestens nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
+ "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_notizen_runde.md): 2024 bis 2026 393 Trades (etwa 2,7 je Woche), Gewinnfaktor 1,30, 2026 1,66, aber nur 2,26 statt 3 Standardabweichungen über dem Zufall. Dieselbe Regel ohne Ziel war am 18.11. mit 1,24 schon knapp (suche/ergebnis_rueckblick.md).",
+ "vorab": "suche/VORAB_welt_ausbruch4h_bot.yaml",
+ "vorab_ok": true,
+ "maerkte": {
+  "GRXEUR": "DAX",
+  "UKXGBP": "FTSE 100",
+  "JPXJPY": "Nikkei 225"
+ },
+ "offen": [],
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "trefferquote": null,
+  "summe_eur": 0.0,
+  "je_markt": {},
+  "urteil": "läuft (0 von 40 Trades)"
+ },
+ "letzte_trades": [],
+ "blick": {
+  "status": "startet nach Kirons Merge mit dem nächsten Lauf"
+ }
+}

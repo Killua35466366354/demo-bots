@@ -1,0 +1,203 @@
+# Vorwärtstest "4-Std.-Ausbruch DAX, FTSE 100, Nikkei 225 mit Ziel 1 R", live auf einem Capital.com-DEMOKONTO. Nie
+# echtes Geld. Festgelegt, BEVOR der Bot einen Trade hatte (Prüfsumme im Protokoll). Code: suche/welt4h_bot.py.
+#
+# Kirons Wahl vom 19.11.2026 12:23 UTC auf der Karte "Soll der 4-Std.-Ausbruch DAX, FTSE und Nikkei zusätzlich als
+# Demo-Bot handeln?": "Ja, als Demo-Bot auf Account 7".
+#
+# Ehrlich vorab:
+# - Die Regel ist die Fassung ausbruch4h_welt_ziel_1r aus suche/VORAB_notizen_runde.yaml, unverändert. Sie hat den Test
+#   NICHT bestanden. Sie ist ein Kandidat (suche/ergebnis_notizen_runde.md): 2024 bis 2026 393 Trades, 2,66 je Woche,
+#   Gewinnfaktor 1,30, robust 1,26, Hälften 1,17 und 1,44, 2026 allein 1,66 (111 Trades). Sie schlug 98,8 % von 669
+#   Zufallsläufen, lag aber nur 2,26 Standardabweichungen über dem Zufall (nötig 3,0) und hielt Holm über die elf
+#   Fassungen nicht.
+# - Ein Kandidat ist kein Beleg. Dieselbe Regelfamilie ohne Ziel war am 18.11.2026 schon Kandidat (Gewinnfaktor 1,24).
+#   Vor 2024 war die Fassung im Minus (726 Trades, Gewinnfaktor 0,85, -19,37 R).
+# - Die Gewinne sind sehr klein. Im Schnitt +0,044 R je Trade, bei 5 Euro Risiko also etwa 0,22 Euro je Trade. Ein
+#   Gewinn brachte im Schnitt 0,354 R, ein Verlust kostete 0,312 R, die Trefferquote war 53 %. Der größte Rückgang im
+#   Test war 4,3 R. Schon ein etwas größerer Spread als im Test kann den Vorteil aufzehren.
+# - Fast der ganze Gewinn kommt aus Käufen und aus zwei Märkten. Käufe 334 Trades, Gewinnfaktor 1,37, Verkäufe 59 Trades,
+#   1,03. DAX 122 Trades, 2,13, +14,57 R. FTSE 100 134 Trades, 0,74, -6,31 R. Nikkei 225 137 Trades, 1,45, +8,89 R.
+#   Ohne die 5 besten Trades Gewinnfaktor 1,21. Den FTSE wegzulassen wäre Auswahl nach dem Ergebnis, er bleibt drin.
+# - Die Vorwärts-Zählung ohne Bot (suche/VORAB_notizen_vorwaerts.yaml, Kirons Wahl vom 19.11.2026 11:08 UTC, Einstiege
+#   ab 20.11.2026) läuft unverändert weiter. Dieser Bot ersetzt sie nicht und ändert sie nicht. Beide haben ihr eigenes
+#   Urteil.
+
+format: 1
+welt_ausbruch4h_bot:
+  bot: welt-ausbruch4h
+  konto: >-
+    Account 7, geteilt mit dem Labor-Bot Noise USD/JPY (anderer Markt). Die Kontonummer liest der Bot nach dem Namen aus
+    journal/konten.json. Nie das Hauptkonto des Gold-Bots.
+  maerkte: DAX (Capital.com DE40), FTSE 100 (UK100), Nikkei 225 (J225)
+  lauf: Alle 15 Minuten im Workflow demo-bots.yml (Minute 1, 16, 31, 46)
+
+  regel: >-
+    Fassung ausbruch4h_welt_ziel_1r aus suche/VORAB_notizen_runde.yaml mit ihrer Grundregel ausbruch4h aus
+    suche/VORAB_rueckblick.yaml, unverändert. Alle Zahlen liest der Code aus diesen versiegelten Dateien. Kurz, je Markt
+    für sich: 4-Std.-Kerzen beginnen um 18, 22, 2, 6, 10 und 14 Uhr New York. Kauf, wenn eine 4-Std.-Kerze über dem
+    höchsten Hoch der 20 Kerzen davor schließt und die Kerze davor das nicht tat, und nur, wenn der letzte fertige
+    Handelstag (Ende 17:00 New York) über seinem EMA 50 schloss und der EMA 50 höher steht als 5 Handelstage davor.
+    Verkauf spiegelbildlich. Die Signalkerze braucht mindestens 24 5-Min.-Kerzen mit Kursen. Stop hinter dem tiefsten
+    Tief (Kauf) der letzten 10 4-Std.-Kerzen plus 0,1 ATR (14) Puffer, gemessen vom Kurs beim Einstieg, mindestens 0,5
+    und höchstens 4 ATR. Ziel 1 R, also so weit wie der Stop. Ausstieg zum Markt, sobald nach dem Einstieg 4 weitere
+    4-Std.-Kerzen fertig sind, spätestens nach 14 Tagen. Höchstens ein Trade je Markt, also höchstens drei zugleich.
+    Kein Einstieg von 20:55 bis 23:05 UTC und 15 Minuten vor bis 15 Minuten nach einem Termin (Fed, CPI und NFP aus
+    gold/v2/termine.yaml, wie im Test).
+
+  ausfuehrung:
+    frist_min: 25
+    vorlauf_tage: 400
+    min_handelstage: 150
+    kerzen: >-
+      Fertige Stundenkerzen (Bid) von Capital.com. Jede wird zu zwölf gleichen 5-Min.-Zeilen, dahinter eine Zeile zur
+      ersten Minute nach der Signalkerze mit dem aktuellen Bid. Signal, Tagestrend, Sperre, Stop und Ziel rechnet dann
+      dieselbe Funktion wie der Test (suche/notizen_runde.signale). Für ein Signal holt der Bot vorlauf_tage
+      Kalendertage Stundenkerzen. Hat er weniger als min_handelstage gültige Handelstage, rechnet er kein Signal.
+    einstieg: >-
+      Geprüft wird jede 4-Std.-Kerze je Markt genau einmal, in den ersten frist_min Minuten nach ihrem Schluss. Der
+      Lauf kommt zur Minute 1 und 16. Fehlt die letzte Stundenkerze vor dem Schluss noch, ist der Markt zu oder gilt
+      gerade eine Termin-Sperre, sieht der nächste Lauf in der Frist noch einmal nach. Danach ist die Kerze verfallen.
+      Bei einem Signal sendet der Bot eine Marktorder mit Stop und Ziel beim Broker. Beide werden wie im Test vom
+      aktuellen Bid gemessen. War beim Schluss der Kerze auf diesem Markt noch ein Trade offen, oder endete der letzte
+      Trade erst danach, gibt es für diese Kerze keinen Einstieg, wie im Test.
+    order: >-
+      Jede Kerze bekommt je Markt höchstens eine Order. Eine abgelehnte oder gescheiterte Order wird nie wiederholt.
+      Kommt auf die Order keine Bestätigung, sucht der Bot die Position sofort und im nächsten Lauf an Richtung und
+      Größe und übernimmt sie. Findet er keine, gilt die Order als nicht angekommen.
+    ausstieg: >-
+      Stop und Ziel schließt der Broker. Solange ein Trade offen ist, zählt jeder Lauf die fertigen 4-Std.-Kerzen seit
+      dem Einstieg aus den Stundenkerzen des Brokers, wie der Test (nur Kerzen mit Kursen). Sind es 4, schließt der
+      Bot zum Markt. Ist der Markt dann zu, schließt der erste Lauf nach der Öffnung. Scheitert das Schließen, versucht
+      es der nächste Lauf. 14 Tage nach dem Einstieg schließt der Bot in jedem Fall.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Stop-Abstand der Order, minus Übernachtgebühr.
+      Die Gebühr rechnet der Bot mit den Sätzen des Tests (Indizes, long 6,5 %, short 2 % im Jahr) je Nacht (17:00 Uhr
+      New York, das Wochenende zählt mit). Das
+      Euro-Ergebnis im Journal ist ohne Gebühr. Die echte Gebühr des Brokers steht nur im Kontostand. Den Ausstiegskurs
+      an Stop oder Ziel liest der Bot aus der Kontoaktivität des Brokers. Steht der Schluss dort eine Stunde lang
+      nicht, zählt der Stop- oder Zielkurs, und der Trade ist als geschätzt markiert.
+
+  gegenprobe: >-
+    Vor dem Siegel mit den Kursen des Tests gerechnet (python -m suche.welt4h_gegenprobe <Arbeit>, Stundenkerzen aus den
+    5-Min.-Kerzen des Tests, 400 Tage Vorlauf, Kurs beim Einstieg wie im Test). Sie prüft nur die Umsetzung, sie rechnet
+    kein neues Ergebnis. 01/2024 bis 10/2026, 10.989 Schlüsse von 4-Std.-Kerzen. Der Test erlaubt 491 Einstiege, der
+    Bot 481, gemeinsam 480, alle mit derselben Richtung. FTSE 100 und Nikkei 225 ohne jede Abweichung. Beim DAX 11
+    Einstiege nur im Test (Mai und Juni 2024, der Bot wartete auf 150 Handelstage) und 1 nur beim Bot (20.01.2025, im
+    Test fehlen dort 5-Min.-Kerzen), beide aus den Kursdaten des Tests. Stop- und Ziel-Abstand weichen bei allen 480
+    gemeinsamen Einstiegen um 0 ab. Bei allen 360 der 393 Trades des Tests mit Ausstieg nach Zeit ist der Ausstieg im
+    ersten Lauf danach fällig. Die Zahlen je Markt stehen unter gegenprobe_zahlen.
+  gegenprobe_zahlen:
+    GRXEUR:                            # DAX
+      schluesse: 3694
+      einstiege_test: 146
+      einstiege_bot: 136
+      gemeinsam: 135
+      richtung_gleich: 135
+      nur_test: 11
+      nur_bot: 1
+      stop_abweichung: 0.0
+      ziel_abweichung: 0.0
+      trades_test: 122
+      ausstieg_nach_zeit: 113
+      ausstieg_gleich: 113
+    UKXGBP:                            # FTSE 100
+      schluesse: 3669
+      einstiege_test: 163
+      einstiege_bot: 163
+      gemeinsam: 163
+      richtung_gleich: 163
+      nur_test: 0
+      nur_bot: 0
+      stop_abweichung: 0.0
+      ziel_abweichung: 0.0
+      trades_test: 134
+      ausstieg_nach_zeit: 123
+      ausstieg_gleich: 123
+    JPXJPY:                            # Nikkei 225
+      schluesse: 3626
+      einstiege_test: 182
+      einstiege_bot: 182
+      gemeinsam: 182
+      richtung_gleich: 182
+      nur_test: 0
+      nur_bot: 0
+      stop_abweichung: 0.0
+      ziel_abweichung: 0.0
+      trades_test: 137
+      ausstieg_nach_zeit: 124
+      ausstieg_gleich: 124
+
+  abweichungen_vom_test:
+    - >-
+      Später Einstieg und später Ausstieg: Der Test handelt zur Eröffnung der ersten 5-Min.-Kerze nach der Signalkerze.
+      Der Bot kommt etwa 1 bis 4 Minuten später, im Ausnahmefall bis zu 25 Minuten. Stop und Ziel werden dann vom
+      späteren Kurs gemessen. Bei im Schnitt +0,044 R je Trade kann schon ein kleiner Kursunterschied das Ergebnis
+      ändern. Was das kostet oder bringt, ist nicht getestet. Das Journal schreibt je Trade, wie viele Minuten der Bot
+      zu spät war.
+    - >-
+      Andere Kurse: Der Test rechnete mit 5-Min.-Kerzen von HistData, der Bot mit Stundenkerzen von Capital.com. Hoch,
+      Tief und Schluss einer Kerze können abweichen, beim Nikkei auch die Handelszeiten. Ein knapper Ausbruch kann darum
+      fehlen oder dazukommen.
+    - >-
+      Der Bot sieht nur Stundenkerzen und zählt jede Stunde mit Kursen als 12 5-Min.-Kerzen. Fehlen im Test einzelne
+      5-Min.-Kerzen in einer Stunde, kann die Signalkerze dort unter 24 Kerzen fallen, beim Bot nicht. In der
+      Gegenprobe war das einmal so (DAX, 20.01.2025).
+    - >-
+      Beim DAX zählen in den Kursdaten des Tests erst ab Dezember 2023 volle Handelstage. Bis Juni 2024 hatte der Bot
+      darum weniger als 150 Handelstage und wartete, der Test nahm 11 Einstiege. Live liefert der Broker 400 Tage, die
+      Sicherung greift dann nicht.
+    - >-
+      Der Test rechnete mit dem mittleren Spread von Capital.com je Viertelstunde der New Yorker Uhr. Live gilt der
+      Spread des Augenblicks, nachts und bei Terminen oft breiter.
+    - >-
+      Der Test füllt den Stop einen halben Spread schlechter und das Ziel genau zum Kurs. Live füllt der Broker zum
+      nächsten Kurs, in einer Kurslücke schlechter.
+    - >-
+      Fällt ein Lauf aus oder scheitert der Abruf der Kerzen in der ganzen Frist, verfällt das Signal. Im Test gibt es
+      das nicht.
+    - >-
+      Liest der Bot nach Stop oder Ziel den Schlusskurs noch nicht, gilt sein Trade bis zu einer Stunde als offen. Fällt
+      in diese Stunde ein Schluss einer 4-Std.-Kerze, nimmt er auf diesem Markt dort kein Signal.
+    - >-
+      Die Termine in gold/v2/termine.yaml reichen bis Dezember 2026, wie im Test. Danach gibt es keine Termin-Sperre,
+      bis die Datei ergänzt wird.
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade vom Einstieg bis zum Stop
+    max_risiko_faktor: 2.0
+    margin_anteil: 0.2
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keinen Einstieg. Braucht die Order mehr als margin_anteil des freien Gelds auf dem Konto als
+      Margin, gibt es keinen Einstieg. So bleibt dem Noise USD/JPY auf demselben Konto genug freies Geld.
+
+  sperren:
+    - >-
+      Ohne passende Prüfsumme dieser Datei im Protokoll öffnet der Bot nichts. Passt das Siegel von
+      suche/VORAB_notizen_runde.yaml oder einer ihrer Quelldateien (suche/VORAB_rueckblick.yaml,
+      suche/VORAB_youtube_runde.yaml, suche/VORAB_youtube_runde2.yaml) nicht mehr, rechnet er kein Signal.
+    - >-
+      Liegt auf einem seiner Märkte eine Position auf dem Konto, die nicht von ihm ist, öffnet er dort nichts Neues.
+      Fremde Positionen fasst er nie an. Seine eigenen erkennt er an der Deal-ID.
+    - >-
+      Steht Account 7 nicht genau einmal in journal/konten.json oder endet die Nummer wie das Hauptkonto des Gold-Bots,
+      handelt er nicht.
+    - Ab -25 R seit Start nichts Neues mehr. Offene Trades laufen zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/welt-ausbruch4h/ und journal/welt-ausbruch4h.json.
+
+  urteil:
+    pause_r: -25.0
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades aller drei Märkte
+      zusammen. Dann entscheidet Kiron über den nächsten Schritt.
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: Bei 2,66 Trades je Woche wie im Test etwa 15 Wochen bis zum Urteil, also etwa Anfang März 2027.
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).
+    aufstieg: >-
+      Für echtes Geld gilt suche/VORAB_aufstieg_alle.yaml (100 Demo-Trades, mindestens 61 Tage, Gewinnfaktor 1,3 für
+      Bots außerhalb des Kerns). Nie durch diesen Test allein. Den Schritt entscheidet nur Kiron.

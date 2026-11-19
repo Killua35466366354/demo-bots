@@ -181,3 +181,27 @@ Ergebnis in `suche/ergebnis_youtube_runde2.md`: keine besteht, kein Kandidat.
 Nicht gerechnet: Öl-Lagerbericht (Öl-Kurse 2024 und 2025 fehlen), Optionsverfall und Feiertage (unter 100 Trades),
 Gold zu Silber und Paare (zwei Beine), Carry (Zinsdaten je Tag), Gitter und Martingale (kein fester Stop). Ichimoku,
 Heikin Ashi und MACD sind dieselbe Familie wie Supertrend.
+
+## 9. Runde „Kirons Notizen“ (19.11.2026)
+
+Kiron hat im Strategie-Katalog alle 110 Strategien bewertet und Notizen geschrieben. Seine Notizen zu den Karten 25 bis
+39 wurden elf feste Fassungen, vorab festgelegt in `suche/VORAB_notizen_runde.yaml`. Ergebnis in
+`suche/ergebnis_notizen_runde.md`: keine besteht, ein Kandidat.
+
+| Fassung (Karte) | Trades | vorher | jetzt | Stand |
+|---|---|---|---|---|
+| 4-Std.-Ausbruch DAX/FTSE/Nikkei mit Ziel 1 R (34) | 393 | 1,24 | 1,30 | Kandidat (z 2,26, Holm fehlt), zum zweiten Mal in dieser Familie |
+| Bollinger Krypto umgedreht, Stop 1,5 ATR, Ziel 2 R (29) | 1.150 | 0,69 | 1,07 | durchgefallen, schlägt den Zufall (z 3,09), verdient nach Kosten zu wenig |
+| Bollinger Krypto gespiegelt (29) | 1.667 | 0,69 | 0,93 | durchgefallen |
+| Montagsbereich Krypto mit Stufen-Stop (33) | 286 | 0,69 | 0,97 | durchgefallen |
+| Montagsbereich Krypto mit Ziel 1 R (33) | 286 | 0,69 | 0,90 | durchgefallen |
+| Supertrend S&P 500, Trade auf USD/JPY in Gegenrichtung (27) | 67 | 0,91 | 0,97 | durchgefallen, zu wenige Trades |
+| Dienstag US500/US100 beide Seiten, Ziel 0,5 ATR (38) | 247 | 0,99 | 0,98 | durchgefallen |
+| Dienstag DAX/FTSE/Nikkei mit Stufen-Stop (39) | 188 | 1,13 | 0,94 | durchgefallen |
+| Silver Bullet ohne Ziel bis 16 Uhr (25) | 1.298 | 1,01 | 0,96 | durchgefallen |
+| Bollinger Stunden gespiegelt (28) | 4.001 | 0,86 | 0,86 | durchgefallen |
+| CME-Lücke mit halber Lücke als Ziel (32) | 160 | 0,77 | 0,61 | durchgefallen |
+
+Nicht neu rechnen: alle elf auf denselben Kursen. Nur DAX und Nikkei oder nur Ether zu nehmen wäre Auswahl nach dem
+Ergebnis. Der Kandidat nur vorwärts auf neuen Kerzen, mit eigener Regeldatei und Kirons Wahl. Alles, was je verworfen
+wurde oder durchgefiel, steht mit Grund in `suche/VERWORFEN.md`.

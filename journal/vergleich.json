@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-19",
- "letzter_trade_utc": "2026-11-19T11:31:34.407821",
+ "letzter_trade_utc": "2026-11-19T14:01:41.110730",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "rangliste": [
@@ -264,12 +264,12 @@
    "konto": "Account 7",
    "seit": "2026-11-05T11:16:36",
    "ist": {
-    "trades": 6,
+    "trades": 7,
     "gewonnen": 3,
-    "treffer_pct": 50.0,
-    "summe_r": -0.01,
-    "pf_r": 0.85,
-    "eur": -0.1,
+    "treffer_pct": 42.9,
+    "summe_r": -0.03,
+    "pf_r": 0.76,
+    "eur": -0.2,
     "rueckgang_r": 0.08
    },
    "soll": {
@@ -277,7 +277,7 @@
     "trades": 5.2,
     "summe_r": 0.1
    },
-   "abweichung_r": -0.11,
+   "abweichung_r": -0.13,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -286,14 +286,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 6,
-     "summe_r": -0.01,
-     "eur": -0.1
+     "trades": 7,
+     "summe_r": -0.02,
+     "eur": -0.2
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "6 von 100 Demo-Trades, 14 von 61 Tagen"
+    "text": "7 von 100 Demo-Trades, 14 von 61 Tagen"
    },
    "rang": 8
   },
@@ -554,34 +554,34 @@
    }
   ],
   "ist": {
-   "trades": 51,
+   "trades": 52,
    "gewonnen": 25,
-   "treffer_pct": 49.0,
-   "summe_r": 13.42,
+   "treffer_pct": 48.1,
+   "summe_r": 13.41,
    "pf_r": 1.62,
-   "eur": 132.72,
+   "eur": 132.62,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 51,
-    "summe_r": 13.43,
-    "eur": 132.72
+    "trades": 52,
+    "summe_r": 13.42,
+    "eur": 132.62
    }
   },
   "bestes": "gold",
   "ohne_bestes": {
-   "trades": 14,
+   "trades": 15,
    "gewonnen": 4,
-   "treffer_pct": 28.6,
-   "summe_r": -6.77,
+   "treffer_pct": 26.7,
+   "summe_r": -6.78,
    "pf_r": 0.06,
-   "eur": -28.43,
-   "rueckgang_r": 6.83
+   "eur": -28.53,
+   "rueckgang_r": 6.84
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "51 von 100 Demo-Trades, 16 von 61 Tagen"
+   "text": "52 von 100 Demo-Trades, 16 von 61 Tagen"
   }
  },
  "wunsch": [

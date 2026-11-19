@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-19T13:46:57.703273",
+ "stand_utc": "2026-11-19T14:01:41.110730",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1030.19,
+   "kontostand": 1030.14,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T13:46:57.703273",
+    "zeit": "2026-11-19T14:01:41.110730",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,46 +383,26 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 999.9,
+   "kontostand": 999.75,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "Position offen",
-   "offen": {
-    "dealId": "00000000-74ad-8f06-049c-70750015549e",
-    "side": 1,
-    "tag": "2026-11-19",
-    "signal_bar": "2026-11-19 11:45:00",
-    "einstieg_kerze": "2026-11-19 12:00:00",
-    "entry": 159.919,
-    "stop_level": 158.131,
-    "ziel_level": null,
-    "notstop": true,
-    "size": 900.0,
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 175.7965,
-    "opened_utc": "2026-11-19T12:01:41.152",
-    "konto_kurz": "…6542"
-   },
+   "status": "wartet auf das nächste Signal",
+   "offen": null,
    "orders": null,
-   "position": {
-    "upl": 0.05,
-    "stop": 158.131,
-    "ziel": null
-   },
+   "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T13:46:57.703273",
-    "action": "none",
+    "zeit": "2026-11-19T14:01:41.110730",
+    "action": "close",
     "why": [
-     "Position bleibt"
+     "Schluss zurück hinter Band bzw. VWAP"
     ]
    },
    "zusammenfassung": {
-    "trades": 6,
-    "treffer_pct": 50.0,
-    "pf": 0.838,
-    "summe_pct": -0.018,
-    "pnl_eur": -0.1
+    "trades": 7,
+    "treffer_pct": 42.9,
+    "pf": 0.754,
+    "summe_pct": -0.029,
+    "pnl_eur": -0.2
    },
    "letzte_trades": [
     {
@@ -598,6 +578,35 @@
      "konto": "…6542",
      "uebernommen": false,
      "nachgeholt": false
+    },
+    {
+     "bot": "r6-noise-usdjpy",
+     "strategie": "noise_band",
+     "epic": "USDJPY",
+     "side": "long",
+     "dealId": "00000000-74ad-8f06-049c-70750015549e",
+     "tag": "2026-11-19",
+     "einstieg_kerze": "2026-11-19 12:00:00",
+     "signal_bar": "2026-11-19 11:45:00",
+     "size": 900.0,
+     "entry": 159.919,
+     "exit": 159.9,
+     "stop_level": 158.131,
+     "ziel_level": null,
+     "notstop": true,
+     "opened_utc": "2026-11-19T12:01:41.152",
+     "closed_utc": "2026-11-19T14:01:41.110730",
+     "reason": "Gegensignal (Band/VWAP)",
+     "pct": -0.0119,
+     "r": -0.011,
+     "pnl": -17.1,
+     "waehrung": "JPY",
+     "pnl_eur": -0.1,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…6542",
+     "uebernommen": false,
+     "nachgeholt": false
     }
    ],
    "zwilling": {
@@ -764,7 +773,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T13:46:57.703273",
+    "zeit": "2026-11-19T14:01:41.110730",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1018,7 +1027,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T13:46:57.703273",
+    "zeit": "2026-11-19T14:01:41.110730",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1282,7 +1291,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T13:46:57.703273",
+    "zeit": "2026-11-19T14:01:41.110730",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1613,7 +1622,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T13:46:57.703273",
+    "zeit": "2026-11-19T14:01:41.110730",
     "action": "none",
     "why": [
      "heute erledigt"

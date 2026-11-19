@@ -1,0 +1,119 @@
+# Andere Ausstiege für drei laufende Demo-Bots, genau nach Kirons Notizen Nr. 9, 11 und 13 vom 19.11.2026
+# (Strategie-Katalog, /mnt/project-files/strategie-katalog/notizen-2026-11-19.md). Nur Capital.com-DEMO, nie echtes Geld.
+#
+# Kirons Wort vom 19.11.2026, 12:38 UTC: "weiter testen bedeutet ändere nur nachdem was in der notiz ist und zeige das
+# dann an wenn es besser ist". Plan dazu: /mnt/project-files/demo-strategien/kirons-notizen-9-bis-20-2026-11-19.md.
+# Festgelegt, bevor eine der Varianten gerechnet wurde. Code: suche/ausstiege_kern.py. Ändert an keinem Bot etwas.
+
+format: 1
+ausstiege_kern:
+  grundsatz: >-
+    Die Einstiege bleiben genau die des Bots. Nur der Ausstieg ändert sich. Jede Variante wird Trade für Trade mit dem
+    unveränderten Original auf denselben Einstiegen verglichen (gepaart). Keine weiteren Varianten, keine anderen
+    Zahlen nach dem Ergebnis.
+
+  nicht_gerechnet:
+    nr_10_dow: >-
+      Für den Dow (US30) liegen im Projekt keine Kerzen. HistData führt den Dow nicht, die Capital.com-Tageskerzen der
+      Bewertung kamen aus einem Lauf von kerzen.yml, der nur von Hand startet und nicht angestoßen wird. Nr. 10 bleibt
+      darum offen und wird hier nicht ersetzt.
+
+  daten:
+    ordner: /mnt/project-files/strategie-suche/daten   # HistData, 5-Min.-Kerzen, Bid
+    uhr: >-
+      Rücksetzer US100 und DAX-Scalper auf echtem UTC (suche/rueckblick_daten.echtes_utc, Befund vom 11.11.2026: die
+      Dateizeit ist im europäischen Sommer 1 Stunde zu spät). Nasdaq Noise Long auf der Dateizeit, weil seine Einstiege
+      aus der Trade-Liste der Runde 7 kommen, die auf dieser Uhr gerechnet wurde. So passt jeder Kurs zu seinem Einstieg.
+
+  bots:
+    r9_ruecksetzer_us100:
+      bot: r5-ruecksetzer-us100
+      regel: suche/runde5.py sig_trend_ruecksetzer mit trend 200, unter 10, stop_atr 3, max_tage 5 (wie suche/us500_bot.py)
+      kerzen: NSXUSD, Stundenkerzen aus den 5-Min.-Kerzen (echtes UTC), Tage wie runde5.baue_tage (Schluss 16:00 New York)
+      vorlauf_tage: 400
+      einstiege: die Trades von runde5.simuliere mit dieser Regel (Long und Short, ein Trade zur Zeit)
+      einheit: R = Ergebnis geteilt durch ATR 20 der Tageskerzen am Einstieg (wie runde5), der Notstop liegt bei 3 R
+      kosten: >-
+        Spread 1,8 Punkte fest (suche/scalping.py SPREAD NSXUSD, Capital.com US100), Übernacht Long 6,5 % und Short 2,0 %
+        im Jahr (VORAB_runde5.yaml). Robust: Spread und Übernacht 1,5-fach.
+      varianten:
+        r9a_einstand: >-
+          Stop auf Einstand ab +1 ATR. Erreicht der Kurs in einer Stundenkerze Einstand + 1 ATR 20 (Long: Bid-Hoch,
+          Short: Ask-Tief), liegt der Stop ab der nächsten Stunde auf dem Einstand (Long: bezahlter Ask, Short:
+          erhaltener Bid). Sonst alles wie das Original.
+        r9b_halb_und_10_tage: >-
+          Die Hälfte wird bei +1 ATR 20 als Limit genommen (Füllung genau zum Limit, sobald eine Stundenkerze es
+          erreicht). Ab der nächsten Stunde liegt der Stop des Rests auf dem Einstand. Der Rest darf bis zu 10 statt 5
+          Tage laufen, sonst gleiche Ausstiege (5-Tage-Schnitt, Gegensignal, Notstop). R des Trades = Mittel der beiden
+          Hälften.
+      reihenfolge_in_einer_kerze: erst der Stop, dann Ziel und Auslöser (die vorsichtige Lesart)
+
+    r11_nasdaq_noise_long:
+      bot: r7-nasdaq-noise-long
+      einstiege: >-
+        /mnt/project-files/strategie-suche/runde7/nasdaq_noise_long_trades_2015_bis_2026.csv (138 Trades, alle mit
+        Zeitausstieg). Einstieg zur Eröffnung der 15-Min.-Kerze zur Zeit einstieg_utc (Bid aus NSXUSD).
+      kosten: >-
+        Je Trade aus der Liste selbst. Spread in Prozent = 2 x (ergebnis_pct - ergebnis_pct_kosten_1_5) -
+        uebernacht_pct. Übernacht je Nacht = uebernacht_pct / Nächte des Originals (Nächte wie runde5.naechte). Robust:
+        beides 1,5-fach.
+      original: >-
+        Notstop 5 x ATR 14 (risiko_pct_5atr vom Einstand), raus zum Schluss der 15-Min.-Kerze, die um 16:00 New York
+        (kurzer Tag 12:45) am 5. Handelstag endet (suche/r7_nasdaq_bot.handelstage_nach, aus_minute).
+      einheit: R = Ergebnis in Prozent geteilt durch risiko_pct_5atr (wie die Liste), 1 ATR = 0,2 R
+      nachrechnung: >-
+        Das Original wird zuerst aus den Kerzen nachgerechnet. Weicht es ab (Median der Abweichung je Trade über 0,02 R
+        oder ein Ausstiegsgrund anders), bricht die Rechnung für diesen Bot ab, und das steht im Ergebnis.
+      varianten:
+        r11a_einstand: >-
+          Stop auf Einstand ab +1 ATR 14. Erreicht das Bid-Hoch einer 15-Min.-Kerze Einstand + 1 ATR, liegt der Stop ab
+          der nächsten Kerze auf dem Einstand.
+        r11b_einstand_10_tage: wie r11a, dazu raus erst am 10. statt am 5. Handelstag (gleiche Uhrzeit)
+      reihenfolge_in_einer_kerze: erst der Stop, dann der Auslöser
+
+    r13_scalper_dax:
+      bot: scalp-de40
+      regel: >-
+        suche/scalping2.py eroeffnung, Variante folgen_10r, GRXEUR, 15-Min.-Kerzen, Open-Filter "alle"
+        (suche/scalping_opens.py mit_opens, suche/opens.py perioden), wie suche/scalper_bot.py. Erste 15-Min.-Kerze ab
+        09:00 Berlin, Einstieg zur Eröffnung der zweiten, Stop am anderen Ende der ersten Kerze, Ziel 10 x Stop-Abstand,
+        raus 17:30 Berlin.
+      zeitraum: 2016-01-01 bis Datenende (der Open-Filter braucht den Jahres-Open)
+      kosten: Spread 1,8 Punkte (suche/scalping2.spreads), robust 1,5-fach
+      einheit: >-
+        R = Ergebnis geteilt durch den eigenen Stop-Abstand der Variante. Das entspricht dem Bot, der je Trade denselben
+        Betrag riskiert (suche/scalper_bot.py RISIKO_EUR).
+      varianten: >-
+        Stop-Abstand mal 0,75 oder 1,5 und Ziel-Abstand mal 0,75 oder 1,5, also 4 Varianten: r13_s075_z075,
+        r13_s075_z150, r13_s150_z075, r13_s150_z150. Ziel-Abstand = Faktor x 10 x ursprünglicher Stop-Abstand.
+        Öffnet eine Variante nicht (Stop schon zur Eröffnung überschritten), zählt der Trade für sie mit 0 R.
+      reihenfolge_in_einer_kerze: Stop vor Ziel (wie scalping2.trade_v)
+
+  fenster:
+    lang: alle Einstiege der Daten (US100 ab Ende des Vorlaufs, Noise Long ab 11/2015, DAX ab 2016)
+    haupt: Einstiege ab 2025-01-01 bis Datenende (wie die Eingangsprüfung eines Zwillings, VORAB_zwilling.yaml)
+
+  vergleich:
+    test: >-
+      Gepaart auf allen Einstiegen des langen Fensters: Unterschied je Trade = R der Variante minus R des Originals.
+      Einseitiger Zeichen-Tausch-Test auf den Mittelwert (20.000 Läufe, Saat 20261119). Kein Parameter wurde auf diesen
+      Jahren gelernt, darum zählt das lange Fenster für den Test. Holm über alle 8 Varianten auf 5 %.
+    anzahl_varianten: 8
+
+  bestanden_heisst:                          # alle müssen halten
+    - Holm-Test im langen Fenster bestanden (Variante besser als das Original)
+    - im Hauptfenster Summe R höher als beim Original und Gewinnfaktor mindestens so hoch wie beim Original
+    - im Hauptfenster Gewinnfaktor mindestens 1,2 und mit 1,5-fachen Kosten mindestens 1,0
+
+  folgen: >-
+    Besteht eine Variante, schlage ich Kiron auf einer Karte vor, sie als Zwilling neben dem unveränderten Bot laufen zu
+    lassen (VORAB_zwilling.yaml, höchstens einer je Original und einer neu je Woche, eigener PR, Kiron merged). Besteht
+    keine, bleiben alle Bots unverändert, und die Varianten kommen ins Verworfen-Archiv des Strategie-Katalogs.
+  erwartung_vorher: >-
+    Ein Stop auf Einstand hilft bei Rücksetzern selten, weil der Kurs dort oft erst weiter gegen den Trade läuft und
+    dann zurückkommt. Beim DAX-Scalper ist die jetzige Fassung schon die beste aus vielen, Trades unter einem Tag
+    verlieren oft an den Kosten. Ich erwarte darum, dass wenig oder nichts besteht.
+  ehrlich: >-
+    Der Rücksetzer US100 hat im Hauptfenster nur etwa 25 Trades, Noise Long etwa 20. Dort zeigt das Hauptfenster nur die
+    Richtung, die Entscheidung trägt der Test über alle Jahre. Ein bestandener Test ist noch kein Beweis live, darum
+    läuft eine Verbesserung nur als Zwilling und muss dort die Hürden von VORAB_zwilling.yaml schaffen.

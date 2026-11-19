@@ -556,7 +556,7 @@
   "draussen": [
    {
     "id": "pine-tp3",
-    "warum": "Gewinnfaktor 0.72 nach 40 Trades"
+    "warum": "Gewinnfaktor 0.69 nach 41 Trades"
    }
   ],
   "ist": {
@@ -814,12 +814,12 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 40,
+    "trades": 41,
     "gewonnen": 28,
-    "treffer_pct": 70.0,
-    "summe_r": -5.92,
-    "pf_r": 0.72,
-    "eur": -29.27,
+    "treffer_pct": 68.3,
+    "summe_r": -6.93,
+    "pf_r": 0.69,
+    "eur": -34.14,
     "rueckgang_r": 12.46
    },
    "einheit": "R",
@@ -828,7 +828,7 @@
    "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "40 von 100 Demo-Trades, 9 von 61 Tagen"
+    "text": "41 von 100 Demo-Trades, 9 von 61 Tagen"
    }
   }
  ],

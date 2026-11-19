@@ -1,0 +1,313 @@
+{
+ "kopf": {
+  "modus": "Rechnung",
+  "vorab_sha256": "6b248b29d019b2c30924318c2ffc83e85fb9c3d2890b67bef21393a2c0d3209a",
+  "fenster": {
+   "von": "2024-01-01",
+   "bis": "2026-10-30",
+   "mitte": "2025-06-01",
+   "aeltere_jahre": "Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.",
+   "eine_stufe": "Es gibt keine Auswahl-Stufe. Alle vier Varianten stehen hier fest und werden einmal gerechnet. Holm zählt über alle vier."
+  }
+ },
+ "varianten": {
+  "williams_us": {
+   "regel": "williams",
+   "maerkte": [
+    "SPXUSD",
+    "NSXUSD"
+   ],
+   "trades": 77,
+   "trades_je_woche": 0.52,
+   "gewinnfaktor": 2.66,
+   "summe_R": 13.14,
+   "R_je_trade": 0.171,
+   "trefferquote": 0.81,
+   "gewinnfaktor_robust": 2.65,
+   "haelfte_1": {
+    "trades": 46,
+    "gewinnfaktor": 2.39
+   },
+   "haelfte_2": {
+    "trades": 31,
+    "gewinnfaktor": 3.28
+   },
+   "jahr_2026": {
+    "trades": 18,
+    "gewinnfaktor": 1.75
+   },
+   "long": {
+    "trades": 77,
+    "gewinnfaktor": 2.66,
+    "summe_R": 13.14
+   },
+   "short": {
+    "trades": 0,
+    "gewinnfaktor": null,
+    "summe_R": 0.0
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 2.21,
+    "summe_R": 9.55
+   },
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 41,
+     "gewinnfaktor": 4.21,
+     "summe_R": 8.96
+    },
+    "NSXUSD": {
+     "trades": 36,
+     "gewinnfaktor": 1.82,
+     "summe_R": 4.18
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 327,
+    "gewinnfaktor": 1.51,
+    "summe_R": 20.38
+   },
+   "zufall": {
+    "laeufe": 670,
+    "geschlagen_pct": 99.9,
+    "p": 0.0029806259314456036,
+    "mittel_R": 1.9,
+    "streuung_R": 4.78,
+    "z": 2.35,
+    "summe_fuer_z3": 16.24
+   },
+   "holm": true,
+   "durchgefallen_bei": [
+    "Trades",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "cme_luecke_krypto": {
+   "regel": "cme_luecke",
+   "maerkte": [
+    "BTCUSD",
+    "ETHUSD"
+   ],
+   "trades": 160,
+   "trades_je_woche": 1.08,
+   "gewinnfaktor": 0.77,
+   "summe_R": -20.18,
+   "R_je_trade": -0.126,
+   "trefferquote": 0.45,
+   "gewinnfaktor_robust": 0.76,
+   "haelfte_1": {
+    "trades": 81,
+    "gewinnfaktor": 0.65
+   },
+   "haelfte_2": {
+    "trades": 79,
+    "gewinnfaktor": 0.92
+   },
+   "jahr_2026": {
+    "trades": 47,
+    "gewinnfaktor": 0.91
+   },
+   "long": {
+    "trades": 63,
+    "gewinnfaktor": 0.83,
+    "summe_R": -5.52
+   },
+   "short": {
+    "trades": 97,
+    "gewinnfaktor": 0.74,
+    "summe_R": -14.66
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.72,
+    "summe_R": -25.18
+   },
+   "je_markt": {
+    "BTCUSD": {
+     "trades": 66,
+     "gewinnfaktor": 0.61,
+     "summe_R": -15.93
+    },
+    "ETHUSD": {
+     "trades": 94,
+     "gewinnfaktor": 0.91,
+     "summe_R": -4.24
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 247,
+    "gewinnfaktor": 0.73,
+    "summe_R": -37.99
+   },
+   "zufall": {
+    "laeufe": 973,
+    "geschlagen_pct": 24.7,
+    "p": 0.7535934291581109,
+    "mittel_R": -10.2,
+    "streuung_R": 14.51,
+    "z": -0.69,
+    "summe_fuer_z3": 33.34
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "ausbruch4h_krypto": {
+   "regel": "ausbruch4h",
+   "maerkte": [
+    "BTCUSD",
+    "ETHUSD"
+   ],
+   "trades": 319,
+   "trades_je_woche": 2.16,
+   "gewinnfaktor": 1.23,
+   "summe_R": 13.94,
+   "R_je_trade": 0.044,
+   "trefferquote": 0.44,
+   "gewinnfaktor_robust": 1.19,
+   "haelfte_1": {
+    "trades": 167,
+    "gewinnfaktor": 1.32
+   },
+   "haelfte_2": {
+    "trades": 152,
+    "gewinnfaktor": 1.13
+   },
+   "jahr_2026": {
+    "trades": 87,
+    "gewinnfaktor": 0.91
+   },
+   "long": {
+    "trades": 184,
+    "gewinnfaktor": 1.4,
+    "summe_R": 13.32
+   },
+   "short": {
+    "trades": 135,
+    "gewinnfaktor": 1.02,
+    "summe_R": 0.62
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.98,
+    "summe_R": -1.3
+   },
+   "je_markt": {
+    "BTCUSD": {
+     "trades": 158,
+     "gewinnfaktor": 1.42,
+     "summe_R": 12.08
+    },
+    "ETHUSD": {
+     "trades": 161,
+     "gewinnfaktor": 1.06,
+     "summe_R": 1.86
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 425,
+    "gewinnfaktor": 1.1,
+    "summe_R": 7.63
+   },
+   "zufall": {
+    "laeufe": 973,
+    "geschlagen_pct": 98.7,
+    "p": 0.014373716632443531,
+    "mittel_R": -7.75,
+    "streuung_R": 9.23,
+    "z": 2.35,
+    "summe_fuer_z3": 19.95
+   },
+   "holm": true,
+   "durchgefallen_bei": [
+    "2026",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "montag_krypto": {
+   "regel": "montag",
+   "maerkte": [
+    "BTCUSD",
+    "ETHUSD"
+   ],
+   "trades": 286,
+   "trades_je_woche": 1.94,
+   "gewinnfaktor": 0.69,
+   "summe_R": -62.42,
+   "R_je_trade": -0.218,
+   "trefferquote": 0.31,
+   "gewinnfaktor_robust": 0.67,
+   "haelfte_1": {
+    "trades": 141,
+    "gewinnfaktor": 0.92
+   },
+   "haelfte_2": {
+    "trades": 145,
+    "gewinnfaktor": 0.5
+   },
+   "jahr_2026": {
+    "trades": 86,
+    "gewinnfaktor": 0.52
+   },
+   "long": {
+    "trades": 138,
+    "gewinnfaktor": 0.62,
+    "summe_R": -37.01
+   },
+   "short": {
+    "trades": 148,
+    "gewinnfaktor": 0.76,
+    "summe_R": -25.41
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.64,
+    "summe_R": -72.36
+   },
+   "je_markt": {
+    "BTCUSD": {
+     "trades": 142,
+     "gewinnfaktor": 0.63,
+     "summe_R": -38.78
+    },
+    "ETHUSD": {
+     "trades": 144,
+     "gewinnfaktor": 0.76,
+     "summe_R": -23.64
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 403,
+    "gewinnfaktor": 0.81,
+    "summe_R": -52.11
+   },
+   "zufall": {
+    "laeufe": 973,
+    "geschlagen_pct": 5.3,
+    "p": 0.946611909650924,
+    "mittel_R": -19.98,
+    "streuung_R": 25.76,
+    "z": -1.65,
+    "summe_fuer_z3": 57.32
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  }
+ }
+}

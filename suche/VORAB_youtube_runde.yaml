@@ -1,0 +1,171 @@
+# Runde "YouTube 19.11.2026": vier Regeln aus YouTube-Videos, auf US-Indizes und Krypto (Bitcoin, Ether).
+# Festgelegt, BEVOR mit Kursen ab 2024 gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/youtube_runde.py (nutzt die Rechnung von suche/rueckblick.py unverändert), Daten: python -m suche.youtube_runde daten.
+#
+# Kirons Wunsch vom 19.11.2026 06:58 UTC: große YouTube-Suche, alle möglichen Strategien testen, mit dem jetzigen Wissen
+# kombinieren, verschiedener und kreativer werden, Trades alle paar Minuten bis alle paar Tage, insgesamt profitabel.
+#
+# Ehrlich vorab:
+# - Gesucht wurde am 19.11.2026 mit 33 YouTube-Suchen (403 verschiedene Videos, Titel, Kanal, Aufrufe, Kurztext).
+#   Die Videos selbst kann die Cloud nicht öffnen (YouTube verlangt dort eine Anmeldung). Die Regeln kommen darum aus
+#   den schriftlichen Fassungen derselben Kanäle (Quantified Strategies) und aus Beiträgen zum selben Thema.
+# - Fast alles, was auf YouTube viel gesehen wird, hat das Projekt schon gerechnet und es fiel durch: Eröffnungsbereich
+#   (ORB), London- und Asien-Ausbruch, VWAP, Lücken, Larry Williams, Vortag, ICT, Scalping, RSI 2, IBS, Double 7,
+#   Monatswechsel, Trendfolge über viele Märkte, Dual Momentum, Gold-Boxen (Runden 4, 4b, 5, 6, 9, 12, Gold-Matrix).
+#   Diese Runde nimmt nur, was noch nie gerechnet wurde: Williams %R auf den US-Indizes und drei Regeln auf Krypto,
+#   einer Anlageklasse, die bisher kein Bot handelt.
+# - Williams %R ist dieselbe Familie wie der laufende Trend-Rücksetzer (Kauf nach kurzem Rückgang). Besteht sie, bringt
+#   sie mehr Trades, aber wenig neue Streuung. Die drei Krypto-Regeln wären wirklich neu.
+# - Die Krypto-Kurse sind Binance-Spot (BTCUSDT, ETHUSDT), nicht Capital.com. Der Spread kommt aus echten
+#   Capital.com-Kerzen (BTCUSD, ETHUSD, Dezember 2025 bis November 2026) als Anteil am Kurs.
+# - Das Programm wurde vor dem Siegel nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.youtube_runde entwicklung / probelauf). Kein Wert wurde danach geändert.
+# - Entwicklung (März 2021 bis Dezember 2023, nur zur Prüfung des Programms): williams_us 122 Trades Gewinnfaktor 1,20,
+#   cme_luecke_krypto 163 Trades 0,61 (nur 39 % Treffer, die Lücke schließt sich oft nicht vor dem Stop),
+#   ausbruch4h_krypto 302 Trades 0,84, montag_krypto 289 Trades 0,70. Keine war dort über der Hürde.
+# - Probelauf vor dem Siegel: 8 Saaten, je zwei erfundene Indizes und zwei erfundene Krypto-Märkte ohne Vorteil. Keine
+#   der 32 Rechnungen bestand oder wurde Kandidat. z lag im Mittel bei 0,0 mit Streuung 1,15, das größte z war 1,86.
+#   Der Zufallsvergleich ist für diese vier Regeln also richtig geeicht. Ohne Vorteil erreichte williams_us trotzdem
+#   bis zu Gewinnfaktor 1,31, darum zählt der Zufallsvergleich.
+# - Die Hürde ist hoch (wie suche/VORAB_rueckblick.yaml). Ein kleiner echter Vorteil schafft z ab 3 selten.
+
+format: 1
+youtube_runde:
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der Index-Daten
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle vier Varianten stehen hier fest und werden einmal gerechnet. Holm zählt über alle vier.
+
+  daten:
+    quelle_index: HistData 5-Minuten-Kerzen (Bid), echtes UTC, wie suche/rueckblick_daten.py (SPXUSD, NSXUSD)
+    quelle_krypto: >-
+      Binance-Spot 5-Minuten-Kerzen BTCUSDT und ETHUSDT (data.binance.vision, Monatsdateien 2020-01 bis 2026-10), Zeit
+      ist schon UTC. Als Bid gilt der Binance-Kurs. Gespeichert im Projektordner strategie-suche/daten/krypto.
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Indizes Montag bis Freitag, Krypto alle sieben Tage.
+    krypto_alle_tage: [BTCUSD, ETHUSD]
+    min_kerzen_je_tag: 60        # Handelstage mit weniger Kerzen gelten nicht (Feiertage, Lücken)
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml (EMA 50 der Tagesschlüsse, steigt gegenüber 5 Handelstagen davor). Nur ausbruch4h nutzt ihn.
+    vorlauf_tage: 100
+
+  kosten:
+    spread_index: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (wie suche/rueckblick_daten.py).
+    spread_krypto: >-
+      Median des echten Capital.com-Spreads als Anteil am Kurs (Ask minus Bid geteilt durch Bid) je Viertelstunde der New
+      Yorker Uhr, mal dem Eröffnungskurs der Kerze. Bitcoin etwa 0,065 %, Ether etwa 0,077 %.
+    rutschen_spread: 0.5         # Stop-Orders (Einstieg und Schutz-Stop) füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+      krypto: {long: 0.20, short: 0.20}    # wie suche/VORAB_runde3.yaml im privaten Repo (CRYPTOCURRENCIES 20 %)
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand
+    eine_position: Je Regel und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  regeln:
+    williams:
+      quelle: >-
+        Quantified Strategies, Videos "Backtesting the Williams Percent R trading strategy on the S&P 500",
+        "This QQQ Strategy Was Invested Just 20% of the Time" und "We Added 2 Filters to Williams %R" (YouTube), schriftlich
+        "Williams %R Trading Strategy" (2024): Kauf zum Schluss, wenn Williams %R unter -90 schließt, Verkauf, wenn der
+        Schluss über dem Vortageshoch liegt oder %R über -30 schließt. Beste Rückschau mit 2 Tagen.
+      regel: >-
+        Tageskerze der Kassa-Sitzung 9:30 bis 16:00 New York (Hoch, Tief, Schluss der letzten 5-Minuten-Kerze vor 16:00).
+        Williams %R(2) = -100 mal (Hoch der 2 Tage minus Schluss) geteilt durch (Hoch der 2 Tage minus Tief der 2 Tage).
+        Schließt %R unter -90, Kauf zur Eröffnung der ersten 5-Minuten-Kerze ab 16:00 New York. Ausstieg zur Eröffnung
+        der ersten Kerze ab 16:00 New York am ersten späteren Tag, an dem der Schluss über dem Hoch des Vortags liegt oder
+        %R über -30 schließt. Nur Long, kein Trendfilter (die Quelle hat keinen).
+      sitzung_von_min: 570       # 9:30 New York
+      sitzung_bis_min: 960       # 16:00 New York
+      min_kerzen_sitzung: 70     # von 78
+      tage: 2
+      kauf_unter: -90
+      raus_ueber: -30
+      toleranz_min: 30
+      stop_atr: 3.0              # Not-Stop 3 mal ATR 14 (wie der US500-Bot), die Quelle hat keinen. Für die Größe.
+      max_tage: 10               # spätestens nach 10 Handelstagen raus, die Quelle hat keine Grenze
+    cme_luecke:
+      quelle: >-
+        YouTube "BITCOIN CME GAP EXPLAINED" (CowboyTrades), "Bitcoin CME Gap Explained" (Abdullah Khan), "Bitcoin CME Gap
+        EXPLAINED!! Why It ALWAYS Gets FILLED!!" (Trading Bureau). Beiträge nennen 77 bis 95 % geschlossene Lücken, ohne
+        sauberen Test. "Lücken unter 1 % sind Rauschen".
+      regel: >-
+        Bezug ist der Kurs zum Schluss der CME-Futures am Freitag 16:00 Chicago = 17:00 New York (Eröffnung der ersten
+        5-Minuten-Kerze ab dann). Die CME öffnet am Sonntag 17:00 Chicago = 18:00 New York. Weicht die Eröffnung der
+        ersten Kerze ab Sonntag 18:00 New York um mindestens 1 % vom Bezug ab, Einstieg zum Markt in Richtung Bezug.
+        Ziel ist der Bezugskurs, Stop gleich weit auf der anderen Seite (1 zu 1). Raus spätestens am folgenden Freitag
+        17:00 New York. CME-Feiertage werden nicht beachtet.
+      min_luecke: 0.01
+      ref_wochentag: 4           # Freitag
+      ref_min: 1020              # 17:00 New York
+      ein_wochentag: 6           # Sonntag
+      ein_min: 1080              # 18:00 New York
+      toleranz_min: 30
+    ausbruch4h:
+      quelle: >-
+        suche/VORAB_rueckblick.yaml, Regel ausbruch4h (der Gold-Kandidat, läuft als gold-ausbruch4h), Werte unverändert.
+        Dazu YouTube "TESTING Best Trend Following Strategy Ever 100 TIMES - Donchian Channels" (TRADING RUSH),
+        "This Donchian Channel Strategy BEATS AI Indicators - Live Results on Crypto" (AlgoTrade Pro). Trendfolge gilt
+        bei Krypto in der Forschung als stark (Liu und Tsyvinski 2021, Review of Financial Studies).
+      regel: wie suche/VORAB_rueckblick.yaml, Regel ausbruch4h, jede Zahl gleich
+      kanal: 20
+      stop_kerzen: 10
+      stop_puffer_atr: 0.1
+      stop_min_atr: 0.5
+      stop_max_atr: 4.0
+      atr_n: 14
+      halte_kerzen: 4
+      halte_tage_max: 14
+      min_kerzen: 24
+      frist_min: 60
+      sperre_utc: [1255, 1385]
+      termin_sperre_min: 15
+    montag:
+      quelle: >-
+        YouTube "Backtesting BTC and ETH with a Monday Range Strategy" (FX Replay), TradingView-Beiträge "Monday range,
+        all week" und "Trade the Monday Range". Die Quellen nennen Ausbruch und Fehlausbruch. Gerechnet wird der Ausbruch.
+      regel: >-
+        Bereich = Hoch und Tief des Montags 00:00 bis 24:00 UTC. Ab Dienstag 00:00 UTC bis Freitag 24:00 UTC liegt eine
+        Kauf-Stop-Order am Montagshoch und eine Verkauf-Stop-Order am Montagstief, die erste ausgelöste gilt (eine je
+        Woche). Berührt die erste Kerze beide Seiten, gibt es diese Woche keinen Trade. Stop in der Mitte des Bereichs,
+        Ziel eine ganze Bereichsbreite hinter der Marke (2 R). Raus spätestens Montag 00:00 UTC.
+      ziel_breiten: 1.0
+
+  varianten:                     # genau diese vier, Holm über alle vier
+    williams_us: {regel: williams, maerkte: [SPXUSD, NSXUSD]}
+    cme_luecke_krypto: {regel: cme_luecke, maerkte: [BTCUSD, ETHUSD]}
+    ausbruch4h_krypto: {regel: ausbruch4h, maerkte: [BTCUSD, ETHUSD]}
+    montag_krypto: {regel: montag, maerkte: [BTCUSD, ETHUSD]}
+
+  zwilling:
+    regel: Wie suche/VORAB_rueckblick.yaml. Die ganze Variante wandert als Block um k gültige Handelstage nach vorn, je Markt. Bei Krypto zählen alle sieben Tage.
+    schwankung: Stop-Abstand, Ziel-Abstand und Spread des Zwillings sind die des echten Trades mal ATR 14 am Zwilling geteilt durch denselben ATR am echten Einstieg.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Variante.
+    sperre_davor_tage: 60
+    spaet_min: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie suche/VORAB_rueckblick.yaml
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    min_z: 3.0
+    urteile:
+      bestanden: alle Hürden, Holm und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: Kein anderes Fenster, keine andere Schwelle, keine weitere Variante nach dem Ergebnis.
+
+  melden:
+    je_variante: wie suche/VORAB_rueckblick.yaml
+    live: >-
+      Nur nach Kirons Wahl auf einer Karte und über einen PR. Ein Kandidat kann höchstens als Schattenlauf ohne Order
+      mitlaufen. Krypto handelt auch am Wochenende, ein Bot dafür bräuchte Läufe am Wochenende.

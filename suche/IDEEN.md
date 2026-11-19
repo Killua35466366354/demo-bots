@@ -145,3 +145,20 @@ Dort stehen auch:
 - der Ideen-Vorrat R1 bis R9 aus der Recherche (Umschichtungs-Druck zum Monatsende, Nacht vor dem
   Arbeitsmarktbericht, Tag nach einem VIX-Sprung und weitere) mit Quelle und Hauptzweifel,
 - ein Vorschlag, wie ein Live-Versuch Treue zum Rückblick und echten Vorteil getrennt prüft.
+
+## 7. YouTube-Runde (19.11.2026)
+
+Kirons Wunsch: große YouTube-Suche, alle möglichen Strategien testen und kombinieren, verschiedener werden. Gesucht
+wurde mit 33 Suchen (403 Videos). Fast alles Beliebte war schon gerechnet (siehe oben). Neu gerechnet wurden vier
+Regeln, vorab festgelegt in `suche/VORAB_youtube_runde.yaml`. Ergebnis in `suche/ergebnis_youtube_runde.md`: keine
+besteht, kein Kandidat.
+
+| Regel | Trades | Gewinnfaktor | Stand |
+|---|---|---|---|
+| Williams %R(2) auf US500/US100 (Quantified Strategies) | 77 | 2,66 | durchgefallen (unter 100 Trades, z 2,35). Meist dieselben Trades wie der Trend-Rücksetzer |
+| 4-Std.-Ausbruch (Gold-Kandidat) auf Bitcoin/Ether | 319 | 1,23 | durchgefallen (2026 0,91, z 2,35), ohne die 5 besten 0,98 |
+| CME-Lücke Bitcoin/Ether („schließt sich immer") | 160 | 0,77 | durchgefallen |
+| Montagsbereich Bitcoin/Ether (Ausbruch) | 286 | 0,69 | durchgefallen |
+
+Nicht neu rechnen: CME-Lücke und Montagsbereich auf Krypto. Williams %R und der Krypto-Ausbruch nur mit einer neuen
+Regeldatei und Kirons Wahl, und nur als Vorwärtstest ohne Order.

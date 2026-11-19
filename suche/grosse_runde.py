@@ -267,14 +267,15 @@ def tages_einstieg(m: Markt, cfg: dict) -> tuple[np.ndarray, np.ndarray]:
     return i, y2._ny_utc(pd.DatetimeIndex(m.gtag), p["aus_min"])
 
 
-def _tagestrades(m: Markt, cfg: dict, richtung: np.ndarray, stop_atr: float) -> list[dict]:
+def _tagestrades(m: Markt, cfg: dict, richtung: np.ndarray, stop_atr: float, halte_tage: int = 1) -> list[dict]:
+    """Einstieg nach der Pause, Ausstieg 15:55 New York am selben Handelstag (halte_tage 1) oder an einem späteren."""
     i, aus = tages_einstieg(m, cfg)
     sig = []
     for g in np.flatnonzero(richtung != 0):
         if g < 1 or i[g] < 0 or not np.isfinite(m.atr_vor[g]):
             continue
         sig.append({"i0": int(i[g]), "d": int(richtung[g]), "sd": float(stop_atr * m.atr_vor[g]), "zd": 0.0,
-                    "t_max": aus[g]})
+                    "t_max": aus[min(g + halte_tage - 1, len(aus) - 1)]})
     return sig
 
 
@@ -415,6 +416,7 @@ def regel_geduld(m: Markt, cfg: dict, p: dict) -> list[dict]:
     ende = m.t[k["b"]] + 5 * MIN
     ny_ende = (m.nymin[k["b"]] + 5) % 1440
     sma = pd.Series(m.gc).rolling(p["trend_tage"]).mean().to_numpy()
+    erlaubt = richtung_reihe(m.gtag, p["nur_nach"]) == 1 if "nur_nach" in p else np.ones(len(m.gtag), bool)
     with np.errstate(invalid="ignore"):
         kand = np.flatnonzero((rsi < p["rsi_unter"]) & (k["n"] >= p["min_kerzen"])
                               & (ny_ende >= p["von_min"]) & (ny_ende <= p["bis_min"]))
@@ -425,6 +427,8 @@ def regel_geduld(m: Markt, cfg: dict, p: dict) -> list[dict]:
             continue
         g = m.gpos[m.tix[i0]]
         if g < 2 or not np.isfinite(m.atr_vor[g]) or not np.isfinite(sma[g - 1]) or not m.gc[g - 1] > sma[g - 1]:
+            continue
+        if not erlaubt[g]:
             continue
         gx = min(g + p["max_tage"], len(m.gi) - 1)
         atr = float(m.atr_vor[g])
@@ -566,7 +570,7 @@ def signale(regel: str, m: Markt, cfg: dict, termine: np.ndarray) -> list[dict]:
         tage = np.unique(np.concatenate([kalender()[k] for k in p["termine"]]))
         return _tagestrades(m, cfg, _auf_markt(m, tage, np.ones(len(tage), np.int64)), p["stop_atr"])
     if art == "reihe":
-        return _tagestrades(m, cfg, richtung_reihe(m.gtag, p), p["stop_atr"])
+        return _tagestrades(m, cfg, richtung_reihe(m.gtag, p), p["stop_atr"], p.get("halte_tage", 1))
     if art == "tokio":
         return regel_tokio(m, cfg, p)
     if art == "funding":

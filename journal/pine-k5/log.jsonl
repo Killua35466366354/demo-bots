@@ -213,3 +213,4 @@
 {"time": "2026-11-19T21:43:34", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Abfänger übernimmt", "gesendet": true}
 {"time": "2026-11-19T21:43:34", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-74be-295f-049c-701f0015549e", "stopLevel": 3637.51, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-19T21:48:30", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-74be-295f-049c-701f0015549e", "stopLevel": 3635.26, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-19T21:53:25", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-74be-295f-049c-701f0015549e", "stopLevel": 3631.17, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}

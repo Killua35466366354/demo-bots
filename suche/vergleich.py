@@ -241,7 +241,10 @@ def _zwilling_stand(bid: str, e: dict, rg: dict | None, trades: list[dict], laeu
     from suche import zwilling as zw
     org = e["original"]
     ab = max(str(e["start_utc"]), str(dp.seit_wann(kont, org) or ""))
-    o = dp.demo_trades(laeufe[org], org, ab) if org in laeufe else []
+    if org in laeufe:
+        o = dp.demo_trades(laeufe[org], org, ab)
+    else:                                               # Bot mit festem Konto im Code (suche/mitnutzer.py)
+        o = [t for t in wb._lines(J / org / "trades.jsonl") if str(t.get("closed_utc") or "") >= ab]
     st = zw.stand(trades, o, rg, str(e["start_utc"]), now, e)
     return {"status": st["status"], "text": st["text"], "original": org}
 

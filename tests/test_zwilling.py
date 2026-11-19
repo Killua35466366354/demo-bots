@@ -46,7 +46,9 @@ def test_rule_is_journaled_and_the_frozen_checks_stay():
 
 def test_every_listed_twin_follows_the_rule():
     kont = _kont()
-    bots = set(dp.laeufe()) | {dp.HAUPT_BOT}
+    from suche import mitnutzer
+    # Bots mit Lauf: die der Prüfung, der Gold-Bot und die Bots mit festem Konto im Code (suche/mitnutzer.py)
+    bots = set(dp.laeufe()) | {dp.HAUPT_BOT} | {b["bot"] for b in mitnutzer.aktive()}
     liste = zw.eintraege()
     wo = dp.woche_regel()
     for zid, e in liste.items():

@@ -15,4 +15,13 @@
 #     ende_grund: "<warum>"
 
 format: 1
-zwillinge: {}
+zwillinge:
+  gold-grossbox-weiter125:
+    name: "Gold Groß-Box, Stop 1,25-fach (Schatten)"
+    original: gold-grossbox
+    vorab: suche/VORAB_gold_grossbox_weiter125.yaml
+    vorab_key: "VORAB_gold_grossbox_weiter125 sha256 "
+    start_utc: "2026-11-20T00:00:00"
+    konto: schatten
+    trades: journal/gold-grossbox-weiter125/trades.jsonl
+    pr: 0

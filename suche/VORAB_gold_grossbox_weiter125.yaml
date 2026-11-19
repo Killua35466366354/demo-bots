@@ -1,0 +1,52 @@
+# Schatten-Zwilling der Gold Groß-Box mit 1,25-fachem Stopabstand. Rechnet auf denselben Live-Kursen von Capital.com,
+# sendet NIE eine Order. Nur Demo-Auswertung, nie echtes Geld.
+# Vorab festgelegt am 19.11.2026, bevor der Zwilling seinen ersten Lauf macht (Prüfsumme im Journal
+# journal/strategie-suche-protokoll.md). Code: gold/grossbox_zwilling.py, Tests: tests/test_grossbox_zwilling.py.
+#
+# Herkunft: Kirons Wahl vom 19.11.2026 12:38 UTC auf der Karte "Soll die Groß-Box mit weiterem Stop als
+# Schatten-Zwilling mitlaufen?" (Option "Ja, als Schatten-Zwilling"). Vorher Kirons Notiz im Strategie-Katalog vom
+# 19.11.2026 zu Nr. 3 ("minimal höheren stop loss und ein mini mal höheren take profit").
+#
+# Ehrlich vorweg (versiegelter Test vom 19.11.2026, Projektordner gold-bot/katalog-2026-11-19/, VORAB_katalog_gold.yaml,
+# Bewertung suche/VORAB_bewertung_2024_26.yaml, gleiche Daten und Kosten wie Runde 12d): 11/2024 bis 10/2026 856 Trades,
+# Gewinnfaktor 1,249 statt 1,207 bei der Groß-Box von heute, +93,6 R statt +93,4 R (also gleicher Gewinn), 1,5-fache
+# Kosten 1,21, Hälften 1,28 und 1,21, 2026 1,29, Kontrolle 2022-24 1,03 statt 1,005, Zufall 97,5 % (Holm über 1,25 und
+# 1,5 bestanden). Tiefster Rückgang 63,5 R statt 76,7 R. Der Stop 1,5-fach fiel durch (Summe R tiefer). Der Vorteil ist
+# klein: gleicher Gewinn, ruhigerer Verlauf. Nach Kirons Grundsätzen vom 18.11.2026 zählt der Rückblick nur zum
+# Ablehnen, darum entscheidet der Vorwärtstest hier.
+
+gold_grossbox_weiter125:
+  bot_id: gold-grossbox-weiter125
+  original: gold-grossbox (gold/grossbox_bot.py, suche/VORAB_gold_grossbox.yaml, Account 6). Er bleibt unverändert.
+  konto: >-
+    Schatten. Es gibt kein freies Demokonto (journal/konten.json), und die Zwilling-Regel (suche/VORAB_zwilling.yaml)
+    verbietet ein Konto, das ein anderer Bot hat. Der Zwilling meldet sich beim Demokonto nur an und liest
+    Viertelstunden-Kerzen von GOLD. Er hat keinen Code, der eine Order senden, ändern oder schließen kann.
+  regeln: >-
+    Genau die Groß-Box (gold/tiktok_schatten.gross_box mit kerze=False) auf denselben 15-Min.-Bid-Kerzen mit einer
+    einzigen Änderung: Der Stopabstand jedes Einstiegs (nach der Grenze 0,5 bis 3 ATR(14) der Signal-Ebene) wird mit 1,25
+    malgenommen. 1 R ist der neue Abstand. Das erste Drittel hat sein Ziel weiter bei 1 R, also 1,25-mal so weit im
+    Preis. Danach Stop des Rests auf den Einstieg, der Rest läuft bis zum Ende der großen Box. Höchstens 3 Trades offen,
+    das Modell zählt selbst (mit den längeren Trades des Zwillings). Alles andere wie im Original.
+  kurse_und_kosten: >-
+    Einstieg zur Eröffnung der Kerze nach dem Signal, Kauf zum Ask (Bid + Spread der Kerze), Verkauf zum Bid, Stop vor
+    Ziel in derselben Kerze, Lücken zur Eröffnung. Übernachtgebühr 6,5 % (Kauf) und 2,0 % (Verkauf) im Jahr wie im
+    TikTok-Schatten. Keine Größe, kein Euro, nur R. Die Kosten sind nicht live geprüft (Schatten).
+  lauf: >-
+    Workflow "Gold-Bot (Demo)" jede Stunde, etwa 30 Tage Viertelstunden-Kerzen wie das Original. Er rechnet das Modell
+    aus den fertigen Kerzen neu und übernimmt nur Trades mit Einstieg ab seinem Start (start_utc in
+    suche/zwillinge.yaml). Ein fertiger Trade wird nie neu berechnet. Fällt ein Lauf aus, holt der nächste ihn nach.
+  sicherung: >-
+    Wie im Original: ab -25 R seit Start nichts Neues mehr, offene Trades rechnet er zu Ende. Vor jedem neuen Trade fragt
+    er suche/zwilling.py offen(), so wie es die Zwilling-Regel verlangt.
+  messung: >-
+    Jeder fertige Trade (beide Teile zu) zählt mit R = gewichtete Summe der Teile durch den Stopabstand des Zwillings,
+    nach Spread und Übernachtgebühr. Schlusszeit closed_utc ist der Schluss des letzten Teils.
+  urteil: >-
+    Nach suche/VORAB_zwilling.yaml gegen das Original im selben Zeitraum. Früh beendet, wenn der Gewinnfaktor bei 15 bis
+    39 Trades unter 0,6 fällt. Nach den ersten 40 Trades reif für Kirons Entscheidung, wenn Gewinnfaktor mindestens 1,2,
+    neuere Hälfte mindestens 1,0, Summe R über dem Original und Gewinnfaktor mindestens wie das Original. Ersetzt wird
+    nur über einen PR, den Kiron merged. Der Zwilling ändert nie seine eigenen Regeln und nie das Original.
+  dateien: >-
+    Nur journal/gold-grossbox-weiter125/ (state.json, trades.jsonl, log.jsonl) und journal/gold-grossbox-weiter125.json.
+    Nie die Dateien des Gold-Bots oder des Originals.

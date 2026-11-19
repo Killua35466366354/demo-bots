@@ -99,6 +99,19 @@ jobs:
           CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
         run: python -m gold.tiktok_schatten
 
+      # Schatten-Zwilling der Groß-Box mit 1,25-fachem Stop (Kirons Wahl vom 19.11.2026, suche/VORAB_gold_grossbox_weiter125.yaml,
+      # suche/zwillinge.yaml). Liest nur Viertelstunden-Kerzen, sendet nie eine Order, schreibt nur
+      # journal/gold-grossbox-weiter125/ und journal/gold-grossbox-weiter125.json.
+      - name: Groß-Box-Zwilling Schattenlauf (ohne Order)
+        if: github.event_name != 'workflow_dispatch' || inputs.login_check == 'aus'
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+        run: python -m gold.grossbox_zwilling
+
       - name: Journal sichern
         run: |
           git config user.name "gold-bot"

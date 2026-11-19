@@ -83,6 +83,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 - **Mess-Bot:** Vortag EUR/USD mit 1-ATR-Stop. Misst nur, wird nie verbessert.
 - **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`, `gold-zonen`, `gold-ausbruch4h`. Sieben Bots auf
   einem Markt, sie verlieren oft gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten.
+  Dazu rechnet der Schatten-Zwilling `gold-grossbox-weiter125` mit (Groß-Box mit 1,25-fachem Stop, keine Order,
+  `gold/grossbox_zwilling.py`, `suche/VORAB_gold_grossbox_weiter125.yaml`, Kirons Wahl vom 19.11.2026).
 - **Scalper** (Test durchgefallen, läuft auf Kirons Wunsch): Nasdaq, DAX, Nikkei.
 - **Seit 19.11.2026:** `welt-ausbruch4h`, der 4-Std.-Ausbruch auf DAX, FTSE und Nikkei (Kandidat, Kirons Wahl).
 

@@ -145,3 +145,39 @@ Dort stehen auch:
 - der Ideen-Vorrat R1 bis R9 aus der Recherche (Umschichtungs-Druck zum Monatsende, Nacht vor dem
   Arbeitsmarktbericht, Tag nach einem VIX-Sprung und weitere) mit Quelle und Hauptzweifel,
 - ein Vorschlag, wie ein Live-Versuch Treue zum Rückblick und echten Vorteil getrennt prüft.
+
+## 7. YouTube-Runde (19.11.2026)
+
+Kirons Wunsch: große YouTube-Suche, alle möglichen Strategien testen und kombinieren, verschiedener werden. Gesucht
+wurde mit 33 Suchen (403 Videos). Fast alles Beliebte war schon gerechnet (siehe oben). Neu gerechnet wurden vier
+Regeln, vorab festgelegt in `suche/VORAB_youtube_runde.yaml`. Ergebnis in `suche/ergebnis_youtube_runde.md`: keine
+besteht, kein Kandidat.
+
+| Regel | Trades | Gewinnfaktor | Stand |
+|---|---|---|---|
+| Williams %R(2) auf US500/US100 (Quantified Strategies) | 77 | 2,66 | durchgefallen (unter 100 Trades, z 2,35). Meist dieselben Trades wie der Trend-Rücksetzer |
+| 4-Std.-Ausbruch (Gold-Kandidat) auf Bitcoin/Ether | 319 | 1,23 | durchgefallen (2026 0,91, z 2,35), ohne die 5 besten 0,98 |
+| CME-Lücke Bitcoin/Ether („schließt sich immer") | 160 | 0,77 | durchgefallen |
+| Montagsbereich Bitcoin/Ether (Ausbruch) | 286 | 0,69 | durchgefallen |
+
+Nicht neu rechnen: CME-Lücke und Montagsbereich auf Krypto. Williams %R und der Krypto-Ausbruch nur mit einer neuen
+Regeldatei und Kirons Wahl, und nur als Vorwärtstest ohne Order.
+
+## 8. Zweite YouTube-Runde (19.11.2026)
+
+Kirons Wunsch: ganz andere Arten von Strategien und Videos. Gesucht wurde mit 24 neuen Suchen (369 Videos, 343 neu):
+Indikator-Kanäle („100 Mal getestet"), Ruhe vor dem Ausbruch, Kalender, Öl-Bericht, Paare, Carry, Gitter, ICT und
+Krypto-Rückkehr zum Mittel. Gerechnet wurden fünf Regeln, vorab festgelegt in `suche/VORAB_youtube_runde2.yaml`.
+Ergebnis in `suche/ergebnis_youtube_runde2.md`: keine besteht, kein Kandidat.
+
+| Regel | Trades | Gewinnfaktor | Stand |
+|---|---|---|---|
+| ICT Silver Bullet auf US100/US500 (TTrades) | 1.298 | 1,01 | durchgefallen, nach Kosten null |
+| NR7-Ausbruch auf 11 Märkten (Crabel) | 1.018 | 0,97 | durchgefallen |
+| Supertrend 4 Std. mit EMA 200 (Trade Pro) | 379 | 0,91 | durchgefallen, 2026 0,55 |
+| Bollinger + RSI auf Stunden, Devisen/Gold/Indizes (TradingLab) | 4.085 | 0,86 | durchgefallen |
+| Bollinger + RSI auf Stunden, Bitcoin/Ether | 1.727 | 0,69 | durchgefallen |
+
+Nicht gerechnet: Öl-Lagerbericht (Öl-Kurse 2024 und 2025 fehlen), Optionsverfall und Feiertage (unter 100 Trades),
+Gold zu Silber und Paare (zwei Beine), Carry (Zinsdaten je Tag), Gitter und Martingale (kein fester Stop). Ichimoku,
+Heikin Ashi und MACD sind dieselbe Familie wie Supertrend.

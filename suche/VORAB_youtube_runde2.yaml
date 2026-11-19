@@ -1,0 +1,183 @@
+# Zweite YouTube-Runde vom 19.11.2026: fünf Regeln aus ganz anderen Arten von YouTube-Videos.
+# Festgelegt, BEVOR mit Kursen ab 2024 gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/youtube_runde2.py (nutzt die Rechnung von suche/rueckblick.py unverändert), Daten: python -m suche.youtube_runde2 daten.
+#
+# Kirons Wunsch vom 19.11.2026 07:29 UTC: nochmal mehr YouTube-Videos prüfen, ganz andere Arten von Strategien und ganz
+# andere Arten von Videos. Danach alle Strategien einzeln erklären und zeigen, damit Kiron jede bewerten kann.
+#
+# Ehrlich vorab:
+# - Gesucht wurde am 19.11.2026 mit 24 neuen YouTube-Suchen (369 Videos, davon 343 neu gegenüber der ersten Runde).
+#   Neue Arten: Indikator-Kanäle, die eine Regel "100 Mal" testen (Supertrend, Bollinger mit RSI, Ichimoku, Heikin Ashi,
+#   MACD), Ruhe vor dem Ausbruch (NR7, Innenstab, Squeeze), Kalender (Optionsverfall, Feiertage), Rohstoff-Nachrichten
+#   (Öl-Lagerbericht), Paare und Verhältnisse (Gold zu Silber), Zinsdifferenz (Carry), Gitter und Martingale, ICT und
+#   Krypto-Rückkehr zum Mittel. Die Videos selbst kann die Cloud nicht öffnen. Die Regeln sind die übliche schriftliche
+#   Fassung. Wo die Quelle eine Zahl offen lässt, steht "eigene Festlegung".
+# - Nicht gerechnet, mit Grund: Ichimoku, Heikin Ashi und MACD sind wie Supertrend Trendfolge mit einem Indikator, eine
+#   davon reicht. Optionsverfall und Feiertage geben auf US500 und US100 zusammen unter 100 Trades in 2024 bis 2026 und
+#   können die Hürde nicht schaffen. Gold zu Silber und Paare brauchen zwei Beine gleichzeitig, das kann die Rechnung
+#   nicht. Carry braucht Zinsdaten je Tag. Gitter und Martingale haben keinen festen Stop und widersprechen den
+#   Grundregeln der Bots (festes Risiko je Trade). Der Öl-Lagerbericht (EIA, mittwochs 10:30 New York) war als sechste
+#   Regel geplant, aber die HistData-Kurse für Öl (WTIUSD) fehlen für 2024 und 2025 ganz. Er fällt darum weg.
+# - Das Programm wurde vor dem Siegel nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.youtube_runde2 entwicklung / probelauf). Kein Wert wurde danach geändert.
+# - Entwicklung (März 2021 bis Dezember 2023, nur zur Prüfung des Programms): supertrend_4h 329 Trades Gewinnfaktor
+#   1,15, bollinger_rsi_1h 3.723 Trades 0,83, bollinger_rsi_krypto 1.664 Trades 0,76, nr7_ausbruch 971 Trades 0,95,
+#   silver_bullet_us 1.207 Trades 1,07. Keine war dort über der Hürde. Danach wurde nur ein Bauteil korrigiert, das
+#   nichts mit dem Ergebnis zu tun hat: NR7 schließt jetzt mit der Kerze 16:55 New York statt nach der Tagespause.
+# - Probelauf vor dem Siegel: 8 Saaten auf erfundenen Märkten ohne Vorteil, 40 Rechnungen. Keine bestand, eine wurde
+#   Kandidat (supertrend_4h, Saat 1, Gewinnfaktor 1,22, z 2,93). z lag im Mittel bei 0,16 mit Streuung 1,28. Bei
+#   supertrend_4h streut z stärker (1,94), weil die Trades tagelang laufen und wenige sind. Ein z knapp über 3 wäre
+#   bei dieser Regel ein schwacher Beleg. Die Hürden bleiben trotzdem wie vorher, damit nichts nachgebessert wird.
+
+format: 1
+youtube_runde2:
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der HistData-Kurse
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle fünf Varianten stehen hier fest und werden einmal gerechnet. Holm zählt über alle fünf.
+
+  daten:
+    quelle: >-
+      HistData 5-Minuten-Kerzen (Bid), echtes UTC, wie suche/rueckblick_daten.py. Krypto wie
+      suche/VORAB_youtube_runde.yaml (Binance-Spot, Spread als Anteil am Kurs aus Capital.com BTCUSD und ETHUSD).
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Krypto alle sieben Tage, sonst Montag bis Freitag.
+    krypto_alle_tage: [BTCUSD, ETHUSD]
+    min_kerzen_je_tag: 60
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026)
+    pause_min: 60                # kein Einstieg in der Stunde 17 bis 18 Uhr New York (Tageswechsel), Krypto ausgenommen
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml. Keine Regel dieser Runde nutzt den Tagestrend, er wird nur mitgerechnet.
+    vorlauf_tage: 100
+
+  kosten:
+    spread: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (Krypto als Anteil am Kurs).
+    rutschen_spread: 0.5         # Stop-Orders (Einstieg und Schutz-Stop) füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+      metall: {long: 0.065, short: 0.02}
+      fx: {long: 0.02, short: 0.02}
+      krypto: {long: 0.20, short: 0.20}
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand
+    eine_position: Je Regel und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  regeln:
+    supertrend:
+      quelle: >-
+        YouTube "Supertrend Indicator Trading Strategy Tested 100 Times - Full Result" (Trade Pro), "Highly Profitable
+        DEMA + SuperTrend Trading Strategy" (TradingLab, 618.000 Aufrufe), "TRIPLE Supertrend + Stochastic RSI + 200 EMA
+        Strategy Tested 100 Times" (TradeSmart). Gemeinsamer Kern: Supertrend(10, 3) dreht, Einstieg in die neue
+        Richtung nur auf der Seite des 200er-Durchschnitts, Stop an der Supertrend-Linie, Ziel 1,5 R.
+      regel: >-
+        4-Std.-Kerzen (Beginn 18, 22, 2, 6, 10, 14 Uhr New York, wie die Regel ausbruch4h). ATR 10 nach Wilder,
+        Supertrend mit Faktor 3 wie bei TradingView. Dreht die Richtung nach oben und schließt die Kerze über dem EMA 200
+        der 4-Std.-Schlusskurse, Kauf zum Markt mit der nächsten 5-Minuten-Kerze. Nach unten spiegelbildlich unter dem
+        EMA 200. Stop an der Supertrend-Linie der Signalkerze, mindestens 0,5 und höchstens 4 ATR (eigene Festlegung,
+        wie ausbruch4h). Ziel 1,5 R. Raus spätestens zum Schluss der 4-Std.-Kerze, in der die Richtung wieder dreht,
+        und spätestens nach 14 Tagen.
+      atr_n: 10
+      faktor: 3.0
+      ema: 200
+      ziel_r: 1.5
+      stop_min_atr: 0.5
+      stop_max_atr: 4.0
+      halte_tage_max: 14
+      min_kerzen: 24
+      frist_min: 60
+    bollinger_rsi:
+      quelle: >-
+        YouTube "Bollinger Band + RSI Trading Strategy That Actually Works" (TradingLab, 1,9 Mio. Aufrufe), "I TESTED a
+        92% win rate Bollinger Bands Trading Strategy" (Trading Strategy Testing), "Python Backtest of A Scalping Strategy
+        with VWAP, Bollinger Bands and RSI" (CodeTrading), für Krypto "BTC Mean Reversion Strategy Backtest" (Python for
+        Traders). Gemeinsamer Kern: Schluss außerhalb des Bollinger-Bands (20, 2) und RSI 14 überverkauft oder
+        überkauft, dann zurück zur Mitte.
+      regel: >-
+        Stundenkerzen (volle UTC-Stunden). Schließt die Kerze unter dem unteren Band (Durchschnitt 20, 2
+        Standardabweichungen) und liegt RSI 14 (Wilder) unter 30, Kauf zum Markt mit der nächsten 5-Minuten-Kerze. Über
+        dem oberen Band mit RSI über 70 Verkauf. Ziel ist die Mitte des Bands zur Signalkerze (liegt sie nicht auf der
+        Gewinnseite, kein Trade). Stop 1 ATR 14 der Stundenkerzen (eigene Festlegung, die Quellen nennen keinen
+        einheitlichen Stop). Raus spätestens nach 24 Stunden (eigene Festlegung).
+      bb_n: 20
+      bb_breite: 2.0
+      rsi_n: 14
+      rsi_unten: 30
+      rsi_oben: 70
+      atr_n: 14
+      stop_atr: 1.0
+      halte_stunden: 24
+      min_kerzen: 6
+      frist_min: 15
+    nr7:
+      quelle: >-
+        Toby Crabel, "Day Trading with Short Term Price Patterns and Opening Range Breakout" (1990). YouTube "Testing TOBY
+        CRABEL Narrow Range NR4 Breakout Strategy" (The Transparent Trader), "Narrow Range Breakout - NR4 & NR7 Strategy"
+        (Sharique Samsudheen, 240.000 Aufrufe), "The Greatest BREAKOUT Indicator Ever Created" (LuxAlgo, NR4/NR7).
+        Gemeinsamer Kern: Nach dem ruhigsten Tag von sieben folgt oft ein großer Tag. Kauf über dem Hoch, Verkauf unter
+        dem Tief dieses Tages.
+      regel: >-
+        NR7-Tag: Die Spanne (Hoch minus Tief der Tageskerze) ist kleiner als an jedem der 6 Handelstage davor. Am
+        nächsten Handelstag ab 18:00 New York liegt eine Kauf-Stop-Order am Hoch und eine Verkauf-Stop-Order am Tief des
+        NR7-Tags, die erste ausgelöste gilt. Berührt eine 5-Minuten-Kerze beide, kein Trade. Stop auf der anderen Seite
+        des NR7-Tags (1 Spanne). Kein Ziel. Raus mit der Kerze 16:55 New York am Ende des Handelstags nach dem
+        Einstiegstag (eigene Festlegung, Crabel schließt am selben Tag, viele Videos halten länger).
+      tage: 7
+      halte_tage: 2              # Einstiegstag und der nächste Handelstag, raus zum Beginn des übernächsten
+    silver_bullet:
+      quelle: >-
+        YouTube "ICT Silver Bullet Strategy - No Daily Bias | With Backtest!" (TTrades, 908.000 Aufrufe), "Simple ICT
+        Silver Bullet Strategy | 70% Win Rate" (JadeCap), "The Ultimate ICT Silver Bullet Strategy" (Mulham Trading).
+        Gemeinsamer Kern: zwischen 10 und 11 Uhr New York die erste Fair-Value-Gap auf 5 Minuten handeln, Stop hinter
+        der ersten Kerze der Lücke, Ziel 2 R.
+      regel: >-
+        Fenster 10:00 bis 11:00 New York. Fair-Value-Gap nach oben: Tief der dritten 5-Minuten-Kerze über dem Hoch der
+        ersten (drei Kerzen in Folge, alle im Fenster). Nach unten spiegelbildlich. Nur die erste Lücke des Tages zählt,
+        Richtung egal (ohne Tagesrichtung, wie TTrades). Einstieg zum Markt mit der Kerze nach der dritten, spätestens
+        11:00 (die Videos nutzen eine Limit-Order am Rand der Lücke, die die Rechnung nicht kann. Der Einstieg zum
+        Markt ist näher an den Tests in den Kommentaren). Stop am Tief (Hoch) der ersten Kerze. Ziel 2 R. Raus
+        spätestens 12:00 New York (eigene Festlegung).
+      fenster_von_min: 600       # 10:00 New York
+      fenster_bis_min: 660       # 11:00 New York
+      ausstieg_min: 720          # 12:00 New York
+      ziel_r: 2.0
+
+  varianten:                     # genau diese fünf, Holm über alle fünf
+    supertrend_4h: {regel: supertrend, maerkte: [SPXUSD, NSXUSD, GRXEUR, XAUUSD, EURUSD, GBPUSD, USDJPY]}
+    bollinger_rsi_1h: {regel: bollinger_rsi, maerkte: [EURUSD, GBPUSD, USDJPY, AUDUSD, XAUUSD, SPXUSD, NSXUSD]}
+    bollinger_rsi_krypto: {regel: bollinger_rsi, maerkte: [BTCUSD, ETHUSD]}
+    nr7_ausbruch: {regel: nr7, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY, XAUUSD, XAGUSD, EURUSD, GBPUSD, USDJPY, AUDUSD]}
+    silver_bullet_us: {regel: silver_bullet, maerkte: [NSXUSD, SPXUSD]}
+
+  zwilling:
+    regel: Wie suche/VORAB_rueckblick.yaml. Die ganze Variante wandert als Block um k gültige Handelstage nach vorn, je Markt. Bei Krypto zählen alle sieben Tage.
+    schwankung: Stop-Abstand, Ziel-Abstand und Spread des Zwillings sind die des echten Trades mal ATR 14 am Zwilling geteilt durch denselben ATR am echten Einstieg.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Variante.
+    sperre_davor_tage: 60
+    spaet_min: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie suche/VORAB_rueckblick.yaml und suche/VORAB_youtube_runde.yaml
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    min_z: 3.0
+    urteile:
+      bestanden: alle Hürden, Holm und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: Kein anderes Fenster, keine andere Schwelle, keine weitere Variante nach dem Ergebnis.
+
+  melden:
+    je_variante: wie suche/VORAB_rueckblick.yaml
+    live: >-
+      Nur nach Kirons Wahl auf einer Karte und über einen PR. Ein Kandidat kann höchstens als Schattenlauf ohne Order
+      mitlaufen.

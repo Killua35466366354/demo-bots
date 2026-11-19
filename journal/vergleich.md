@@ -34,7 +34,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 |---|---|---|---|---|---|---|---|---|---|
 | Nasdaq Eröffnungskerze | Account 1 | 2026-11-10 | 0 | +0,00 R | – | +0,00 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 0 von 100 Demo-Trades, 9 von 61 Tagen |
 | DAX Eröffnungskerze | Account 1 | 2026-11-10 | 3 | -1,70 R | 0,16 | -8,25 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 3 von 100 Demo-Trades, 9 von 61 Tagen |
-| Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 2 | -0,04 % | 0,46 | -0,01 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 2 von 100 Demo-Trades, 9 von 61 Tagen |
+| Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 3 | -0,35 % | 0,09 | -0,11 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 3 von 100 Demo-Trades, 9 von 61 Tagen |
 | Gold-Staffel | Account 1 | 2026-11-10 | 1 | +0,25 R | – | +3,60 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml | 1 von 100 Demo-Trades, 9 von 61 Tagen |
 | Gold Groß-Box | Account 6 | 2026-11-10 | 7 | +3,04 R | 2,01 | +10,89 | läuft (7 von 40 Trades) | suche/VORAB_gold_grossbox.yaml | 7 von 100 Demo-Trades, 9 von 61 Tagen |
 | Gold-Zonen Bruch | Account 2 | 2026-11-11 | 2 | -2,00 R | 0,00 | -9,79 | läuft (2 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml | 2 von 100 Demo-Trades, 8 von 61 Tagen |

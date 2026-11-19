@@ -1,0 +1,241 @@
+# Runde "Kirons Notizen" vom 19.11.2026: elf Fassungen schon gerechneter Regeln, so wie Kiron sie sich gewünscht hat.
+# Festgelegt, BEVOR mit Kursen ab 2024 gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/notizen_runde.py (nutzt die Rechnung von suche/rueckblick.py), Daten: python -m suche.youtube_runde2 daten.
+#
+# Kirons Wunsch vom 19.11.2026 10:08 UTC, nachdem er im Strategie-Katalog alle 110 Strategien bewertet hat: "zeig mir
+# alle mit notiz und weiter testen an ... und überarbeite und bearbeite". Seine Notizen zu den Karten Nr. 25 bis 39
+# (Starker Rückblick und die beiden YouTube-Runden) werden hier zu festen Regeln.
+#
+# Ehrlich vorab:
+# - Jede Grundregel ist schon einmal durchgefallen. Ihre Ergebnisse 2024 bis 2026 waren bekannt, als diese Fassungen
+#   geschrieben wurden. Jede Änderung kommt aus Kirons Notiz, nicht aus den Trades. Keine Zahl wurde gewählt, weil sie
+#   in den alten Ergebnissen besser aussah. Trotzdem ist eine zweite Fassung auf denselben Kursen ein schwächerer Beleg
+#   als eine neue Idee. Holm zählt darum über alle elf, und die Hürden sind dieselben wie immer.
+# - Nicht gerechnet, mit Grund:
+#   Nr. 26 (NR7 umgedreht auf AUD/USD): AUD/USD wäre ausgesucht, weil es dort am schlechtesten lief. Das ist Auswahl
+#   nach dem Ergebnis. Steht im Verworfen-Archiv als Beispiel.
+#   Nr. 30 (Williams %R, "weiter live demo testen"): kein neuer Test nötig. Ob ein Bot live geht, entscheidet Kiron auf
+#   einer Karte (Regel 9). Der Test hatte nur 77 Trades.
+#   Nr. 31 (4-Std.-Ausbruch Krypto) ohne Notiz. Nr. 35 (Silber) zählt zur Gruppe des 4-Std.-Ausbruchs. Nr. 36 (nur
+#   Nasdaq) wäre Auswahl nach dem Ergebnis. Nr. 37 hat Kiron verworfen.
+# - Bei den zwei Dienstag-Fassungen steht im Katalog 0,5 R und 0,25 R. Der Not-Stop der Regel ist aber 3 ATR weit, 0,5 R
+#   wären 1,5 ATR, das schafft ein Markt an einem Tag fast nie. Damit "früher Gewinn nehmen" überhaupt etwas ändert,
+#   gelten 0,5 ATR (1/6 R) als Ziel und 0,5 ATR als Stufe. Das stand fest, bevor eine Fassung gerechnet wurde.
+# - Das Programm wurde vor dem Siegel nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.notizen_runde entwicklung / probelauf). Kein Wert wurde danach geändert.
+# - Entwicklung (März 2021 bis Dezember 2023, nur zur Prüfung des Programms, ohne DAX): silver_bullet_lang 1.207 Trades
+#   Gewinnfaktor 1,13, supertrend_spx_usdjpy 43 Trades 1,31, bollinger_umkehr_1h 3.628 Trades 0,85,
+#   bollinger_umkehr_krypto 1.607 Trades 0,87, bollinger_umkehr_krypto_weit 1.125 Trades 1,00, cme_halbe_luecke 163
+#   Trades 0,51, montag_ziel_1r 289 Trades 0,74, montag_stufen 289 Trades 0,73, ausbruch4h_welt_ziel_1r 261 Trades 0,67,
+#   dienstag_us_beide_ziel 215 Trades 1,09, dienstag_welt_stufen 115 Trades 0,98. Keine war dort über der Hürde. Alle 43
+#   USD/JPY-Trades liefen gegen die Richtung des S&P-Signals zur selben Zeit (geprüft).
+# - Probelauf vor dem Siegel: 8 Saaten auf erfundenen Märkten ohne Vorteil, 88 Rechnungen. Keine bestand, keine wurde
+#   Kandidat. z lag im Mittel bei -0,05 mit Streuung 0,98, wie es ohne Vorteil sein soll.
+# - supertrend_spx_usdjpy kommt im Hauptfenster nur auf etwa 55 Trades (Probelauf 56), weil der Supertrend auf einem
+#   Markt selten dreht. Die Hürde von 100 Trades kann diese Fassung darum nicht schaffen. Sie wird trotzdem gerechnet,
+#   weil Kiron genau diese Verbindung wissen wollte, und zählt bei Holm mit.
+
+format: 1
+notizen_runde:
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der HistData-Kurse
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle elf Fassungen stehen hier fest und werden einmal gerechnet. Holm zählt über alle elf.
+
+  daten:
+    quelle: >-
+      HistData 5-Minuten-Kerzen (Bid), echtes UTC, wie suche/rueckblick_daten.py. Krypto wie
+      suche/VORAB_youtube_runde.yaml (Binance-Spot, Spread als Anteil am Kurs aus Capital.com BTCUSD und ETHUSD).
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Krypto alle sieben Tage, sonst Montag bis Freitag.
+    krypto_alle_tage: [BTCUSD, ETHUSD]
+    min_kerzen_je_tag: 60
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026)
+    pause_min: 60                # kein Einstieg in der Stunde 17 bis 18 Uhr New York (Tageswechsel), Krypto ausgenommen
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml. Nur ausbruch4h nutzt den Tagestrend.
+    vorlauf_tage: 100
+
+  kosten:
+    spread: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (Krypto als Anteil am Kurs).
+    rutschen_spread: 0.5         # Stop-Orders (Einstieg, Schutz-Stop und Stufen-Stop) füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+      metall: {long: 0.065, short: 0.02}
+      fx: {long: 0.02, short: 0.02}
+      krypto: {long: 0.20, short: 0.20}
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand der Fassung
+    eine_position: Je Fassung und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  bauteile:
+    grundregel: >-
+      Jede Fassung nimmt eine Regel aus einer versiegelten Datei (quelle), mit allen Zahlen von dort. Das Programm liest
+      sie aus der Datei und prüft deren Siegel. Nur was unter "aendern" steht, wird überschrieben.
+    spiegel: >-
+      Umkehr wie ein Spiegel: Gegenrichtung zum selben Zeitpunkt, der alte Stop wird das Ziel und das alte Ziel der Stop.
+      Spätester Ausstieg wie vorher.
+    weit: >-
+      Umkehr mit Stop nach Schwankung: Gegenrichtung, Stop-Abstand mal stop_faktor (bei Bollinger also 1,5 ATR der
+      Stundenkerzen statt 1 ATR), Ziel ziel_r_umkehr mal dieser Stop. Spätester Ausstieg wie vorher.
+    ziel_r_neu: Ziel-Abstand = diese Zahl mal Stop-Abstand. 0 heißt kein Ziel.
+    ziel_faktor: Ziel-Abstand = diese Zahl mal der alte Ziel-Abstand.
+    stufe_r: >-
+      Stufen-Stop mit Schritt s in R. Nach jeder fertigen 5-Minuten-Kerze zählt der beste Gewinn seit dem Einstieg (Long
+      am Hoch des Bid, Short am Tief des Ask). Hat er k Stufen (k mal s R) erreicht, liegt der Stop ab der nächsten Kerze
+      bei (k minus 1) Stufen. Ab 1 Stufe also auf Einstand (Bid zum Einstieg), ab 2 Stufen bei 1 Stufe Gewinn. Er rückt
+      nie zurück. Ausgelöst füllt er wie jeder Stop einen halben Spread schlechter, springt die Eröffnung darüber,
+      zählt die Eröffnung. Gilt auch für die Zwillinge.
+    beide_seiten: >-
+      Nur Dienstag. Schließt der Montag über dem Freitag (gleiche Messung wie die Kauf-Seite), Verkauf zum Börsenschluss
+      am Montag, raus zum Börsenschluss am Dienstag. Not-Stop 3 ATR wie die Kauf-Seite.
+    kreuz: >-
+      Signal von einem Markt, Trade auf einem anderen. Dreht der Supertrend der zweiten YouTube-Runde auf dem S&P 500
+      (SPXUSD, alle Zahlen dort), wird USD/JPY in die Gegenrichtung gehandelt, zum Markt mit der ersten 5-Minuten-Kerze ab
+      dem Einstieg auf dem S&P 500, höchstens 15 Minuten später und nicht in der Stunde 17 bis 18 Uhr New York. Stop 2
+      ATR 10 (Wilder) der letzten fertigen 4-Std.-Kerze von USD/JPY, Ziel 1,5 R wie die Grundregel. Raus wie die
+      Grundregel (nächster Wechsel des Supertrends auf dem S&P 500, spätestens 14 Tage). Der Stop ist eine eigene
+      Festlegung, weil die Supertrend-Linie des S&P 500 für USD/JPY nichts bedeutet.
+
+  varianten:                     # genau diese elf, Holm über alle elf. Der Regelname ist der Name der Fassung.
+    silver_bullet_lang:
+      regel: silver_bullet_lang
+      karte: 25
+      notiz: "take the trades for longer perods of time ( hold it)"
+      quelle: youtube_runde2
+      basis: silver_bullet
+      aendern: {ziel_r: 0.0, ausstieg_min: 960}     # kein Ziel, raus 16:00 New York statt 12:00
+      maerkte: [NSXUSD, SPXUSD]
+      vorher: silver_bullet_us 1.298 Trades, Gewinnfaktor 1,01
+    supertrend_spx_usdjpy:
+      regel: supertrend_spx_usdjpy
+      karte: 27
+      notiz: "if s&p long, make short on usd/jpy"
+      quelle: youtube_runde2
+      basis: supertrend
+      kreuz: {signal_markt: SPXUSD, gegenrichtung: true, atr_n: 10, stop_atr: 2.0, ziel_r: 1.5, frist_min: 15}
+      maerkte: [USDJPY]
+      vorher: supertrend_4h 379 Trades, Gewinnfaktor 0,91 (sieben Märkte)
+      erwartung: Verlust. S&P 500 und USD/JPY steigen meist gemeinsam, die Gegenrichtung handelt gegen diesen Zusammenhang.
+    bollinger_umkehr_1h:
+      regel: bollinger_umkehr_1h
+      karte: 28
+      notiz: "logisch überprüfen"
+      quelle: youtube_runde2
+      basis: bollinger_rsi
+      umkehr: spiegel
+      maerkte: [EURUSD, GBPUSD, USDJPY, AUDUSD, XAUUSD, SPXUSD, NSXUSD]
+      vorher: bollinger_rsi_1h 4.085 Trades, Gewinnfaktor 0,86, Treffer 28 %
+      erwartung: >-
+        Die Prüfung der Logik ergibt: Nach einem Schluss außerhalb des Bands lief der Kurs öfter weiter, als er zur Mitte
+        zurückkam. Darum die Umkehr. Die Kosten fallen in beide Richtungen an, darum ist auch die Umkehr eher im Minus.
+    bollinger_umkehr_krypto:
+      regel: bollinger_umkehr_krypto
+      karte: 29
+      notiz: "reverse the strategie and use better stoploss,..."
+      quelle: youtube_runde2
+      basis: bollinger_rsi
+      umkehr: spiegel
+      maerkte: [BTCUSD, ETHUSD]
+      vorher: bollinger_rsi_krypto 1.727 Trades, Gewinnfaktor 0,69, Treffer 23 %
+    bollinger_umkehr_krypto_weit:
+      regel: bollinger_umkehr_krypto_weit
+      karte: 29
+      notiz: "reverse the strategie and use better stoploss,..."
+      quelle: youtube_runde2
+      basis: bollinger_rsi
+      umkehr: weit
+      stop_faktor: 1.5           # Stop 1,5 ATR der Stundenkerzen statt 1 ATR
+      ziel_r_umkehr: 2.0         # Ziel 2 R = 3 ATR
+      maerkte: [BTCUSD, ETHUSD]
+      vorher: bollinger_rsi_krypto 1.727 Trades, Gewinnfaktor 0,69
+    cme_halbe_luecke:
+      regel: cme_halbe_luecke
+      karte: 32
+      notiz: "minimal earlyer take profits"
+      quelle: youtube_runde
+      basis: cme_luecke
+      ziel_faktor: 0.5           # Ziel die halbe Lücke statt der ganzen, Stop wie vorher eine ganze Lücke
+      maerkte: [BTCUSD, ETHUSD]
+      vorher: cme_luecke_krypto 160 Trades, Gewinnfaktor 0,77
+    montag_ziel_1r:
+      regel: montag_ziel_1r
+      karte: 33
+      notiz: "earlyer take profit and maybe a securing tp1,... which if hit acts as stoploss for all higher profits"
+      quelle: youtube_runde
+      basis: montag
+      ziel_r_neu: 1.0            # Ziel eine halbe Bereichsbreite hinter der Marke (1 R) statt einer ganzen (2 R)
+      maerkte: [BTCUSD, ETHUSD]
+      vorher: montag_krypto 286 Trades, Gewinnfaktor 0,69
+    montag_stufen:
+      regel: montag_stufen
+      karte: 33
+      notiz: "earlyer take profit and maybe a securing tp1,... which if hit acts as stoploss for all higher profits"
+      quelle: youtube_runde
+      basis: montag
+      ziel_r_neu: 0.0            # kein festes Ziel, der Stufen-Stop sichert den Gewinn
+      stufe_r: 1.0               # ab +1 R Stop auf Einstand, ab +2 R auf +1 R und so weiter
+      maerkte: [BTCUSD, ETHUSD]
+      vorher: montag_krypto 286 Trades, Gewinnfaktor 0,69
+    ausbruch4h_welt_ziel_1r:
+      regel: ausbruch4h_welt_ziel_1r
+      karte: 34
+      notiz: "earlyer take profit"
+      quelle: rueckblick
+      basis: ausbruch4h
+      ziel_r_neu: 1.0            # vorher kein Ziel
+      maerkte: [GRXEUR, UKXGBP, JPXJPY]
+      vorher: ausbruch4h_welt_index 389 Trades, Gewinnfaktor 1,24, z 1,81 (durchgefallen am Zufallsvergleich)
+    dienstag_us_beide_ziel:
+      regel: dienstag_us_beide_ziel
+      karte: 38
+      notiz: "earlyer take profits and also ability to short"
+      quelle: rueckblick
+      basis: dienstag
+      beide_seiten: true
+      ziel_r_neu: 0.16666667     # 0,5 ATR, weil der Not-Stop 3 ATR weit ist
+      maerkte: [SPXUSD, NSXUSD]
+      vorher: dienstag_us_index 87 Trades, Gewinnfaktor 0,99
+    dienstag_welt_stufen:
+      regel: dienstag_welt_stufen
+      karte: 39
+      notiz: "if day overall bad, and no sign of hugh growth in that trade time than take best possible profit,..."
+      quelle: rueckblick
+      basis: dienstag
+      stufe_r: 0.16666667        # Stufen von 0,5 ATR: ab +0,5 ATR Einstand, ab +1 ATR +0,5 ATR gesichert
+      maerkte: [GRXEUR, UKXGBP, JPXJPY]
+      vorher: dienstag_welt_index 188 Trades, Gewinnfaktor 1,13 (2026 0,83)
+
+  zwilling:
+    regel: Wie suche/VORAB_rueckblick.yaml. Die ganze Fassung wandert als Block um k gültige Handelstage nach vorn, je Markt. Bei Krypto zählen alle sieben Tage.
+    schwankung: Stop-Abstand, Ziel-Abstand und Spread des Zwillings sind die des echten Trades mal ATR 14 am Zwilling geteilt durch denselben ATR am echten Einstieg. Der Stufen-Schritt in R bleibt gleich.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Fassung.
+    sperre_davor_tage: 60
+    spaet_min: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie suche/VORAB_rueckblick.yaml und beide YouTube-Runden
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    min_z: 3.0
+    urteile:
+      bestanden: alle Hürden, Holm und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: Kein anderes Fenster, keine andere Schwelle, keine weitere Fassung nach dem Ergebnis.
+
+  melden:
+    je_variante: wie suche/VORAB_rueckblick.yaml, dazu der Vergleich mit dem Ergebnis der Grundregel (vorher)
+    live: >-
+      Nur nach Kirons Wahl auf einer Karte und über einen PR. Ein Kandidat kann höchstens als Schattenlauf ohne Order
+      mitlaufen.

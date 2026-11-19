@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-19T22:31:34.017789",
+ "stand_utc": "2026-11-19T22:46:37.397529",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T22:31:34.017789",
+    "zeit": "2026-11-19T22:46:37.397529",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -404,7 +404,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T22:31:34.017789",
+    "zeit": "2026-11-19T22:46:37.397529",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -824,7 +824,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T22:31:34.017789",
+    "zeit": "2026-11-19T22:46:37.397529",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1078,7 +1078,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T22:31:34.017789",
+    "zeit": "2026-11-19T22:46:37.397529",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1314,7 +1314,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T22:31:34.017789",
+    "zeit": "2026-11-19T22:46:37.397529",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1666,7 +1666,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T22:31:34.017789",
+    "zeit": "2026-11-19T22:46:37.397529",
     "action": "none",
     "why": [
      "heute erledigt"

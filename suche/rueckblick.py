@@ -22,7 +22,15 @@ import sys
 import numpy as np
 import pandas as pd
 import yaml
-from numba import njit
+
+try:
+    from numba import njit
+except ImportError:                                              # reines Python, gleiche Rechnung (so laufen die Tests)
+
+    def njit(*args, **kwargs):
+        if len(args) == 1 and callable(args[0]) and not kwargs:
+            return args[0]
+        return lambda f: f
 
 from suche.runde1 import journal_add, journal_lines, last_value, sha256_text
 

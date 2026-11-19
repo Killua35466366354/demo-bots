@@ -205,3 +205,7 @@ Kiron hat im Strategie-Katalog alle 110 Strategien bewertet und Notizen geschrie
 Nicht neu rechnen: alle elf auf denselben Kursen. Nur DAX und Nikkei oder nur Ether zu nehmen wäre Auswahl nach dem
 Ergebnis. Der Kandidat nur vorwärts auf neuen Kerzen, mit eigener Regeldatei und Kirons Wahl. Alles, was je verworfen
 wurde oder durchgefiel, steht mit Grund in `suche/VERWORFEN.md`.
+
+Kirons Wahl vom 19.11.2026 11:08 UTC: Der Kandidat wird ohne Bot vorwärts gezählt (`suche/VORAB_notizen_vorwaerts.yaml`,
+`python -m suche.notizen_vorwaerts zaehlen <Arbeit>`). Nur Einstiege ab 20.11.2026, Urteil bei 40 Trades, erwartet
+etwa März 2027.

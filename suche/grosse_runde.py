@@ -7,7 +7,10 @@ suche/rueckblick.py. Neu sind hier:
 - Regeln, die Termine, den VIX, Zinsen und Finanzierungssätze lesen (nur Werte, die vor dem Handelstag feststanden),
 - ein Trade mit Zielen in Stufen für Kirons Idee "Verlierer halten, bis sie zurückkommen" (nur Long, Marktorder),
 - ein Vorhersage-Modell (logistische Regression), das jedes Jahr nur mit älteren Jahren neu gelernt wird,
-- Holm mit einer festen Gesamtzahl über beide Durchgänge (huerden.holm_anzahl).
+- Holm mit einer festen Gesamtzahl über beide Durchgänge (huerden.holm_anzahl),
+- in Durchgang 2 dazu: eine Reihe gegen ihr eigenes Quantil (DIX), der Geduld-Ausstieg nach einem VIX-Sprung, der
+  Schub der letzten halben Stunde, runde Marken bei Devisen, die Umkehr nach dem Fonds-Fenster bei Bitcoin und zwei
+  seltene Regeln mit fester Eröffnung (Tokio nach einem US-Schreck, der Morgen des Verfallstags).
 
 Aufruf (N ist der Durchgang, 1 oder 2):
     python -m suche.grosse_runde N --festlegen                 schreibt die Prüfsumme der Regeldatei ins Protokoll
@@ -41,6 +44,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 DATEIEN = {1: "grosse_runde", 2: "grosse_runde2"}
 FRED = pathlib.Path("/mnt/project-files/strategie-suche/daten/fred")
 FUNDING = pathlib.Path("/mnt/project-files/strategie-suche/daten/krypto/funding")
+FREMD = {"DIX": (pathlib.Path("/mnt/project-files/strategie-suche/daten/squeezemetrics/DIX.csv"), "dix")}   # Reihe -> (Datei, Spalte)
 NY = rb.NY
 MIN = rb.MIN
 _ECHTE_TRADES, _ZWILLINGS_SUMMEN = rb.echte_trades, rb.zwillings_summen     # die unveränderten Funktionen
@@ -87,7 +91,12 @@ def partner(m: Markt, sym: str) -> Markt:
 
 @functools.lru_cache(maxsize=None)
 def fred(name: str) -> tuple[np.ndarray, np.ndarray]:
-    df = pd.read_csv(FRED / f"{name}.csv")
+    if name in FREMD:
+        datei, spalte = FREMD[name]
+        df = pd.read_csv(datei)
+        df = df[[df.columns[0], spalte]]
+    else:
+        df = pd.read_csv(FRED / f"{name}.csv")
     w = pd.to_numeric(df.iloc[:, 1], errors="coerce")
     ok = w.notna().to_numpy()
     return df.iloc[:, 0].to_numpy("datetime64[D]")[ok], w.to_numpy(float)[ok]
@@ -267,15 +276,24 @@ def tages_einstieg(m: Markt, cfg: dict) -> tuple[np.ndarray, np.ndarray]:
     return i, y2._ny_utc(pd.DatetimeIndex(m.gtag), p["aus_min"])
 
 
-def _tagestrades(m: Markt, cfg: dict, richtung: np.ndarray, stop_atr: float, halte_tage: int = 1) -> list[dict]:
-    """Einstieg nach der Pause, Ausstieg 15:55 New York am selben Handelstag (halte_tage 1) oder an einem späteren."""
+def _tagestrades(m: Markt, cfg: dict, richtung: np.ndarray, stop_atr: float, halte_tage: int = 1,
+                 geduld: dict | None = None) -> list[dict]:
+    """Einstieg nach der Pause, Ausstieg 15:55 New York am selben Handelstag (halte_tage 1) oder an einem späteren.
+    Mit geduld = {ziel_atr, stufen, max_tage} endet der Trade wie die Geduld-Regel: kleines Ziel, das in Stufen sinkt,
+    spätester Ausstieg 15:55 New York am Handelstag g plus max_tage."""
     i, aus = tages_einstieg(m, cfg)
     sig = []
     for g in np.flatnonzero(richtung != 0):
         if g < 1 or i[g] < 0 or not np.isfinite(m.atr_vor[g]):
             continue
-        sig.append({"i0": int(i[g]), "d": int(richtung[g]), "sd": float(stop_atr * m.atr_vor[g]), "zd": 0.0,
-                    "t_max": aus[min(g + halte_tage - 1, len(aus) - 1)]})
+        atr = float(m.atr_vor[g])
+        s = {"i0": int(i[g]), "d": int(richtung[g]), "sd": float(stop_atr * atr), "zd": 0.0,
+             "t_max": aus[min(g + halte_tage - 1, len(aus) - 1)]}
+        if geduld:
+            s["zd"] = float(geduld["ziel_atr"]) * atr
+            s["t_max"] = aus[min(g + int(geduld["max_tage"]), len(aus) - 1)]
+            s["stufen"] = tuple((int(tage), float(z) * atr) for tage, z in geduld["stufen"])
+        sig.append(s)
     return sig
 
 
@@ -343,18 +361,49 @@ def richtung_fed_zyklus(gtag: np.ndarray, fomc: np.ndarray, spannen: list) -> np
     return out
 
 
+def _reihe_wert(w: np.ndarray, p: dict) -> np.ndarray:
+    """Je Beobachtung der Wert, den die Regel ansieht: der Stand (niveau) oder die Änderung über p["tage"]."""
+    if p.get("niveau"):
+        return w
+    k = int(p["tage"])
+    aend = (w[k:] / w[:-k] - 1.0) if p.get("relativ") else (w[k:] - w[:-k])
+    return np.r_[np.full(k, np.nan), aend]
+
+
+def quantil_vor(gtag: np.ndarray, p: dict) -> np.ndarray:
+    """Je Handelstag das Quantil der p["quantil"]["fenster"] Beobachtungen VOR der jüngsten, die die Regel sehen darf.
+    Die jüngste Beobachtung selbst zählt nicht mit."""
+    d, w = fred(p["reihe"])
+    q = pd.Series(_reihe_wert(w, p)).rolling(int(p["quantil"]["fenster"])).quantile(float(p["quantil"]["q"])).shift(1).to_numpy()
+    grenze = np.asarray(gtag).astype("datetime64[D]") - np.timedelta64(p.get("lag", 0), "D")
+    i = np.searchsorted(d, grenze, side="left") - 1
+    return np.where(i >= 0, q[np.maximum(i, 0)], np.nan)
+
+
 def richtung_reihe(gtag: np.ndarray, p: dict) -> np.ndarray:
-    """Änderung einer fremden Reihe über p["tage"] Beobachtungen. Anstieg ab der Schwelle gibt p["vorzeichen"],
-    Rückgang das Gegenteil. Der jüngste Wert darf höchstens p["frisch_tage"] Kalendertage alt sein."""
+    """Änderung einer fremden Reihe über p["tage"] Beobachtungen (oder ihr Stand mit niveau). Anstieg ab der Schwelle
+    gibt p["vorzeichen"], Rückgang das Gegenteil. Mit "quantil" ist die Schwelle das Quantil der Beobachtungen davor
+    (nur mit nur_anstieg). Der jüngste Wert darf höchstens p["frisch_tage"] Kalendertage alt sein."""
     lag = p.get("lag", 0)
     a, d1 = vor(p["reihe"], gtag, 0, lag)
-    b, _ = vor(p["reihe"], gtag, p["tage"], lag)
-    wert = (a / b - 1.0) if p.get("relativ") else (a - b)
+    if p.get("niveau"):
+        wert = a
+    else:
+        b, _ = vor(p["reihe"], gtag, p["tage"], lag)
+        wert = (a / b - 1.0) if p.get("relativ") else (a - b)
     alter = (gtag - d1).astype("timedelta64[D]").astype(float)
     frisch = np.isfinite(wert) & (alter <= p["frisch_tage"])
-    out = np.where(wert >= p["schwelle"], p["vorzeichen"], 0)
-    if not p.get("nur_anstieg"):
-        out = np.where(wert <= -p["schwelle"], -p["vorzeichen"], out)
+    if "quantil" in p:
+        if not p.get("nur_anstieg"):
+            raise SystemExit("quantil geht nur mit nur_anstieg")
+        schwelle = quantil_vor(gtag, p)
+        frisch &= np.isfinite(schwelle)
+    else:
+        schwelle = p["schwelle"]
+    with np.errstate(invalid="ignore"):
+        out = np.where(wert >= schwelle, p["vorzeichen"], 0)
+        if not p.get("nur_anstieg"):
+            out = np.where(wert <= -schwelle, -p["vorzeichen"], out)
     return np.where(frisch, out, 0).astype(np.int64)
 
 
@@ -437,6 +486,162 @@ def regel_geduld(m: Markt, cfg: dict, p: dict) -> list[dict]:
         if "stufen" in p:
             s["stufen"] = tuple((int(tage), float(z) * atr) for tage, z in p["stufen"])
         sig.append(s)
+    return sig
+
+
+def regel_schluss_schub(m: Markt, cfg: dict, p: dict) -> list[dict]:
+    """Hebel-Fonds am Schluss: liegt der Markt zur Uhrzeit ein_min (New York) weit genug vom Schluss des vorigen
+    Handelstags entfernt, wird in dieselbe Richtung gehandelt und zur Uhrzeit aus_min geschlossen."""
+    tage = pd.DatetimeIndex(m.gtag)
+    i_ein = yr._erste_ab(m, y2._ny_utc(tage, p["ein_min"]), p["toleranz_min"])
+    aus = y2._ny_utc(tage, p["aus_min"])
+    schwelle = float(p["schwelle"][m.sym])
+    sig = []
+    for g in range(1, len(m.gtag)):
+        i0 = int(i_ein[g])
+        if i0 < 0 or m.tix[i0] != m.gi[g] or not np.isfinite(m.atr_vor[g]):
+            continue
+        lauf = m.o[i0] / m.gc[g - 1] - 1.0
+        if abs(lauf) < schwelle:
+            continue
+        sig.append({"i0": i0, "d": 1 if lauf > 0 else -1, "sd": float(p["stop_anteil"] * m.o[i0]), "zd": 0.0,
+                    "t_max": aus[g]})
+    return sig
+
+
+def marken_signale(t: np.ndarray, h: np.ndarray, l: np.ndarray, c: np.ndarray, pip: float, p: dict) -> list[tuple[int, int]]:
+    """Runde Marken: (Kerze, Richtung) für jede Kerze, die zwischen von_min und bis_min Londoner Zeit beginnt und als
+    erste des Londoner Tages mehr als abstand_pips jenseits einer runden Marke schließt, wenn Hoch (oder Tief) der
+    vorher_min Minuten davor ganz auf der anderen Seite der Marke lag. Gerechnet wird in Pips auf eine Stelle."""
+    schritt, ab, n_vor = float(p["marke_pips"]), float(p["abstand_pips"]), int(p["vorher_min"]) // 5
+    lon = pd.DatetimeIndex(t).tz_localize("UTC").tz_convert("Europe/London")
+    lmin = np.asarray(lon.hour * 60 + lon.minute)
+    ltag = lon.tz_localize(None).values.astype("datetime64[D]")
+    cp, hp, lp = (np.round(x / pip, 1) for x in (c, h, l))
+    hoch = pd.Series(hp).rolling(n_vor).max().shift(1).to_numpy()
+    tief = pd.Series(lp).rolling(n_vor).min().shift(1).to_numpy()
+    dicht = np.zeros(len(t), bool)
+    dicht[n_vor:] = (t[n_vor:] - t[:-n_vor]) <= (n_vor * 5 + int(p["luecke_min"])) * MIN
+    erster = np.r_[True, ltag[1:] != ltag[:-1]]
+    sc = pd.Series(cp)
+    max_vor = np.where(erster, -np.inf, np.r_[-np.inf, sc.groupby(ltag).cummax().to_numpy()[:-1]])
+    min_vor = np.where(erster, np.inf, np.r_[np.inf, sc.groupby(ltag).cummin().to_numpy()[:-1]])
+    oben = np.floor((cp - ab) / schritt) * schritt                # höchste runde Marke unter Schluss minus Abstand
+    unten = np.ceil((cp + ab) / schritt) * schritt
+    zeit = (lmin >= p["von_min"]) & (lmin < p["bis_min"]) & dicht
+    with np.errstate(invalid="ignore"):
+        auf = zeit & (cp - ab > oben) & (hoch < oben) & (max_vor - ab <= oben)
+        runter = zeit & (cp + ab < unten) & (tief > unten) & (min_vor + ab >= unten)
+    return sorted([(int(j), 1) for j in np.flatnonzero(auf)] + [(int(j), -1) for j in np.flatnonzero(runter)])
+
+
+def regel_runde_marke(m: Markt, cfg: dict, p: dict) -> list[dict]:
+    """Stop-Häufung hinter runden Marken (Osler 2003): dem ersten Schluss jenseits der Marke folgen."""
+    pip = float(p["pip"][m.sym])
+    sig = []
+    for j, d in marken_signale(m.t, m.h, m.l, m.c, pip, p):
+        i0 = j + 1
+        if i0 >= m.n - 1 or (m.t[i0] - m.t[j]) > (5 + int(p["frist_min"])) * MIN:
+            continue
+        g = m.gpos[m.tix[i0]]
+        if g < 1 or not np.isfinite(m.atr_vor[g]):
+            continue
+        sig.append({"i0": i0, "d": d, "sd": float(p["stop_pips"]) * pip, "zd": float(p["ziel_pips"]) * pip,
+                    "t_max": m.t[i0] + np.timedelta64(int(p["halte_min"]), "m")})
+    return sig
+
+
+def regel_fonds_fenster(m: Markt, cfg: dict, p: dict) -> list[dict]:
+    """Umkehr nach dem Fenster, in dem die Bitcoin-Fonds ihren Abrechnungskurs bilden (15 bis 16 Uhr New York).
+    US-Börsentage sind die gültigen Handelstage des Markts p["boersentage"]."""
+    tage = pd.DatetimeIndex(partner(m, p["boersentage"]).gtag)
+    tol = int(p["toleranz_min"])
+    i_a, i_b, i_e = (yr._erste_ab(m, y2._ny_utc(tage, p[k]), tol) for k in ("von_min", "bis_min", "ein_min"))
+    aus = y2._ny_utc(tage, p["aus_min"])
+    sig = []
+    for q in range(len(tage)):
+        if min(i_a[q], i_b[q], i_e[q]) < 0:
+            continue
+        a, b, i0 = m.o[i_a[q]], m.o[i_b[q]], int(i_e[q])
+        lauf = b / a - 1.0
+        if abs(lauf) < p["schwelle"]:
+            continue
+        g = m.gpos[m.tix[i0]]
+        if g < 1 or not np.isfinite(m.atr_vor[g]):
+            continue
+        weite = abs(b - a)
+        sig.append({"i0": i0, "d": -1 if lauf > 0 else 1, "sd": float(p["stop_anteil"] * weite),
+                    "zd": float(p["ziel_anteil"] * weite), "t_max": aus[q]})
+    return sig
+
+
+def regel_us_schreck(m: Markt, cfg: dict, p: dict) -> list[dict]:
+    """Tokio-Eröffnung nach einem US-Schreck: fiel der Signal-Markt an einem Handelstag von Schluss zu Schluss um
+    mindestens p["schwelle"], wird am nächsten Werktag zur Uhrzeit ein_min gekauft und zur Uhrzeit aus_min
+    geschlossen. Zeiten in Tokioter Ortszeit (UTC plus 9, keine Sommerzeit). Der Handelstag des Signal-Markts endet
+    um 17:00 New York, Tokio öffnet zwei bis drei Stunden später."""
+    s = partner(m, p["signal_markt"])
+    neun = np.timedelta64(9, "h")
+    lauf = s.gc[1:] / s.gc[:-1] - 1.0
+    sig = []
+    for g in np.flatnonzero(lauf <= -p["schwelle"]) + 1:
+        morgen = s.gtag[g].astype("datetime64[D]") + np.timedelta64(1, "D")
+        while pd.Timestamp(morgen).weekday() >= 5:
+            morgen = morgen + np.timedelta64(1, "D")
+        basis = morgen.astype("datetime64[ns]") - neun
+        i0 = int(yr._erste_ab(m, np.array([basis + np.timedelta64(int(p["ein_min"]), "m")]), p["toleranz_min"])[0])
+        if i0 < 0:
+            continue
+        gm = m.gpos[m.tix[i0]]
+        if gm < 1 or not np.isfinite(m.atr_vor[gm]):
+            continue
+        sig.append({"i0": i0, "d": 1, "sd": float(p["stop_atr"] * m.atr_vor[gm]), "zd": 0.0,
+                    "t_max": basis + np.timedelta64(int(p["aus_min"]), "m")})
+    return sig
+
+
+def _ort_utc(tage: np.ndarray, minute: int, zone: str) -> np.ndarray:
+    """Kalendertage am Ort (Zeitzone zone) plus Minute des Tages -> UTC als datetime64[ns]."""
+    return (pd.DatetimeIndex(tage) + pd.Timedelta(minutes=int(minute))).tz_localize(zone).tz_convert("UTC") \
+        .tz_localize(None).values.astype("datetime64[ns]")
+
+
+def verfallstage(gtag: np.ndarray, nummer: int) -> np.ndarray:
+    """Index (in gtag) des Verfallstags je Monat, das ist der nummer-te Freitag. Ist er kein gültiger Handelstag
+    (Feiertag), gilt der gültige Handelstag davor, höchstens drei Kalendertage früher."""
+    gtag = np.asarray(gtag).astype("datetime64[D]")
+    out = []
+    for monat in np.unique(gtag.astype("datetime64[M]")):
+        erster = monat.astype("datetime64[D]")
+        wochentag = (erster.astype(np.int64) + 3) % 7              # 0 ist Montag (der 01.01.1970 war ein Donnerstag)
+        freitag = erster + np.timedelta64(int((4 - wochentag) % 7 + 7 * (nummer - 1)), "D")
+        if freitag > gtag[-1]:
+            continue
+        g = int(np.searchsorted(gtag, freitag, side="right")) - 1
+        if g >= 1 and 0 <= (freitag - gtag[g]).astype(np.int64) <= 3:
+            out.append(g)
+    return np.array(sorted(set(out)), np.int64)
+
+
+def regel_verfallstag(m: Markt, cfg: dict, p: dict) -> list[dict]:
+    """Verfallstag-Morgen in zwei Teilen. Teil 1: Kauf am gültigen Handelstag vor dem Verfallstag zur Uhrzeit kauf_min,
+    Ausstieg am Verfallstag zur Uhrzeit wechsel_min (dann wird abgerechnet). Teil 2: Verkauf am Verfallstag zur Uhrzeit
+    short_min, Ausstieg zur Uhrzeit aus_min. Uhrzeiten am Ort des Markts (p["ort"][Symbol])."""
+    q = p["ort"][m.sym]
+    zone, tol = q["zone"], int(p["toleranz_min"])
+    sig = []
+    for g in verfallstage(m.gtag, int(q["nummer"])):
+        tag, vortag = m.gtag[g:g + 1], m.gtag[g - 1:g]
+        if (tag[0] - vortag[0]).astype("timedelta64[D]").astype(np.int64) > 4:      # Lücke in den Kursen
+            continue
+        i_kauf = int(yr._erste_ab(m, _ort_utc(vortag, q["kauf_min"], zone), tol)[0])
+        i_short = int(yr._erste_ab(m, _ort_utc(tag, q["short_min"], zone), tol)[0])
+        if i_kauf >= 0:
+            sig.append({"i0": i_kauf, "d": 1, "sd": float(p["stop_anteil"] * m.o[i_kauf]), "zd": 0.0,
+                        "t_max": _ort_utc(tag, q["wechsel_min"], zone)[0]})
+        if i_short >= 0:
+            sig.append({"i0": i_short, "d": -1, "sd": float(p["stop_anteil"] * m.o[i_short]), "zd": 0.0,
+                        "t_max": _ort_utc(tag, q["aus_min"], zone)[0]})
     return sig
 
 
@@ -570,7 +775,7 @@ def signale(regel: str, m: Markt, cfg: dict, termine: np.ndarray) -> list[dict]:
         tage = np.unique(np.concatenate([kalender()[k] for k in p["termine"]]))
         return _tagestrades(m, cfg, _auf_markt(m, tage, np.ones(len(tage), np.int64)), p["stop_atr"])
     if art == "reihe":
-        return _tagestrades(m, cfg, richtung_reihe(m.gtag, p), p["stop_atr"], p.get("halte_tage", 1))
+        return _tagestrades(m, cfg, richtung_reihe(m.gtag, p), p["stop_atr"], p.get("halte_tage", 1), p.get("geduld"))
     if art == "tokio":
         return regel_tokio(m, cfg, p)
     if art == "funding":
@@ -579,6 +784,16 @@ def signale(regel: str, m: Markt, cfg: dict, termine: np.ndarray) -> list[dict]:
         return regel_geduld(m, cfg, p)
     if art == "modell":
         return regel_modell(m, cfg, p, cfg["varianten"][regel]["maerkte"], regel)
+    if art == "schluss_schub":
+        return regel_schluss_schub(m, cfg, p)
+    if art == "runde_marke":
+        return regel_runde_marke(m, cfg, p)
+    if art == "fonds_fenster":
+        return regel_fonds_fenster(m, cfg, p)
+    if art == "us_schreck":
+        return regel_us_schreck(m, cfg, p)
+    if art == "verfallstag":
+        return regel_verfallstag(m, cfg, p)
     raise SystemExit(f"unbekannte Art {art} in Regel {regel}")
 
 

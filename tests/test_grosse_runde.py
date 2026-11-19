@@ -162,3 +162,206 @@ def test_holm_zaehlt_mit_der_festen_gesamtzahl():
     erg = {"a": _ergebnis(0.0015)}
     gr.urteile(erg, cfg2)
     assert erg["a"]["urteil"] == "Kandidat" and "hinweis" in erg["a"]
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Durchgang 2: Reihe gegen ihr Quantil, Geduld-Ausstieg nach einem Signal, Schluss-Schub, runde Marken, Fonds-Fenster.
+# Alles auf erfundenen Kerzen (Januar und Februar 2024, New York ist dann UTC minus 5, London ist UTC).
+
+CFG = {"daten": {"min_kerzen_je_tag": 60, "pause_min": 60, "krypto_alle_tage": ["BTCUSD"]}, "trend": {"vorlauf_tage": 100},
+       "tageshandel": {"toleranz_min": 540, "aus_min": 955}}
+TAGE = np.arange("2024-01-02", "2024-02-10", dtype="datetime64[D]")
+
+
+def kunstmarkt(tmp_path, sym, kurs, alle_tage=False, von_min=60, bis_min=1395):
+    """Schreibt <sym>.npz mit 5-Minuten-Kerzen und lädt den Markt. kurs(tag, minute) gibt die Eröffnung der Kerze,
+    minute zählt ab 17:00 New York am Vorabend. Hoch und Tief liegen 0,01 % um Eröffnung und Schluss."""
+    tage = TAGE if alle_tage else TAGE[np.is_busday(TAGE)]
+    t, o, tag = [], [], []
+    for d in tage:
+        start = d.astype("datetime64[ns]") - np.timedelta64(2, "h")          # 17:00 New York am Vorabend = 22:00 UTC
+        for minute in range(von_min, bis_min + 5, 5):
+            t.append(start + np.timedelta64(minute, "m"))
+            o.append(float(kurs(d, minute)))
+            tag.append(d)
+    t, o = np.array(t), np.array(o)
+    c = np.r_[o[1:], o[-1]]
+    nymin = ((t - t.astype("datetime64[D]")).astype("timedelta64[m]").astype(np.int64) - 300) % 1440
+    np.savez(tmp_path / f"{sym}.npz", t=t, o=o, h=np.maximum(o, c) * 1.0001, l=np.minimum(o, c) * 0.9999, c=c,
+             sp=np.full(len(t), 0.5), nymin=nymin.astype(np.int32), tag=np.array(tag), prof=np.full(96, 0.5))
+    return gr.Markt(sym, tmp_path, CFG)
+
+
+def ny(tag, stunde, minute=0):
+    return np.datetime64(tag, "ns") + np.timedelta64(stunde * 60 + minute + 300, "m")
+
+
+def test_reihe_gegen_ihr_eigenes_quantil(monkeypatch):
+    tage = np.arange("2024-03-01", "2024-03-21", dtype="datetime64[D]")
+    werte = np.r_[np.arange(10.0), 3.0, 30.0, 4.0, 5.0, 40.0, 6.0, 7.0, 8.0, 9.0, 50.0]
+    monkeypatch.setattr(gr, "fred", lambda name: (tage, werte))
+    p = {"reihe": "X", "niveau": True, "quantil": {"fenster": 5, "q": 0.8}, "nur_anstieg": True, "vorzeichen": 1,
+         "frisch_tage": 3, "lag": 1}
+    gtag = tage[5:] + np.timedelta64(2, "D")              # mit lag 1 sieht der Handelstag den Wert von vorgestern
+    r = gr.richtung_reihe(gtag, p)
+    q = gr.quantil_vor(gtag, p)
+    for k, g in enumerate(gtag):
+        i = int(np.flatnonzero(tage == g - np.timedelta64(2, "D"))[0])
+        assert q[k] == pytest.approx(np.quantile(werte[i - 5:i], 0.8))          # nur die fünf Werte davor
+        assert r[k] == int(werte[i] >= np.quantile(werte[i - 5:i], 0.8))
+    assert r.sum() >= 3 and r[np.flatnonzero(tage[5:] == np.datetime64("2024-03-11"))[0]] == 0      # der Wert 3 ist kein Hoch
+    with pytest.raises(SystemExit):
+        gr.richtung_reihe(gtag, {**p, "nur_anstieg": False})
+
+
+def test_tagestrade_mit_geduld_ausstieg(tmp_path):
+    m = kunstmarkt(tmp_path, "SPXUSD", lambda d, minute: 5000.0 + 3.0 * np.sin(minute / 90.0))
+    g = 18
+    richtung = np.zeros(len(m.gtag), np.int64)
+    richtung[g] = 1
+    ohne = gr._tagestrades(m, CFG, richtung, 3.0)[0]
+    mit = gr._tagestrades(m, CFG, richtung, 3.0, 1, {"ziel_atr": 0.25, "stufen": [[2, 0.0], [4, -0.5]], "max_tage": 10})[0]
+    atr = m.atr_vor[g]
+    assert ohne["zd"] == 0.0 and "stufen" not in ohne and ohne["t_max"] == ny(m.gtag[g], 15, 55)
+    assert mit["i0"] == ohne["i0"] and m.t[mit["i0"]] == ny(m.gtag[g] - np.timedelta64(1, "D"), 18)
+    assert mit["zd"] == pytest.approx(0.25 * atr) and mit["sd"] == pytest.approx(3.0 * atr)
+    assert mit["stufen"] == ((2, 0.0), (4, pytest.approx(-0.5 * atr))) and mit["t_max"] == ny(m.gtag[g + 10], 15, 55)
+    tr = gr.echte_trades(m, [mit], {**CFG, "kosten": {"rutschen_spread": 0.5, "robust_faktor": 1.5,
+                                                         "nacht_pro_jahr": {"index": {"long": 0.065, "short": 0.02}}}})
+    assert len(tr) == 1 and tr["w1"][0] == 2 and tr["w2"][0] == 4
+
+
+def test_schluss_schub_nur_an_tagen_mit_grosser_bewegung(tmp_path):
+    gross, klein = np.datetime64("2024-01-30"), np.datetime64("2024-02-01")
+
+    def kurs(d, minute):
+        if d == gross:
+            return 5000.0 * (1.0 + 0.02 * min(minute, 1350) / 1350.0)        # steigt bis 15:30 New York um 2 %
+        if d == klein:
+            return 5100.0 * (1.0 - 0.012 * min(minute, 1350) / 1350.0)       # fällt um 1,2 %, unter der Schwelle
+        return 5000.0 if d < gross else 5100.0
+    m = kunstmarkt(tmp_path, "NSXUSD", kurs)
+    p = {"ein_min": 930, "aus_min": 955, "toleranz_min": 10, "schwelle": {"NSXUSD": 0.015}, "stop_anteil": 0.004}
+    sig = gr.regel_schluss_schub(m, CFG, p)
+    assert len(sig) == 1
+    s = sig[0]
+    assert m.t[s["i0"]] == ny(gross, 15, 30) and s["d"] == 1 and s["t_max"] == ny(gross, 15, 55)
+    assert s["sd"] == pytest.approx(0.004 * m.o[s["i0"]]) and s["zd"] == 0.0
+    sig = gr.regel_schluss_schub(m, CFG, {**p, "schwelle": {"NSXUSD": 0.01}})
+    assert [x["d"] for x in sig] == [1, -1]                                    # mit 1,0 % zählt auch der schwache Tag
+
+
+def marken_kerzen(schluss_je_kerze, start="2024-01-10T06:00"):
+    c = np.asarray(schluss_je_kerze, float)
+    t = np.datetime64(start, "ns") + np.arange(len(c)) * np.timedelta64(5, "m")
+    o = np.r_[c[0], c[:-1]]
+    return t, np.maximum(o, c), np.minimum(o, c), c
+
+
+P_MARKE = {"marke_pips": 100, "abstand_pips": 5, "vorher_min": 120, "luecke_min": 10, "von_min": 480, "bis_min": 1020}
+
+
+def test_runde_marke_erster_schluss_nach_zwei_stunden_auf_der_anderen_Seite():
+    # ab 06:00 London drei Stunden unter 1,0800, dann ein Schluss 6 Pips darüber, Rücklauf, zweiter Ausbruch
+    c = np.r_[np.full(36, 1.0790), 1.08060, np.full(30, 1.0785), 1.08070, np.full(5, 1.0810)]
+    t, h, l, c = marken_kerzen(c)
+    sig = gr.marken_signale(t, h, l, c, 0.0001, P_MARKE)
+    assert sig == [(36, 1)]                                # der zweite Ausbruch ist nicht mehr der erste des Tages
+    # genau 5 Pips darüber zählt nicht (mehr als 5), und nach nur einer Stunde darunter zählt es auch nicht
+    assert gr.marken_signale(*marken_kerzen(np.r_[np.full(36, 1.0790), 1.08050, 1.0790]), 0.0001, P_MARKE) == []
+    kurz = np.r_[np.full(20, 1.0810), np.full(12, 1.0790), 1.08060, 1.0806]
+    assert gr.marken_signale(*marken_kerzen(kurz), 0.0001, P_MARKE) == []
+    # nach unten, im Yen (Marke 152,00, Pip 0,01)
+    t, h, l, c = marken_kerzen(np.r_[np.full(40, 152.30), 151.93, 151.90])
+    assert gr.marken_signale(t, h, l, c, 0.01, P_MARKE) == [(40, -1)]
+    # vor 8 Uhr London gibt es kein Signal, und der Ausbruch gilt für den Tag als verbraucht
+    frueh = np.r_[np.full(30, 1.0790), 1.08060, np.full(30, 1.0785), 1.08070]
+    assert gr.marken_signale(*marken_kerzen(frueh, "2024-01-10T05:00"), 0.0001, P_MARKE) == []
+
+
+def test_fonds_fenster_handelt_gegen_die_bewegung_der_fensterstunde(tmp_path):
+    hoch, flach = np.datetime64("2024-01-30"), np.datetime64("2024-01-31")
+
+    def kurs(d, minute):                                   # minute 1320 = 15:00 New York, 1380 = 16:00
+        if d == hoch and minute >= 1320:
+            return 40000.0 * (1.0 + 0.01 * min(minute - 1320, 60) / 60.0)
+        if d == flach and minute >= 1320:
+            return 40400.0 * (1.0 + 0.002 * min(minute - 1320, 60) / 60.0)
+        return 40000.0 if d <= hoch else 40400.0
+    kunstmarkt(tmp_path, "SPXUSD", lambda d, minute: 5000.0)
+    m = kunstmarkt(tmp_path, "BTCUSD", kurs, alle_tage=True, von_min=0, bis_min=1435)
+    p = {"boersentage": "SPXUSD", "von_min": 900, "bis_min": 960, "ein_min": 965, "aus_min": 1200, "toleranz_min": 10,
+         "schwelle": 0.005, "ziel_anteil": 0.6, "stop_anteil": 1.0}
+    sig = gr.regel_fonds_fenster(m, CFG, p)
+    assert len(sig) == 1                                   # 0,2 % am zweiten Tag reichen nicht, am Wochenende gibt es kein Fenster
+    s = sig[0]
+    assert m.t[s["i0"]] == ny(hoch, 16, 5) and s["d"] == -1 and s["t_max"] == ny(hoch, 20)
+    assert s["sd"] == pytest.approx(400.0) and s["zd"] == pytest.approx(240.0)
+
+
+def test_us_schreck_kauft_am_naechsten_tokioter_morgen(tmp_path):
+    fall, freitag = np.datetime64("2024-01-30"), np.datetime64("2024-02-02")
+
+    def us(d, minute):                                     # zwei Tage mit minus 2 %, einer davon ein Freitag
+        stufe = 5000.0 * 0.98 ** (int(d >= fall) + int(d >= freitag))
+        return stufe / 0.98 if d in (fall, freitag) and minute < 1200 else stufe
+    kunstmarkt(tmp_path, "SPXUSD", us)
+    m = kunstmarkt(tmp_path, "USDJPY", lambda d, minute: 150.0 + 0.2 * np.sin(minute / 70.0), von_min=0, bis_min=1435)
+    p = {"signal_markt": "SPXUSD", "schwelle": 0.015, "ein_min": 540, "aus_min": 900, "toleranz_min": 10, "stop_atr": 1.0}
+    sig = gr.regel_us_schreck(m, CFG, p)
+    assert len(sig) == 2 and all(s["d"] == 1 and s["zd"] == 0.0 for s in sig)
+    a, b = sig
+    assert m.t[a["i0"]] == np.datetime64("2024-01-31T00:00", "ns")              # 9:00 Tokio am Tag danach
+    assert a["t_max"] == np.datetime64("2024-01-31T06:00", "ns")                # 15:00 Tokio
+    assert m.t[b["i0"]] == np.datetime64("2024-02-05T00:00", "ns")              # nach dem Freitag erst am Montag
+    g = m.gpos[m.tix[a["i0"]]]
+    assert m.gtag[g] == np.datetime64("2024-01-31") and a["sd"] == pytest.approx(m.atr_vor[g])
+    assert gr.signale("x", m, {**CFG, "regeln": {"x": {**p, "art": "us_schreck"}}}, np.array([])) == sig
+
+
+def test_verfallstage_dritter_freitag_und_feiertag():
+    tage = np.arange("2025-03-03", "2025-06-01", dtype="datetime64[D]")
+    gtag = tage[np.is_busday(tage) & (tage != np.datetime64("2025-04-18"))]      # Karfreitag fehlt in den Kursen
+    assert list(gtag[gr.verfallstage(gtag, 3)]) == [np.datetime64(x) for x in ("2025-03-21", "2025-04-17", "2025-05-16")]
+    assert list(gtag[gr.verfallstage(gtag, 2)]) == [np.datetime64(x) for x in ("2025-03-14", "2025-04-11", "2025-05-09")]
+    assert len(gr.verfallstage(gtag[:10], 3)) == 0                               # der dritte Freitag liegt hinter den Kursen
+
+
+def test_verfallstag_morgen_kauft_am_vorabend_und_verkauft_nach_der_abrechnung(tmp_path):
+    m = kunstmarkt(tmp_path, "SPXUSD", lambda d, minute: 5000.0 + 2.0 * np.sin(minute / 80.0))
+    p = {"toleranz_min": 10, "stop_anteil": 0.0075,
+         "ort": {"SPXUSD": {"zone": "America/New_York", "nummer": 3, "kauf_min": 960, "wechsel_min": 570,
+                            "short_min": 575, "aus_min": 720}}}
+    sig = gr.regel_verfallstag(m, CFG, p)
+    assert len(sig) == 2                                   # im Januar 2024 ist der 19. der dritte Freitag, im Februar endet der Markt vorher
+    kauf, short = sig
+    assert m.t[kauf["i0"]] == ny("2024-01-18", 16) and kauf["d"] == 1 and kauf["t_max"] == ny("2024-01-19", 9, 30)
+    assert m.t[short["i0"]] == ny("2024-01-19", 9, 35) and short["d"] == -1 and short["t_max"] == ny("2024-01-19", 12)
+    assert kauf["sd"] == pytest.approx(0.0075 * m.o[kauf["i0"]]) and kauf["zd"] == 0.0
+    tokio = {"toleranz_min": 10, "stop_anteil": 0.0075,
+             "ort": {"SPXUSD": {"zone": "Asia/Tokyo", "nummer": 2, "kauf_min": 900, "wechsel_min": 540,
+                                "short_min": 545, "aus_min": 690}}}
+    k1, s1, k2, s2 = gr.regel_verfallstag(m, CFG, tokio)                         # zweiter Freitag im Januar und im Februar
+    assert m.t[k1["i0"]] == np.datetime64("2024-01-11T06:00", "ns") and k1["t_max"] == np.datetime64("2024-01-12T00:00", "ns")
+    assert m.t[s1["i0"]] == np.datetime64("2024-01-12T00:05", "ns") and s1["t_max"] == np.datetime64("2024-01-12T02:30", "ns")
+    assert m.t[k2["i0"]] == np.datetime64("2024-02-08T06:00", "ns") and m.t[s2["i0"]] == np.datetime64("2024-02-09T00:05", "ns")
+    tr = gr.echte_trades(m, [k2, s2], {**CFG, "kosten": {"rutschen_spread": 0.5, "robust_faktor": 1.5,
+                                                         "nacht_pro_jahr": {"index": {"long": 0.065, "short": 0.02}}}})
+    assert len(tr) == 2 and list(tr["richtung"]) == [1, -1]                      # der zweite Teil beginnt nach dem ersten
+    assert tr["aus_utc"].iloc[0] == np.datetime64("2024-02-09T00:00", "ns")
+    assert tr["gebuehr_R"].iloc[0] > 0 and tr["gebuehr_R"].iloc[1] == 0          # nur der erste Teil hält über 17:00 New York
+
+
+def test_durchgang_2_hoechstens_dreizehn_und_nur_kandidat():
+    if not gr.vorab(2).exists():
+        pytest.skip("Durchgang noch nicht festgelegt")
+    c = gr.lade_vorab(2, pruefen=False)
+    assert 1 <= len(c["varianten"]) <= 13 and c["huerden"]["holm_anzahl"] == 26 and c["huerden"]["hoechstens_kandidat"] is True
+    eins = gr.lade_vorab(1, pruefen=False)
+    assert not set(c["varianten"]) & set(eins["varianten"])
+    for k in ("kosten", "zwilling", "tageshandel"):
+        assert c[k] == eins[k]                             # dieselbe Rechnung wie in Durchgang 1
+    for k in ("von", "bis", "mitte"):
+        assert c["fenster"][k] == eins["fenster"][k]       # dasselbe Fenster und dieselben Hälften
+    for name, v in c["varianten"].items():
+        assert v["regel"] == name and name in c["regeln"]

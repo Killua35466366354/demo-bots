@@ -1,0 +1,415 @@
+# Große Runde vom 19.11.2026, Durchgang 2: Abwandlungen nach dem Ergebnis von Durchgang 1 und neue Ideen aus den
+# Ideen-Suchen der großen Recherche. Festgelegt, BEVOR eine dieser Varianten mit Kursen ab 2024 gerechnet wurde
+# (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md). Code: suche/grosse_runde.py.
+#
+# Ehrlich vorab:
+# - Durchgang 1 ist gerechnet (suche/ergebnis_grosse_runde.md, 0 von 13 bestanden, 2 Kandidaten). Dieser Durchgang
+#   wurde danach zusammengestellt. Darum kann hier KEINE Variante bestehen, auch keine der neuen Ideen. Das beste
+#   Urteil ist Kandidat für einen Vorwärtstest (huerden.hoechstens_kandidat). Ein Kandidat ist kein Beleg.
+# - Holm zählt weiter mit der festen Zahl 26 über beide Durchgänge. Mit diesen dreizehn Varianten ist die Zahl voll.
+# - Fünf Varianten sind Abwandlungen des Kandidaten vix_sprung_us aus Durchgang 1 (vier VIX-Varianten auf Indizes und
+#   vix_sprung_yen auf Yen-Paaren). Sie teilen sich fast alle Tage mit ihm und miteinander. Sie sind zusammen EINE
+#   Idee und kein fünffacher Beleg. Wer von ihnen am besten aussieht, ist nach dem Ergebnis ausgesucht. Auch
+#   tokio_nach_us_schreck handelt oft nach denselben Tagen.
+# - modell_indizes_08 ist die eine vorab festgelegte Änderung am Kandidaten modell_indizes (strengere Schwelle).
+# - vix_sprung_geduld verbindet Kirons Geduld-Ausstieg (kleines Ziel, das in Stufen sinkt) mit dem einzigen Einstieg,
+#   der in Durchgang 1 besser war als Zufallstage. Die Geduld-Regeln selbst sind durchgefallen und werden nicht
+#   wiederholt.
+# - Neu aus den Ideen-Suchen (noch nie im Projekt gerechnet): dix_us500 (Dark-Pool-Käufe), schluss_schub_us
+#   (Hebel-Fonds in der letzten halben Stunde), runde_marke_fx (Stop-Häufung hinter runden Marken) und
+#   btc_fonds_fenster (Umkehr nach dem Fenster der Bitcoin-Fonds). Verwandt und im Archiv: Schlussstunde auf 257
+#   Märkten (Karte 92, verworfen wegen Auswahl danach). schluss_schub_us ist eine andere Fassung mit eigenem Grund,
+#   nämlich nur Tage mit großer Bewegung, nur die letzte halbe Stunde, beide Märkte und beide Richtungen zusammen.
+# - Seltene Regeln. Kiron hat am 19.11.2026 um 20:58 Uhr verlangt, auch Regeln zu suchen und zu prüfen, die nur etwa
+#   einmal pro Woche oder einmal im Monat handeln, bestimmte Nachrichten abwarten oder bestimmte Eröffnungen handeln.
+#   Aus den Suchen Devisen und Seltene Regeln kommen darum drei Varianten: tokio_nach_us_schreck (Tokio-Eröffnung,
+#   etwa 15 Auslöser im Jahr), verfallstag_morgen_us (zwölf Verfallstage im Jahr, mit Studie von 2024) und
+#   verfall_tokio_frankfurt (dieselbe Regel auf Nikkei und DAX übertragen, ohne eigenen Beleg). Sie erreichen die 100
+#   Trades nur, weil mehrere Märkte und zwei Teile zusammenzählen. Unabhängig sind im Hauptfenster nur 34
+#   Verfallstage und geschätzt 30 bis 35 Schreck-Tage. Die Hürde von 100 Trades wird dafür nicht gesenkt.
+# - Der DIX stammt vom Anbieter squeezemetrics.com (frei, Datei im Projektordner, Prüfsumme unten). Wann der Wert am
+#   Abend erscheint, ist nicht belegt. Darum sieht die Regel für einen Handelstag nur den DIX von vorgestern (lag 1).
+# - Nicht in diesem Durchgang, obwohl als "weiter testen" gesichtet: Ideen auf Gold (Kirons Grundsatz, der Gold-Thread
+#   wertet Gold selbst aus), Ideen, für die Daten fehlen (Zinsabstand mit fremden Renditen, Schwankungs-Indizes für
+#   Krypto, Hang Seng und ASX, Termine der Quartalszahlen und Insider-Meldungen für Einzelaktien, Anleihen-CFDs,
+#   kleinere Kryptos), Regeln mit Nachrichten, die schon durchgefallen sind (Tag vor der Fed, Zahlentage, Schwung
+#   nach US-Zahlen) oder zu wenige Termine haben (Umkehr nach dem Fed-Entscheid, 23 Termine im Fenster), und Filter
+#   für laufende Bots (Spread-Tor, Schutz vor Zahlen). Die Filter gehören den Threads der Bots, die Aktien-Ideen den
+#   Aktien-Threads.
+#
+# Prüfung des Programms vor dem Siegel (19.11.2026, nichts davon ist ein Ergebnis):
+# - Entwicklung mit Kursen von März 2021 bis Dezember 2023 (ohne DAX). Das Programm läuft, jede Variante handelt.
+#   Trades und Gewinnfaktor dort: vix_sprung_us_2tage 102 und 0,84. vix_sprung_us_75 180 und 1,02. vix_sprung_welt
+#   113 und 0,70. vix_sprung_geduld 98 und 0,94. modell_indizes_08 918 und 0,98. dix_us500 216 und 0,94.
+#   schluss_schub_us 371 und 1,15. runde_marke_fx 218 und 1,17. btc_fonds_fenster 241 und 0,83.
+#   tokio_nach_us_schreck 188 und 0,76. verfallstag_morgen_us 121 und 1,20. verfall_tokio_frankfurt 68 und 0,82 (nur
+#   Nikkei). vix_sprung_yen 171 und 0,72. Keine Zahl einer Regel wurde danach geändert.
+# - 40 Probeläufe auf erfundenen Märkten ohne Vorteil (jede 5-Minuten-Kerze bekommt ein zufälliges Vorzeichen, VIX
+#   und DIX bleiben echt und haben dort nichts mit dem Kurs zu tun). Über alle 519 Rechnungen liegt z im Mittel bei
+#   0,06 mit Streuung 1,13. 11 Rechnungen (2 %) wurden Kandidat, obwohl es dort nichts zu finden gibt.
+# - Zu freundlich ist der Zufallsvergleich bei btc_fonds_fenster (z im Mittel plus 0,72, in 10 von 40 Läufen über
+#   95 % der Verschiebungen, der Gewinnfaktor lag dabei immer zwischen 0,52 und 0,86). Der Grund: echte Trades enden
+#   an unruhigen Tagen oft vor 17:00 New York und sparen die Übernachtgebühr, verschobene seltener. Ein gutes z
+#   dieser Variante zählt darum wenig.
+# - Bei den Varianten mit einem Schreck als Auslöser (vix_sprung_us_2tage, vix_sprung_us_75, vix_sprung_welt,
+#   vix_sprung_yen, tokio_nach_us_schreck) streut z stärker (1,2 bis 1,4 statt 1), weil ihre Trades in unruhigen
+#   Wochen liegen. Ohne jeden Vorteil schlugen sie in 3 bis 8 von 40 Läufen 95 % der Verschiebungen (zu erwarten
+#   wären 2) und wurden in 0 bis 3 von 40 Läufen Kandidat. vix_sprung_yen lag im Mittel bei plus 0,37 (8 von 40 über
+#   95 %, nie Kandidat). Ein Kandidat aus dieser Gruppe ist schwächer, als seine Zahlen aussehen.
+# - Leicht gegen die Regel verzerrt (z im Mittel minus 0,3): runde_marke_fx, vix_sprung_geduld,
+#   verfallstag_morgen_us. Ohne erkennbare Verzerrung: dix_us500, schluss_schub_us, modell_indizes_08.
+#   verfall_tokio_frankfurt lag bei plus 0,23 (1 von 40 über 95 %).
+# - Im Probelauf handelten die drei neuen seltenen Regeln im Hauptfenster im Median 119 bis 136 Mal, sie können die
+#   Hürde von 100 Trades also erreichen.
+
+format: 1
+grosse_runde:
+  durchgang: 2
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der HistData-Kurse
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle Varianten stehen hier fest und werden einmal gerechnet.
+
+  daten:
+    quelle: >-
+      HistData 5-Minuten-Kerzen (Bid), echtes UTC, wie suche/rueckblick_daten.py. Krypto wie
+      suche/VORAB_youtube_runde.yaml (Binance-Spot, Spread als Anteil am Kurs aus Capital.com BTCUSD und ETHUSD).
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Krypto alle sieben Tage, sonst Montag bis Freitag.
+    krypto_alle_tage: [BTCUSD, ETHUSD]
+    min_kerzen_je_tag: 60
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026)
+    pause_min: 60                # kein Einstieg in der Stunde 17 bis 18 Uhr New York (Tageswechsel)
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+    fremd:
+      ordner_fred: /mnt/project-files/strategie-suche/daten/fred (geladen am 19.11.2026 von fred.stlouisfed.org, Tageswerte ab 2010)
+      ordner_dix: /mnt/project-files/strategie-suche/daten/squeezemetrics (DIX.csv, geladen am 19.11.2026 von squeezemetrics.com/monitor/static/DIX.csv, Tageswerte ab Mai 2011)
+      regel: Für den Handelstag T zählt nur eine Beobachtung mit Datum strikt vor T. Bei lag 1 strikt vor T minus 1.
+      sha256:
+        VIXCLS: 638c383fa413a3dbed079eac295d392540ec6e25177b0e0da621510680a4ba6d
+        VXVCLS: 8d918207b83759f4955b8b144557f9969f68e894b36afc64453b23120f48e8f4
+        DGS10: 893e1a3188074c1d824236fbd000835038221f76d790ffef432892cbd0bea899
+        DGS2: fbf897f5a740ea3e560d77f73ccbcc679a90e3e8f0d913cd87ff51208ede0595
+        DIX: 3fc815d5e26218b13db55bb4ec4018c10802a5703bb93315f8a1951dfc57c68f
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml. Keine Regel dieser Runde nutzt diesen Tagestrend, er wird nur mitgerechnet.
+    vorlauf_tage: 100
+
+  tageshandel:                   # gilt für alle Regeln, die einen ganzen Handelstag halten
+    einstieg: erste 5-Minuten-Kerze nach der Pause, also ab 18:00 New York am Vorabend des Handelstags
+    toleranz_min: 540            # die DAX-Kurse beginnen an vielen Tagen erst um 2:00 New York. Kommt bis 3:00 keine Kerze, fällt der Tag aus
+    aus_min: 955                 # Ausstieg mit der ersten Kerze ab 15:55 New York. Die Index-Kurse enden um 16:15, die Übernachtgebühr kommt um 17:00
+    ziel: keins
+
+  kosten:
+    spread: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (Krypto als Anteil am Kurs).
+    rutschen_spread: 0.5         # Schutz-Stops füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+      metall: {long: 0.065, short: 0.02}
+      fx: {long: 0.02, short: 0.02}
+      krypto: {long: 0.20, short: 0.20}
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand
+    eine_position: Je Regel und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  regeln:
+    vix_sprung_us_2tage:
+      art: reihe
+      quelle: Abwandlung des Kandidaten vix_sprung_us aus Durchgang 1 (suche/VORAB_grosse_runde.yaml).
+      regel: >-
+        Wie vix_sprung_us. Schließt der VIX mindestens 10 % über seinem Schluss vom Vortag, wird am folgenden
+        Handelstag gekauft. Gehalten wird aber zwei Handelstage, bis 15:55 New York am zweiten. Notstop 3 ATR.
+      eigene_festlegung: zwei Handelstage. Eine Nacht kostet die Übernachtgebühr.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 3
+      stop_atr: 3.0
+      halte_tage: 2
+    vix_sprung_us_75:
+      art: reihe
+      quelle: Abwandlung des Kandidaten vix_sprung_us aus Durchgang 1.
+      regel: Wie vix_sprung_us, aber schon ab einem VIX-Anstieg von 7,5 %. Das gibt mehr Trades.
+      eigene_festlegung: Schwelle 7,5 %.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.075
+      vorzeichen: 1
+      frisch_tage: 3
+      stop_atr: 3.0
+    vix_sprung_welt:
+      art: reihe
+      quelle: Abwandlung des Kandidaten vix_sprung_us aus Durchgang 1. Dieselbe Regel auf DAX, FTSE und Nikkei.
+      regel: >-
+        Wie vix_sprung_us, auf DAX, FTSE 100 und Nikkei. Der VIX schließt um 16:15 New York, der Handelstag dieser
+        Märkte beginnt danach. Gekauft wird mit der ersten Kerze des Handelstags, Ausstieg 15:55 New York.
+      eigene_festlegung: die drei Märkte. Keine eigene Schwelle je Markt.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 3
+      stop_atr: 3.0
+    vix_sprung_geduld:
+      art: reihe
+      quelle: >-
+        Kirons Geduld-Idee vom 19.11.2026 (viele kleine Gewinne, Verlierer halten, bis sie zurückkommen), verbunden
+        mit dem Einstieg des Kandidaten vix_sprung_us. Der Ausstieg ist der von geduld_us_stufen aus Durchgang 1.
+      regel: >-
+        Einstieg wie vix_sprung_us. Ziel 0,25 Tages-ATR. Ab dem Beginn des übernächsten Handelstags reicht der
+        Einstand, ab dem Beginn des vierten Handelstags danach reicht ein Verlust von 0,5 ATR. Notstop 3 ATR,
+        spätester Ausstieg 15:55 New York am 10. Handelstag danach.
+      eigene_festlegung: alle Zahlen wie geduld_us_stufen, nichts neu gewählt.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 3
+      stop_atr: 3.0
+      geduld:
+        ziel_atr: 0.25
+        stufen: [[2, 0.0], [4, -0.5]]
+        max_tage: 10
+    modell_indizes_08:
+      art: modell
+      quelle: Die eine vorab festgelegte Änderung am Kandidaten modell_indizes aus Durchgang 1.
+      regel: >-
+        Wie modell_indizes. Gehandelt wird aber erst ab 58 % Wahrscheinlichkeit für "steigt" (Kauf) oder bis 42 %
+        (Verkauf) statt ab 54 und bis 46 %. Stop 2 ATR.
+      eigene_festlegung: der doppelte Abstand zur Mitte. Sonst nichts geändert.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.08
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+      stop_atr: 2.0
+    dix_us500:
+      art: reihe
+      quelle: >-
+        SqueezeMetrics, Short Is Long, 2018 (Papier des Anbieters, squeezemetrics.com). Der DIX misst, welcher Anteil
+        des außerbörslichen Handels in den Aktien des S&P 500 als Leerverkauf gemeldet wird. Ein hoher Wert gilt als
+        Zeichen für Käufe großer Anleger. Aus der Ideenliste Aktienindizes der Recherche vom 19.11.2026. Der Beleg
+        stammt vom Anbieter selbst und gilt eher für Wochen als für Tage.
+      regel: >-
+        Liegt der DIX von vorgestern im obersten Fünftel seiner 250 Werte davor, wird US500 für den Handelstag
+        gekauft (Einstieg nach der Pause, Ausstieg 15:55 New York). Notstop 3 ATR.
+      eigene_festlegung: Fünftel, 250 Tage, ein Handelstag, Notstop, der DIX von vorgestern statt von gestern.
+      reihe: DIX
+      niveau: true
+      quantil: {fenster: 250, q: 0.8}
+      nur_anstieg: true
+      vorzeichen: 1
+      frisch_tage: 5
+      lag: 1
+      stop_atr: 3.0
+    schluss_schub_us:
+      art: schluss_schub
+      quelle: >-
+        Shum, Hejazi, Haryanto, Rodier, Intraday Share Price Volatility and Leveraged ETF Rebalancing, Review of
+        Finance 20, 2016 (nur Zusammenfassung gelesen). Cheng, Madhavan, The Dynamics of Leveraged and Inverse
+        Exchange-Traded Funds, 2009 (nicht nachgeprüft). Gehebelte Fonds müssen kurz vor Schluss in Richtung der
+        Tagesbewegung handeln. Aus der Ideenliste Scalping der Recherche vom 19.11.2026.
+      regel: >-
+        Liegt der US100 um 15:30 New York mindestens 1,5 % über oder unter dem Schluss des vorigen Handelstags (US500
+        mindestens 1,0 %), wird in dieselbe Richtung gehandelt. Ausstieg 15:55 New York. Stop 0,4 % vom Kurs, kein Ziel.
+      eigene_festlegung: >-
+        Schwellen, Stop, Ausstieg 15:55 statt 15:58 (5-Minuten-Kerzen). Schluss des Vortags ist die letzte Kerze des
+        vorigen Handelstags (sie endet 16:15 New York), nicht der Börsenschluss um 16:00.
+      ein_min: 930
+      aus_min: 955
+      toleranz_min: 10
+      schwelle: {NSXUSD: 0.015, SPXUSD: 0.010}
+      stop_anteil: 0.004
+    runde_marke_fx:
+      art: runde_marke
+      quelle: >-
+        Carol Osler, Currency Orders and Exchange Rate Dynamics. An Explanation for the Predictive Success of
+        Technical Analysis, Journal of Finance 58, 2003 (nur Zusammenfassung gelesen). Stop-Orders liegen gehäuft
+        knapp hinter runden Marken. Aus der Ideenliste Scalping der Recherche vom 19.11.2026.
+      regel: >-
+        EUR/USD, GBP/USD und USD/JPY, 5-Minuten-Kerzen, die zwischen 8 und 17 Uhr London beginnen. Eine runde Marke
+        liegt alle 100 Pips (1,0800 oder 152,00). Schließt eine Kerze als erste des Londoner Tages mehr als 5 Pips
+        jenseits einer Marke und lagen Hoch oder Tief der zwei Stunden davor ganz auf der anderen Seite, wird mit der
+        nächsten Kerze in diese Richtung gehandelt. Ziel 20 Pips, Stop 12 Pips, spätester Ausstieg nach 4 Stunden.
+      eigene_festlegung: alle Zahlen (wie in der Ideenliste). Die zwei Stunden davor müssen lückenlos sein (höchstens 10 Minuten Lücke).
+      pip: {EURUSD: 0.0001, GBPUSD: 0.0001, USDJPY: 0.01}
+      marke_pips: 100
+      abstand_pips: 5
+      vorher_min: 120
+      luecke_min: 10
+      von_min: 480
+      bis_min: 1020
+      frist_min: 10
+      stop_pips: 12
+      ziel_pips: 20
+      halte_min: 240
+    btc_fonds_fenster:
+      art: fonds_fenster
+      quelle: >-
+        Kaiko Research, BTC ETFs impact on spot market structure, 2024, und NYDIG Research (beides nur über die Suche
+        gelesen). Die Bitcoin-Fonds rechnen zu einem Kurs ab, der zwischen 15 und 16 Uhr New York gebildet wird. Eine
+        Studie, die die Umkehr danach misst, wurde nicht gefunden. Aus der Ideenliste Scalping vom 19.11.2026.
+      regel: >-
+        An US-Börsentagen wird die Bewegung von Bitcoin zwischen 15:00 und 16:00 New York gemessen. Ab 0,5 % wird um
+        16:05 in die Gegenrichtung gehandelt. Ziel 60 % der Fenster-Bewegung, Stop eine ganze Fenster-Bewegung,
+        spätester Ausstieg 20:00 New York.
+      eigene_festlegung: >-
+        alle Zahlen (wie in der Ideenliste). US-Börsentage sind die gültigen Handelstage des US500 in den Kursdaten.
+        Hält der Trade über 17:00 New York, zahlt er eine Übernachtgebühr. Ether wird nicht gerechnet.
+      boersentage: SPXUSD
+      von_min: 900
+      bis_min: 960
+      ein_min: 965
+      aus_min: 1200
+      toleranz_min: 10
+      schwelle: 0.005
+      ziel_anteil: 0.6
+      stop_anteil: 1.0
+    tokio_nach_us_schreck:
+      art: us_schreck
+      quelle: >-
+        Fung, Lam, Lam, Do the prices of stock index futures in Asia overreact to U.S. market returns, Journal of
+        Empirical Finance 17, 2010 (nur Zusammenfassung gelesen), und Bank of Japan Review 2016 zum Verhalten
+        japanischer Privatanleger im Devisenhandel (in der Ideen-Suche gelesen). Zusammengelegt aus den Ideenlisten
+        Aktienindizes (Asien dreht nach extremem US-Tag) und Devisen (Tokio-Eröffnung nach einem US-Schreck) der
+        Recherche vom 19.11.2026. Eine seltene Regel mit einer bestimmten Eröffnung, wie Kiron sie am 19.11.2026
+        um 20:58 Uhr verlangt hat.
+      regel: >-
+        Schließt der US500 mindestens 1,5 % unter seinem Schluss vom vorigen Handelstag, wird am nächsten Werktag um
+        9:00 Tokio gekauft, und zwar Nikkei, USD/JPY, EUR/JPY und GBP/JPY. Ausstieg 15:00 Tokio. Stop 1 ATR, kein Ziel.
+      eigene_festlegung: >-
+        Schwelle 1,5 %, Stop 1 ATR und nur die Kauf-Seite nach einem US-Minus. Die Devisen-Idee verlangt zusätzlich
+        einen Rückgang von USD/JPY um 0,7 % und hat Ziel und Stop bei 0,6 ATR, das entfällt hier, damit es eine Regel
+        für alle vier Märkte bleibt. Hang Seng und ASX 200 fehlen in den Kursdaten. Schluss ist die letzte Kerze des
+        Handelstags (sie endet 16:15 New York). Die vier Märkte sind derselbe Trade in vier Teilen.
+      signal_markt: SPXUSD
+      schwelle: 0.015
+      ein_min: 540               # 9:00 Tokio
+      aus_min: 900               # 15:00 Tokio
+      toleranz_min: 10
+      stop_atr: 1.0
+    verfallstag_morgen_us:
+      art: verfallstag
+      quelle: >-
+        Baltussen, Terstegge, Whelan, The Derivative Payoff Bias, Arbeitspapier vom September 2024 (in der Ideen-Suche
+        die ersten Seiten gelesen). Von 2003 bis 2021 stieg der S&P-500-Terminkontrakt vom Donnerstagsschluss bis zur
+        Abrechnung am dritten Freitag im Mittel um etwa 0,14 % und gab das bis etwa 12 Uhr wieder ab. Aus der
+        Ideenliste Seltene Regeln der Recherche vom 19.11.2026 (Kirons Wunsch nach seltenen Regeln mit fester
+        Eröffnung).
+      regel: >-
+        Verfallstag ist der dritte Freitag im Monat. Am gültigen Handelstag davor wird um 16:00 New York gekauft und
+        am Verfallstag um 9:30 New York verkauft. Um 9:35 wird auf fallende Kurse gesetzt und um 12:00 New York
+        geschlossen. Jeder Teil hat einen Stop von 0,75 % vom Kurs und kein Ziel.
+      eigene_festlegung: >-
+        Uhrzeiten, Stop und der Abstand von 5 Minuten zwischen den Teilen (je Regel und Markt läuft nur ein Trade).
+        Ist der dritte Freitag in den Kursen kein gültiger Handelstag, gilt der gültige Handelstag davor. Der Dow
+        fehlt in den Kursdaten. Im Hauptfenster gibt es nur 34 Verfallstage, US500 und US100 laufen fast gleich.
+      toleranz_min: 10
+      stop_anteil: 0.0075
+      ort:                       # Minuten des Tages in der Ortszeit des Markts
+        SPXUSD: {zone: America/New_York, nummer: 3, kauf_min: 960, wechsel_min: 570, short_min: 575, aus_min: 720}
+        NSXUSD: {zone: America/New_York, nummer: 3, kauf_min: 960, wechsel_min: 570, short_min: 575, aus_min: 720}
+    verfall_tokio_frankfurt:
+      art: verfallstag
+      quelle: >-
+        Eigene Übertragung der Studie von Baltussen, Terstegge und Whelan (siehe verfallstag_morgen_us) auf zwei andere
+        Börsen. Für Nikkei und DAX gibt es keinen eigenen Beleg. Aus der Ideenliste Seltene Regeln vom 19.11.2026.
+      regel: >-
+        Nikkei. Verfallstag ist der zweite Freitag im Monat, abgerechnet wird zur Eröffnung in Tokio. Am gültigen
+        Handelstag davor wird um 15:00 Tokio gekauft und am Verfallstag um 9:00 Tokio verkauft. Um 9:05 wird auf
+        fallende Kurse gesetzt und um 11:30 Tokio geschlossen. DAX. Verfallstag ist der dritte Freitag, abgerechnet
+        wird in der Auktion um 13:00 Frankfurt. Kauf am gültigen Handelstag davor um 17:30 Frankfurt, Verkauf am
+        Verfallstag um 13:00, dann auf fallende Kurse von 13:05 bis 15:00 Frankfurt. Stop je Teil 0,75 %, kein Ziel.
+      eigene_festlegung: >-
+        alle Uhrzeiten und der Stop. 15:00 Tokio war bis November 2024 der Kassa-Schluss, seitdem schließt die Börse
+        um 15:30. Japanische Feiertage, an denen der CFD trotzdem handelt, erkennt die Regel nicht.
+      toleranz_min: 10
+      stop_anteil: 0.0075
+      ort:
+        JPXJPY: {zone: Asia/Tokyo, nummer: 2, kauf_min: 900, wechsel_min: 540, short_min: 545, aus_min: 690}
+        GRXEUR: {zone: Europe/Berlin, nummer: 3, kauf_min: 1050, wechsel_min: 780, short_min: 785, aus_min: 900}
+    vix_sprung_yen:
+      art: reihe
+      quelle: >-
+        Abwandlung des Kandidaten vix_sprung_us aus Durchgang 1 für Yen-Paare. Brunnermeier, Nagel, Pedersen, Carry
+        Trades and Currency Crashes, NBER Macroeconomics Annual 2008 (in der Ideen-Suche genannt). Paare mit
+        Zinsvorteil fallen, wenn der VIX springt. Aus der Ideenliste Devisen der Recherche vom 19.11.2026
+        (Zins-Paare nach einem VIX-Sprung kaufen).
+      regel: >-
+        Wie vix_sprung_us, auf USD/JPY, EUR/JPY und GBP/JPY. Schließt der VIX mindestens 10 % über seinem Schluss vom
+        Vortag, werden die drei Paare am folgenden Handelstag gekauft, Einstieg nach der Pause, Ausstieg 15:55 New
+        York. Notstop 3 ATR.
+      eigene_festlegung: >-
+        dieselben Zahlen wie vix_sprung_us statt der Fassung der Ideenliste (20 % über dem 10-Tage-Schnitt, drei Tage
+        halten). AUD/JPY, NZD/JPY und CAD/JPY fehlen in den Kursdaten. Die drei Paare sind derselbe Trade in drei Teilen.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 3
+      stop_atr: 3.0
+
+  varianten:                     # genau diese. Jede Variante hat ihre eigene Regel gleichen Namens.
+    vix_sprung_us_2tage: {regel: vix_sprung_us_2tage, maerkte: [SPXUSD, NSXUSD]}
+    vix_sprung_us_75: {regel: vix_sprung_us_75, maerkte: [SPXUSD, NSXUSD]}
+    vix_sprung_welt: {regel: vix_sprung_welt, maerkte: [GRXEUR, UKXGBP, JPXJPY]}
+    vix_sprung_geduld: {regel: vix_sprung_geduld, maerkte: [SPXUSD, NSXUSD]}
+    modell_indizes_08: {regel: modell_indizes_08, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]}
+    dix_us500: {regel: dix_us500, maerkte: [SPXUSD]}
+    schluss_schub_us: {regel: schluss_schub_us, maerkte: [SPXUSD, NSXUSD]}
+    runde_marke_fx: {regel: runde_marke_fx, maerkte: [EURUSD, GBPUSD, USDJPY]}
+    btc_fonds_fenster: {regel: btc_fonds_fenster, maerkte: [BTCUSD]}
+    tokio_nach_us_schreck: {regel: tokio_nach_us_schreck, maerkte: [JPXJPY, USDJPY, EURJPY, GBPJPY]}
+    verfallstag_morgen_us: {regel: verfallstag_morgen_us, maerkte: [SPXUSD, NSXUSD]}
+    verfall_tokio_frankfurt: {regel: verfall_tokio_frankfurt, maerkte: [JPXJPY, GRXEUR]}
+    vix_sprung_yen: {regel: vix_sprung_yen, maerkte: [USDJPY, EURJPY, GBPJPY]}
+
+  zwilling:
+    regel: Wie suche/VORAB_rueckblick.yaml. Die ganze Variante wandert als Block um k gültige Handelstage nach vorn, je Markt. Bei Krypto zählen alle sieben Tage.
+    schwankung: Stop-Abstand, Ziel-Abstand, Stufen und Spread des Zwillings sind die des echten Trades mal ATR 14 am Zwilling geteilt durch denselben ATR am echten Einstieg.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Variante.
+    sperre_davor_tage: 60
+    spaet_min: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie Durchgang 1, dazu: höchstens Kandidat
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    holm_anzahl: 26              # 13 Varianten in Durchgang 1 plus die 13 hier
+    min_z: 3.0
+    hoechstens_kandidat: true    # dieser Durchgang wurde nach dem Ergebnis von Durchgang 1 zusammengestellt
+    urteile:
+      bestanden: gibt es in diesem Durchgang nicht
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: Kein anderes Fenster, keine andere Schwelle und kein dritter Durchgang nach dem Ergebnis.
+
+  melden:
+    je_variante: >-
+      Trades, Trades je Woche, Gewinnfaktor, Summe in R, Trefferquote, robust, Hälften, 2026, Long und Short, je
+      Markt, ohne die 5 besten Trades, Zufallsvergleich (Rang, p, z), Auskunft vor dem Fenster, dazu der größte
+      Verlust, der mittlere Gewinn, das tiefste Tal und die mittlere und längste Haltedauer.
+    ehrlich: Jede Variante wird gemeldet, auch jede durchgefallene. Durchgefallene kommen ins Archiv suche/VERWORFEN.md.

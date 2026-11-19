@@ -7,18 +7,18 @@
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-19T03:16:34.703472",
+  "zeit": "2026-11-19T03:31:37.763358",
   "action": "none",
   "why": "heute schon entschieden",
   "bar": null
  },
  "status": "Position offen",
  "position": {
-  "upl": -1.2,
+  "upl": -1.21,
   "stop": 49312.0,
   "ziel": null
  },
- "stand_utc": "2026-11-19T03:16:34.703472",
+ "stand_utc": "2026-11-19T03:31:37.763358",
  "tag_erledigt": "2026-11-18",
  "open": {
   "dealId": "00000000-741f-8063-049c-701f0015549e",

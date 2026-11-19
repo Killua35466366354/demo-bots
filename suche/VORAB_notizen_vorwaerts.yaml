@@ -1,0 +1,36 @@
+# Vorwärts-Zählung des Kandidaten aus der Runde "Kirons Notizen" (19.11.2026).
+# Festgelegt am 19.11.2026 nach Kirons Wahl auf der Karte ("Ja, ohne Bot vorwärts zählen", 11:08 UTC), BEVOR eine
+# Kerze ab dem 20.11.2026 für diese Regel gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/notizen_vorwaerts.py. Diese Datei wird nie geändert.
+#
+# Warum vorwärts: Der 4-Std.-Ausbruch auf DAX, FTSE und Nikkei war auf den Kursen 2024 bis 2026 zweimal knapp
+# (18.11. Gewinnfaktor 1,24, 19.11. mit Ziel 1 R 1,30, z 2,26). Zweimal knapp auf denselben Kursen ist kein Beleg.
+# Nur Kerzen, die beim Siegel noch nicht existierten, können zeigen, ob die Spur echt ist.
+# Ehrlich vorab: Mit 40 Trades zeigt auch eine Regel ganz ohne Vorteil in etwa einem Drittel der Fälle einen
+# Gewinnfaktor ab 1,2 (Befund vom 18.11.2026). Bestehen nach 40 Trades ist darum ein Grund für einen Demo-Bot, kein
+# Beweis. Echtes Geld gibt es nur über suche/VORAB_aufstieg_alle.yaml.
+
+format: 1
+notizen_vorwaerts:
+  regel: >-
+    Genau die Fassung ausbruch4h_welt_ziel_1r aus suche/VORAB_notizen_runde.yaml (Siegel ab26d966...ddb19), mit allen
+    Zahlen, Kosten und Märkten von dort (GRXEUR, UKXGBP, JPXJPY). Das Programm liest sie aus dieser Datei und prüft
+    beide Siegel. Kein Bot, keine Order.
+  fassung: ausbruch4h_welt_ziel_1r
+  daten: >-
+    HistData 5-Minuten-Kerzen (Bid) wie im Test, jeden Monat um den neuen Monat ergänzt (Dateien in
+    strategie-suche/daten, dann python -m suche.youtube_runde2 daten <Arbeit>). Ältere Kerzen dienen nur dem Vorlauf.
+  zaehlt_ab: "2026-11-20"        # nur Einstiege ab diesem Handelstag zählen
+  wann: >-
+    Nach jedem neuen HistData-Monat einmal zählen (python -m suche.notizen_vorwaerts zaehlen <Arbeit>), Ergebnis als
+    Zeile ins Protokoll. Das Urteil fällt bei der ersten Zählung mit mindestens 40 Trades (erwartet etwa März 2027).
+  urteil_40:
+    trades: 40
+    bestanden: Gewinnfaktor mindestens 1,2, mit 1,5-fachen Kosten mindestens 1,0 und Summe in R über 0
+    verworfen: Gewinnfaktor unter 1,0 oder Summe in R höchstens 0
+    sonst: weiter zählen bis 100 Trades, dann Endurteil mit denselben Hürden wie "bestanden"
+  frist: "2027-12-31"            # gibt es bis dahin keine 40 Trades, gilt die Spur als verworfen
+  danach: >-
+    Nur bei bestanden: Karte an Kiron, ob die Regel als Demo-Bot ohne Gold-Konto läuft (eigene VORAB-Datei und PR).
+    Verworfen: Eintrag im Verworfen-Archiv. In keinem Fall ändert sich ein laufender Bot.
+  keine_nachbesserung: Keine andere Fassung, kein anderer Markt, keine andere Schwelle, kein anderes Startdatum.

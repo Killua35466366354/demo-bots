@@ -1,0 +1,299 @@
+{
+ "varianten": {
+  "r9a_einstand": {
+   "bot": "r5-ruecksetzer-us100",
+   "lang_original": {
+    "trades": 139,
+    "summe_r": 31.58,
+    "pf": 1.541
+   },
+   "lang": {
+    "trades": 139,
+    "summe_r": 35.6,
+    "pf": 1.741
+   },
+   "lang_mittel_unterschied_r": 0.0289,
+   "p": 0.25279,
+   "haupt_original": {
+    "trades": 24,
+    "summe_r": 7.8,
+    "pf": 2.276
+   },
+   "haupt": {
+    "trades": 24,
+    "summe_r": 7.8,
+    "pf": 2.61
+   },
+   "haupt_robust": {
+    "trades": 24,
+    "summe_r": 7.23,
+    "pf": 2.441
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden",
+    "Hauptfenster Summe nicht höher"
+   ]
+  },
+  "r9b_halb_und_10_tage": {
+   "bot": "r5-ruecksetzer-us100",
+   "lang_original": {
+    "trades": 139,
+    "summe_r": 31.58,
+    "pf": 1.541
+   },
+   "lang": {
+    "trades": 139,
+    "summe_r": 33.92,
+    "pf": 1.71
+   },
+   "lang_mittel_unterschied_r": 0.0168,
+   "p": 0.38283,
+   "haupt_original": {
+    "trades": 24,
+    "summe_r": 7.8,
+    "pf": 2.276
+   },
+   "haupt": {
+    "trades": 24,
+    "summe_r": 8.93,
+    "pf": 3.05
+   },
+   "haupt_robust": {
+    "trades": 24,
+    "summe_r": 8.38,
+    "pf": 2.874
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden"
+   ]
+  },
+  "r11a_einstand": {
+   "bot": "r7-nasdaq-noise-long",
+   "lang_original": {
+    "trades": 138,
+    "summe_r": 12.08,
+    "pf": 2.19
+   },
+   "lang": {
+    "trades": 138,
+    "summe_r": 11.1,
+    "pf": 2.31
+   },
+   "lang_mittel_unterschied_r": -0.0071,
+   "p": 0.78641,
+   "haupt_original": {
+    "trades": 20,
+    "summe_r": 2.56,
+    "pf": 4.332
+   },
+   "haupt": {
+    "trades": 20,
+    "summe_r": 1.89,
+    "pf": 3.328
+   },
+   "haupt_robust": {
+    "trades": 20,
+    "summe_r": 1.83,
+    "pf": 3.19
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden",
+    "Hauptfenster Summe nicht höher",
+    "Hauptfenster Gewinnfaktor nicht mindestens wie das Original"
+   ]
+  },
+  "r11b_einstand_10_tage": {
+   "bot": "r7-nasdaq-noise-long",
+   "lang_original": {
+    "trades": 138,
+    "summe_r": 12.08,
+    "pf": 2.19
+   },
+   "lang": {
+    "trades": 138,
+    "summe_r": 18.9,
+    "pf": 3.117
+   },
+   "lang_mittel_unterschied_r": 0.0494,
+   "p": 0.0261,
+   "haupt_original": {
+    "trades": 20,
+    "summe_r": 2.56,
+    "pf": 4.332
+   },
+   "haupt": {
+    "trades": 20,
+    "summe_r": 1.6,
+    "pf": 3.133
+   },
+   "haupt_robust": {
+    "trades": 20,
+    "summe_r": 1.41,
+    "pf": 2.65
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden",
+    "Hauptfenster Summe nicht höher",
+    "Hauptfenster Gewinnfaktor nicht mindestens wie das Original"
+   ]
+  },
+  "r13_s075_z075": {
+   "bot": "scalp-de40",
+   "lang_original": {
+    "trades": 607,
+    "summe_r": 107.04,
+    "pf": 1.259
+   },
+   "lang": {
+    "trades": 607,
+    "summe_r": 144.01,
+    "pf": 1.325
+   },
+   "lang_mittel_unterschied_r": 0.0609,
+   "p": 0.10519,
+   "haupt_original": {
+    "trades": 121,
+    "summe_r": 55.33,
+    "pf": 1.697
+   },
+   "haupt": {
+    "trades": 121,
+    "summe_r": 54.8,
+    "pf": 1.649
+   },
+   "haupt_robust": {
+    "trades": 121,
+    "summe_r": 43.35,
+    "pf": 1.501
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden",
+    "Hauptfenster Summe nicht höher",
+    "Hauptfenster Gewinnfaktor nicht mindestens wie das Original"
+   ]
+  },
+  "r13_s075_z150": {
+   "bot": "scalp-de40",
+   "lang_original": {
+    "trades": 607,
+    "summe_r": 107.04,
+    "pf": 1.259
+   },
+   "lang": {
+    "trades": 607,
+    "summe_r": 180.35,
+    "pf": 1.407
+   },
+   "lang_mittel_unterschied_r": 0.1208,
+   "p": 0.01275,
+   "haupt_original": {
+    "trades": 121,
+    "summe_r": 55.33,
+    "pf": 1.697
+   },
+   "haupt": {
+    "trades": 121,
+    "summe_r": 70.7,
+    "pf": 1.837
+   },
+   "haupt_robust": {
+    "trades": 121,
+    "summe_r": 57.01,
+    "pf": 1.659
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden"
+   ]
+  },
+  "r13_s150_z075": {
+   "bot": "scalp-de40",
+   "lang_original": {
+    "trades": 607,
+    "summe_r": 107.04,
+    "pf": 1.259
+   },
+   "lang": {
+    "trades": 607,
+    "summe_r": 95.76,
+    "pf": 1.278
+   },
+   "lang_mittel_unterschied_r": -0.0186,
+   "p": 0.64067,
+   "haupt_original": {
+    "trades": 121,
+    "summe_r": 55.33,
+    "pf": 1.697
+   },
+   "haupt": {
+    "trades": 121,
+    "summe_r": 44.72,
+    "pf": 1.689
+   },
+   "haupt_robust": {
+    "trades": 121,
+    "summe_r": 42.39,
+    "pf": 1.653
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden",
+    "Hauptfenster Summe nicht höher",
+    "Hauptfenster Gewinnfaktor nicht mindestens wie das Original"
+   ]
+  },
+  "r13_s150_z150": {
+   "bot": "scalp-de40",
+   "lang_original": {
+    "trades": 607,
+    "summe_r": 107.04,
+    "pf": 1.259
+   },
+   "lang": {
+    "trades": 607,
+    "summe_r": 122.03,
+    "pf": 1.355
+   },
+   "lang_mittel_unterschied_r": 0.0247,
+   "p": 0.31598,
+   "haupt_original": {
+    "trades": 121,
+    "summe_r": 55.33,
+    "pf": 1.697
+   },
+   "haupt": {
+    "trades": 121,
+    "summe_r": 58.77,
+    "pf": 1.905
+   },
+   "haupt_robust": {
+    "trades": 121,
+    "summe_r": 54.5,
+    "pf": 1.839
+   },
+   "holm": false,
+   "bestanden": false,
+   "gruende": [
+    "Holm nicht bestanden"
+   ]
+  }
+ },
+ "nachrechnung_noise": {
+  "fehlt": 0,
+  "median_abweichung_r": 0.0047,
+  "max_abweichung_r": 0.1537,
+  "grund_anders": 0
+ }
+}

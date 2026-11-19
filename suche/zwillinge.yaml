@@ -24,4 +24,4 @@ zwillinge:
     start_utc: "2026-11-20T00:00:00"
     konto: schatten
     trades: journal/gold-grossbox-weiter125/trades.jsonl
-    pr: 0
+    pr: 57

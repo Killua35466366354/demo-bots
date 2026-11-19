@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-19T11:17:05.574777",
+ "stand_utc": "2026-11-19T11:31:34.407821",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1028.04,
+   "kontostand": 1027.8,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T11:17:05.574777",
+    "zeit": "2026-11-19T11:31:34.407821",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,46 +383,26 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.12,
+   "kontostand": 999.86,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "Position offen",
-   "offen": {
-    "dealId": "00000000-74ac-74e1-049c-70750015549e",
-    "side": 1,
-    "tag": "2026-11-19",
-    "signal_bar": "2026-11-19 09:15:00",
-    "einstieg_kerze": "2026-11-19 09:30:00",
-    "entry": 159.847,
-    "stop_level": 158.059,
-    "ziel_level": null,
-    "notstop": true,
-    "size": 900.0,
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 175.7645,
-    "opened_utc": "2026-11-19T09:31:39.123",
-    "konto_kurz": "…6542"
-   },
+   "status": "wartet auf das nächste Signal",
+   "offen": null,
    "orders": null,
-   "position": {
-    "upl": 0.34,
-    "stop": 158.059,
-    "ziel": null
-   },
+   "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T11:17:05.574777",
-    "action": "none",
+    "zeit": "2026-11-19T11:31:34.407821",
+    "action": "close",
     "why": [
-     "Position bleibt"
+     "Schluss zurück hinter Band bzw. VWAP"
     ]
    },
    "zusammenfassung": {
-    "trades": 5,
-    "treffer_pct": 40.0,
-    "pf": 0.75,
-    "summe_pct": -0.027,
-    "pnl_eur": -0.18
+    "trades": 6,
+    "treffer_pct": 50.0,
+    "pf": 0.838,
+    "summe_pct": -0.018,
+    "pnl_eur": -0.1
    },
    "letzte_trades": [
     {
@@ -564,6 +544,35 @@
      "pnl": -74.7,
      "waehrung": "JPY",
      "pnl_eur": -0.43,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…6542",
+     "uebernommen": false,
+     "nachgeholt": false
+    },
+    {
+     "bot": "r6-noise-usdjpy",
+     "strategie": "noise_band",
+     "epic": "USDJPY",
+     "side": "long",
+     "dealId": "00000000-74ac-74e1-049c-70750015549e",
+     "tag": "2026-11-19",
+     "einstieg_kerze": "2026-11-19 09:30:00",
+     "signal_bar": "2026-11-19 09:15:00",
+     "size": 900.0,
+     "entry": 159.847,
+     "exit": 159.862,
+     "stop_level": 158.059,
+     "ziel_level": null,
+     "notstop": true,
+     "opened_utc": "2026-11-19T09:31:39.123",
+     "closed_utc": "2026-11-19T11:31:34.407821",
+     "reason": "Gegensignal (Band/VWAP)",
+     "pct": 0.0094,
+     "r": 0.008,
+     "pnl": 13.5,
+     "waehrung": "JPY",
+     "pnl_eur": 0.08,
      "geschaetzt": false,
      "rutschen_pips": null,
      "konto": "…6542",
@@ -735,7 +744,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T11:17:05.574777",
+    "zeit": "2026-11-19T11:31:34.407821",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -989,7 +998,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T11:17:05.574777",
+    "zeit": "2026-11-19T11:31:34.407821",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1253,7 +1262,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T11:17:05.574777",
+    "zeit": "2026-11-19T11:31:34.407821",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1584,7 +1593,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T11:17:05.574777",
+    "zeit": "2026-11-19T11:31:34.407821",
     "action": "none",
     "why": [
      "heute erledigt"

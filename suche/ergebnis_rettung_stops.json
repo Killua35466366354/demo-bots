@@ -1,0 +1,681 @@
+{
+ "bots": {
+  "r5-ruecksetzer-us500": {
+   "original": {
+    "lang": {
+     "trades": 136,
+     "summe_r": 8.77,
+     "gewinnfaktor": 1.417,
+     "trefferquote": 0.713,
+     "mittlerer_verlust_r": -0.539,
+     "groesster_verlust_r": -1.06,
+     "tiefstes_tal_r": 4.16
+    },
+    "haupt": {
+     "trades": 41,
+     "summe_r": 6.93,
+     "gewinnfaktor": 3.432,
+     "trefferquote": 0.878,
+     "mittlerer_verlust_r": -0.57,
+     "groesster_verlust_r": -1.04,
+     "tiefstes_tal_r": 1.65
+    },
+    "von": "2016-02-17",
+    "bis": "2026-10-14"
+   },
+   "rettung_einstand": {
+    "lang": {
+     "trades": 136,
+     "summe_r": 7.91,
+     "gewinnfaktor": 1.399,
+     "trefferquote": 0.662,
+     "mittlerer_verlust_r": -0.431,
+     "groesster_verlust_r": -1.06,
+     "tiefstes_tal_r": 4.37
+    },
+    "haupt": {
+     "trades": 41,
+     "summe_r": 6.62,
+     "gewinnfaktor": 3.285,
+     "trefferquote": 0.829,
+     "mittlerer_verlust_r": -0.414,
+     "groesster_verlust_r": -1.04,
+     "tiefstes_tal_r": 1.65
+    },
+    "p": 0.7052,
+    "unterschied_je_trade_r": -0.0064,
+    "eingegriffen": 10,
+    "eingegriffen_haupt": 3,
+    "davon_im_original_gewinner": 7,
+    "davon_im_original_verlierer": 3,
+    "gespart_bei_verlierern_r": 1.38,
+    "verschenkt_bei_gewinnern_r": -2.25,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   },
+   "rettung_kleines_minus": {
+    "lang": {
+     "trades": 136,
+     "summe_r": 9.32,
+     "gewinnfaktor": 1.506,
+     "trefferquote": 0.662,
+     "mittlerer_verlust_r": -0.4,
+     "groesster_verlust_r": -1.05,
+     "tiefstes_tal_r": 3.93
+    },
+    "haupt": {
+     "trades": 41,
+     "summe_r": 7.71,
+     "gewinnfaktor": 5.257,
+     "trefferquote": 0.829,
+     "mittlerer_verlust_r": -0.259,
+     "groesster_verlust_r": -0.29,
+     "tiefstes_tal_r": 0.57
+    },
+    "p": 0.4154,
+    "unterschied_je_trade_r": 0.004,
+    "eingegriffen": 22,
+    "eingegriffen_haupt": 6,
+    "davon_im_original_gewinner": 7,
+    "davon_im_original_verlierer": 15,
+    "gespart_bei_verlierern_r": 4.54,
+    "verschenkt_bei_gewinnern_r": -4.0,
+    "holm": false,
+    "haupt_summe_hoeher": true,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   }
+  },
+  "r5-ruecksetzer-us100": {
+   "original": {
+    "lang": {
+     "trades": 139,
+     "summe_r": 10.53,
+     "gewinnfaktor": 1.541,
+     "trefferquote": 0.691,
+     "mittlerer_verlust_r": -0.452,
+     "groesster_verlust_r": -1.05,
+     "tiefstes_tal_r": 2.44
+    },
+    "haupt": {
+     "trades": 40,
+     "summe_r": 7.89,
+     "gewinnfaktor": 4.755,
+     "trefferquote": 0.85,
+     "mittlerer_verlust_r": -0.35,
+     "groesster_verlust_r": -1.03,
+     "tiefstes_tal_r": 1.57
+    },
+    "von": "2016-02-17",
+    "bis": "2026-10-14"
+   },
+   "rettung_einstand": {
+    "lang": {
+     "trades": 139,
+     "summe_r": 10.45,
+     "gewinnfaktor": 1.579,
+     "trefferquote": 0.626,
+     "mittlerer_verlust_r": -0.347,
+     "groesster_verlust_r": -1.05,
+     "tiefstes_tal_r": 2.52
+    },
+    "haupt": {
+     "trades": 40,
+     "summe_r": 7.55,
+     "gewinnfaktor": 5.569,
+     "trefferquote": 0.75,
+     "mittlerer_verlust_r": -0.165,
+     "groesster_verlust_r": -1.03,
+     "tiefstes_tal_r": 1.13
+    },
+    "p": 0.5235,
+    "unterschied_je_trade_r": -0.0006,
+    "eingegriffen": 14,
+    "eingegriffen_haupt": 6,
+    "davon_im_original_gewinner": 9,
+    "davon_im_original_verlierer": 5,
+    "gespart_bei_verlierern_r": 1.59,
+    "verschenkt_bei_gewinnern_r": -1.68,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   },
+   "rettung_kleines_minus": {
+    "lang": {
+     "trades": 139,
+     "summe_r": 8.96,
+     "gewinnfaktor": 1.459,
+     "trefferquote": 0.626,
+     "mittlerer_verlust_r": -0.376,
+     "groesster_verlust_r": -1.05,
+     "tiefstes_tal_r": 2.04
+    },
+    "haupt": {
+     "trades": 40,
+     "summe_r": 5.85,
+     "gewinnfaktor": 2.747,
+     "trefferquote": 0.75,
+     "mittlerer_verlust_r": -0.335,
+     "groesster_verlust_r": -1.03,
+     "tiefstes_tal_r": 1.38
+    },
+    "p": 0.776,
+    "unterschied_je_trade_r": -0.0112,
+    "eingegriffen": 25,
+    "eingegriffen_haupt": 7,
+    "davon_im_original_gewinner": 9,
+    "davon_im_original_verlierer": 16,
+    "gespart_bei_verlierern_r": 2.36,
+    "verschenkt_bei_gewinnern_r": -3.93,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   }
+  },
+  "r7-nasdaq-noise-long": {
+   "original": {
+    "lang": {
+     "trades": 138,
+     "summe_r": 12.08,
+     "gewinnfaktor": 2.19,
+     "trefferquote": 0.638,
+     "mittlerer_verlust_r": -0.203,
+     "groesster_verlust_r": -0.65,
+     "tiefstes_tal_r": 1.18
+    },
+    "haupt": {
+     "trades": 29,
+     "summe_r": 4.0,
+     "gewinnfaktor": 3.817,
+     "trefferquote": 0.69,
+     "mittlerer_verlust_r": -0.158,
+     "groesster_verlust_r": -0.41,
+     "tiefstes_tal_r": 0.47
+    },
+    "von": "2015-11-02",
+    "bis": "2026-09-30"
+   },
+   "rettung_einstand": {
+    "lang": {
+     "trades": 138,
+     "summe_r": 12.1,
+     "gewinnfaktor": 2.194,
+     "trefferquote": 0.638,
+     "mittlerer_verlust_r": -0.203,
+     "groesster_verlust_r": -0.65,
+     "tiefstes_tal_r": 1.18
+    },
+    "haupt": {
+     "trades": 29,
+     "summe_r": 4.0,
+     "gewinnfaktor": 3.817,
+     "trefferquote": 0.69,
+     "mittlerer_verlust_r": -0.158,
+     "groesster_verlust_r": -0.41,
+     "tiefstes_tal_r": 0.47
+    },
+    "p": 0.4979,
+    "unterschied_je_trade_r": 0.0001,
+    "eingegriffen": 1,
+    "eingegriffen_haupt": 0,
+    "davon_im_original_gewinner": 0,
+    "davon_im_original_verlierer": 1,
+    "gespart_bei_verlierern_r": 0.02,
+    "verschenkt_bei_gewinnern_r": 0.0,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   },
+   "rettung_kleines_minus": {
+    "lang": {
+     "trades": 138,
+     "summe_r": 12.16,
+     "gewinnfaktor": 2.207,
+     "trefferquote": 0.638,
+     "mittlerer_verlust_r": -0.202,
+     "groesster_verlust_r": -0.65,
+     "tiefstes_tal_r": 1.18
+    },
+    "haupt": {
+     "trades": 29,
+     "summe_r": 4.03,
+     "gewinnfaktor": 3.898,
+     "trefferquote": 0.69,
+     "mittlerer_verlust_r": -0.155,
+     "groesster_verlust_r": -0.41,
+     "tiefstes_tal_r": 0.47
+    },
+    "p": 0.4467,
+    "unterschied_je_trade_r": 0.0006,
+    "eingegriffen": 8,
+    "eingegriffen_haupt": 1,
+    "davon_im_original_gewinner": 0,
+    "davon_im_original_verlierer": 8,
+    "gespart_bei_verlierern_r": 0.08,
+    "verschenkt_bei_gewinnern_r": 0.0,
+    "holm": false,
+    "haupt_summe_hoeher": true,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   }
+  },
+  "scalp-us100": {
+   "original": {
+    "lang": {
+     "trades": 727,
+     "summe_r": -5.22,
+     "gewinnfaktor": 0.989,
+     "trefferquote": 0.341,
+     "mittlerer_verlust_r": -0.973,
+     "groesster_verlust_r": -4.06,
+     "tiefstes_tal_r": 63.94
+    },
+    "haupt": {
+     "trades": 182,
+     "summe_r": 50.31,
+     "gewinnfaktor": 1.461,
+     "trefferquote": 0.374,
+     "mittlerer_verlust_r": -0.958,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 15.01
+    },
+    "von": "2016-01-04",
+    "bis": "2026-10-06"
+   },
+   "rettung_einstand": {
+    "lang": {
+     "trades": 727,
+     "summe_r": -137.11,
+     "gewinnfaktor": 0.643,
+     "trefferquote": 0.18,
+     "mittlerer_verlust_r": -0.99,
+     "groesster_verlust_r": -4.06,
+     "tiefstes_tal_r": 140.85
+    },
+    "haupt": {
+     "trades": 182,
+     "summe_r": -20.64,
+     "gewinnfaktor": 0.771,
+     "trefferquote": 0.209,
+     "mittlerer_verlust_r": -0.992,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 24.81
+    },
+    "p": 1.0,
+    "unterschied_je_trade_r": -0.1814,
+    "eingegriffen": 208,
+    "eingegriffen_haupt": 53,
+    "davon_im_original_gewinner": 117,
+    "davon_im_original_verlierer": 91,
+    "gespart_bei_verlierern_r": 82.21,
+    "verschenkt_bei_gewinnern_r": -214.11,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   },
+   "rettung_kleines_minus": {
+    "lang": {
+     "trades": 727,
+     "summe_r": -170.54,
+     "gewinnfaktor": 0.591,
+     "trefferquote": 0.18,
+     "mittlerer_verlust_r": -0.7,
+     "groesster_verlust_r": -4.06,
+     "tiefstes_tal_r": 172.02
+    },
+    "haupt": {
+     "trades": 182,
+     "summe_r": -30.89,
+     "gewinnfaktor": 0.693,
+     "trefferquote": 0.209,
+     "mittlerer_verlust_r": -0.698,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 32.81
+    },
+    "p": 1.0,
+    "unterschied_je_trade_r": -0.2274,
+    "eingegriffen": 234,
+    "eingegriffen_haupt": 57,
+    "davon_im_original_gewinner": 117,
+    "davon_im_original_verlierer": 117,
+    "gespart_bei_verlierern_r": 78.04,
+    "verschenkt_bei_gewinnern_r": -243.36,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   },
+   "stop_halb": {
+    "lang": {
+     "trades": 727,
+     "summe_r": -51.42,
+     "gewinnfaktor": 0.828,
+     "trefferquote": 0.18,
+     "mittlerer_verlust_r": -0.505,
+     "groesster_verlust_r": -4.06,
+     "tiefstes_tal_r": 62.24
+    },
+    "haupt": {
+     "trades": 182,
+     "summe_r": -2.14,
+     "gewinnfaktor": 0.97,
+     "trefferquote": 0.209,
+     "mittlerer_verlust_r": -0.498,
+     "groesster_verlust_r": -0.5,
+     "tiefstes_tal_r": 13.66
+    },
+    "p": 0.9002,
+    "unterschied_je_trade_r": -0.0636,
+    "eingegriffen": 586,
+    "eingegriffen_haupt": 143,
+    "davon_im_original_gewinner": 117,
+    "davon_im_original_verlierer": 469,
+    "gespart_bei_verlierern_r": 226.41,
+    "verschenkt_bei_gewinnern_r": -272.61,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   }
+  },
+  "scalp-de40": {
+   "original": {
+    "lang": {
+     "trades": 607,
+     "summe_r": 107.04,
+     "gewinnfaktor": 1.259,
+     "trefferquote": 0.305,
+     "mittlerer_verlust_r": -0.98,
+     "groesster_verlust_r": -1.1,
+     "tiefstes_tal_r": 45.61
+    },
+    "haupt": {
+     "trades": 175,
+     "summe_r": 75.48,
+     "gewinnfaktor": 1.665,
+     "trefferquote": 0.331,
+     "mittlerer_verlust_r": -0.971,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 13.39
+    },
+    "von": "2016-01-04",
+    "bis": "2026-10-29"
+   },
+   "rettung_einstand": {
+    "lang": {
+     "trades": 607,
+     "summe_r": 10.37,
+     "gewinnfaktor": 1.035,
+     "trefferquote": 0.178,
+     "mittlerer_verlust_r": -0.994,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 56.75
+    },
+    "haupt": {
+     "trades": 175,
+     "summe_r": 39.84,
+     "gewinnfaktor": 1.524,
+     "trefferquote": 0.206,
+     "mittlerer_verlust_r": -1.0,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 11.6
+    },
+    "p": 0.9962,
+    "unterschied_je_trade_r": -0.1593,
+    "eingegriffen": 202,
+    "eingegriffen_haupt": 63,
+    "davon_im_original_gewinner": 77,
+    "davon_im_original_verlierer": 125,
+    "gespart_bei_verlierern_r": 118.31,
+    "verschenkt_bei_gewinnern_r": -214.98,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   },
+   "rettung_kleines_minus": {
+    "lang": {
+     "trades": 607,
+     "summe_r": -19.13,
+     "gewinnfaktor": 0.941,
+     "trefferquote": 0.178,
+     "mittlerer_verlust_r": -0.651,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 68.99
+    },
+    "haupt": {
+     "trades": 175,
+     "summe_r": 30.09,
+     "gewinnfaktor": 1.351,
+     "trefferquote": 0.206,
+     "mittlerer_verlust_r": -0.617,
+     "groesster_verlust_r": -1.0,
+     "tiefstes_tal_r": 13.1
+    },
+    "p": 0.9996,
+    "unterschied_je_trade_r": -0.2079,
+    "eingegriffen": 230,
+    "eingegriffen_haupt": 71,
+    "davon_im_original_gewinner": 77,
+    "davon_im_original_verlierer": 153,
+    "gespart_bei_verlierern_r": 108.06,
+    "verschenkt_bei_gewinnern_r": -234.23,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   },
+   "stop_halb": {
+    "lang": {
+     "trades": 607,
+     "summe_r": 58.2,
+     "gewinnfaktor": 1.235,
+     "trefferquote": 0.178,
+     "mittlerer_verlust_r": -0.499,
+     "groesster_verlust_r": -0.67,
+     "tiefstes_tal_r": 42.91
+    },
+    "haupt": {
+     "trades": 175,
+     "summe_r": 46.34,
+     "gewinnfaktor": 1.667,
+     "trefferquote": 0.206,
+     "mittlerer_verlust_r": -0.5,
+     "groesster_verlust_r": -0.5,
+     "tiefstes_tal_r": 9.6
+    },
+    "p": 0.8866,
+    "unterschied_je_trade_r": -0.0805,
+    "eingegriffen": 497,
+    "eingegriffen_haupt": 139,
+    "davon_im_original_gewinner": 77,
+    "davon_im_original_verlierer": 420,
+    "gespart_bei_verlierern_r": 204.15,
+    "verschenkt_bei_gewinnern_r": -252.98,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   }
+  },
+  "welt-ausbruch4h": {
+   "original": {
+    "lang": {
+     "trades": 1119,
+     "summe_r": -2.22,
+     "gewinnfaktor": 0.988,
+     "trefferquote": 0.49,
+     "mittlerer_verlust_r": -0.325,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 21.74
+    },
+    "haupt": {
+     "trades": 393,
+     "summe_r": 17.15,
+     "gewinnfaktor": 1.3,
+     "trefferquote": 0.534,
+     "mittlerer_verlust_r": -0.312,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 4.31
+    },
+    "von": "2015-05-25",
+    "bis": "2026-10-30"
+   },
+   "rettung_einstand": {
+    "lang": {
+     "trades": 1119,
+     "summe_r": 0.26,
+     "gewinnfaktor": 1.001,
+     "trefferquote": 0.479,
+     "mittlerer_verlust_r": -0.316,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 20.03
+    },
+    "haupt": {
+     "trades": 393,
+     "summe_r": 17.96,
+     "gewinnfaktor": 1.324,
+     "trefferquote": 0.524,
+     "mittlerer_verlust_r": -0.301,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 3.94
+    },
+    "p": 0.0765,
+    "unterschied_je_trade_r": 0.0022,
+    "eingegriffen": 29,
+    "eingegriffen_haupt": 10,
+    "davon_im_original_gewinner": 12,
+    "davon_im_original_verlierer": 17,
+    "gespart_bei_verlierern_r": 4.6,
+    "verschenkt_bei_gewinnern_r": -2.12,
+    "holm": false,
+    "haupt_summe_hoeher": true,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   },
+   "rettung_kleines_minus": {
+    "lang": {
+     "trades": 1119,
+     "summe_r": 1.31,
+     "gewinnfaktor": 1.007,
+     "trefferquote": 0.479,
+     "mittlerer_verlust_r": -0.309,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 19.12
+    },
+    "haupt": {
+     "trades": 393,
+     "summe_r": 18.14,
+     "gewinnfaktor": 1.329,
+     "trefferquote": 0.524,
+     "mittlerer_verlust_r": -0.295,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 4.09
+    },
+    "p": 0.0991,
+    "unterschied_je_trade_r": 0.0032,
+    "eingegriffen": 94,
+    "eingegriffen_haupt": 33,
+    "davon_im_original_gewinner": 12,
+    "davon_im_original_verlierer": 82,
+    "gespart_bei_verlierern_r": 8.65,
+    "verschenkt_bei_gewinnern_r": -5.12,
+    "holm": false,
+    "haupt_summe_hoeher": true,
+    "haupt_gewinnfaktor_nicht_tiefer": true,
+    "urteil": "durchgefallen"
+   },
+   "stop_halb": {
+    "lang": {
+     "trades": 1119,
+     "summe_r": -2.94,
+     "gewinnfaktor": 0.984,
+     "trefferquote": 0.48,
+     "mittlerer_verlust_r": -0.316,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 22.44
+    },
+    "haupt": {
+     "trades": 393,
+     "summe_r": 16.32,
+     "gewinnfaktor": 1.286,
+     "trefferquote": 0.527,
+     "mittlerer_verlust_r": -0.307,
+     "groesster_verlust_r": -1.21,
+     "tiefstes_tal_r": 4.75
+    },
+    "p": 0.561,
+    "unterschied_je_trade_r": -0.0007,
+    "eingegriffen": 219,
+    "eingegriffen_haupt": 68,
+    "davon_im_original_gewinner": 11,
+    "davon_im_original_verlierer": 208,
+    "gespart_bei_verlierern_r": 7.04,
+    "verschenkt_bei_gewinnern_r": -7.77,
+    "holm": false,
+    "haupt_summe_hoeher": false,
+    "haupt_gewinnfaktor_nicht_tiefer": false,
+    "urteil": "durchgefallen"
+   }
+  }
+ },
+ "anzahl_fassungen": 15,
+ "kontrolle": {
+  "r5-ruecksetzer-us500": {
+   "trades": 136,
+   "groesste_abweichung_r": 4.440892098500626e-16
+  },
+  "r5-ruecksetzer-us100": {
+   "trades": 139,
+   "groesste_abweichung_r": 1.1102230246251565e-16
+  },
+  "r7-nasdaq-noise-long": {
+   "trades": 138,
+   "fehlt": 0,
+   "median_abweichung_r": 0.004675220119760744
+  },
+  "scalp-us100": {
+   "trades": 727,
+   "groesste_abweichung_r": 0.0
+  },
+  "scalp-de40": {
+   "trades": 607,
+   "groesste_abweichung_r": 0.0
+  },
+  "welt-ausbruch4h": {
+   "trades": 1119,
+   "groesste_abweichung_r": 0.0
+  }
+ },
+ "fenster": {
+  "lang": "alle Einstiege der Daten je Bot",
+  "haupt": [
+   "2024-01-01",
+   "2026-10-30"
+  ]
+ },
+ "varianten": {
+  "rettung_einstand": {
+   "ausloeser_r": -0.5,
+   "ziel_r": 0.0
+  },
+  "rettung_kleines_minus": {
+   "ausloeser_r": -0.5,
+   "ziel_r": -0.25
+  },
+  "stop_halb": {
+   "faktor": 0.5,
+   "bots": [
+    "scalp-us100",
+    "scalp-de40",
+    "welt-ausbruch4h"
+   ]
+  }
+ }
+}

@@ -225,3 +225,22 @@ beim US100-Rücksetzer keinen Beleg (p 0,25 und 0,38). Beim Nasdaq Noise Long be
 zu früh, seit 2025 sinkt der Gewinnfaktor von 4,33 auf 3,33. Einziger Kandidat ist der DAX-Scalper mit Stop mal 0,75 und
 Ziel mal 1,5 (607 Trades, Gewinnfaktor 1,26 auf 1,41, seit 2025 1,70 auf 1,84, p 0,013, Holm verlangt 0,006). Er ist
 durchgefallen und wird kein Zwilling. Nr. 10 (Dow) ist nicht gerechnet, im Projekt liegen keine Dow-Kerzen.
+
+## 11. Stop-Prüfung „Rettung“ (19.11.2026)
+
+Kirons Frage vom 19.11.2026, ob die Stops den Verlust so klein wie möglich halten und ob man im Minus am Einstand oder
+mit kleinstem Minus schnell rausgehen sollte. Versiegelt in `suche/VORAB_rettung_stops.yaml`, Code
+`suche/rettung_stops.py`, Ergebnis `suche/ergebnis_rettung_stops.md`. Sechs Nicht-Gold-Bots (US500- und
+US100-Rücksetzer, Nasdaq Noise-Band, Scalper Nasdaq und DAX, 4-Std.-Ausbruch DAX, FTSE, Nikkei), gleiche Einstiege wie
+der Bot, gepaarter Test über alle Jahre mit Holm über 15 Fassungen, dazu das Hauptfenster 2024 bis 2026.
+
+**Keine der 15 Fassungen besteht, es gibt keinen Kandidaten, kein Bot ändert sich.** Neu war der Ausstieg nach einem
+Rücklauf ins Minus: War der Trade einen halben Stop-Abstand im Minus, liegt eine Limit-Order am Einstand oder bei einem
+Viertel Stop-Abstand im Minus. Die Rettung macht einzelne Verluste kleiner, schneidet aber mehr spätere Gewinner ab, als
+sie Verlierer rettet. Scalper Nasdaq im Hauptfenster von +50,3 R auf −20,6 R (208 Eingriffe, 117 davon wären Gewinner
+geworden), Scalper DAX von +75,5 R auf +39,8 R. Rücksetzer und Noise-Band ohne Beleg (p 0,42 bis 0,78), 4-Std.-Ausbruch
+leicht besser, aber p 0,08 und 0,10. Der halbe Stop ist bei beiden Scalpern und beim 4-Std.-Ausbruch schlechter.
+
+Nicht gerechnet: die drei Vortag-Bots und der Mess-Bot (Stops von 2 bis 7 Pips, auf 5-Minuten-Kerzen nicht fair, gehört
+zur Nachrechnung mit Minutenkerzen), Noise USD/JPY und Scalper Nikkei (kein Stop in der Regel), London GBP/USD
+(Test-Programm im privaten Repo), Dow (keine Kerzen), Gold (rechnet der Gold-Thread).

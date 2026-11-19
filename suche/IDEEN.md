@@ -128,3 +128,19 @@ Dann entscheidet Kiron, und echtes Geld gibt es nur über einen PR im privaten R
 
 Ehrlich: Auch so besteht ein Bot ohne Vorteil die Hürde mit Gewinnfaktor 1,3 noch in etwa einem von zehn Fällen. Beim
 Tempo vom 18.11.2026 wäre Pine-Gold auf Account 5 im Januar 2027 so weit, die Kern-Bots als Kombi etwa im Sommer 2027.
+
+## 6. Runde „Starker Rückblick“ (18.11.2026)
+
+Kirons Wunsch: Strategien suchen, die im Rückblick stark sind, und sie danach live gegen den Rückblick prüfen.
+Gerechnet wurden sechs vorab festgelegte Varianten (`suche/VORAB_rueckblick.yaml`): der 4-Std.-Ausbruch mit Tagestrend
+(Gold-Kandidat) auf Silber, US-Indizes, DAX/FTSE/Nikkei und sieben Währungspaaren, dazu die Dienstag-Regel auf
+Indizes. Ergebnis in `suche/ergebnis_rueckblick.md`: keine besteht, der 4-Std.-Ausbruch auf DAX, FTSE und Nikkei ist
+Kandidat (nicht bestanden, kein Beleg), fünf sind durchgefallen.
+
+Dort stehen auch:
+
+- der Befund, dass die Vortag-Regel mit engem Stop auf Kerzen nicht fair zu rechnen ist (betrifft N4 und den Rückblick
+  der laufenden Vortag-Bots),
+- der Ideen-Vorrat R1 bis R9 aus der Recherche (Umschichtungs-Druck zum Monatsende, Nacht vor dem
+  Arbeitsmarktbericht, Tag nach einem VIX-Sprung und weitere) mit Quelle und Hauptzweifel,
+- ein Vorschlag, wie ein Live-Versuch Treue zum Rückblick und echten Vorteil getrennt prüft.

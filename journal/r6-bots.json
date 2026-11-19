@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-19T17:01:38.507731",
+ "stand_utc": "2026-11-19T17:16:36.787047",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1034.72,
+   "kontostand": 1035.53,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T17:01:38.507731",
+    "zeit": "2026-11-19T17:16:36.787047",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -404,7 +404,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T17:01:38.507731",
+    "zeit": "2026-11-19T17:16:36.787047",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -824,7 +824,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T17:01:38.507731",
+    "zeit": "2026-11-19T17:16:36.787047",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1078,7 +1078,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T17:01:38.507731",
+    "zeit": "2026-11-19T17:16:36.787047",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1306,54 +1306,27 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4494",
    "konto_name": "Account 3",
-   "kontostand": 986.27,
+   "kontostand": 981.22,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
-   "status": "Stop-Orders liegen",
+   "status": "wartet auf das nächste Signal",
    "offen": null,
-   "orders": {
-    "tag": "2026-11-19",
-    "ph": 210.769,
-    "pl": 209.132,
-    "gelegt_utc": "2026-11-19T09:31:37.244311",
-    "bis_utc": "2026-11-19 21:30:00",
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 175.7645,
-    "konto_kurz": "…4494",
-    "long": {
-     "dealId": "00000000-74b9-caaf-049c-701d0015549e",
-     "level": 210.794,
-     "marke": 210.769,
-     "stop": 210.706,
-     "ziel": 211.178,
-     "size": 12300.0
-    },
-    "short": {
-     "dealId": "00000000-74b9-cab7-049c-701d0015549e",
-     "level": 209.132,
-     "marke": 209.132,
-     "stop": 209.195,
-     "ziel": 208.723,
-     "size": 12300.0
-    },
-    "stop_abstand": 0.06283828325793082,
-    "atr15": 0.12567656651586165
-   },
+   "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T17:01:38.507731",
+    "zeit": "2026-11-19T17:16:36.787047",
     "action": "none",
     "why": [
-     "Stop-Orders liegen"
-    ]
+     "heute erledigt"
+    ],
+    "bar": null
    },
    "zusammenfassung": {
-    "trades": 3,
+    "trades": 4,
     "treffer_pct": 0.0,
     "pf": 0.0,
-    "summe_pct": -0.088,
-    "pnl_eur": -13.05
+    "summe_pct": -0.122,
+    "pnl_eur": -18.09
    },
    "letzte_trades": [
     {
@@ -1446,6 +1419,36 @@
      "uebernommen": false,
      "nachgeholt": false,
      "einstieg_geschaetzt": true
+    },
+    {
+     "bot": "r6-vortag-gbpjpy",
+     "strategie": "vortag_stop_oco",
+     "epic": "GBPJPY",
+     "side": "short",
+     "dealId": null,
+     "tag": "2026-11-19",
+     "einstieg_kerze": "2026-11-19 17:00:00",
+     "signal_bar": null,
+     "size": 12300.0,
+     "entry": 209.127,
+     "exit": 209.199,
+     "stop_level": 209.195,
+     "ziel_level": 208.723,
+     "notstop": false,
+     "opened_utc": "2026-11-19 17:06:03.076000",
+     "closed_utc": "2026-11-19T17:06:13.529000",
+     "reason": "Stop beim Broker",
+     "pct": -0.0344,
+     "r": -1.059,
+     "pnl": -885.6,
+     "waehrung": "JPY",
+     "pnl_eur": -5.04,
+     "geschaetzt": false,
+     "rutschen_pips": 0.5,
+     "konto": "…4494",
+     "uebernommen": false,
+     "nachgeholt": false,
+     "einstieg_geschaetzt": false
     }
    ],
    "zwilling": {
@@ -1673,7 +1676,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-19T17:01:38.507731",
+    "zeit": "2026-11-19T17:16:36.787047",
     "action": "none",
     "why": [
      "heute erledigt"

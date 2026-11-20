@@ -377,6 +377,9 @@ def test_schreibt_nur_eigene_dateien_und_nur_bei_aenderung(tmp_path):
     k = json.loads(karte.read_text(encoding="utf-8"))
     assert k["bot"] == "buendel9" and k["konto"] == "Vortag USDJPY" and len(k["offen"]) == 1
     assert k["zusammenfassung"]["trades"] == 0 and k["kontostand_gedacht_eur"] == 700.0
+    assert k["zusammenfassung"]["summe_eur"] == 0.0 and k["zusammenfassung"]["pf_r"] is None   # Felder des Cockpits
+    z = bb.bewertung([{"r": 1.0, "eur": 7.0}, {"r": -0.5, "eur": -3.5}])
+    assert z["summe_eur"] == 3.5 and z["pf_r"] == z["gewinnfaktor"] == 2.0 and z["summe_r"] == 0.5
     st2 = {**st, "stand": "später"}
     assert not bb.schreiben(st2, [], [], REGEL, jdir, karte)
     with pytest.raises(RuntimeError):

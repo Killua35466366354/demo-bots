@@ -593,8 +593,9 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path
 def bewertung(trades: list[dict]) -> dict:
     r = [float(t["r"]) for t in trades if t.get("r") is not None]
     gew, verl = sum(x for x in r if x > 0), -sum(x for x in r if x < 0)
-    return {"trades": len(r), "summe_r": round(sum(r), 2), "gewinnfaktor": round(gew / verl, 2) if verl else None,
-            "eur": round(sum(float(t.get("eur") or 0) for t in trades), 2),
+    pf = round(gew / verl, 2) if verl else None
+    return {"trades": len(r), "summe_r": round(sum(r), 2), "gewinnfaktor": pf, "pf_r": pf,     # pf_r wie die anderen Bots
+            "summe_eur": round(sum(float(t.get("eur") or 0) for t in trades), 2),           # liest das Cockpit
             "urteil": "Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3"}
 
 

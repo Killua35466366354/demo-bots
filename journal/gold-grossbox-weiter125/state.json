@@ -5,8 +5,8 @@
  "fertig": [],
  "trades": [],
  "offen": [],
- "letzte_kerze": "2026-11-20 09:45:00",
- "stand": "2026-11-20T10:11:33+00:00",
+ "letzte_kerze": "2026-11-20 10:45:00",
+ "stand": "2026-11-20T11:11:35+00:00",
  "summe_r": 0.0,
  "zwilling": {
   "status": "sammelt",
@@ -17,9 +17,9 @@
    "summe_r": 0
   },
   "original": {
-   "trades": 0,
+   "trades": 1,
    "pf": null,
-   "summe_r": 0
+   "summe_r": 5.61
   }
  },
  "neue_trades": true

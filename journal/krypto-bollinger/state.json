@@ -5,10 +5,37 @@
  "trades": 0,
  "maerkte": {
   "BTCUSD": {
-   "trade": null
+   "trade": null,
+   "letzte_grenze": "2026-11-20 13:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 13:00:00",
+    "ergebnis": "Schluss im Band oder RSI nicht extrem",
+    "richtung": 0,
+    "schluss": 61474.6,
+    "mitte": 61918.1475,
+    "oben": 62645.612398,
+    "unten": 61190.682602,
+    "rsi": 40.443286,
+    "atr": 589.149698,
+    "dist": null
+   }
   },
   "ETHUSD": {
-   "trade": null
+   "trade": null,
+   "letzte_grenze": "2026-11-20 13:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 13:00:00",
+    "ergebnis": "Schluss im Band oder RSI nicht extrem",
+    "richtung": 0,
+    "schluss": 1736.58,
+    "mitte": 1749.3835,
+    "oben": 1773.473057,
+    "unten": 1725.293943,
+    "rsi": 41.149258,
+    "atr": 19.350738,
+    "dist": null
+   }
   }
- }
+ },
+ "stand": "2026-11-20T13:03:40"
 }

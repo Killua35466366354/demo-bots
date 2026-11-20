@@ -140,6 +140,9 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Monate kommen als eigene Dateien nach `strategie-suche/daten/monate/`, die Grunddateien bleiben unverändert.
   Kandidat erst nach 100 Trades, 61 Tagen, Gewinnfaktor 1,3 und Holm über alle 52. Dann eine Karte an Kiron für
   einen Demo-Bot mit eigener VORAB-Datei. Nichts steigt von allein auf.
+  Seit 20.11.2026 zählt `modell_breit` aus der Runde "Kirons Trade-Notizen" als 53. Fassung mit (Kirons Wahl,
+  `suche/VORAB_schatten_modell_breit.yaml`, Holm dann über 53). `nachladen` holt dafür jeden Monat den DIX als neue
+  Datei. Ein Trade von `modell_breit` zählt nur in Jahren, für die `gold/v2/termine.yaml` alle Termine hat.
 - **Kombinierer** (`suche/kombinierer.py`, Schritt im 15-Minuten-Lauf): rechnet die Gruppe aller Bots und die
   Kern-Kombi als ein Konto mit 1.000 € und 10 € je R, ohne Grenzen und mit den Regeln eines echten Kontos
   (höchstens 3 offen, einer je Markt, Tagesstopp 3 %, Bremse 20 %). Die Trades kommen aus `suche/vergleich.py`

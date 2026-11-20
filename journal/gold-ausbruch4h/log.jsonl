@@ -5,3 +5,4 @@
 {"time": "2026-11-18T03:01:57", "event": "Verkauf eröffnet", "id": "2026-11-18T03:00", "dealId": "00000000-746a-5f97-049c-701e0015549e", "size": 0.05, "entry": 3797.41, "stop": 3893.75, "dist": 96.34, "spaet_min": 2.0}
 {"time": "2026-11-18T19:01:48", "event": "Trade fertig", "trade": "2026-11-18T03:00", "seite": "Verkauf", "grund": "zeit", "r": 0.655, "pnl_eur": 2.88}
 {"time": "2026-11-19T19:01:42", "event": "Verkauf eröffnet", "id": "2026-11-19T19:00", "dealId": "00000000-74b2-ae75-049c-701e0015549e", "size": 0.04, "entry": 3678.1, "stop": 3808.24, "dist": 130.14, "spaet_min": 1.7}
+{"time": "2026-11-20T11:01:44", "event": "Trade fertig", "trade": "2026-11-19T19:00", "seite": "Verkauf", "grund": "zeit", "r": 0.661, "pnl_eur": 3.15}

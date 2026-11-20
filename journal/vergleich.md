@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 6 | -6,12 | -61 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 56 Trades, +14,01 R, Gewinnfaktor 1,59. Aufstieg: 56 von 100 Demo-Trades, 17 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 58 Trades, +20,28 R, Gewinnfaktor 1,86. Aufstieg: 58 von 100 Demo-Trades, 17 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.58 nach 44 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
@@ -37,9 +37,9 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | DAX Eröffnungskerze | Account 1 | 2026-11-10 | 3 | -1,70 R | 0,16 | -8,25 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 3 von 100 Demo-Trades, 10 von 61 Tagen |
 | Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 3 | -0,35 % | 0,09 | -0,11 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 3 von 100 Demo-Trades, 10 von 61 Tagen |
 | Gold-Staffel | Account 1 | 2026-11-10 | 1 | +0,25 R | – | +3,60 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml | 1 von 100 Demo-Trades, 10 von 61 Tagen |
-| Gold Groß-Box | Account 6 | 2026-11-10 | 7 | +3,04 R | 2,01 | +10,89 | läuft (7 von 40 Trades) | suche/VORAB_gold_grossbox.yaml | 7 von 100 Demo-Trades, 10 von 61 Tagen |
+| Gold Groß-Box | Account 6 | 2026-11-10 | 8 | +8,65 R | 3,87 | +37,73 | läuft (8 von 40 Trades) | suche/VORAB_gold_grossbox.yaml | 8 von 100 Demo-Trades, 10 von 61 Tagen |
 | Gold-Zonen Bruch | Account 2 | 2026-11-11 | 2 | -2,00 R | 0,00 | -9,79 | läuft (2 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml | 2 von 100 Demo-Trades, 9 von 61 Tagen |
-| Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 3 | +1,54 R | 17,92 | +6,97 | läuft (3 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml | 3 von 100 Demo-Trades, 8 von 61 Tagen |
+| Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 4 | +2,20 R | 25,19 | +10,12 | läuft (4 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml | 4 von 100 Demo-Trades, 8 von 61 Tagen |
 | 4-Std.-Ausbruch DAX, FTSE, Nikkei | Account 7 | 2026-11-19 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_welt_ausbruch4h_bot.yaml | 0 von 100 Demo-Trades, 1 von 61 Tagen |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 23 | +13,87 R | 2,67 | +68,17 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 23 von 100 Demo-Trades, 10 von 61 Tagen |
 | Pine-Gold TP 3 € | US500 | 2026-11-10 | 44 | -11,19 R | 0,58 | -55,04 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 44 von 100 Demo-Trades, 10 von 61 Tagen |

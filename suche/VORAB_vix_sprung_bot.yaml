@@ -1,0 +1,191 @@
+# Vorwärtstest "Tag nach einem VIX-Sprung" auf fünf Indizes, live auf einem Capital.com-DEMOKONTO. Nie echtes Geld.
+# Festgelegt, BEVOR der Bot einen Trade hatte (Prüfsumme im Protokoll). Code: suche/vix_sprung_bot.py.
+#
+# Kirons Wunsch vom 20.11.2026 11:44 UTC "Schatten soll direkt Live-Demo sein", seine Wahl 11:53 UTC auf der Karte
+# "die paar stärksten zu erst" mit dem Zusatz "aber alle anderen die bischen mehr machen dann und vielleicht die alle
+# 1$ zusammen fügen in einen bot/strategie" und 12:26 UTC "baue danach aber weiter aus". Bot 1 war Bollinger Krypto,
+# Bot 2 das Vorhersage-Modell Indizes. Dies ist Bot 3. Von den übrigen Fassungen mit etwas mehr Gewinn ist es die
+# einzige, die in ihrer Runde Kandidat war (alle Hürden außer z und Holm).
+#
+# Ehrlich vorab:
+# - Der Bot handelt zwei Fassungen derselben Regel unverändert:
+#   vix_sprung_us aus suche/VORAB_grosse_runde.yaml (US500, US100). Test NICHT bestanden, Kandidat
+#   (suche/ergebnis_grosse_runde.md): 136 Trades, Gewinnfaktor 1,93, mit 1,5-fachen Kosten 1,92, Hälften 1,26 und
+#   3,36, 2026 2,45, Zufall zu 98,8 % geschlagen, aber z 2,17 statt 3 und ohne Holm. Vor 2024 als Auskunft 388 Trades,
+#   Gewinnfaktor 1,13.
+#   vix_sprung_welt aus suche/VORAB_grosse_runde2.yaml (DAX, FTSE 100, Nikkei 225). Test durchgefallen
+#   (suche/ergebnis_grosse_runde2.md): 204 Trades, Gewinnfaktor 1,41, Hälften 0,96 und 2,18, Zufall nur zu 93,1 %
+#   geschlagen, z 1,50. Vor 2024 Gewinnfaktor 0,85, also verloren.
+# - Zusammen 2024 bis Oktober 2026: 340 Trades, Gewinnfaktor 1,60, robust 1,55, 61 % Treffer, +16,6 R. Aber alle 340
+#   Trades liegen an denselben 68 Tagen, an jedem Sprung-Tag kauft der Bot alle fünf Märkte. Es sind also nur 68
+#   Ereignisse, etwa zwei im Monat. 2024 verlor die Regel (100 Trades, Gewinnfaktor 0,78, -2,4 R), das Plus kam 2025
+#   (+9,7 R) und 2026 (+9,3 R). Ohne die 5 besten Trades 1,44.
+# - Durchgang 2 der großen Runde sagt dazu: Jede Abwandlung des VIX-Sprungs war schwächer als die Fassung aus
+#   Durchgang 1, bei Regeln mit einem Schreck als Auslöser ist der Zufallsvergleich zu freundlich, und das spricht
+#   eher für Glück bei der Wahl von Schwelle und Haltedauer als für einen festen Vorteil. Das gilt auch für diesen Bot.
+# - Der schlechteste Tag im Test: 03.04.2025, alle fünf zusammen -4,17 R, bei 5 Euro Risiko also etwa -21 Euro.
+# - Die Gewinne sind klein. Im Schnitt +0,049 R je Trade, bei 5 Euro Risiko etwa 2,40 Euro im Monat.
+# - An Sprung-Tagen sind oft auch die Rücksetzer-Bots auf US500 und US100 und das Vorhersage-Modell im Markt, alle mit
+#   Käufen. Fällt der Markt weiter, verlieren sie wahrscheinlich gemeinsam.
+# - Das Schatten-Labor (suche/VORAB_schatten.yaml) zählt beide Fassungen ohne Order unverändert weiter. Dieser Bot
+#   ersetzt das nicht und ändert es nicht. Beide haben ihr eigenes Urteil.
+
+format: 1
+vix_sprung_bot:
+  bot: vix-sprung
+  konto: >-
+    Account 5, geteilt mit dem Dow-Rücksetzer (US30), Pine-Gold K5 und Gold-Hand (Gold), also andere Märkte. Die
+    Kontonummer liest der Bot nach dem Namen aus journal/konten.json (suche/mitnutzer.konto_nach_name). Nie das
+    Hauptkonto des Gold-Bots.
+  maerkte: >-
+    US500 (Capital.com US500) und US100 (US100) mit der Fassung vix_sprung_us, DAX (DE40), FTSE 100 (UK100) und Nikkei
+    225 (J225) mit der Fassung vix_sprung_welt
+  lauf: Alle 15 Minuten im Workflow demo-bots.yml (Minute 1, 16, 31, 46)
+
+  regel: >-
+    Fassungen vix_sprung_us (suche/VORAB_grosse_runde.yaml, Durchgang 1) und vix_sprung_welt
+    (suche/VORAB_grosse_runde2.yaml, Durchgang 2), unverändert. Alle Zahlen liest der Code aus diesen versiegelten
+    Dateien. Kurz: Ist der jüngste VIX-Schluss vor dem Handelstag (Ende 17:00 New York) mindestens 10 % über dem
+    Schluss davor und höchstens 3 Kalendertage alt, kauft der Bot. Einstieg mit dem ersten Kurs ab 18:00 New York am
+    Vorabend des Handelstags (spätestens 3:00 New York), Notstop 3 ATR 14 der Tageskerzen, kein Ziel, Ausstieg zum
+    Markt um 15:55 New York am Handelstag. Nur Käufe. Höchstens ein Trade je Markt, also höchstens fünf zugleich.
+
+  ausfuehrung:
+    frist_min: 20
+    vorlauf_tage: 60
+    min_handelstage: 20
+    vix: >-
+      Der Test nimmt die FRED-Reihe VIXCLS. FRED veröffentlicht sie erst am nächsten Tag. Der Bot holt den VIX darum
+      dort, woher FRED ihn hat: als Tagesschluss von Cboe (VIX_History.csv). Vor dem Siegel verglichen: Von Januar 2020
+      bis zum letzten Wert bei FRED (18.11.2026) gibt die Rechnung des Tests mit den Zahlen von Cboe an allen 1.796
+      Werktagen dieselbe Entscheidung wie mit FRED (155 Sprung-Tage, kein Unterschied). Der Bot schreibt den VIX im
+      Format der FRED-Datei, der Test liest ihn dann mit seiner eigenen Funktion (suche/grosse_runde.richtung_reihe).
+      Werktage ohne VIX-Wert (Feiertage der Börse New York) stehen im Code bis Ende 2027. Fehlt dort einer, wartet der
+      Bot am Tag danach auf einen Wert, der nie kommt, und lässt den Tag aus. Er kauft dadurch nie mit einem falschen
+      Wert.
+    abkuerzung: >-
+      Ist der VIX-Wert vom Vortag da und zeigt die Rechnung des Tests keinen Sprung, ist der Handelstag für alle fünf
+      Märkte erledigt, ohne Kerzen vom Broker (Kurse und Positionen liest jeder Lauf trotzdem). Das ist an etwa 91 %
+      der Tage so. Nur an einem Sprung-Tag holt der Bot Kerzen und rechnet Stop und Ausstiegszeit.
+    kerzen: >-
+      Fertige Stundenkerzen (Bid) von Capital.com, vorlauf_tage Kalendertage vor dem Einstieg. Jede wird zu zwölf
+      gleichen 5-Min.-Zeilen, dahinter eine Zeile zur Minute des Einstiegs mit dem aktuellen Bid (wie
+      suche/modell_indizes_bot.py). Tageskerzen, ATR, Stop und Ausstiegszeit rechnen dann dieselben Funktionen wie der
+      Test (suche/rueckblick.Markt, suche/grosse_runde._tagestrades). Hat der Bot weniger als min_handelstage fertige
+      Handelstage, rechnet er kein Signal.
+    einstieg: >-
+      Geprüft wird jeder Handelstag je Markt genau einmal, ab 18:00 New York am Vorabend. Der Test steigt mit der
+      ersten Kerze ab 18:00 New York ein. Der Bot steigt höchstens frist_min Minuten nach der ersten 5-Min.-Kerze ein,
+      die der Broker ab 18:00 New York zeigt, sonst ist der Tag verfallen. Fehlt der VIX-Wert vom Vortag (Cboe hat
+      noch nicht veröffentlicht), wartet der Bot. Fehlt er auch im letzten Lauf der Frist, lässt er den Handelstag auf
+      diesem Markt aus, denn mit dem Wert von vorgestern wäre es ein anderes Signal. Ist der Markt zu oder fehlen
+      Kerzen, sieht der nächste Lauf in der Frist noch einmal nach. Bei einem Signal sendet der Bot eine Kauforder zum
+      Markt mit Stop beim Broker, gemessen wie im Test vom aktuellen Bid. Ist auf diesem Markt noch ein Trade des Bots
+      offen, gibt es keinen Einstieg.
+    order: >-
+      Jeder Handelstag bekommt je Markt höchstens eine Order. Eine abgelehnte oder gescheiterte Order wird nie
+      wiederholt. Kommt auf die Order keine Bestätigung, sucht der Bot die Position sofort und im nächsten Lauf an
+      Richtung und Größe und übernimmt sie. Findet er keine, gilt die Order als nicht angekommen.
+    ausstieg: >-
+      Den Stop schließt der Broker. Sonst schließt der Bot zum Markt im ersten Lauf ab 15:40 New York (15 Minuten vor
+      der Zeit des Tests), damit DAX und FTSE 100, die bei Capital.com um 16:00 New York schließen, noch offen sind. Ist
+      der Markt dann zu, schließt der erste Lauf nach der Öffnung. Scheitert das Schließen, versucht es der nächste
+      Lauf. Über 17:00 New York läuft ein Trade so nie, es fällt keine Übernachtgebühr an.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Stop-Abstand der Order, minus Übernachtgebühr
+      mit den Sätzen des Tests (Indizes long 6,5 % im Jahr), falls ein Trade doch über 17:00 New York lief. Das
+      Euro-Ergebnis im Journal ist ohne Gebühr. Den Ausstiegskurs am Stop liest der Bot aus der Kontoaktivität des
+      Brokers. Steht der Schluss dort eine Stunde lang nicht, zählt der Stopkurs, und der Trade ist als geschätzt
+      markiert. Jeder Trade trägt seine Fassung (vix_sprung_us oder vix_sprung_welt).
+
+  gegenprobe: >-
+    Vor dem Siegel mit den Kursen des Tests gerechnet (python -m suche.vix_sprung_gegenprobe <Arbeit> und mit --ganz):
+    Aus den 5-Min.-Kerzen des Tests wurden Stundenkerzen wie vom Broker. Die Rechnung des Bots bekam sie zu jedem
+    Handelstag von Januar 2024 bis Oktober 2026 zur Minute des Einstiegs im Test. Auf allen fünf Märkten dieselben 68
+    Einstiege wie im Test, keiner nur beim Bot, keiner nur im Test. Einstiegskerze, Richtung und Ausstiegszeit bei allen
+    gleich, Stop-Abstand auf 3e-9 gleich. Mit --ganz rechnet der Bot auch an allen Tagen ohne Sprung die ganze
+    Rechnung mit Kerzen, das Ergebnis ist dasselbe. Beim DAX wartete der Bot am 02. und 03.01.2024 auf 20 Handelstage,
+    weil die Kursdaten des Tests dort erst ab 04.12.2023 zählen. An beiden Tagen gab es keinen Sprung.
+  gegenprobe_zahlen:
+    SPXUSD: {tage: 730, test: 68, bot: 68, gemeinsam: 68, nur_bot: 0, nur_test: 0, ausstieg_gleich: 68}
+    NSXUSD: {tage: 730, test: 68, bot: 68, gemeinsam: 68, nur_bot: 0, nur_test: 0, ausstieg_gleich: 68}
+    GRXEUR: {tage: 730, test: 68, bot: 68, gemeinsam: 68, nur_bot: 0, nur_test: 0, ausstieg_gleich: 68}
+    UKXGBP: {tage: 729, test: 68, bot: 68, gemeinsam: 68, nur_bot: 0, nur_test: 0, ausstieg_gleich: 68}
+    JPXJPY: {tage: 730, test: 68, bot: 68, gemeinsam: 68, nur_bot: 0, nur_test: 0, ausstieg_gleich: 68}
+    cboe_gegen_fred: {werktage: 1796, sprung_tage: 155, unterschied: 0}
+
+  abweichungen_vom_test:
+    - >-
+      Wann Cboe den VIX-Schluss in die Datei schreibt, ist vor dem Start nicht sicher. Am 20.11.2026 trug die Datei mit
+      dem Wert vom 19.11. die Zeit 21:11 New York, die Datei von VIX3M dagegen 17:30 New York. Kommt der VIX
+      regelmäßig erst nach 18:20 New York, fehlen an Sprung-Tagen alle Märkte, deren erster Kurs beim Broker um 18:00
+      New York kommt. Der Zustand zählt je Markt, wie oft und warum ein Tag ausgelassen wurde (ausgelassen, Grund
+      vix_alt), das Cockpit zeigt es. Dasselbe gilt für das Vorhersage-Modell auf Account 6, das denselben VIX braucht.
+    - >-
+      Andere Kurse: Der Test rechnete mit 5-Min.-Kerzen von HistData, der Bot mit Stundenkerzen von Capital.com. Hoch,
+      Tief und Schluss eines Tages können abweichen, damit auch ATR und Stop. Ob gekauft wird, hängt nur am VIX und
+      ändert sich dadurch nicht.
+    - >-
+      Andere Handelszeiten: Die Kurse von HistData beginnen meist um 18:00 New York und enden um 16:15 New York.
+      Capital.com hat eigene Handelszeiten, DAX und FTSE 100 schließen dort um 16:00 New York. Öffnet ein Markt beim
+      Broker erst nach 18:00 New York, steigt der Bot mit seinem ersten Kurs ein. Das Journal schreibt je Trade, wie
+      viele Minuten nach 18:00 New York der Bot einstieg (nach_18_min) und wie viele nach dem ersten Kurs des Brokers
+      (spaet_min).
+    - >-
+      Später Einstieg und früherer Ausstieg: Der Bot kommt etwa 1 bis 20 Minuten nach dem ersten Kurs und steigt im
+      ersten Lauf ab 15:40 New York aus, also bis zu 15 Minuten vor der Zeit des Tests. Was das kostet oder bringt, ist
+      nicht getestet.
+    - >-
+      Der Test rechnete mit dem mittleren Spread von Capital.com je Viertelstunde der New Yorker Uhr. Live gilt der
+      Spread des Augenblicks. Kurz nach 18:00 New York und an unruhigen Tagen, also gerade nach einem VIX-Sprung, ist
+      er bei Indizes oft breiter.
+    - >-
+      Der Test füllt den Stop einen halben Spread schlechter. Live füllt der Broker zum nächsten Kurs, in einer
+      Kurslücke schlechter.
+    - >-
+      Ist die kleinste Größe des Brokers zu grob für 5 Euro Risiko bei 3 ATR Stop (an unruhigen Tagen ist die ATR
+      groß), lässt der Bot den Markt an diesem Tag aus (siehe groesse) und zählt es (Grund groesse).
+    - >-
+      Fällt ein Lauf aus oder scheitert der Abruf in der ganzen Frist, verfällt der Tag. Im Test gibt es das nicht.
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade vom Einstieg bis zum Stop
+    max_risiko_faktor: 2.0
+    margin_anteil: 0.2
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keinen Einstieg. Braucht die Order mehr als margin_anteil des freien Gelds auf dem Konto als
+      Margin, gibt es keinen Einstieg. Vom freien Geld zieht der Bot dabei die Margin seiner Orders ab, die er im
+      selben Lauf schon gesendet hat. So bleibt den anderen Bots auf demselben Konto genug freies Geld. An einem
+      Sprung-Tag sind es bis zu fünf Trades zugleich, also bis zu 25 Euro Risiko.
+
+  sperren:
+    - >-
+      Ohne passende Prüfsumme dieser Datei im Protokoll öffnet der Bot nichts. Passt das Siegel von
+      suche/VORAB_grosse_runde.yaml oder suche/VORAB_grosse_runde2.yaml nicht mehr, rechnet er kein Signal.
+    - >-
+      Liegt auf einem seiner Märkte eine Position auf dem Konto, die nicht von ihm ist, öffnet er dort nichts Neues.
+      Fremde Positionen fasst er nie an. Seine eigenen erkennt er an der Deal-ID.
+    - >-
+      Steht Account 5 nicht genau einmal in journal/konten.json, findet sich dazu keine volle Nummer oder endet sie wie
+      das Hauptkonto des Gold-Bots, handelt er nicht.
+    - Ab -25 R seit Start nichts Neues mehr. Offene Trades laufen zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/vix-sprung/ und journal/vix-sprung.json.
+
+  urteil:
+    pause_r: -25.0
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades aller fünf Märkte
+      zusammen. Dann entscheidet Kiron über den nächsten Schritt. Das Cockpit zeigt dazu beide Fassungen einzeln
+      (je_fassung).
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: >-
+      Im Test 10 Trades im Monat, aber an nur 2 Tagen. 40 Trades sind also etwa 8 Sprung-Tage, bei zwei im Monat etwa
+      4 Monate, also etwa Mitte März 2027. 8 Tage sind sehr wenig. Ein Bestehen nach 40 Trades ist darum kein Beleg,
+      ein Durchfallen auch nicht. Für echtes Geld gilt allein suche/VORAB_aufstieg_alle.yaml (100 Trades, 61 Tage).
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).

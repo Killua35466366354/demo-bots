@@ -343,3 +343,10 @@ USDJPY", 7 € Risiko auf gedachte 700 €, mit Konto-Wächter (Margin 50 %, Bre
 Oktober 2026 als Auskunft: 993 von 996 Trades passen durch den Wächter, 10,9 % Rendite pro Monat, schlimmster Rückgang
 149 €. Mit höchstens einem Trade je Markt nur 6,3 %. Auf mehrere Konten verteilt weniger (zwei Konten 5,4 %, drei
 Konten 2,6 %). Ohne die beiden Scalper 5,8 %. Urteil nach 100 Demo-Trades und 61 Tagen, etwa Mitte Februar 2027.
+
+**Spiegel der Vorhersage-Scalper (20.11.2026, Kirons Wunsch, `suche/VORAB_vorhersage_spiegel.yaml`): 0 von 8
+bestanden, kein Kandidat.** Alle acht Fassungen der Runde davor gespiegelt: Gegenrichtung an denselben Marken, Stop im
+alten Ziel-Abstand, Ziel am alten Stop. Alle unter Gewinnfaktor 1 (0,66 bis 0,95), der beste -1.385 € auf 1.000 € mit
+10 € je Trade. Die Spiegel der Gewinner verlieren den kleinen Vorteil der Vorhersage, die Spiegel der Verlierer lagen vor
+den Kosten zum Teil im Plus, aber der kleine Stop macht jeden Trade größer und die Kosten fressen alles. Ergebnis
+`suche/ergebnis_vorhersage_spiegel.md`. Nicht wiederholen.

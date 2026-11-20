@@ -3,27 +3,6 @@
  "start": "2026-11-10T03:48:53",
  "offen": [
   {
-   "dealId": "00000000-7534-0dc6-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.17,
-   "entry": 3559.19,
-   "dist": 31.11,
-   "einstieg_kerze": "2026-11-20 15:30:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-20T15:38:27",
-   "tp": 3559.19,
-   "stop": 3502.79,
-   "ziel": 3559.19,
-   "abfang": {
-    "zeit": "2026-11-20T18:38:31",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   },
-   "pruefer": {
-    "zeit": "2026-11-20T18:38:31",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   }
-  },
-  {
    "dealId": "00000000-7534-1d0e-049c-a0c30015549e",
    "richtung": 1,
    "size": 0.16,
@@ -32,13 +11,23 @@
    "einstieg_kerze": "2026-11-20 15:35:00",
    "strategie": "A Long",
    "opened_utc": "2026-11-20T15:43:31",
-   "tp": 3574.78
+   "tp": 3554.16,
+   "stop": 3488.51,
+   "ziel": 3554.16,
+   "abfang": {
+    "zeit": "2026-11-20T18:48:30",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   },
+   "pruefer": {
+    "zeit": "2026-11-20T18:48:30",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   }
   }
  ],
- "trades": 47,
- "summe_r": -12.984,
- "summe_eur": -64.02,
- "letzte_kerze": "2026-11-20 18:30:00",
- "letzter_kurs": 3518.34,
- "stand": "2026-11-20T18:38:31"
+ "trades": 48,
+ "summe_r": -14.797,
+ "summe_eur": -72.77,
+ "letzte_kerze": "2026-11-20 18:40:00",
+ "letzter_kurs": 3504.69,
+ "stand": "2026-11-20T18:48:30"
 }

@@ -2,10 +2,10 @@
  "bot": "williams-us",
  "name": "Williams %R (US500, US100)",
  "konto": "Account 7",
- "stand": null,
- "start": null,
+ "stand": "2026-11-20T14:18:10",
+ "start": "2026-11-20T14:18:10",
  "pausiert": null,
- "status": "startet nach Kirons Merge mit dem nächsten Lauf",
+ "status": "kein Trade offen, wartet auf 16:00 New York",
  "regel": "Williams %R auf US500 und US100 (Fassung williams_us): Schließt Williams %R(2) der Kassa-Sitzung unter -90, kauft der Bot um 16:00 New York. Ausstieg um 16:00 New York am ersten Tag, an dem der Schluss über dem Hoch des Vortags liegt oder %R über -30 schließt, spätestens nach 10 Sitzungen. Notstop 3 Tages-ATR, kein Ziel. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 77 Trades (etwa 2 im Monat), Gewinnfaktor 2,66, mit 1,5-fachen Kosten 2,65, Hälften 2,39 und 3,28, 2026 1,75, 81 % Treffer, Holm erfüllt, aber unter 100 Trades und z 2,35 statt 3. US500 4,21 (41 Trades), US100 1,82 (36). Vor 2024 327 Trades, Gewinnfaktor 1,51. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 3,90 € im Monat. Bei 47 von 77 Trades kaufte auch der US500-Rücksetzer. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
  "vorab": "suche/VORAB_williams_bot.yaml",
@@ -15,7 +15,10 @@
   "NSXUSD": "US100"
  },
  "offen": [],
- "ausgelassen": {},
+ "ausgelassen": {
+  "SPXUSD": {},
+  "NSXUSD": {}
+ },
  "zusammenfassung": {
   "trades": 0,
   "pf_r": null,
@@ -26,5 +29,19 @@
   "urteil": "läuft (0 von 40 Trades)"
  },
  "letzte_trades": [],
- "blick": {}
+ "blick": {
+  "naechste_pruefung_utc": "2026-11-20 21:00:00",
+  "maerkte": {
+   "SPXUSD": {
+    "epic": "US500",
+    "letzte_pruefung": null,
+    "kurs": 7135.7
+   },
+   "NSXUSD": {
+    "epic": "US100",
+    "letzte_pruefung": null,
+    "kurs": 26159.9
+   }
+  }
+ }
 }

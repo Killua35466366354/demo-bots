@@ -44,6 +44,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | Vorhersage-Modell Indizes | Account 6 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_modell_indizes_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | Tag nach einem VIX-Sprung | Account 5 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_vix_sprung_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
+| Williams %R | Account 7 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_williams_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 27 | +10,93 R | 1,96 | +53,82 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 27 von 100 Demo-Trades, 10 von 61 Tagen |
 | Pine-Gold TP 3 € | US500 | 2026-11-10 | 45 | -11,19 R | 0,58 | -55,03 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 45 von 100 Demo-Trades, 10 von 61 Tagen |
 

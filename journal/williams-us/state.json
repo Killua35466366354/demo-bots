@@ -1,0 +1,15 @@
+{
+ "format": 1,
+ "start": "2026-11-20T14:18:10",
+ "summe_r": 0.0,
+ "trades": 0,
+ "maerkte": {
+  "SPXUSD": {
+   "trade": null
+  },
+  "NSXUSD": {
+   "trade": null
+  }
+ },
+ "stand": "2026-11-20T14:18:10"
+}

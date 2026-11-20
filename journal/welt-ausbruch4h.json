@@ -2,10 +2,10 @@
  "bot": "welt-ausbruch4h",
  "name": "4-Std.-Ausbruch DAX, FTSE, Nikkei",
  "konto": "Account 7",
- "stand": null,
+ "stand": "2026-11-20T13:17:48",
  "start": "2026-11-19T13:18:33",
  "pausiert": null,
- "status": "kein Trade offen, wartet auf den Schluss der nächsten 4-Std.-Kerze",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-20 11:00 UTC): Start des Bots mitten in der Kerze",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf DAX, FTSE 100 und Nikkei 225 (Fassung ausbruch4h_welt_ziel_1r): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, Ziel 1 R. Ausstieg spätestens nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_notizen_runde.md): 2024 bis 2026 393 Trades (etwa 2,7 je Woche), Gewinnfaktor 1,30, 2026 1,66, aber nur 2,26 statt 3 Standardabweichungen über dem Zufall. Dieselbe Regel ohne Ziel war am 18.11. mit 1,24 schon knapp (suche/ergebnis_rueckblick.md).",
  "vorab": "suche/VORAB_welt_ausbruch4h_bot.yaml",
@@ -27,6 +27,32 @@
  },
  "letzte_trades": [],
  "blick": {
-  "status": "Account 7 nicht gefunden, nichts gehandelt"
+  "naechste_4h_kerze_endet_utc": "2026-11-20 15:00:00",
+  "maerkte": {
+   "GRXEUR": {
+    "epic": "DE40",
+    "letzte_pruefung": {
+     "grenze": "2026-11-20 11:00:00",
+     "ergebnis": "Start des Bots mitten in der Kerze"
+    },
+    "kurs": 24869.5
+   },
+   "UKXGBP": {
+    "epic": "UK100",
+    "letzte_pruefung": {
+     "grenze": "2026-11-20 11:00:00",
+     "ergebnis": "Start des Bots mitten in der Kerze"
+    },
+    "kurs": 10348.4
+   },
+   "JPXJPY": {
+    "epic": "J225",
+    "letzte_pruefung": {
+     "grenze": "2026-11-20 11:00:00",
+     "ergebnis": "Start des Bots mitten in der Kerze"
+    },
+    "kurs": 56317.8
+   }
+  }
  }
 }

@@ -1,11 +1,6 @@
 {
  "format": 1,
  "lauf": "demo-bots",
- "schritte": {
-  "welt4h": {
-   "in_folge": 1,
-   "seit": "2026-11-20T13:03Z"
-  }
- },
+ "schritte": {},
  "siegel": []
 }

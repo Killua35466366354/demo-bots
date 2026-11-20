@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 6 | -6,12 | -61 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 58 Trades, +20,28 R, Gewinnfaktor 1,86. Aufstieg: 58 von 100 Demo-Trades, 17 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 62 Trades, +17,33 R, Gewinnfaktor 1,65. Aufstieg: 62 von 100 Demo-Trades, 17 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.58 nach 45 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
@@ -42,7 +42,8 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 4 | +2,20 R | 25,19 | +10,12 | läuft (4 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml | 4 von 100 Demo-Trades, 8 von 61 Tagen |
 | 4-Std.-Ausbruch DAX, FTSE, Nikkei | Account 7 | 2026-11-19 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_welt_ausbruch4h_bot.yaml | 0 von 100 Demo-Trades, 1 von 61 Tagen |
 | Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
-| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 23 | +13,87 R | 2,67 | +68,17 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 23 von 100 Demo-Trades, 10 von 61 Tagen |
+| Vorhersage-Modell Indizes | Account 6 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_modell_indizes_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
+| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 27 | +10,93 R | 1,96 | +53,82 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 27 von 100 Demo-Trades, 10 von 61 Tagen |
 | Pine-Gold TP 3 € | US500 | 2026-11-10 | 45 | -11,19 R | 0,58 | -55,03 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 45 von 100 Demo-Trades, 10 von 61 Tagen |
 
 Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

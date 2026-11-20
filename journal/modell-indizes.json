@@ -2,10 +2,10 @@
  "bot": "modell-indizes",
  "name": "Vorhersage-Modell Indizes (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 6",
- "stand": null,
- "start": null,
+ "stand": "2026-11-20T13:18:01",
+ "start": "2026-11-20T13:18:01",
  "pausiert": null,
- "status": "startet nach Kirons Merge mit dem nächsten Lauf",
+ "status": "kein Trade offen, wartet auf 18:00 New York",
  "regel": "Vorhersage-Modell auf US500, US100, DAX, FTSE 100 und Nikkei 225 (Fassung modell_indizes): Eine logistische Regression schätzt aus Kursen des Vortags, VIX und US-Renditen, ob der Index bis 15:55 New York steigt. Ab 54 % Kauf, bis 46 % Verkauf, Einstieg ab 18:00 New York, Stop 2 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_modell_indizes_bot.yaml",
@@ -36,6 +36,33 @@
  },
  "letzte_trades": [],
  "blick": {
-  "status": "startet nach Kirons Merge mit dem nächsten Lauf"
+  "naechster_einstieg_utc": "2026-11-20 23:00:00",
+  "maerkte": {
+   "SPXUSD": {
+    "epic": "US500",
+    "letzte_pruefung": null,
+    "kurs": 7114.9
+   },
+   "NSXUSD": {
+    "epic": "US100",
+    "letzte_pruefung": null,
+    "kurs": 26068.6
+   },
+   "GRXEUR": {
+    "epic": "DE40",
+    "letzte_pruefung": null,
+    "kurs": 24871.0
+   },
+   "UKXGBP": {
+    "epic": "UK100",
+    "letzte_pruefung": null,
+    "kurs": 10349.7
+   },
+   "JPXJPY": {
+    "epic": "J225",
+    "letzte_pruefung": null,
+    "kurs": 56342.8
+   }
+  }
  }
 }

@@ -5,13 +5,29 @@
  "trades": 0,
  "maerkte": {
   "GRXEUR": {
-   "trade": null
+   "trade": null,
+   "letzte_grenze": "2026-11-20 11:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 11:00:00",
+    "ergebnis": "Start des Bots mitten in der Kerze"
+   }
   },
   "UKXGBP": {
-   "trade": null
+   "trade": null,
+   "letzte_grenze": "2026-11-20 11:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 11:00:00",
+    "ergebnis": "Start des Bots mitten in der Kerze"
+   }
   },
   "JPXJPY": {
-   "trade": null
+   "trade": null,
+   "letzte_grenze": "2026-11-20 11:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 11:00:00",
+    "ergebnis": "Start des Bots mitten in der Kerze"
+   }
   }
- }
+ },
+ "stand": "2026-11-20T13:17:48"
 }

@@ -560,19 +560,19 @@
    }
   ],
   "ist": {
-   "trades": 58,
-   "gewonnen": 29,
-   "treffer_pct": 50.0,
-   "summe_r": 20.28,
-   "pf_r": 1.86,
-   "eur": 168.5,
+   "trades": 62,
+   "gewonnen": 30,
+   "treffer_pct": 48.4,
+   "summe_r": 17.33,
+   "pf_r": 1.65,
+   "eur": 154.15,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 58,
-    "summe_r": 20.29,
-    "eur": 168.5
+    "trades": 62,
+    "summe_r": 17.35,
+    "eur": 154.15
    }
   },
   "bestes": "gold",
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "58 von 100 Demo-Trades, 17 von 61 Tagen"
+   "text": "62 von 100 Demo-Trades, 17 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -808,18 +808,42 @@
    }
   },
   {
+   "id": "modell-indizes",
+   "name": "Vorhersage-Modell Indizes",
+   "konto": "Account 6",
+   "seit": "2026-11-20",
+   "start": "2026-11-20",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "einheit": "R",
+   "urteil": "läuft (0 von 40 Trades)",
+   "vorab": "suche/VORAB_modell_indizes_bot.yaml",
+   "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 100 Demo-Trades, 0 von 61 Tagen"
+   }
+  },
+  {
    "id": "pine-k5",
    "name": "Pine-Gold Hand auf Account 5",
    "konto": "Account 5",
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 23,
-    "gewonnen": 14,
-    "treffer_pct": 60.9,
-    "summe_r": 13.87,
-    "pf_r": 2.67,
-    "eur": 68.17,
+    "trades": 27,
+    "gewonnen": 15,
+    "treffer_pct": 55.6,
+    "summe_r": 10.93,
+    "pf_r": 1.96,
+    "eur": 53.82,
     "rueckgang_r": 5.72
    },
    "einheit": "R",
@@ -828,7 +852,7 @@
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "23 von 100 Demo-Trades, 10 von 61 Tagen"
+    "text": "27 von 100 Demo-Trades, 10 von 61 Tagen"
    }
   },
   {

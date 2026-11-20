@@ -254,3 +254,4 @@
 {"time": "2026-11-20T12:08:32", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-752f-d4b4-049c-701f0015549e", "stopLevel": 3581.28, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-20T12:08:32", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-752f-da43-049c-701f0015549e", "stopLevel": 3580.87, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-20T12:08:32", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-752f-ef43-049c-701f0015549e", "stopLevel": 3580.61, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-20T12:23:25", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-20 12:15:00", "strategie": "A Long", "lage": "", "gruende": ["schon 4 Goldpositionen offen"]}

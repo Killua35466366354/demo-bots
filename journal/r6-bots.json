@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-20T20:46:39.023063",
+ "stand_utc": "2026-11-20T21:01:35.077088",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1050.09,
+   "kontostand": 1048.21,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T20:46:39.023063",
+    "zeit": "2026-11-20T21:01:35.077088",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.46,
+   "kontostand": 1000.5,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T20:46:39.023063",
+    "zeit": "2026-11-20T21:01:35.077088",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -982,7 +982,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T20:46:39.023063",
+    "zeit": "2026-11-20T21:01:35.077088",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1227,7 +1227,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 997.77,
+   "kontostand": 997.85,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1235,7 +1235,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T20:46:39.023063",
+    "zeit": "2026-11-20T21:01:35.077088",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1463,7 +1463,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4494",
    "konto_name": "Account 3",
-   "kontostand": 986.38,
+   "kontostand": 987.46,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
    "status": "wartet auf das nächste Signal",
@@ -1471,7 +1471,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T20:46:39.023063",
+    "zeit": "2026-11-20T21:01:35.077088",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1851,7 +1851,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T20:46:39.023063",
+    "zeit": "2026-11-20T21:01:35.077088",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

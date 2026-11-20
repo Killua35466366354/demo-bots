@@ -275,3 +275,24 @@ Trades, darum liefen sie über mehrere Märkte. Die Hürde wurde nicht gesenkt.
 Lehre für den Zufallsvergleich: Bei Regeln, die ein Schreck-Tag auslöst, und beim Fonds-Fenster ist die Verschiebung zu
 freundlich (Probeläufe auf erfundenen Märkten im Kopf von `suche/VORAB_grosse_runde2.yaml`). Ein Kandidat aus dieser
 Runde ist kein Beweis. Der ehrliche nächste Schritt ist Mitzählen ohne Order, und das entscheidet nur Kiron.
+
+## 13. Runde „Kirons Trade-Notizen“ (20.11.2026)
+
+Kiron hat im Trade-Katalog zwei gerechnete Regeln der großen Runde mit „Ändern“ bewertet und verlangt, die fünf
+profitabelsten Regeln nach Märkten durchzusehen. Sechs neue Fassungen, versiegelt in `suche/VORAB_trade_notizen.yaml`,
+Code `suche/grosse_runde.py` (Durchgang 3), Ergebnis `suche/ergebnis_trade_notizen.md`. Der Sache nach ist das ein
+dritter Durchgang auf denselben Kursen, darum war das beste Urteil Kandidat. Holm zählt mit 32.
+
+**Keine der sechs Fassungen besteht, es geht nichts live, kein Bot ändert sich.** Drei Kandidaten, alle dasselbe
+Vorhersage-Modell auf fünf Indizes: mit mehr Merkmalen (andere Indizes vom Vortag, Termine, DIX, 1.724 Trades,
+Gewinnfaktor 1,27, z 2,49, als einzige Fassung mehr Euro und höheres z als ihr Original), dieselbe strenger (601
+Trades, 1,30, z 1,64, schlechter als das strengere Original) und mit lernender Markt-Auswahl (924 Trades, 1,33,
+z 2,03, weniger Euro als das Original).
+
+Durchgefallen und nicht zu wiederholen: die Geduld-Regel eine oder zwei Stundenkerzen später einsteigen (Gewinnfaktor
+1,00 und 0,98, der Gewinn steckt in der ersten Stunde nach dem Signal) und die Geduld-Regel auf fünf statt zwei
+Indizes (997 Trades, 1,28, aber nur 73 % der Zufallsläufe geschlagen, DAX und Nikkei bringen nichts).
+
+Befunde: Die Verkäufe des Modells verlieren auch mit mehr Merkmalen (142 Verkäufe, Gewinnfaktor 0,73). Die lernende
+Markt-Auswahl aus den zwei Jahren davor hat den schwachen DAX nicht erkannt und 2024 ganz ausgesetzt. Jeder Markt lag
+in jeder der fünf besten Regeln im Plus, ein Streichen einzelner Märkte nach dem Ergebnis wurde nicht gerechnet.

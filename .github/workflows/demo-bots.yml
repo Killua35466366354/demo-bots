@@ -7,8 +7,9 @@ name: Demo-Bots (Strategie-Suche, nur Demokonto)
 # Gold Groß-Box (gold/grossbox_bot.py), der Gold 4-Std.-Ausbruch (gold/ausbruch4h_bot.py) und seit 19.11.2026 der
 # 4-Std.-Ausbruch DAX, FTSE, Nikkei (suche/welt4h_bot.py), seit 20.11.2026 Bollinger Krypto umgedreht
 # (suche/krypto_bollinger_bot.py), das Vorhersage-Modell Indizes (suche/modell_indizes_bot.py), der Tag nach einem
-# VIX-Sprung (suche/vix_sprung_bot.py) und Williams %R auf US500 und US100 (suche/williams_bot.py). Gold-Short-Bot und Gold-Hand-Bot ruhen. Die alten Runde-3-Bots in
-# suche/demo_bots.py sind alle abgelöst und öffnen nichts mehr. Pine-Bots, Scalper und Gold-Staffel laufen im
+# VIX-Sprung (suche/vix_sprung_bot.py), Williams %R auf US500 und US100 (suche/williams_bot.py) und der
+# 4-Std.-Ausbruch auf Bitcoin und Ether (suche/krypto4h_bot.py). Gold-Short-Bot und Gold-Hand-Bot ruhen. Die alten
+# Runde-3-Bots in suche/demo_bots.py sind alle abgelöst und öffnen nichts mehr. Pine-Bots, Scalper und Gold-Staffel laufen im
 # 5-Minuten-Lauf (pine5m.yml). Welcher Bot auf welchem Konto handelt, steht in CLAUDE.md.
 #
 # Uhr: Kirons cron-job.org-Auftrag "Demo-Bots", Minute 1, 16, 31 und 46, seit Kirons Wunsch vom 05.11.2026 17:33 UTC
@@ -62,7 +63,7 @@ jobs:
 
       # Tests nur nach einer Code-Änderung und einmal am Tag (Minuten sparen, 05.11.2026): Die Tests brauchten gut die
       # Hälfte jedes 15-Minuten-Laufs, obwohl sich der Code zwischen zwei Läufen fast nie ändert. Der Schlüssel ist der
-      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle vierzehn Testgruppen mit genau diesem Stand
+      # Stand aller Dateien außer journal/ und inbox/ plus das Datum. Waren alle fünfzehn Testgruppen mit genau diesem Stand
       # heute schon grün, springt jede Gruppe darüber. Sonst gilt wie immer: ohne grüne Tests kein Lauf.
       - name: Code-Stand für die Tests
         id: code
@@ -453,10 +454,40 @@ jobs:
             python -m suche.williams_bot
           fi
 
+      # 4-Std.-Ausbruch auf Bitcoin und Ether (Kirons Wunsch vom 20.11.2026: die stärksten Kandidaten direkt als
+      # Demo-Bot, "baue danach aber weiter aus"): die Fassung ausbruch4h_krypto der YouTube-Runde, im Test nicht
+      # bestanden (2026 Gewinnfaktor 0,91, z 2,35). Schließt eine 4-Std.-Kerze über dem Hoch der 20 Kerzen davor und
+      # passt der Tagestrend, kauft er, spiegelbildlich verkauft er. Stop hinter dem Tief der letzten 10 Kerzen beim
+      # Broker, kein Ziel, Ausstieg nach 4 fertigen 4-Std.-Kerzen, 5 € Risiko, höchstens ein Trade je Markt. Nur Demo,
+      # Account 5 (geteilt mit pine-k5, dem Dow-Rücksetzer und dem VIX-Sprung), nie das Hauptkonto des Gold-Bots. Regeln in
+      # suche/VORAB_krypto_ausbruch4h_bot.yaml, Code suche/krypto4h_bot.py. Kerzen holt er nur in den 25 Minuten nach
+      # dem Schluss einer 4-Std.-Kerze und solange ein Trade offen ist. Er schreibt nur journal/krypto-ausbruch4h/ und
+      # journal/krypto-ausbruch4h.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: 4-Std.-Ausbruch Bitcoin, Ether (Account 5)
+        id: krypto4h
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_krypto4h_bot.py
+            touch .tests-ok/krypto4h
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.krypto4h_bot --dry-run
+          else
+            python -m suche.krypto4h_bot
+          fi
+
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
       # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
       # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens
-      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den vierzehn Testgruppen.
+      # einmal am Tag. Ein Fehler hier hält die Bots und das Journal nie auf und zählt nicht zu den fünfzehn Testgruppen.
       - name: Demo-Vergleich aller Bots
         id: vergleich
         if: ${{ !cancelled() && inputs.dry_run != true }}
@@ -508,13 +539,13 @@ jobs:
           fi
           python -m suche.stimmung
 
-      # Nur wenn alle vierzehn Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
+      # Nur wenn alle fünfzehn Testgruppen in diesem Lauf grün waren, merkt sich GitHub den Stand (Cache, kostet nichts).
       - name: Alle Testgruppen grün?
         id: alle
         if: ${{ !cancelled() && steps.tests_ok.outputs.cache-hit != 'true' }}
         run: |
           n=$(ls .tests-ok | wc -l)
-          if [ "$n" -ge 14 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 14 Testgruppen grün"; fi
+          if [ "$n" -ge 15 ]; then echo "gruen=true" >> "$GITHUB_OUTPUT"; else echo "Nur $n von 15 Testgruppen grün"; fi
 
       - name: Grünen Stand merken
         if: ${{ !cancelled() && steps.alle.outputs.gruen == 'true' }}
@@ -527,7 +558,7 @@ jobs:
       # Bot-Schritt in Folge gescheitert ist. Die Bot-Schritte laufen mit continue-on-error, ein Fehler dort ließ den
       # Lauf und das Lebenszeichen bisher grün. Fehlt ein Siegel oder scheitert ein Schritt dreimal in Folge, geht eine
       # Meldung an healthchecks.io (Checks "siegel" und "bot-schritte"), Kiron bekommt eine E-Mail. Liest nur, ändert
-      # keinen Bot, schreibt nur journal/wache.json und nur, wenn sich die Zählung ändert. Zählt nicht zu den vierzehn
+      # keinen Bot, schreibt nur journal/wache.json und nur, wenn sich die Zählung ändert. Zählt nicht zu den fünfzehn
       # Testgruppen. Ein Fehler hier hält nichts auf.
       - name: Wache (Siegel und stille Fehler der Bot-Schritte)
         if: ${{ !cancelled() }}

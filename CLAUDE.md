@@ -54,7 +54,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, 4-Std.-Ausbruch Krypto, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -71,7 +71,7 @@ Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Que
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
 - `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
   4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung,
-  Williams %R, Pine-Bots, Gold-Hand).
+  Williams %R, 4-Std.-Ausbruch Krypto, Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
@@ -98,7 +98,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Vorhersage-Modell auf US500, US100, DAX, FTSE und Nikkei (Kandidat, Kirons Wahl "Modell Indizes, jetzt bauen").
   Dazu `vix-sprung`, der Tag nach einem VIX-Sprung auf denselben fünf Indizes (Kandidat in Durchgang 1, Kirons Wunsch
   "baue danach aber weiter aus"). Dazu `williams-us`, Williams %R auf US500 und US100 (nicht bestanden, unter 100
-  Trades, derselbe Wunsch).
+  Trades, derselbe Wunsch). Dazu `krypto-ausbruch4h`, der 4-Std.-Ausbruch auf Bitcoin und Ether (nicht bestanden,
+  2026 im Minus, derselbe Wunsch).
 
 ## Gold-Bot C/B
 
@@ -226,6 +227,29 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   `suche/youtube_runde.regel_williams`, ATR und Tageskerzen `suche/rueckblick.Markt`. `tests/test_williams_bot.py` und
   `python -m suche.williams_gegenprobe <Datenordner>` prüfen, dass Bot und Test dieselben Einstiege, Stops und
   Ausstiege sehen.
+
+## 4-Std.-Ausbruch Bitcoin und Ether
+
+- `suche/krypto4h_bot.py`, Regeln `suche/VORAB_krypto_ausbruch4h_bot.yaml` (versiegelt am 20.11.2026). Die Fassung
+  `ausbruch4h_krypto` der YouTube-Runde (`suche/VORAB_youtube_runde.yaml`) unverändert auf Bitcoin und Ether (Epics
+  BTCUSD, ETHUSD) auf Account 5, den er mit `pine-k5`, dem Labor-Bot Dow-Rücksetzer und dem VIX-Sprung teilt (kein
+  Kern-Bot). Bitcoin und Ether des Bollinger-Bots liegen auf Account 3, so sperren sich die beiden nie. Die Kontonummer
+  liest er nach dem Namen aus `journal/konten.json`. Der Test ist nicht bestanden (`suche/ergebnis_youtube_runde.md`,
+  319 Trades, Gewinnfaktor 1,23, aber 2026 0,91 und z 2,35 statt 3, vor 2024 1,10). Das Plus kam vor allem aus 2024, aus
+  Bitcoin und aus Käufen, ohne die 5 besten Trades 0,98. Der Bot läuft als Vorwärtstest auf Kirons Wunsch vom 20.11.2026
+  ("baue danach aber weiter aus"), Urteil nach 40 Trades. Im Test brachte ein Trade im Schnitt +0,044 R. Das
+  Schatten-Labor zählt dieselbe Fassung unverändert weiter.
+- Wie der 4-Std.-Ausbruch DAX, FTSE, Nikkei, aber alle sieben Tage, ohne Ziel und mit Hebel 2: Schluss einer
+  4-Std.-Kerze über dem Hoch der 20 Kerzen davor mit dem Tagestrend (EMA 50), Stop hinter dem Tief der letzten 10
+  Kerzen beim Broker, Ausstieg nach 4 fertigen 4-Std.-Kerzen (16 Stunden). Verkauf spiegelbildlich. Höchstens ein Trade
+  je Markt, an der Kerze des Ausstiegs kein neuer Einstieg, eine gescheiterte Order wird nie wiederholt. Liegt eine
+  fremde Position auf seinem Markt, öffnet er dort nichts. Eine Order darf bis 40 % des freien Gelds als Margin binden,
+  Orders aus demselben Lauf zählen mit.
+- Signal, Tagestrend, Sperre und Stop rechnet die Funktion des Tests (`suche/youtube_runde.signale`, Regel
+  `ausbruch4h`) auf Stundenkerzen des Brokers und dem Markt des Tests mit sieben Handelstagen. Der Bot schreibt seine
+  Dateien nach jedem Schluss einer 4-Std.-Kerze, also mindestens alle 4 Stunden, auch am Wochenende.
+  `tests/test_krypto4h_bot.py` und `python -m suche.krypto4h_gegenprobe <Datenordner>` prüfen, dass Bot und Test
+  dieselben Einstiege, Stops und Ausstiege sehen.
 
 ## Schatten-Labor und Kombinierer
 

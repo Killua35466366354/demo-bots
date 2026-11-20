@@ -1,0 +1,190 @@
+# Vorwärtstest "4-Std.-Ausbruch Bitcoin und Ether", live auf einem Capital.com-DEMOKONTO. Nie echtes Geld.
+# Festgelegt, BEVOR der Bot einen Trade hatte (Prüfsumme im Protokoll). Code: suche/krypto4h_bot.py.
+#
+# Kirons Wunsch vom 20.11.2026: 11:44 UTC "Schatten soll direkt Live-Demo sein", 11:53 UTC auf der Karte "die paar
+# stärksten zu erst" und 12:26 UTC "baue danach aber weiter aus". Nach dem Bollinger-Bot, dem Vorhersage-Modell, dem
+# VIX-Sprung und Williams %R ist das der fünfte gerechnete Kandidat, der so als Demo-Bot handelt.
+#
+# Ehrlich vorab:
+# - Die Regel ist die Fassung ausbruch4h_krypto aus suche/VORAB_youtube_runde.yaml, unverändert. Sie hat den Test
+#   NICHT bestanden (suche/ergebnis_youtube_runde.md): Januar 2024 bis Oktober 2026 319 Trades, 2,2 je Woche,
+#   Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13. Aber 2026 allein 0,91 (87 Trades, -1,61 R),
+#   und sie lag nur 2,35 statt 3 Standardabweichungen über dem Zufall (98,7 % der Zufallsläufe geschlagen).
+# - Das Plus kam vor allem 2024: 2024 116 Trades, Gewinnfaktor 1,59, +11,45 R. 2025 116 Trades, 1,18, +4,10 R. 2026
+#   bis Oktober 87 Trades, 0,91, -1,61 R. Vor 2024 als Auskunft 425 Trades, Gewinnfaktor 1,10.
+# - Fast der ganze Gewinn kommt aus Bitcoin und aus Käufen. Bitcoin 158 Trades, 1,42, +12,08 R. Ether 161 Trades,
+#   1,06, +1,86 R. Käufe 184 Trades, 1,40, +13,32 R. Verkäufe 135 Trades, 1,02, +0,62 R. Ether oder die Verkäufe
+#   wegzulassen wäre Auswahl nach dem Ergebnis, beide bleiben drin.
+# - Der Gewinn hängt an wenigen großen Trends. Ohne die 5 besten Trades Gewinnfaktor 0,98. Der beste Trade brachte
+#   +6,4 R. 44 % Treffer, ein Gewinn brachte im Schnitt 0,53 R, ein Verlust kostete 0,34 R. Der größte Rückgang im Test
+#   war 8,8 R.
+# - Im Schnitt +0,044 R je Trade. Bei 5 Euro Risiko sind das etwa 0,22 Euro je Trade und etwa 2 Euro im Monat.
+# - Der Test rechnete mit Binance-Kursen und dem echten Spread von Capital.com als Anteil am Kurs. Der Bot handelt
+#   Capital.com-Kurse.
+# - Das Schatten-Labor (suche/VORAB_schatten.yaml) zählt dieselbe Fassung ohne Order unverändert weiter. Dieser Bot
+#   ersetzt es nicht und ändert es nicht. Beide haben ihr eigenes Urteil.
+
+format: 1
+krypto_ausbruch4h_bot:
+  bot: krypto-ausbruch4h
+  konto: >-
+    Account 5, geteilt mit pine-k5 (Gold), dem Labor-Bot Dow-Rücksetzer und dem VIX-Sprung (andere Märkte). Dort
+    handelt kein Kern-Bot, so nimmt dieser Bot keinem Bot auf dem Weg zu echtem Geld Margin weg. Die Kontonummer liest
+    der Bot nach dem Namen aus journal/konten.json. Bitcoin und Ether des Bots Bollinger Krypto umgedreht liegen auf
+    Account 3, so sperren sich die beiden Bots nie gegenseitig. Nie das Hauptkonto des Gold-Bots.
+  maerkte: Bitcoin (Capital.com BTCUSD), Ether (ETHUSD)
+  lauf: Alle 15 Minuten im Workflow demo-bots.yml (Minute 1, 16, 31, 46), jeden Tag rund um die Uhr
+
+  regel: >-
+    Fassung ausbruch4h_krypto aus suche/VORAB_youtube_runde.yaml mit ihrer Regel ausbruch4h, unverändert. Alle Zahlen
+    liest der Code aus dieser versiegelten Datei. Kurz, je Markt für sich: 4-Std.-Kerzen beginnen um 18, 22, 2, 6, 10
+    und 14 Uhr New York, alle sieben Tage. Kauf, wenn eine 4-Std.-Kerze über dem höchsten Hoch der 20 Kerzen davor
+    schließt und die Kerze davor das nicht tat, und nur, wenn der letzte fertige Tag (Ende 17:00 New York) über seinem
+    EMA 50 schloss und der EMA 50 höher steht als 5 Tage davor. Verkauf spiegelbildlich. Die Signalkerze braucht
+    mindestens 24 5-Min.-Kerzen mit Kursen. Stop hinter dem tiefsten Tief (Kauf) der letzten 10 4-Std.-Kerzen plus 0,1
+    ATR (14) Puffer, gemessen vom Kurs beim Einstieg, mindestens 0,5 und höchstens 4 ATR. Kein Ziel. Ausstieg zum
+    Markt, sobald nach dem Einstieg 4 weitere 4-Std.-Kerzen fertig sind (16 Stunden), spätestens nach 14 Tagen.
+    Höchstens ein Trade je Markt, also höchstens zwei zugleich. Kein Einstieg von 20:55 bis 23:05 UTC und 15 Minuten
+    vor bis 15 Minuten nach einem Termin (Fed, CPI und NFP aus gold/v2/termine.yaml, wie im Test).
+
+  ausfuehrung:
+    frist_min: 25
+    vorlauf_tage: 400
+    min_tage: 150
+    kerzen: >-
+      Fertige Stundenkerzen (Bid) von Capital.com. Jede wird zu zwölf gleichen 5-Min.-Zeilen, dahinter eine Zeile zur
+      ersten Minute nach der Signalkerze mit dem aktuellen Bid. Signal, Tagestrend, Sperre und Stop rechnet dann
+      dieselbe Funktion wie der Test (suche/youtube_runde.signale, Regel ausbruch4h) auf dem Markt des Tests mit sieben
+      Handelstagen (suche/youtube_runde.Markt). Für ein Signal holt der Bot vorlauf_tage Kalendertage Stundenkerzen.
+      Hat er weniger als min_tage gültige Tage, rechnet er kein Signal.
+    einstieg: >-
+      Geprüft wird jede 4-Std.-Kerze je Markt genau einmal, in den ersten frist_min Minuten nach ihrem Schluss. Der
+      Lauf kommt zur Minute 1 und 16. Fehlt die letzte Stundenkerze vor dem Schluss noch, ist der Markt zu oder gilt
+      gerade eine Termin-Sperre, sieht der nächste Lauf in der Frist noch einmal nach. Danach ist die Kerze verfallen.
+      Bei einem Signal sendet der Bot eine Marktorder mit Stop beim Broker, ohne Ziel. Der Stop wird wie im Test vom
+      aktuellen Bid gemessen. War beim Schluss der Kerze auf diesem Markt noch ein Trade offen, oder endete der letzte
+      Trade erst danach, gibt es für diese Kerze keinen Einstieg, wie im Test.
+    order: >-
+      Jede Kerze bekommt je Markt höchstens eine Order. Eine abgelehnte oder gescheiterte Order wird nie wiederholt.
+      Kommt auf die Order keine Bestätigung, sucht der Bot die Position sofort und im nächsten Lauf an Richtung und
+      Größe und übernimmt sie. Findet er keine, gilt die Order als nicht angekommen.
+    ausstieg: >-
+      Den Stop schließt der Broker. Solange ein Trade offen ist, zählt jeder Lauf die fertigen 4-Std.-Kerzen seit dem
+      Einstieg aus den Stundenkerzen des Brokers, wie der Test (nur Kerzen mit Kursen). Sind es 4, schließt der Bot zum
+      Markt. Ist der Markt dann zu, schließt der erste Lauf nach der Öffnung. Scheitert das Schließen, versucht es der
+      nächste Lauf. 14 Tage nach dem Einstieg schließt der Bot in jedem Fall. Passt das Siegel der YouTube-Runde nicht
+      mehr, rechnet er kein neues Signal, führt einen offenen Trade aber zu Ende.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Stop-Abstand der Order, minus Übernachtgebühr.
+      Die Gebühr rechnet der Bot mit den Sätzen des Tests (Krypto, long und short 20 % im Jahr) je Nacht über 17:00 Uhr
+      New York. Das Euro-Ergebnis im Journal ist ohne Gebühr. Die echte Gebühr des Brokers steht nur im Kontostand.
+      Den Ausstiegskurs am Stop liest der Bot aus der Kontoaktivität des Brokers. Steht der Schluss dort eine Stunde
+      lang nicht, zählt der Stopkurs, und der Trade ist als geschätzt markiert.
+
+  gegenprobe: >-
+    Vor dem Siegel mit den Kursen des Tests gerechnet (python -m suche.krypto4h_gegenprobe <Arbeit>, Stundenkerzen aus
+    den 5-Min.-Kerzen des Tests, 400 Tage Vorlauf, Kurs beim Einstieg wie im Test). Sie prüft nur die Umsetzung, sie
+    rechnet kein neues Ergebnis. Ergebnis Januar 2024 bis Oktober 2026, je 6.204 Schlüsse von 4-Std.-Kerzen. Bitcoin 198
+    von 198 Einstiegen gleich, Ether 190 von 190, jeweils in derselben Richtung. Kein Einstieg nur beim Test oder nur
+    beim Bot, der Stop überall gleich (Abweichung 0). Von den 319 Trades des Tests (Bitcoin 158, Ether 161) endeten 302
+    nach 4 Kerzen, bei allen 302 schließt der Bot an derselben Kerze. Die übrigen 17 endeten am Stop beim Broker. Die
+    Zahlen je Markt stehen unter gegenprobe_zahlen.
+  gegenprobe_zahlen:
+    BTCUSD:                            # Bitcoin
+      schluesse: 6204
+      einstiege_test: 198
+      einstiege_bot: 198
+      gemeinsam: 198
+      richtung_gleich: 198
+      nur_test: 0
+      nur_bot: 0
+      stop_abweichung: 0.0
+      trades_test: 158
+      ausstieg_nach_zeit: 151
+      ausstieg_gleich: 151
+    ETHUSD:                            # Ether
+      schluesse: 6204
+      einstiege_test: 190
+      einstiege_bot: 190
+      gemeinsam: 190
+      richtung_gleich: 190
+      nur_test: 0
+      nur_bot: 0
+      stop_abweichung: 0.0
+      trades_test: 161
+      ausstieg_nach_zeit: 151
+      ausstieg_gleich: 151
+
+  abweichungen_vom_test:
+    - >-
+      Später Einstieg und später Ausstieg: Der Test handelt zur Eröffnung der ersten 5-Min.-Kerze nach der Signalkerze.
+      Der Bot kommt etwa 1 bis 4 Minuten später, im Ausnahmefall bis zu 25 Minuten. Der Stop wird dann vom späteren Kurs
+      gemessen. Bei im Schnitt +0,044 R je Trade kann schon ein kleiner Kursunterschied das Ergebnis ändern. Was das
+      kostet oder bringt, ist nicht getestet. Das Journal schreibt je Trade, wie viele Minuten der Bot zu spät war.
+    - >-
+      Andere Kurse: Der Test rechnete mit 5-Min.-Kerzen von Binance, der Bot mit Stundenkerzen von Capital.com. Hoch,
+      Tief und Schluss einer Kerze können abweichen. Ein knapper Ausbruch kann darum fehlen oder dazukommen.
+    - >-
+      Der Bot sieht nur Stundenkerzen und zählt jede Stunde mit Kursen als 12 5-Min.-Kerzen. Fehlen im Test einzelne
+      5-Min.-Kerzen in einer Stunde, kann die Signalkerze dort unter 24 Kerzen fallen, beim Bot nicht.
+    - >-
+      Der Test rechnete mit dem mittleren Spread von Capital.com je Viertelstunde der New Yorker Uhr. Live gilt der
+      Spread des Augenblicks, nachts und am Wochenende oft breiter.
+    - >-
+      Der Test füllt den Stop einen halben Spread schlechter. Live füllt der Broker zum nächsten Kurs, in einer
+      Kurslücke schlechter.
+    - >-
+      Fällt ein Lauf aus oder scheitert der Abruf der Kerzen in der ganzen Frist, verfällt das Signal. Im Test gibt es
+      das nicht.
+    - >-
+      Liest der Bot nach dem Stop den Schlusskurs noch nicht, gilt sein Trade bis zu einer Stunde als offen. Fällt in
+      diese Stunde ein Schluss einer 4-Std.-Kerze, nimmt er auf diesem Markt dort kein Signal.
+    - >-
+      Ist die kleinste Größe des Brokers so grob, dass das Risiko über 10 Euro stiege, oder bräuchte die Order mehr als
+      40 % des freien Gelds als Margin, gibt es keinen Einstieg. Im Test gibt es keine Größe.
+    - >-
+      Die Termine in gold/v2/termine.yaml reichen für die Fed bis Dezember 2026, für CPI und NFP bis Dezember 2027.
+      Fehlen die Termine der Fed für 2027, gibt es an den Tagen der Fed um 14 Uhr New York keine Sperre, bis die Datei
+      ergänzt wird. Der Bot liest die Datei bei jedem Lauf neu.
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade vom Einstieg bis zum Stop
+    max_risiko_faktor: 2.0
+    margin_anteil: 0.4
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keinen Einstieg. Krypto hat bei Capital.com für Privatkunden nur Hebel 2. Braucht die Order
+      mehr als margin_anteil des freien Gelds auf dem Konto als Margin, gibt es keinen Einstieg. Eine Order aus
+      demselben Lauf zählt dabei mit. So bleiben auf demselben Konto mindestens 60 % des freien Gelds für die anderen
+      Bots. pine-k5 öffnet nur, wenn danach noch 250 Euro frei sind, VIX-Sprung und Dow-Rücksetzer brauchen für
+      Indizes wenig Margin.
+
+  sperren:
+    - >-
+      Ohne passende Prüfsumme dieser Datei im Protokoll öffnet der Bot nichts. Passt das Siegel von
+      suche/VORAB_youtube_runde.yaml nicht mehr, rechnet er kein Signal.
+    - >-
+      Liegt auf einem seiner Märkte eine Position auf dem Konto, die nicht von ihm ist, öffnet er dort nichts Neues.
+      Fremde Positionen fasst er nie an. Seine eigenen erkennt er an der Deal-ID.
+    - >-
+      Steht Account 5 nicht genau einmal in journal/konten.json oder endet die Nummer wie das Hauptkonto des Gold-Bots,
+      handelt er nicht.
+    - Ab -25 R seit Start nichts Neues mehr. Offene Trades laufen zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/krypto-ausbruch4h/ und journal/krypto-ausbruch4h.json.
+
+  urteil:
+    pause_r: -25.0
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades beider Märkte zusammen.
+      Dann entscheidet Kiron über den nächsten Schritt.
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: Bei 2,2 Trades je Woche wie im Test etwa 18 Wochen bis zum Urteil, also etwa Ende März 2027.
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).
+    aufstieg: >-
+      Für echtes Geld gilt suche/VORAB_aufstieg_alle.yaml (100 Demo-Trades, mindestens 61 Tage, Gewinnfaktor 1,3 für
+      Bots außerhalb des Kerns). Nie durch diesen Test allein. Den Schritt entscheidet nur Kiron.

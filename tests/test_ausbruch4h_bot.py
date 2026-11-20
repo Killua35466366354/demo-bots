@@ -654,7 +654,7 @@ def test_regeln_sind_versiegelt_und_nennen_keine_kontonummer(monkeypatch):
 def test_ablauf_und_listen():
     wf = (ROOT / ".github" / "workflows" / "demo-bots.yml").read_text(encoding="utf-8")
     assert "tests/test_ausbruch4h_bot.py" in wf and "python -m gold.ausbruch4h_bot" in wf
-    assert "touch .tests-ok/gold_ausbruch4h" in wf and '[ "$n" -ge 14 ]' in wf and "von 14 Testgruppen" in wf
+    assert "touch .tests-ok/gold_ausbruch4h" in wf and '[ "$n" -ge 15 ]' in wf and "von 15 Testgruppen" in wf
     from suche import mitnutzer as mn
     eintrag = {b["bot"]: b for b in mn.bots()}[ab.BOT_ID]
     assert eintrag == {"bot": ab.BOT_ID, "konto": ab.KONTO, "konto_name": "Account 4", "neu": True,

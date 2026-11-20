@@ -221,12 +221,26 @@ def test_konto_kommt_nach_dem_namen_aus_konten_json():
     assert wb.konto_id({}) == ""
 
 
+def test_konto_mit_gekuerzter_id_wird_ueber_die_volle_id_der_zuordnung_gefunden():
+    # So steht es wirklich in journal/konten.json: unter "konten" nur die letzten vier Stellen, die volle ID unter
+    # "zuordnung", "frei" oder "haupt". Mit der gekürzten ID fand der Bot sein Konto beim Broker nicht (20.11.2026).
+    kurz = "…" + KONTO7[-4:]
+    daten = {"konten": [{"id": "…0001", "name": "Account 6"}, {"id": kurz, "name": "Account 7"}],
+             "zuordnung": {"anderer-bot": KONTO7, "noch-einer": "111111110001"}, "haupt": HAUPT, "frei": []}
+    assert wb.konto_id(daten) == KONTO7
+    assert wb.konto_id({**daten, "zuordnung": {}, "frei": [KONTO7]}) == KONTO7
+    assert wb.konto_id({**daten, "zuordnung": {}}) == ""                       # volle ID nirgends: kein Konto
+    doppelt = {**daten, "frei": ["999999990000" + KONTO7[-4:]]}                   # zwei volle IDs mit derselben Endung
+    assert wb.konto_id(doppelt) == ""
+
+
 def test_echtes_konto_steht_in_konten_json_und_ist_nie_das_hauptkonto():
     from gold.bot import konten
     echt = konten.DATEI and (ROOT / "journal" / konten.DATEI)
     import json
     k = wb.konto_id(json.loads(echt.read_text(encoding="utf-8")))
     assert k and not k.endswith(wb.HAUPT_ENDUNG)
+    assert k.isdigit() and len(k) > 5, "volle Konto-ID, nicht die gekürzte aus der Liste der Konten"
 
 
 # --------------------------------------------------------------------------------------------------------------------

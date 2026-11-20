@@ -28,6 +28,33 @@ def _kurz(konto: str | None) -> str | None:
     return None if not konto else "…" + str(konto)[-4:]
 
 
+def konto_nach_name(name: str, konten_daten: dict | None = None) -> str:
+    """Die volle Konto-ID des Demokontos mit diesem Namen (für Bots, die ihr Konto nach dem Namen suchen).
+    journal/konten.json nennt unter "konten" jedes Konto mit Namen, aber nur mit den letzten vier Stellen (…1234). Die
+    volle ID steht dort, wo Konten vergeben werden: "zuordnung", "haupt" und "frei". Gesucht wird darum erst der Name,
+    dann die eine volle ID mit diesen vier Endziffern. Leer, wenn es eins von beiden nicht genau einmal gibt.
+    Die ID wird nie abgetippt und nie ausgegeben (Befund vom 20.11.2026: mit der gekürzten ID fanden zwei Bots ihr
+    Konto beim Broker nicht)."""
+    if konten_daten is None:
+        from gold.bot import konten
+        konten_daten = konten.load()
+    k = konten_daten or {}
+    kurz = [str(x.get("id") or "") for x in k.get("konten") or [] if x.get("name") == name]
+    if len(kurz) != 1:
+        return ""
+    if not kurz[0].startswith("…"):                # ältere Form: die volle ID steht schon unter "konten"
+        return kurz[0] if kurz[0].isdigit() and len(kurz[0]) > 4 else ""
+    endung = kurz[0][1:]
+    if len(endung) < 4 or not endung.isdigit():
+        return ""
+    voll = {str(v) for v in (k.get("zuordnung") or {}).values() if v}
+    voll |= {str(x) for x in k.get("frei") or [] if x}
+    if k.get("haupt"):
+        voll.add(str(k["haupt"]))
+    treffer = sorted(v for v in voll if v.endswith(endung) and len(v) > len(endung) and v.isdigit())
+    return treffer[0] if len(treffer) == 1 else ""
+
+
 def bots() -> list[dict]:
     """Alle Mitnutzer: bot, konto (volle Konto-ID), konto_name, neu (öffnet neue Trades) und quelle (Datei).
 

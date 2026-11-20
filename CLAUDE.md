@@ -76,6 +76,11 @@ Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
 eingetragen.
 
+`journal/konten.json` nennt unter `konten` jedes Konto nur mit den letzten vier Stellen (…1234). Wer sein Konto nach
+dem Namen sucht, nimmt `suche.mitnutzer.konto_nach_name`. Sie findet die volle Nummer unter `zuordnung`, `frei` oder
+`haupt`. Mit der gekürzten Nummer fanden `welt-ausbruch4h` und `krypto-bollinger` ihr Konto beim Broker nicht und
+handelten bis zum 20.11.2026 nie (Lauf meldet "kein Konto"). `tests/test_mitnutzer.py` prüft das jetzt.
+
 Gruppen (Stand 11.11.2026, 20 Bots):
 
 - **Kern und Kombi** (Test bestanden): US500- und US100-Rücksetzer, Nasdaq Noise-Band, Vortag EUR/USD, GBP/USD, GBP/JPY.

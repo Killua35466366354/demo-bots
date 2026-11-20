@@ -7,7 +7,8 @@ Doku: https://open-api.capital.com/
 - Eine Order (POST /positions) liefert nur eine dealReference. Ob sie wirklich ausgeführt wurde,
   steht erst in GET /confirms/{dealReference}.
 - Order- und Schließ-Aufrufe werden nie automatisch wiederholt, damit keine Position doppelt entsteht. Nur die
-  Bestätigung (ein reines Lesen) fragt nach, wenn Capital.com die dealReference noch nicht kennt (siehe confirm).
+  Bestätigung (ein reines Lesen) fragt nach, wenn Capital.com die dealReference noch nicht kennt (siehe confirm),
+  und die Anmeldung (POST und PUT /session) versucht es nach "Rate-Limit" noch einmal (siehe _sitzung).
 - Mehrere Konten (Kirons Wunsch vom 03.11.2026: jeder Bot ein eigenes Demokonto): GET /accounts listet alle Konten
   des Logins, PUT /session {"accountId"} wechselt das aktive Konto dieser Sitzung. Orders, Positionen und
   Kontoaktivität gelten immer für das aktive Konto. Nach dem Login ist das bevorzugte Konto aktiv
@@ -16,6 +17,7 @@ Doku: https://open-api.capital.com/
 
 from __future__ import annotations
 
+import random
 import time
 from datetime import datetime
 
@@ -31,8 +33,17 @@ BASE_URLS = {
 BESTAETIGUNG_WARTEN = (0.5, 1.0, 2.0, 3.0)
 
 
+# Wartezeiten in Sekunden vor einem neuen Versuch, wenn POST oder PUT /session mit 429 "Rate-Limit" abgelehnt wird.
+# Dazu kommt je Pause bis zu 0,5 s Zufall, damit zwei gleichzeitige Läufe nicht wieder in derselben Sekunde anfragen.
+ANMELDUNG_WARTEN = (1.5, 3.0, 6.0)
+
+
 class CapitalError(RuntimeError):
     pass
+
+
+class CapitalRateLimit(CapitalError):
+    """429 von Capital.com. Der Text bleibt "Rate-Limit erreicht für <Pfad>", Aufrufer prüfen ihn."""
 
 
 class CapitalClient:
@@ -63,13 +74,27 @@ class CapitalClient:
         headers = {**self._tokens, **kwargs.pop("headers", {})}
         response = self.session.request(method, self.base_url + path, headers=headers, timeout=self.timeout, **kwargs)
         if response.status_code == 429:
-            raise CapitalError(f"Rate-Limit erreicht für {path}")
+            raise CapitalRateLimit(f"Rate-Limit erreicht für {path}")
         if not response.ok:
             raise CapitalError(f"{method} {path} -> {response.status_code}: {response.text[:300]}")
         return response
 
+    def _sitzung(self, method: str, **kwargs):
+        """POST oder PUT /session. Capital.com nimmt je API-Schlüssel nur wenige Anmeldungen kurz hintereinander an.
+        Seit dem 20.11.2026 melden sich in einem Lauf viele Bots nacheinander mit demselben Schlüssel an, und zweimal
+        kam "Rate-Limit erreicht für /session" (welt-ausbruch4h mittags, Kunden-Stimmung 23:04 UTC). Eine Anmeldung
+        oder ein Kontowechsel ändert beim Broker nichts, darum versucht es der Client nach einer Pause bis zu dreimal
+        neu (zusammen höchstens 12 s). Andere Fehler und alle anderen Pfade werden nicht wiederholt."""
+        for warten in (*ANMELDUNG_WARTEN, None):
+            try:
+                return self._request(method, "/session", **kwargs)
+            except CapitalRateLimit:
+                if warten is None:
+                    raise
+                time.sleep(warten + random.uniform(0, 0.5))
+
     def login(self) -> dict:
-        response = self._request("POST", "/session", json=self._login, headers={"X-CAP-API-KEY": self._api_key})
+        response = self._sitzung("POST", json=self._login, headers={"X-CAP-API-KEY": self._api_key})
         cst, token = response.headers.get("CST"), response.headers.get("X-SECURITY-TOKEN")
         if not (cst and token):
             raise CapitalError("Anmeldung ohne CST oder X-SECURITY-TOKEN in der Antwort")
@@ -83,7 +108,7 @@ class CapitalClient:
         Capital.com lehnt den Wechsel auf das aktive Konto mit 400 ab. Neue Tokens in der Antwort gelten ab sofort."""
         if not account_id or account_id == self.account_id:
             return
-        response = self._request("PUT", "/session", json={"accountId": account_id})
+        response = self._sitzung("PUT", json={"accountId": account_id})
         for key in ("CST", "X-SECURITY-TOKEN"):
             if response.headers.get(key):
                 self._tokens[key] = response.headers[key]

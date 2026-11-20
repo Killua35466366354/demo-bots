@@ -89,12 +89,12 @@ def test_liste_nicht_lesbar_sperrt_jedes_freie_konto(monkeypatch):
 def test_liste_kommt_aus_dem_code_der_bots():
     from gold import ausbruch4h_bot, grossbox_bot, hand_bot, pine5m_bot, zonen_bot
     from suche import gold_staffel_bot, krypto_bollinger_bot, modell_indizes_bot, scalper_bot, vix_sprung_bot
-    from suche import welt4h_bot
+    from suche import welt4h_bot, williams_bot
     alle = {b["bot"]: b for b in mn.bots()}
     erwartet = ({b.bot_id for b in scalper_bot.BOTS} | {b.bot_id for b in pine5m_bot.BOTS}
                 | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID, zonen_bot.BOT_ID,
                    ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID, modell_indizes_bot.BOT_ID,
-                   vix_sprung_bot.BOT_ID})
+                   vix_sprung_bot.BOT_ID, williams_bot.BOT_ID})
     assert set(alle) == erwartet and len(mn.bots()) == len(erwartet)
     assert alle["gold-staffel"]["konto"] == gold_staffel_bot.KONTO == scalper_bot.KONTO
     assert alle["gold-grossbox"]["konto"] == grossbox_bot.KONTO
@@ -119,6 +119,15 @@ def test_liste_kommt_aus_dem_code_der_bots():
     assert vix_sprung_bot.KONTO == hand_bot.KONTO == alle["pine-k5"]["konto"]
     assert vix_sprung_bot.KONTO not in [scalper_bot.KONTO, welt4h_bot.KONTO, krypto_bollinger_bot.KONTO,
                                         modell_indizes_bot.KONTO]
+    wi = alle["williams-us"]
+    assert wi["konto"] == williams_bot.KONTO and wi["konto_name"] == "Account 7"
+    # Account 7 teilt er mit dem 4-Std.-Ausbruch DAX, FTSE, Nikkei und Noise USD/JPY, aber nie mit einem anderen Bot
+    # auf US500 oder US100 (Vorhersage-Modell Account 6, VIX-Sprung Account 5, Rücksetzer auf eigenen Konten)
+    assert williams_bot.KONTO == welt4h_bot.KONTO
+    zuordnung = json.loads((ROOT / "journal" / "konten.json").read_text(encoding="utf-8"))["zuordnung"]
+    assert williams_bot.KONTO not in [modell_indizes_bot.KONTO, vix_sprung_bot.KONTO, scalper_bot.KONTO,
+                                      zuordnung["us500-ruecksetzer"], zuordnung["r5-ruecksetzer-us100"],
+                                      zuordnung["r7-nasdaq-noise-long"]]
     assert alle["gold-hand"]["neu"] is bool(hand_bot.NEUE_EINSTIEGE)
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG

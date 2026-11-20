@@ -1,0 +1,167 @@
+# Vorwärtstest "Williams %R" auf US500 und US100, live auf einem Capital.com-DEMOKONTO. Nie echtes Geld.
+# Festgelegt, BEVOR der Bot einen Trade hatte (Prüfsumme im Protokoll). Code: suche/williams_bot.py.
+#
+# Kirons Wunsch vom 20.11.2026 11:44 UTC "Schatten soll direkt Live-Demo sein", seine Wahl 11:53 UTC auf der Karte
+# "die paar stärksten zu erst" mit dem Zusatz "aber alle anderen die bischen mehr machen dann" und 12:26 UTC "baue
+# danach aber weiter aus". Bot 1 war Bollinger Krypto, Bot 2 das Vorhersage-Modell Indizes, Bot 3 der Tag nach einem
+# VIX-Sprung. Dies ist Bot 4. Von allen gerechneten Fassungen hat sie den stärksten Beleg je Trade.
+#
+# Ehrlich vorab:
+# - Der Bot handelt die Fassung williams_us aus suche/VORAB_youtube_runde.yaml unverändert. Test NICHT bestanden
+#   (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 77 Trades, Gewinnfaktor 2,66, mit 1,5-fachen Kosten 2,65,
+#   Hälften 2,39 und 3,28, 2026 1,75 (18 Trades), 81 % Treffer, ohne die 5 besten 2,21, Zufall zu 99,9 % geschlagen,
+#   Holm erfüllt. Durchgefallen nur an zwei Hürden: unter 100 Trades und z 2,35 statt 3 (für z 3 hätten es 16,2 R sein
+#   müssen, es waren 13,1 R). Vor 2024 als Auskunft 327 Trades, Gewinnfaktor 1,51.
+# - US500 trug mehr: 41 Trades, Gewinnfaktor 4,21. US100: 36 Trades, 1,82.
+# - Das Plus kam vor allem 2024 (35 Trades, +9,7 R). 2025 brachte +1,9 R (24 Trades), 2026 bis Oktober +1,5 R
+#   (18 Trades). Der Vorteil wurde also kleiner.
+# - Im Schnitt +0,17 R je Trade, bei 5 Euro Risiko etwa +0,85 Euro je Trade und etwa 1,90 Euro im Monat. Etwa zwei
+#   Trades im Monat, im Mittel 4 Tage offen, höchstens 14.
+# - Der schlechteste Trade im Test: -1,54 R (eine Kurslücke über den Stop), bei 5 Euro Risiko etwa -7,70 Euro. Der
+#   schlechteste Monat: April 2025 mit -1,47 R, etwa -7,35 Euro.
+# - Es ist fast derselbe Trade wie der laufende US500-Rücksetzer (Kauf nach kurzem Rückgang). Bei 47 von 77 Trades gab
+#   es binnen 2 Tagen auch ein RSI-2-Kaufsignal über dem 200-Tage-Schnitt. Er bringt also mehr vom Selben und kaum neue
+#   Streuung. Fällt der Markt weiter, verlieren beide wahrscheinlich gemeinsam, dazu oft das Vorhersage-Modell.
+# - Das Schatten-Labor (suche/VORAB_schatten.yaml) zählt die Fassung ohne Order unverändert weiter. Dieser Bot ersetzt
+#   das nicht und ändert es nicht. Beide haben ihr eigenes Urteil.
+
+format: 1
+williams_bot:
+  bot: williams-us
+  konto: >-
+    Account 7, geteilt mit Noise USD/JPY und dem 4-Std.-Ausbruch DAX, FTSE, Nikkei, also andere Märkte. Die
+    Kontonummer liest der Bot nach dem Namen aus journal/konten.json (suche/mitnutzer.konto_nach_name). Nie das
+    Hauptkonto des Gold-Bots.
+  maerkte: US500 (Capital.com US500) und US100 (US100)
+  lauf: Alle 15 Minuten im Workflow demo-bots.yml (Minute 1, 16, 31, 46)
+
+  regel: >-
+    Fassung williams_us (suche/VORAB_youtube_runde.yaml), unverändert. Alle Zahlen liest der Code aus dieser
+    versiegelten Datei. Kurz: Tageskerze der Kassa-Sitzung 9:30 bis 16:00 New York (Hoch, Tief, Schluss der letzten
+    5-Min.-Kerze vor 16:00), nur volle Sitzungen (mindestens 70 von 78 Kerzen, die letzte ab 15:55). Williams %R(2) =
+    -100 mal (Hoch der 2 Sitzungen minus Schluss) geteilt durch (Hoch der 2 Sitzungen minus Tief der 2 Sitzungen).
+    Schließt %R unter -90, kauft der Bot mit dem ersten Kurs ab 16:00 New York. Ausstieg zum Markt um 16:00 New York
+    am ersten späteren Tag, an dem der Schluss über dem Hoch der Sitzung davor liegt oder %R über -30 schließt,
+    spätestens nach 10 vollen Sitzungen. Notstop 3 ATR 14 der Tageskerzen beim Broker, kein Ziel. Nur Käufe.
+    Höchstens ein Trade je Markt. Steigt er an einer Kerze um 16:00 aus, kauft er dort nicht neu (wie im Test).
+
+  ausfuehrung:
+    frist_min: 20
+    vorlauf_tage: 60
+    fuenf_kerzen: 1000
+    min_handelstage: 20
+    zeit: >-
+      Geprüft wird jeder Handelstag je Markt genau einmal, im ersten Lauf ab 16:00 New York, höchstens frist_min
+      Minuten danach. Fehlen die Kerzen in der ganzen Frist oder ist der Markt um 16:00 zu, lässt der Bot den Tag aus
+      und zählt das (ausgelassen). Fällt jeder Lauf der Frist aus, zählt der nächste Lauf desselben Handelstags (vor
+      17:00 New York) den Tag als verpasst.
+    kerzen: >-
+      Die jüngsten fuenf_kerzen 5-Min.-Kerzen (Bid) von Capital.com, gut drei Handelstage, darin heute und die
+      Sitzung davor. Davor fertige Stundenkerzen (Bid), vorlauf_tage Kalendertage vor dem Lauf, jede als zwölf gleiche
+      5-Min.-Zeilen (wie suche/modell_indizes_bot.py), bis zur ersten vollen Stunde der 5-Min.-Kerzen. Kerzen ab
+      16:00 New York zählen nicht, dahinter kommt eine Zeile zur Minute des Laufs mit dem aktuellen Bid (die erste
+      Kerze ab 16:00 im Test). Tageskerzen und ATR rechnet suche/rueckblick.Markt, Sitzung, %R und Ausstieg rechnet
+      williams_bot.sitzungen Zeile für Zeile wie suche/youtube_runde.regel_williams. Hat der Bot weniger als
+      min_handelstage fertige Handelstage oder liegt die Sitzung davor nicht ganz in den 5-Min.-Kerzen, rechnet er
+      kein Signal.
+    einstieg: >-
+      Bei einem Signal sendet der Bot eine Kauforder zum Markt mit Stop beim Broker, gemessen wie im Test vom
+      aktuellen Bid. Ist auf diesem Markt noch ein Trade des Bots offen oder ist dessen Schluss beim Broker noch nicht
+      gebucht, gibt es keinen Einstieg.
+    order: >-
+      Jeder Handelstag bekommt je Markt höchstens eine Kauforder. Eine abgelehnte oder gescheiterte Order wird nie
+      wiederholt. Kommt auf die Order keine Bestätigung, sucht der Bot die Position sofort und im nächsten Lauf an
+      Richtung und Größe und übernimmt sie. Findet er keine, gilt die Order als nicht angekommen.
+    ausstieg: >-
+      Den Stop schließt der Broker. Sonst schließt der Bot zum Markt im Lauf ab 16:00 New York, wenn die Regel es sagt.
+      Gezählt werden die vollen Sitzungen nach dem Einstieg aus den Kerzen, so stimmt die Zahl auch nach einem
+      ausgefallenen Lauf. Hätte der Test an einem Tag ohne Rechnung des Bots (Lauf ausgefallen, Kerzen fehlten, Markt
+      zu) schon verkauft, verkauft der Bot im nächsten Lauf ab 16:00. Dort darf er dann auch neu kaufen, denn der Test
+      wäre an diesem Tag schon frei. Scheitert das Schließen, versucht es der nächste Lauf.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Stop-Abstand der Order, minus Übernachtgebühr
+      mit den Sätzen des Tests (Indizes long 6,5 % im Jahr) je Nacht über 17:00 New York. Das Euro-Ergebnis im Journal
+      ist ohne Gebühr. Den Ausstiegskurs am Stop liest der Bot aus der Kontoaktivität des Brokers. Steht der Schluss
+      dort eine Stunde lang nicht, zählt der Stopkurs, und der Trade ist als geschätzt markiert.
+
+  gegenprobe: >-
+    Vor dem Siegel mit den Kursen des Tests gerechnet (python -m suche.williams_gegenprobe <Arbeit>): Aus den
+    5-Min.-Kerzen des Tests wurden Stundenkerzen und die letzten 1.000 5-Min.-Kerzen wie vom Broker. Die Rechnung des
+    Bots bekam sie an jedem Handelstag von Dezember 2023 bis Oktober 2026 zur Kerze um 16:00 New York. Der Bot wurde
+    durchgespielt (ein Trade je Markt, Ausstieg nach seinem Signal, Stop wie im Test) und jeder Trade mit Einstieg ab
+    Januar 2024 mit den Trades des Tests verglichen.
+  gegenprobe_zahlen:
+    zeitraum: 2024-01-01 bis 2026-10-30, Einstiege in diesem Fenster
+    SPXUSD: {handelstage: 701, test_trades: 41, bot_trades: 41, gleich: 41, nur_bot: 0, nur_test: 0,
+             ausstieg_gleich: 41, groesste_stop_abweichung_rel: 3.3e-09, bot_wartet: 0,
+             ausstiege: {regel: 39, stop: 1, zehn_tage: 1}}
+    NSXUSD: {handelstage: 697, test_trades: 36, bot_trades: 36, gleich: 36, nur_bot: 0, nur_test: 0,
+             ausstieg_gleich: 36, groesste_stop_abweichung_rel: 7.4e-10, bot_wartet: 0,
+             ausstiege: {regel: 32, stop: 3, zehn_tage: 1}}
+
+  abweichungen_vom_test:
+    - >-
+      Andere Kurse: Der Test rechnete mit 5-Min.-Kerzen von HistData, der Bot mit Kerzen von Capital.com. Hoch, Tief
+      und Schluss der Sitzung können abweichen, damit auch %R, das Signal, die ATR und der Stop. An einem Tag nahe
+      -90 oder -30 kann der Bot darum anders entscheiden als der Test es mit HistData getan hätte.
+    - >-
+      Späterer Einstieg und Ausstieg: Der Test handelt zur Eröffnung der Kerze um 16:00 New York, der Bot im ersten
+      Lauf danach, also etwa 1 bis 20 Minuten später. Das Journal schreibt je Trade, wie viele Minuten nach 16:00 er
+      einstieg (spaet_min).
+    - >-
+      Der Test rechnete mit dem mittleren Spread von Capital.com je Viertelstunde der New Yorker Uhr. Live gilt der
+      Spread des Augenblicks. Kurz nach 16:00 New York ist er bei Indizes oft breiter.
+    - >-
+      Der Test füllt den Stop einen halben Spread schlechter. Live füllt der Broker zum nächsten Kurs, in einer
+      Kurslücke schlechter.
+    - >-
+      Nach einem ausgefallenen Lauf steigt der Bot einen oder mehrere Tage später aus als der Test (siehe ausstieg).
+      Einen verpassten Einstieg holt er nie nach.
+    - >-
+      Halbe Handelstage (etwa am Tag nach Thanksgiving) sind im Test keine vollen Sitzungen. Zeigt der Broker an so
+      einem Tag Kerzen bis 16:00, rechnet der Bot die Sitzung trotzdem nach seinen Kerzen. Ein Tag ohne volle Sitzung
+      in den Kerzen des Brokers (Feiertag, halber Tag, Lücke) wird nicht gerechnet und zählt unter ausgelassen als
+      keine_sitzung.
+    - >-
+      Ist die kleinste Größe des Brokers zu grob für 5 Euro Risiko bei 3 ATR Stop, lässt der Bot den Markt an diesem
+      Tag aus (siehe groesse) und zählt es (Grund groesse).
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade vom Einstieg bis zum Stop
+    max_risiko_faktor: 2.0
+    margin_anteil: 0.2
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keinen Einstieg. Braucht die Order mehr als margin_anteil des freien Gelds auf dem Konto als
+      Margin, gibt es keinen Einstieg. Vom freien Geld zieht der Bot dabei die Margin seiner Orders ab, die er im
+      selben Lauf schon gesendet hat. So bleibt den anderen Bots auf demselben Konto genug freies Geld.
+
+  sperren:
+    - >-
+      Ohne passende Prüfsumme dieser Datei im Protokoll öffnet der Bot nichts. Passt das Siegel von
+      suche/VORAB_youtube_runde.yaml nicht mehr, rechnet er kein Signal. Offene Trades führt er dann weiter, ein schon
+      fälliger Ausstieg geht trotzdem.
+    - >-
+      Liegt auf einem seiner Märkte eine Position auf dem Konto, die nicht von ihm ist, öffnet er dort nichts Neues.
+      Fremde Positionen fasst er nie an. Seine eigenen erkennt er an der Deal-ID.
+    - >-
+      Steht Account 7 nicht genau einmal in journal/konten.json, findet sich dazu keine volle Nummer oder endet sie wie
+      das Hauptkonto des Gold-Bots, handelt er nicht.
+    - Ab -25 R seit Start nichts Neues mehr. Offene Trades laufen zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/williams-us/ und journal/williams-us.json.
+
+  urteil:
+    pause_r: -25.0
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades beider Märkte
+      zusammen. Dann entscheidet Kiron über den nächsten Schritt.
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: >-
+      Im Test etwa 2,3 Trades im Monat. 40 Trades dauern also etwa 17 Monate, bis etwa April 2028. Für echtes Geld
+      gilt allein suche/VORAB_aufstieg_alle.yaml (100 Trades, 61 Tage).
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).

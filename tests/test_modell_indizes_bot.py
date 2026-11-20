@@ -600,6 +600,22 @@ def test_abrufe_nur_im_einstieg(w):
     assert stunden and min(a[2] for a in stunden) >= pd.Timestamp(t_e) + MIN - pd.Timedelta(days=mb.TAGE_KERZEN)
 
 
+def test_freitagabend_kein_einstieg_und_naechster_am_sonntag(w):
+    """Freitag ab 18:00 New York beginnt kein Handelstag (die Index-CFDs sind übers Wochenende zu): kein Abruf, keine
+    Order, und das Cockpit nennt als nächsten Einstieg Sonntag 18:00 New York."""
+    k = Konto(w, bid=5000.0)
+    netz = Netz(w.reihen)
+    freitag = pd.Timestamp("2026-03-20 22:05")                                    # Freitag 18:05 New York (Sommerzeit)
+    st, log, _, blick = lauf(w, k, {}, freitag, netz)
+    assert not k.abrufe and not netz.urls and not k.posts() and not log
+    assert us(st).get("letzter_tag") is None
+    assert blick["naechster_einstieg_utc"] == "2026-03-22 22:00:00"               # Sonntag 18:00 New York
+    for jetzt in ("2026-03-21 12:00", "2026-03-22 21:00"):                          # Samstag, Sonntag vor 18:00
+        assert lauf(w, k, {}, pd.Timestamp(jetzt), netz)[3]["naechster_einstieg_utc"] == "2026-03-22 22:00:00"
+    assert lauf(w, k, {}, pd.Timestamp("2026-03-19 21:00"), netz)[3]["naechster_einstieg_utc"] == \
+        "2026-03-19 22:00:00"                                                       # Donnerstag 17:00: heute Abend
+
+
 def test_schreiben(tmp_path, w):
     t_e = einstieg(w, w.lang[0])
     k = Konto(w, bid=kurs_um(w, t_e))

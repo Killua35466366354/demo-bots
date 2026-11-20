@@ -935,9 +935,12 @@ def run(client, state: dict, now: datetime, send_orders: bool = True,
 def blick_auf(lauf: Lauf) -> dict:
     """Was der Bot gerade sieht (für das Cockpit)."""
     tag = tag_von(lauf.now)
-    naechster = einstieg_ab(tag, lauf.cfg) if lauf.cfg else None
-    if naechster is not None and naechster < lauf.now:
-        naechster = einstieg_ab(tag + pd.Timedelta(days=1), lauf.cfg)
+    naechster = None
+    if lauf.cfg:                                           # der nächste Abend vor einem Handelstag Montag bis Freitag
+        while naechster is None or naechster < lauf.now or tag.weekday() >= 5:
+            if naechster is not None:
+                tag += pd.Timedelta(days=1)
+            naechster = einstieg_ab(tag, lauf.cfg)
     return {"naechster_einstieg_utc": None if naechster is None else str(naechster),
             "maerkte": {sym: {"epic": MAERKTE[sym], "letzte_pruefung": lauf.st["maerkte"][sym].get("letzte_pruefung"),
                               **lauf.blick.get(sym, {})} for sym in MAERKTE}}

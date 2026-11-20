@@ -328,9 +328,25 @@ ohne Ziel, Ausstieg nach 16 Stunden. Der Gewinn kam aus Bitcoin, aus Käufen und
 Eigenes Urteil nach 40 Demo-Trades, bei 2,2 Trades je Woche etwa Ende März 2027. Das Schatten-Labor zählt die Fassung
 unverändert weiter.
 
+**Scalping mit Marktvorhersage (20.11.2026, Kirons Wunsch, `suche/VORAB_vorhersage_scalp.yaml`): 0 von 6 bestanden,
+kein Kandidat.** In der vorhergesagten Richtung (Vorhersage-Modell, VIX-Sprung, Tagestrend) mehrmals am Tag gegen die
+Bewegung einsteigen (drei Limit-Stufen oder Bollinger-Band) und nach 0,2 oder 0,5 ATR raus, auf US500, US100, DAX, FTSE
+und Nikkei. Bestes Ergebnis Modell mit 3 Stufen und Ziel 0,5 ATR, 2.438 Trades, Gewinnfaktor 1,05, +313 € auf 1.000 €
+in 34 Monaten (0,9 % im Monat). Die Vorhersage schlägt 91 bis 97 % der verschobenen Vorhersagen, ohne Vorhersage
+verlieren dieselben Einstiege (-525 € und -1.302 €), aber die Kosten fressen etwa die Hälfte. Mit 10 % Risiko je Trade
+wäre jede Fassung pleite gewesen (VIX-Sprung am 05.08.2024). Ergebnis `suche/ergebnis_vorhersage_scalp.md`. Nicht
+wiederholen. Offen nur als neue Idee mit eigenem Siegel: das Modell als Filter für einen Bot mit Vorteil.
+
 **Bündel aus 9 Bots (20.11.2026).** Kein neues Signal. Kirons Wahl "Ein Konto mit 9 Bots": der Bot
 `suche/buendel_bot.py` (`suche/VORAB_buendel9_bot.yaml`) kopiert jeden neuen Trade von 9 Demo-Bots auf "Vortag
 USDJPY", 7 € Risiko auf gedachte 700 €, mit Konto-Wächter (Margin 50 %, Bremse 30 %). Backtest November 2024 bis
 Oktober 2026 als Auskunft: 993 von 996 Trades passen durch den Wächter, 10,9 % Rendite pro Monat, schlimmster Rückgang
 149 €. Mit höchstens einem Trade je Markt nur 6,3 %. Auf mehrere Konten verteilt weniger (zwei Konten 5,4 %, drei
 Konten 2,6 %). Ohne die beiden Scalper 5,8 %. Urteil nach 100 Demo-Trades und 61 Tagen, etwa Mitte Februar 2027.
+
+**Spiegel der Vorhersage-Scalper (20.11.2026, Kirons Wunsch, `suche/VORAB_vorhersage_spiegel.yaml`): 0 von 8
+bestanden, kein Kandidat.** Alle acht Fassungen der Runde davor gespiegelt: Gegenrichtung an denselben Marken, Stop im
+alten Ziel-Abstand, Ziel am alten Stop. Alle unter Gewinnfaktor 1 (0,66 bis 0,95), der beste -1.385 € auf 1.000 € mit
+10 € je Trade. Die Spiegel der Gewinner verlieren den kleinen Vorteil der Vorhersage, die Spiegel der Verlierer lagen vor
+den Kosten zum Teil im Plus, aber der kleine Stop macht jeden Trade größer und die Kosten fressen alles. Ergebnis
+`suche/ergebnis_vorhersage_spiegel.md`. Nicht wiederholen.

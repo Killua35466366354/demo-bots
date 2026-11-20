@@ -334,3 +334,10 @@ USDJPY", 7 € Risiko auf gedachte 700 €, mit Konto-Wächter (Margin 50 %, Bre
 Oktober 2026 als Auskunft: 993 von 996 Trades passen durch den Wächter, 10,9 % Rendite pro Monat, schlimmster Rückgang
 149 €. Mit höchstens einem Trade je Markt nur 6,3 %. Auf mehrere Konten verteilt weniger (zwei Konten 5,4 %, drei
 Konten 2,6 %). Ohne die beiden Scalper 5,8 %. Urteil nach 100 Demo-Trades und 61 Tagen, etwa Mitte Februar 2027.
+
+**Trend oder Seitwärts (20.11.2026).** Kirons Wunsch: Märkte suchen, die stetig steigen oder fallen, und die Bots
+danach trennen. Versiegelt in `suche/VORAB_markt_regime.yaml`, gerechnet mit `python -m suche.markt_regime
+<Projektordner>` auf den Rückblick-Trades der 19 Bots. Jeder Trade bekommt die Phase seines Marktes am Vortag
+(Effizienz über 20 Tage, Trend ab 0,30). 0 von 14 Filtern bestanden das Urteil an 2026 (`suche/ergebnis_markt_regime.md`,
+Eintrag in `suche/VERWORFEN.md`). Trendphasen gab es an 24 bis 36 % der Tage, am meisten bei AUD/NZD, Gold, Silber und
+USD/JPY, fast immer steigend.

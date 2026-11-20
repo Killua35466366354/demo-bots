@@ -5,7 +5,7 @@ Test durchgefallen ist, mit Grund, damit derselbe Fehler nicht noch einmal passi
 `suche/IDEEN.md` nachsehen. Für Gold gibt es dazu die Ideen- und Fehlerliste des Gold-Threads im Projektordner
 (`gold-bot/lernjournal/ideen.jsonl`, `gold-bot/lernjournal/fehler.jsonl`).
 
-Stand 2026-11-20, 131 Einträge. Gebaut aus dem Strategie-Katalog (Projektordner
+Stand 2026-11-20, 132 Einträge. Gebaut aus dem Strategie-Katalog (Projektordner
 `strategie-katalog/verworfen/verworfen.json`). Einträge werden nie gelöscht, nur ergänzt.
 
 ## Lehren
@@ -31,6 +31,7 @@ Stand 2026-11-20, 131 Einträge. Gebaut aus dem Strategie-Katalog (Projektordner
 19. **Schwächste Bots lassen sich im Rückblick nicht sicher erkennen.** Der schwächste Bot eines Jahres war im nächsten Jahr teils der stärkste (Pine-Gold K5). Bots nach dem letzten Ergebnis auszusortieren hat in der Gegenprobe den Gewinn fast halbiert. Aussortieren braucht einen festen Grund vorab, zum Beispiel das Urteil nach 40 Trades.
 20. **Später einsteigen.** Bei einer Regel, die einen kurzen Rücksetzer kauft, steckt der Gewinn in der ersten Stunde nach dem Signal. Eine oder zwei Stundenkerzen später einzusteigen machte aus +98 € ein Minus (Geduld mit sinkendem Ziel, 20.11.2026). 95 von 305 Gewinnern waren schon am Ziel, bevor die spätere Fassung einstieg.
 21. **Mehr Märkte sind nicht mehr Vorteil.** Dieselbe Regel auf mehr Märkten bringt mehr Trades, aber der Vorteil gegen Zufallstage wächst nicht mit (Geduld auf fünf statt zwei Indizes: 997 statt 463 Trades, nur 28 € mehr, z 0,62 statt 0,84). Eine lernende Markt-Auswahl aus den zwei Jahren davor hat den schwachen Markt nicht erkannt (DAX 2026). Einen Markt nach dem Ergebnis zu streichen ist Auswahl danach.
+22. **Trend oder Seitwärts.** Ob ein Markt in den 20 Tagen davor stetig in eine Richtung lief, trennte 2026 bei keinem Bot Gewinner von Verlierern (0 von 14, 20.11.2026). Der Rückblick zeigt zwar Unterschiede (Gold-Groß-Box gewinnt fast nur im Trend), aber sie halten in neuen Monaten nicht sicher. Trendphasen gab es an 24 bis 36 % der Tage, fast immer steigend.
 
 ## Einträge
 
@@ -167,3 +168,4 @@ Stand 2026-11-20, 131 Einträge. Gebaut aus dem Strategie-Katalog (Projektordner
 | – | Zahlentage | US500, US100 | Tag | 130 Trades von 2024 bis 2026, Gewinnfaktor 1,01, mit 1,5-fachen Kosten 1,00, erste Hälfte 1,13, zweite 0,88. Besser als 40 % der Zufallsläufe (z −0,25). Durchgefallen. | im Test durchgefallen | Gewinnfaktor zu klein, Zufall |
 | – | Fed-Zyklus, Wochen 2, 4, 6 | US500, US100 | Tag | 552 Trades von 2024 bis 2026, Gewinnfaktor 1,14, mit 1,5-fachen Kosten 1,12, erste Hälfte 0,93, zweite 1,48. Besser als 60 % der Zufallsläufe (z 0,25). Durchgefallen. | im Test durchgefallen | Gewinnfaktor zu klein, Zufall |
 | – | Umschichtung zum Monatsende | US500, US100 | Tag | 274 Trades von 2024 bis 2026, Gewinnfaktor 1,11, mit 1,5-fachen Kosten 1,10, erste Hälfte 1,21, zweite 1,03. Besser als 75 % der Zufallsläufe (z 0,65). Durchgefallen. 2026 nur noch Gewinnfaktor 0,75. | im Test durchgefallen | Gewinnfaktor zu klein, Zufall |
+| – | Trend oder Seitwärts als Filter | 19 Bots auf Gold, Indizes und Devisen | Tag (Effizienz über 20 Tage) | 19 Bots, Trades von November 2024 bis Oktober 2026. 14 Bots bekamen in der Wahl (November 2024 bis Dezember 2025) einen Filter, 5 hatten zu wenige Trades je Phase. Im Urteil 2026 bestand keiner (0 von 14, kleinster p 0,10). Bei 5 von 14 lief die gewählte Phase 2026 sogar schlechter als die andere. Am deutlichsten Gold-Groß-Box: im ganzen Zeitraum nur in Trendphasen im Plus (Gewinnfaktor 2,09 gegen 0,90), 2026 1,60 gegen 1,12, p 0,13. Vortag- und Scalper-Bots liefen seitwärts besser, auch das reichte nicht. | im Test durchgefallen | Zufall |

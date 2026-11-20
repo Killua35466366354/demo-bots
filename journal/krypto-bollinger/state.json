@@ -25,18 +25,10 @@
     "lot": 1.0,
     "eur_rate": 1.097935
    },
-   "letzte_grenze": "2026-11-20 16:00:00",
+   "letzte_grenze": "2026-11-20 17:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 16:00:00",
-    "ergebnis": "Verkauf eröffnet",
-    "richtung": -1,
-    "schluss": 59374.6,
-    "mitte": 61674.28,
-    "oben": 62821.293718,
-    "unten": 60527.266282,
-    "rsi": 26.747084,
-    "atr": 751.649667,
-    "dist": 1127.474501
+    "grenze": "2026-11-20 17:00:00",
+    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   },
   "ETHUSD": {
@@ -60,20 +52,12 @@
     "lot": 1.0,
     "eur_rate": 1.097935
    },
-   "letzte_grenze": "2026-11-20 16:00:00",
+   "letzte_grenze": "2026-11-20 17:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 16:00:00",
-    "ergebnis": "Verkauf eröffnet",
-    "richtung": -1,
-    "schluss": 1652.72,
-    "mitte": 1741.083,
-    "oben": 1784.949547,
-    "unten": 1697.216453,
-    "rsi": 25.492205,
-    "atr": 26.666531,
-    "dist": 39.999797
+    "grenze": "2026-11-20 17:00:00",
+    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   }
  },
- "stand": "2026-11-20T16:03:16"
+ "stand": "2026-11-20T17:01:57"
 }

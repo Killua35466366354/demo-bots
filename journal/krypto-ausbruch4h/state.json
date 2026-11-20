@@ -5,21 +5,75 @@
  "trades": 0,
  "maerkte": {
   "BTCUSD": {
-   "trade": null,
-   "letzte_grenze": "2026-11-20 15:00:00",
+   "trade": {
+    "id": "BTCUSD 2026-11-20T19:00",
+    "markt": "BTCUSD",
+    "epic": "BTCUSD",
+    "richtung": -1,
+    "grenze": "2026-11-20 19:00:00",
+    "dealId": "00000000-7536-17b2-049c-701f0015549e",
+    "size": 0.001,
+    "entry": 58220.95,
+    "stop": 63501.47,
+    "dist": 5284.016808,
+    "bid_ein": 58217.45,
+    "opened_utc": "2026-11-20T19:02:41",
+    "spaet_min": 2.7,
+    "kerzen": 0,
+    "halte_kerzen": 4,
+    "bis_utc": "2026-12-04 19:00:00",
+    "satz_nacht": 0.2,
+    "lot": 1.0,
+    "eur_rate": 1.09692,
+    "margin_eur": 26.54
+   },
+   "letzte_grenze": "2026-11-20 19:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 15:00:00",
-    "ergebnis": "Start des Bots mitten in der Kerze"
+    "grenze": "2026-11-20 19:00:00",
+    "ergebnis": "Verkauf eröffnet",
+    "richtung": -1,
+    "schluss": 58311.55,
+    "hoch_davor": 65357.2,
+    "tief_davor": 61143.3,
+    "trend": true,
+    "dist": 5284.016808
    }
   },
   "ETHUSD": {
-   "trade": null,
-   "letzte_grenze": "2026-11-20 15:00:00",
+   "trade": {
+    "id": "ETHUSD 2026-11-20T19:00",
+    "markt": "ETHUSD",
+    "epic": "ETHUSD",
+    "richtung": -1,
+    "grenze": "2026-11-20 19:00:00",
+    "dealId": "00000000-7536-17dd-049c-701f0015549e",
+    "size": 0.029,
+    "entry": 1607.82,
+    "stop": 1794.3,
+    "dist": 184.311409,
+    "bid_ein": 1609.99,
+    "opened_utc": "2026-11-20T19:02:41",
+    "spaet_min": 2.7,
+    "kerzen": 0,
+    "halte_kerzen": 4,
+    "bis_utc": "2026-12-04 19:00:00",
+    "satz_nacht": 0.2,
+    "lot": 1.0,
+    "eur_rate": 1.09692,
+    "margin_eur": 21.28
+   },
+   "letzte_grenze": "2026-11-20 19:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 15:00:00",
-    "ergebnis": "Start des Bots mitten in der Kerze"
+    "grenze": "2026-11-20 19:00:00",
+    "ergebnis": "Verkauf eröffnet",
+    "richtung": -1,
+    "schluss": 1613.49,
+    "hoch_davor": 1832.85,
+    "tief_davor": 1715.22,
+    "trend": true,
+    "dist": 184.311409
    }
   }
  },
- "stand": "2026-11-20T16:34:24"
+ "stand": "2026-11-20T19:02:41"
 }

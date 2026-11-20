@@ -8,7 +8,8 @@ UTC, Konto nach dem Namen aus journal/konten.json), Bollinger Krypto umgedreht a
 11:53 UTC, ebenso nach dem Namen), das Vorhersage-Modell Indizes auf Account 6 (Kirons Wahl vom 20.11.2026 12:25 UTC,
 ebenso nach dem Namen), der Tag nach einem VIX-Sprung auf Account 5 (Kirons Wunsch vom 20.11.2026 12:26 UTC "baue
 danach aber weiter aus", ebenso nach dem Namen), Williams %R auf US500 und US100 auf Account 7 (derselbe Wunsch, ebenso
-nach dem Namen), der 4-Std.-Ausbruch auf Bitcoin und Ether auf Account 5 (derselbe Wunsch, ebenso nach dem Namen).
+nach dem Namen), der 4-Std.-Ausbruch auf Bitcoin und Ether auf Account 5 (derselbe Wunsch, ebenso nach dem Namen),
+das Bündel aus 9 Bots auf "Vortag USDJPY" (Kirons Wahl vom 20.11.2026 16:20 UTC, ebenso nach dem Namen).
 Ihr Konto steht als feste Konstante in ihrem Code,
 nicht in der Zuordnung, denn dort stehen nur Bots unter der Prüfung nach 15/40 Trades (suche/VORAB_wechsel.yaml).
 Account 1 steht deshalb in journal/konten.json weiter unter "frei". Das soll auch so bleiben: "frei" schützt das Konto
@@ -65,7 +66,7 @@ def bots() -> list[dict]:
     Ein Fehler beim Lesen eines Bots wird nicht geschluckt: Wer die Liste braucht, muss wissen, dass sie unvollständig
     wäre (suche/demo_pruefung.py vergibt dann gar kein freies Konto)."""
     from gold import ausbruch4h_bot, grossbox_bot, hand_bot, pine5m_bot, zonen_bot
-    from suche import gold_staffel_bot, krypto4h_bot, krypto_bollinger_bot, modell_indizes_bot, scalper_bot
+    from suche import buendel_bot, gold_staffel_bot, krypto4h_bot, krypto_bollinger_bot, modell_indizes_bot, scalper_bot
     from suche import vix_sprung_bot, welt4h_bot, williams_bot
 
     out = [{"bot": b.bot_id, "konto": scalper_bot.KONTO, "konto_name": scalper_bot.KONTO_NAME, "neu": True,
@@ -90,6 +91,8 @@ def bots() -> list[dict]:
                 "neu": True, "quelle": "suche/williams_bot.py"})
     out.append({"bot": krypto4h_bot.BOT_ID, "konto": krypto4h_bot.KONTO, "konto_name": krypto4h_bot.KONTO_NAME,
                 "neu": True, "quelle": "suche/krypto4h_bot.py"})
+    out.append({"bot": buendel_bot.BOT_ID, "konto": buendel_bot.KONTO, "konto_name": buendel_bot.KONTO_NAME,
+                "neu": True, "quelle": "suche/buendel_bot.py"})
     out += [{"bot": b.bot_id, "konto": b.konto, "konto_name": b.konto_name, "neu": bool(b.neu),
              "quelle": "gold/pine5m_bot.py"} for b in pine5m_bot.BOTS]
     # Der Gold-Hand-Bot öffnet seit dem 10.11.2026 nichts mehr (NEUE_EINSTIEGE), betreut aber offene Trades weiter.

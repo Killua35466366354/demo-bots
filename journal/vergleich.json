@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-20",
- "letzter_trade_utc": "2026-11-20T15:01:37.585142",
+ "letzter_trade_utc": "2026-11-20T17:01:38.292575",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "rangliste": [
@@ -228,12 +228,12 @@
    "konto": "Account 7",
    "seit": "2026-11-05T11:16:36",
    "ist": {
-    "trades": 9,
-    "gewonnen": 4,
-    "treffer_pct": 44.4,
+    "trades": 10,
+    "gewonnen": 5,
+    "treffer_pct": 50.0,
     "summe_r": -0.04,
-    "pf_r": 0.74,
-    "eur": -0.35,
+    "pf_r": 0.77,
+    "eur": -0.3,
     "rueckgang_r": 0.1
    },
    "soll": {
@@ -250,14 +250,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 9,
+     "trades": 10,
      "summe_r": -0.04,
-     "eur": -0.35
+     "eur": -0.3
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "9 von 100 Demo-Trades, 15 von 61 Tagen"
+    "text": "10 von 100 Demo-Trades, 15 von 61 Tagen"
    },
    "rang": 7
   },
@@ -556,38 +556,38 @@
   "draussen": [
    {
     "id": "pine-tp3",
-    "warum": "Gewinnfaktor 0.55 nach 47 Trades"
+    "warum": "Gewinnfaktor 0.52 nach 48 Trades"
    }
   ],
   "ist": {
-   "trades": 63,
-   "gewonnen": 30,
-   "treffer_pct": 47.6,
-   "summe_r": 17.28,
-   "pf_r": 1.64,
-   "eur": 153.64,
+   "trades": 65,
+   "gewonnen": 32,
+   "treffer_pct": 49.2,
+   "summe_r": 19.6,
+   "pf_r": 1.73,
+   "eur": 165.04,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 63,
-    "summe_r": 17.29,
-    "eur": 153.64
+    "trades": 65,
+    "summe_r": 19.61,
+    "eur": 165.04
    }
   },
   "bestes": "gold",
   "ohne_bestes": {
-   "trades": 19,
-   "gewonnen": 5,
-   "treffer_pct": 26.3,
-   "summe_r": -8.86,
+   "trades": 20,
+   "gewonnen": 6,
+   "treffer_pct": 30.0,
+   "summe_r": -8.85,
    "pf_r": 0.05,
-   "eur": -35.84,
+   "eur": -35.79,
    "rueckgang_r": 8.91
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "63 von 100 Demo-Trades, 17 von 61 Tagen"
+   "text": "65 von 100 Demo-Trades, 17 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -904,18 +904,42 @@
    }
   },
   {
+   "id": "buendel9",
+   "name": "Bündel aus 9 Bots",
+   "konto": "Vortag USDJPY",
+   "seit": "2026-11-20",
+   "start": "2026-11-20",
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "einheit": "R",
+   "urteil": "Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3",
+   "vorab": "suche/VORAB_buendel9_bot.yaml",
+   "test": "Backtest November 2024 bis Oktober 2026 (Auskunft): 993 von 996 Trades passen durch den Wächter, +76,5 € im Monat auf 700 € (10,9 % Rendite pro Monat), schlimmster Rückgang 149 €, 6 von 24 Monaten im Minus. Die 9 sind an denselben Monaten ausgesucht, live wird es weniger. 47 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 100 Demo-Trades, 0 von 61 Tagen"
+   }
+  },
+  {
    "id": "pine-k5",
    "name": "Pine-Gold Hand auf Account 5",
    "konto": "Account 5",
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 27,
-    "gewonnen": 15,
-    "treffer_pct": 55.6,
-    "summe_r": 10.93,
-    "pf_r": 1.96,
-    "eur": 53.82,
+    "trades": 28,
+    "gewonnen": 16,
+    "treffer_pct": 57.1,
+    "summe_r": 13.25,
+    "pf_r": 2.16,
+    "eur": 65.17,
     "rueckgang_r": 5.72
    },
    "einheit": "R",
@@ -924,7 +948,7 @@
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "27 von 100 Demo-Trades, 10 von 61 Tagen"
+    "text": "28 von 100 Demo-Trades, 10 von 61 Tagen"
    }
   },
   {
@@ -934,13 +958,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 47,
+    "trades": 48,
     "gewonnen": 30,
-    "treffer_pct": 63.8,
-    "summe_r": -12.98,
-    "pf_r": 0.55,
-    "eur": -64.02,
-    "rueckgang_r": 12.98
+    "treffer_pct": 62.5,
+    "summe_r": -14.8,
+    "pf_r": 0.52,
+    "eur": -72.77,
+    "rueckgang_r": 14.8
    },
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
@@ -948,7 +972,7 @@
    "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "47 von 100 Demo-Trades, 10 von 61 Tagen"
+    "text": "48 von 100 Demo-Trades, 10 von 61 Tagen"
    }
   }
  ],

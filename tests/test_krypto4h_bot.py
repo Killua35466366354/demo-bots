@@ -617,4 +617,4 @@ def test_ablauf_im_workflow():
     wf = (ROOT / ".github" / "workflows" / "demo-bots.yml").read_text(encoding="utf-8")
     assert "python -m pytest -q tests/test_krypto4h_bot.py" in wf and "python -m suche.krypto4h_bot" in wf
     assert "touch .tests-ok/krypto4h" in wf and "python -m suche.krypto4h_bot --dry-run" in wf
-    assert '[ "$n" -ge 15 ]' in wf and "von 15 Testgruppen" in wf and wf.count("touch .tests-ok/") == 15
+    assert '[ "$n" -ge 16 ]' in wf and "von 16 Testgruppen" in wf and wf.count("touch .tests-ok/") == 16

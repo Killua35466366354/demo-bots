@@ -1,0 +1,83 @@
+# Bündel aus 9 Bots auf einem eigenen Demokonto (nur Capital.com-DEMO, nie echtes Geld)
+#
+# Kirons Wahl vom 20.11.2026 16:20 UTC auf der Karte "Wie soll das Bündel aller Strategien jetzt auf Demo laufen?":
+# "Ein Konto mit 9 Bots". Davor sein Wunsch vom 20.11.2026 15:57 UTC: "dass du einen Bot aufsetzt, der sozusagen alle
+# Strategien gleichzeitig ausführen kann ... aber halt mit irgendwie dem gleichen Kapital", und "belasse es erstmal
+# bei dieser Art von Tests" (die Regel für echtes Geld bleibt, wie sie ist).
+#
+# Kirons Nachricht vom 20.11.2026 16:27 UTC: Die Zahl der Demokonten ist voll. Darum teilt das Bündel das Konto
+# "Vortag USDJPY" mit dem Kern-Bot Vortag GBP/USD (anderer Markt) und dem ruhenden Bot pine-hand (öffnet nichts).
+#
+# Der Bot erfindet kein Signal. Er kopiert jeden neuen Trade der 9 Mitglieder auf das Demokonto "Vortag USDJPY", mit 7 €
+# Risiko je Trade auf ein gedachtes Konto von 700 € (1 %). Stop und Ziel sind die Kurse der Quelle. Schließt die Quelle,
+# schließt er die Kopie. Ein Konto-Wächter prüft vor jeder Kopie die Margin und die Bremse.
+#
+# Rechnung vor dem Siegel (Auskunft, nicht im Repo: Projektordner bots-konten-2026-11-20, waechter_sim.py auf
+# schatten-labor/alle_margin.csv, Backtest-Trades November 2024 bis Oktober 2026): 993 von 996 Trades passen durch den
+# Wächter, im Schnitt +76,5 € im Monat auf 700 € (10,9 % Rendite pro Monat), schlimmster Rückgang 149 €, 6 von 24
+# Monaten im Minus, schlimmster Monat -96 €. Mit "höchstens ein Trade je Markt" wären es nur 598 Trades und 6,3 %
+# gewesen, darum gibt es diese Grenze nur ohne Hedging.
+#
+# Ehrlich dazu: Die 9 Mitglieder sind an denselben 24 Monaten ausgesucht, an denen gerechnet wurde. Live wird es
+# weniger. 47 % des Gewinns kamen von den Scalpern DAX und Nasdaq, deren Test durchgefallen ist. Nur die Rücksetzer
+# US500 und US100 und das Noise-Band Nasdaq haben ihren Test bestanden. Kopien kommen bis zu 15 Minuten später als die
+# Quelle (Scalper und Gold-Zonen laufen alle 5 Minuten, der Bündel-Bot alle 15) und zahlen ihren eigenen Spread.
+#
+# Diese Datei ist versiegelt, sobald ihre Prüfsumme im Protokoll steht (journal/strategie-suche-protokoll.md,
+# Schlüssel VORAB_buendel9_bot). Ohne passende Prüfsumme kopiert der Bot nichts Neues. Eine neue Regel bekommt eine
+# neue Datei.
+
+buendel9_bot:
+  bot_id: buendel9
+  name: "Bündel aus 9 Bots"
+  konto_name: "Vortag USDJPY"     # geteilt mit r6-vortag-gbpusd (GBPUSD) und pine-hand (ruht). Nummer nach dem Namen aus journal/konten.json
+  waehrung: EUR
+  wahl: "Kirons Wahl vom 20.11.2026 16:20 UTC, Karte 'Wie soll das Bündel aller Strategien jetzt auf Demo laufen?', Option 'Ein Konto mit 9 Bots'"
+
+  # Die 9 Mitglieder mit der Datei, in der sie ihren offenen Trade führen. Die Deal-ID steht dort, das Konto ebenso
+  # (Feld konto_id) oder als Konstante KONTO im Code des Bots (Feld konto).
+  mitglieder:
+    gold-cb:              {datei: gold-state.json,                  feld: open_trade, konto: haupt}
+    gold-zonen:           {datei: gold-zonen/state.json,            feld: trade,      konto: gold.zonen_bot}
+    gold-ausbruch4h:      {datei: gold-ausbruch4h/state.json,       feld: trade,      konto: gold.ausbruch4h_bot}
+    us500-ruecksetzer:    {datei: us500-bot/state.json,             feld: open,       konto: konto_id}
+    r5-ruecksetzer-us100: {datei: us100-ruecksetzer/state.json,     feld: open,       konto: konto_id}
+    r7-nasdaq-noise-long: {datei: r7-nasdaq-bot/state.json,         feld: open,       konto: konto_id}
+    scalp-de40:           {datei: scalp-de40/state.json,            feld: offen,      konto: suche.scalper_bot}
+    scalp-us100:          {datei: scalp-us100/state.json,           feld: offen,      konto: suche.scalper_bot}
+    welt-ausbruch4h:      {datei: welt-ausbruch4h/state.json,       feld: maerkte.*.trade, konto: suche.welt4h_bot}
+
+  geld:
+    kapital_eur: 700              # gedachtes Konto, der echte Kontostand des Demokontos zählt nicht
+    risiko_eur: 7                 # 1 % von 700 €, fest, kein Zinseszins
+    max_risiko_faktor: 2.0        # Runden auf die kleinste Größe darf das Risiko höchstens verdoppeln, sonst keine Kopie
+
+  kopieren:
+    frist_minuten: 30             # nur Trades, die die Quelle vor höchstens 30 Minuten eröffnet hat
+    stop: "Stop-Kurs der Quelle beim Broker. Ohne Stop der Quelle keine Kopie."
+    ziel: "Ziel-Kurs der Quelle, wenn sie eins hat"
+    folgen: "Ändert die Quelle Stop oder Ziel, gleicht der Bot die Kopie im nächsten Lauf an."
+    schliessen: "Ist der Trade der Quelle zu (nicht mehr in ihrer Datei oder nicht mehr beim Broker), schließt der Bot die Kopie zum Markt."
+    einmal: "Jeder Trade einer Quelle bekommt höchstens eine Kopie. Eine gescheiterte Order wird nie wiederholt."
+    groesse: "7 € geteilt durch den Abstand vom aktuellen Kurs zum Stop der Quelle, abgerundet auf die Schrittweite des Brokers, mindestens die kleinste Größe."
+
+  waechter:
+    margin_anteil: 0.5            # Margin aller offenen Kopien plus der neuen höchstens 50 % des gedachten Kontostands
+    frei_danach_eur: 250          # nach jeder Kopie bleiben beim Broker mindestens 250 € frei (für Vortag GBP/USD)
+    hebel_hinweis: "Margin = Größe mal Kurs mal Margin-Faktor des Brokers, in Euro"
+    bremse_rueckgang: 0.3         # liegt der gedachte Kontostand 30 % unter seinem Höchststand, kopiert der Bot nichts Neues mehr
+    bremse_zurueck: "nur mit Kirons Entscheidung und einer neuen Regeldatei"
+    hedging: "Das Konto braucht den Hedging-Modus, damit jede Kopie eine eigene Position ist. Der Bot schaltet ihn ein (PUT /accounts/preferences). Ist er aus, höchstens eine Kopie je Markt."
+    mitglied_raus:
+      trades: 40                  # Urteil nach suche/VORAB_wechsel.yaml
+      gewinnfaktor_unter: 1.2
+      quelle: "journal/vergleich.json (Rangliste und Bots mit festem Konto, Feld ist)"
+      text: "Hat ein Mitglied 40 eigene Demo-Trades und einen Gewinnfaktor unter 1,2, kopiert das Bündel von ihm nichts Neues mehr. Offene Kopien laufen zu Ende."
+    nie: "Nie auf dem Hauptkonto, nie auf einem Konto eines Mitglieds. Nie eine fremde Position anfassen, nur die eigenen Kopien an ihrer Deal-ID. Nie auf den Märkten der anderen Bots des Kontos (GBPUSD)."
+
+  urteil:
+    regel: "suche/VORAB_aufstieg_alle.yaml, einzeln: 100 Demo-Trades, mindestens 61 Tage, Summe der letzten 61 Tage über 0, neuere Hälfte ohne Verlust, Gewinnfaktor 1,3. Gezählt in R der Kopien."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron, auf einer Karte und über einen PR."
+    eine_woche: "suche/VORAB_eine_woche.yaml: 7 Tage ab Start keine Regeländerung und keine Abschaltung."
+
+  dateien: "Schreibt nur journal/buendel9/ und journal/buendel9.json."

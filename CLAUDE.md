@@ -54,7 +54,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -71,7 +71,7 @@ Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Que
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
 - `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
   4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung,
-  Pine-Bots, Gold-Hand).
+  Williams %R, Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
@@ -97,7 +97,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Kirons Wahl "die paar stärksten zu erst" aus dem Schatten direkt als Demo-Bot). Dazu `modell-indizes`, das
   Vorhersage-Modell auf US500, US100, DAX, FTSE und Nikkei (Kandidat, Kirons Wahl "Modell Indizes, jetzt bauen").
   Dazu `vix-sprung`, der Tag nach einem VIX-Sprung auf denselben fünf Indizes (Kandidat in Durchgang 1, Kirons Wunsch
-  "baue danach aber weiter aus").
+  "baue danach aber weiter aus"). Dazu `williams-us`, Williams %R auf US500 und US100 (nicht bestanden, unter 100
+  Trades, derselbe Wunsch).
 
 ## Gold-Bot C/B
 
@@ -203,6 +204,28 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 - Die Rechnung des Tests (`suche/grosse_runde.richtung_reihe`, `_tagestrades`) läuft auf Stundenkerzen des Brokers.
   `tests/test_vix_sprung_bot.py` und `python -m suche.vix_sprung_gegenprobe <Datenordner>` prüfen, dass Bot und Test
   dieselben Einstiege, Stops und Ausstiege sehen.
+
+## Williams %R US500 und US100
+
+- `suche/williams_bot.py`, Regeln `suche/VORAB_williams_bot.yaml` (versiegelt am 20.11.2026). Die Fassung
+  `williams_us` der YouTube-Runde (`suche/VORAB_youtube_runde.yaml`) unverändert auf Account 7, den er mit dem
+  4-Std.-Ausbruch DAX, FTSE, Nikkei und dem Labor-Bot Noise USD/JPY teilt. Die Kontonummer liest er nach dem Namen aus
+  `journal/konten.json`. Der Test ist nicht bestanden (`suche/ergebnis_youtube_runde.md`, 77 Trades, Gewinnfaktor
+  2,66, Holm erfüllt, aber unter 100 Trades und z 2,35 statt 3, vor 2024 1,51). Das Plus kam vor allem 2024. Bei 47
+  von 77 Trades kaufte auch der US500-Rücksetzer. Der Bot läuft als Vorwärtstest auf Kirons Wunsch vom 20.11.2026
+  ("baue danach aber weiter aus"), Urteil nach 40 Trades. Im Test brachte ein Trade im Schnitt +0,17 R. Das
+  Schatten-Labor zählt dieselbe Fassung unverändert weiter.
+- Schließt Williams %R(2) der Sitzung 9:30 bis 16:00 New York unter -90, kauft er im ersten Lauf ab 16:00 New York
+  (höchstens 20 Minuten danach). Ausstieg ebenso um 16:00 New York, wenn der Schluss über dem Vortageshoch liegt oder
+  %R über -30 schließt, spätestens nach 10 Sitzungen. Stop 3 ATR beim Broker, kein Ziel. Nur Käufe, höchstens ein
+  Trade je Markt, an der Kerze des Ausstiegs kein neuer Kauf, eine gescheiterte Order wird nie wiederholt. Liegt eine
+  fremde Position auf seinem Markt, öffnet er dort nichts. Fällt jeder Lauf der Frist aus, zählt er den Tag als
+  `verpasst` und holt einen fälligen Ausstieg im nächsten Lauf um 16:00 nach.
+- Die Kerzen: die jüngsten 1.000 5-Minuten-Kerzen von Capital.com (darin heute und die Sitzung davor) und davor
+  Stundenkerzen. Sitzung, %R und Ausstieg rechnet `williams_bot.sitzungen` Zeile für Zeile wie
+  `suche/youtube_runde.regel_williams`, ATR und Tageskerzen `suche/rueckblick.Markt`. `tests/test_williams_bot.py` und
+  `python -m suche.williams_gegenprobe <Datenordner>` prüfen, dass Bot und Test dieselben Einstiege, Stops und
+  Ausstiege sehen.
 
 ## Schatten-Labor und Kombinierer
 

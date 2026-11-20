@@ -314,3 +314,9 @@ Gewinnfaktor 1,93, z 2,17, vor 2024 1,13) und `vix_sprung_welt` (durchgefallen, 
 Demo-Bot auf Account 5 (`suche/vix_sprung_bot.py`, `suche/VORAB_vix_sprung_bot.yaml`). Den VIX holt er von Cboe. Alle
 340 Trades des Tests liegen an nur 68 Tagen, 2024 verlor die Regel. Eigenes Urteil nach 40 Demo-Trades, das sind etwa
 8 Sprung-Tage, also etwa Mitte März 2027. Das Schatten-Labor zählt beide Fassungen unverändert weiter.
+
+Derselbe Wunsch: Die Fassung `williams_us` der YouTube-Runde (nicht bestanden, 77 Trades, Gewinnfaktor 2,66, z 2,35,
+vor 2024 1,51) handelt als Demo-Bot auf Account 7 (`suche/williams_bot.py`, `suche/VORAB_williams_bot.yaml`). Kauf um
+16:00 New York nach Williams %R(2) unter -90, Ausstieg um 16:00 nach der Regel. Bei 47 von 77 Trades kaufte auch der
+US500-Rücksetzer, also kaum neue Streuung. Eigenes Urteil nach 40 Demo-Trades, bei gut 2 Trades im Monat etwa April
+2028. Das Schatten-Labor zählt die Fassung unverändert weiter.

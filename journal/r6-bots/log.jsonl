@@ -128,3 +128,5 @@
 {"time": "2026-11-20T19:16:36.553383", "bot": "r6-noise-usdjpy", "event": "andere Märkte auf dem Konto", "maerkte": ["J225"]}
 {"time": "2026-11-20T19:16:36.553383", "bot": "r6-vortag-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["J225"]}
 {"time": "2026-11-20T21:16:37.191312", "bot": "r6-noise-usdjpy", "event": "andere Märkte auf dem Konto", "maerkte": ["J225", "US100", "US500"]}
+{"time": "2026-11-20T21:31:39.361707", "bot": "r6-vortag-eurusd", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-20T21:31:39.361707", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}

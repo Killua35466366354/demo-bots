@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-20T09:16:35.582234",
+ "stand_utc": "2026-11-20T09:31:33.009916",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1049.88,
+   "kontostand": 1050.79,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T09:16:35.582234",
+    "zeit": "2026-11-20T09:31:33.009916",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -396,46 +396,26 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 999.94,
+   "kontostand": 1000.11,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "Position offen",
-   "offen": {
-    "dealId": "00000000-74f8-9a5f-049c-70750015549e",
-    "side": -1,
-    "tag": "2026-11-20",
-    "signal_bar": "2026-11-20 08:15:00",
-    "einstieg_kerze": "2026-11-20 08:30:00",
-    "entry": 159.089,
-    "stop_level": 160.843,
-    "ziel_level": null,
-    "notstop": true,
-    "size": 900.0,
-    "lot": 1.0,
-    "currency": "JPY",
-    "eur_rate": 174.6205,
-    "opened_utc": "2026-11-20T08:31:40.155",
-    "konto_kurz": "…6542"
-   },
+   "status": "wartet auf das nächste Signal",
+   "offen": null,
    "orders": null,
-   "position": {
-    "upl": 0.18,
-    "stop": 160.843,
-    "ziel": null
-   },
+   "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T09:16:35.582234",
-    "action": "none",
+    "zeit": "2026-11-20T09:31:33.009916",
+    "action": "close",
     "why": [
-     "Position bleibt"
+     "Schluss zurück hinter Band bzw. VWAP"
     ]
    },
    "zusammenfassung": {
-    "trades": 7,
-    "treffer_pct": 42.9,
-    "pf": 0.754,
-    "summe_pct": -0.029,
-    "pnl_eur": -0.2
+    "trades": 8,
+    "treffer_pct": 50.0,
+    "pf": 1.117,
+    "summe_pct": 0.014,
+    "pnl_eur": 0.16
    },
    "letzte_trades": [
     {
@@ -640,6 +620,35 @@
      "konto": "…6542",
      "uebernommen": false,
      "nachgeholt": false
+    },
+    {
+     "bot": "r6-noise-usdjpy",
+     "strategie": "noise_band",
+     "epic": "USDJPY",
+     "side": "short",
+     "dealId": "00000000-74f8-9a5f-049c-70750015549e",
+     "tag": "2026-11-20",
+     "einstieg_kerze": "2026-11-20 08:30:00",
+     "signal_bar": "2026-11-20 08:15:00",
+     "size": 900.0,
+     "entry": 159.089,
+     "exit": 159.02,
+     "stop_level": 160.843,
+     "ziel_level": null,
+     "notstop": true,
+     "opened_utc": "2026-11-20T08:31:40.155",
+     "closed_utc": "2026-11-20T09:31:33.009916",
+     "reason": "Gegensignal (Band/VWAP)",
+     "pct": 0.0434,
+     "r": 0.039,
+     "pnl": 62.1,
+     "waehrung": "JPY",
+     "pnl_eur": 0.36,
+     "geschaetzt": false,
+     "rutschen_pips": null,
+     "konto": "…6542",
+     "uebernommen": false,
+     "nachgeholt": false
     }
    ],
    "zwilling": {
@@ -836,20 +845,48 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1006.8,
+   "kontostand": 1007.04,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "wartet auf das nächste Signal",
+   "status": "Stop-Orders liegen",
    "offen": null,
-   "orders": null,
+   "orders": {
+    "tag": "2026-11-20",
+    "ph": 1.10097,
+    "pl": 1.09552,
+    "gelegt_utc": "2026-11-20T09:31:33.009916",
+    "bis_utc": "2026-11-20 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.097145,
+    "konto_kurz": "…1790",
+    "long": {
+     "dealId": "00000000-74f9-26c6-049c-701e0015549e",
+     "level": 1.10104,
+     "marke": 1.10097,
+     "stop": 1.10073,
+     "ziel": 1.10233,
+     "size": 15000.0
+    },
+    "short": {
+     "dealId": "00000000-74f9-26ce-049c-701e0015549e",
+     "level": 1.09552,
+     "marke": 1.09552,
+     "stop": 1.09576,
+     "ziel": 1.09416,
+     "size": 15000.0
+    },
+    "stop_abstand": 0.0002438968895835224,
+    "atr15": 0.0004877937791670448
+   },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T09:16:35.582234",
-    "action": "none",
+    "zeit": "2026-11-20T09:31:33.009916",
+    "action": "orders",
     "why": [
-     "wartet bis 4:30 New York"
+     "kein Ausbruch bis jetzt, Stop-Orders an 1.10097 und 1.09552"
     ],
-    "bar": null
+    "bar": "2026-11-20 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1098,12 +1135,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T09:16:35.582234",
+    "zeit": "2026-11-20T09:31:33.009916",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 21:00 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-20 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1334,12 +1371,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T09:16:35.582234",
+    "zeit": "2026-11-20T09:31:33.009916",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 18:00 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-20 09:15:00"
    },
    "zusammenfassung": {
     "trades": 4,
@@ -1681,17 +1718,45 @@
    "kontostand": 983.06,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-05T17:32:02.353890",
-   "status": "wartet auf das nächste Signal",
+   "status": "Stop-Orders liegen",
    "offen": null,
-   "orders": null,
+   "orders": {
+    "tag": "2026-11-20",
+    "ph": 1.10097,
+    "pl": 1.09552,
+    "gelegt_utc": "2026-11-20T09:31:33.009916",
+    "bis_utc": "2026-11-20 21:30:00",
+    "lot": 1.0,
+    "currency": "USD",
+    "eur_rate": 1.097145,
+    "konto_kurz": "…2606",
+    "long": {
+     "dealId": "00000000-7515-e9ab-049c-701a0015549e",
+     "level": 1.10104,
+     "marke": 1.10097,
+     "stop": 1.10048,
+     "ziel": 1.10233,
+     "size": 14200.0
+    },
+    "short": {
+     "dealId": "00000000-7515-e9ba-049c-701a0015549e",
+     "level": 1.09552,
+     "marke": 1.09552,
+     "stop": 1.09601,
+     "ziel": 1.09416,
+     "size": 14200.0
+    },
+    "stop_abstand": 0.0004877937791670448,
+    "atr15": 0.0004877937791670448
+   },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T09:16:35.582234",
-    "action": "none",
+    "zeit": "2026-11-20T09:31:33.009916",
+    "action": "orders",
     "why": [
-     "wartet bis 4:30 New York"
+     "kein Ausbruch bis jetzt, Stop-Orders an 1.10097 und 1.09552"
     ],
-    "bar": null
+    "bar": "2026-11-20 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,

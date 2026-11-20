@@ -2,7 +2,7 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-20T17:01:57",
+ "stand": "2026-11-20T18:02:56",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
  "status": "Bitcoin: Verkauf offen ab 58937.85, Stop 60069.22, Ziel 56686.8, Ausstieg spätestens 2026-11-21 16:00 UTC. Ether: Verkauf offen ab 1629.51, Stop 1670.49, Ziel 1550.49, Ausstieg spätestens 2026-11-21 16:00 UTC",
@@ -53,23 +53,23 @@
  },
  "letzte_trades": [],
  "blick": {
-  "naechste_stunde_endet_utc": "2026-11-20 18:00:00",
+  "naechste_stunde_endet_utc": "2026-11-20 19:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-20 17:00:00",
+     "grenze": "2026-11-20 18:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 59227.5
+    "kurs": 58954.85
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-20 17:00:00",
+     "grenze": "2026-11-20 18:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 1633.11
+    "kurs": 1624.53
    }
   }
  }

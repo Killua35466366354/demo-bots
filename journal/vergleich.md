@@ -46,6 +46,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Tag nach einem VIX-Sprung | Account 5 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_vix_sprung_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | Williams %R | Account 7 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_williams_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | 4-Std.-Ausbruch Bitcoin, Ether | Account 5 | 2026-11-20 | 0 | +0,00 R | – | +0,00 | läuft (0 von 40 Trades) | suche/VORAB_krypto_ausbruch4h_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
+| Bündel aus 9 Bots | Vortag USDJPY | 2026-11-20 | 0 | +0,00 R | – | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_buendel9_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 27 | +10,93 R | 1,96 | +53,82 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 27 von 100 Demo-Trades, 10 von 61 Tagen |
 | Pine-Gold TP 3 € | US500 | 2026-11-10 | 47 | -12,98 R | 0,55 | -64,02 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 47 von 100 Demo-Trades, 10 von 61 Tagen |
 

@@ -54,7 +54,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, 4-Std.-Ausbruch Krypto, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, 4-Std.-Ausbruch Krypto, Bündel aus 9 Bots, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -71,7 +71,7 @@ Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Que
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
 - `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
   4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung,
-  Williams %R, 4-Std.-Ausbruch Krypto, Pine-Bots, Gold-Hand).
+  Williams %R, 4-Std.-Ausbruch Krypto, Bündel aus 9 Bots, Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
@@ -99,7 +99,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Dazu `vix-sprung`, der Tag nach einem VIX-Sprung auf denselben fünf Indizes (Kandidat in Durchgang 1, Kirons Wunsch
   "baue danach aber weiter aus"). Dazu `williams-us`, Williams %R auf US500 und US100 (nicht bestanden, unter 100
   Trades, derselbe Wunsch). Dazu `krypto-ausbruch4h`, der 4-Std.-Ausbruch auf Bitcoin und Ether (nicht bestanden,
-  2026 im Minus, derselbe Wunsch).
+  2026 im Minus, derselbe Wunsch). Dazu `buendel9`, das Bündel aus 9 Bots auf "Vortag USDJPY". Es hat kein eigenes
+  Signal und kopiert die Trades von 9 anderen Bots (Kirons Wahl "Ein Konto mit 9 Bots").
 
 ## Gold-Bot C/B
 
@@ -250,6 +251,31 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Dateien nach jedem Schluss einer 4-Std.-Kerze, also mindestens alle 4 Stunden, auch am Wochenende.
   `tests/test_krypto4h_bot.py` und `python -m suche.krypto4h_gegenprobe <Datenordner>` prüfen, dass Bot und Test
   dieselben Einstiege, Stops und Ausstiege sehen.
+
+## Bündel aus 9 Bots
+
+- `suche/buendel_bot.py`, Regeln `suche/VORAB_buendel9_bot.yaml` (versiegelt am 20.11.2026). Kirons Wahl vom
+  20.11.2026 16:20 UTC "Ein Konto mit 9 Bots": alle Strategien gleichzeitig mit einem Topf Geld, so wie es später
+  ein echtes Konto mit 300 bis 400 € täte. Die Zahl der Demokonten ist voll, darum teilt das Bündel das Konto
+  "Vortag USDJPY" mit dem Kern-Bot Vortag GBP/USD und dem ruhenden pine-hand. Die Kontonummer liest er nach dem Namen
+  aus `journal/konten.json`.
+- Er erfindet kein Signal. Er kopiert jeden neuen Trade von `gold-cb`, `gold-zonen`, `gold-ausbruch4h`, den
+  Rücksetzern US500 und US100, dem Noise-Band Nasdaq, `scalp-de40`, `scalp-us100` und `welt-ausbruch4h`. Die Deal-ID
+  liest er aus der Datei des Mitglieds, Stop und Ziel beim Broker auf dessen Konto. Gleiche Richtung, Stop und Ziel der
+  Quelle, 7 € Risiko auf ein gedachtes Konto von 700 €. Zieht die Quelle ihren Stop nach, gleicht er die Kopie an.
+  Schließt die Quelle, schließt er die Kopie zum Markt.
+- Nur Trades, die die Quelle vor höchstens 30 Minuten eröffnet hat. Jeder Trade bekommt höchstens eine Kopie, eine
+  gescheiterte Order wird nie wiederholt. Er fasst nur seine eigenen Kopien an ihrer Deal-ID an, nie GBPUSD.
+- Konto-Wächter: Margin aller Kopien höchstens 50 % des gedachten Kontostands, beim Broker bleiben danach mindestens
+  250 € frei (für Vortag GBP/USD). Liegt der gedachte Kontostand 30 % unter seinem Höchststand, kopiert er nichts
+  Neues mehr, bis Kiron mit einer neuen Regeldatei entscheidet. Er schaltet den Hedging-Modus des Kontos ein, ohne
+  Hedging höchstens eine Kopie je Markt. Ein Mitglied mit 40 Demo-Trades und Gewinnfaktor unter 1,2
+  (`journal/vergleich.json`) bekommt keine neuen Kopien mehr.
+- Urteil wie jeder andere Bot nach `suche/VORAB_aufstieg_alle.yaml` (einzeln, in R der Kopien). Er steht nicht in der
+  festen Gruppe aller Bots, damit kein Trade doppelt zählt. Der Backtest (Auskunft, an denselben Monaten ausgesucht)
+  sah 10,9 % Rendite pro Monat, 47 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.
+- Läuft im 15-Minuten-Lauf nach den anderen Bots. Kopien der Scalper und der Gold-Zonen (5-Minuten-Lauf) kommen darum
+  bis zu 15 Minuten später als die Quelle. Schreibt nur `journal/buendel9/` und `journal/buendel9.json`.
 
 ## Schatten-Labor und Kombinierer
 

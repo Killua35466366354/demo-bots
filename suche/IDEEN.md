@@ -327,3 +327,10 @@ Derselbe Wunsch: Die Fassung `ausbruch4h_krypto` der YouTube-Runde (nicht bestan
 ohne Ziel, Ausstieg nach 16 Stunden. Der Gewinn kam aus Bitcoin, aus Käufen und aus 2024, ohne die 5 besten Trades 0,98.
 Eigenes Urteil nach 40 Demo-Trades, bei 2,2 Trades je Woche etwa Ende März 2027. Das Schatten-Labor zählt die Fassung
 unverändert weiter.
+
+**Bündel aus 9 Bots (20.11.2026).** Kein neues Signal. Kirons Wahl "Ein Konto mit 9 Bots": der Bot
+`suche/buendel_bot.py` (`suche/VORAB_buendel9_bot.yaml`) kopiert jeden neuen Trade von 9 Demo-Bots auf "Vortag
+USDJPY", 7 € Risiko auf gedachte 700 €, mit Konto-Wächter (Margin 50 %, Bremse 30 %). Backtest November 2024 bis
+Oktober 2026 als Auskunft: 993 von 996 Trades passen durch den Wächter, 10,9 % Rendite pro Monat, schlimmster Rückgang
+149 €. Mit höchstens einem Trade je Markt nur 6,3 %. Auf mehrere Konten verteilt weniger (zwei Konten 5,4 %, drei
+Konten 2,6 %). Ohne die beiden Scalper 5,8 %. Urteil nach 100 Demo-Trades und 61 Tagen, etwa Mitte Februar 2027.

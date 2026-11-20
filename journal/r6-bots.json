@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-20T08:16:36.929264",
+ "stand_utc": "2026-11-20T08:31:33.993356",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1050.59,
+   "kontostand": 1048.65,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T08:16:36.929264",
+    "zeit": "2026-11-20T08:31:33.993356",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -399,15 +399,35 @@
    "kontostand": 999.76,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "wartet auf das nächste Signal",
-   "offen": null,
+   "status": "Position offen",
+   "offen": {
+    "dealId": "00000000-74f8-9a5f-049c-70750015549e",
+    "side": -1,
+    "tag": "2026-11-20",
+    "signal_bar": "2026-11-20 08:15:00",
+    "einstieg_kerze": "2026-11-20 08:30:00",
+    "entry": 159.089,
+    "stop_level": 160.843,
+    "ziel_level": null,
+    "notstop": true,
+    "size": 900.0,
+    "lot": 1.0,
+    "currency": "JPY",
+    "eur_rate": 174.6205,
+    "opened_utc": "2026-11-20T08:31:40.155",
+    "konto_kurz": "…6542"
+   },
    "orders": null,
-   "position": null,
+   "position": {
+    "upl": -0.06,
+    "stop": 160.843,
+    "ziel": null
+   },
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T08:16:36.929264",
-    "action": "none",
+    "zeit": "2026-11-20T08:31:33.993356",
+    "action": "open",
     "why": [
-     "außerhalb 8:30 bis 17 Uhr London"
+     "Schluss 159.067 unter dem Band (159.133)"
     ]
    },
    "zusammenfassung": {
@@ -816,7 +836,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1007.01,
+   "kontostand": 1006.51,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -824,7 +844,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T08:16:36.929264",
+    "zeit": "2026-11-20T08:31:33.993356",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1078,7 +1098,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T08:16:36.929264",
+    "zeit": "2026-11-20T08:31:33.993356",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1314,7 +1334,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T08:16:36.929264",
+    "zeit": "2026-11-20T08:31:33.993356",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1666,7 +1686,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T08:16:36.929264",
+    "zeit": "2026-11-20T08:31:33.993356",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

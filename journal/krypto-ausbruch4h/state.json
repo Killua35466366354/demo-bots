@@ -19,7 +19,7 @@
     "bid_ein": 58217.45,
     "opened_utc": "2026-11-20T19:02:41",
     "spaet_min": 2.7,
-    "kerzen": 0,
+    "kerzen": 1,
     "halte_kerzen": 4,
     "bis_utc": "2026-12-04 19:00:00",
     "satz_nacht": 0.2,
@@ -27,16 +27,10 @@
     "eur_rate": 1.09692,
     "margin_eur": 26.54
    },
-   "letzte_grenze": "2026-11-20 19:00:00",
+   "letzte_grenze": "2026-11-20 23:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 19:00:00",
-    "ergebnis": "Verkauf eröffnet",
-    "richtung": -1,
-    "schluss": 58311.55,
-    "hoch_davor": 65357.2,
-    "tief_davor": 61143.3,
-    "trend": true,
-    "dist": 5284.016808
+    "grenze": "2026-11-20 23:00:00",
+    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   },
   "ETHUSD": {
@@ -54,7 +48,7 @@
     "bid_ein": 1609.99,
     "opened_utc": "2026-11-20T19:02:41",
     "spaet_min": 2.7,
-    "kerzen": 0,
+    "kerzen": 1,
     "halte_kerzen": 4,
     "bis_utc": "2026-12-04 19:00:00",
     "satz_nacht": 0.2,
@@ -62,18 +56,12 @@
     "eur_rate": 1.09692,
     "margin_eur": 21.28
    },
-   "letzte_grenze": "2026-11-20 19:00:00",
+   "letzte_grenze": "2026-11-20 23:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 19:00:00",
-    "ergebnis": "Verkauf eröffnet",
-    "richtung": -1,
-    "schluss": 1613.49,
-    "hoch_davor": 1832.85,
-    "tief_davor": 1715.22,
-    "trend": true,
-    "dist": 184.311409
+    "grenze": "2026-11-20 23:00:00",
+    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   }
  },
- "stand": "2026-11-20T19:02:41"
+ "stand": "2026-11-20T23:04:30"
 }

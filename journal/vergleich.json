@@ -880,6 +880,30 @@
    }
   },
   {
+   "id": "krypto-ausbruch4h",
+   "name": "4-Std.-Ausbruch Bitcoin, Ether",
+   "konto": "Account 5",
+   "seit": null,
+   "start": null,
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "einheit": "R",
+   "urteil": "läuft (0 von 40 Trades)",
+   "vorab": "suche/VORAB_krypto_ausbruch4h_bot.yaml",
+   "test": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 100 Demo-Trades, 0 von 61 Tagen"
+   }
+  },
+  {
    "id": "pine-k5",
    "name": "Pine-Gold Hand auf Account 5",
    "konto": "Account 5",

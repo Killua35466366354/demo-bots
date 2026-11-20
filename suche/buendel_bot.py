@@ -1,0 +1,684 @@
+"""Bündel aus 9 Bots: kopiert die Trades von 9 laufenden Demo-Bots auf ein Capital.com-DEMOKONTO. Nie echtes Geld.
+
+    python -m suche.buendel_bot              # ein Lauf: Kopien führen, neue Trades der Mitglieder kopieren
+    python -m suche.buendel_bot --dry-run    # nur rechnen und zeigen, keine Order
+
+Kirons Wahl vom 20.11.2026 16:20 UTC auf der Karte "Wie soll das Bündel aller Strategien jetzt auf Demo laufen?": "Ein
+Konto mit 9 Bots". Davor sein Wunsch 15:57 UTC: ein Bot, der alle Strategien gleichzeitig mit demselben Geld handelt.
+Seit 16:27 UTC ist die Zahl der Demokonten voll, darum teilt das Bündel das Konto "Vortag USDJPY" mit dem Kern-Bot
+Vortag GBP/USD (anderer Markt) und dem ruhenden pine-hand. Regeln, Zahlen und Urteil stehen in
+suche/VORAB_buendel9_bot.yaml, Prüfsumme im Protokoll vor der ersten Kopie. Ohne passende Prüfsumme kopiert der Bot
+nichts Neues.
+
+Was ein Lauf tut (alle 15 Minuten im Lauf demo-bots.yml, nach den Bots dieses Laufs):
+- Er liest aus den Dateien der 9 Mitglieder ihre offenen Trades (Deal-ID und Konto) und beim Broker auf deren Konten
+  die Positionen dazu (Richtung, Stop, Ziel, Eröffnung). Er ändert dort nichts.
+- Jeder Trade eines Mitglieds, der höchstens 30 Minuten alt ist, bekommt eine Kopie auf "Vortag USDJPY": dieselbe
+  Richtung, derselbe Stop-Kurs, dasselbe Ziel, Größe für 7 € Risiko bis zum Stop. Eine Kopie je Trade, eine
+  gescheiterte Order wird nie wiederholt.
+- Ändert die Quelle Stop oder Ziel, gleicht er die Kopie an. Ist der Trade der Quelle zu, schließt er die Kopie.
+- Konto-Wächter: Margin aller Kopien höchstens 50 % von gedachten 700 € plus Ergebnis, beim Broker bleiben nach jeder
+  Kopie mindestens 250 € frei, ab 30 % unter dem Höchststand nichts Neues mehr. Ohne Hedging höchstens eine Kopie je
+  Markt. Ein Mitglied mit 40 Demo-Trades und Gewinnfaktor unter 1,2 bekommt keine neuen Kopien mehr.
+- Er kennt seine Kopien an der Deal-ID und fasst nie eine fremde Position an.
+- Er schreibt nur journal/buendel9/ und journal/buendel9.json.
+"""
+from __future__ import annotations
+
+import argparse
+import contextlib
+import copy
+import json
+import math
+import os
+import sys
+import unicodedata
+from datetime import datetime, timezone
+from pathlib import Path
+
+import pandas as pd
+
+from gold.bot.konten import HAUPT_ENDUNG  # Hauptkonto des Gold-Bots, hier nie handeln
+
+ROOT = Path(__file__).resolve().parents[1]
+J = ROOT / "journal"
+BOT_ID = "buendel9"
+NAME = "Bündel aus 9 Bots"
+KONTO_NAME = "Vortag USDJPY"          # geteilt mit r6-vortag-gbpusd (GBPUSD) und pine-hand (ruht)
+SPERR_MAERKTE = ("GBPUSD",)            # Märkte der anderen Bots dieses Kontos, hier nie eine Kopie
+VORAB = ROOT / "suche" / "VORAB_buendel9_bot.yaml"
+KEY = "VORAB_buendel9_bot sha256 "
+JDIR = J / "buendel9"
+COCKPIT = J / "buendel9.json"
+FREMDE_DATEIEN = ("gold-trades.jsonl", "gold-state.json", "konten.json", "r6-bots.json", "vergleich.json")
+SCHLUSS_WARTEN = pd.Timedelta(hours=1)  # so lange sucht der Bot den Schlusskurs einer Kopie beim Broker, dann schätzt er
+GESEHEN_TAGE = 3                       # so lange merkt er sich Trades, die er nicht kopiert hat
+HEDGING_WIEDER = pd.Timedelta(hours=1)
+FMT = "%Y-%m-%dT%H:%M:%S"
+SEITE = {1: "Kauf", -1: "Verkauf"}
+REGEL = ("Kopiert jeden neuen Trade von 9 Demo-Bots (Gold-Bot C/B, Gold-Zonen, Gold 4-Std.-Ausbruch, Rücksetzer US500 "
+         "und US100, Noise-Band Nasdaq, Scalper DAX und Nasdaq, 4-Std.-Ausbruch DAX/FTSE/Nikkei) mit 7 € Risiko auf "
+         "gedachte 700 €. Stop und Ziel wie die Quelle, raus, wenn die Quelle rausgeht. Konto-Wächter: Margin höchstens "
+         "50 % des Kontostands, Bremse ab 30 % Rückgang.")
+TEST = ("Backtest November 2024 bis Oktober 2026 (Auskunft): 993 von 996 Trades passen durch den Wächter, +76,5 € im "
+        "Monat auf 700 € (10,9 % Rendite pro Monat), schlimmster Rückgang 149 €, 6 von 24 Monaten im Minus. Die 9 sind "
+        "an denselben Monaten ausgesucht, live wird es weniger. 47 % des Gewinns kamen von den Scalpern, deren Test "
+        "durchgefallen ist.")
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Regel und Konto
+
+def lade_regel(pfad: Path = VORAB) -> dict:
+    import yaml
+    return yaml.safe_load(pfad.read_text(encoding="utf-8"))["buendel9_bot"]
+
+
+def vorab_ok() -> bool:
+    """Ist die Regeldatei versiegelt (letzte Zeile im Protokoll mit ihrer Prüfsumme)? Nur dann kopiert der Bot."""
+    from suche.runde1 import journal_lines, last_value, sha256_text
+    if not VORAB.exists():
+        return False
+    return last_value(journal_lines(), KEY) == sha256_text(VORAB.read_text(encoding="utf-8"))
+
+
+def konto_id(konten_daten: dict | None = None) -> str:
+    """Die volle Kontonummer von "Vortag USDJPY" aus journal/konten.json, gesucht nach dem Namen. Leer, wenn es das
+    Konto dort nicht genau einmal gibt. Die Nummer wird nie abgetippt und nie ausgegeben."""
+    from suche.mitnutzer import konto_nach_name
+    return konto_nach_name(KONTO_NAME, konten_daten)
+
+
+KONTO = konto_id()
+
+
+def _norm(text) -> str:
+    return unicodedata.normalize("NFC", str(text or "")).strip().casefold()
+
+
+def _num(x) -> float | None:
+    try:
+        return None if x is None or x == "" else float(x)
+    except (TypeError, ValueError):
+        return None
+
+
+def _jetzt(now: datetime) -> pd.Timestamp:
+    t = pd.Timestamp(now)
+    return t.tz_convert("UTC").tz_localize(None) if t.tzinfo else t
+
+
+def _zeit(x) -> pd.Timestamp | None:
+    try:
+        t = pd.Timestamp(str(x).replace("Z", ""))
+    except (TypeError, ValueError):
+        return None
+    return t.tz_convert("UTC").tz_localize(None) if t.tzinfo else t
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Die Mitglieder: offene Trades aus ihren eigenen Dateien (ohne Netz)
+
+def _konto_aus_code(modul: str) -> str:
+    import importlib
+    return str(getattr(importlib.import_module(modul), "KONTO", "") or "")
+
+
+def _feld(daten: dict, feld: str) -> list[dict]:
+    """Die offenen Trades unter `feld` (Punkt-Pfad, * = alle Einträge einer Ebene)."""
+    stufe: list = [daten]
+    for teil in feld.split("."):
+        neu: list = []
+        for x in stufe:
+            if not isinstance(x, dict):
+                continue
+            neu += list(x.values()) if teil == "*" else [x.get(teil)]
+        stufe = neu
+    return [x for x in stufe if isinstance(x, dict) and x.get("dealId")]
+
+
+def quell_deals(regel: dict, jdir: Path = J, konten_daten: dict | None = None) -> tuple[list[dict], set[str], list[str]]:
+    """Offene Trades der Mitglieder: [{bot, konto, dealId}], die Mitglieder, deren Datei lesbar war, und Fehler.
+
+    Das Konto kommt aus dem Code des Mitglieds (Konstante KONTO), aus seiner Datei (konto_id) oder ist das Hauptkonto
+    (gold-cb). Ein Mitglied ohne lesbare Datei oder ohne Konto zählt als nicht gelesen: dann schließt der Bot keine
+    Kopie dieses Mitglieds, weil er nicht weiß, ob die Quelle noch offen ist."""
+    if konten_daten is None:
+        from gold.bot import konten
+        konten_daten = konten.load()
+    out, gelesen, fehler = [], set(), []
+    for bot, m in (regel.get("mitglieder") or {}).items():
+        pfad = jdir / m["datei"]
+        try:
+            daten = json.loads(pfad.read_text(encoding="utf-8")) if pfad.exists() else {}
+            art = str(m["konto"])
+            if art == "haupt":
+                konto = str((konten_daten or {}).get("haupt") or "")
+            elif art == "konto_id":
+                konto = str(daten.get("konto_id") or "")
+            else:
+                konto = _konto_aus_code(art)
+        except Exception as err:            # noqa: BLE001 - ein Mitglied hält die anderen nie auf
+            fehler.append(f"{bot}: {type(err).__name__}")
+            continue
+        trades = _feld(daten, m["feld"])
+        if trades and not konto:
+            fehler.append(f"{bot}: kein Konto")
+            continue
+        gelesen.add(bot)
+        out += [{"bot": bot, "konto": konto, "dealId": str(t["dealId"])} for t in trades]
+    return out, gelesen, fehler
+
+
+def mitglieder_raus(regel: dict, vergleich: dict | None) -> dict[str, str]:
+    """Mitglieder, die ihr eigenes Urteil nicht bestanden haben (VORAB_wechsel: 40 Trades, Gewinnfaktor unter 1,2),
+    aus journal/vergleich.json. Bot -> Grund."""
+    w = (regel.get("waechter") or {}).get("mitglied_raus") or {}
+    n, pf_min = int(w.get("trades", 40)), float(w.get("gewinnfaktor_unter", 1.2))
+    zeilen = list((vergleich or {}).get("rangliste") or []) + list((vergleich or {}).get("wunsch") or [])
+    out = {}
+    for z in zeilen:
+        bid = z.get("id")
+        if bid not in (regel.get("mitglieder") or {}) or bid in out:
+            continue
+        ist = z.get("ist") or {}
+        trades, pf = int(ist.get("trades") or 0), _num(ist.get("pf_r"))
+        if trades >= n and pf is not None and pf < pf_min:
+            out[bid] = f"{trades} Demo-Trades, Gewinnfaktor {pf:.2f} unter {pf_min:.1f}"
+    return out
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Größe und Margin (ohne Netz)
+
+def euro_je_punkt(q) -> float:
+    """So viele Euro ist eine Größe von 1 je Kurspunkt wert."""
+    return (q.lot or 1) / (q.eur_rate or 1)
+
+
+def groesse(risiko_eur: float, dist: float, q, faktor: float) -> tuple[float | None, str]:
+    """Größe für risiko_eur bis zum Stop, auf die Schrittweite abgerundet, mindestens die kleinste Größe. None, wenn
+    der Euro-Kurs fehlt oder die kleinste Größe mehr als faktor mal risiko_eur riskieren würde."""
+    if not q.eur_rate or dist <= 0:
+        return None, "Euro-Kurs oder Stop-Abstand fehlt"
+    je = dist * euro_je_punkt(q)
+    step = q.size_step or q.min_size
+    roh = risiko_eur / je
+    size = round(max(math.floor(round(roh / step, 9)) * step, q.min_size), 8)
+    if size * je > faktor * risiko_eur:
+        return None, f"kleinste Größe zu grob ({size * je:.2f} € Risiko statt {risiko_eur:.0f} €)"
+    return size, ""
+
+
+def margin_eur(size: float, kurs: float, q) -> float:
+    return size * kurs * euro_je_punkt(q) * q.margin_pct / 100
+
+
+def _rund(x: float, q) -> float:
+    return round(float(x), q.decimals if q.decimals < 6 else 2)
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Ein Lauf
+
+class Lauf:
+    """Ein Lauf. Alle Order-, Änderungs- und Schließ-Aufrufe gehen über diese Klasse, damit ein Trockenlauf
+    (send_orders=False) nichts beim Broker ändert."""
+
+    def __init__(self, client, state: dict, now: datetime, regel: dict, send_orders: bool = True,
+                 siegel: bool = True):
+        self.client = client
+        self.st = copy.deepcopy(state or {})
+        self.now = _jetzt(now)
+        self.stamp = self.now.strftime(FMT)
+        self.regel = regel
+        self.send = send_orders
+        self.siegel = siegel
+        self.log: list[dict] = []
+        self.fertige: list[dict] = []
+        self.kurse: dict = {}
+        self.quotes: dict = {}
+        g = regel["geld"]
+        self.kapital, self.risiko, self.faktor = float(g["kapital_eur"]), float(g["risiko_eur"]), float(g["max_risiko_faktor"])
+        w = regel["waechter"]
+        self.margin_anteil, self.bremse = float(w["margin_anteil"]), float(w["bremse_rueckgang"])
+        self.frei_danach = float(w.get("frei_danach_eur", 0))
+        self.frist = pd.Timedelta(minutes=int(regel["kopieren"]["frist_minuten"]))
+        for k, v in (("format", 1), ("start", self.stamp), ("kopien", {}), ("gesehen", {}), ("summe_eur", 0.0),
+                     ("summe_r", 0.0), ("trades", 0)):
+            self.st.setdefault(k, v)
+        self.st.setdefault("hoechst", self.stand())
+
+    def ev(self, event: str, **kw) -> None:
+        self.log.append({"time": self.stamp, "event": event, **kw})
+
+    def stand(self) -> float:
+        """Gedachter Kontostand: 700 € plus das Ergebnis aller fertigen Kopien."""
+        return round(self.kapital + float(self.st.get("summe_eur") or 0), 2)
+
+    def nur_mein_konto(self) -> None:
+        if not KONTO or str(self.client.account_id) != KONTO:
+            raise RuntimeError(f"aktives Konto ist nicht {KONTO_NAME}, nichts gesendet")
+
+    def quote(self, epic: str):
+        from suche.demo_bots import eur_rate, quote_from_market
+        if epic not in self.quotes:
+            q = quote_from_market(self.client.market(epic), None)
+            q.eur_rate = eur_rate(self.client, q.currency, self.kurse)
+            self.quotes[epic] = q
+        return self.quotes[epic]
+
+    def merke(self, quelle_deal: str, bot: str, grund: str) -> None:
+        if quelle_deal not in self.st["gesehen"]:
+            self.st["gesehen"][quelle_deal] = {"bot": bot, "zeit": self.stamp, "grund": grund}
+            self.ev("nicht kopiert", quelle=bot, quelle_deal=quelle_deal, grund=grund)
+
+    def aufraeumen(self, noch_offen: set[str]) -> None:
+        """Nicht kopierte Trades vergisst er nach 3 Tagen, aber nur, wenn die Quelle sie nicht mehr offen hat."""
+        grenze = self.now - pd.Timedelta(days=GESEHEN_TAGE)
+        self.st["gesehen"] = {k: v for k, v in self.st["gesehen"].items()
+                              if k in noch_offen or (_zeit(v.get("zeit")) or self.now) >= grenze}
+
+    # ---- Hedging ----
+
+    def hedging_an(self) -> bool:
+        """Ist der Hedging-Modus des Kontos an? Wenn nicht, einschalten (höchstens einmal je Stunde versuchen). Ohne
+        Hedging gilt: höchstens eine Kopie je Markt."""
+        try:
+            an = bool((self.client._get("/accounts/preferences") or {}).get("hedgingMode"))
+        except Exception as err:            # noqa: BLE001 - dann ohne Hedging
+            self.ev("Hedging nicht lesbar", fehler=str(err)[:200])
+            return False
+        if an or not self.send:
+            self.st["hedging"] = an
+            return an
+        letzt = _zeit(self.st.get("hedging_versuch"))
+        if letzt is not None and self.now - letzt < HEDGING_WIEDER:
+            return False
+        self.st["hedging_versuch"] = self.stamp
+        try:
+            self.nur_mein_konto()
+            self.client._request("PUT", "/accounts/preferences", json={"hedgingMode": True})
+            an = bool((self.client._get("/accounts/preferences") or {}).get("hedgingMode"))
+        except Exception as err:            # noqa: BLE001
+            self.ev("Hedging nicht eingeschaltet", fehler=str(err)[:200])
+            an = False
+        if an:
+            self.ev("Hedging eingeschaltet")
+        self.st["hedging"] = an
+        return an
+
+    # ---- Kopien führen ----
+
+    def buche(self, k: dict, level: float, grund: str, wann: pd.Timestamp, geschaetzt: bool = False) -> None:
+        d = int(k["richtung"])
+        dist = abs(float(k["entry"]) - float(k["stop_start"]))
+        r = d * (level - float(k["entry"])) / dist if dist else 0.0
+        eur = d * (level - float(k["entry"])) * float(k["size"]) * float(k["lot"]) / float(k["eur_rate"] or 1)
+        rec = {"id": BOT_ID, "quelle": k["quelle"], "quelle_deal": k["quelle_deal"], "dealId": k["dealId"],
+               "epic": k["epic"], "richtung": d, "size": k["size"], "entry": k["entry"], "stop_start": k["stop_start"],
+               "stop": k.get("stop"), "ziel": k.get("ziel"), "exit": round(float(level), 6), "grund": grund,
+               "geschaetzt": geschaetzt, "opened_utc": k["opened_utc"], "closed_utc": wann.strftime(FMT),
+               "risiko_eur": k.get("risiko_eur"), "r": round(r, 4), "eur": round(eur, 2)}
+        self.fertige.append(rec)
+        del self.st["kopien"][k["quelle_deal"]]
+        self.st["summe_eur"] = round(float(self.st["summe_eur"]) + eur, 2)
+        self.st["summe_r"] = round(float(self.st["summe_r"]) + r, 4)
+        self.st["trades"] = int(self.st["trades"]) + 1
+        self.st["hoechst"] = max(float(self.st.get("hoechst") or self.kapital), self.stand())
+        self.ev("Kopie zu", quelle=k["quelle"], dealId=k["dealId"], kurs=rec["exit"], grund=grund, r=rec["r"],
+                eur=rec["eur"], geschaetzt=geschaetzt)
+        if not self.st.get("gebremst") and self.stand() <= float(self.st["hoechst"]) * (1 - self.bremse):
+            self.st["gebremst"] = {"zeit": self.stamp, "stand": self.stand(), "hoechst": self.st["hoechst"]}
+            self.ev("Bremse", stand=self.stand(), hoechst=self.st["hoechst"])
+
+    def schliesse(self, k: dict, warum: str) -> None:
+        if not self.send:
+            self.ev("würde schließen", dealId=k["dealId"], warum=warum)
+            return
+        try:
+            self.nur_mein_konto()
+            conf = self.client.close_position(k["dealId"])
+        except Exception as err:            # noqa: BLE001 - nächster Lauf versucht es wieder, der Stop liegt beim Broker
+            self.ev("schließen fehlgeschlagen", dealId=k["dealId"], warum=warum, fehler=str(err)[:200])
+            return
+        if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
+            self.ev("schließen abgelehnt", dealId=k["dealId"], warum=warum, grund=(conf or {}).get("reason"))
+            return
+        level = _num((conf or {}).get("level"))
+        if level is None:
+            q = self.quote(k["epic"])
+            level = q.bid if int(k["richtung"]) > 0 else q.offer
+        self.buche(k, level, warum, self.now)
+
+    def angleichen(self, k: dict, stop: float | None, ziel: float | None) -> None:
+        if stop is None:
+            return
+        q = self.quote(k["epic"])
+        body = {"stopLevel": _rund(stop, q)}
+        if ziel is not None:
+            body["profitLevel"] = _rund(ziel, q)
+        if not self.send:
+            self.ev("würde angleichen", dealId=k["dealId"], **body)
+            return
+        try:
+            self.nur_mein_konto()
+            ref = self.client._request("PUT", f"/positions/{k['dealId']}", json=body).json().get("dealReference")
+            conf = self.client.confirm(ref) if ref else {}
+        except Exception as err:            # noqa: BLE001 - der nächste Lauf versucht es wieder
+            self.ev("angleichen fehlgeschlagen", dealId=k["dealId"], fehler=str(err)[:200])
+            return
+        if conf and str(conf.get("dealStatus") or "").upper() == "REJECTED":
+            self.ev("angleichen abgelehnt", dealId=k["dealId"], grund=conf.get("reason"))
+            return
+        k["stop"], k["ziel"] = body["stopLevel"], body.get("profitLevel")
+        k["stop_quelle"], k["ziel_quelle"] = stop, ziel
+        self.ev("angeglichen", quelle=k["quelle"], dealId=k["dealId"], **body)
+
+    def fuehren(self, deals: list[dict], gelesen: set[str], quell_pos: dict, konten_ok: set[str],
+                eigene: dict) -> None:
+        """Jede offene Kopie: beim Broker zu (buchen), Quelle zu (schließen) oder Stop und Ziel angleichen."""
+        offen_quelle = {d["dealId"] for d in deals}
+        for qd, k in list(self.st["kopien"].items()):
+            if k["dealId"] not in eigene:
+                self.weg(k)
+                continue
+            k.pop("weg_seit", None)
+            if k["quelle"] in gelesen and qd not in offen_quelle:
+                self.schliesse(k, "Quelle zu")
+                continue
+            if k.get("quelle_konto") in konten_ok and qd not in quell_pos:
+                self.schliesse(k, "Quelle beim Broker zu")
+                continue
+            p = (quell_pos.get(qd) or {}).get("position") or {}
+            stop, ziel = _num(p.get("stopLevel")), _num(p.get("profitLevel"))
+            if p and (stop != _num(k.get("stop_quelle")) or ziel != _num(k.get("ziel_quelle"))):
+                self.angleichen(k, stop, ziel)
+
+    def weg(self, k: dict) -> None:
+        """Die Kopie ist beim Broker zu (Stop oder Ziel). Schlusskurs aus der Kontoaktivität, nach 1 Std. geschätzt."""
+        from suche.demo_bots import broker_exit
+        level, quelle = broker_exit(self.client, {"dealId": k["dealId"], "opened_utc": k["opened_utc"]},
+                                    self.now.to_pydatetime())
+        if level is not None:
+            self.buche(k, float(level), {"SL": "Stop", "TP": "Ziel"}.get(quelle, quelle or "beim Broker zu"), self.now)
+            return
+        seit = _zeit(k.get("weg_seit"))
+        if seit is None:
+            k["weg_seit"] = self.stamp
+            return
+        if self.now - seit >= SCHLUSS_WARTEN:
+            self.buche(k, float(k.get("stop") or k["stop_start"]), "beim Broker zu, Schlusskurs geschätzt (Stop)",
+                       self.now, geschaetzt=True)
+
+    # ---- Neue Kopien ----
+
+    def offene_margin(self) -> float:
+        return round(sum(float(k.get("margin_eur") or 0) for k in self.st["kopien"].values()), 2)
+
+    def neue(self, deals: list[dict], quell_pos: dict, konten_ok: set[str], raus: dict[str, str],
+             available: float | None, hedging: bool) -> None:
+        for d in deals:
+            qd, bot = d["dealId"], d["bot"]
+            if qd in self.st["kopien"] or qd in self.st["gesehen"]:
+                continue
+            p = quell_pos.get(qd)
+            if p is None:
+                if d["konto"] in konten_ok:
+                    self.merke(qd, bot, "Quelle beim Broker schon zu")
+                continue
+            pos, mk = p.get("position") or {}, p.get("market") or {}
+            epic = str(mk.get("epic") or pos.get("epic") or "")
+            seite = 1 if str(pos.get("direction")).upper() == "BUY" else -1
+            eroeffnet = _zeit(pos.get("createdDateUTC") or pos.get("createdDate"))
+            stop, ziel = _num(pos.get("stopLevel")), _num(pos.get("profitLevel"))
+            if eroeffnet is None or self.now - eroeffnet > self.frist:
+                self.merke(qd, bot, f"älter als {int(self.frist.total_seconds() // 60)} Minuten")
+                continue
+            if not self.siegel:
+                self.merke(qd, bot, "Siegel fehlt")
+                continue
+            if self.st.get("gebremst"):
+                self.merke(qd, bot, "Bremse: 30 % unter dem Höchststand")
+                continue
+            if bot in raus:
+                self.merke(qd, bot, "Mitglied raus: " + raus[bot])
+                continue
+            if not epic or epic in SPERR_MAERKTE:
+                self.merke(qd, bot, f"Markt {epic or '?'} ist hier gesperrt")
+                continue
+            if stop is None:
+                self.merke(qd, bot, "Quelle ohne Stop")
+                continue
+            if not hedging and any(k["epic"] == epic for k in self.st["kopien"].values()):
+                self.merke(qd, bot, "ohne Hedging höchstens eine Kopie je Markt")
+                continue
+            try:
+                q = self.quote(epic)
+            except Exception as err:        # noqa: BLE001
+                self.merke(qd, bot, f"Markt nicht lesbar ({type(err).__name__})")
+                continue
+            if not q.tradeable:
+                self.merke(qd, bot, "Markt zu")
+                continue
+            kurs = q.offer if seite > 0 else q.bid
+            dist = seite * (kurs - stop)
+            if dist <= max(q.min_dist, 0.0):
+                self.merke(qd, bot, "Kurs schon am oder hinter dem Stop der Quelle")
+                continue
+            size, warum = groesse(self.risiko, dist, q, self.faktor)
+            if size is None:
+                self.merke(qd, bot, warum)
+                continue
+            marg = round(margin_eur(size, kurs, q), 2)
+            if self.offene_margin() + marg > self.margin_anteil * self.stand():
+                self.merke(qd, bot, f"Margin {self.offene_margin() + marg:.0f} € über "
+                                    f"{self.margin_anteil * 100:.0f} % von {self.stand():.0f} €")
+                continue
+            if available is not None and available - marg < self.frei_danach:
+                self.merke(qd, bot, f"beim Broker blieben nur {available - marg:.0f} € frei")
+                continue
+            body = {"epic": epic, "direction": "BUY" if seite > 0 else "SELL", "size": size, "guaranteedStop": False,
+                    "stopLevel": _rund(stop, q)}
+            if ziel is not None:
+                body["profitLevel"] = _rund(ziel, q)
+            info = {"quelle": bot, "quelle_deal": qd, "epic": epic, "richtung": seite, "size": size,
+                    "stop": body["stopLevel"], "ziel": body.get("profitLevel"), "margin_eur": marg,
+                    "risiko_eur": round(size * dist * euro_je_punkt(q), 2)}
+            if not self.send:
+                self.ev("würde kopieren", kurs=kurs, **info)
+                continue
+            self.merke_versuch(qd)
+            try:
+                self.nur_mein_konto()
+                ref = self.client._request("POST", "/positions", json=body).json()["dealReference"]
+                conf = self.client.confirm(ref)
+            except Exception as err:        # noqa: BLE001 - nie wiederholen
+                self.merke(qd, bot, f"Order fehlgeschlagen ({str(err)[:120]})")
+                continue
+            if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
+                self.merke(qd, bot, f"Order abgelehnt ({(conf or {}).get('reason')})")
+                continue
+            deal = str((conf or {}).get("dealId") or ((conf or {}).get("affectedDeals") or [{}])[0].get("dealId") or "")
+            if not deal:
+                self.merke(qd, bot, "Order ohne Deal-ID in der Bestätigung, nachsehen")
+                continue
+            entry = _num((conf or {}).get("level")) or kurs
+            self.st["versuche"].pop(qd, None)
+            self.st["kopien"][qd] = {**info, "dealId": deal, "entry": entry, "stop_start": body["stopLevel"],
+                                     "stop_quelle": stop, "ziel_quelle": ziel, "quelle_konto": d["konto"],
+                                     "lot": q.lot, "eur_rate": q.eur_rate, "opened_utc": self.stamp,
+                                     "quelle_opened_utc": eroeffnet.strftime(FMT)}
+            if available is not None:
+                available -= marg
+            self.ev("kopiert", dealId=deal, entry=entry, **info)
+
+    def merke_versuch(self, qd: str) -> None:
+        """Vor dem Senden: Bricht der Lauf mitten in der Order ab, sieht der nächste Lauf den Versuch und sendet nie
+        ein zweites Mal."""
+        self.st.setdefault("versuche", {})[qd] = self.stamp
+
+
+def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path = J,
+        konten_daten: dict | None = None, regel: dict | None = None) -> tuple[dict, list[dict], list[dict]]:
+    """Ein Lauf. Rückgabe: neuer Stand, Ereignisse, fertige Kopien."""
+    regel = regel or lade_regel()
+    siegel = vorab_ok()
+    lauf = Lauf(client, state, now, regel, send_orders, siegel=siegel)
+    lauf.st.setdefault("versuche", {})
+    for qd in list(lauf.st["versuche"]):          # Order ohne Antwort im letzten Lauf: nie ein zweites Mal senden
+        lauf.merke(qd, "?", "Order im letzten Lauf ohne Antwort, nicht wiederholt")
+        del lauf.st["versuche"][qd]
+    if not KONTO or KONTO.endswith(HAUPT_ENDUNG):
+        lauf.ev("kein Konto", konto=KONTO_NAME)
+        lauf.st["stand"] = lauf.stamp
+        return lauf.st, lauf.log, []
+    konten = client.accounts()
+    acc = next((a for a in konten if str(a.get("accountId")) == KONTO), None)
+    if acc is None or _norm(acc.get("accountName") or KONTO_NAME) != _norm(KONTO_NAME):
+        lauf.ev("kein Konto", konto=KONTO_NAME)
+        lauf.st["stand"] = lauf.stamp
+        return lauf.st, lauf.log, []
+    euro = str(acc.get("currency") or "EUR").upper() == str(regel.get("waehrung") or "EUR").upper()
+    available = _num((acc.get("balance") or {}).get("available"))
+    deals, gelesen, fehler = quell_deals(regel, jdir, konten_daten)
+    for f in fehler:
+        lauf.ev("Mitglied nicht lesbar", fehler=f)
+    mitglied_konten = {d["konto"] for d in deals}
+    if KONTO in mitglied_konten:                  # ein Mitglied auf diesem Konto: Quelle und Kopie wären nicht zu trennen
+        lauf.ev("Mitglied auf dem Bündel-Konto, nichts kopiert")
+        deals = [d for d in deals if d["konto"] != KONTO]
+    try:
+        vergleich = json.loads((jdir / "vergleich.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        vergleich = None
+    raus = mitglieder_raus(regel, vergleich)
+    vorher = client.account_id
+    quell_pos, konten_ok = {}, set()
+    try:
+        for konto in sorted({d["konto"] for d in deals}):
+            try:
+                client.switch_account(konto)
+                for p in client.positions():
+                    did = str((p.get("position") or {}).get("dealId") or "")
+                    if did:
+                        quell_pos[did] = p
+                konten_ok.add(konto)
+            except Exception as err:        # noqa: BLE001 - dann bleibt alles dieses Kontos, wie es ist
+                lauf.ev("Quellkonto nicht lesbar", fehler=str(err)[:200])
+        quell_pos = {d["dealId"]: quell_pos[d["dealId"]] for d in deals if d["dealId"] in quell_pos}
+        client.switch_account(KONTO)
+        eigene = {str((p.get("position") or {}).get("dealId")): p for p in client.positions()}
+        lauf.fuehren(deals, gelesen, quell_pos, konten_ok, eigene)
+        neu = [d for d in deals if d["dealId"] not in lauf.st["kopien"] and d["dealId"] not in lauf.st["gesehen"]]
+        if neu:
+            if not euro:
+                for d in neu:
+                    lauf.merke(d["dealId"], d["bot"], "Konto nicht in Euro")
+            else:
+                lauf.neue(neu, quell_pos, konten_ok, raus, available, lauf.hedging_an())
+        lauf.aufraeumen({d["dealId"] for d in deals})
+        lauf.st["raus"] = raus
+        lauf.st["stand"] = lauf.stamp
+        return lauf.st, lauf.log, lauf.fertige
+    finally:
+        with contextlib.suppress(Exception):
+            if vorher and vorher != client.account_id:
+                client.switch_account(vorher)
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# Journal und Cockpit
+
+def bewertung(trades: list[dict]) -> dict:
+    r = [float(t["r"]) for t in trades if t.get("r") is not None]
+    gew, verl = sum(x for x in r if x > 0), -sum(x for x in r if x < 0)
+    return {"trades": len(r), "summe_r": round(sum(r), 2), "gewinnfaktor": round(gew / verl, 2) if verl else None,
+            "eur": round(sum(float(t.get("eur") or 0) for t in trades), 2),
+            "urteil": "Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3"}
+
+
+def status(st: dict) -> str:
+    if st.get("gebremst"):
+        return f"Bremse seit {str(st['gebremst']['zeit'])[:16]} UTC, kopiert nichts Neues mehr, nur Kirons Entscheidung"
+    n = len(st.get("kopien") or {})
+    stand = 700 + float(st.get("summe_eur") or 0)
+    teil = f"{n} Kopie offen" if n == 1 else f"{n} Kopien offen"
+    return f"{teil}, gedachter Kontostand {stand:.2f} € nach {int(st.get('trades') or 0)} fertigen Kopien"
+
+
+def cockpit(st: dict, alle: list[dict], regel: dict) -> dict:
+    offen = [{k: v.get(k) for k in ("quelle", "epic", "richtung", "entry", "stop", "ziel", "size", "risiko_eur",
+                                     "margin_eur", "opened_utc")} for v in (st.get("kopien") or {}).values()]
+    return {"bot": BOT_ID, "name": NAME, "konto": KONTO_NAME, "stand": st.get("stand"), "start": st.get("start"),
+            "status": status(st), "regel": REGEL, "backtest": TEST, "test": TEST, "vorab": "suche/VORAB_buendel9_bot.yaml",
+            "vorab_ok": vorab_ok(), "mitglieder": list((regel.get("mitglieder") or {}).keys()),
+            "raus": st.get("raus") or {}, "kapital_eur": regel["geld"]["kapital_eur"],
+            "kontostand_gedacht_eur": round(float(regel["geld"]["kapital_eur"]) + float(st.get("summe_eur") or 0), 2),
+            "hedging": st.get("hedging"), "offen": offen, "zusammenfassung": bewertung(alle), "letzte_trades": alle[-10:]}
+
+
+def _ohne_zeit(st: dict) -> dict:
+    return {k: v for k, v in (st or {}).items() if k != "stand"}
+
+
+def _lies_jsonl(path: Path) -> list[dict]:
+    out = []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            with contextlib.suppress(ValueError):
+                out.append(json.loads(line))
+    return out
+
+
+def schreiben(st: dict, log: list[dict], fertige: list[dict], regel: dict, jdir: Path = JDIR,
+              cockpit_pfad: Path = COCKPIT) -> bool:
+    """Schreibt Zustand, Log, Kopien und Cockpit. Hat sich außer der Uhrzeit nichts geändert, schreibt der Lauf nichts."""
+    for p in (jdir, cockpit_pfad):
+        if p.name in FREMDE_DATEIEN:
+            raise RuntimeError(f"{p} gehört einem anderen Bot")
+    pfad = jdir / "state.json"
+    alt = json.loads(pfad.read_text(encoding="utf-8")) if pfad.exists() else None
+    if alt is not None and not log and not fertige and _ohne_zeit(alt) == _ohne_zeit(st) and cockpit_pfad.exists():
+        return False
+    jdir.mkdir(parents=True, exist_ok=True)
+    pfad.write_text(json.dumps(st, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8")
+    for name, rows in (("log.jsonl", log), ("trades.jsonl", fertige)):
+        if rows:
+            with open(jdir / name, "a", encoding="utf-8") as fh:
+                fh.writelines(json.dumps(row, ensure_ascii=False, default=str) + "\n" for row in rows)
+    alle = _lies_jsonl(jdir / "trades.jsonl")
+    cockpit_pfad.write_text(json.dumps(cockpit(st, alle, regel), ensure_ascii=False, indent=1, default=str) + "\n",
+                            encoding="utf-8")
+    return True
+
+
+def main(argv: list[str]) -> int:
+    from gold.bot.capital import CapitalClient
+    from gold.bot.runner import CRED_KEYS, clean_credentials
+
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--dry-run", action="store_true", help="nur rechnen, keine Order")
+    args = ap.parse_args(argv)
+    creds = clean_credentials({k: os.environ.get(k, "") for k in CRED_KEYS})
+    if not all(creds):
+        print("Keine Capital.com-Zugangsdaten, Bündel übersprungen")
+        return 0
+    path = JDIR / "state.json"
+    state = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    regel = lade_regel()
+    client = CapitalClient(*creds, environment="demo")
+    client.login()
+    try:
+        st, log, fertige = run(client, state, datetime.now(timezone.utc), send_orders=not args.dry_run, regel=regel)
+    finally:
+        with contextlib.suppress(Exception):
+            client.logout()
+    print(json.dumps({"ereignisse": log, "fertig": fertige, "status": status(st)}, ensure_ascii=False, default=str))
+    if not args.dry_run:
+        schreiben(st, log, fertige, regel)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

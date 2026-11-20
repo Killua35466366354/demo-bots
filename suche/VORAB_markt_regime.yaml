@@ -1,0 +1,59 @@
+# Trend oder Seitwärts: Passt eine Strategie besser zu einem Markt in einer Trendphase oder in einer Seitwärtsphase?
+#
+# Kirons Wunsch vom 20.11.2026 17:55 UTC: "Märkte raussuchen, wo es konstant entweder hoch oder runter geht und das dann
+# sozusagen so unterscheiden und dann halt so darüber arbeiten". Diese Datei legt den Test fest, bevor gerechnet wird.
+# Sie ist versiegelt, sobald ihre Prüfsumme im Protokoll steht (journal/strategie-suche-protokoll.md, Schlüssel
+# VORAB_markt_regime). Eine neue Regel bekommt eine neue Datei.
+#
+# Ehrlich vorab: Die Trades sind Rückblick-Trades der laufenden Bots. An denselben Monaten wurden die Bots für das
+# Bündel ausgesucht. Das Urteil fällt darum nur an 2026, gewählt wird nur an den Monaten davor.
+
+markt_regime:
+  frage: "Bringt eine Strategie in einer Trendphase ihres Markts mehr als in einer Seitwärtsphase, oder umgekehrt, so dass ein Filter 'nur in dieser Phase handeln' hilft?"
+
+  trades:
+    datei: "Projektordner schatten-labor/alle_margin.csv"
+    sha256: f77cabede4a49abd320cead38dc1daa72633fd012d34e187a9c5d2d75ffcc9f0
+    inhalt: "Rückblick-Trades der 19 Bots der Konto-Rechnung vom 20.11.2026, Einstieg November 2024 bis Oktober 2026, Ergebnis in R je Trade"
+    spalten: {bot: id, markt: markt, einstieg: ein, ergebnis: r}
+
+  kurse:
+    ordner: "Projektordner strategie-suche/daten (HistData, 5-Minuten-Kerzen, Bid)"
+    zeit: "Spalte utc nach LIESMICH_zeit.md in echtes UTC umgerechnet (Index plus 2 Stunden als Ortszeit Europe/Athens)"
+    maerkte: {GOLD: XAUUSD, US500: SPXUSD, US100: NSXUSD, DE40: GRXEUR, UK100: UKXGBP, J225: JPXJPY,
+              EURUSD: EURUSD, GBPUSD: GBPUSD, GBPJPY: GBPJPY, USDJPY: USDJPY}
+    tagesschluss: "letzter 5-Minuten-Schluss vor 17:00 New York, ein Tag je Handelstag mit Kursen"
+
+  phase:
+    mass: "Effizienz-Verhältnis über 20 Tage: Betrag von Schluss[heute-1] minus Schluss[heute-21], geteilt durch die Summe der 20 Tagesbewegungen dazwischen"
+    tage: 20
+    trend_ab: 0.30                 # ab 0,30 Trendphase, darunter Seitwärtsphase
+    ohne_blick_nach_vorn: "Für einen Trade zählen nur die 21 letzten Tagesschlüsse, die vor seinem Einstieg liegen"
+    fehlt: "Gibt es weniger als 21 Tagesschlüsse vor dem Einstieg, zählt der Trade nicht"
+
+  wahl:
+    zeitraum: ["2024-11-01", "2025-12-31"]   # nur hier wird gewählt
+    mindestens_je_phase: 15        # Trades je Phase, sonst kein Filter für diesen Bot
+    regel: "Gewählt wird die Phase mit dem höheren Gewinnfaktor, aber nur, wenn ihr Gewinnfaktor über dem Gewinnfaktor aller Trades des Bots im selben Zeitraum liegt. Sonst bekommt der Bot keinen Filter."
+
+  urteil:
+    zeitraum: ["2026-01-01", "2026-10-31"]   # nur hier fällt das Urteil
+    bestanden_wenn:
+      - "mindestens 20 Trades in der gewählten Phase"
+      - "Gewinnfaktor in der gewählten Phase mindestens 1,2"
+      - "Gewinnfaktor in der gewählten Phase höher als in der anderen Phase"
+      - "Zufallsvergleich nach Holm über alle Bots mit Filter, Niveau 0,05"
+    zufall: "Die Phasen-Etiketten der Trades von 2026 werden 10.000-mal gemischt (Startwert 20261120). p ist der Anteil der Mischungen, in denen die Summe R der Trades mit dem Etikett der gewählten Phase mindestens so hoch ist wie echt."
+    holm: "Über alle Bots, die in der Wahl einen Filter bekommen haben"
+    kosten: "Die R der Trades enthalten schon Spread und Kosten des Rückblicks. Keine weiteren Kosten."
+
+  auskunft:
+    - "Anteil der Trendtage je Markt 2024 bis Oktober 2026 für alle Märkte im Kursordner, mit Richtung (steigend, fallend). Das zeigt, welche Märkte am längsten in eine Richtung laufen. Kein Urteil."
+    - "Gewinnfaktor je Bot und Phase für den ganzen Zeitraum. Kein Urteil."
+
+  dann:
+    bestanden: "Ein Filter, der besteht, kommt nicht von allein in einen Bot. Claude bringt Kiron eine Karte für einen Zwilling mit Filter (suche/VORAB_zwilling.yaml) mit eigener Regeldatei."
+    durchgefallen: "Kommt ins Archiv der verworfenen Ideen (suche/VERWORFEN.md) mit dem Ergebnis."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron."
+
+  dateien: "Rechnung suche/markt_regime.py, Ergebnis suche/ergebnis_markt_regime.md"

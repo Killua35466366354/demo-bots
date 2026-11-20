@@ -12,7 +12,12 @@ suche/rueckblick.py. Neu sind hier:
   Schub der letzten halben Stunde, runde Marken bei Devisen, die Umkehr nach dem Fonds-Fenster bei Bitcoin und zwei
   seltene Regeln mit fester Eröffnung (Tokio nach einem US-Schreck, der Morgen des Verfallstags).
 
-Aufruf (N ist der Durchgang, 1 oder 2):
+Dazu die Runde "Kirons Trade-Notizen" vom 20.11.2026 (suche/VORAB_trade_notizen.yaml, hier Durchgang 3): Abwandlungen,
+die Kiron im Trade-Katalog verlangt hat. Neu dafür: der Geduld-Einstieg um Stundenkerzen später (verzug_kerzen),
+zusätzliche Merkmale für das Modell (andere Märkte, Verlusttage, Abstand zum Hoch, Termine, DIX) und eine
+Marktauswahl, die nur aus den Jahren davor lernt (auswahl). Ohne diese Felder rechnet jede Regel genau wie vorher.
+
+Aufruf (N ist der Durchgang, 1, 2 oder 3):
     python -m suche.grosse_runde N --festlegen                 schreibt die Prüfsumme der Regeldatei ins Protokoll
     python -m suche.grosse_runde N entwicklung <Arbeit>        nur Kurse bis Ende 2023, prüft das Programm, kein Ergebnis
     python -m suche.grosse_runde N probelauf <Arbeit> <Saat>   ganze Rechnung auf erfundenen Märkten ohne Vorteil
@@ -41,7 +46,7 @@ from suche.rueckblick import njit
 from suche.runde1 import journal_add, journal_lines, last_value, sha256_text
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATEIEN = {1: "grosse_runde", 2: "grosse_runde2"}
+DATEIEN = {1: "grosse_runde", 2: "grosse_runde2", 3: "trade_notizen"}
 FRED = pathlib.Path("/mnt/project-files/strategie-suche/daten/fred")
 FUNDING = pathlib.Path("/mnt/project-files/strategie-suche/daten/krypto/funding")
 FREMD = {"DIX": (pathlib.Path("/mnt/project-files/strategie-suche/daten/squeezemetrics/DIX.csv"), "dix")}   # Reihe -> (Datei, Spalte)
@@ -469,11 +474,18 @@ def regel_geduld(m: Markt, cfg: dict, p: dict) -> list[dict]:
     with np.errstate(invalid="ignore"):
         kand = np.flatnonzero((rsi < p["rsi_unter"]) & (k["n"] >= p["min_kerzen"])
                               & (ny_ende >= p["von_min"]) & (ny_ende <= p["bis_min"]))
+    verzug = int(p.get("verzug_kerzen", 0))        # Einstieg um so viele Stundenkerzen später (Kirons Notiz, 20.11.2026)
     sig = []
     for j in kand:
-        i0 = int(k["b"][j] + 1)
-        if i0 >= m.n - 1 or (m.t[i0] - ende[j]) > p["frist_min"] * MIN:
-            continue
+        if verzug:
+            spaeter = ende[j] + verzug * 60 * MIN
+            i0 = int(np.searchsorted(m.t, spaeter))
+            if i0 >= m.n - 1 or (m.t[i0] - spaeter) > p["frist_min"] * MIN or y2._pause(m, i0, cfg):
+                continue                           # kommt zur späteren Zeit keine Kerze, verfällt das Signal
+        else:
+            i0 = int(k["b"][j] + 1)
+            if i0 >= m.n - 1 or (m.t[i0] - ende[j]) > p["frist_min"] * MIN:
+                continue
         g = m.gpos[m.tix[i0]]
         if g < 2 or not np.isfinite(m.atr_vor[g]) or not np.isfinite(sma[g - 1]) or not m.gc[g - 1] > sma[g - 1]:
             continue
@@ -652,9 +664,66 @@ def _versetzt(x: np.ndarray, k: int) -> np.ndarray:
     return np.r_[np.full(k, np.nan), x[:-k]] if k > 0 else x
 
 
-def merkmale(m: Markt, cfg: dict, p: dict) -> tuple[np.ndarray, np.ndarray, list[str]]:
+def _vortag_von(m: Markt, pm: Markt, werte: np.ndarray, hoechstens_tage: int = 5) -> np.ndarray:
+    """Je gültigem Handelstag von m der Wert des letzten gültigen Handelstags von pm mit Datum strikt davor. Alle
+    Märkte haben dieselbe Tagesgrenze (17:00 New York), der Wert stand also vor dem Handelstag fest. Ist er älter als
+    hoechstens_tage Kalendertage oder fehlt er, gibt es nan."""
+    if not len(pm.gtag):
+        return np.full(len(m.gtag), np.nan)
+    i = np.searchsorted(pm.gtag, m.gtag, side="left") - 1
+    ic = np.maximum(i, 0)
+    alter = (m.gtag.astype("datetime64[D]") - pm.gtag.astype("datetime64[D]")[ic]).astype(np.int64)
+    return np.where((i >= 0) & (alter <= hoechstens_tage), werte[ic], np.nan)
+
+
+def zusatz_merkmale(m: Markt, zus: dict, gruppe: list[str], y: np.ndarray) -> tuple[list[np.ndarray], list[str]]:
+    """Weitere Merkmale für Kirons Notiz vom 20.11.2026 ("alle Märkte bei einem schlechten Markt oder Verlust-Trade
+    analysieren, auch Nachrichten und andere Variablen nutzen"). Jedes steht vor dem Handelstag fest: Kurse nur bis
+    zum Vortag, Termine sind lange vorher angekündigt, der DIX zählt mit einem Tag Abstand (lag 1)."""
+    sp, namen = [], []
+    if zus.get("andere_maerkte"):
+        laeufe = []
+        for sym in gruppe:
+            pm = partner(m, sym)
+            with np.errstate(invalid="ignore", divide="ignore"):
+                lauf = (pm.gc - _versetzt(pm.gc, 1)) / pm.atr_vor           # Bewegung eines Tages in ATR
+            laeufe.append((sym, _vortag_von(m, pm, lauf)))
+        andere = np.column_stack([w for sym, w in laeufe if sym != m.sym] or [np.full(len(m.gtag), np.nan)])
+        alle = np.column_stack([w for _, w in laeufe])
+        da_a, da = np.isfinite(andere).sum(axis=1), np.isfinite(alle).sum(axis=1)
+        with np.errstate(invalid="ignore", divide="ignore"):
+            sp.append(np.where(da_a > 0, np.nansum(andere, axis=1) / da_a, np.nan))
+            sp.append(np.where(da > 0, (alle < 0).sum(axis=1) / da - 0.5, np.nan))
+        namen += ["andere_lauf", "breite"]
+    ys = np.where(np.isfinite(y), 2.0 * y - 1.0, 0.0)                       # Tageshandel: plus 1 gestiegen, minus 1 gefallen
+    for k in zus.get("handel_tage", []):
+        sp.append(_versetzt(pd.Series(ys).rolling(int(k), min_periods=1).mean().to_numpy(), 1))
+        namen.append(f"handel_{k}")
+    for n in zus.get("hoch_tage", []):
+        hoch = pd.Series(m.gc).rolling(int(n), min_periods=int(n)).max().to_numpy()
+        sp.append(_versetzt((hoch - m.gc) / (np.r_[m.atr_vor[1:], np.nan] * np.sqrt(n)), 1))
+        namen.append(f"tal_{n}")
+    kal = kalender() if zus.get("termine") else {}
+    tage = m.gtag.astype("datetime64[D]")
+    for k in zus.get("termine", []):               # vor dem ersten Termin der Liste unbekannt (nan), nicht "kein Termin"
+        heute = np.where(tage >= kal[k].min(), np.isin(tage, kal[k]).astype(float), np.nan)
+        sp.append(heute)
+        namen.append(f"{k}_heute")
+        if k == "fomc":
+            sp.append(_versetzt(heute, 1))
+            namen.append("fomc_gestern")
+    if zus.get("dix"):
+        a, _ = vor("DIX", m.gtag, 0, 1)
+        b, _ = vor("DIX", m.gtag, 5, 1)
+        sp += [a, a - b]
+        namen += ["dix", "dix_5"]
+    return sp, namen
+
+
+def merkmale(m: Markt, cfg: dict, p: dict, gruppe: list[str] | None = None) -> tuple[np.ndarray, np.ndarray, list[str]]:
     """Merkmale je gültigem Handelstag g, alle aus Werten, die am Ende von g minus 1 feststanden. Dazu das Ergebnis
-    des Tageshandels (1 = der Kurs beim Ausstieg liegt über dem Einstieg nach der Pause, nan ohne Handel)."""
+    des Tageshandels (1 = der Kurs beim Ausstieg liegt über dem Einstieg nach der Pause, nan ohne Handel). Mit
+    p["zusatz"] kommen die Merkmale aus zusatz_merkmale dazu, die ersten Spalten bleiben dieselben."""
     gc, atr = m.gc, m.atr_vor
     c1 = _versetzt(gc, 1)
     sp, namen = [], []
@@ -688,11 +757,14 @@ def merkmale(m: Markt, cfg: dict, p: dict) -> tuple[np.ndarray, np.ndarray, list
         b, _ = vor(reihe, m.gtag, 5)
         sp.append(a - b)
         namen.append(f"{reihe}_5")
-    X = np.column_stack(sp)
     i, aus = tages_einstieg(m, cfg)
     ia = np.minimum(np.searchsorted(m.t, aus), m.n - 1)
     ok = (i >= 0) & (m.tix[ia] == m.gi) & (ia > np.maximum(i, 0))
     y = np.where(ok, (m.o[ia] > m.o[np.maximum(i, 0)]).astype(float), np.nan)
+    if p.get("zusatz"):
+        mehr, mehr_namen = zusatz_merkmale(m, p["zusatz"], gruppe or [m.sym], y)
+        sp, namen = sp + mehr, namen + mehr_namen
+    X = np.column_stack(sp)
     return X, y, namen
 
 
@@ -736,6 +808,27 @@ def vorhersagen(tage: np.ndarray, X: np.ndarray, y: np.ndarray, p: dict) -> np.n
     return out
 
 
+def auswahl_nach_jahren(m: Markt, sig: list[dict], cfg: dict, a: dict) -> list[dict]:
+    """Marktauswahl, die nur aus der Vergangenheit lernt (Kirons Wunsch vom 20.11.2026, Märkte je Regel aus- oder
+    einsortieren). Ein Markt wird in einem Kalenderjahr nur gehandelt, wenn die Trades derselben Regel auf diesem
+    Markt in den a["jahre"] Kalenderjahren davor mindestens a["min_trades"] waren und ihre Gewinne nach Kosten mehr
+    als a["min_gf"] mal so groß wie ihre Verluste. In den Pausen rechnet die Regel auf dem Papier weiter, damit ein
+    Markt zurückkommen kann. Für das Jahr J zählen nur Trades mit einem Handelstag vor J."""
+    tr = echte_trades(m, sig, cfg)
+    if tr.empty:
+        return []
+    jahr = tr["tag"].to_numpy().astype("datetime64[Y]").astype(np.int64) + 1970
+    r = tr["R"].to_numpy(float)
+    erlaubt = set()
+    for j in range(int(jahr.min()) + 1, int(jahr.max()) + 2):
+        davor = (jahr >= j - int(a["jahre"])) & (jahr < j)
+        gewinn, verlust = float(r[davor & (r > 0)].sum()), float(-r[davor & (r <= 0)].sum())
+        if davor.sum() >= a["min_trades"] and gewinn > a["min_gf"] * verlust:
+            erlaubt.add(j)
+    sj = m.tage[m.tix[np.array([s["i0"] for s in sig], np.int64)]].astype("datetime64[Y]").astype(np.int64) + 1970
+    return [s for s, j in zip(sig, sj) if int(j) in erlaubt]
+
+
 _MODELLE: dict = {}
 
 
@@ -745,7 +838,7 @@ def regel_modell(m: Markt, cfg: dict, p: dict, gruppe: list[str], name: str) -> 
         teile = []
         for nr, sym in enumerate(gruppe):
             pm = partner(m, sym)
-            X, y, _ = merkmale(pm, cfg, p)
+            X, y, _ = merkmale(pm, cfg, p, gruppe)
             eigen = np.zeros((len(y), len(gruppe) - 1))             # eigener Achsenabschnitt je Markt (außer dem ersten)
             if nr > 0:
                 eigen[:, nr - 1] = 1.0
@@ -758,7 +851,8 @@ def regel_modell(m: Markt, cfg: dict, p: dict, gruppe: list[str], name: str) -> 
             a += len(gtag)
             with np.errstate(invalid="ignore"):
                 _MODELLE[key][sym] = np.where(q >= 0.5 + p["abstand"], 1, np.where(q <= 0.5 - p["abstand"], -1, 0))
-    return _tagestrades(m, cfg, _MODELLE[key][m.sym], p["stop_atr"])
+    sig = _tagestrades(m, cfg, _MODELLE[key][m.sym], p["stop_atr"])
+    return auswahl_nach_jahren(m, sig, cfg, p["auswahl"]) if "auswahl" in p else sig
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -810,6 +904,8 @@ def urteile(erg: dict, cfg: dict) -> None:
             holm_ok.add(n)
     for n, e in erg.items():
         if e.get("trades", 0) == 0:
+            e.setdefault("urteil", "durchgefallen")            # kein Trade im Hauptfenster heißt Hürde "Trades" verfehlt
+            e.setdefault("durchgefallen_bei", ["Trades"])
             continue
         gruende = []
         if e["trades"] < h["min_trades"]:

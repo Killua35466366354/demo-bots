@@ -1,21 +1,21 @@
 {
- "stand_utc": "2026-11-20T20:01:36.054959",
+ "stand_utc": "2026-11-20T20:16:37.309533",
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "regel": "Trend-Rücksetzer US100 (Nasdaq 100) (Runde 5b/5c, gleiche Regel wie US500): einmal am Tag um 15 Uhr New York; über dem 200-Tage-Schnitt kaufen, wenn RSI(2) unter 10 schließt, darunter verkaufen bei RSI(2) über 90; raus über/unter dem 5-Tage-Schnitt, beim Gegensignal oder nach 5 Handelstagen; Notstop 3 x ATR(20), kein Ziel, kleinste Größe. Capital.com-Tageskerzen 2025 bis Oktober 2026: 23 Trades, Gewinnfaktor 1,91.",
  "bot": "r5-ruecksetzer-us100",
  "epic": "US100",
  "konto": "…8878",
  "konto_name": "US500",
- "kontostand": 930.84,
+ "kontostand": 930.38,
  "start_kontostand": 1000.0,
  "start_utc": "2026-11-04T11:47:00.693559",
  "offen": null,
  "position": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-20T20:01:36.054959",
+  "zeit": "2026-11-20T20:16:37.309533",
   "action": "none",
-  "why": "kein Signal: {'schluss': 25277.4, 'sma200': 28158.08, 'sma5': 26606.2, 'rsi2': 4.1, 'atr20': 810.37}",
-  "bar": "2026-11-20 19:00:00"
+  "why": "heute schon entschieden",
+  "bar": null
  },
  "zusammenfassung": {
   "trades": 0,

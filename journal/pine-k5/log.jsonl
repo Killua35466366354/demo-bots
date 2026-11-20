@@ -262,3 +262,12 @@
 {"time": "2026-11-20T12:58:31", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-752f-da43-049c-701f0015549e", "stopLevel": 3579.34, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-20T12:58:31", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-752f-ef43-049c-701f0015549e", "stopLevel": 3579.08, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-20T12:58:31", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-7530-7b10-049c-701f0015549e", "stopLevel": 3577.97, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-752f-d4b4-049c-701f0015549e", "kurs": 3579.82, "r": -0.957, "eur": -4.55, "quelle": "SL"}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-752f-da43-049c-701f0015549e", "kurs": 3579.35, "r": -1.024, "eur": -4.97, "quelle": "SL"}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-752f-ef43-049c-701f0015549e", "kurs": 3579.08, "r": -1.124, "eur": -5.61, "quelle": "SL"}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-7530-7b10-049c-701f0015549e", "kurs": 3578.0, "r": 0.163, "eur": 0.78, "quelle": "SL"}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-20T13:03:30", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-20 12:55:00", "strategie": "A Long", "hintergrund": {"richtung": -1, "tag": 3607.15, "sma50": 4064.85, "h4": 3574.36, "ema50": 3820.99}, "lage": "Hintergrund: Gold fällt (Tag unter 50-Tage-Schnitt, 4 Std. unter EMA 50).", "gruende": ["gegen den Hintergrund (Gold fällt auf Tag und 4 Std.)"]}

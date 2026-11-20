@@ -1,7 +1,7 @@
 {
  "format": 1,
  "offen": null,
- "tag_erledigt": "2026-11-19",
+ "tag_erledigt": "2026-11-20",
  "opens": {
   "jahr:2026": 25259.0,
   "quartal:2026Q4": 30441.9,
@@ -12,19 +12,19 @@
  "summe_r": 0.0,
  "summe_pct": 0.0,
  "summe_eur": 0.0,
- "stand": "2026-11-20T14:33:35",
+ "stand": "2026-11-20T14:48:44",
  "start": "2026-11-10T12:43:38",
  "letzte_entscheidung": {
-  "zeit": "2026-11-19T14:48:41",
-  "tag": "2026-11-19",
+  "zeit": "2026-11-20T14:48:44",
+  "tag": "2026-11-20",
   "action": "none",
-  "why": "Filter: Kurs 27701.1 nicht auf der Long-Seite des quartal-Opens 30441.9",
+  "why": "Filter: Kurs 26101.9 nicht auf der Short-Seite des jahr-Opens 25259",
   "opens": {
    "jahr": 25259.0,
    "quartal": 30441.9,
    "monat": 28504.5,
    "woche": 28014.4
   },
-  "kurs_filter": 27701.1
+  "kurs_filter": 26101.9
  }
 }

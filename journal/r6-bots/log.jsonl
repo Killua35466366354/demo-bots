@@ -122,3 +122,4 @@
 {"time": "2026-11-20T11:17:02.043230", "bot": "r6-vortag-eurusd", "event": "keine anderen Märkte mehr auf dem Konto"}
 {"time": "2026-11-20T15:01:37.585142", "bot": "r6-noise-usdjpy", "event": "geschlossen", "exit": 158.878, "pct": -0.0617, "reason": "Gegensignal (Band/VWAP)"}
 {"time": "2026-11-20T15:31:38.026503", "bot": "r6-noise-usdjpy", "event": "eröffnet", "entry": 158.728, "dealId": "00000000-74fd-0993-049c-70750015549e", "side": "short", "bar": "2026-11-20 15:15:00", "size": 900.0, "risiko_eur": 9.05, "margin_eur": 27.3, "stop_level": null, "stop_dist": 1.754, "ziel_level": null}
+{"time": "2026-11-20T16:16:52.049545", "bot": "r6-vortag-gbpjpy", "event": "andere Märkte auf dem Konto", "maerkte": ["BTCUSD", "ETHUSD"]}

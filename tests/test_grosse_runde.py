@@ -365,3 +365,162 @@ def test_durchgang_2_hoechstens_dreizehn_und_nur_kandidat():
         assert c["fenster"][k] == eins["fenster"][k]       # dasselbe Fenster und dieselben Hälften
     for name, v in c["varianten"].items():
         assert v["regel"] == name and name in c["regeln"]
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Runde "Kirons Trade-Notizen" vom 20.11.2026 (Durchgang 3)
+
+P_GEDULD = {"rsi_n": 2, "rsi_unter": 10, "min_kerzen": 10, "von_min": 600, "bis_min": 900, "frist_min": 10, "trend_tage": 5,
+            "ziel_atr": 0.25, "stop_atr": 3.0, "max_tage": 3, "aus_min": 955}
+
+
+def _saege(d, minute):
+    """Steigt von Tag zu Tag, mit einem Rücksetzer zwischen 11:00 und 13:00 New York (Minute zählt ab 17:00 am Vorabend)."""
+    tag = float((d - TAGE[0]).astype(int))
+    return 5000.0 + 10.0 * tag + (-8.0 * np.sin((minute - 1080) / 120.0 * np.pi) if 1080 <= minute <= 1200 else 0.0)
+
+
+def test_geduld_verzug_steigt_spaeter_ein_und_aendert_ohne_feld_nichts(tmp_path):
+    m = kunstmarkt(tmp_path, "SPXUSD", _saege)
+    ohne = gr.regel_geduld(m, CFG, P_GEDULD)
+    null = gr.regel_geduld(m, CFG, {**P_GEDULD, "verzug_kerzen": 0})
+    eins = gr.regel_geduld(m, CFG, {**P_GEDULD, "verzug_kerzen": 1})
+    zwei = gr.regel_geduld(m, CFG, {**P_GEDULD, "verzug_kerzen": 2})
+    assert len(ohne) >= 5 and [s["i0"] for s in ohne] == [s["i0"] for s in null]
+    assert len(eins) == len(ohne) == len(zwei)
+    for a, b, c in zip(ohne, eins, zwei):
+        assert m.t[b["i0"]] - m.t[a["i0"]] == np.timedelta64(60, "m")       # genau eine Stundenkerze später
+        assert m.t[c["i0"]] - m.t[a["i0"]] == np.timedelta64(120, "m")
+        assert b["sd"] == a["sd"] and b["zd"] == a["zd"] and b["t_max"] == a["t_max"]     # sonst nichts geändert
+    # Kommt zur späteren Zeit keine Kerze, verfällt das Signal: Rücksetzer von 13 bis 15 Uhr, der Markt endet 15:05 New York.
+    kurz = kunstmarkt(tmp_path, "NSXUSD", lambda d, minute: _saege(d, minute - 120), bis_min=1325)
+    frueh = gr.regel_geduld(kurz, CFG, P_GEDULD)
+    assert len(frueh) >= 5 and all(kurz.nymin[s["i0"]] == 14 * 60 for s in frueh)        # Einstieg 14:00 New York
+    assert len(gr.regel_geduld(kurz, CFG, {**P_GEDULD, "verzug_kerzen": 1})) == len(frueh)   # 15:00 gibt es noch eine Kerze
+    assert gr.regel_geduld(kurz, CFG, {**P_GEDULD, "verzug_kerzen": 2}) == []             # 16:00 nicht mehr
+
+
+def test_vortag_eines_anderen_markts_ist_nie_von_heute(tmp_path):
+    a = kunstmarkt(tmp_path, "SPXUSD", lambda d, minute: 5000.0 + 3.0 * np.sin(minute / 90.0))
+    b = kunstmarkt(tmp_path, "NSXUSD", lambda d, minute: 100.0 + float((d - TAGE[0]).astype(int)))
+    werte = np.arange(len(b.gtag), dtype=float)
+    v = gr._vortag_von(a, b, werte)
+    assert np.isnan(v[0])                                                   # am ersten Tag gibt es noch keinen Vortag
+    for g in range(1, len(a.gtag)):
+        i = int(v[g])
+        assert b.gtag[i] < a.gtag[g] and (i + 1 == len(b.gtag) or b.gtag[i + 1] >= a.gtag[g])
+    assert np.isnan(gr._vortag_von(a, b, werte, hoechstens_tage=0)).all()    # zu alt zählt nicht
+
+
+def test_zusatz_merkmale_kennen_die_zukunft_nicht(tmp_path, monkeypatch):
+    kal = {k: np.array(["2024-01-17", "2024-01-31"], dtype="datetime64[D]") for k in ("fomc", "cpi", "nfp")}
+    monkeypatch.setattr(gr, "kalender", lambda: kal)
+    monkeypatch.setattr(gr, "fred", lambda name: (TAGE - np.timedelta64(400, "D"), np.linspace(0.4, 0.5, len(TAGE)))
+                        if name == "DIX" else (np.arange("2023-01-01", "2024-03-01", dtype="datetime64[D]"),
+                                               np.linspace(10, 20, 425)))
+    p = {"rueckblick_tage": [1, 2], "rsi": [2], "schnitt_tage": [5],
+         "zusatz": {"andere_maerkte": True, "handel_tage": [1, 5], "hoch_tage": [5], "termine": ["fomc", "cpi", "nfp"], "dix": True}}
+    rng = np.random.default_rng(7)
+    pfad = {s: 100 + np.cumsum(rng.normal(0, 1, (len(TAGE), 300)), axis=None).reshape(len(TAGE), 300) * 0.01 for s in ("SPXUSD", "NSXUSD")}
+
+    def baue(ordner, ab_tag=None):
+        ordner.mkdir()
+        out = {}
+        for s in ("SPXUSD", "NSXUSD"):
+            def kurs(d, minute, s=s):
+                k = int(np.flatnonzero(TAGE == d)[0])
+                w = pfad[s][k, minute // 5]
+                return w * (1.5 if ab_tag is not None and d >= ab_tag else 1.0)        # ab ab_tag eine andere Zukunft
+            out[s] = kunstmarkt(ordner, s, kurs)
+        return out
+
+    # Die andere Zukunft beginnt mit Handelstag 21. Im Kunstmarkt ist der letzte Schluss eines Tages die erste
+    # Eröffnung des nächsten, darum ändert sich der Schluss von Tag 20 mit und Zeile 21 ist die erste andere.
+    echt, anders = baue(tmp_path / "a"), baue(tmp_path / "b", TAGE[np.is_busday(TAGE)][21])
+    for s in ("SPXUSD", "NSXUSD"):
+        X, y, namen = gr.merkmale(echt[s], CFG, p, ["SPXUSD", "NSXUSD"])
+        X2, _, _ = gr.merkmale(anders[s], CFG, p, ["SPXUSD", "NSXUSD"])
+        ohne, _, namen_ohne = gr.merkmale(echt[s], CFG, {k: v for k, v in p.items() if k != "zusatz"})
+        assert namen[:len(namen_ohne)] == namen_ohne and np.array_equal(X[:, :len(namen_ohne)], ohne, equal_nan=True)
+        neu = namen[len(namen_ohne):]
+        assert neu == ["andere_lauf", "breite", "handel_1", "handel_5", "tal_5", "fomc_heute", "fomc_gestern", "cpi_heute",
+                       "nfp_heute", "dix", "dix_5"]
+        # Bis einschließlich Handelstag 20 sind alle Merkmale gleich, auch die der anderen Märkte.
+        assert np.array_equal(X[:21], X2[:21], equal_nan=True) and not np.array_equal(X[21:], X2[21:], equal_nan=True)
+        g17 = int(np.flatnonzero(echt[s].gtag == np.datetime64("2024-01-17"))[0])
+        spalte = namen.index("fomc_heute")
+        assert X[g17, spalte] == 1.0 and X[g17 + 1, namen.index("fomc_gestern")] == 1.0 and X[g17 + 1, spalte] == 0.0
+        assert np.isnan(X[g17 - 1, spalte]) and np.isnan(X[0, spalte])      # vor dem ersten Termin der Liste unbekannt
+        gestern = namen.index("handel_1")
+        for g in range(2, 20):
+            if np.isfinite(y[g - 1]):
+                assert X[g, gestern] == 2.0 * y[g - 1] - 1.0                # das Ergebnis des Tageshandels von gestern
+
+
+def test_auswahl_nach_jahren_lernt_nur_aus_den_jahren_davor(monkeypatch):
+    class M:
+        tage = np.arange("2020-01-01", "2026-01-01", dtype="datetime64[D]")
+        tix = np.arange(len(tage))
+    m = M()
+    jahr = m.tage.astype("datetime64[Y]").astype(int) + 1970
+    # Ein Signal je Tag. 2020, 2021 und 2024 gewinnt die Regel (+1, +1, -0,5), sonst verliert sie klar (-2, -2, +0,5).
+    dritter = np.arange(len(jahr)) % 3 == 0
+    r = np.where(np.isin(jahr, (2020, 2021, 2024)), np.where(dritter, -0.5, 1.0), np.where(dritter, 0.5, -2.0))
+    sig = [{"i0": int(i)} for i in range(len(m.tage))]
+
+    def mit(werte):
+        import pandas as pd
+        return lambda markt, signale, cfg: pd.DataFrame({"tag": markt.tage[[s["i0"] for s in signale]],
+                                                         "R": werte[[s["i0"] for s in signale]]})
+    a = {"jahre": 2, "min_trades": 100, "min_gf": 1.0}
+    monkeypatch.setattr(gr, "echte_trades", mit(r))
+    jahre = sorted({int(jahr[s["i0"]]) for s in gr.auswahl_nach_jahren(m, sig, {}, a)})
+    # 2020 hat keine Vorjahre. 2021 und 2022 folgen auf gute Jahre. 2023 bis 2025 pausieren, weil die zwei Jahre davor
+    # zusammen im Minus lagen. Das gute Jahr 2024 selbst wird also nicht gehandelt: die Regel kennt es vorher nicht.
+    assert jahre == [2021, 2022]
+    # Das Ergebnis eines Jahres ändert nie die Auswahl desselben Jahres, nur die der Jahre danach.
+    r2 = r.copy()
+    r2[jahr == 2022] *= -1
+    monkeypatch.setattr(gr, "echte_trades", mit(r2))
+    jahre2 = sorted({int(jahr[s["i0"]]) for s in gr.auswahl_nach_jahren(m, sig, {}, a)})
+    assert 2022 in jahre2 and 2023 in jahre2 and 2020 not in jahre2
+    assert gr.auswahl_nach_jahren(m, sig, {}, {**a, "min_trades": 10**6}) == []         # zu wenige Trades davor: Pause
+
+
+def test_ohne_trade_im_fenster_ist_durchgefallen():
+    erg = {"leer": {"trades": 0}, "voll": _ergebnis(0.001)}
+    gr.urteile(erg, {"huerden": {"min_trades": 100, "min_gewinnfaktor": 1.2, "min_robust": 1.0, "jahr_2026_ab_trades": 20,
+                                 "min_rang_pct": 95, "holm_alpha": 0.05, "holm_anzahl": 32, "min_z": 3.0},
+                     "varianten": {"leer": {}, "voll": {}}})
+    assert erg["leer"]["urteil"] == "durchgefallen" and erg["leer"]["durchgefallen_bei"] == ["Trades"]
+
+
+def test_trade_notizen_sechs_fassungen_nur_kandidat_und_sonst_nichts_geaendert():
+    if not gr.vorab(3).exists():
+        pytest.skip("Runde noch nicht festgelegt")
+    c, eins, zwei = gr.lade_vorab(3, pruefen=False), gr.lade_vorab(1, pruefen=False), gr.lade_vorab(2, pruefen=False)
+    assert len(c["varianten"]) == 6 and c["huerden"]["holm_anzahl"] == 32 and c["huerden"]["hoechstens_kandidat"] is True
+    assert not set(c["varianten"]) & (set(eins["varianten"]) | set(zwei["varianten"]))
+    for k in ("kosten", "zwilling", "tageshandel", "daten", "trend"):
+        assert c[k] == zwei[k]                             # dieselbe Rechnung wie in Durchgang 2
+    for k in ("von", "bis", "mitte"):
+        assert c["fenster"][k] == eins["fenster"][k]       # dasselbe Fenster und dieselben Hälften
+    for k in ("min_trades", "min_gewinnfaktor", "min_robust", "jahr_2026_ab_trades", "min_rang_pct", "holm_alpha", "min_z"):
+        assert c["huerden"][k] == eins["huerden"][k]       # keine Hürde gesenkt
+    for name, v in c["varianten"].items():
+        assert v["regel"] == name and name in c["regeln"]
+    zahlen = lambda p, ohne: {k: w for k, w in p.items() if k not in ("quelle", "regel", "eigene_festlegung", *ohne)}   # noqa: E731
+    geduld = zahlen(eins["regeln"]["geduld_us_stufen"], ())
+    assert zahlen(c["regeln"]["geduld_stufen_fuenf"], ()) == geduld
+    for name, verzug in (("geduld_stufen_spaeter1", 1), ("geduld_stufen_spaeter2", 2)):
+        assert c["regeln"][name]["verzug_kerzen"] == verzug and zahlen(c["regeln"][name], ("verzug_kerzen",)) == geduld
+        assert c["varianten"][name]["maerkte"] == eins["varianten"]["geduld_us_stufen"]["maerkte"]
+    modell = zahlen(eins["regeln"]["modell_indizes"], ())
+    assert zahlen(c["regeln"]["modell_breit"], ("zusatz",)) == modell
+    assert zahlen(c["regeln"]["modell_breit_08"], ("zusatz",)) == zahlen(zwei["regeln"]["modell_indizes_08"], ())
+    assert c["regeln"]["modell_breit"]["zusatz"] == c["regeln"]["modell_breit_08"]["zusatz"]
+    assert zahlen(c["regeln"]["modell_auswahl"], ("auswahl",)) == modell
+    assert c["regeln"]["modell_auswahl"]["auswahl"] == {"jahre": 2, "min_trades": 100, "min_gf": 1.0}
+    fuenf = eins["varianten"]["modell_indizes"]["maerkte"]
+    for name in ("geduld_stufen_fuenf", "modell_breit", "modell_breit_08", "modell_auswahl"):
+        assert c["varianten"][name]["maerkte"] == fuenf    # kein Markt nach dem Ergebnis gestrichen

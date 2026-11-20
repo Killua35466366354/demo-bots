@@ -1,0 +1,317 @@
+# Runde "Kirons Trade-Notizen" vom 20.11.2026: Abwandlungen gerechneter Regeln der großen Runde, die Kiron im
+# Trade-Katalog und im Thread verlangt hat. Festgelegt, BEVOR eine dieser Varianten mit Kursen ab 2024 gerechnet wurde
+# (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md). Code: suche/grosse_runde.py, dort Durchgang 3.
+#
+# Ehrlich vorab:
+# - Durchgang 2 der großen Runde hat festgelegt: "kein dritter Durchgang nach dem Ergebnis". Der Sache nach ist diese
+#   Runde genau so ein Durchgang. Sie ändert Regeln, deren Ergebnis und deren letzte Trades bekannt sind, und rechnet
+#   sie auf denselben Kursen. Es gibt sie nur, weil Kiron das am 20.11.2026 ausdrücklich verlangt hat (Notizen im
+#   Trade-Katalog um 06:11 und 06:16 UTC, Nachricht im Thread um 06:21 UTC), und weil im Projekt gilt, dass eine Notiz
+#   von Kiron als neue, vorab versiegelte Fassung gerechnet wird (Kiron, 19.11.2026: "weiter testen bedeutet ändere
+#   nur nachdem was in der notiz ist und zeige das dann an wenn es besser ist"). Die Datei von Durchgang 2 bleibt
+#   unverändert, keine Hürde wird gesenkt.
+# - Darum kann hier KEINE Variante bestehen. Das beste Urteil ist Kandidat (huerden.hoechstens_kandidat). Schneidet
+#   eine Fassung besser ab als ihr Original, ist das kein Beleg, denn die Änderung wurde nach dem Blick auf Ergebnis
+#   und Trades gewählt. Ein Beleg wäre erst eine Vorwärts-Zählung ohne Order auf neuen Kursen.
+# - Holm zählt mit 32, das sind die 26 Varianten der beiden Durchgänge und die 6 hier.
+# - Notiz 1 (Karte "Geduld mit sinkendem Ziel", Kiron wählte Ändern): "minimal um 1 oder 2 candeln erzögert
+#   einsteigen,...". Die Regel liest Stundenkerzen, darum heißt eine Kerze hier eine Stunde. Daraus werden
+#   geduld_stufen_spaeter1 und geduld_stufen_spaeter2. Sonst ändert sich an der Regel nichts.
+# - Notiz 2 (Karte "Vorhersage-Modell Indizes", Kiron wählte Ändern): "analysire alle märkte bei einem schlechten
+#   markt/ loss trade so das daraus shorts gemacht werden können,... nutze auch news und andere verschiedene
+#   variablen". Daraus werden modell_breit und modell_breit_08: dasselbe Modell mit elf weiteren Merkmalen (die
+#   anderen vier Märkte am Vortag, wie viele der fünf Märkte gefallen sind, das Ergebnis des eigenen Tageshandels
+#   gestern und im Schnitt der letzten fünf Tage, der Abstand zum Hoch der letzten 20 Tage, Termine der Fed, der
+#   US-Inflation und des US-Arbeitsmarkts, der DIX). Die Schwellen bleiben, verkauft wird also nur, wenn das Modell
+#   höchstens 46 % (42 %) für "steigt" sieht. Nachrichten-Texte gibt es in den Daten nicht. "News" heißt hier: lange
+#   vorher angekündigte Termine. Die Terminliste beginnt 2023, davor gilt das Merkmal als unbekannt.
+# - Nachricht im Thread ("gucke das bei den profitabelsten 5 an und sortiere dort die Märkte raus oder rein ... wenn
+#   mehr reingebracht werden, dann das Stop-Loss anpassen ... vielleicht einen selbstlernenden Modus ... oder ein
+#   Komitee, das für die einzelnen Märkte bestimmte Regeln einstellt"). Die fünf sind modell_indizes,
+#   modell_indizes_08, geduld_us_stufen, vix_sprung_us und vix_sprung_welt. Daraus werden:
+#   geduld_stufen_fuenf: dieselbe Geduld-Regel zusätzlich auf DAX, FTSE und Nikkei (mehr Märkte). Stop, Ziel und
+#   Stufen stehen in ATR des jeweiligen Markts, sie passen sich also von selbst an. Es gibt keine eigene Uhrzeit je
+#   Markt, das Fenster bleibt 10 bis 15 Uhr New York.
+#   modell_auswahl: das Modell von Durchgang 1 mit einer Marktauswahl, die nur aus den Jahren davor lernt (der
+#   selbstlernende Modus). Ein Markt pausiert ein Kalenderjahr, wenn die Regel dort in den zwei Jahren davor nach
+#   Kosten nicht im Plus war.
+# - Bewusst NICHT gerechnet: eine Fassung mit nur einem Markt oder ohne den schwächsten Markt. Aus den gerechneten
+#   Runden ist bekannt, dass der DAX in beiden Modellen der schwächste Markt war (+25 € von +457 € und +4 € von
+#   +326 € bei 10 € Risiko) und dass in allen fünf Regeln jeder Markt im Plus lag. Wer danach einen Markt streicht,
+#   wählt nach dem Ergebnis aus (Archiv, Lehre "Auswahl danach"). Die Aufteilung je Markt steht nur als Auskunft im
+#   Ergebnis. Die beiden VIX-Regeln decken schon alle fünf Indizes ab, ihre Summe ist Rechnen mit bekannten Trades
+#   und keine neue Variante. Ein Komitee aus mehreren Agenten gibt es nicht (Kirons Verbrauchsgrenze, 19.11.2026).
+# - Erwartung nach dem Archiv (suche/VERWORFEN.md, Lehren): "Hohe Trefferquote ist kein Beweis" (die Geduld-Regeln
+#   leben vom Aufwärtstrend und schlagen Zufallstage nicht, ein späterer Einstieg ändert daran wenig), "Schwächste
+#   Bots lassen sich im Rückblick nicht sicher erkennen" und "Pausen" (Aussortieren nach dem letzten Ergebnis hat
+#   bisher Gewinn gekostet). Vor 2024 lag das Modell bei Gewinnfaktor 0,94 (3.441 Trades). Die Marktauswahl wird
+#   darum 2024 voraussichtlich viele Märkte pausieren.
+#
+# Prüfung des Programms vor dem Siegel (20.11.2026, nichts davon ist ein Ergebnis):
+# - Die gespeicherten Trades von Durchgang 1 (6.853) und Durchgang 2 (2.584) kommen mit dem geänderten Programm
+#   Zeichen für Zeichen gleich heraus. Ohne die neuen Felder rechnet jede Regel wie vorher.
+# - Entwicklung mit Kursen von März 2021 bis Dezember 2023 (ohne DAX). Das Programm läuft, jede Variante handelt.
+#   Trades und Gewinnfaktor dort: geduld_stufen_spaeter1 315 und 0,71. geduld_stufen_spaeter2 270 und 0,73.
+#   geduld_stufen_fuenf 524 und 0,65. modell_breit 1.840 und 0,88. modell_breit_08 1.008 und 0,92. modell_auswahl
+#   1.095 und 0,98. Alle sechs verlieren dort. Keine Zahl einer Regel wurde danach geändert.
+# - 40 Probeläufe auf erfundenen Märkten ohne Vorteil (jede 5-Minuten-Kerze bekommt ein zufälliges Vorzeichen. VIX,
+#   Zinsen, DIX und Termine bleiben echt und haben dort nichts mit dem Kurs zu tun). Über alle 219 Rechnungen liegt z
+#   im Mittel bei minus 0,22 mit Streuung 0,91. Keine Rechnung wurde Kandidat. Je Variante schlugen 1 bis 2 von 40
+#   Läufen 95 % der Verschiebungen (zu erwarten wären 2).
+# - Leicht gegen die Regel verzerrt: modell_breit (z im Mittel minus 0,43) und geduld_stufen_fuenf (minus 0,33). Die
+#   anderen liegen bei minus 0,08 bis minus 0,14.
+# - modell_auswahl handelte in 21 von 40 Probeläufen im Hauptfenster gar nicht, im Median 0 Trades. Ohne Vorteil liegt
+#   eine Regel nach Kosten im Minus, und dann pausiert die Auswahl jeden Markt. Das ist gewollt. Hat eine Variante im
+#   Hauptfenster keinen Trade, ist sie durchgefallen (Hürde Trades).
+# - Im Probelauf handelten die Geduld-Fassungen im Hauptfenster im Median 212 bis 525 Mal, modell_breit 873 Mal und
+#   modell_breit_08 233 Mal (einmal nur 38). Die Hürde von 100 Trades ist für diese fünf erreichbar.
+
+format: 1
+grosse_runde:
+  durchgang: 3
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der HistData-Kurse
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle Varianten stehen hier fest und werden einmal gerechnet.
+
+  daten:
+    quelle: >-
+      HistData 5-Minuten-Kerzen (Bid), echtes UTC, wie suche/rueckblick_daten.py. Krypto wie
+      suche/VORAB_youtube_runde.yaml (Binance-Spot, Spread als Anteil am Kurs aus Capital.com BTCUSD und ETHUSD).
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Krypto alle sieben Tage, sonst Montag bis Freitag.
+    krypto_alle_tage: [BTCUSD, ETHUSD]
+    min_kerzen_je_tag: 60
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026)
+    pause_min: 60                # kein Einstieg in der Stunde 17 bis 18 Uhr New York (Tageswechsel)
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+    fremd:
+      ordner_fred: /mnt/project-files/strategie-suche/daten/fred (geladen am 19.11.2026 von fred.stlouisfed.org, Tageswerte ab 2010)
+      ordner_dix: /mnt/project-files/strategie-suche/daten/squeezemetrics (DIX.csv, geladen am 19.11.2026 von squeezemetrics.com/monitor/static/DIX.csv, Tageswerte ab Mai 2011)
+      regel: Für den Handelstag T zählt nur eine Beobachtung mit Datum strikt vor T. Bei lag 1 strikt vor T minus 1.
+      sha256:
+        VIXCLS: 638c383fa413a3dbed079eac295d392540ec6e25177b0e0da621510680a4ba6d
+        VXVCLS: 8d918207b83759f4955b8b144557f9969f68e894b36afc64453b23120f48e8f4
+        DGS10: 893e1a3188074c1d824236fbd000835038221f76d790ffef432892cbd0bea899
+        DGS2: fbf897f5a740ea3e560d77f73ccbcc679a90e3e8f0d913cd87ff51208ede0595
+        DIX: 3fc815d5e26218b13db55bb4ec4018c10802a5703bb93315f8a1951dfc57c68f
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml. Keine Regel dieser Runde nutzt diesen Tagestrend, er wird nur mitgerechnet.
+    vorlauf_tage: 100
+
+  tageshandel:                   # gilt für alle Regeln, die einen ganzen Handelstag halten
+    einstieg: erste 5-Minuten-Kerze nach der Pause, also ab 18:00 New York am Vorabend des Handelstags
+    toleranz_min: 540            # die DAX-Kurse beginnen an vielen Tagen erst um 2:00 New York. Kommt bis 3:00 keine Kerze, fällt der Tag aus
+    aus_min: 955                 # Ausstieg mit der ersten Kerze ab 15:55 New York. Die Index-Kurse enden um 16:15, die Übernachtgebühr kommt um 17:00
+    ziel: keins
+
+  kosten:
+    spread: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (Krypto als Anteil am Kurs).
+    rutschen_spread: 0.5         # Schutz-Stops füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+      metall: {long: 0.065, short: 0.02}
+      fx: {long: 0.02, short: 0.02}
+      krypto: {long: 0.20, short: 0.20}
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand
+    eine_position: Je Regel und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  regeln:
+    geduld_stufen_spaeter1:
+      art: geduld
+      quelle: >-
+        Kirons Notiz vom 20.11.2026 06:11 UTC im Trade-Katalog zur Karte "Geduld mit sinkendem Ziel"
+        (geduld_us_stufen aus Durchgang 1, suche/VORAB_grosse_runde.yaml).
+      regel: >-
+        Wie geduld_us_stufen. US500 und US100, Stundenkerzen. Schließt eine Stundenkerze zwischen 10 und 15 Uhr New
+        York mit RSI(2) unter 10 und lag der Vortag über dem 200-Tage-Schnitt, wird gekauft, aber nicht mit der
+        nächsten Kerze, sondern genau eine Stunde später. Ziel 0,25 ATR. Ab dem Beginn des übernächsten Handelstags
+        reicht der Einstand, ab dem Beginn des vierten Handelstags danach reicht ein Verlust von 0,5 ATR. Notstop
+        3 ATR, spätester Ausstieg 15:55 New York am 10. Handelstag.
+      eigene_festlegung: >-
+        Eine Kerze heißt eine Stundenkerze. Die Bedingung wird zur späteren Zeit nicht noch einmal geprüft. Kommt
+        zur späteren Zeit binnen 10 Minuten keine Kerze, verfällt das Signal. ATR, Trend und Fristen zählen vom
+        Handelstag des späteren Einstiegs.
+      rsi_n: 2
+      rsi_unter: 10
+      min_kerzen: 10
+      von_min: 600
+      bis_min: 900
+      frist_min: 10
+      trend_tage: 200
+      ziel_atr: 0.25
+      stop_atr: 3.0
+      max_tage: 10
+      aus_min: 955
+      stufen: [[2, 0.0], [4, -0.5]]
+      verzug_kerzen: 1
+    geduld_stufen_spaeter2:
+      art: geduld
+      quelle: Wie geduld_stufen_spaeter1, die zweite Zahl aus Kirons Notiz ("1 oder 2").
+      regel: >-
+        Wie geduld_stufen_spaeter1, aber der Einstieg liegt zwei Stunden nach dem Schluss der Signalkerze. Signale
+        nach 14 Uhr New York verfallen damit, weil die Index-Kurse um 16:15 New York enden.
+      eigene_festlegung: wie geduld_stufen_spaeter1.
+      rsi_n: 2
+      rsi_unter: 10
+      min_kerzen: 10
+      von_min: 600
+      bis_min: 900
+      frist_min: 10
+      trend_tage: 200
+      ziel_atr: 0.25
+      stop_atr: 3.0
+      max_tage: 10
+      aus_min: 955
+      stufen: [[2, 0.0], [4, -0.5]]
+      verzug_kerzen: 2
+    geduld_stufen_fuenf:
+      art: geduld
+      quelle: >-
+        Kirons Nachricht vom 20.11.2026 06:21 UTC (bei den profitabelsten fünf Regeln Märkte aus- oder einsortieren,
+        mehr Märkte für mehr Gewinn). geduld_us_stufen aus Durchgang 1 lief nur auf US500 und US100.
+      regel: >-
+        Genau geduld_us_stufen, ohne Verzug, auf US500, US100, DAX, FTSE 100 und Nikkei. Alle Abstände stehen in ATR
+        des jeweiligen Markts.
+      eigene_festlegung: >-
+        die drei zusätzlichen Märkte. Keine eigene Uhrzeit und keine eigene Zahl je Markt. Der DAX hat Kurse erst ab
+        Dezember 2023 und braucht 200 Tage für den Trend, er handelt darum erst ab Herbst 2024.
+      rsi_n: 2
+      rsi_unter: 10
+      min_kerzen: 10
+      von_min: 600
+      bis_min: 900
+      frist_min: 10
+      trend_tage: 200
+      ziel_atr: 0.25
+      stop_atr: 3.0
+      max_tage: 10
+      aus_min: 955
+      stufen: [[2, 0.0], [4, -0.5]]
+    modell_breit:
+      art: modell
+      quelle: >-
+        Kirons Notiz vom 20.11.2026 06:16 UTC im Trade-Katalog zur Karte "Vorhersage-Modell Indizes" (modell_indizes
+        aus Durchgang 1).
+      regel: >-
+        Wie modell_indizes (alle Merkmale, Lernen zu jedem Jahresbeginn nur aus den Jahren davor, Kauf ab 54 %,
+        Verkauf bis 46 %, Stop 2 ATR, ein Handelstag). Dazu elf Merkmale, alle vor dem Handelstag bekannt:
+        Bewegung der vier anderen Indizes an ihrem letzten Handelstag davor (Mittel, in ATR), Anteil der fünf
+        Indizes, die an diesem Tag gefallen sind, Ergebnis des eigenen Tageshandels gestern und im Mittel der
+        letzten fünf Tage (gestiegen oder gefallen), Abstand des Schlusskurses zum höchsten Schluss der letzten 20
+        Tage in ATR, je ein Zeichen für einen Handelstag mit Zinsentscheid der Fed, US-Inflation oder
+        US-Arbeitsmarktbericht und für den Tag nach dem Zinsentscheid, der DIX mit einem Tag Abstand und seine
+        Änderung über fünf Werte.
+      eigene_festlegung: >-
+        alle elf Merkmale und ihre Zahlen. Schwellen, Strafe und Stop bleiben wie bei modell_indizes. Die
+        Terminliste (gold/v2/termine.yaml) beginnt 2023, davor zählt ein Termin-Merkmal als unbekannt und bekommt
+        das Mittel. Ein Wert eines anderen Markts zählt nur, wenn er höchstens fünf Kalendertage alt ist.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.04
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+      stop_atr: 2.0
+      zusatz:
+        andere_maerkte: true
+        handel_tage: [1, 5]
+        hoch_tage: [20]
+        termine: [fomc, cpi, nfp]
+        dix: true
+    modell_breit_08:
+      art: modell
+      quelle: Wie modell_breit, mit der strengeren Schwelle des Kandidaten modell_indizes_08 aus Durchgang 2.
+      regel: Wie modell_breit, gehandelt wird aber erst ab 58 % für "steigt" (Kauf) oder bis 42 % (Verkauf).
+      eigene_festlegung: wie modell_breit, Abstand zur Mitte 8 Punkte wie bei modell_indizes_08.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.08
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+      stop_atr: 2.0
+      zusatz:
+        andere_maerkte: true
+        handel_tage: [1, 5]
+        hoch_tage: [20]
+        termine: [fomc, cpi, nfp]
+        dix: true
+    modell_auswahl:
+      art: modell
+      quelle: >-
+        Kirons Nachricht vom 20.11.2026 06:21 UTC (Märkte aus- oder einsortieren, "vielleicht noch einen
+        selbstlernenden Modus", Regeln je Markt, "damit dort die Trades nicht völlig chaotisch und zufällig laufen").
+      regel: >-
+        Genau modell_indizes (Kauf ab 54 %, Verkauf bis 46 %, Stop 2 ATR). Dazu eine Marktauswahl. Ein Markt wird in
+        einem Kalenderjahr nur gehandelt, wenn die Trades dieser Regel auf diesem Markt in den zwei Kalenderjahren
+        davor zusammen mindestens 100 waren und nach Kosten mehr gewonnen als verloren haben. Sonst pausiert der
+        Markt das ganze Jahr. In der Pause rechnet die Regel auf dem Papier weiter, damit der Markt zurückkommen kann.
+      eigene_festlegung: >-
+        zwei Jahre, 100 Trades, Gewinnfaktor über 1,0, Entscheidung einmal je Kalenderjahr. Der DAX hat erst ab
+        Dezember 2023 Kurse und pausiert darum 2024 in jedem Fall.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.04
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+      stop_atr: 2.0
+      auswahl:
+        jahre: 2
+        min_trades: 100
+        min_gf: 1.0
+
+  varianten:                     # genau diese. Jede Variante hat ihre eigene Regel gleichen Namens.
+    geduld_stufen_spaeter1: {regel: geduld_stufen_spaeter1, maerkte: [SPXUSD, NSXUSD]}
+    geduld_stufen_spaeter2: {regel: geduld_stufen_spaeter2, maerkte: [SPXUSD, NSXUSD]}
+    geduld_stufen_fuenf: {regel: geduld_stufen_fuenf, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]}
+    modell_breit: {regel: modell_breit, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]}
+    modell_breit_08: {regel: modell_breit_08, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]}
+    modell_auswahl: {regel: modell_auswahl, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]}
+
+  zwilling:
+    regel: Wie suche/VORAB_rueckblick.yaml. Die ganze Variante wandert als Block um k gültige Handelstage nach vorn, je Markt. Bei Krypto zählen alle sieben Tage.
+    schwankung: Stop-Abstand, Ziel-Abstand, Stufen und Spread des Zwillings sind die des echten Trades mal ATR 14 am Zwilling geteilt durch denselben ATR am echten Einstieg.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Variante.
+    sperre_davor_tage: 60
+    spaet_min: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie Durchgang 1 und 2, höchstens Kandidat
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    holm_anzahl: 32              # 13 Varianten in Durchgang 1, 13 in Durchgang 2 und die 6 hier
+    min_z: 3.0
+    hoechstens_kandidat: true    # diese Runde ändert Regeln, deren Ergebnis und Trades bekannt sind
+    urteile:
+      bestanden: gibt es in dieser Runde nicht
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    vergleich: >-
+      Jede Fassung wird neben ihr Original gestellt (geduld_us_stufen, modell_indizes, modell_indizes_08). Besser
+      heißt nur: mehr Euro bei 10 € Risiko UND ein höheres z. Auch dann ist es kein Beleg.
+    keine_nachbesserung: >-
+      Kein anderes Fenster, keine andere Schwelle, kein anderer Verzug, keine andere Marktliste nach dem Ergebnis.
+      Weitere Notizen von Kiron bekommen eine eigene neue Datei mit eigener Zählung.
+
+  melden:
+    je_variante: >-
+      Trades, Trades je Woche, Gewinnfaktor, Summe in R, Trefferquote, robust, Hälften, 2026, Long und Short, je
+      Markt, ohne die 5 besten Trades, Zufallsvergleich (Rang, p, z), Auskunft vor dem Fenster, dazu der größte
+      Verlust, der mittlere Gewinn, das tiefste Tal und die mittlere und längste Haltedauer. Bei modell_auswahl
+      dazu, welcher Markt in welchem Jahr gehandelt wurde.
+    ehrlich: Jede Variante wird gemeldet, auch jede durchgefallene. Durchgefallene kommen ins Archiv suche/VERWORFEN.md.

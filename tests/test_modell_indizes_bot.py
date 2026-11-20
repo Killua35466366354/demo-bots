@@ -615,6 +615,31 @@ def test_schreiben(tmp_path, w):
         mb.schreiben(st, log, fertig, blick, j, tmp_path / "konten.json")
 
 
+def test_login_wartet_nach_rate_limit_und_gibt_dann_auf():
+    from gold.bot.capital import CapitalError
+
+    class Login:
+        def __init__(self, fehler):
+            self.fehler, self.versuche = list(fehler), 0
+
+        def login(self):
+            self.versuche += 1
+            if self.fehler:
+                raise self.fehler.pop(0)
+
+    pausen = []
+    rate = CapitalError("Rate-Limit erreicht für /session")
+    c = Login([rate, rate])
+    mb.anmelden(c, schlafen=pausen.append)
+    assert c.versuche == 3 and pausen == list(mb.ANMELDEN_WARTEN)
+    with pytest.raises(CapitalError):
+        mb.anmelden(Login([rate, rate, rate]), schlafen=pausen.append)
+    c = Login([CapitalError("POST /session -> 401: falsches Passwort")])
+    with pytest.raises(CapitalError):
+        mb.anmelden(c, schlafen=pausen.append)                   # nur das Rate-Limit wird wiederholt
+    assert c.versuche == 1
+
+
 def test_bewertung():
     tr = [{"r": 1.0, "markt": "SPXUSD", "pnl_eur": 5}] * 25 + [{"r": -1.0, "markt": "GRXEUR", "pnl_eur": -5}] * 15
     b = mb.bewertung(tr)

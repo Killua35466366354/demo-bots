@@ -1007,6 +1007,27 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict], blick: dict, jdir:
     return True
 
 
+ANMELDEN_WARTEN = (2.0, 5.0)           # Sekunden vor dem zweiten und dritten Login nach "Rate-Limit"
+
+
+def anmelden(client, warten=ANMELDEN_WARTEN, schlafen=None) -> None:
+    """Login bei Capital.com. Capital.com nimmt je API-Schlüssel nur wenige Logins kurz hintereinander an. Der
+    5-Minuten-Lauf und die anderen Bot-Schritte melden sich mit demselben Schlüssel an, darum kam am 20.11.2026 13:01 UTC
+    beim 4-Std.-Ausbruch "Rate-Limit erreicht für /session". Ein Login ändert nichts beim Broker, darum versucht es der
+    Bot dann nach kurzer Pause noch zweimal. Orders werden nie wiederholt."""
+    import time
+    from gold.bot.capital import CapitalError
+    for pause in (*warten, None):
+        try:
+            client.login()
+            return
+        except CapitalError as err:
+            if pause is None or "Rate-Limit" not in str(err):
+                raise
+            print(f"Login: {err}, neuer Versuch in {pause:.0f} s")
+            (schlafen or time.sleep)(pause)
+
+
 def main(argv: list[str]) -> int:
     from gold.bot.capital import CapitalClient
     from gold.bot.runner import CRED_KEYS, clean_credentials
@@ -1021,7 +1042,7 @@ def main(argv: list[str]) -> int:
     path = JDIR / "state.json"
     state = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     client = CapitalClient(*creds, environment="demo")
-    client.login()
+    anmelden(client)
     try:
         st, log, fertige, blick = run(client, state, datetime.now(timezone.utc), send_orders=not args.dry_run)
     finally:

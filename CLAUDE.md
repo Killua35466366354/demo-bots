@@ -144,6 +144,10 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Kern-Kombi als ein Konto mit 1.000 € und 10 € je R, ohne Grenzen und mit den Regeln eines echten Kontos
   (höchstens 3 offen, einer je Markt, Tagesstopp 3 %, Bremse 20 %). Die Trades kommen aus `suche/vergleich.py`
   (`sammeln`), es gibt keine zweite Liste. Ergebnis in `journal/kombinierer.md`.
+- **Margin-Ampel** (seit 20.11.2026, Kirons Ja, `suche/VORAB_kombinierer_margin.yaml`): zwei weitere Regeln im
+  Kombinierer. Ein Trade zählt nur, wenn die Margin aller offenen Trades mit ihm höchstens 30 % (zum Vergleich 50 %)
+  des Kontostands ist. Margin = 10 € mal Einstieg durch Stop-Abstand durch Hebel (30 Devisen, 20 Gold und Indizes).
+  Ein Vortag-Trade mit 2 bis 3 Pips Stop bindet so über 1.000 €. Die alten Regeln bleiben unverändert daneben.
 
 ## Arbeiten im Repo
 

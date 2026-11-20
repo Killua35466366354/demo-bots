@@ -1,0 +1,64 @@
+# Margin-Ampel für den Kombinierer. Kirons Ja vom 20.11.2026 06:29 Berliner Zeit ("ja" auf das Angebot im Thread,
+# eine Margin-Regel als eigene versiegelte Regel zu bauen). Ergänzt den Abschnitt kombinierer in
+# suche/VORAB_schatten.yaml, ändert ihn nicht. Festgelegt vor jeder Rechnung mit dieser Regel.
+name: kombinierer_margin
+datum: "2026-11-20"
+anlass: >-
+  Ein Trade mit sehr engem Stop braucht für 10 € Risiko eine große Position und bindet viel Sicherheitsgeld (Margin).
+  Ein Vortag-Trade mit 2 bis 3 Pips Stop bindet 1.100 bis 1.500 €, mehr als der ganze Topf (Nachrechnung vom
+  20.11.2026 an den Demo-Trades, Projektordner schatten-labor/margin.py). Die Kontoregeln in VORAB_schatten.yaml
+  zählen das nicht. Diese Regel zählt es.
+
+margin:
+  formel: >-
+    Positionswert in Euro = Risiko je Trade (10 €) mal Einstieg geteilt durch Stop-Abstand, beides im Kurs des Marktes.
+    Margin = Positionswert geteilt durch den Hebel des Marktes.
+  hebel:                        # Grenzen der ESMA für Privatkunden, wie bei Capital.com Europa
+    EURUSD: 30
+    GBPUSD: 30
+    USDJPY: 30
+    GBPJPY: 30
+    GOLD: 20
+    US500: 20
+    US100: 20
+    US30: 20
+    DE40: 20
+    UK100: 20
+    J225: 20
+  hebel_sonst: 10
+  stop_abstand_live: >-
+    Aus dem Journal des Bots, in dieser Reihenfolge. Abstand vom Einstieg zu stop_level oder stop, wenn das ein Kurs
+    ist, der weniger als 20 % vom Einstieg entfernt liegt. Sonst das Feld dist. Sonst der Abstand vom Einstieg zum
+    Ausstieg geteilt durch R, wenn R vom Betrag mindestens 0,3 ist.
+  stop_abstand_backtest: >-
+    Aus der Quelle, wo es ihn gibt. N1/N2-Liste (strategie-suche/n1-n2/n1_n2_trades.csv) Bewegung in Prozent geteilt
+    durch R, wenn R vom Betrag mindestens 0,3 ist. Groß-Box (runde12d) Abstand von einstieg zu stop.
+    4-Std.-Ausbruch DAX/FTSE/Nikkei (ergebnis_notizen_runde_trades) einstieg und stop_abstand.
+  ohne_abstand: >-
+    Fehlt der Abstand, gilt der Median der Margin desselben Bots aus seinen Trades derselben Liste mit Abstand, dann
+    der Median desselben Bots aus seinen Demo-Trades, dann der Median desselben Marktes aus den Demo-Trades. Fehlt
+    alles, wird der Trade nicht genommen und als "Margin unbekannt" gezählt.
+
+regeln:
+  konto_margin:                 # die Kontoregeln aus VORAB_schatten.yaml plus Margin-Ampel
+    hoechstens_offen: 3
+    je_markt_hoechstens: 1
+    tagesstopp_pct: 3
+    gesamtbremse_pct: 20
+    margin_hoechstens_pct: 30   # Margin aller offenen Trades mit dem neuen zusammen höchstens 30 % des Kontostands
+  konto_margin_50:              # nur Vergleich, keine Empfehlung
+    hoechstens_offen: 3
+    je_markt_hoechstens: 1
+    tagesstopp_pct: 3
+    gesamtbremse_pct: 20
+    margin_hoechstens_pct: 50
+
+kontostand: Starttopf plus alle bis zum Einstieg geschlossenen Trades. Offene Gewinne und Verluste zählen nicht.
+reihenfolge: >-
+  Wie im Abschnitt kombinierer von VORAB_schatten.yaml. Die Margin-Prüfung kommt nach allen anderen Prüfungen. Ein
+  Trade, der an der Margin scheitert, zählt als verpasst ("zu wenig Margin frei").
+auskunft: >-
+  Die Backtest-Trades aller Bots (Projektordner schatten-labor, alle.csv aus backtest_trades.py) einmal mit beiden
+  Regeln, nur zur Auskunft für Kiron. Wie viele Trades einen geschätzten Stop-Abstand haben, steht im Ergebnis.
+satz: Ein zweiter fester Satz im Bericht des Kombinierers, ohne KI-Modell.
+keine_wirkung: Nur Demokonten und Auskunft. Kein Bot liest diese Datei, keine Order hängt daran.

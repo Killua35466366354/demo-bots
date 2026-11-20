@@ -279,3 +279,4 @@ Jede Zeile wird nur angehängt. Prüfsummen stehen hier, bevor gerechnet wird.
 - 2026-11-19 23:25 UTC: VORAB_grosse_runde2 sha256 5bd044c1611a364ca78a4e4ed21859bc6e25bf83bfdab3133fa83034165869e0
 - 2026-11-19 23:29 UTC: Große Runde Durchgang 2 gerechnet (suche/ergebnis_grosse_runde2.md), einmal: keine der 13 Varianten besteht (höchstens Kandidat war möglich), 1 Kandidat (modell_indizes_08, Gewinnfaktor 1,52, z 2,69). Die fünf Abwandlungen des VIX-Sprungs schlagen Zufallstage nicht (z 0,33 bis 1,50). Die drei seltenen Regeln fallen durch (Tokio nach US-Schreck 0,72, Verfallstag-Morgen 0,75 und 0,84). Kein Bot ändert sich.
 - 2026-11-20 04:44 UTC: VORAB_schatten sha256 32a0b5c79310c9f0c7280e1927083a49dc8e81a20a256cb4768e60f3f7b2bb20
+- 2026-11-20 05:31 UTC: VORAB_kombinierer_margin sha256 2f5b7f9ed394c4f605f574f3c19a396458951c9b3164130eb81313e0a0c7cc88

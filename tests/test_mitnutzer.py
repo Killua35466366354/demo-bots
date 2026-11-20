@@ -88,11 +88,11 @@ def test_liste_nicht_lesbar_sperrt_jedes_freie_konto(monkeypatch):
 
 def test_liste_kommt_aus_dem_code_der_bots():
     from gold import ausbruch4h_bot, grossbox_bot, hand_bot, pine5m_bot, zonen_bot
-    from suche import gold_staffel_bot, krypto_bollinger_bot, scalper_bot, welt4h_bot
+    from suche import gold_staffel_bot, krypto_bollinger_bot, modell_indizes_bot, scalper_bot, welt4h_bot
     alle = {b["bot"]: b for b in mn.bots()}
     erwartet = ({b.bot_id for b in scalper_bot.BOTS} | {b.bot_id for b in pine5m_bot.BOTS}
                 | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID, zonen_bot.BOT_ID,
-                   ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID})
+                   ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID, modell_indizes_bot.BOT_ID})
     assert set(alle) == erwartet and len(mn.bots()) == len(erwartet)
     assert alle["gold-staffel"]["konto"] == gold_staffel_bot.KONTO == scalper_bot.KONTO
     assert alle["gold-grossbox"]["konto"] == grossbox_bot.KONTO
@@ -106,6 +106,11 @@ def test_liste_kommt_aus_dem_code_der_bots():
     k = alle["krypto-bollinger"]
     assert k["konto"] == krypto_bollinger_bot.KONTO and k["konto_name"] == "Account 3"
     assert krypto_bollinger_bot.KONTO not in gold + [gold_staffel_bot.KONTO, welt4h_bot.KONTO]
+    m = alle["modell-indizes"]
+    assert m["konto"] == modell_indizes_bot.KONTO and m["konto_name"] == "Account 6"
+    # Account 6 teilt er mit der Groß-Box (Gold, andere Märkte), aber nie mit einem anderen Index-Bot
+    assert modell_indizes_bot.KONTO == grossbox_bot.KONTO
+    assert modell_indizes_bot.KONTO not in [gold_staffel_bot.KONTO, welt4h_bot.KONTO, krypto_bollinger_bot.KONTO]
     assert alle["gold-hand"]["neu"] is bool(hand_bot.NEUE_EINSTIEGE)
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG

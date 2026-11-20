@@ -301,3 +301,10 @@ Kirons Wahl vom 20.11.2026 11:53 UTC ("die paar stärksten zu erst", Schatten so
 `bollinger_umkehr_krypto_weit` (durchgefallen, Gewinnfaktor 1,07) handelt als Demo-Bot auf Account 3
 (`suche/krypto_bollinger_bot.py`, `suche/VORAB_krypto_bollinger_bot.yaml`). Eigenes Urteil nach 40 Demo-Trades. Das
 Schatten-Labor zählt sie unverändert weiter.
+
+Kirons Wahl vom 20.11.2026 12:25 UTC ("Modell Indizes, jetzt bauen"): Die Fassung `modell_indizes` der großen Runde
+(Kandidat, Gewinnfaktor 1,21, z 1,89, vor 2024 0,94) handelt als Demo-Bot auf Account 6
+(`suche/modell_indizes_bot.py`, `suche/VORAB_modell_indizes_bot.yaml`). Die Gewichte je Jahr kommen aus dem Test
+(`suche/modell_indizes_gewichte.json`), VIX und Renditen live von Cboe und vom US-Finanzministerium. Eigenes Urteil
+nach 40 Demo-Trades, bei 12,7 Trades je Woche etwa Mitte Dezember 2026. Das Schatten-Labor zählt sie unverändert
+weiter.

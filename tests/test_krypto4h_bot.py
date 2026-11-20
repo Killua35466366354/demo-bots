@@ -12,10 +12,16 @@ import pytest
 
 from suche import krypto4h_bot as kb
 from suche import krypto4h_gegenprobe as gp
+from suche import mitnutzer
 from suche import rueckblick as rb
 from suche import youtube_runde as yr
 from suche import youtube_runde2 as y2
 from suche.demo_bots import Quote
+
+# Die Mitnutzer lesen ihre Kontonummer beim Import aus journal/konten.json. Darum hier einmal alle mit der echten Datei
+# importieren, bevor die Fixture unten konten.load ersetzt. Sonst hängt der Konto-Test an der Reihenfolge: allein
+# gestartet (wie im Workflow) importierte er vix_sprung_bot erst unter der Fixture und fand dessen Konto leer.
+mitnutzer.bots()
 
 ROOT = Path(__file__).resolve().parents[1]
 HAUPT = "111111113150"

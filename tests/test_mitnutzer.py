@@ -110,6 +110,10 @@ def test_liste_kommt_aus_dem_code_der_bots():
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG
     assert not any(k.endswith(haupt) for k in mn.konten()), "Mitnutzer handeln nie auf dem Hauptkonto des Gold-Bots"
+    # Die Prüfung vergleicht volle Konto-IDs. Eine gekürzte (…1234) schützt kein Konto, und der Bot fände es beim
+    # Broker nicht (Befund vom 20.11.2026).
+    kurz = [b["bot"] for b in mn.bots() if not (b["konto"].isdigit() and len(b["konto"]) > 5)]
+    assert not kurz, f"Mitnutzer ohne volle Konto-ID: {kurz}"
 
 
 def test_jeder_bot_aus_dem_5_minuten_lauf_steht_in_der_liste():

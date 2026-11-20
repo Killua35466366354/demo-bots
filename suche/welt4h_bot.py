@@ -100,13 +100,11 @@ MAERKTE = {sym: _EPICS[sym][0] for sym in _fassung_maerkte()}      # HistData-Na
 
 
 def konto_id(konten_daten: dict | None = None) -> str:
-    """Die Kontonummer von Account 7 aus journal/konten.json, gesucht nach dem Namen. Leer, wenn es das Konto dort
-    nicht genau einmal gibt. Die Nummer wird nie abgetippt und nie ausgegeben."""
-    if konten_daten is None:
-        from gold.bot import konten
-        konten_daten = konten.load()
-    treffer = [str(k.get("id")) for k in (konten_daten or {}).get("konten") or [] if k.get("name") == KONTO_NAME]
-    return treffer[0] if len(treffer) == 1 and treffer[0] not in ("", "None") else ""
+    """Die volle Kontonummer von Account 7 aus journal/konten.json, gesucht nach dem Namen (suche/mitnutzer.py
+    konto_nach_name). Leer, wenn es das Konto dort nicht genau einmal gibt. Die Nummer wird nie abgetippt und nie
+    ausgegeben."""
+    from suche.mitnutzer import konto_nach_name
+    return konto_nach_name(KONTO_NAME, konten_daten)
 
 
 KONTO = konto_id()

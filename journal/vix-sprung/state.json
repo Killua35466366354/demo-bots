@@ -1,0 +1,24 @@
+{
+ "format": 1,
+ "start": "2026-11-20T13:48:56",
+ "summe_r": 0.0,
+ "trades": 0,
+ "maerkte": {
+  "SPXUSD": {
+   "trade": null
+  },
+  "NSXUSD": {
+   "trade": null
+  },
+  "GRXEUR": {
+   "trade": null
+  },
+  "UKXGBP": {
+   "trade": null
+  },
+  "JPXJPY": {
+   "trade": null
+  }
+ },
+ "stand": "2026-11-20T13:48:56"
+}

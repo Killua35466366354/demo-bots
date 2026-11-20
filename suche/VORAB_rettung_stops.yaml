@@ -1,0 +1,127 @@
+# Stop-Prüfung "Rettung" für die Nicht-Gold-Bots. Nur Capital.com-DEMO, nie echtes Geld. Ändert an keinem Bot etwas.
+#
+# Kirons Frage vom 19.11.2026, 17:49 UTC (Gold-Thread, über den Koordinator an die große Recherche gegeben): ob überall
+# geprüft ist, dass die Stops den Verlust so klein wie möglich halten. Seine Idee in seinen Worten: wenn man merkt,
+# "dass schon das Minus geht", dann "beim wenigsten Minus oder schon fast im minimalsten Profit einfach schnell
+# rausgeht, bevor es halt noch weiter ins Minus geht", und es eventuell "sogar länger hält".
+# Die Gold-Bots rechnet der Gold-Thread selbst.
+#
+# Festgelegt, bevor eine der Fassungen gerechnet wurde. Vor dem Siegel lief nur der Modus "wege". Er rechnet die
+# Originale nach und zählt sie, er rechnet keine Fassung. Code: suche/rettung_stops.py.
+#
+# Stand der Nachrechnung vor dem Siegel (Modus "wege", 19.11.2026): alle 2.866 Originale kommen aus den Kerzen genau so
+# heraus wie im Programm des Bots. US500-Rücksetzer 136 Trades, US100-Rücksetzer 139, Scalper Nasdaq 727, Scalper DAX
+# 607, 4-Std.-Ausbruch 1.119, größte Abweichung jeweils 0,000 R. Nasdaq Noise-Band 138 Trades, Median der Abweichung
+# von der alten Trade-Liste 0,005 R. Ausstiege im Original: Rücksetzer 22 von 275 am Stop, Noise-Band 0 von 138,
+# Scalper 864 von 1.334, 4-Std.-Ausbruch 32 von 1.119 (dort endet fast jeder Trade nach der Zeit).
+
+format: 1
+rettung_stops:
+  grundsatz: >-
+    Die Einstiege bleiben genau die des Bots. Nur der Ausstieg ändert sich. Jede Fassung wird Trade für Trade mit dem
+    unveränderten Original auf denselben Einstiegen verglichen (gepaart). Keine weiteren Fassungen und keine anderen
+    Zahlen nach dem Ergebnis.
+
+  schon_gerechnet:                       # wird hier nicht wiederholt (Verwerfen heißt merken)
+    - >-
+      Engere und weitere Stops und ganz ohne Stop für 15 Demo-Bots (Stopwahl vom 04.11.2026, VORAB_stopwahl.yaml im
+      privaten Repo). Mehr Euro kam fast nur über größere Positionen, der Stop selbst war bei 5 Bots besser.
+    - >-
+      Stop auf Einstand, sobald der Trade im Plus ist, Teilgewinn und länger halten (suche/VORAB_ausstiege_kern.yaml,
+      19.11.2026, 0 von 8 bestanden, DAX-Scalper mit Stop mal 0,75 als Kandidat).
+    - >-
+      Verlierer weit und lange halten, bis sie zurückkommen (Katalog-Karte 82 und die drei Geduld-Regeln in
+      suche/VORAB_grosse_runde.yaml, 19.11.2026). Hohe Trefferquote, aber kein Vorteil gegen Zufallstage.
+    - Gold. Break-even, Teilgewinn, weiter Stop mit Geduld und enge Stops auf Pine-Gold sind im Gold-Thread durchgefallen.
+
+  neu_hier: >-
+    Der Ausstieg NACH einem Rücklauf ins Minus. Das war im Projekt noch nie gerechnet. Bisher lag der Stop auf Einstand
+    immer erst, wenn der Trade schon im Plus war.
+
+  bots:                                  # Nicht-Gold-Bots mit Stop, deren Test die Kerzen fair nachspielen kann
+    r5-ruecksetzer-us500: {name: US500-Rücksetzer, einheit: 1 R = Notstop 3 ATR 20, kerzen: 1 Std.}
+    r5-ruecksetzer-us100: {name: US100-Rücksetzer, einheit: 1 R = Notstop 3 ATR 20, kerzen: 1 Std.}
+    r7-nasdaq-noise-long: {name: Nasdaq Noise-Band, einheit: 1 R = Notstop 5 ATR 14, kerzen: 15 Min.}
+    scalp-us100: {name: Scalper Nasdaq, einheit: 1 R = Abstand zum anderen Ende der ersten Kerze, kerzen: 15 Min.}
+    scalp-de40: {name: Scalper DAX, einheit: 1 R = Abstand zum anderen Ende der ersten Kerze, kerzen: 15 Min.}
+    welt-ausbruch4h: {name: "4-Std.-Ausbruch DAX, FTSE, Nikkei", einheit: 1 R = Stop-Abstand der Regel, kerzen: 5 Min.}
+  einstiege: >-
+    Rücksetzer wie suche/ausstiege_kern.rechne_us100 (runde5.simuliere, Regel trend 200, unter 10, stop_atr 3, max_tage
+    5, Stundenkerzen in echter UTC, Spread fest wie suche/scalping.SPREAD). Nasdaq Noise-Band aus der Trade-Liste der
+    Runde 7 wie suche/ausstiege_kern.noise_ausstieg. Scalper wie suche/scalping2.eroeffnung (folgen_10r, 15 Min., echte
+    UTC, Open-Filter alle, ab 2016). 4-Std.-Ausbruch mit den Signalen und der Trade-Rechnung der Fassung
+    ausbruch4h_welt_ziel_1r aus suche/notizen_runde.py.
+
+  nicht_gerechnet:
+    vortag_eurusd_gbpusd_gbpjpy_und_mess_bot: >-
+      Die Stops liegen nur 2 bis 7 Pips entfernt. Auf 5-Minuten-Kerzen lässt sich nicht fair sagen, was in der
+      Einstiegskerze zuerst kam (Befund des Komitees vom 18.11.2026). Eine Rettung nach halbem Weg zum Stop wäre dort
+      reine Annahme. Die Frage gehört zur Nachrechnung mit Minutenkerzen im Thread Demo-Strategien. Den weiteren Stop
+      misst der Mess-Bot live.
+    noise_usdjpy_und_scalper_nikkei: >-
+      Beide haben in ihrer Regel keinen Stop und enden nach der Uhr am selben Tag (Nikkei nach 25 Minuten). Es gibt
+      keinen halben Weg zum Stop, an dem die Rettung ansetzen könnte.
+    london_gbpusd: >-
+      Sein Test-Programm (runde4b) liegt im privaten Repo auf einem anderen Unterbau. Labor-Bot mit Gewinnfaktor um
+      1,1. Kann in einer eigenen Datei folgen, wenn Kiron es will.
+    dow_ruecksetzer: Für den Dow liegen im Projekt keine Kerzen.
+
+  varianten:
+    rettung_einstand:
+      ausloeser_r: -0.5                  # der Trade war einmal mindestens einen halben Stop-Abstand im Minus
+      ziel_r: 0.0                        # danach Limit-Order am bezahlten Einstieg, der Trade endet ohne Verlust
+    rettung_kleines_minus:
+      ausloeser_r: -0.5
+      ziel_r: -0.25                      # danach Limit-Order bei einem Viertel des Stop-Abstands im Minus
+    stop_halb:
+      faktor: 0.5                        # Stop halb so weit weg, Ziel und Zeit-Ausstieg bleiben. Ergebnis in alten R
+      bots: [scalp-us100, scalp-de40, welt-ausbruch4h]     # die drei, die im Stop-Raster vom 04.11. nicht dabei waren
+  lesart: >-
+    Vorsichtig, also eher gegen die neue Fassung. Der Auslöser zählt, sobald eine Kerze die Marke berührt (Long am
+    Bid-Tief, Short am Ask-Hoch). Die Limit-Order gilt erst ab der nächsten Kerze und füllt genau zum Limit, nie
+    besser. In der Kerze, in der das Original gestoppt wird, gilt der Stop zuerst. Erreicht das Original sein Ziel, war
+    der Kurs vorher am Limit, dann füllt die Limit-Order. Eine Einstiegskerze, in der die Order erst mitten in der Kerze
+    ausgelöst wurde, zählt nicht mit. Die Übernachtgebühr des Originals bleibt auch bei früherem Ausstieg abgezogen.
+    Beim halben Stop rechnet das Programm des Bots selbst (Rutschen und Lücken wie dort). Öffnet ein Scalper-Trade mit
+    halbem Stop nicht, weil der Kurs schon jenseits liegt, zählt er mit 0 R.
+
+  fenster:
+    lang: alle Einstiege der Daten je Bot
+    haupt: ["2024-01-01", "2026-10-30"]   # zählt am meisten (suche/VORAB_bewertung_2024_26.yaml)
+
+  kontrolle:
+    regel: >-
+      Zuerst wird jedes Original aus den Kerzen nachgerechnet. Weicht ein Trade um mehr als die Grenze vom Ergebnis des
+      Bot-Programms ab oder hat er einen anderen Ausstiegsgrund, bricht die Rechnung ab.
+    abweichung_r_max: 0.000001            # Nasdaq Noise-Band gegen die alte Trade-Liste, Median höchstens 0,02 R
+
+  vergleich:
+    test: >-
+      Gepaart auf allen Einstiegen des langen Fensters. Unterschied je Trade = R der Fassung minus R des Originals.
+      Einseitiger Zeichen-Tausch-Test auf den Mittelwert (wie suche/ausstiege_kern.gepaart_p). Holm über alle Fassungen
+      aller Bots zusammen.
+    laeufe: 20000
+    saat: 20261119
+    alpha: 0.05
+    anzahl_fassungen: 15                  # 6 Bots x 2 Rettungen + 3 x halber Stop
+
+  bestanden_heisst:                       # alle müssen halten
+    - Holm-Test im langen Fenster bestanden (die Fassung ist besser als das Original)
+    - im Hauptfenster Summe R höher als beim Original
+    - im Hauptfenster Gewinnfaktor mindestens so hoch wie beim Original
+  kandidat_heisst: p höchstens 0,05 ohne Holm und beide Bedingungen des Hauptfensters. Zählt als nicht bestanden.
+
+  folgen: >-
+    Besteht eine Fassung, schlage ich Kiron auf einer Karte vor, sie als Zwilling neben dem unveränderten Bot laufen zu
+    lassen (suche/VORAB_zwilling.yaml, höchstens einer je Original und einer neu je Woche, eigener PR, Kiron merged).
+    Besteht keine, bleiben alle Bots unverändert, und die Fassungen kommen ins Verworfen-Archiv.
+  erwartung_vorher: >-
+    Die Rettung schneidet zwei Arten von Trades ab. Verlierer, die nach dem Rücklauf doch noch gestoppt würden, da
+    spart sie. Und Gewinner, die erst ins Minus laufen und dann ihr Ziel erreichen, da verschenkt sie den ganzen
+    Gewinn. Die Rücksetzer kaufen Schwäche und laufen oft erst weiter ins Minus. Die Scalper leben von wenigen Trades
+    mit 10 R. Ich erwarte darum, dass die Rettung bei beiden mehr verschenkt als spart und dass wenig oder nichts
+    besteht. Der halbe Stop wird öfter ausgelöst, bevor der Trade dreht.
+  ehrlich: >-
+    Auch ein bestandener Test ist kein Beweis live. Im Hauptfenster haben die Rücksetzer und das Noise-Band nur etwa 30
+    bis 40 Trades, dort zeigt das Hauptfenster nur die Richtung. Die Trefferquote steigt mit jeder Rettung von selbst,
+    das sagt nichts über den Gewinn.

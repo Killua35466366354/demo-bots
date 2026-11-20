@@ -1,0 +1,380 @@
+# Große Runde vom 19.11.2026, Durchgang 1: dreizehn Regeln, die andere Information nutzen als den Kurs allein,
+# dazu Kirons Geduld-Idee ("viele kleine Gewinne, Verlierer halten, bis sie zurückkommen") in ihrer logischsten Form.
+# Festgelegt, BEVOR mit Kursen ab 2024 gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/grosse_runde.py (nutzt die Rechnung von suche/rueckblick.py).
+#
+# Kirons Wunsch vom 19.11.2026 14:49 UTC: eine sehr große Recherche in allen Bereichen, auch Vorhersagen und Scalping mit
+# vielen kleinen Gewinnen. Die Ideen so prüfen, wie er seine Karten bewertet hat (Behalten, Weiter testen, Ändern,
+# Verwerfen), und das zwei- bis dreimal. Alles zeigen, was besteht und was verworfen wird.
+#
+# Ehrlich vorab:
+# - Diese Datei ist Durchgang 1. Durchgang 2 bekommt eine eigene Datei (suche/VORAB_grosse_runde2.yaml) mit höchstens
+#   13 Varianten. Dort stehen Änderungen nach dem Ergebnis von Durchgang 1 und Ideen aus den übrigen Suchen. Was erst
+#   nach einer Änderung besteht, zählt höchstens als Kandidat für einen Vorwärtstest, nie als Beleg.
+# - Holm zählt über beide Durchgänge zusammen mit der festen Zahl 26 (13 hier, höchstens 13 in Durchgang 2). Bei etwa
+#   650 Verschiebungen ist der kleinste mögliche p-Wert etwa 0,0015. Bestehen kann darum nur eine Variante, die jede
+#   einzelne Verschiebung schlägt. Das ist der Preis einer großen Runde und so gewollt.
+# - Nicht noch einmal gerechnet wird, was im Archiv steht (suche/VERWORFEN.md): der Tag vor der Fed, der Monatswechsel
+#   auf Indizes, Rücksetzer außerhalb der US-Indizes, Schwung nach US-Zahlen, Verlierer umdrehen, Trendfolge über Wochen,
+#   Scalping unter einer Stunde, hohe Trefferquote mit weitem Stop auf 5-Minuten-Kerzen (Runde 7 und Scalper-Runde 2).
+#   Darum handelt der Fed-Zyklus hier nur die Wochen 2, 4 und 6, die Zahlentage sind nur Inflation und Arbeitsmarkt,
+#   und die Geduld-Regeln laufen nur auf US500 und US100, wo Rücksetzer im Aufwärtstrend bisher als Einziges hielten.
+# - Die Geduld-Regeln sind Kirons Idee, kein Versprechen. Ein weiter oder fehlender Stop macht die Trefferquote von
+#   selbst hoch. Darum stehen im Ergebnis neben der Trefferquote immer der größte Verlust, das tiefste Tal und die
+#   längste Haltedauer. Ein einzelner hängender Trade kann viele kleine Gewinne auslöschen.
+# - Fremde Daten (VIX, Zinsen, Finanzierungssätze) stehen nicht im Repo, sondern im Projektordner. Die Prüfsummen der
+#   benutzten Dateien stehen unter daten.fremd. Eine Regel sieht für einen Handelstag nur Werte mit einem Datum strikt
+#   vor diesem Handelstag. Die Reihen von FRED erscheinen dort erst am nächsten Morgen. Ein Bot müsste den VIX und die
+#   Renditen darum aus einer schnelleren Quelle lesen (Broker oder Finanzministerium). Das ist beim Urteil mitzudenken.
+# - Im Probelauf sind nur die Kurse erfunden. Termine, VIX, Zinsen und Finanzierungssätze bleiben echt, haben dort aber
+#   nichts mit dem erfundenen Kurs zu tun.
+# - Das Programm wurde vor dem Siegel nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.grosse_runde 1 entwicklung / probelauf). Die Ergebnisse dieser Prüfung:
+# - Entwicklung (März 2021 bis Dezember 2023, nur zur Prüfung des Programms, ohne DAX): umschichtung_us 260 Trades
+#   Gewinnfaktor 1,05, fed_zyklus_us 159 Trades 1,44 (Termine erst ab Februar 2023), vix_sprung_us 114 Trades 0,82,
+#   zahlentag_us 46 Trades 3,36 (Termine erst ab Januar 2023), geduld_us_ziel 260 Trades 0,86 bei 91 % Treffern,
+#   geduld_us_fern 194 Trades 1,20 bei 93 % Treffern, geduld_us_stufen 283 Trades 0,83 bei 78 % Treffern,
+#   funding_krypto 452 Trades 1,18, modell_indizes 1.830 Trades 0,93, modell_devisen 1.584 Trades 0,66,
+#   tokio_nachmittag 447 Trades 0,83, zins_schwung_usdjpy 317 Trades 0,91, realzins_gold 292 Trades 0,76.
+#   Keine war dort über allen Hürden.
+# - Nach dem ersten Entwicklungslauf wurden drei Bauteile korrigiert, die nichts mit dem Ergebnis zu tun haben. Der
+#   Tageshandel schließt um 15:55 statt 16:55 New York, weil die Index-Kurse um 16:15 enden (sonst lief jeder
+#   Index-Trade ungewollt über Nacht). Der Einstieg darf bis 3:00 New York warten, weil die DAX-Kurse oft erst um 2:00
+#   beginnen. Der Hochzins-Aufschlag fiel aus dem Modell, weil FRED die Reihe nur noch ab November 2023 liefert.
+#   Kein Schwellenwert einer Regel wurde geändert.
+# - Probelauf vor dem Siegel: 8 Saaten auf erfundenen Märkten ohne Vorteil, 104 Rechnungen. Keine bestand, keine wurde
+#   Kandidat. 4 von 104 schlugen 95 % ihrer Verschiebungen (erwartet etwa 5). z lag im Mittel bei -0,04 mit Streuung
+#   1,02. Die Geduld-Regeln hatten auch auf den erfundenen Märkten 89 bis 91 % Treffer, bei Gewinnfaktor 0,4 bis 1,2.
+#   Eine hohe Trefferquote ist bei dieser Bauart also von selbst da und kein Beleg.
+
+format: 1
+grosse_runde:
+  durchgang: 1
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der HistData-Kurse
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle dreizehn Varianten stehen hier fest und werden einmal gerechnet.
+
+  daten:
+    quelle: >-
+      HistData 5-Minuten-Kerzen (Bid), echtes UTC, wie suche/rueckblick_daten.py. Krypto wie
+      suche/VORAB_youtube_runde.yaml (Binance-Spot, Spread als Anteil am Kurs aus Capital.com BTCUSD und ETHUSD).
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Krypto alle sieben Tage, sonst Montag bis Freitag.
+    krypto_alle_tage: [BTCUSD, ETHUSD]
+    min_kerzen_je_tag: 60
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026)
+    pause_min: 60                # kein Einstieg in der Stunde 17 bis 18 Uhr New York (Tageswechsel)
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+    fremd:
+      ordner_fred: /mnt/project-files/strategie-suche/daten/fred (geladen am 19.11.2026 von fred.stlouisfed.org, Tageswerte ab 2010)
+      ordner_funding: /mnt/project-files/strategie-suche/daten/krypto/funding (geladen am 19.11.2026 von data.binance.vision, Monatsdateien 2020-01 bis 2026-10)
+      termine: gold/v2/termine.yaml (Fed ab 02.2023, Inflation und Arbeitsmarkt ab 01.2023, echte Veröffentlichungstage)
+      regel: Für den Handelstag T zählt nur eine Beobachtung mit Datum strikt vor T. Bei lag 1 strikt vor T minus 1.
+      sha256:
+        VIXCLS: 638c383fa413a3dbed079eac295d392540ec6e25177b0e0da621510680a4ba6d
+        VXVCLS: 8d918207b83759f4955b8b144557f9969f68e894b36afc64453b23120f48e8f4
+        DGS10: 893e1a3188074c1d824236fbd000835038221f76d790ffef432892cbd0bea899
+        DGS2: fbf897f5a740ea3e560d77f73ccbcc679a90e3e8f0d913cd87ff51208ede0595
+        DFII10: ddec933744a43b528a0e0db43462b80638cf53375e074a10cf2a7a450ae3f390
+        funding_BTCUSDT: fc5988bfd6ba39236d72d2c64972f0b048ed300b6bc386b67b161599c2e171c9   # sha256 über die Zeilen 'Dateiname sha256' der 82 Monatsdateien, sortiert
+        funding_ETHUSDT: f05ed03a03266339244ba8be95f6603c04cfd499a3abee90c02f82141d697a49   # sha256 über die Zeilen 'Dateiname sha256' der 82 Monatsdateien, sortiert
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml. Keine Regel dieser Runde nutzt diesen Tagestrend, er wird nur mitgerechnet.
+    vorlauf_tage: 100
+
+  tageshandel:                   # gilt für alle Regeln, die einen ganzen Handelstag halten
+    einstieg: erste 5-Minuten-Kerze nach der Pause, also ab 18:00 New York am Vorabend des Handelstags
+    toleranz_min: 540            # die DAX-Kurse beginnen an vielen Tagen erst um 2:00 New York. Kommt bis 3:00 keine Kerze, fällt der Tag aus
+    aus_min: 955                 # Ausstieg mit der ersten Kerze ab 15:55 New York. Die Index-Kurse enden um 16:15, die Übernachtgebühr kommt um 17:00
+    ziel: keins
+
+  kosten:
+    spread: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (Krypto als Anteil am Kurs).
+    rutschen_spread: 0.5         # Schutz-Stops füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # je Kalendernacht über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+      metall: {long: 0.065, short: 0.02}
+      fx: {long: 0.02, short: 0.02}
+      krypto: {long: 0.20, short: 0.20}
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = (Ergebnis in Kurspunkten minus Übernachtgebühr) geteilt durch den Stop-Abstand
+    eine_position: Je Regel und Markt höchstens ein Trade gleichzeitig. Signale dazwischen verfallen.
+
+  regeln:
+    umschichtung_us:
+      art: umschichtung
+      quelle: >-
+        Harvey, Mazzoleni, Melone, The Unintended Consequences of Rebalancing, NBER Working Paper 33554, 2025.
+        Große Fonds halten feste Anteile aus Aktien und Anleihen. Liegen Aktien im Monat vorn, müssen sie zum
+        Monatsende Aktien verkaufen, liegen sie hinten, müssen sie kaufen. Vorrat R1 der Runde Starker Rückblick.
+      regel: >-
+        In den letzten 5 Handelstagen eines Monats wird für jeden dieser Tage geprüft, mit den Schlusskursen bis zum
+        Vortag: Rendite des US500 seit dem letzten Handelstag des Vormonats minus Rendite 10-jähriger US-Anleihen im
+        selben Zeitraum. Die Anleihe-Rendite ist minus Laufzeit mal Änderung der Rendite DGS10 plus die laufende
+        Verzinsung. Ab plus 1 Prozentpunkt Abstand wird für den Handelstag verkauft, ab minus 1 Prozentpunkt
+        gekauft. Dasselbe Zeichen gilt für US100. Notstop 3 ATR.
+      eigene_festlegung: Schwelle 1 Prozentpunkt, 5 Tage, Laufzeit 8 Jahre, Notstop. Die Studie handelt Aktien gegen Anleihen, hier nur das Aktienbein.
+      signal_markt: SPXUSD
+      reihe: DGS10
+      laufzeit_jahre: 8.0
+      tage: 5
+      schwelle: 0.01
+      stop_atr: 3.0
+    fed_zyklus_us:
+      art: fed_zyklus
+      quelle: >-
+        Cieslak, Morse, Vissing-Jorgensen, Stock Returns over the FOMC Cycle, Journal of Finance 74, 2019. Der
+        Aktienmarkt verdiente seinen Überschuss von 1994 bis 2016 fast nur in den geraden Wochen nach einem
+        Zinsentscheid. Woche 0 (um den Entscheid) steht als "Tag vor der Fed" schon im Archiv und bleibt hier weg.
+      regel: >-
+        Tag 0 ist der Handelstag des Zinsentscheids. Gekauft wird an den Handelstagen 9 bis 13, 19 bis 23 und 29 bis
+        33 danach, je einen Handelstag lang, aber nie ab dem Tag vor dem nächsten Entscheid. Notstop 3 ATR.
+      eigene_festlegung: Tageshandel statt Wochen halten (keine Übernachtgebühr), Notstop.
+      spannen: [[9, 13], [19, 23], [29, 33]]
+      stop_atr: 3.0
+    vix_sprung_us:
+      art: reihe
+      quelle: >-
+        Vorrat R3 der Runde Starker Rückblick (Tag nach einem VIX-Sprung). Praktiker-Regel, unter anderem bei
+        Connors und Alvarez, Short Term Trading Strategies That Work, 2008 (VIX-Regeln, nicht nachgeprüft). Nach
+        einem Angst-Sprung zahlen Käufer von Absicherung zu viel, der Markt erholt sich im Mittel.
+      regel: >-
+        Schließt der VIX mindestens 10 % über seinem Schluss vom Vortag, wird am folgenden Handelstag gekauft, einen
+        Handelstag lang. Notstop 3 ATR.
+      eigene_festlegung: Schwelle 10 %, Haltedauer ein Handelstag, Notstop.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 3
+      stop_atr: 3.0
+    zahlentag_us:
+      art: zahlentag
+      quelle: >-
+        Savor, Wilson, How Much Do Investors Care About Macroeconomic Risk, Journal of Financial and Quantitative
+        Analysis 48, 2013. An Tagen mit großen angekündigten Zahlen verdienten Aktien ein Vielfaches gewöhnlicher
+        Tage. Vorrat R4. Der Zinsentscheid bleibt weg, weil der Tag vor der Fed schon im Archiv steht.
+      regel: An jedem Handelstag mit US-Inflation (CPI) oder US-Arbeitsmarktbericht wird gekauft, einen Handelstag lang. Notstop 3 ATR.
+      eigene_festlegung: nur CPI und Arbeitsmarkt, Notstop.
+      termine: [cpi, nfp]
+      stop_atr: 3.0
+    geduld_us_ziel:
+      art: geduld
+      quelle: >-
+        Kirons Idee vom 19.11.2026 (viele kleine Gewinne wie bei der 3-Euro-Strategie, Verlierer halten, bis sie
+        zurückkommen), in der Form, die zu den Lehren passt: nur Long, nur US-Indizes im Aufwärtstrend, Einstieg
+        nach einem kurzen Rücksetzer auf der Stundenkerze (RSI 2 nach Connors), kleines Ziel, weiter Notstop.
+      regel: >-
+        Stundenkerzen. Schließt eine Stundenkerze zwischen 10:00 und 15:00 New York mit RSI(2) unter 10 und lag der
+        Tagesschluss des Vortags über seinem Durchschnitt der letzten 200 Handelstage, Kauf zum Markt mit der
+        nächsten 5-Minuten-Kerze. Ziel 0,25 Tages-ATR. Notstop 3 Tages-ATR. Spätester Ausstieg 15:55 New York am
+        10. Handelstag danach. Ein Gewinn bringt damit etwa 0,08 R, ein Notstop kostet 1 R.
+      eigene_festlegung: alle Zahlen.
+      rsi_n: 2
+      rsi_unter: 10
+      min_kerzen: 10
+      von_min: 600
+      bis_min: 900
+      frist_min: 10
+      trend_tage: 200
+      ziel_atr: 0.25
+      stop_atr: 3.0
+      max_tage: 10
+      aus_min: 955
+    geduld_us_fern:
+      art: geduld
+      quelle: Wie geduld_us_ziel. Kirons Wortlaut am nächsten ("länger halten, bis er wieder im Plus ist").
+      regel: >-
+        Wie geduld_us_ziel, aber der Notstop liegt 10 Tages-ATR entfernt und der späteste Ausstieg ist der 30.
+        Handelstag. Das ist praktisch kein Stop. Ein Gewinn bringt etwa 0,025 R, der Notstop kostet 1 R.
+      eigene_festlegung: alle Zahlen. Ganz ohne Stop rechnet das Programm nicht, weil ein CFD-Konto vorher zwangsweise geschlossen würde.
+      rsi_n: 2
+      rsi_unter: 10
+      min_kerzen: 10
+      von_min: 600
+      bis_min: 900
+      frist_min: 10
+      trend_tage: 200
+      ziel_atr: 0.25
+      stop_atr: 10.0
+      max_tage: 30
+      aus_min: 955
+    geduld_us_stufen:
+      art: geduld
+      quelle: >-
+        Wie geduld_us_ziel. Kirons zweiter Gedanke ("ganz lange im Minus halten und warten, bis er in einem Bereich
+        ist, wo es wenig Minus gibt").
+      regel: >-
+        Wie geduld_us_ziel. Dazu sinkt das Ziel in Stufen. Bis zum Beginn des übernächsten Handelstags gilt das Ziel
+        0,25 ATR. Danach reicht der Einstand (Ausstieg ohne Gewinn und ohne Verlust). Ab dem Beginn des vierten
+        Handelstags danach reicht ein Verlust von 0,5 ATR. Liegt der Kurs beim Wechsel schon über dem neuen Ziel,
+        wird sofort geschlossen. Notstop 3 ATR, spätester Ausstieg am 10. Handelstag.
+      eigene_festlegung: alle Zahlen.
+      rsi_n: 2
+      rsi_unter: 10
+      min_kerzen: 10
+      von_min: 600
+      bis_min: 900
+      frist_min: 10
+      trend_tage: 200
+      ziel_atr: 0.25
+      stop_atr: 3.0
+      max_tage: 10
+      aus_min: 955
+      stufen: [[2, 0.0], [4, -0.5]]
+    funding_krypto:
+      art: funding
+      quelle: >-
+        Finanzierungssätze der Dauer-Kontrakte als Maß für einseitige Wetten. Eigene Fassung einer verbreiteten
+        Praktiker-Regel (extrem hoher Satz heißt überfüllte Kauf-Seite). Daten von data.binance.vision.
+      regel: >-
+        Alle 8 Stunden kommt ein neuer Satz. Liegt er über dem 90-%-Quantil der 270 Sätze davor (90 Tage), wird
+        5 Minuten später verkauft. Liegt er unter dem 10-%-Quantil, wird gekauft. Halten 24 Stunden, Stop 2 ATR.
+      eigene_festlegung: Quantile, Fenster, Haltedauer, Stop.
+      fenster: 270
+      quantil_hoch: 0.9
+      quantil_tief: 0.1
+      warte_min: 5
+      toleranz_min: 30
+      halte_std: 24
+      stop_atr: 2.0
+    modell_indizes:
+      art: modell
+      quelle: >-
+        Eigene Idee zu Kirons Wunsch "alle möglichen Vorhersagesachen". Ein einfaches Vorhersage-Modell (logistische
+        Regression mit Strafe gegen Überanpassung) schätzt für jeden Handelstag die Wahrscheinlichkeit, dass der
+        Markt steigt. Vorbild sind Arbeiten wie Gu, Kelly, Xiu, Empirical Asset Pricing via Machine Learning,
+        Review of Financial Studies 33, 2020 (dort für Aktien und Monate, hier viel einfacher und für Tage).
+      regel: >-
+        Merkmale je Handelstag, alle vom Vortag: Lauf über 1, 2, 5 und 20 Tage in ATR, RSI 2 und 14, Abstand zum
+        50- und 200-Tage-Schnitt, Lage des Schlusskurses im Vortag, Schwankung gegen ihre 100 Tage, Wochentag, VIX,
+        VIX-Änderung, VIX gegen VIX3M, Änderung der 10- und 2-jährigen US-Rendite über 5 Tage, ein eigener Grundwert
+        je Markt. Das Modell lernt zu jedem Jahresbeginn neu, nur mit allen Jahren
+        davor. Ab 54 % Wahrscheinlichkeit für "steigt" wird für den Handelstag gekauft, bis 46 % verkauft. Stop 2 ATR.
+      eigene_festlegung: alle Merkmale und Zahlen, festgelegt ohne Blick auf Kurse ab 2024.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.04
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+      stop_atr: 2.0
+    modell_devisen:
+      art: modell
+      quelle: Wie modell_indizes, auf sieben Dollar-Paaren. Devisen haben keinen Aufwärtstrend, das Modell muss dort ohne ihn auskommen.
+      regel: Wie modell_indizes.
+      eigene_festlegung: wie modell_indizes.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.04
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+      stop_atr: 2.0
+    tokio_nachmittag:
+      art: tokio
+      quelle: >-
+        Eigene Fassung nach Li, Sakkas, Urquhart, Intraday time series momentum. Global evidence and links to
+        market characteristics, Journal of Financial Markets 57, 2022 (nicht nachgeprüft) und Gao, Han, Li, Zhou,
+        Market intraday momentum, Journal of Financial Economics 129, 2018. Aus der Ideenliste Aktienindizes der
+        Recherche vom 19.11.2026.
+      regel: >-
+        Nikkei, Zeiten in Tokio. Gemessen wird die Bewegung vom Kurs um 15:00 Uhr des vorigen Wochentags bis 11:30
+        Uhr. Ab 0,5 % wird um 12:30 Uhr in dieselbe Richtung gehandelt. Ausstieg 15:00 Uhr. Stop 0,75 ATR.
+      eigene_festlegung: >-
+        Schwelle, Stop, die Fassung über die Mittagspause. Japanische Feiertage sind nicht ausgenommen, der CFD
+        handelt dann weiter. Der spätere Börsenschluss seit 05.11.2024 (15:30 Uhr) bleibt unbeachtet.
+      schluss_min: 900
+      mittag_min: 690
+      ein_min: 750
+      toleranz_min: 15
+      schwelle: 0.005
+      stop_atr: 0.75
+    zins_schwung_usdjpy:
+      art: reihe
+      quelle: >-
+        Eigene Idee. Der Dollar zum Yen folgt dem Zinsabstand, und Japans Zinsen bewegen sich kaum. Geprüft wird, ob
+        der Kurs einer großen Bewegung der 2-jährigen US-Rendite noch einen Tag nachläuft.
+      regel: >-
+        Ist die 2-jährige US-Rendite (DGS2) in 5 Handelstagen um mindestens 0,10 Prozentpunkte gestiegen, wird
+        USD/JPY für den Handelstag gekauft. Ist sie um mindestens 0,10 gefallen, wird verkauft. Stop 1,5 ATR.
+      eigene_festlegung: alle Zahlen.
+      reihe: DGS2
+      tage: 5
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 4
+      stop_atr: 1.5
+    realzins_gold:
+      art: reihe
+      quelle: >-
+        Eigene Idee nach dem bekannten Zusammenhang zwischen Gold und dem Realzins (zum Beispiel Erb, Harvey, The
+        Golden Dilemma, Financial Analysts Journal 69, 2013). Gold wirft keinen Zins ab. Fällt der Realzins, wird
+        Gold im Vergleich attraktiver. Andere Information als alle bisherigen Gold-Regeln im Projekt.
+      regel: >-
+        Ist die 10-jährige reale US-Rendite (DFII10) in 5 Handelstagen um mindestens 0,10 Prozentpunkte gefallen,
+        wird Gold für den Handelstag gekauft. Ist sie um mindestens 0,10 gestiegen, wird verkauft. Stop 1,5 ATR.
+      eigene_festlegung: alle Zahlen.
+      reihe: DFII10
+      tage: 5
+      schwelle: 0.10
+      vorzeichen: -1
+      frisch_tage: 4
+      stop_atr: 1.5
+
+  varianten:                     # genau diese dreizehn. Jede Variante hat ihre eigene Regel gleichen Namens.
+    umschichtung_us: {regel: umschichtung_us, maerkte: [SPXUSD, NSXUSD]}
+    fed_zyklus_us: {regel: fed_zyklus_us, maerkte: [SPXUSD, NSXUSD]}
+    vix_sprung_us: {regel: vix_sprung_us, maerkte: [SPXUSD, NSXUSD]}
+    zahlentag_us: {regel: zahlentag_us, maerkte: [SPXUSD, NSXUSD]}
+    geduld_us_ziel: {regel: geduld_us_ziel, maerkte: [SPXUSD, NSXUSD]}
+    geduld_us_fern: {regel: geduld_us_fern, maerkte: [SPXUSD, NSXUSD]}
+    geduld_us_stufen: {regel: geduld_us_stufen, maerkte: [SPXUSD, NSXUSD]}
+    funding_krypto: {regel: funding_krypto, maerkte: [BTCUSD, ETHUSD]}
+    modell_indizes: {regel: modell_indizes, maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]}
+    modell_devisen: {regel: modell_devisen, maerkte: [EURUSD, GBPUSD, USDJPY, AUDUSD, USDCAD, USDCHF, NZDUSD]}
+    tokio_nachmittag: {regel: tokio_nachmittag, maerkte: [JPXJPY]}
+    zins_schwung_usdjpy: {regel: zins_schwung_usdjpy, maerkte: [USDJPY]}
+    realzins_gold: {regel: realzins_gold, maerkte: [XAUUSD]}
+
+  zwilling:
+    regel: Wie suche/VORAB_rueckblick.yaml. Die ganze Variante wandert als Block um k gültige Handelstage nach vorn, je Markt. Bei Krypto zählen alle sieben Tage.
+    schwankung: Stop-Abstand, Ziel-Abstand, Stufen und Spread des Zwillings sind die des echten Trades mal ATR 14 am Zwilling geteilt durch denselben ATR am echten Einstieg.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte der Variante.
+    sperre_davor_tage: 60
+    spaet_min: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie suche/VORAB_rueckblick.yaml, nur Holm mit fester Gesamtzahl
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    holm_anzahl: 26              # 13 Varianten hier plus höchstens 13 in Durchgang 2. Nicht gerechnete zählen wie p = 1.
+    min_z: 3.0
+    urteile:
+      bestanden: alle Hürden, Holm über 26 und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: >-
+      Kein anderes Fenster und keine andere Schwelle nach dem Ergebnis. Änderungen nach dem Ergebnis gibt es nur als
+      neue Datei in Durchgang 2, sie zählen bei Holm mit und können höchstens Kandidat werden.
+
+  melden:
+    je_variante: >-
+      Trades, Trades je Woche, Gewinnfaktor, Summe in R, Trefferquote, robust, Hälften, 2026, Long und Short, je
+      Markt, ohne die 5 besten Trades, Zufallsvergleich (Rang, p, z), Auskunft vor dem Fenster, dazu der größte
+      Verlust, der mittlere Gewinn, das tiefste Tal und die mittlere und längste Haltedauer.
+    ehrlich: Jede Variante wird gemeldet, auch jede durchgefallene. Durchgefallene kommen ins Archiv suche/VERWORFEN.md.

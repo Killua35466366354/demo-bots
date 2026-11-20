@@ -225,3 +225,53 @@ beim US100-Rücksetzer keinen Beleg (p 0,25 und 0,38). Beim Nasdaq Noise Long be
 zu früh, seit 2025 sinkt der Gewinnfaktor von 4,33 auf 3,33. Einziger Kandidat ist der DAX-Scalper mit Stop mal 0,75 und
 Ziel mal 1,5 (607 Trades, Gewinnfaktor 1,26 auf 1,41, seit 2025 1,70 auf 1,84, p 0,013, Holm verlangt 0,006). Er ist
 durchgefallen und wird kein Zwilling. Nr. 10 (Dow) ist nicht gerechnet, im Projekt liegen keine Dow-Kerzen.
+
+## 11. Stop-Prüfung „Rettung“ (19.11.2026)
+
+Kirons Frage vom 19.11.2026, ob die Stops den Verlust so klein wie möglich halten und ob man im Minus am Einstand oder
+mit kleinstem Minus schnell rausgehen sollte. Versiegelt in `suche/VORAB_rettung_stops.yaml`, Code
+`suche/rettung_stops.py`, Ergebnis `suche/ergebnis_rettung_stops.md`. Sechs Nicht-Gold-Bots (US500- und
+US100-Rücksetzer, Nasdaq Noise-Band, Scalper Nasdaq und DAX, 4-Std.-Ausbruch DAX, FTSE, Nikkei), gleiche Einstiege wie
+der Bot, gepaarter Test über alle Jahre mit Holm über 15 Fassungen, dazu das Hauptfenster 2024 bis 2026.
+
+**Keine der 15 Fassungen besteht, es gibt keinen Kandidaten, kein Bot ändert sich.** Neu war der Ausstieg nach einem
+Rücklauf ins Minus: War der Trade einen halben Stop-Abstand im Minus, liegt eine Limit-Order am Einstand oder bei einem
+Viertel Stop-Abstand im Minus. Die Rettung macht einzelne Verluste kleiner, schneidet aber mehr spätere Gewinner ab, als
+sie Verlierer rettet. Scalper Nasdaq im Hauptfenster von +50,3 R auf −20,6 R (208 Eingriffe, 117 davon wären Gewinner
+geworden), Scalper DAX von +75,5 R auf +39,8 R. Rücksetzer und Noise-Band ohne Beleg (p 0,42 bis 0,78), 4-Std.-Ausbruch
+leicht besser, aber p 0,08 und 0,10. Der halbe Stop ist bei beiden Scalpern und beim 4-Std.-Ausbruch schlechter.
+
+Nicht gerechnet: die drei Vortag-Bots und der Mess-Bot (Stops von 2 bis 7 Pips, auf 5-Minuten-Kerzen nicht fair, gehört
+zur Nachrechnung mit Minutenkerzen), Noise USD/JPY und Scalper Nikkei (kein Stop in der Regel), London GBP/USD
+(Test-Programm im privaten Repo), Dow (keine Kerzen), Gold (rechnet der Gold-Thread).
+
+## 12. Große Runde (19.11.2026)
+
+Kirons große Recherche vom 19.11.2026: Ideen-Suchen in zehn Bereichen. Gerechnet wurde aus den ersten fünf
+(Aktienindizes, Vorhersagen, Scalping, Devisen, Seltene Regeln, zusammen 244 Ideen, jede gesichtet). Die Listen liegen im
+Projektordner `strategie-katalog/recherche-2026-11-19/`. Zwei Durchgänge mit je 13 Regeln, versiegelt in
+`suche/VORAB_grosse_runde.yaml` und `suche/VORAB_grosse_runde2.yaml`, Code `suche/grosse_runde.py`, Ergebnisse
+`suche/ergebnis_grosse_runde.md` und `suche/ergebnis_grosse_runde2.md`. Holm zählt mit 26 über beide Durchgänge.
+Durchgang 2 wurde nach dem Ergebnis von Durchgang 1 zusammengestellt und konnte darum höchstens Kandidaten bringen.
+
+**Keine der 26 Regeln besteht, es geht nichts live, kein Bot ändert sich.** Drei Kandidaten, davon zweimal dieselbe
+Idee: das Vorhersage-Modell auf fünf Indizes in der strengeren Fassung (561 Trades, Gewinnfaktor 1,52, z 2,69, vor 2024
+aber 0,97 und DAX 1,01), dasselbe Modell mit lockerer Schwelle (1.874 Trades, 1,21, z 1,89) und der Tag nach einem
+VIX-Sprung auf US500 und US100 (136 Trades, 1,93, z 2,17). Die fünf Abwandlungen des VIX-Sprungs (zwei Tage halten,
+Schwelle 7,5 %, DAX, FTSE und Nikkei, Yen-Paare, Geduld-Ausstieg) schlagen Zufallstage nicht (z 0,33 bis 1,50). Das
+schwächt diesen Kandidaten.
+
+Durchgefallen und nicht zu wiederholen: Kirons Geduld-Idee mit kleinem Ziel und weitem oder sinkendem Stop in vier
+Fassungen (79 bis 96 % Treffer, aber nicht besser als Zufallstage), Fed-Zyklus in geraden Wochen, Umschichtung zum
+Monatsende, Kauf an Zahlentagen, Zins-Schwung USD/JPY, Vormittag sagt Nachmittag in Tokio, Finanzierungssatz bei Krypto
+als Gegenzeichen, Realzins und Gold, Vorhersage-Modell auf Devisen, Dark-Pool-Käufe (DIX), Hebel-Fonds in der letzten
+halben Stunde, runde Marken bei Devisen, Bitcoin nach dem Fonds-Fenster.
+
+Seltene Regeln mit Termin oder fester Eröffnung (Kirons Wunsch vom 19.11.2026, 20:58 Uhr): Tokio-Eröffnung nach einem
+US-Schreck (Gewinnfaktor 0,72), Verfallstag-Morgen in New York (0,75), Verfalls-Abrechnung in Tokio und Frankfurt
+(0,84). Alle drei sind schlechter als zufällige Tage. Eine Regel mit einem Termin im Monat kommt allein nie auf 100
+Trades, darum liefen sie über mehrere Märkte. Die Hürde wurde nicht gesenkt.
+
+Lehre für den Zufallsvergleich: Bei Regeln, die ein Schreck-Tag auslöst, und beim Fonds-Fenster ist die Verschiebung zu
+freundlich (Probeläufe auf erfundenen Märkten im Kopf von `suche/VORAB_grosse_runde2.yaml`). Ein Kandidat aus dieser
+Runde ist kein Beweis. Der ehrliche nächste Schritt ist Mitzählen ohne Order, und das entscheidet nur Kiron.

@@ -1,0 +1,25 @@
+{
+ "format": 1,
+ "start": "2026-11-20T16:34:24",
+ "summe_r": 0.0,
+ "trades": 0,
+ "maerkte": {
+  "BTCUSD": {
+   "trade": null,
+   "letzte_grenze": "2026-11-20 15:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 15:00:00",
+    "ergebnis": "Start des Bots mitten in der Kerze"
+   }
+  },
+  "ETHUSD": {
+   "trade": null,
+   "letzte_grenze": "2026-11-20 15:00:00",
+   "letzte_pruefung": {
+    "grenze": "2026-11-20 15:00:00",
+    "ergebnis": "Start des Bots mitten in der Kerze"
+   }
+  }
+ },
+ "stand": "2026-11-20T16:34:24"
+}

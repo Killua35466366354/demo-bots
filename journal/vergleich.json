@@ -556,7 +556,7 @@
   "draussen": [
    {
     "id": "pine-tp3",
-    "warum": "Gewinnfaktor 0.60 nach 46 Trades"
+    "warum": "Gewinnfaktor 0.55 nach 47 Trades"
    }
   ],
   "ist": {
@@ -883,8 +883,8 @@
    "id": "krypto-ausbruch4h",
    "name": "4-Std.-Ausbruch Bitcoin, Ether",
    "konto": "Account 5",
-   "seit": null,
-   "start": null,
+   "seit": "2026-11-20",
+   "start": "2026-11-20",
    "ist": {
     "trades": 0,
     "gewonnen": 0,
@@ -934,13 +934,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 46,
+    "trades": 47,
     "gewonnen": 30,
-    "treffer_pct": 65.2,
-    "summe_r": -10.58,
-    "pf_r": 0.6,
-    "eur": -52.03,
-    "rueckgang_r": 12.46
+    "treffer_pct": 63.8,
+    "summe_r": -12.98,
+    "pf_r": 0.55,
+    "eur": -64.02,
+    "rueckgang_r": 12.98
    },
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
@@ -948,7 +948,7 @@
    "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "46 von 100 Demo-Trades, 10 von 61 Tagen"
+    "text": "47 von 100 Demo-Trades, 10 von 61 Tagen"
    }
   }
  ],

@@ -2,10 +2,10 @@
  "bot": "krypto-ausbruch4h",
  "name": "4-Std.-Ausbruch Bitcoin, Ether",
  "konto": "Account 5",
- "stand": null,
- "start": null,
+ "stand": "2026-11-20T16:34:24",
+ "start": "2026-11-20T16:34:24",
  "pausiert": null,
- "status": "startet nach Kirons Merge mit dem nächsten Lauf",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-20 15:00 UTC): Start des Bots mitten in der Kerze",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf Bitcoin und Ether (Fassung ausbruch4h_krypto): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, kein Ziel. Ausstieg nach 4 fertigen 4-Std.-Kerzen (16 Stunden). Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
  "vorab": "suche/VORAB_krypto_ausbruch4h_bot.yaml",
@@ -25,5 +25,25 @@
   "urteil": "läuft (0 von 40 Trades)"
  },
  "letzte_trades": [],
- "blick": {}
+ "blick": {
+  "naechste_4h_kerze_endet_utc": "2026-11-20 19:00:00",
+  "maerkte": {
+   "BTCUSD": {
+    "epic": "BTCUSD",
+    "letzte_pruefung": {
+     "grenze": "2026-11-20 15:00:00",
+     "ergebnis": "Start des Bots mitten in der Kerze"
+    },
+    "kurs": 59193.9
+   },
+   "ETHUSD": {
+    "epic": "ETHUSD",
+    "letzte_pruefung": {
+     "grenze": "2026-11-20 15:00:00",
+     "ergebnis": "Start des Bots mitten in der Kerze"
+    },
+    "kurs": 1638.15
+   }
+  }
+ }
 }

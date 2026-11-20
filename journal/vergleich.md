@@ -5,12 +5,12 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Gold-Bot C/B | verbessern | 2 | +6,12 | 7,06 | +94,00 | 3,5 Trades, +0,74 R | 2 von 100 Demo-Trades, 17 von 61 Tagen |
-| 2 | Noise USD/JPY | labor | 8 | +0,01 | 1,12 | +0,16 | 5,5 Trades, +0,11 R | 8 von 100 Demo-Trades, 15 von 61 Tagen |
-| 3 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,13 R | 0 von 100 Demo-Trades, 16 von 61 Tagen |
-| 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,05 R | 0 von 100 Demo-Trades, 16 von 61 Tagen |
-| 5 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,05 R | 0 von 100 Demo-Trades, 16 von 61 Tagen |
-| 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,2 Trades, +0,13 R | 0 von 100 Demo-Trades, 15 von 61 Tagen |
-| 7 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 0 | +0,00 | – | +0,00 | – | Zwilling: 0 von 40 Trades |
+| 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,13 R | 0 von 100 Demo-Trades, 16 von 61 Tagen |
+| 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,05 R | 0 von 100 Demo-Trades, 16 von 61 Tagen |
+| 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,5 Trades, +0,05 R | 0 von 100 Demo-Trades, 16 von 61 Tagen |
+| 5 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,2 Trades, +0,13 R | 0 von 100 Demo-Trades, 15 von 61 Tagen |
+| 6 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 0 | +0,00 | – | +0,00 | – | Zwilling: 0 von 40 Trades |
+| 7 | Noise USD/JPY | labor | 9 | -0,04 | 0,74 | -0,35 | 5,5 Trades, +0,11 R | 9 von 100 Demo-Trades, 15 von 61 Tagen |
 | 8 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,5 Trades, +0,04 R | 1 von 100 Demo-Trades, 15 von 61 Tagen |
 | 9 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 3,0 Trades, +0,38 R | 1 von 100 Demo-Trades, 16 von 61 Tagen |
 | 10 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 6 | -6,12 | -61 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 62 Trades, +17,33 R, Gewinnfaktor 1,65. Aufstieg: 62 von 100 Demo-Trades, 17 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 63 Trades, +17,28 R, Gewinnfaktor 1,64. Aufstieg: 63 von 100 Demo-Trades, 17 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.58 nach 45 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades

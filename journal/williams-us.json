@@ -2,10 +2,10 @@
  "bot": "williams-us",
  "name": "Williams %R (US500, US100)",
  "konto": "Account 7",
- "stand": "2026-11-20T14:18:10",
+ "stand": "2026-11-20T21:01:56",
  "start": "2026-11-20T14:18:10",
  "pausiert": null,
- "status": "kein Trade offen, wartet auf 16:00 New York",
+ "status": "US500: Kauf offen seit 2026-11-20 ab 6936.6, Stop 6411.7, Ausstieg um 16:00 New York nach der Regel. US100: Kauf offen seit 2026-11-20 ab 25149.8, Stop 22150.3, Ausstieg um 16:00 New York nach der Regel",
  "regel": "Williams %R auf US500 und US100 (Fassung williams_us): Schließt Williams %R(2) der Kassa-Sitzung unter -90, kauft der Bot um 16:00 New York. Ausstieg um 16:00 New York am ersten Tag, an dem der Schluss über dem Hoch des Vortags liegt oder %R über -30 schließt, spätestens nach 10 Sitzungen. Notstop 3 Tages-ATR, kein Ziel. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 77 Trades (etwa 2 im Monat), Gewinnfaktor 2,66, mit 1,5-fachen Kosten 2,65, Hälften 2,39 und 3,28, 2026 1,75, 81 % Treffer, Holm erfüllt, aber unter 100 Trades und z 2,35 statt 3. US500 4,21 (41 Trades), US100 1,82 (36). Vor 2024 327 Trades, Gewinnfaktor 1,51. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 3,90 € im Monat. Bei 47 von 77 Trades kaufte auch der US500-Rücksetzer. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
  "vorab": "suche/VORAB_williams_bot.yaml",
@@ -14,7 +14,36 @@
   "SPXUSD": "US500",
   "NSXUSD": "US100"
  },
- "offen": [],
+ "offen": [
+  {
+   "id": "US500 2026-11-20",
+   "markt": "SPXUSD",
+   "epic": "US500",
+   "fassung": "williams_us",
+   "richtung": 1,
+   "tag": "2026-11-20",
+   "entry": 6936.6,
+   "stop": 6411.7,
+   "size": 0.01,
+   "dist": 523.971429,
+   "wr": -91.375117,
+   "opened_utc": "2026-11-20T21:01:56"
+  },
+  {
+   "id": "US100 2026-11-20",
+   "markt": "NSXUSD",
+   "epic": "US100",
+   "fassung": "williams_us",
+   "richtung": 1,
+   "tag": "2026-11-20",
+   "entry": 25149.8,
+   "stop": 22150.3,
+   "size": 0.001,
+   "dist": 2994.921429,
+   "wr": -94.08103,
+   "opened_utc": "2026-11-20T21:01:56"
+  }
+ ],
  "ausgelassen": {
   "SPXUSD": {},
   "NSXUSD": {}
@@ -34,13 +63,63 @@
   "maerkte": {
    "SPXUSD": {
     "epic": "US500",
-    "letzte_pruefung": null,
-    "kurs": 7135.7
+    "letzte_pruefung": {
+     "tag": "2026-11-20",
+     "ergebnis": "Kauf eröffnet",
+     "wr": -91.375117,
+     "schluss": 6928.4,
+     "hoch_vortag": 7416.8,
+     "dist": 523.971429,
+     "atr": 174.657143,
+     "sitzungen": null
+    },
+    "signal": {
+     "markt": "SPXUSD",
+     "tag": "2026-11-20",
+     "zeit_utc": "2026-11-20 21:01:56.275627",
+     "kauf": true,
+     "raus": false,
+     "grund": null,
+     "dist": 523.971429,
+     "wr": -91.375117,
+     "warten": false,
+     "ergebnis": "%R -91.4, Kauf (unter -90)",
+     "tage": 43,
+     "schluss": 6928.4,
+     "hoch_vortag": 7416.8,
+     "atr": 174.657143
+    },
+    "kurs": 6935.7
    },
    "NSXUSD": {
     "epic": "US100",
-    "letzte_pruefung": null,
-    "kurs": 26159.9
+    "letzte_pruefung": {
+     "tag": "2026-11-20",
+     "ergebnis": "Kauf eröffnet",
+     "wr": -94.08103,
+     "schluss": 25075.3,
+     "hoch_vortag": 27750.4,
+     "dist": 2994.921429,
+     "atr": 998.307143,
+     "sitzungen": null
+    },
+    "signal": {
+     "markt": "NSXUSD",
+     "tag": "2026-11-20",
+     "zeit_utc": "2026-11-20 21:01:56.275627",
+     "kauf": true,
+     "raus": false,
+     "grund": null,
+     "dist": 2994.921429,
+     "wr": -94.08103,
+     "warten": false,
+     "ergebnis": "%R -94.1, Kauf (unter -90)",
+     "tage": 43,
+     "schluss": 25075.3,
+     "hoch_vortag": 27750.4,
+     "atr": 998.307143
+    },
+    "kurs": 25145.2
    }
   }
  }

@@ -30,3 +30,6 @@
 {"time": "2026-11-18T03:03:38", "event": "Order gelegt", "zone": "U2026111700", "seite": "Verkauf", "linie": 3832.2, "stop": 3859.82, "ziel": 3556.0, "size": 0.19, "risiko_usd": 27.62, "dealId": "00000000-745c-e472-049c-701a0015549e", "gilt_bis": "2026-11-20T21:45:00"}
 {"time": "2026-11-18T22:03:42", "event": "keine neue Order", "gruende": ["Markt gerade nicht handelbar"]}
 {"time": "2026-11-19T22:03:43", "event": "keine neue Order", "gruende": ["Markt gerade nicht handelbar"]}
+{"time": "2026-11-20T21:53:47", "event": "Order nicht mehr beim Broker (abgelaufen oder gelöscht)", "zone": "U2026111700", "seite": "Verkauf"}
+{"time": "2026-11-20T21:53:47", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)"]}
+{"time": "2026-11-20T22:09:19", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)", "Plan nicht aus dieser Stunde", "Markt gerade nicht handelbar"]}

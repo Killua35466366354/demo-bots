@@ -1,0 +1,202 @@
+# Scalping mit Marktvorhersage vom 20.11.2026: sechs Varianten und zwei Kontrollen.
+# Festgelegt, BEVOR mit Kursen ab 2024 gerechnet wurde (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/vorhersage_scalp.py (Kosten und ein Trade wie suche/rueckblick.py, Vorhersagen aus suche/grosse_runde.py).
+#
+# Kirons Wunsch vom 20.11.2026 16:26 UTC (Wortlaut): "versuche vieleicht anhand von markt predictions auf bestimmte
+# ausgewählte märkte zu scalpen so das wenn du weist das es generell hoch geht oder runter winfach immer trades nimmst
+# mit hohem einstieg und mehrere und dann nach kurzen wenigen profit rausgehst,… entrys sollen immer beim oppisite
+# high/low vom predictet sein und dann nach 3-4% oda mehr raus aber mit hohem hebel und viel geld um um dort mit wenig
+# geld hohe profite zu erzieheln,… optimire/ passe es mit passenden indikatoren an,…"
+#
+# Lesart (Claude):
+# - Eine Vorhersage gibt für jeden Handelstag eine Richtung. Sagt sie "steigt", wird nur gekauft, und zwar mehrmals am
+#   Tag, wenn der Kurs gegen die Vorhersage nach unten läuft (das "opposite low"). Sagt sie "fällt", wird nur verkauft,
+#   wenn der Kurs nach oben läuft. Jeder Trade geht nach einem kleinen Gewinn raus.
+# - "3-4 % oder mehr" heißt hier 3 bis 4 % auf das gebundene Geld (die Margin). Bei Hebel 20 auf Indizes sind das nur
+#   etwa 0,15 bis 0,2 % Kursbewegung. Darum ist das kleine Ziel 0,2 Tages-ATR (ATR = mittlere Tagesspanne der letzten
+#   14 Tage, bei US500 im Median 1,1 % des Kurses 2021, 2,2 % 2022 und 1,2 % 2023) und das große Ziel 0,5 ATR. 0,2 ATR
+#   sind damit etwa 0,2 bis 0,4 % Kursbewegung, bei Hebel 20 etwa 4 bis 9 % auf die Margin. 3 bis 4 % Kursbewegung an
+#   einem Tag gibt es bei Indizes fast nie.
+# - "Hoher Hebel und viel Geld" wird nicht als Regel gerechnet. Jeder Trade riskiert fest 1 R (10 € auf 1.000 €). Was
+#   größere Positionen mit Gewinn, Verlust und Margin gemacht hätten, rechnet der Teil "hebel" als Auskunft. Er lässt
+#   nichts bestehen oder durchfallen. Für Privatkunden in der EU erlaubt Capital.com auf diese Indizes höchstens Hebel 20.
+#
+# Ehrlich vorab:
+# - Aus dem Archiv (suche/VERWORFEN.md, Lehren): kurze Trades verlieren meist an den Kosten, eine hohe Trefferquote mit
+#   kleinem Ziel und weitem Stop ist von selbst da und kein Beweis, und das Welt-Lagebild und die Gold-Vorhersage als
+#   Tagesrichtung sind schon durchgefallen. Darum nur Indizes (dort ist der Spread klein gegen die Tagesspanne) und nur
+#   Vorhersagen, die im Projekt am besten waren: das Vorhersage-Modell der großen Runde (Kandidat, läuft als Bot
+#   modell-indizes) und der Tag nach einem VIX-Sprung (Kandidat, läuft als Bot vix-sprung). Dazu der einfache Tagestrend
+#   als Vorhersage ohne Modell. Nicht wiederholt werden die Scalper auf 1-Minuten-Kerzen und das Nacht-Scalping.
+# - Die eigentliche Frage ist, ob die Vorhersage hilft. Darum ist der Zufallsvergleich hier nicht das Verschieben der
+#   Trades, sondern das Verschieben der Vorhersage: Die Richtung jedes Tages wandert als Block um k Handelstage, die
+#   Einstiege und Ausstiege rechnet das Programm dann neu. Eine Variante besteht nur, wenn die echte Vorhersage fast alle
+#   verschobenen schlägt. Ein Plus, das nur vom steigenden Markt kommt, besteht so nicht.
+# - Mehrere Trades am selben Tag hängen zusammen (gemeinsamer Stop bei der Leiter). Darum zählt der Zufallsvergleich
+#   ganze Tage, und die Trades je Woche sind mit Vorsicht zu lesen.
+# - Die Kontrollen (jeden Tag kaufen, ohne Vorhersage) zeigen, was die Einstiege ohne Vorhersage bringen. Sie zählen
+#   nicht für Holm und können nicht bestehen.
+# - Das Programm wurde vor dem Siegel nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.vorhersage_scalp entwicklung / probelauf). Die Ergebnisse dieser Prüfung:
+# - Entwicklung (März 2021 bis Dezember 2023, nur zur Prüfung des Programms, ohne DAX): modell_leiter_klein 3.356
+#   Trades Gewinnfaktor 0,88 bei 71 % Treffern, modell_leiter_gross 2.395 Trades 0,97, modell_band_klein 2.650 Trades
+#   0,97, modell_band_gross 1.797 Trades 0,98, trend_leiter_klein 4.603 Trades 0,84, vix_leiter_klein 599 Trades 1,08,
+#   Kontrollen immer_leiter_klein 5.141 Trades 0,88 und immer_band_klein 4.137 Trades 0,96. Keine war über allen Hürden,
+#   keine schlug 95 % der verschobenen Vorhersagen (höchstens 82,1 %).
+# - Probelauf vor dem Siegel: 8 Saaten auf erfundenen Märkten ohne Vorteil, 48 Rechnungen. Keine bestand, keine wurde
+#   Kandidat, keine schlug 95 % der Verschiebungen (höchstens 88,2 %, erwartet wären etwa 2 von 48). Gewinnfaktor 0,59
+#   bis 1,15. Eine Stufe wurde von Hand an einem Tag nachgerechnet (US500, 05.12.2023, 6 Einstiege, Füllungen, Ziele
+#   und das Wiederauflegen der Stufen stimmen).
+
+format: 1
+vorhersage_scalp:
+  fenster:
+    von: "2024-01-01"            # Hauptfenster nach suche/VORAB_bewertung_2024_26.yaml
+    bis: "2026-10-30"            # Ende der HistData-Kurse
+    mitte: "2025-06-01"          # Hälfte 1 bis 31.05.2025, Hälfte 2 ab 01.06.2025
+    aeltere_jahre: Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.
+    eine_stufe: Es gibt keine Auswahl-Stufe. Alle Varianten stehen hier fest und werden einmal gerechnet.
+
+  maerkte: [SPXUSD, NSXUSD, GRXEUR, UKXGBP, JPXJPY]   # US500, US100, DAX, FTSE 100, Nikkei 225 wie modell_indizes
+
+  daten:
+    quelle: HistData 5-Minuten-Kerzen (Bid), echtes UTC, gebaut mit python -m suche.rueckblick_daten <Arbeit> <Märkte>.
+    handelstag: beginnt 17:00 New York und heißt wie der Kalendertag, an dem er endet. Montag bis Freitag.
+    min_kerzen_je_tag: 60
+    ab:
+      GRXEUR: "2023-12-04"       # DAX-Datei davor fehlerhaft (Befund vom 04.11.2026)
+    pause_min: 60                # kein Einstieg in der Stunde 17 bis 18 Uhr New York (Tageswechsel)
+    tageskerze: Hoch und Tief ohne die Stunde 17 bis 18 Uhr New York, Schluss ist die letzte Kerze des Handelstags.
+
+  trend:
+    regel: Wie suche/VORAB_rueckblick.yaml. Steigt, wenn am Vortag der Schluss über dem EMA 50 lag und der EMA 50 über dem von vor 5 Tagen, fällt spiegelbildlich, sonst keine Richtung.
+    vorlauf_tage: 100
+
+  tageshandel:                   # Zeiten wie in der großen Runde, damit die Vorhersage für dasselbe Stück Tag gilt
+    toleranz_min: 540            # Bezugskerze ist die erste 5-Minuten-Kerze ab 18:00 New York, spätestens bis 3:00 New York
+    aus_min: 955                 # alles schließt mit der ersten Kerze ab 15:55 New York, vor der Übernachtgebühr um 17:00
+    einstieg_bis_min: 900        # neue Einstiege nur in Kerzen, die vor 15:00 New York beginnen
+
+  kosten:
+    spread: Median des echten Capital.com-Spreads je Viertelstunde der New Yorker Uhr (aus suche/rueckblick_daten.py).
+    rutschen_spread: 0.5         # Schutz-Stops füllen einen halben Spread schlechter
+    robust_faktor: 1.5           # zweite Rechnung mit 1,5-fachem Spread und 1,5-fachem Rutschen
+    nacht_pro_jahr:              # nur der Vollständigkeit halber, kein Trade dieser Runde hält über 17:00 New York
+      index: {long: 0.065, short: 0.02}
+    limit: >-
+      Eine Kauf-Limit-Order an der Marke L füllt, sobald der Ask (Bid plus Spread) die Marke erreicht, zum Kurs L oder
+      zur besseren Eröffnung. Verkauf spiegelbildlich am Bid. In der Kerze der Füllung zählt ein Stop, aber kein Ziel.
+    kerze: Berührt eine Kerze Stop und Ziel, zählt der Stop. Springt die Eröffnung über den Stop, zählt die Eröffnung.
+    ergebnis: R = Ergebnis in Kurspunkten geteilt durch den geplanten Stop-Abstand (Marke minus Stop bei der Leiter, Stop-Abstand beim Band).
+
+  vorhersagen:
+    modell:
+      art: modell
+      quelle: >-
+        Das Vorhersage-Modell modell_indizes der großen Runde (suche/VORAB_grosse_runde.yaml), Zahlen unverändert
+        übernommen. Logistische Regression, lernt zu jedem Jahresbeginn nur mit den Jahren davor, über alle fünf
+        Märkte zusammen mit eigenem Grundwert je Markt.
+      regel: Ab 54 % Wahrscheinlichkeit für "steigt" ist die Richtung Kauf, bis 46 % Verkauf, dazwischen kein Handel.
+      rueckblick_tage: [1, 2, 5, 20]
+      rsi: [2, 14]
+      schnitt_tage: [50, 200]
+      strafe: 10.0
+      abstand: 0.04
+      min_lernzeilen: 1500
+      min_lernjahre: 3
+    trend:
+      art: trend
+      regel: Der Tagestrend (siehe trend) gibt die Richtung. Ohne Trend kein Handel.
+    vix:
+      art: reihe
+      quelle: Die Regel vix_sprung_us der großen Runde (suche/VORAB_grosse_runde.yaml), Zahlen unverändert.
+      regel: Schließt der VIX mindestens 10 % über seinem Schluss vom Vortag, ist die Richtung am folgenden Handelstag Kauf. Sonst kein Handel.
+      reihe: VIXCLS
+      tage: 1
+      relativ: true
+      nur_anstieg: true
+      schwelle: 0.10
+      vorzeichen: 1
+      frisch_tage: 3
+    immer_kauf:
+      art: immer_kauf
+      regel: Jeden Handelstag Kauf. Nur für die Kontrollen.
+
+  einstiege:
+    leiter:
+      art: leiter
+      regel: >-
+        Bezug ist die Eröffnung der ersten Kerze ab 18:00 New York. Ist die Richtung Kauf, liegen drei Kauf-Limit-Orders
+        0,25, 0,5 und 0,75 ATR unter dem Bezug, der gemeinsame Stop 1,25 ATR unter dem Bezug. Jede gefüllte Stufe hat ihr
+        eigenes Ziel (Bid beim Einstieg plus Ziel-Abstand). Erreicht eine Stufe ihr Ziel, liegt ihre Order ab der nächsten
+        Kerze wieder bereit. Höchstens 6 Einstiege je Markt und Tag. Nach dem Stop ist der Tag für diesen Markt vorbei.
+        Was um 15:55 New York noch offen ist, schließt zur Eröffnung dieser Kerze. Verkauf spiegelbildlich darüber.
+      abstand_atr: 0.25
+      stufen: 3
+      stop_atr: 1.25
+      max_einstiege: 6
+    band:
+      art: band
+      quelle: >-
+        Bollinger-Band (John Bollinger, Bollinger on Bollinger Bands, 2001) als Zeitpunkt, an dem der Kurs am Tag
+        weit gegen die Vorhersage gelaufen ist. Kirons Wunsch "passende Indikatoren".
+      regel: >-
+        Bollinger-Band über 20 Schlusskurse der 5-Minuten-Kerzen mit 2 Standardabweichungen. Ist die Richtung Kauf und
+        schließt eine Kerze unter dem unteren Band und unter dem Bezug (Eröffnung ab 18:00 New York), wird zur Eröffnung
+        der nächsten Kerze gekauft. Stop 0,75 ATR, Ziel siehe Variante. Ein Trade zur Zeit, höchstens 6 je Markt und Tag,
+        nach einem Stop ist der Tag für diesen Markt vorbei. Ausstieg spätestens 15:55 New York. Verkauf spiegelbildlich.
+      fenster: 20
+      breite: 2.0
+      stop_atr: 0.75
+      max_einstiege: 6
+
+  varianten:                     # genau diese sechs. Holm zählt über sechs.
+    modell_leiter_klein: {vorhersage: modell, einstieg: leiter, ziel_atr: 0.2}
+    modell_leiter_gross: {vorhersage: modell, einstieg: leiter, ziel_atr: 0.5}
+    modell_band_klein: {vorhersage: modell, einstieg: band, ziel_atr: 0.2}
+    modell_band_gross: {vorhersage: modell, einstieg: band, ziel_atr: 0.5}
+    trend_leiter_klein: {vorhersage: trend, einstieg: leiter, ziel_atr: 0.2}
+    vix_leiter_klein: {vorhersage: vix, einstieg: leiter, ziel_atr: 0.2}
+
+  kontrollen:                    # nur Auskunft, ohne Urteil, nicht in Holm
+    immer_leiter_klein: {vorhersage: immer_kauf, einstieg: leiter, ziel_atr: 0.2}
+    immer_band_klein: {vorhersage: immer_kauf, einstieg: band, ziel_atr: 0.2}
+
+  zwilling:
+    regel: >-
+      Verschoben wird die Vorhersage, nicht die Trades. Je Markt wandert die Richtung aller Handelstage des Fensters als
+      Block um k gültige Handelstage nach vorn (was hinten herausfällt, kommt vorn wieder herein). Einstiege und
+      Ausstiege werden mit der verschobenen Richtung auf den echten Kursen neu gerechnet. Dasselbe k gilt für alle Märkte
+      einer Variante, gezählt wird die Summe in R über alle Märkte.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte.
+    sperre_davor_tage: 60
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie suche/VORAB_rueckblick.yaml und suche/VORAB_bewertung_2024_26.yaml
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    holm_anzahl: 6
+    min_z: 3.0
+    urteile:
+      bestanden: alle Hürden, Holm über 6 und z ab 3
+      kandidat: alle Hürden und mindestens 95 % der Läufe geschlagen, aber Holm oder z fehlt. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: >-
+      Keine andere Schwelle, kein anderes Ziel, kein anderer Markt und keine andere Vorhersage nach dem Ergebnis. Eine
+      Änderung bekommt eine neue Datei und zählt höchstens als Kandidat.
+    live: Auch wenn eine Variante besteht, geht sie nur nach Kirons Wahl auf einer Karte und über einen PR als Demo-Bot live.
+
+  hebel:                         # nur Auskunft, ändert kein Urteil
+    regel: >-
+      Je Variante und Kontrolle ein Konto mit 1.000 € Start. Jeder Trade riskiert einen festen Anteil des Kontos beim
+      Einstieg (Gewinne bleiben im Konto). Gerechnet wird mit den echten Trades des Hauptfensters in ihrer Reihenfolge.
+      Gezeigt werden Endstand, Rendite pro Monat, tiefster Rückgang, schlechtester Tag und ob die Margin aller offenen
+      Trades bei Hebel 20 je über dem Kontostand gelegen hätte.
+    anteile_pct: [1, 2, 5, 10, 20]
+    hebel_index: 20
+    start_eur: 1000

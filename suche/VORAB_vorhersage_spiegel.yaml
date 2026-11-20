@@ -1,0 +1,140 @@
+# Spiegel der Runde "Scalping mit Marktvorhersage" vom 20.11.2026: acht gespiegelte Fassungen.
+# Festgelegt, BEVOR die Spiegel mit Kursen ab 2024 gerechnet wurden (Prüfsumme im Protokoll journal/strategie-suche-protokoll.md).
+# Code: suche/vorhersage_spiegel.py. Alles, was hier nicht steht, gilt unverändert aus der versiegelten Vorlage
+# suche/VORAB_vorhersage_scalp.yaml (Fenster, Märkte, Daten, Trend, Zeiten, Kosten, Vorhersagen, Stufen, Band).
+#
+# Kirons Wunsch vom 20.11.2026 19:08 UTC (Wortlaut): "Nehme die profitablen Trades und die Trades, die komplett falsch
+# gegangen sind, versuch die nicht zu reversen, sondern versuch sie halt so umzudrehen, beziehungsweise logisch
+# umzudrehen, also einfach aus den Longs oder Shorts, Shorts oder Longs zu machen und dann einfach aus den normalen aus
+# dem Take Profit einen Stop Loss machen und aus dem Stop Loss einen Take Profit und so halt...."
+#
+# Lesart (Claude):
+# - Gespiegelt werden ganze Regeln, nicht einzelne Trades. Ob ein Trade gewinnt, weiß man erst hinterher. Darum werden
+#   alle acht Fassungen der Runde gespiegelt: die vier mit Plus (modell_leiter_gross, modell_band_gross,
+#   vix_leiter_klein, modell_band_klein) und die vier mit Minus (trend_leiter_klein, modell_leiter_klein und die beiden
+#   Kontrollen ohne Vorhersage, die am stärksten verloren haben).
+# - Spiegeln heißt: gleicher Tag, gleiche Marken, gleiche Zeiten, aber die Gegenrichtung. Der alte Stop wird das Ziel,
+#   das alte Ziel wird der Stop. Aus einer Kauf-Limit-Order unter dem Kurs wird eine Verkaufs-Stop-Order an derselben
+#   Marke (sie verkauft, wenn der Kurs dorthin fällt).
+# - Auch die Tagesregeln werden gespiegelt, damit es dieselben Tage und Marken bleiben: Nach dem alten Stop (jetzt
+#   Ziel) ist der Tag vorbei, nach dem alten Ziel (jetzt Stop) liegt die Stufe ab der nächsten Kerze wieder bereit.
+#   Höchstens 6 Einstiege je Markt und Tag wie in der Vorlage.
+#
+# Ehrlich vorab:
+# - Vor den Kosten ist ein Spiegel fast genau das Gegenteil seiner Vorlage, die Kosten zahlt er aber ein zweites Mal.
+#   Aus der Vorlage ist bekannt (suche/ergebnis_vorhersage_scalp.md): Die Fassungen mit Plus hatten vor den Kosten ein
+#   Plus, ihr Spiegel hat vor den Kosten etwa dasselbe als Minus. Bei den Fassungen mit Minus kam ein Teil des Minus von
+#   den Kosten. Der Spiegel bekommt höchstens den Rest.
+# - Der Stop ist jetzt klein (0,2 oder 0,5 ATR statt 0,5 bis 1,25 ATR). Mit fest 1 R je Trade ist ein Trade darum 2- bis
+#   6-mal so groß wie in der Vorlage, und Spread und Rutschen wiegen in R entsprechend schwerer.
+# - Archiv (suche/VERWORFEN.md, Lehre "Umdrehen"): Turtle Soup gespiegelt (Richtung und Stop mit Ziel getauscht) fiel
+#   von 0,25 auf 0,19, Bollinger auf Stunden umgedreht blieb bei 0,86. Umdrehen hilft nur, wenn der Verlust vor den
+#   Kosten entsteht.
+# - Die Spiegel stehen erst nach dem Ergebnis der Vorlage fest. Darum zählt ein Spiegel höchstens als Kandidat (Regel
+#   keine_nachbesserung der Vorlage), auch wenn er alle Hürden schafft.
+# - Zufallsvergleich: Bei den sechs Spiegeln mit Vorhersage wird wie in der Vorlage die Vorhersage verschoben. Die zwei
+#   Spiegel der Kontrollen haben keine Vorhersage (jeden Tag Verkauf), Verschieben ändert dort nichts. Bei ihnen wird
+#   darum je Lauf jeden Tag die Richtung ausgelost (Münzwurf). Sie bestehen den Vergleich nur, wenn "jeden Tag
+#   verkaufen" fast alle Münzwürfe schlägt.
+# - Das Programm wurde vor dem Siegel nur mit Kursen bis Ende 2023 und auf erfundenen Märkten ohne Vorteil geprüft
+#   (python -m suche.vorhersage_spiegel entwicklung / probelauf). Die Ergebnisse dieser Prüfung:
+# - Entwicklung (März 2021 bis Dezember 2023, nur zur Prüfung des Programms, ohne DAX): spiegel_modell_leiter_gross
+#   2.472 Trades Gewinnfaktor 0,84, spiegel_modell_band_gross 1.816 Trades 0,86, spiegel_vix_leiter_klein 647 Trades
+#   0,67, spiegel_modell_band_klein 2.762 Trades 0,78, spiegel_modell_leiter_klein 3.580 Trades 0,81,
+#   spiegel_trend_leiter_klein 4.877 Trades 0,85, spiegel_immer_leiter_klein 5.519 Trades 0,81,
+#   spiegel_immer_band_klein 4.321 Trades 0,78. Keiner über 1, keiner schlug 95 % der Läufe (höchstens 54,7 %).
+# - Gegenprobe ohne Kosten (US500 bis Ende 2023, Spread und Rutschen auf 0, Leiter mit Ziel 0,2 und 0,5 ATR und Band,
+#   beide Richtungen): 98 % der Spiegel-Trades sind genau das Gegenteil eines Trades der Vorlage (gleiche
+#   Einstiegskerze, gleiche Ausstiegskerze, Ergebnis mit umgekehrtem Vorzeichen). Der Rest weicht ab, weil in einer
+#   Kerze, die beide Marken berührt, bei beiden der Stop zählt.
+# - Probelauf vor dem Siegel: 8 Saaten auf erfundenen Märkten ohne Vorteil, 64 Rechnungen. Keine bestand, keine wurde
+#   Kandidat, eine schlug 95 % der Läufe (erwartet wären etwa 3 von 64). Gewinnfaktor 0,48 bis 1,05.
+
+format: 1
+vorhersage_spiegel:
+  vorlage:
+    datei: suche/VORAB_vorhersage_scalp.yaml
+    sha256: e0984eb619263e20e377d07da0b84099c86200a16d4ff9bcbf29056de8b4a166
+    regel: >-
+      Fenster, Märkte, Daten, Trend, Tageshandel, Kosten, Vorhersagen und Einstiege kommen unverändert aus der Vorlage.
+      Das Programm rechnet nur, wenn die Prüfsumme der Vorlage hier und im Protokoll stimmt.
+
+  spiegel:
+    richtung: Gegenrichtung der Vorlage. Sagt die Vorhersage "steigt", verkauft der Spiegel, sagt sie "fällt", kauft er.
+    leiter: >-
+      Dieselben drei Marken 0,25, 0,5 und 0,75 ATR gegen die Vorhersage vom Bezug (Eröffnung der ersten Kerze ab 18:00
+      New York). An jeder Marke liegt eine Stop-Order in der Gegenrichtung der Vorlage: Verkauf, sobald der Bid auf die
+      Marke fällt (Vorhersage "steigt"), Kauf, sobald der Bid auf die Marke steigt (Vorhersage "fällt"). Füllung an der
+      Marke oder zur schlechteren Eröffnung, dazu ein halber Spread Rutschen, beim Kauf zum Ask. Jede Stufe hat ihren
+      eigenen Stop im Abstand des alten Ziels (stop_atr der Variante, gemessen von der Marke, bei einer Lücke von der
+      Eröffnung). Das gemeinsame Ziel ist eine Limit-Order am alten Stop (1,25 ATR vom Bezug). Nach einem Stop liegt
+      die Stufe ab der nächsten Kerze wieder bereit, höchstens 6 Einstiege je Markt und Tag. Neue Einstiege nur in
+      Kerzen vor 15:00 New York. Erreicht der Kurs das Ziel, schließen alle offenen Stufen und der Tag ist für diesen
+      Markt vorbei. Was um 15:55 New York noch offen ist, schließt zur Eröffnung dieser Kerze.
+    band: >-
+      Dasselbe Signal wie die Vorlage (Schluss einer 5-Minuten-Kerze außerhalb des Bollinger-Bands gegen die Vorhersage
+      und jenseits des Bezugs). Zur Eröffnung der nächsten Kerze in der Gegenrichtung der Vorlage. Stop im Abstand des
+      alten Ziels (stop_atr der Variante), Ziel im Abstand des alten Stops (0,75 ATR), beide vom Bid beim Einstieg wie in
+      suche/rueckblick.py. Ein Trade zur Zeit, höchstens 6 je Markt und Tag. Nach dem Ziel ist der Tag für diesen Markt
+      vorbei, nach einem Stop geht es weiter. Ausstieg spätestens 15:55 New York.
+    kerze: >-
+      Vorsichtig: In jeder Kerze erst die Füllungen, dann die Stops, erst danach das Ziel. Berührt eine Kerze Stop und
+      Ziel, zählt der Stop. In der Kerze der Füllung zählt für den Stop nur der Teil nach der Füllung, wie bei der
+      Stop-Order in suche/rueckblick.py (Eröffnung näher am Hoch heißt Eröffnung, Hoch, Tief, Schluss, sonst Eröffnung,
+      Tief, Hoch, Schluss). Springt die Eröffnung über den Stop einer älteren Stufe, füllt er zur Eröffnung.
+    ergebnis: R = Ergebnis in Kurspunkten geteilt durch den geplanten Stop-Abstand des Spiegels (stop_atr mal ATR).
+
+  varianten:                     # genau diese acht. Holm zählt über acht. stop_atr ist das alte Ziel der Vorlage.
+    spiegel_modell_leiter_gross: {vorlage: modell_leiter_gross, vorhersage: modell, einstieg: leiter, stop_atr: 0.5}
+    spiegel_modell_band_gross: {vorlage: modell_band_gross, vorhersage: modell, einstieg: band, stop_atr: 0.5}
+    spiegel_vix_leiter_klein: {vorlage: vix_leiter_klein, vorhersage: vix, einstieg: leiter, stop_atr: 0.2}
+    spiegel_modell_band_klein: {vorlage: modell_band_klein, vorhersage: modell, einstieg: band, stop_atr: 0.2}
+    spiegel_modell_leiter_klein: {vorlage: modell_leiter_klein, vorhersage: modell, einstieg: leiter, stop_atr: 0.2}
+    spiegel_trend_leiter_klein: {vorlage: trend_leiter_klein, vorhersage: trend, einstieg: leiter, stop_atr: 0.2}
+    spiegel_immer_leiter_klein: {vorlage: immer_leiter_klein, vorhersage: immer_kauf, einstieg: leiter, stop_atr: 0.2}
+    spiegel_immer_band_klein: {vorlage: immer_band_klein, vorhersage: immer_kauf, einstieg: band, stop_atr: 0.2}
+
+  zwilling:
+    mit_vorhersage: >-
+      Wie die Vorlage. Je Markt wandert die Richtung aller Handelstage des Fensters als Block um k gültige Handelstage
+      nach vorn, die Spiegel-Trades werden mit der verschobenen Richtung auf den echten Kursen neu gerechnet. Dasselbe k
+      für alle Märkte, gezählt wird die Summe in R über alle Märkte.
+    ohne_vorhersage: >-
+      Für spiegel_immer_leiter_klein und spiegel_immer_band_klein. Je Lauf und Markt bekommt jeder Handelstag des
+      Fensters eine ausgeloste Richtung (Kauf oder Verkauf, je zur Hälfte), dazu die Spiegel-Trades dieser Richtung.
+      Gleich viele Läufe wie bei den Spiegeln mit Vorhersage.
+    verschiebungen: 1 bis N minus 61, N ist die kleinste Zahl gültiger Handelstage im Fenster über die Märkte.
+    sperre_davor_tage: 60
+    saat: 20261120
+    kennzahlen: p = (1 + Läufe mit mindestens der echten Summe) / (Läufe + 1). z = (echte Summe minus Mittel) / Standardabweichung.
+
+  huerden:                       # wie die Vorlage, Holm über acht, höchstens Kandidat
+    min_trades: 100
+    min_gewinnfaktor: 1.2
+    min_robust: 1.0
+    haelften: beide Hälften des Hauptfensters je Gewinnfaktor über 1,0
+    jahr_2026_ab_trades: 20
+    min_rang_pct: 95
+    holm_alpha: 0.05
+    holm_anzahl: 8
+    min_z: 3.0
+    hoechstens_kandidat: true
+    urteile:
+      kandidat: >-
+        alle Hürden und mindestens 95 % der Läufe geschlagen. Mehr geht nicht, weil die Spiegel erst nach dem Ergebnis
+        der Vorlage feststanden. Zählt als nicht bestanden und ist kein Beleg.
+      durchgefallen: alles andere
+    keine_nachbesserung: >-
+      Kein anderes Ziel, kein anderer Stop, keine andere Marke, kein anderer Markt und keine andere Vorhersage nach dem
+      Ergebnis. Eine Änderung bekommt eine neue Datei und zählt höchstens als Kandidat.
+    live: Auch ein Kandidat geht nur nach Kirons Wahl auf einer Karte und über einen PR als Demo-Bot live.
+
+  hebel:                         # nur Auskunft, ändert kein Urteil, wie die Vorlage
+    regel: >-
+      Je Spiegel ein Konto mit 1.000 € Start. Jeder Trade riskiert einen festen Anteil des Kontos beim Einstieg
+      (Gewinne bleiben im Konto). Gerechnet wird mit den echten Trades des Hauptfensters in ihrer Reihenfolge. Gezeigt
+      werden Endstand, Rendite pro Monat, tiefster Rückgang, schlechtester Tag und ob die Margin aller offenen Trades bei
+      Hebel 20 je über dem Kontostand gelegen hätte.
+    anteile_pct: [1, 2, 5, 10, 20]
+    hebel_index: 20
+    start_eur: 1000

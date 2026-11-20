@@ -25,9 +25,9 @@
     "lot": 1.0,
     "eur_rate": 1.097935
    },
-   "letzte_grenze": "2026-11-20 19:00:00",
+   "letzte_grenze": "2026-11-20 22:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 19:00:00",
+    "grenze": "2026-11-20 22:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   },
@@ -52,12 +52,12 @@
     "lot": 1.0,
     "eur_rate": 1.097935
    },
-   "letzte_grenze": "2026-11-20 19:00:00",
+   "letzte_grenze": "2026-11-20 22:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 19:00:00",
+    "grenze": "2026-11-20 22:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   }
  },
- "stand": "2026-11-20T19:02:30"
+ "stand": "2026-11-20T22:02:05"
 }

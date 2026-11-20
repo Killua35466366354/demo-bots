@@ -1,38 +1,21 @@
 {
  "format": 1,
  "start": "2026-11-20T18:03:32",
- "kopien": {
+ "kopien": {},
+ "gesehen": {
   "00000000-74ff-e7f4-049c-70750015549e": {
-   "quelle": "welt-ausbruch4h",
-   "quelle_deal": "00000000-74ff-e7f4-049c-70750015549e",
-   "epic": "J225",
-   "richtung": -1,
-   "size": 0.3,
-   "stop": 59448.8,
-   "ziel": 51296.8,
-   "margin_eur": 4.77,
-   "risiko_eur": 7.0,
-   "dealId": "00000000-752c-4d35-049c-a8a80015549e",
-   "entry": 55385.3,
-   "stop_start": 59448.8,
-   "stop_quelle": 59448.8,
-   "ziel_quelle": 51296.8,
-   "quelle_konto": "332264120333456542",
-   "lot": 1.0,
-   "eur_rate": 174.233,
-   "opened_utc": "2026-11-20T19:03:01",
-   "quelle_opened_utc": "2026-11-20T19:02:28",
-   "weg_seit": "2026-11-20T19:17:01"
+   "bot": "welt-ausbruch4h",
+   "zeit": "2026-11-20T20:17:12",
+   "grund": "älter als 30 Minuten"
   }
  },
- "gesehen": {},
- "summe_eur": 0.0,
- "summe_r": 0.0,
- "trades": 0,
+ "summe_eur": -7.0,
+ "summe_r": -1.0,
+ "trades": 1,
  "hoechst": 700.0,
  "versuche": {},
  "raus": {},
- "stand": "2026-11-20T19:17:01",
+ "stand": "2026-11-20T20:17:12",
  "hedging_versuch": "2026-11-20T19:03:01",
  "hedging": true
 }

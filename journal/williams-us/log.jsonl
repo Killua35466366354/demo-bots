@@ -1,0 +1,2 @@
+{"time": "2026-11-20T21:01:56", "event": "Kauf eröffnet", "markt": "SPXUSD", "id": "US500 2026-11-20", "dealId": "00000000-754d-d2a5-049c-70750015549e", "size": 0.01, "entry": 6936.6, "stop": 6411.7, "dist": 523.971429, "wr": -91.375117, "spaet_min": 1.9}
+{"time": "2026-11-20T21:01:56", "event": "Kauf eröffnet", "markt": "NSXUSD", "id": "US100 2026-11-20", "dealId": "00000000-754d-d2c8-049c-70750015549e", "size": 0.001, "entry": 25149.8, "stop": 22150.3, "dist": 2994.921429, "wr": -94.08103, "spaet_min": 1.9}

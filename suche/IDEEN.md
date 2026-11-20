@@ -340,4 +340,4 @@ danach trennen. Versiegelt in `suche/VORAB_markt_regime.yaml`, gerechnet mit `py
 <Projektordner>` auf den Rückblick-Trades der 19 Bots. Jeder Trade bekommt die Phase seines Marktes am Vortag
 (Effizienz über 20 Tage, Trend ab 0,30). 0 von 14 Filtern bestanden das Urteil an 2026 (`suche/ergebnis_markt_regime.md`,
 Eintrag in `suche/VERWORFEN.md`). Trendphasen gab es an 24 bis 36 % der Tage, am meisten bei AUD/NZD, Gold, Silber und
-USD/JPY, fast immer steigend.
+USD/JPY. Bei Gold, Silber und den Aktien-Indizes ging der Trend fast immer nach oben.

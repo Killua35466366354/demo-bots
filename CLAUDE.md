@@ -54,7 +54,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -70,7 +70,7 @@ Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Que
 
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
 - `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
-  4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Pine-Bots, Gold-Hand).
+  4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
@@ -87,6 +87,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   `gold/grossbox_zwilling.py`, `suche/VORAB_gold_grossbox_weiter125.yaml`, Kirons Wahl vom 19.11.2026).
 - **Scalper** (Test durchgefallen, läuft auf Kirons Wunsch): Nasdaq, DAX, Nikkei.
 - **Seit 19.11.2026:** `welt-ausbruch4h`, der 4-Std.-Ausbruch auf DAX, FTSE und Nikkei (Kandidat, Kirons Wahl).
+- **Seit 20.11.2026:** `krypto-bollinger`, Bollinger und RSI auf Bitcoin und Ether umgedreht (Test durchgefallen,
+  Kirons Wahl "die paar stärksten zu erst" aus dem Schatten direkt als Demo-Bot).
 
 ## Gold-Bot C/B
 
@@ -131,6 +133,21 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   dass Bot und Test dieselben Einstiege, Stops, Ziele und Ausstiege sehen.
 - Höchstens ein Trade je Markt. Jede 4-Std.-Kerze bekommt je Markt höchstens eine Order, eine gescheiterte Order wird
   nie wiederholt. Liegt eine fremde Position auf seinem Markt, öffnet er dort nichts.
+
+## Bollinger Krypto umgedreht
+
+- `suche/krypto_bollinger_bot.py`, Regeln `suche/VORAB_krypto_bollinger_bot.yaml` (versiegelt am 20.11.2026). Die
+  Fassung `bollinger_umkehr_krypto_weit` der Runde "Kirons Notizen" auf Bitcoin und Ether (Epics BTCUSD, ETHUSD) auf
+  Account 3, den er mit dem Bot Vortag GBP/JPY teilt. Die Kontonummer liest er nach dem Namen aus
+  `journal/konten.json`. Der Test ist durchgefallen (`suche/ergebnis_notizen_runde.md`, Gewinnfaktor 1,07, neuere
+  Hälfte 0,98). Der Bot läuft als Vorwärtstest auf Kirons Wahl vom 20.11.2026 11:53 UTC, Urteil nach 40 Trades. Im
+  Test brachte ein Trade im Schnitt nur +0,046 R. Das Schatten-Labor zählt dieselbe Fassung unverändert weiter.
+- Signal, Stop und Ziel rechnet die Funktion des Tests (`suche/notizen_runde.signale`) auf Stundenkerzen des Brokers.
+  `tests/test_krypto_bollinger_bot.py` und `python -m suche.krypto_bollinger_gegenprobe <Datenordner>` prüfen, dass
+  Bot und Test dieselben Einstiege, Stops, Ziele und Ausstiege sehen.
+- Höchstens ein Trade je Markt. Jede Stundenkerze bekommt je Markt höchstens eine Order, eine gescheiterte Order wird
+  nie wiederholt. Liegt eine fremde Position auf seinem Markt, öffnet er dort nichts. Krypto hat bei Capital.com für
+  Privatkunden nur Hebel 2, darum darf eine Order bis 40 % des freien Gelds als Margin binden (andere Bots 20 %).
 
 ## Schatten-Labor und Kombinierer
 

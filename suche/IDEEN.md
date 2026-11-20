@@ -296,3 +296,8 @@ Indizes (997 Trades, 1,28, aber nur 73 % der Zufallsläufe geschlagen, DAX und N
 Befunde: Die Verkäufe des Modells verlieren auch mit mehr Merkmalen (142 Verkäufe, Gewinnfaktor 0,73). Die lernende
 Markt-Auswahl aus den zwei Jahren davor hat den schwachen DAX nicht erkannt und 2024 ganz ausgesetzt. Jeder Markt lag
 in jeder der fünf besten Regeln im Plus, ein Streichen einzelner Märkte nach dem Ergebnis wurde nicht gerechnet.
+
+Kirons Wahl vom 20.11.2026 11:53 UTC ("die paar stärksten zu erst", Schatten soll direkt Live-Demo sein): Die Fassung
+`bollinger_umkehr_krypto_weit` (durchgefallen, Gewinnfaktor 1,07) handelt als Demo-Bot auf Account 3
+(`suche/krypto_bollinger_bot.py`, `suche/VORAB_krypto_bollinger_bot.yaml`). Eigenes Urteil nach 40 Demo-Trades. Das
+Schatten-Labor zählt sie unverändert weiter.

@@ -1,0 +1,31 @@
+{
+ "bot": "krypto-bollinger",
+ "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
+ "konto": "Account 3",
+ "stand": null,
+ "start": null,
+ "pausiert": null,
+ "status": "startet nach Kirons Merge mit dem nächsten Lauf",
+ "regel": "Bollinger und RSI auf Bitcoin und Ether, umgedreht (Fassung bollinger_umkehr_krypto_weit): Schließt eine Stundenkerze unter dem unteren Bollinger-Band (20, 2) mit RSI 14 unter 30, verkauft der Bot, über dem oberen Band mit RSI über 70 kauft er. Stop 1,5 ATR der Stundenkerzen, Ziel 2 R, Ausstieg spätestens nach 24 Stunden. Höchstens ein Trade je Markt, 5 € Risiko.",
+ "backtest": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
+ "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
+ "vorab_ok": true,
+ "maerkte": {
+  "BTCUSD": "Bitcoin",
+  "ETHUSD": "Ether"
+ },
+ "offen": [],
+ "zusammenfassung": {
+  "trades": 0,
+  "pf_r": null,
+  "summe_r": 0.0,
+  "trefferquote": null,
+  "summe_eur": 0.0,
+  "je_markt": {},
+  "urteil": "läuft (0 von 40 Trades)"
+ },
+ "letzte_trades": [],
+ "blick": {
+  "status": "startet nach Kirons Merge mit dem nächsten Lauf"
+ }
+}

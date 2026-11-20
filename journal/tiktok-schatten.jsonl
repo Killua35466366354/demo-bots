@@ -342,3 +342,10 @@
 {"zeit": "2026-11-20T07:11:31+00:00", "strategie": "box_175", "ereignis": "einstieg", "einstieg_zeit": "2026-11-20 06:15:00", "richtung": 1, "einstieg": 3553.73, "stop": 3522.67, "tp1": 3584.79, "tp2": 3615.84, "tp3": 3646.9}
 {"zeit": "2026-11-20T07:11:31+00:00", "strategie": "box_laufen", "ereignis": "fertig", "einstieg_zeit": "2026-11-19 12:15:00", "richtung": -1, "einstieg": 3716.04, "grund": "gegensignal", "ergebnis_r": 5.81}
 {"zeit": "2026-11-20T07:11:31+00:00", "strategie": "box_laufen", "ereignis": "einstieg", "einstieg_zeit": "2026-11-20 06:30:00", "richtung": 1, "einstieg": 3555.05, "stop": 3522.9, "tp1": 3587.2, "tp2": null, "tp3": null}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "gross_box_kerze", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 18:00:00", "richtung": -1, "einstieg": 3862.99, "grund": "neue_box", "ergebnis_r": 12.215}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "gross_box_kerze", "ereignis": "fertig", "einstieg_zeit": "2026-11-18 00:15:00", "richtung": -1, "einstieg": 3839.67, "grund": "neue_box", "ergebnis_r": 9.477}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "gross_box_kerze", "ereignis": "fertig", "einstieg_zeit": "2026-11-18 15:00:00", "richtung": -1, "einstieg": 3767.27, "grund": "neue_box", "ergebnis_r": 6.479}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-17 18:00:00", "richtung": -1, "einstieg": 3862.99, "grund": "neue_box", "ergebnis_r": 12.215}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-18 00:15:00", "richtung": -1, "einstieg": 3839.67, "grund": "neue_box", "ergebnis_r": 9.477}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "gross_box", "ereignis": "fertig", "einstieg_zeit": "2026-11-18 15:00:00", "richtung": -1, "einstieg": 3767.27, "grund": "neue_box", "ergebnis_r": 6.479}
+{"zeit": "2026-11-20T12:11:32+00:00", "strategie": "box_1h", "ereignis": "einstieg", "einstieg_zeit": "2026-11-20 11:00:00", "richtung": 1, "einstieg": 3587.17, "stop": 3528.93, "tp1": 3645.41, "tp2": null, "tp3": null}

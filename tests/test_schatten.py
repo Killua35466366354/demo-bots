@@ -79,3 +79,40 @@ def test_falsche_zahl_der_fassungen_bricht_ab(monkeypatch):
     v["schatten"] = {**v["schatten"], "fassungen": 51}
     with pytest.raises(SystemExit):
         sch.zaehle(sch.ROOT, v, "2026-11-23", pruefen=False)
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Die 53. Fassung (suche/VORAB_schatten_modell_breit.yaml, Kirons Wahl vom 20.11.2026)
+
+def test_zusatz_versiegelt_und_nur_modell_breit():
+    v, z = sch.lade_vorab(pruefen=True), sch.lade_zusatz(pruefen=True)
+    zus = sch.fassungen_zusatz(z, pruefen=True)
+    assert list(zus) == ["trade_notizen:modell_breit"]
+    assert len(sch.fassungen(v, pruefen=True)) + len(zus) == z["fassungen_gesamt"] == 53
+    assert z["zaehlt_ab"] == v["schatten"]["zaehlt_ab"]
+
+
+def test_alte_saat_bleibt_und_holm_ueber_alle():
+    v = sch.lade_vorab(pruefen=False)
+    alle = {"a:x": {"regel": "x"}, "c:y": {"regel": "y"}}
+    zus = {"b:z": {"regel": "z", "zusatz": True}}          # sortiert zwischen den alten, bekommt trotzdem die Saat danach
+    tr = pd.DataFrame({"fassung": ["a:x"] * 3 + ["c:y"] * 3 + ["b:z"] * 3,
+                       "ein_utc": pd.date_range("2026-12-01", periods=9, freq="D"),
+                       "aus_utc": pd.date_range("2026-12-01 05:00", periods=9, freq="D"),
+                       "R": [1.0, -0.5, 2.0] * 3, "R_robust": [0.9, -0.6, 1.9] * 3})
+    ohne = sch.bewerte(tr, alle, v, "2026-12-31")
+    mit = sch.bewerte(tr, alle, v, "2026-12-31", zus)
+    assert ohne["a:x"]["p"] == mit["a:x"]["p"] and ohne["c:y"]["p"] == mit["c:y"]["p"]
+    assert set(mit) == {"a:x", "b:z", "c:y"}
+
+
+def test_termine_jahre_nur_mit_allen_drei_arten():
+    j = sch.termine_jahre()
+    assert {2023, 2024, 2025, 2026} <= j
+    assert all(isinstance(x, int) for x in j)
+
+
+def test_falsche_gesamtzahl_bricht_ab():
+    v, z = sch.lade_vorab(pruefen=False), sch.lade_zusatz(pruefen=False)
+    with pytest.raises(SystemExit):
+        sch.zaehle(sch.ROOT, v, "2026-11-23", pruefen=False, z={**z, "fassungen_gesamt": 54})

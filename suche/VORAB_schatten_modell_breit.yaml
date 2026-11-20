@@ -1,0 +1,38 @@
+# Schatten-Labor, eine Fassung mehr: modell_breit aus der Runde "Kirons Trade-Notizen".
+# Kirons Wahl vom 20.11.2026 09:25 UTC auf der Karte "Soll das Vorhersage-Modell mit mehr Merkmalen ohne Order
+# vorwärts mitgezählt werden?" im Recherche-Thread: "Ja, ohne Order mitzählen".
+# Ergänzt suche/VORAB_schatten.yaml, ändert es nicht. Festgelegt vor jeder Vorwärts-Rechnung dieser Fassung.
+name: schatten_modell_breit
+datum: "2026-11-20"
+
+zusatz:
+  runde: trade_notizen           # suche/VORAB_trade_notizen.yaml, gerechnet von suche/grosse_runde.py als Durchgang 3
+  datei: suche/VORAB_trade_notizen.yaml
+  fassungen: [modell_breit]      # nur diese eine, nicht die anderen fünf Varianten der Runde
+  warum_nur_eine: >-
+    Kiron hat nur für diese Fassung gewählt. modell_indizes und modell_indizes_08 zählen schon mit
+    (suche/VORAB_schatten.yaml, Runden grosse_runde und grosse_runde2).
+
+fassungen_gesamt: 53             # 52 aus suche/VORAB_schatten.yaml plus diese eine, so viele zählen in Holm
+holm: >-
+  Holm über alle 53 Fassungen mit derselben Schwelle 0,05. Die 52 alten Fassungen behalten ihre Saat für den
+  Vorzeichen-Zufall (saat plus ihre Stelle unter den 52 nach Namen). Die neue bekommt saat plus 52.
+zaehlt_ab: "2026-11-23"          # wie die anderen, erster Montag nach diesem Siegel
+stufen: Genau die Stufen aus suche/VORAB_schatten.yaml (zählt, Frühzeichen, schwach, Kandidat), nur mit 53 in Holm.
+
+daten:
+  kurse: Dieselben HistData-Kerzen wie die anderen Fassungen (S&P 500, Nasdaq 100, DAX, FTSE, Nikkei).
+  dix: >-
+    Die DIX-Reihe von squeezemetrics (https://squeezemetrics.com/monitor/static/DIX.csv). Beim monatlichen Nachladen
+    kommt der neue Stand als eigene Datei nach strategie-suche/daten/monate/DIX_<JJJJ-MM>.csv. Die Grunddatei
+    strategie-suche/daten/squeezemetrics/DIX.csv bleibt unverändert. Gezählt wird mit der neuesten Monatsdatei.
+  termine: >-
+    gold/v2/termine.yaml (Fed, US-Inflation, US-Arbeitsmarkt). Ein Trade von modell_breit zählt nur, wenn die Datei
+    für das Kalenderjahr seines Einstiegs Termine aller drei Arten enthält. Sonst würde das Modell einen Fed-Tag als
+    gewöhnlichen Tag sehen. Am 20.11.2026 reichen die Fed-Termine bis 09.12.2026. Fehlen die Termine für 2027, zählen
+    Trades ab 2027 nicht und der Bericht nennt das. Die Datei wird dafür nicht von diesem Programm geändert.
+  lernen: Das Modell lernt wie im Test jedes Jahr neu aus den Jahren davor (suche/VORAB_trade_notizen.yaml).
+
+danach: Wie in suche/VORAB_schatten.yaml. Kandidat heißt eine Karte an Kiron, nichts steigt von allein auf.
+keine_nachbesserung: Keine andere Fassung, kein anderer Markt, keine andere Schwelle, kein anderes Startdatum.
+keine_wirkung: Nur Auskunft. Kein Bot liest diese Datei, keine Order hängt daran.

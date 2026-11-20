@@ -2,5 +2,7 @@
  "format": 1,
  "lauf": "demo-bots",
  "schritte": {},
- "siegel": []
+ "siegel": [
+  "suche/VORAB_markt_regime.yaml: keine Siegel-Zeile \"VORAB_markt_regime sha256 …\" im Protokoll"
+ ]
 }

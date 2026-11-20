@@ -348,6 +348,24 @@ jobs:
           fi
           python -m suche.vergleich --schreiben
 
+      # Kombinierer (Kirons Wunsch vom 20.11.2026, suche/kombinierer.py, suche/VORAB_schatten.yaml): rechnet die Gruppe
+      # aller Bots und die Kern-Kombi als EIN Konto mit 1.000 € und 10 € Risiko je Trade, einmal ohne Grenzen und
+      # einmal mit den Regeln eines echten Kontos (höchstens 3 offen, einer je Markt, Tagesstopp, Gesamtbremse). Liest
+      # nur das Journal über suche/vergleich.py, spricht mit keinem Broker, keine Order, kein Bot liest das Ergebnis.
+      # Schreibt journal/kombinierer.json und journal/kombinierer.md, ohne neuen Trade höchstens einmal am Tag neu. Ein
+      # Fehler hier hält die Bots und das Journal nie auf.
+      - name: Kombinierer (alle Bots als ein Konto)
+        id: kombinierer
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        continue-on-error: true
+        env:
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ]; then
+            python -m pytest -q tests/test_kombinierer.py
+          fi
+          python -m suche.kombinierer --schreiben
+
       # Kunden-Stimmung von Capital.com (Idee 6 aus Kirons Ideen-Buch, 18.11.2026, suche/stimmung.py): liest je Lauf,
       # wie viel Prozent der Kunden auf den Märkten der Bots long sind, und hängt eine Zeile an journal/stimmung.jsonl
       # an. Nur lesen: keine Order, kein Bot liest die Datei, keine Regel hängt daran. Ausgewertet wird erst nach der

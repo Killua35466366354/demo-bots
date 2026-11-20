@@ -1,0 +1,98 @@
+# Schatten-Labor und Kombinierer (Kirons Wunsch vom 20.11.2026, 04:27 UTC).
+# Festgelegt am 20.11.2026, BEVOR eine Kerze ab dem Zählbeginn für diese Regel gerechnet wurde (Prüfsumme im Protokoll
+# journal/strategie-suche-protokoll.md). Code: suche/schatten.py und suche/kombinierer.py. Diese Datei wird nie geändert.
+#
+# Kirons Wunsch: alle Strategien die ganze Zeit im Schatten testen (ohne Order), ein Programm schaut, wie sie zusammen
+# als ein Konto laufen, und was mehrmals Gewinn bringt, kommt zu den laufenden Bots dazu.
+# Was hier gilt, und warum:
+# 1. Nichts steigt von allein auf. Bots ändern nie ihre eigenen Regeln (feste Regel 1). Das Schatten-Labor meldet nur
+#    Kandidaten. Ein Demo-Bot kommt nur über Kiron (Karte) und einen PR mit eigener VORAB-Datei dazu, echtes Geld nur
+#    über suche/VORAB_aufstieg_alle.yaml (100 Demo-Trades und 61 Tage) und einen PR im privaten Repo.
+# 2. Viele Strategien gleichzeitig zu beobachten findet Glückstreffer. Bei 52 Fassungen zeigt auch ohne jeden Vorteil
+#    fast sicher eine nach 40 Trades einen Gewinnfaktor über 1,2. Darum zählt als Kandidat nur, wer 100 Trades hat und
+#    nach Holm über alle beobachteten Fassungen besteht. Das Frühzeichen nach 40 Trades ist nur Auskunft.
+# 3. Kein KI-Modell pro Trade. Alles ist festes Rechnen mit denselben Funktionen wie im Test. Der Satz für Kiron kommt
+#    aus einer festen Vorlage.
+
+format: 1
+schatten:
+  was: >-
+    Alle Fassungen der sechs versiegelten Runden, die dieselbe Rechnung (suche/rueckblick.py) benutzen, mit allen
+    Zahlen, Kosten und Märkten aus ihrer eigenen versiegelten Datei. Keine Auswahl, keine Fassung fällt weg, auch die
+    durchgefallenen nicht (Verwerfen heißt merken, Kiron 19.11.2026). Das Programm prüft jedes Siegel.
+  runden:
+    rueckblick: suche/VORAB_rueckblick.yaml
+    youtube_runde: suche/VORAB_youtube_runde.yaml
+    youtube_runde2: suche/VORAB_youtube_runde2.yaml
+    notizen_runde: suche/VORAB_notizen_runde.yaml
+    grosse_runde: suche/VORAB_grosse_runde.yaml
+    grosse_runde2: suche/VORAB_grosse_runde2.yaml
+  fassungen: 52                  # 6 + 4 + 5 + 11 + 13 + 13, so viele zählen in Holm
+  zaehlt_ab: "2026-11-23"        # nur Einstiege ab diesem Handelstag zählen (erster Montag nach dem Siegel)
+  daten: >-
+    HistData 5-Minuten-Kerzen (Bid) wie in den Tests, jeden Monat um den neuen Monat ergänzt
+    (python -m suche.schatten nachladen <Kursordner> <JJJJ-MM>), Krypto aus den Monatsdateien von data.binance.vision.
+    Ältere Kerzen dienen nur dem Vorlauf der Rechnung. Ein Trade zählt erst, wenn er vor der letzten Kerze geschlossen
+    ist. Noch offene Trades zählen beim nächsten Monat.
+  wann: Einmal im Monat nach dem neuen HistData-Monat (python -m suche.schatten zaehlen <Arbeit>), Ergebnis als Zeile ins Protokoll.
+  test_vorteil:
+    art: Vorzeichen-Zufall auf die R der Vorwärts-Trades, einseitig (Summe R größer als bei zufälligem Vorzeichen)
+    laeufe: 10000
+    saat: 20261120
+  stufen:
+    zaehlt: weniger als 40 Vorwärts-Trades
+    fruehzeichen:                # nur Auskunft, keine Karte
+      trades: 40
+      gewinnfaktor: 1.2
+      gewinnfaktor_robust: 1.0   # mit 1,5-fachen Kosten
+      summe_r_ueber: 0
+    schwach:                     # nur Auskunft, die Fassung wird weiter gezählt
+      trades: 40
+      gewinnfaktor_unter: 1.0
+    kandidat:                    # dann eine Karte an Kiron
+      trades: 100
+      tage: 61                   # seit dem ersten Vorwärts-Trade
+      gewinnfaktor: 1.3
+      gewinnfaktor_robust: 1.0
+      letzte_tage: 61
+      letzte_summe_r_ueber: 0
+      neuere_haelfte_gewinnfaktor: 1.0
+      holm_alpha: 0.05           # Holm über alle 52 Fassungen, eine Fassung ohne Trades zählt mit p = 1
+  danach: >-
+    Kandidat: Karte an Kiron, ob die Fassung als Demo-Bot läuft (eigene VORAB-Datei und PR, ein freies Konto ohne
+    Gold-Bot). Frühzeichen und schwach: nur eine Zeile im Bericht. In keinem Fall ändert sich ein laufender Bot.
+  keine_nachbesserung: Keine andere Fassung, kein anderer Markt, keine andere Schwelle, kein anderes Startdatum.
+
+kombinierer:
+  was: >-
+    Rechnet eine Gruppe von Strategien als EIN Konto mit einem Topf. Jeder Trade riskiert gleich viel. Die Trades
+    laufen nach ihrer Einstiegszeit durch die Kontoregeln. Was ein echtes Konto nicht nehmen könnte, zählt als verpasst.
+  topf_eur: 1000
+  risiko_je_trade_pct: 1.0       # 10 € je R, fest vom Starttopf, ohne Zinseszins
+  regeln:
+    ohne_grenzen:                # jeder Trade wird genommen, so wie der Demo-Vergleich zählt
+      hoechstens_offen: null
+      je_markt_hoechstens: null
+      tagesstopp_pct: null
+      gesamtbremse_pct: null
+    konto:                       # die Regeln aus dem Plan "Weg der Bots zu echtem Geld" (18.11.2026)
+      hoechstens_offen: 3
+      je_markt_hoechstens: 1
+      tagesstopp_pct: 3          # ab 30 € Verlust an einem Tag keine neuen Trades mehr an diesem Tag
+      gesamtbremse_pct: 20       # 20 % unter dem Höchststand keine neuen Trades mehr, dann entscheidet Kiron
+    konto_weiter:                # nur Auskunft zum Vergleich, keine Empfehlung
+      hoechstens_offen: 6
+      je_markt_hoechstens: 2
+      tagesstopp_pct: 3
+      gesamtbremse_pct: 20
+  reihenfolge: >-
+    Nach Einstiegszeit, bei gleicher Zeit nach Name der Strategie. Vor jedem Einstieg schließen alle Trades, deren
+    Ausstieg vorher liegt. Tagesstopp und Bremse zählen nur geschlossene Trades. Der Tag ist der UTC-Tag.
+  gruppen:
+    demo_gruppe: Die feste Gruppe aller Bots aus suche/VORAB_aufstieg_alle.yaml mit ihren Demo-Trades (wie journal/vergleich.json)
+    demo_kern: Die Kern-Kombi ("behalten" in suche/auswahl.yaml) mit ihren Demo-Trades
+  auskunft: >-
+    Backtest-Trades aller Bots (Projektordner strategie-katalog/depot, Rechnung vom 19.11.2026) einmal durch dieselben
+    Regeln, nur zur Auskunft für Kiron. Wo ein Backtest keine Ausstiegszeit hat, wird sie geschätzt und so benannt.
+  satz: Ein fester Satz je Lauf aus Vorlage, ohne KI-Modell (journal/kombinierer.md, Feld "satz" in journal/kombinierer.json).
+  keine_wirkung: Der Kombinierer liest nur Journale. Kein Bot liest seine Dateien, keine Order hängt daran.

@@ -132,6 +132,19 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 - Höchstens ein Trade je Markt. Jede 4-Std.-Kerze bekommt je Markt höchstens eine Order, eine gescheiterte Order wird
   nie wiederholt. Liegt eine fremde Position auf seinem Markt, öffnet er dort nichts.
 
+## Schatten-Labor und Kombinierer
+
+- Seit 20.11.2026 (Kirons Wunsch, Regeln `suche/VORAB_schatten.yaml`). Kein Bot liest ihre Dateien, keine Order.
+- **Schatten-Labor** (`suche/schatten.py`): alle 52 Fassungen der sechs Runden auf `suche/rueckblick.py` zählen ab
+  23.11.2026 ohne Order vorwärts, einmal im Monat auf neuen HistData-Kerzen (`nachladen`, `daten`, `zaehlen`). Neue
+  Monate kommen als eigene Dateien nach `strategie-suche/daten/monate/`, die Grunddateien bleiben unverändert.
+  Kandidat erst nach 100 Trades, 61 Tagen, Gewinnfaktor 1,3 und Holm über alle 52. Dann eine Karte an Kiron für
+  einen Demo-Bot mit eigener VORAB-Datei. Nichts steigt von allein auf.
+- **Kombinierer** (`suche/kombinierer.py`, Schritt im 15-Minuten-Lauf): rechnet die Gruppe aller Bots und die
+  Kern-Kombi als ein Konto mit 1.000 € und 10 € je R, ohne Grenzen und mit den Regeln eines echten Kontos
+  (höchstens 3 offen, einer je Markt, Tagesstopp 3 %, Bremse 20 %). Die Trades kommen aus `suche/vergleich.py`
+  (`sammeln`), es gibt keine zweite Liste. Ergebnis in `journal/kombinierer.md`.
+
 ## Arbeiten im Repo
 
 - Tests: `python -m pytest -p no:warnings`. Vor jedem Push lokal grün.

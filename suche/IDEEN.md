@@ -327,3 +327,12 @@ Derselbe Wunsch: Die Fassung `ausbruch4h_krypto` der YouTube-Runde (nicht bestan
 ohne Ziel, Ausstieg nach 16 Stunden. Der Gewinn kam aus Bitcoin, aus Käufen und aus 2024, ohne die 5 besten Trades 0,98.
 Eigenes Urteil nach 40 Demo-Trades, bei 2,2 Trades je Woche etwa Ende März 2027. Das Schatten-Labor zählt die Fassung
 unverändert weiter.
+
+**Scalping mit Marktvorhersage (20.11.2026, Kirons Wunsch, `suche/VORAB_vorhersage_scalp.yaml`): 0 von 6 bestanden,
+kein Kandidat.** In der vorhergesagten Richtung (Vorhersage-Modell, VIX-Sprung, Tagestrend) mehrmals am Tag gegen die
+Bewegung einsteigen (drei Limit-Stufen oder Bollinger-Band) und nach 0,2 oder 0,5 ATR raus, auf US500, US100, DAX, FTSE
+und Nikkei. Bestes Ergebnis Modell mit 3 Stufen und Ziel 0,5 ATR, 2.438 Trades, Gewinnfaktor 1,05, +313 € auf 1.000 €
+in 34 Monaten (0,9 % im Monat). Die Vorhersage schlägt 91 bis 97 % der verschobenen Vorhersagen, ohne Vorhersage
+verlieren dieselben Einstiege (-525 € und -1.302 €), aber die Kosten fressen etwa die Hälfte. Mit 10 % Risiko je Trade
+wäre jede Fassung pleite gewesen (VIX-Sprung am 05.08.2024). Ergebnis `suche/ergebnis_vorhersage_scalp.md`. Nicht
+wiederholen. Offen nur als neue Idee mit eigenem Siegel: das Modell als Filter für einen Bot mit Vorteil.

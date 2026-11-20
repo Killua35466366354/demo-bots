@@ -17,6 +17,7 @@ Aufruf:
     python -m suche.vorhersage_scalp entwicklung <Arbeit>        nur Kurse bis Ende 2023, prüft das Programm, kein Ergebnis
     python -m suche.vorhersage_scalp probelauf <Arbeit> <Saat>   ganze Rechnung auf erfundenen Märkten ohne Vorteil
     python -m suche.vorhersage_scalp rechnen <Arbeit>            die Rechnung (nur mit passender Prüfsumme)
+    python -m suche.vorhersage_scalp hebel -                     nur die Hebel-Auskunft neu aus den gespeicherten Trades
 
 Die Kursdateien baut python -m suche.rueckblick_daten <Arbeit> SPXUSD NSXUSD GRXEUR UKXGBP JPXJPY.
 """
@@ -341,8 +342,10 @@ def hebel(trades: pd.DataFrame, cfg: dict, fenster: tuple[str, str]) -> dict:
         aus = w["aus_utc"].to_numpy("datetime64[ns]")
         r = w["R"].to_numpy(float)
         hebelwert = w["einstieg"].to_numpy(float) / w["stop_abstand"].to_numpy(float) / float(h["hebel_index"])
-        ereig = sorted([(t, 1, q) for q, t in enumerate(ein)] + [(t, 0, q) for q, t in enumerate(aus)],
-                       key=lambda x: (x[0], x[1]))   # bei gleicher Zeit erst Ausstiege, dann Einstiege
+        # Bei gleicher Kerze: erst Ausstiege älterer Trades, dann Einstiege, dann Ausstiege von Trades, die in
+        # derselben Kerze begonnen haben (Stop in der Kerze der Füllung).
+        ereig = sorted([(t, 1, q) for q, t in enumerate(ein)] +
+                       [(t, 2 if aus[q] == ein[q] else 0, q) for q, t in enumerate(aus)], key=lambda x: (x[0], x[1]))
         je = {}
         for a in h["anteile_pct"]:
             konto = float(h["start_eur"])
@@ -350,6 +353,7 @@ def hebel(trades: pd.DataFrame, cfg: dict, fenster: tuple[str, str]) -> dict:
             offen_margin = 0.0
             hoch, tief_pct, margin_voll, max_margin = konto, 0.0, 0, 0.0
             tag_pnl: dict = {}
+            pleite = None
             for t, art, q in ereig:
                 if art == 1:
                     risiko[q] = konto * a / 100.0
@@ -365,13 +369,16 @@ def hebel(trades: pd.DataFrame, cfg: dict, fenster: tuple[str, str]) -> dict:
                     tag_pnl[tg] = tag_pnl.get(tg, 0.0) + pnl
                     hoch = max(hoch, konto)
                     tief_pct = min(tief_pct, konto / hoch - 1.0)
-                    if konto <= 0:
+                    if konto <= 0.01 * float(h["start_eur"]):      # unter 10 € auf 1.000 € geht kein Trade mehr
+                        pleite = tg
+                        tief_pct = -1.0
                         break
             end = max(konto, 0.0)
-            je[str(a)] = {"end_eur": _rund(end, 0), "rendite_pro_monat_pct": _rund(100 * ((end / h["start_eur"]) ** (1 / monate) - 1) if end > 0 else -100.0, 2),
+            je[str(a)] = {"end_eur": _rund(end, 0), "rendite_pro_monat_pct": None if pleite else _rund(100 * ((end / h["start_eur"]) ** (1 / monate) - 1), 2),
                           "tiefster_rueckgang_pct": _rund(100 * tief_pct, 1),
                           "schlechtester_tag_eur": _rund(min(tag_pnl.values()) if tag_pnl else 0.0, 0),
-                          "margin_ueber_konto_einstiege": int(margin_voll), "hoechste_margin_pct_konto": _rund(100 * max_margin, 0),
+                          "margin_ueber_konto_einstiege": int(margin_voll), "einstiege": int(len(r)),
+                          "hoechste_margin_pct_konto": _rund(100 * max_margin, 0), "pleite_am": pleite,
                           "monate": _rund(monate, 1)}
         out[name] = je
     return out
@@ -384,6 +391,18 @@ def main(argv: list[str]) -> int:
         print(zeile)
         return 0
     modus, arbeit = argv[0], pathlib.Path(argv[1])
+    if modus == "hebel":                                   # nur die Hebel-Auskunft neu, aus den gespeicherten Trades
+        cfg = lade_vorab(pruefen=True)
+        f = cfg["fenster"]
+        tr = pd.read_csv(str(ERGEBNIS) + "_trades.csv.gz", parse_dates=["ein_utc", "aus_utc"])
+        daten = json.loads(pathlib.Path(str(ERGEBNIS) + ".json").read_text(encoding="utf-8"))
+        daten["hebel"] = hebel(tr, cfg, (f["von"], f["bis"]))
+        pathlib.Path(str(ERGEBNIS) + ".json").write_text(json.dumps(daten, indent=1, ensure_ascii=False, default=str) + "\n",
+                                                        encoding="utf-8")
+        for n, je in daten["hebel"].items():
+            print(n, {a: (x["end_eur"], x["rendite_pro_monat_pct"], x["tiefster_rueckgang_pct"], x["pleite_am"],
+                          x["margin_ueber_konto_einstiege"]) for a, x in je.items()})
+        return 0
     if modus == "entwicklung":
         cfg = lade_vorab(pruefen=False)
         cfg["maerkte"] = [s for s in cfg["maerkte"] if s != "GRXEUR"]

@@ -1,0 +1,1246 @@
+{
+ "kopf": {
+  "modus": "Rechnung",
+  "vorab_sha256": "e0984eb619263e20e377d07da0b84099c86200a16d4ff9bcbf29056de8b4a166",
+  "fenster": {
+   "von": "2024-01-01",
+   "bis": "2026-10-30",
+   "mitte": "2025-06-01",
+   "aeltere_jahre": "Trades vor 2024 stehen nur als Auskunft im Ergebnis und lassen nichts bestehen oder durchfallen.",
+   "eine_stufe": "Es gibt keine Auswahl-Stufe. Alle Varianten stehen hier fest und werden einmal gerechnet."
+  }
+ },
+ "varianten": {
+  "modell_leiter_klein": {
+   "vorhersage": "modell",
+   "einstieg": "leiter",
+   "ziel_atr": 0.2,
+   "kontrolle": false,
+   "trades": 3462,
+   "trades_je_woche": 23.46,
+   "markt_tage": 1150,
+   "gewinnfaktor": 0.98,
+   "summe_R": -10.71,
+   "R_je_trade": -0.003,
+   "trefferquote": 0.72,
+   "gewinnfaktor_robust": 0.94,
+   "summe_R_robust": -32.8,
+   "haelfte_1": {
+    "trades": 1777,
+    "gewinnfaktor": 0.93,
+    "summe_R": -22.94
+   },
+   "haelfte_2": {
+    "trades": 1685,
+    "gewinnfaktor": 1.05,
+    "summe_R": 12.23
+   },
+   "jahr_2026": {
+    "trades": 1049,
+    "gewinnfaktor": 1.11,
+    "summe_R": 16.87
+   },
+   "long": {
+    "trades": 3416,
+    "gewinnfaktor": 1.0,
+    "summe_R": 1.95
+   },
+   "short": {
+    "trades": 46,
+    "gewinnfaktor": 0.27,
+    "summe_R": -12.66
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.98,
+    "summe_R": -12.68
+   },
+   "ausstieg": {
+    "ziel": 2332,
+    "stop": 383,
+    "zeit": 747
+   },
+   "groesster_verlust_R": -1.029,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 628,
+     "gewinnfaktor": 0.88,
+     "summe_R": -14.27
+    },
+    "NSXUSD": {
+     "trades": 736,
+     "gewinnfaktor": 1.0,
+     "summe_R": 0.31
+    },
+    "GRXEUR": {
+     "trades": 926,
+     "gewinnfaktor": 0.89,
+     "summe_R": -18.15
+    },
+    "UKXGBP": {
+     "trades": 553,
+     "gewinnfaktor": 1.37,
+     "summe_R": 24.26
+    },
+    "JPXJPY": {
+     "trades": 619,
+     "gewinnfaktor": 0.97,
+     "summe_R": -2.86
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 6186,
+    "gewinnfaktor": 0.8,
+    "summe_R": -240.8
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 95.4,
+    "p": 0.04776119402985075,
+    "echt_R": -10.71,
+    "mittel_R": -70.58,
+    "streuung_R": 36.1,
+    "z": 1.66,
+    "summe_fuer_z3": 37.72
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "modell_leiter_gross": {
+   "vorhersage": "modell",
+   "einstieg": "leiter",
+   "ziel_atr": 0.5,
+   "kontrolle": false,
+   "trades": 2438,
+   "trades_je_woche": 16.52,
+   "markt_tage": 1150,
+   "gewinnfaktor": 1.05,
+   "summe_R": 31.26,
+   "R_je_trade": 0.013,
+   "trefferquote": 0.57,
+   "gewinnfaktor_robust": 1.03,
+   "summe_R_robust": 17.07,
+   "haelfte_1": {
+    "trades": 1275,
+    "gewinnfaktor": 1.01,
+    "summe_R": 1.75
+   },
+   "haelfte_2": {
+    "trades": 1163,
+    "gewinnfaktor": 1.11,
+    "summe_R": 29.5
+   },
+   "jahr_2026": {
+    "trades": 714,
+    "gewinnfaktor": 1.14,
+    "summe_R": 22.14
+   },
+   "long": {
+    "trades": 2401,
+    "gewinnfaktor": 1.07,
+    "summe_R": 42.9
+   },
+   "short": {
+    "trades": 37,
+    "gewinnfaktor": 0.33,
+    "summe_R": -11.64
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 1.04,
+    "summe_R": 26.29
+   },
+   "ausstieg": {
+    "ziel": 833,
+    "stop": 412,
+    "zeit": 1193
+   },
+   "groesster_verlust_R": -1.029,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 450,
+     "gewinnfaktor": 0.96,
+     "summe_R": -4.73
+    },
+    "NSXUSD": {
+     "trades": 516,
+     "gewinnfaktor": 1.11,
+     "summe_R": 14.38
+    },
+    "GRXEUR": {
+     "trades": 651,
+     "gewinnfaktor": 0.87,
+     "summe_R": -22.92
+    },
+    "UKXGBP": {
+     "trades": 381,
+     "gewinnfaktor": 1.48,
+     "summe_R": 33.71
+    },
+    "JPXJPY": {
+     "trades": 440,
+     "gewinnfaktor": 1.1,
+     "summe_R": 10.81
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 4484,
+    "gewinnfaktor": 0.88,
+    "summe_R": -154.39
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 96.9,
+    "p": 0.03283582089552239,
+    "echt_R": 31.26,
+    "mittel_R": -44.05,
+    "streuung_R": 41.53,
+    "z": 1.81,
+    "summe_fuer_z3": 80.56
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "modell_band_klein": {
+   "vorhersage": "modell",
+   "einstieg": "band",
+   "ziel_atr": 0.2,
+   "kontrolle": false,
+   "trades": 2659,
+   "trades_je_woche": 18.02,
+   "markt_tage": 1636,
+   "gewinnfaktor": 1.01,
+   "summe_R": 6.77,
+   "R_je_trade": 0.003,
+   "trefferquote": 0.73,
+   "gewinnfaktor_robust": 0.97,
+   "summe_R_robust": -16.09,
+   "haelfte_1": {
+    "trades": 1372,
+    "gewinnfaktor": 1.02,
+    "summe_R": 5.23
+   },
+   "haelfte_2": {
+    "trades": 1287,
+    "gewinnfaktor": 1.01,
+    "summe_R": 1.54
+   },
+   "jahr_2026": {
+    "trades": 768,
+    "gewinnfaktor": 0.99,
+    "summe_R": -1.18
+   },
+   "long": {
+    "trades": 2616,
+    "gewinnfaktor": 1.02,
+    "summe_R": 8.07
+   },
+   "short": {
+    "trades": 43,
+    "gewinnfaktor": 0.84,
+    "summe_R": -1.3
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 1.01,
+    "summe_R": 5.43
+   },
+   "ausstieg": {
+    "ziel": 1822,
+    "stop": 330,
+    "zeit": 507
+   },
+   "groesster_verlust_R": -1.087,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 465,
+     "gewinnfaktor": 0.99,
+     "summe_R": -1.26
+    },
+    "NSXUSD": {
+     "trades": 527,
+     "gewinnfaktor": 1.1,
+     "summe_R": 8.77
+    },
+    "GRXEUR": {
+     "trades": 704,
+     "gewinnfaktor": 0.86,
+     "summe_R": -19.16
+    },
+    "UKXGBP": {
+     "trades": 511,
+     "gewinnfaktor": 1.28,
+     "summe_R": 19.71
+    },
+    "JPXJPY": {
+     "trades": 452,
+     "gewinnfaktor": 0.98,
+     "summe_R": -1.29
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 4804,
+    "gewinnfaktor": 0.9,
+    "summe_R": -89.43
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 93.7,
+    "p": 0.06417910447761194,
+    "echt_R": 6.77,
+    "mittel_R": -28.49,
+    "streuung_R": 22.81,
+    "z": 1.55,
+    "summe_fuer_z3": 39.93
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "modell_band_gross": {
+   "vorhersage": "modell",
+   "einstieg": "band",
+   "ziel_atr": 0.5,
+   "kontrolle": false,
+   "trades": 1805,
+   "trades_je_woche": 12.23,
+   "markt_tage": 1636,
+   "gewinnfaktor": 1.06,
+   "summe_R": 31.24,
+   "R_je_trade": 0.017,
+   "trefferquote": 0.58,
+   "gewinnfaktor_robust": 1.03,
+   "summe_R_robust": 13.09,
+   "haelfte_1": {
+    "trades": 952,
+    "gewinnfaktor": 1.12,
+    "summe_R": 30.14
+   },
+   "haelfte_2": {
+    "trades": 853,
+    "gewinnfaktor": 1.0,
+    "summe_R": 1.1
+   },
+   "jahr_2026": {
+    "trades": 508,
+    "gewinnfaktor": 0.93,
+    "summe_R": -9.43
+   },
+   "long": {
+    "trades": 1772,
+    "gewinnfaktor": 1.06,
+    "summe_R": 30.06
+   },
+   "short": {
+    "trades": 33,
+    "gewinnfaktor": 1.14,
+    "summe_R": 1.18
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 1.06,
+    "summe_R": 27.91
+   },
+   "ausstieg": {
+    "ziel": 674,
+    "stop": 348,
+    "zeit": 783
+   },
+   "groesster_verlust_R": -1.087,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 321,
+     "gewinnfaktor": 1.06,
+     "summe_R": 5.84
+    },
+    "NSXUSD": {
+     "trades": 361,
+     "gewinnfaktor": 1.05,
+     "summe_R": 5.01
+    },
+    "GRXEUR": {
+     "trades": 493,
+     "gewinnfaktor": 0.94,
+     "summe_R": -8.34
+    },
+    "UKXGBP": {
+     "trades": 322,
+     "gewinnfaktor": 1.3,
+     "summe_R": 22.03
+    },
+    "JPXJPY": {
+     "trades": 308,
+     "gewinnfaktor": 1.08,
+     "summe_R": 6.71
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 3284,
+    "gewinnfaktor": 0.93,
+    "summe_R": -66.04
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 91.0,
+    "p": 0.09104477611940298,
+    "echt_R": 31.24,
+    "mittel_R": -6.36,
+    "streuung_R": 26.41,
+    "z": 1.42,
+    "summe_fuer_z3": 72.86
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "trend_leiter_klein": {
+   "vorhersage": "trend",
+   "einstieg": "leiter",
+   "ziel_atr": 0.2,
+   "kontrolle": false,
+   "trades": 5996,
+   "trades_je_woche": 40.63,
+   "markt_tage": 2043,
+   "gewinnfaktor": 0.85,
+   "summe_R": -158.66,
+   "R_je_trade": -0.026,
+   "trefferquote": 0.68,
+   "gewinnfaktor_robust": 0.82,
+   "summe_R_robust": -198.14,
+   "haelfte_1": {
+    "trades": 2831,
+    "gewinnfaktor": 0.85,
+    "summe_R": -77.48
+   },
+   "haelfte_2": {
+    "trades": 3165,
+    "gewinnfaktor": 0.86,
+    "summe_R": -81.18
+   },
+   "jahr_2026": {
+    "trades": 1888,
+    "gewinnfaktor": 0.9,
+    "summe_R": -31.7
+   },
+   "long": {
+    "trades": 4775,
+    "gewinnfaktor": 0.88,
+    "summe_R": -105.27
+   },
+   "short": {
+    "trades": 1221,
+    "gewinnfaktor": 0.77,
+    "summe_R": -53.39
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.85,
+    "summe_R": -160.66
+   },
+   "ausstieg": {
+    "ziel": 3770,
+    "stop": 691,
+    "zeit": 1535
+   },
+   "groesster_verlust_R": -1.442,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 1173,
+     "gewinnfaktor": 0.78,
+     "summe_R": -51.45
+    },
+    "NSXUSD": {
+     "trades": 1208,
+     "gewinnfaktor": 0.76,
+     "summe_R": -58.24
+    },
+    "GRXEUR": {
+     "trades": 1143,
+     "gewinnfaktor": 0.97,
+     "summe_R": -4.79
+    },
+    "UKXGBP": {
+     "trades": 1288,
+     "gewinnfaktor": 0.95,
+     "summe_R": -10.08
+    },
+    "JPXJPY": {
+     "trades": 1184,
+     "gewinnfaktor": 0.84,
+     "summe_R": -34.1
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 13832,
+    "gewinnfaktor": 0.8,
+    "summe_R": -524.67
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 41.0,
+    "p": 0.591044776119403,
+    "echt_R": -158.66,
+    "mittel_R": -153.66,
+    "streuung_R": 43.37,
+    "z": -0.12,
+    "summe_fuer_z3": -23.55
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "1,5-fache Kosten",
+    "Hälften",
+    "2026",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "vix_leiter_klein": {
+   "vorhersage": "vix",
+   "einstieg": "leiter",
+   "ziel_atr": 0.2,
+   "kontrolle": false,
+   "trades": 833,
+   "trades_je_woche": 5.64,
+   "markt_tage": 233,
+   "gewinnfaktor": 1.18,
+   "summe_R": 23.83,
+   "R_je_trade": 0.029,
+   "trefferquote": 0.79,
+   "gewinnfaktor_robust": 1.15,
+   "summe_R_robust": 19.38,
+   "haelfte_1": {
+    "trades": 505,
+    "gewinnfaktor": 1.2,
+    "summe_R": 15.94
+   },
+   "haelfte_2": {
+    "trades": 328,
+    "gewinnfaktor": 1.15,
+    "summe_R": 7.89
+   },
+   "jahr_2026": {
+    "trades": 230,
+    "gewinnfaktor": 1.26,
+    "summe_R": 8.51
+   },
+   "long": {
+    "trades": 833,
+    "gewinnfaktor": 1.18,
+    "summe_R": 23.83
+   },
+   "short": {
+    "trades": 0,
+    "gewinnfaktor": null,
+    "summe_R": 0.0
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 1.17,
+    "summe_R": 21.86
+   },
+   "ausstieg": {
+    "ziel": 641,
+    "stop": 99,
+    "zeit": 93
+   },
+   "groesster_verlust_R": -1.019,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 165,
+     "gewinnfaktor": 1.46,
+     "summe_R": 10.26
+    },
+    "NSXUSD": {
+     "trades": 157,
+     "gewinnfaktor": 1.82,
+     "summe_R": 13.99
+    },
+    "GRXEUR": {
+     "trades": 180,
+     "gewinnfaktor": 0.99,
+     "summe_R": -0.2
+    },
+    "UKXGBP": {
+     "trades": 182,
+     "gewinnfaktor": 1.06,
+     "summe_R": 1.76
+    },
+    "JPXJPY": {
+     "trades": 149,
+     "gewinnfaktor": 0.93,
+     "summe_R": -1.98
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 1919,
+    "gewinnfaktor": 0.95,
+    "summe_R": -17.67
+   },
+   "zufall": {
+    "laeufe": 669,
+    "geschlagen_pct": 94.0,
+    "p": 0.06119402985074627,
+    "echt_R": 23.83,
+    "mittel_R": -11.98,
+    "streuung_R": 24.21,
+    "z": 1.48,
+    "summe_fuer_z3": 60.64
+   },
+   "holm": false,
+   "durchgefallen_bei": [
+    "Gewinnfaktor",
+    "Zufall 95 %",
+    "Holm",
+    "z unter 3"
+   ],
+   "urteil": "durchgefallen"
+  },
+  "immer_leiter_klein": {
+   "vorhersage": "immer_kauf",
+   "einstieg": "leiter",
+   "ziel_atr": 0.2,
+   "kontrolle": true,
+   "trades": 6745,
+   "trades_je_woche": 45.71,
+   "markt_tage": 2263,
+   "gewinnfaktor": 0.89,
+   "summe_R": -130.24,
+   "R_je_trade": -0.019,
+   "trefferquote": 0.7,
+   "gewinnfaktor_robust": 0.85,
+   "summe_R_robust": -176.86,
+   "haelfte_1": {
+    "trades": 3306,
+    "gewinnfaktor": 0.88,
+    "summe_R": -72.84
+   },
+   "haelfte_2": {
+    "trades": 3439,
+    "gewinnfaktor": 0.91,
+    "summe_R": -57.4
+   },
+   "jahr_2026": {
+    "trades": 2137,
+    "gewinnfaktor": 1.0,
+    "summe_R": 0.63
+   },
+   "long": {
+    "trades": 6745,
+    "gewinnfaktor": 0.89,
+    "summe_R": -130.24
+   },
+   "short": {
+    "trades": 0,
+    "gewinnfaktor": null,
+    "summe_R": 0.0
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.89,
+    "summe_R": -132.22
+   },
+   "ausstieg": {
+    "ziel": 4424,
+    "stop": 826,
+    "zeit": 1495
+   },
+   "groesster_verlust_R": -1.035,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 1315,
+     "gewinnfaktor": 0.84,
+     "summe_R": -42.31
+    },
+    "NSXUSD": {
+     "trades": 1351,
+     "gewinnfaktor": 0.81,
+     "summe_R": -50.26
+    },
+    "GRXEUR": {
+     "trades": 1376,
+     "gewinnfaktor": 0.92,
+     "summe_R": -19.98
+    },
+    "UKXGBP": {
+     "trades": 1351,
+     "gewinnfaktor": 1.03,
+     "summe_R": 5.61
+    },
+    "JPXJPY": {
+     "trades": 1352,
+     "gewinnfaktor": 0.9,
+     "summe_R": -23.3
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 15472,
+    "gewinnfaktor": 0.81,
+    "summe_R": -536.35
+   },
+   "urteil": "Kontrolle, nur Auskunft"
+  },
+  "immer_band_klein": {
+   "vorhersage": "immer_kauf",
+   "einstieg": "band",
+   "ziel_atr": 0.2,
+   "kontrolle": true,
+   "trades": 5156,
+   "trades_je_woche": 34.94,
+   "markt_tage": 3201,
+   "gewinnfaktor": 0.94,
+   "summe_R": -52.47,
+   "R_je_trade": -0.01,
+   "trefferquote": 0.72,
+   "gewinnfaktor_robust": 0.89,
+   "summe_R_robust": -100.13,
+   "haelfte_1": {
+    "trades": 2588,
+    "gewinnfaktor": 0.98,
+    "summe_R": -7.81
+   },
+   "haelfte_2": {
+    "trades": 2568,
+    "gewinnfaktor": 0.91,
+    "summe_R": -44.66
+   },
+   "jahr_2026": {
+    "trades": 1548,
+    "gewinnfaktor": 0.95,
+    "summe_R": -14.33
+   },
+   "long": {
+    "trades": 5156,
+    "gewinnfaktor": 0.94,
+    "summe_R": -52.47
+   },
+   "short": {
+    "trades": 0,
+    "gewinnfaktor": null,
+    "summe_R": 0.0
+   },
+   "ohne_5_beste": {
+    "gewinnfaktor": 0.94,
+    "summe_R": -53.79
+   },
+   "ausstieg": {
+    "ziel": 3479,
+    "stop": 674,
+    "zeit": 1003
+   },
+   "groesster_verlust_R": -1.13,
+   "je_markt": {
+    "SPXUSD": {
+     "trades": 987,
+     "gewinnfaktor": 0.96,
+     "summe_R": -7.21
+    },
+    "NSXUSD": {
+     "trades": 975,
+     "gewinnfaktor": 0.96,
+     "summe_R": -8.03
+    },
+    "GRXEUR": {
+     "trades": 1076,
+     "gewinnfaktor": 0.91,
+     "summe_R": -17.23
+    },
+    "UKXGBP": {
+     "trades": 1157,
+     "gewinnfaktor": 1.06,
+     "summe_R": 10.68
+    },
+    "JPXJPY": {
+     "trades": 961,
+     "gewinnfaktor": 0.84,
+     "summe_R": -30.68
+    }
+   },
+   "auskunft_vor_fenster": {
+    "trades": 12448,
+    "gewinnfaktor": 0.9,
+    "summe_R": -215.9
+   },
+   "urteil": "Kontrolle, nur Auskunft"
+  }
+ },
+ "hebel": {
+  "immer_band_klein": {
+   "1": {
+    "end_eur": 519.0,
+    "rendite_pro_monat_pct": -1.91,
+    "tiefster_rueckgang_pct": -51.6,
+    "schlechtester_tag_eur": -50.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 5156,
+    "hoechste_margin_pct_konto": 38.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 205.0,
+    "rendite_pro_monat_pct": -4.56,
+    "tiefster_rueckgang_pct": -82.0,
+    "schlechtester_tag_eur": -96.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 5156,
+    "hoechste_margin_pct_konto": 76.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -243.0,
+    "margin_ueber_konto_einstiege": 862,
+    "einstiege": 5156,
+    "hoechste_margin_pct_konto": 189.0,
+    "pleite_am": "2026-03-06",
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -456.0,
+    "margin_ueber_konto_einstiege": 708,
+    "einstiege": 5156,
+    "hoechste_margin_pct_konto": 370.0,
+    "pleite_am": "2024-07-25",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 9.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -660.0,
+    "margin_ueber_konto_einstiege": 314,
+    "einstiege": 5156,
+    "hoechste_margin_pct_konto": 694.0,
+    "pleite_am": "2024-03-11",
+    "monate": 33.9
+   }
+  },
+  "immer_leiter_klein": {
+   "1": {
+    "end_eur": 188.0,
+    "rendite_pro_monat_pct": -4.81,
+    "tiefster_rueckgang_pct": -83.8,
+    "schlechtester_tag_eur": -118.0,
+    "margin_ueber_konto_einstiege": 5,
+    "einstiege": 6745,
+    "hoechste_margin_pct_konto": 104.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 15.0,
+    "rendite_pro_monat_pct": -11.6,
+    "tiefster_rueckgang_pct": -98.8,
+    "schlechtester_tag_eur": -267.0,
+    "margin_ueber_konto_einstiege": 495,
+    "einstiege": 6745,
+    "hoechste_margin_pct_konto": 209.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -870.0,
+    "margin_ueber_konto_einstiege": 657,
+    "einstiege": 6745,
+    "hoechste_margin_pct_konto": 515.0,
+    "pleite_am": "2024-08-02",
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 0.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1602.0,
+    "margin_ueber_konto_einstiege": 190,
+    "einstiege": 6745,
+    "hoechste_margin_pct_konto": 927.0,
+    "pleite_am": "2024-02-13",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 0.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1050.0,
+    "margin_ueber_konto_einstiege": 144,
+    "einstiege": 6745,
+    "hoechste_margin_pct_konto": 14638.0,
+    "pleite_am": "2024-01-17",
+    "monate": 33.9
+   }
+  },
+  "modell_band_gross": {
+   "1": {
+    "end_eur": 1259.0,
+    "rendite_pro_monat_pct": 0.68,
+    "tiefster_rueckgang_pct": -28.4,
+    "schlechtester_tag_eur": -77.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 1805,
+    "hoechste_margin_pct_konto": 35.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 1340.0,
+    "rendite_pro_monat_pct": 0.87,
+    "tiefster_rueckgang_pct": -49.6,
+    "schlechtester_tag_eur": -207.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 1805,
+    "hoechste_margin_pct_konto": 69.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 563.0,
+    "rendite_pro_monat_pct": -1.68,
+    "tiefster_rueckgang_pct": -85.4,
+    "schlechtester_tag_eur": -605.0,
+    "margin_ueber_konto_einstiege": 195,
+    "einstiege": 1805,
+    "hoechste_margin_pct_konto": 173.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -423.0,
+    "margin_ueber_konto_einstiege": 791,
+    "einstiege": 1805,
+    "hoechste_margin_pct_konto": 347.0,
+    "pleite_am": "2026-09-23",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 9.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -518.0,
+    "margin_ueber_konto_einstiege": 151,
+    "einstiege": 1805,
+    "hoechste_margin_pct_konto": 694.0,
+    "pleite_am": "2024-04-19",
+    "monate": 33.9
+   }
+  },
+  "modell_band_klein": {
+   "1": {
+    "end_eur": 1014.0,
+    "rendite_pro_monat_pct": 0.04,
+    "tiefster_rueckgang_pct": -19.3,
+    "schlechtester_tag_eur": -50.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 2659,
+    "hoechste_margin_pct_konto": 35.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 921.0,
+    "rendite_pro_monat_pct": -0.24,
+    "tiefster_rueckgang_pct": -36.3,
+    "schlechtester_tag_eur": -107.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 2659,
+    "hoechste_margin_pct_konto": 69.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 336.0,
+    "rendite_pro_monat_pct": -3.16,
+    "tiefster_rueckgang_pct": -74.0,
+    "schlechtester_tag_eur": -195.0,
+    "margin_ueber_konto_einstiege": 242,
+    "einstiege": 2659,
+    "hoechste_margin_pct_konto": 173.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -321.0,
+    "margin_ueber_konto_einstiege": 1125,
+    "einstiege": 2659,
+    "hoechste_margin_pct_konto": 347.0,
+    "pleite_am": "2026-09-23",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 5.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -455.0,
+    "margin_ueber_konto_einstiege": 213,
+    "einstiege": 2659,
+    "hoechste_margin_pct_konto": 694.0,
+    "pleite_am": "2024-04-19",
+    "monate": 33.9
+   }
+  },
+  "modell_leiter_gross": {
+   "1": {
+    "end_eur": 1113.0,
+    "rendite_pro_monat_pct": 0.32,
+    "tiefster_rueckgang_pct": -46.8,
+    "schlechtester_tag_eur": -167.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 2438,
+    "hoechste_margin_pct_konto": 97.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 801.0,
+    "rendite_pro_monat_pct": -0.65,
+    "tiefster_rueckgang_pct": -75.0,
+    "schlechtester_tag_eur": -319.0,
+    "margin_ueber_konto_einstiege": 97,
+    "einstiege": 2438,
+    "hoechste_margin_pct_konto": 195.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -396.0,
+    "margin_ueber_konto_einstiege": 226,
+    "einstiege": 2438,
+    "hoechste_margin_pct_konto": 517.0,
+    "pleite_am": "2024-08-05",
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 9.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -576.0,
+    "margin_ueber_konto_einstiege": 156,
+    "einstiege": 2438,
+    "hoechste_margin_pct_konto": 1153.0,
+    "pleite_am": "2024-04-12",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 8.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1263.0,
+    "margin_ueber_konto_einstiege": 38,
+    "einstiege": 2438,
+    "hoechste_margin_pct_konto": 1067.0,
+    "pleite_am": "2024-01-19",
+    "monate": 33.9
+   }
+  },
+  "modell_leiter_klein": {
+   "1": {
+    "end_eur": 785.0,
+    "rendite_pro_monat_pct": -0.71,
+    "tiefster_rueckgang_pct": -46.4,
+    "schlechtester_tag_eur": -108.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 3462,
+    "hoechste_margin_pct_konto": 82.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 459.0,
+    "rendite_pro_monat_pct": -2.27,
+    "tiefster_rueckgang_pct": -73.8,
+    "schlechtester_tag_eur": -155.0,
+    "margin_ueber_konto_einstiege": 95,
+    "einstiege": 3462,
+    "hoechste_margin_pct_konto": 164.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 9.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -317.0,
+    "margin_ueber_konto_einstiege": 998,
+    "einstiege": 3462,
+    "hoechste_margin_pct_konto": 413.0,
+    "pleite_am": "2026-10-30",
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -443.0,
+    "margin_ueber_konto_einstiege": 219,
+    "einstiege": 3462,
+    "hoechste_margin_pct_konto": 834.0,
+    "pleite_am": "2024-04-15",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 3.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1027.0,
+    "margin_ueber_konto_einstiege": 57,
+    "einstiege": 3462,
+    "hoechste_margin_pct_konto": 1048.0,
+    "pleite_am": "2024-01-19",
+    "monate": 33.9
+   }
+  },
+  "trend_leiter_klein": {
+   "1": {
+    "end_eur": 157.0,
+    "rendite_pro_monat_pct": -5.32,
+    "tiefster_rueckgang_pct": -85.9,
+    "schlechtester_tag_eur": -82.0,
+    "margin_ueber_konto_einstiege": 3,
+    "einstiege": 5996,
+    "hoechste_margin_pct_konto": 104.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 14.0,
+    "rendite_pro_monat_pct": -11.9,
+    "tiefster_rueckgang_pct": -98.9,
+    "schlechtester_tag_eur": -153.0,
+    "margin_ueber_konto_einstiege": 293,
+    "einstiege": 5996,
+    "hoechste_margin_pct_konto": 208.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -389.0,
+    "margin_ueber_konto_einstiege": 485,
+    "einstiege": 5996,
+    "hoechste_margin_pct_konto": 515.0,
+    "pleite_am": "2024-08-08",
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 10.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1094.0,
+    "margin_ueber_konto_einstiege": 325,
+    "einstiege": 5996,
+    "hoechste_margin_pct_konto": 648.0,
+    "pleite_am": "2024-04-10",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 0.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -3781.0,
+    "margin_ueber_konto_einstiege": 110,
+    "einstiege": 5996,
+    "hoechste_margin_pct_konto": 1242.0,
+    "pleite_am": "2024-01-17",
+    "monate": 33.9
+   }
+  },
+  "vix_leiter_klein": {
+   "1": {
+    "end_eur": 1221.0,
+    "rendite_pro_monat_pct": 0.59,
+    "tiefster_rueckgang_pct": -21.7,
+    "schlechtester_tag_eur": -152.0,
+    "margin_ueber_konto_einstiege": 0,
+    "einstiege": 833,
+    "hoechste_margin_pct_konto": 95.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "2": {
+    "end_eur": 1370.0,
+    "rendite_pro_monat_pct": 0.93,
+    "tiefster_rueckgang_pct": -40.3,
+    "schlechtester_tag_eur": -336.0,
+    "margin_ueber_konto_einstiege": 37,
+    "einstiege": 833,
+    "hoechste_margin_pct_konto": 190.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "5": {
+    "end_eur": 927.0,
+    "rendite_pro_monat_pct": -0.22,
+    "tiefster_rueckgang_pct": -79.9,
+    "schlechtester_tag_eur": -753.0,
+    "margin_ueber_konto_einstiege": 296,
+    "einstiege": 833,
+    "hoechste_margin_pct_konto": 472.0,
+    "pleite_am": null,
+    "monate": 33.9
+   },
+   "10": {
+    "end_eur": 0.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1075.0,
+    "margin_ueber_konto_einstiege": 110,
+    "einstiege": 833,
+    "hoechste_margin_pct_konto": 588.0,
+    "pleite_am": "2024-08-05",
+    "monate": 33.9
+   },
+   "20": {
+    "end_eur": 0.0,
+    "rendite_pro_monat_pct": null,
+    "tiefster_rueckgang_pct": -100.0,
+    "schlechtester_tag_eur": -1632.0,
+    "margin_ueber_konto_einstiege": 19,
+    "einstiege": 833,
+    "hoechste_margin_pct_konto": 820.0,
+    "pleite_am": "2024-04-15",
+    "monate": 33.9
+   }
+  }
+ }
+}

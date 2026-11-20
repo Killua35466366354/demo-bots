@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-20T17:31:37.811665",
+ "stand_utc": "2026-11-20T17:46:47.252061",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T17:31:37.811665",
+    "zeit": "2026-11-20T17:46:47.252061",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T17:31:37.811665",
+    "zeit": "2026-11-20T17:46:47.252061",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -982,7 +982,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T17:31:37.811665",
+    "zeit": "2026-11-20T17:46:47.252061",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1235,7 +1235,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T17:31:37.811665",
+    "zeit": "2026-11-20T17:46:47.252061",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1463,7 +1463,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4494",
    "konto_name": "Account 3",
-   "kontostand": 979.75,
+   "kontostand": 981.88,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
    "status": "wartet auf das nächste Signal",
@@ -1471,7 +1471,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T17:31:37.811665",
+    "zeit": "2026-11-20T17:46:47.252061",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1851,7 +1851,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-20T17:31:37.811665",
+    "zeit": "2026-11-20T17:46:47.252061",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

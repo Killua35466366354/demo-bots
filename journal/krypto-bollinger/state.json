@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "start": "2026-11-20T12:33:05",
+ "summe_r": 0.0,
+ "trades": 0,
+ "maerkte": {
+  "BTCUSD": {
+   "trade": null
+  },
+  "ETHUSD": {
+   "trade": null
+  }
+ }
+}

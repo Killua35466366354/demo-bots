@@ -290,7 +290,9 @@ def _wunsch(rg_alle: dict | None = None, tag: pd.Timestamp | None = None
     return out, None, alle_trades
 
 
-def vergleich(now: datetime | None = None) -> dict:
+def vergleich(now: datetime | None = None, sammeln: dict | None = None) -> dict:
+    """Der Demo-Vergleich. Mit sammeln (ein leeres dict) legt er dort die Trades ab, die er für die Gruppe ("gruppe")
+    und die Kern-Kombi ("kern") zählt, je Bot, damit suche/kombinierer.py keine zweite Liste führen muss."""
     now = now or datetime.now(timezone.utc)
     tag = pd.Timestamp(now.astimezone(timezone.utc).date())
     rg = regel()
@@ -393,6 +395,8 @@ def vergleich(now: datetime | None = None) -> dict:
                       "summe_r": round(sum(s["summe_r"] or 0 for s in soll_k), 2)},
              "aufstieg": {"status": "keine_regel", "text": "Prüfsumme von VORAB_aufstieg.yaml fehlt"} if kr is None
              else pruefe(kt, kr, zeit=zeit, start=min((starts[b] for b in mitglieder), default=None), tag=tag)}
+    if sammeln is not None:
+        sammeln["kern"] = {bid: alle_trades[bid] for bid in drin}
     letzte = max((str(t.get("closed_utc")) for ts in alle_trades.values() for t in ts if t.get("closed_utc")), default=None)
     wunsch, wunsch_fehler, wunsch_trades = _wunsch(rg_alle, tag)
     starts.update({b["id"]: wb._ts(b["start"]) for b in wunsch if b.get("start")})
@@ -410,6 +414,8 @@ def vergleich(now: datetime | None = None) -> dict:
                 starts.setdefault(bid, wb._ts(_start(gt[bid])))
         st = [starts[b] for b in gt if starts.get(b) is not None]
         gruppe = pruefe_gruppe(gt, rg_alle["gruppe"], zeit, min(st, default=None), tag)
+        if sammeln is not None:
+            sammeln["gruppe"] = gt
     return {"format": 1, "tag": tag.date().isoformat(), "letzter_trade_utc": letzte,
             "regel_aufstieg": "festgelegt" if rg else "Prüfsumme fehlt",
             "regel_aufstieg_alle": "festgelegt" if rg_alle else "Prüfsumme fehlt",

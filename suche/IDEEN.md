@@ -320,3 +320,10 @@ vor 2024 1,51) handelt als Demo-Bot auf Account 7 (`suche/williams_bot.py`, `suc
 16:00 New York nach Williams %R(2) unter -90, Ausstieg um 16:00 nach der Regel. Bei 47 von 77 Trades kaufte auch der
 US500-Rücksetzer, also kaum neue Streuung. Eigenes Urteil nach 40 Demo-Trades, bei gut 2 Trades im Monat etwa April
 2028. Das Schatten-Labor zählt die Fassung unverändert weiter.
+
+Derselbe Wunsch: Die Fassung `ausbruch4h_krypto` der YouTube-Runde (nicht bestanden, 319 Trades, Gewinnfaktor 1,23,
+2026 0,91, z 2,35, vor 2024 1,10) handelt als Demo-Bot auf Account 5 (`suche/krypto4h_bot.py`,
+`suche/VORAB_krypto_ausbruch4h_bot.yaml`). Der 4-Std.-Ausbruch mit Tagestrend auf Bitcoin und Ether, alle sieben Tage,
+ohne Ziel, Ausstieg nach 16 Stunden. Der Gewinn kam aus Bitcoin, aus Käufen und aus 2024, ohne die 5 besten Trades 0,98.
+Eigenes Urteil nach 40 Demo-Trades, bei 2,2 Trades je Woche etwa Ende März 2027. Das Schatten-Labor zählt die Fassung
+unverändert weiter.

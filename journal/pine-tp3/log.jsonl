@@ -160,3 +160,5 @@
 {"time": "2026-11-20T15:08:32", "bot": "pine-tp3", "event": "ausgelassen", "richtung": -1, "kerze": "2026-11-20 15:00:00", "strategie": "B Short", "lage": "", "gruende": ["eine Goldposition in die andere Richtung ist offen"]}
 {"time": "2026-11-20T15:38:27", "bot": "pine-tp3", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-20 15:30:00", "strategie": "A Long", "lage": "", "dealId": "00000000-7534-0dc6-049c-a0c30015549e", "size": 0.17, "entry": 3559.19, "tp": 3578.59}
 {"time": "2026-11-20T15:43:31", "bot": "pine-tp3", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-20 15:35:00", "strategie": "A Long", "lage": "", "dealId": "00000000-7534-1d0e-049c-a0c30015549e", "size": 0.16, "entry": 3554.16, "tp": 3574.78}
+{"time": "2026-11-20T16:08:45", "bot": "pine-tp3", "event": "Abfänger gesetzt", "dealId": "00000000-7532-2a03-049c-a0c30015549e", "stopLevel": 3542.36, "profitLevel": 3579.96, "warum": "Fehltrade (0,5 R im Minus)"}
+{"time": "2026-11-20T16:08:45", "bot": "pine-tp3", "event": "Prüfer greift", "dealId": "00000000-7532-2a03-049c-a0c30015549e", "stop": 3542.36, "ziel": 3579.96, "warum": "Fehltrade (0,5 R im Minus)"}

@@ -1,0 +1,2 @@
+{"time": "2026-11-20T19:03:01", "event": "Hedging eingeschaltet"}
+{"time": "2026-11-20T19:03:01", "event": "kopiert", "dealId": "00000000-752c-4d35-049c-a8a80015549e", "entry": 55385.3, "quelle": "welt-ausbruch4h", "quelle_deal": "00000000-74ff-e7f4-049c-70750015549e", "epic": "J225", "richtung": -1, "size": 0.3, "stop": 59448.8, "ziel": 51296.8, "margin_eur": 4.77, "risiko_eur": 7.0}

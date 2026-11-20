@@ -6,46 +6,67 @@
  "maerkte": {
   "GRXEUR": {
    "trade": null,
-   "letzte_grenze": "2026-11-20 15:00:00",
+   "letzte_grenze": "2026-11-20 19:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 15:00:00",
-    "ergebnis": "kein Ausbruch",
-    "richtung": 0,
-    "schluss": 25037.9,
-    "hoch_davor": 26516.8,
-    "tief_davor": 24914.3,
-    "trend": null,
+    "grenze": "2026-11-20 19:00:00",
+    "ergebnis": "Verkauf-Ausbruch gegen den Tagestrend",
+    "richtung": -1,
+    "schluss": 24753.7,
+    "hoch_davor": 26459.8,
+    "tief_davor": 24814.6,
+    "trend": false,
     "dist": null
    }
   },
   "UKXGBP": {
    "trade": null,
-   "letzte_grenze": "2026-11-20 15:00:00",
+   "letzte_grenze": "2026-11-20 19:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 15:00:00",
+    "grenze": "2026-11-20 19:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 10414.3,
+    "schluss": 10331.8,
     "hoch_davor": 10819.7,
-    "tief_davor": 10354.8,
+    "tief_davor": 10328.5,
     "trend": null,
     "dist": null
    }
   },
   "JPXJPY": {
-   "trade": null,
-   "letzte_grenze": "2026-11-20 15:00:00",
+   "trade": {
+    "id": "J225 2026-11-20T19:00",
+    "markt": "JPXJPY",
+    "epic": "J225",
+    "richtung": -1,
+    "grenze": "2026-11-20 19:00:00",
+    "dealId": "00000000-74ff-e7f4-049c-70750015549e",
+    "size": 0.21,
+    "entry": 55372.8,
+    "stop": 59448.8,
+    "ziel": 51296.8,
+    "dist": 4075.989271,
+    "bid_ein": 55372.8,
+    "opened_utc": "2026-11-20T19:02:00",
+    "spaet_min": 2.0,
+    "kerzen": 0,
+    "halte_kerzen": 4,
+    "bis_utc": "2026-12-04 19:00:00",
+    "satz_nacht": 0.02,
+    "lot": 1.0,
+    "eur_rate": 174.2135
+   },
+   "letzte_grenze": "2026-11-20 19:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 15:00:00",
-    "ergebnis": "kein Ausbruch",
-    "richtung": 0,
-    "schluss": 56945.3,
+    "grenze": "2026-11-20 19:00:00",
+    "ergebnis": "Verkauf eröffnet",
+    "richtung": -1,
+    "schluss": 55422.8,
     "hoch_davor": 60205.0,
-    "tief_davor": 56242.8,
-    "trend": null,
-    "dist": null
+    "tief_davor": 56030.3,
+    "trend": true,
+    "dist": 4075.989271
    }
   }
  },
- "stand": "2026-11-20T15:01:59"
+ "stand": "2026-11-20T19:02:00"
 }

@@ -556,23 +556,23 @@
   "draussen": [
    {
     "id": "pine-tp3",
-    "warum": "Gewinnfaktor 0.55 nach 47 Trades"
+    "warum": "Gewinnfaktor 0.52 nach 48 Trades"
    }
   ],
   "ist": {
-   "trades": 64,
-   "gewonnen": 31,
-   "treffer_pct": 48.4,
-   "summe_r": 17.28,
-   "pf_r": 1.64,
-   "eur": 153.69,
+   "trades": 65,
+   "gewonnen": 32,
+   "treffer_pct": 49.2,
+   "summe_r": 19.6,
+   "pf_r": 1.73,
+   "eur": 165.04,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 64,
-    "summe_r": 17.29,
-    "eur": 153.69
+    "trades": 65,
+    "summe_r": 19.61,
+    "eur": 165.04
    }
   },
   "bestes": "gold",
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "64 von 100 Demo-Trades, 17 von 61 Tagen"
+   "text": "65 von 100 Demo-Trades, 17 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -934,12 +934,12 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 27,
-    "gewonnen": 15,
-    "treffer_pct": 55.6,
-    "summe_r": 10.93,
-    "pf_r": 1.96,
-    "eur": 53.82,
+    "trades": 28,
+    "gewonnen": 16,
+    "treffer_pct": 57.1,
+    "summe_r": 13.25,
+    "pf_r": 2.16,
+    "eur": 65.17,
     "rueckgang_r": 5.72
    },
    "einheit": "R",
@@ -948,7 +948,7 @@
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "27 von 100 Demo-Trades, 10 von 61 Tagen"
+    "text": "28 von 100 Demo-Trades, 10 von 61 Tagen"
    }
   },
   {
@@ -958,13 +958,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 47,
+    "trades": 48,
     "gewonnen": 30,
-    "treffer_pct": 63.8,
-    "summe_r": -12.98,
-    "pf_r": 0.55,
-    "eur": -64.02,
-    "rueckgang_r": 12.98
+    "treffer_pct": 62.5,
+    "summe_r": -14.8,
+    "pf_r": 0.52,
+    "eur": -72.77,
+    "rueckgang_r": 14.8
    },
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
@@ -972,7 +972,7 @@
    "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "47 von 100 Demo-Trades, 10 von 61 Tagen"
+    "text": "48 von 100 Demo-Trades, 10 von 61 Tagen"
    }
   }
  ],

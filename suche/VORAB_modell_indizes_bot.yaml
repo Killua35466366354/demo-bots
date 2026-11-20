@@ -1,0 +1,203 @@
+# Vorwärtstest "Vorhersage-Modell Indizes", live auf einem Capital.com-DEMOKONTO. Nie echtes Geld. Festgelegt, BEVOR
+# der Bot einen Trade hatte (Prüfsumme im Protokoll). Code: suche/modell_indizes_bot.py.
+#
+# Kirons Wahl vom 20.11.2026 12:25 UTC auf der Karte "Welches Vorhersage-Modell soll Bot 2 werden, und jetzt oder nach
+# dem Wochenende?": "Modell Indizes, jetzt bauen". Dazu sein Wunsch vom 20.11.2026 11:44 UTC "Schatten soll direkt
+# Live-Demo sein" und 11:53 UTC "die paar stärksten zu erst".
+#
+# Ehrlich vorab:
+# - Die Regel ist die Fassung modell_indizes aus suche/VORAB_grosse_runde.yaml, unverändert. Sie hat den Test NICHT
+#   bestanden. Sie ist ein Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades, 12,7 je Woche,
+#   Gewinnfaktor 1,21, robust 1,16, Hälften 1,09 und 1,34, 2026 allein 1,27 (535 Trades). Sie schlug 97,5 % der
+#   Zufallsläufe, lag aber nur 1,89 Standardabweichungen über dem Zufall (nötig 3,0) und hielt Holm über die 26
+#   Fassungen nicht.
+# - Vor 2024 verlor dieselbe Rechnung (3.441 Trades, Gewinnfaktor 0,94, -28,9 R). Das Plus 2024 bis 2026 kann vom
+#   steigenden Markt kommen und nicht vom Modell.
+# - Fast nur Käufe: 1.840 Käufe (Gewinnfaktor 1,21), 34 Verkäufe (1,07). Damit ähnelt der Bot den Rücksetzer-Bots auf
+#   US500 und US100, die auch kaufen. Fällt der Markt, verlieren sie wahrscheinlich gemeinsam.
+# - Die Gewinne sind sehr klein. Im Schnitt +0,024 R je Trade, bei 5 Euro Risiko also etwa 0,12 Euro je Trade, etwa
+#   6,70 Euro im Monat über alle fünf Märkte. Ohne die 5 besten Trades Gewinnfaktor 1,17. Schon ein etwas breiterer
+#   Spread als im Test kann den Vorteil aufzehren.
+# - Je Markt: US500 344 Trades 1,21 +9,24 R, US100 394 Trades 1,31 +14,05 R, DAX 487 Trades 1,04 +2,46 R, FTSE 100 321
+#   Trades 1,49 +14,62 R, Nikkei 225 328 Trades 1,13 +5,36 R. Den DAX wegzulassen wäre Auswahl nach dem Ergebnis, er
+#   bleibt drin.
+# - Das Schatten-Labor (suche/VORAB_schatten.yaml) zählt dieselbe Fassung ohne Order unverändert weiter. Dieser Bot
+#   ersetzt das nicht und ändert es nicht. Beide haben ihr eigenes Urteil.
+
+format: 1
+modell_indizes_bot:
+  bot: modell-indizes
+  konto: >-
+    Account 6, geteilt mit der Gold Groß-Box (Gold) und dem Labor-Bot London GBP/USD (andere Märkte). Die Kontonummer
+    liest der Bot nach dem Namen aus journal/konten.json (suche/mitnutzer.konto_nach_name). Nie das Hauptkonto des
+    Gold-Bots.
+  maerkte: US500 (Capital.com US500), US100 (US100), DAX (DE40), FTSE 100 (UK100), Nikkei 225 (J225)
+  lauf: Alle 15 Minuten im Workflow demo-bots.yml (Minute 1, 16, 31, 46)
+
+  regel: >-
+    Fassung modell_indizes aus suche/VORAB_grosse_runde.yaml (Durchgang 1, Variante modell_indizes, Regel
+    modell_indizes), unverändert. Alle Zahlen liest der Code aus dieser versiegelten Datei. Kurz: Ein gemeinsames
+    Vorhersage-Modell (logistische Regression, Strafe 10) für alle fünf Märkte schätzt zu jedem Handelstag (Ende 17:00
+    New York) die Wahrscheinlichkeit, dass der Kurs zum Ausstieg über dem Einstieg liegt. Merkmale, alle vom Vortag:
+    Lauf über 1, 2, 5 und 20 Tage in ATR, RSI 2 und 14, Abstand zum 50- und 200-Tage-Schnitt, Lage des Schlusskurses
+    im Vortag, Schwankung (ATR 14 gegen ihren Schnitt über 100 Tage), Wochentag, VIX, VIX-Änderung, VIX gegen VIX3M,
+    Änderung der 10- und 2-jährigen US-Rendite über 5 Tage, ein eigener Grundwert je Markt. VIX und Renditen zählen mit
+    dem letzten Wert, dessen Datum vor dem Handelstag liegt. Ab 54 % Kauf, bis 46 % Verkauf, dazwischen nichts.
+    Einstieg mit dem ersten Kurs ab 18:00 New York am Vorabend des Handelstags (spätestens 3:00 New York), Stop 2 ATR
+    14 der Tageskerzen, kein Ziel, Ausstieg zum Markt um 15:55 New York am Handelstag. Höchstens ein Trade je Markt,
+    also höchstens fünf zugleich.
+
+  gewichte:
+    datei: suche/modell_indizes_gewichte.json
+    sha256: b69c7dbf82a74450ac6ea4b77811554ead2f8626e86eaafec4e0f70247ce120b
+    jahre: [2024, 2025, 2026]
+    erklaerung: >-
+      Der Test lernt das Modell zu jedem Kalenderjahr neu, nur mit den Zeilen aller fünf Märkte aus den Jahren davor
+      (suche/grosse_runde.vorhersagen). Live fehlen dem Bot dafür die Kurse von HistData. Darum stehen in dieser Datei
+      für jedes Jahr genau die Zahlen, die der Test in diesem Jahr benutzt: Mittel und Streuung der Lernzeilen und die
+      gelernten Gewichte. Gebaut von python -m suche.modell_indizes_gegenprobe gewichte <Arbeit> mit den Kursen des
+      Tests bis 30.10.2026 und den versiegelten FRED-Reihen. Für 2026 gelernt aus 11.367 Zeilen der Jahre 2015 bis
+      2025. Für jede Zeile der Jahre 2024, 2025 und 2026 gibt die Datei dieselbe Wahrscheinlichkeit wie der Test
+      (größte Abweichung 1e-16). Live zählt nur 2026. 2024 und 2025 sind für die Gegenprobe.
+    jahr_2027: >-
+      Für 2027 gibt es keine Gewichte. Für einen Handelstag in 2027 öffnet der Bot nichts, bis die Gewichte für 2027 per
+      PR kommen. Sie entstehen mit derselben Rechnung aus allen Jahren bis 2026 (Kurse von HistData bis Ende Dezember
+      2026) und bekommen eine neue Regeldatei mit eigener Prüfsumme. Dieses Urteil zählt dann weiter.
+
+  ausfuehrung:
+    frist_min: 20
+    vorlauf_tage: 420
+    min_handelstage: 220
+    kerzen: >-
+      Fertige Stundenkerzen (Bid) von Capital.com, vorlauf_tage Kalendertage vor dem Einstieg. Jede wird zu zwölf
+      gleichen 5-Min.-Zeilen, dahinter eine Zeile zur Minute des Einstiegs mit dem aktuellen Bid. Tageskerzen,
+      Merkmale, ATR, Stop und Ausstiegszeit rechnen dann dieselben Funktionen wie der Test (suche/rueckblick.Markt,
+      suche/grosse_runde.merkmale und _tagestrades). Hat der Bot weniger als min_handelstage fertige Handelstage, rechnet
+      er kein Signal.
+    vix_und_renditen: >-
+      Der Test nimmt die FRED-Reihen VIXCLS, VXVCLS, DGS10 und DGS2. FRED veröffentlicht sie erst am nächsten Tag. Der
+      Bot holt sie darum dort, woher FRED sie hat: VIX und VIX3M als Tagesschluss von Cboe, die Renditen 10 und 2 Jahre
+      vom US-Finanzministerium (Daily Treasury Par Yield Curve Rates). Vor dem Siegel verglichen von 2020 bis
+      zum letzten Wert bei FRED (17. und 18.11.2026): an allen 1.763 (VIX), 1.730 (VIX3M) und 1.720 (beide
+      Renditen) Tagen derselbe Wert wie bei FRED, kein Tag fehlt auf einer Seite. Die Reihen schreibt der Bot im Format der FRED-Dateien, der Test liest sie dann mit
+      seiner eigenen Funktion (suche/grosse_runde.vor).
+    einstieg: >-
+      Geprüft wird jeder Handelstag je Markt genau einmal, ab 18:00 New York am Vorabend. Der Test steigt mit der
+      ersten Kerze ab 18:00 New York ein. Der Bot steigt höchstens frist_min Minuten nach der ersten 5-Min.-Kerze ein,
+      die der Broker ab 18:00 New York zeigt, sonst ist der Tag verfallen. Der Lauf kommt zur Minute 1 und 16 nach dem
+      ersten Kurs. Fehlt dann der Wert vom Vortag bei VIX, VIX3M oder einer Rendite (die Quelle hat noch nicht
+      veröffentlicht), wartet der Bot. Fehlt er auch im letzten Lauf der Frist, lässt er den Handelstag auf diesem
+      Markt aus, denn mit einem Tag älteren Werten wäre es ein anderes Signal (siehe gegenprobe). Ist der Markt zu oder
+      fehlen Kerzen, sieht der nächste Lauf in der Frist noch einmal nach. Bei einem Signal sendet der Bot eine
+      Marktorder mit Stop beim Broker, gemessen wie im Test vom aktuellen Bid. Ist auf diesem Markt noch ein Trade des
+      Bots offen, gibt es keinen Einstieg.
+    order: >-
+      Jeder Handelstag bekommt je Markt höchstens eine Order. Eine abgelehnte oder gescheiterte Order wird nie
+      wiederholt. Kommt auf die Order keine Bestätigung, sucht der Bot die Position sofort und im nächsten Lauf an
+      Richtung und Größe und übernimmt sie. Findet er keine, gilt die Order als nicht angekommen.
+    ausstieg: >-
+      Den Stop schließt der Broker. Sonst schließt der Bot zum Markt im ersten Lauf ab 15:40 New York (15 Minuten vor
+      der Zeit des Tests), damit DAX und FTSE 100, die bei Capital.com um 16:00 New York schließen, noch offen sind. Ist
+      der Markt dann zu, schließt der erste Lauf nach der Öffnung. Scheitert das Schließen, versucht es der nächste
+      Lauf. Über 17:00 New York läuft ein Trade so nie, es fällt keine Übernachtgebühr an.
+    ergebnis: >-
+      R je Trade ist der Weg vom Füllkurs zum Ausstieg, geteilt durch den Stop-Abstand der Order, minus Übernachtgebühr
+      mit den Sätzen des Tests (Indizes, long 6,5 %, short 2 % im Jahr), falls ein Trade doch über 17:00 New York lief.
+      Das Euro-Ergebnis im Journal ist ohne Gebühr. Den Ausstiegskurs am Stop liest der Bot aus der Kontoaktivität des
+      Brokers. Steht der Schluss dort eine Stunde lang nicht, zählt der Stopkurs, und der Trade ist als geschätzt
+      markiert.
+
+  gegenprobe: >-
+    Vor dem Siegel mit den Kursen des Tests gerechnet (python -m suche.modell_indizes_gegenprobe pruefen <Arbeit>):
+    Aus den 5-Min.-Kerzen des Tests wurden Stundenkerzen wie vom Broker. Die Rechnung des Bots bekam sie zu jedem
+    Handelstag von Januar 2024 bis Oktober 2026 zur Minute des Einstiegs im Test. US500, US100, FTSE 100 und Nikkei 225
+    ohne jede Abweichung, 1.400 gemeinsame Einstiege. Beim DAX 323 gemeinsame Einstiege und 166 nur im Test, alle vom
+    02.01. bis 08.10.2024. In den Kursdaten des Tests zählen beim DAX erst ab 04.12.2023 volle Handelstage, darum
+    wartete der Bot dort auf 220 Handelstage. Live liefert der Broker 420 Tage, die Sicherung greift dann nicht, wenn
+    seine Stundenkerzen so weit zurückreichen. Richtung bei allen gemeinsamen Einstiegen gleich, Stop-Abstand auf
+    1e-8 gleich, Ausstiegszeit bei allen gleich. Dazu: Wären VIX und VIX3M einen Tag älter, hätte das Modell an 218 von
+    3.648 Markt-Tagen (6 %) anders entschieden, bei den Renditen an 422 (12 %), bei allen vier an 490 (13 %). Darum
+    lässt der Bot einen Tag ohne frische Werte aus.
+  gegenprobe_zahlen:
+    SPXUSD: {tage: 730, test: 348, bot: 348, gemeinsam: 348, richtung_anders: 0, nur_bot: 0, nur_test: 0, ausstieg_gleich: 348}
+    NSXUSD: {tage: 730, test: 399, bot: 399, gemeinsam: 399, richtung_anders: 0, nur_bot: 0, nur_test: 0, ausstieg_gleich: 399}
+    GRXEUR: {tage: 730, test: 489, bot: 323, gemeinsam: 323, richtung_anders: 0, nur_bot: 0, nur_test: 166, ausstieg_gleich: 323}
+    UKXGBP: {tage: 729, test: 321, bot: 321, gemeinsam: 321, richtung_anders: 0, nur_bot: 0, nur_test: 0, ausstieg_gleich: 321}
+    JPXJPY: {tage: 730, test: 332, bot: 332, gemeinsam: 332, richtung_anders: 0, nur_bot: 0, nur_test: 0, ausstieg_gleich: 332}
+    ein_tag_aelter: {markt_tage: 3648, vix: 218, renditen: 422, alle_vier: 490}
+
+  abweichungen_vom_test:
+    - >-
+      Andere Kurse: Der Test rechnete mit 5-Min.-Kerzen von HistData, der Bot mit Stundenkerzen von Capital.com. Hoch,
+      Tief und Schluss eines Tages können abweichen, und damit alle Merkmale aus Kursen. Liegt die Wahrscheinlichkeit
+      knapp an 54 % oder 46 %, kann ein Signal darum fehlen oder dazukommen.
+    - >-
+      Andere Handelszeiten: Die Kurse von HistData beginnen meist um 18:00 New York und enden um 16:15 New York.
+      Capital.com hat eigene Handelszeiten, DAX und FTSE 100 schließen dort um 16:00 New York. Öffnet ein Markt beim
+      Broker erst nach 18:00 New York, steigt der Bot mit seinem ersten Kurs ein. Im Test lag der Einstieg 2024 bis
+      2026 bei DAX und FTSE an 91 % der Tage bis 18:05 New York. Die Tageskerzen des Bots enthalten dann andere Stunden
+      als die des Tests. Das Journal schreibt je Trade, wie viele Minuten nach
+      18:00 New York der Bot einstieg (nach_18_min) und wie viele nach dem ersten Kurs des Brokers (spaet_min).
+    - >-
+      Später Einstieg und früherer Ausstieg: Der Bot kommt etwa 1 bis 20 Minuten nach dem ersten Kurs und steigt im
+      ersten Lauf ab 15:40 New York aus, also bis zu 15 Minuten vor der Zeit des Tests. Bei im Schnitt +0,024 R je
+      Trade kann schon ein kleiner Kursunterschied das Ergebnis ändern. Was das kostet oder bringt, ist nicht getestet.
+    - >-
+      Fehlen VIX oder Renditen vom Vortag im letzten Lauf der Frist, lässt der Bot den Tag aus. Wann das
+      US-Finanzministerium seine Renditen veröffentlicht, ist vor dem Start nicht geprüft. Kommt es regelmäßig nach
+      18:20 New York, fehlen Tage auf US500, US100 und Nikkei. Der Zustand zählt je Markt, wie oft und warum ein Tag
+      ausgelassen wurde (ausgelassen), das Cockpit zeigt es.
+    - >-
+      Ob die Stundenkerzen von Capital.com 420 Tage zurückreichen, ist vor dem Start nicht geprüft. Reichen sie nicht
+      für 220 Handelstage, rechnet der Bot kein Signal und schreibt "zu wenig Kerzen vom Broker". Das zeigt der erste
+      Probelauf.
+    - >-
+      Der Test rechnete mit dem mittleren Spread von Capital.com je Viertelstunde der New Yorker Uhr. Live gilt der
+      Spread des Augenblicks. Kurz nach 18:00 New York ist er bei Indizes oft breiter.
+    - >-
+      Der Test füllt den Stop einen halben Spread schlechter. Live füllt der Broker zum nächsten Kurs, in einer
+      Kurslücke schlechter.
+    - >-
+      Fällt ein Lauf aus oder scheitert der Abruf in der ganzen Frist, verfällt der Tag. Im Test gibt es das nicht.
+    - >-
+      Für 2027 braucht der Bot neue Gewichte (siehe gewichte, jahr_2027). Bis sie kommen, öffnet er nichts.
+
+  groesse:
+    risiko_eur: 5.0                      # je Trade vom Einstieg bis zum Stop
+    max_risiko_faktor: 2.0
+    margin_anteil: 0.2
+    runden: >-
+      Auf die Schrittweite des Brokers abgerundet, mindestens die kleinste Größe. Würde das Runden das Risiko mehr als
+      verdoppeln, gibt es keinen Einstieg. Braucht die Order mehr als margin_anteil des freien Gelds auf dem Konto als
+      Margin, gibt es keinen Einstieg. So bleibt der Groß-Box und dem London-Bot auf demselben Konto genug freies Geld.
+
+  sperren:
+    - >-
+      Ohne passende Prüfsumme dieser Datei im Protokoll öffnet der Bot nichts. Passt das Siegel von
+      suche/VORAB_grosse_runde.yaml nicht mehr oder die Prüfsumme der Gewichte nicht zu dieser Datei, rechnet er kein
+      Signal.
+    - >-
+      Liegt auf einem seiner Märkte eine Position auf dem Konto, die nicht von ihm ist, öffnet er dort nichts Neues.
+      Fremde Positionen fasst er nie an. Seine eigenen erkennt er an der Deal-ID.
+    - >-
+      Steht Account 6 nicht genau einmal in journal/konten.json, findet sich dazu keine volle Nummer oder endet sie wie
+      das Hauptkonto des Gold-Bots, handelt er nicht.
+    - Ab -25 R seit Start nichts Neues mehr. Offene Trades laufen zu Ende. Zurück nur mit Kirons Entscheidung.
+    - Er steht nie in der Zuordnung von journal/konten.json, nur in suche/mitnutzer.py.
+    - Er schreibt nur journal/modell-indizes/ und journal/modell-indizes.json.
+
+  urteil:
+    pause_r: -25.0
+    zwischencheck: >-
+      Nach 15 Trades und bei jedem weiteren Trade bis zum Urteil: Gewinnfaktor unter 0,6. Dann Vorschlag an Kiron, den
+      Bot zu stoppen.
+    nach_trades: 40
+    bestanden: >-
+      Gewinnfaktor in R mindestens 1,2 und Summe R über 0, gerechnet über die ersten 40 Trades aller fünf Märkte
+      zusammen. Dann entscheidet Kiron über den nächsten Schritt.
+    durchgefallen: Sonst Vorschlag an Kiron, den Bot zu stoppen. Neue Regeln nur mit neuer Vorab-Datei.
+    dauer: >-
+      Bei 12,7 Trades je Woche wie im Test etwa 3 bis 4 Wochen bis zum Urteil, also etwa Mitte Dezember 2026. 40 Trades
+      sind wenig für einen Vorteil von +0,024 R je Trade. Ein Bestehen nach 40 Trades ist darum kein Beleg, ein
+      Durchfallen auch nicht. Für echtes Geld gilt allein suche/VORAB_aufstieg_alle.yaml (100 Trades, 61 Tage).
+    eine_woche: 7 Tage ab Start keine Regeländerung und keine Abschaltung (suche/VORAB_eine_woche.yaml).

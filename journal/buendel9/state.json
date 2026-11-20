@@ -21,7 +21,8 @@
    "lot": 1.0,
    "eur_rate": 174.233,
    "opened_utc": "2026-11-20T19:03:01",
-   "quelle_opened_utc": "2026-11-20T19:02:28"
+   "quelle_opened_utc": "2026-11-20T19:02:28",
+   "weg_seit": "2026-11-20T19:17:01"
   }
  },
  "gesehen": {},
@@ -31,7 +32,7 @@
  "hoechst": 700.0,
  "versuche": {},
  "raus": {},
- "stand": "2026-11-20T19:03:01",
+ "stand": "2026-11-20T19:17:01",
  "hedging_versuch": "2026-11-20T19:03:01",
  "hedging": true
 }

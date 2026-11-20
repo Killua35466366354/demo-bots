@@ -88,11 +88,13 @@ def test_liste_nicht_lesbar_sperrt_jedes_freie_konto(monkeypatch):
 
 def test_liste_kommt_aus_dem_code_der_bots():
     from gold import ausbruch4h_bot, grossbox_bot, hand_bot, pine5m_bot, zonen_bot
-    from suche import gold_staffel_bot, krypto_bollinger_bot, modell_indizes_bot, scalper_bot, welt4h_bot
+    from suche import gold_staffel_bot, krypto_bollinger_bot, modell_indizes_bot, scalper_bot, vix_sprung_bot
+    from suche import welt4h_bot
     alle = {b["bot"]: b for b in mn.bots()}
     erwartet = ({b.bot_id for b in scalper_bot.BOTS} | {b.bot_id for b in pine5m_bot.BOTS}
                 | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID, zonen_bot.BOT_ID,
-                   ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID, modell_indizes_bot.BOT_ID})
+                   ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID, modell_indizes_bot.BOT_ID,
+                   vix_sprung_bot.BOT_ID})
     assert set(alle) == erwartet and len(mn.bots()) == len(erwartet)
     assert alle["gold-staffel"]["konto"] == gold_staffel_bot.KONTO == scalper_bot.KONTO
     assert alle["gold-grossbox"]["konto"] == grossbox_bot.KONTO
@@ -111,6 +113,12 @@ def test_liste_kommt_aus_dem_code_der_bots():
     # Account 6 teilt er mit der Groß-Box (Gold, andere Märkte), aber nie mit einem anderen Index-Bot
     assert modell_indizes_bot.KONTO == grossbox_bot.KONTO
     assert modell_indizes_bot.KONTO not in [gold_staffel_bot.KONTO, welt4h_bot.KONTO, krypto_bollinger_bot.KONTO]
+    v = alle["vix-sprung"]
+    assert v["konto"] == vix_sprung_bot.KONTO and v["konto_name"] == "Account 5"
+    # Account 5 teilt er mit pine-k5 (Gold) und dem Dow-Rücksetzer (US30), aber nie mit einem Bot auf seinen Märkten
+    assert vix_sprung_bot.KONTO == hand_bot.KONTO == alle["pine-k5"]["konto"]
+    assert vix_sprung_bot.KONTO not in [scalper_bot.KONTO, welt4h_bot.KONTO, krypto_bollinger_bot.KONTO,
+                                        modell_indizes_bot.KONTO]
     assert alle["gold-hand"]["neu"] is bool(hand_bot.NEUE_EINSTIEGE)
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG

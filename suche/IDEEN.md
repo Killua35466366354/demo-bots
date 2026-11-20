@@ -308,3 +308,9 @@ Kirons Wahl vom 20.11.2026 12:25 UTC ("Modell Indizes, jetzt bauen"): Die Fassun
 (`suche/modell_indizes_gewichte.json`), VIX und Renditen live von Cboe und vom US-Finanzministerium. Eigenes Urteil
 nach 40 Demo-Trades, bei 12,7 Trades je Woche etwa Mitte Dezember 2026. Das Schatten-Labor zählt sie unverändert
 weiter.
+
+Kirons Wunsch vom 20.11.2026 12:26 UTC ("baue danach aber weiter aus"): Die Fassungen `vix_sprung_us` (Kandidat,
+Gewinnfaktor 1,93, z 2,17, vor 2024 1,13) und `vix_sprung_welt` (durchgefallen, 1,41, vor 2024 0,85) handeln als ein
+Demo-Bot auf Account 5 (`suche/vix_sprung_bot.py`, `suche/VORAB_vix_sprung_bot.yaml`). Den VIX holt er von Cboe. Alle
+340 Trades des Tests liegen an nur 68 Tagen, 2024 verlor die Regel. Eigenes Urteil nach 40 Demo-Trades, das sind etwa
+8 Sprung-Tage, also etwa Mitte März 2027. Das Schatten-Labor zählt beide Fassungen unverändert weiter.

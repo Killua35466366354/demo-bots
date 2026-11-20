@@ -54,7 +54,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -70,8 +70,8 @@ Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Que
 
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
 - `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
-  4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, Pine-Bots,
-  Gold-Hand).
+  4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung,
+  Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
@@ -96,6 +96,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 - **Seit 20.11.2026:** `krypto-bollinger`, Bollinger und RSI auf Bitcoin und Ether umgedreht (Test durchgefallen,
   Kirons Wahl "die paar stärksten zu erst" aus dem Schatten direkt als Demo-Bot). Dazu `modell-indizes`, das
   Vorhersage-Modell auf US500, US100, DAX, FTSE und Nikkei (Kandidat, Kirons Wahl "Modell Indizes, jetzt bauen").
+  Dazu `vix-sprung`, der Tag nach einem VIX-Sprung auf denselben fünf Indizes (Kandidat in Durchgang 1, Kirons Wunsch
+  "baue danach aber weiter aus").
 
 ## Gold-Bot C/B
 
@@ -179,6 +181,28 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 - Einstieg ab 18:00 New York höchstens 20 Minuten nach dem ersten Kurs des Brokers, Stop 2 ATR beim Broker, kein Ziel,
   Ausstieg im ersten Lauf ab 15:40 New York. Höchstens ein Trade je Markt, eine gescheiterte Order wird nie
   wiederholt. Liegt eine fremde Position auf seinem Markt, öffnet er dort nichts.
+
+## Tag nach einem VIX-Sprung
+
+- `suche/vix_sprung_bot.py`, Regeln `suche/VORAB_vix_sprung_bot.yaml` (versiegelt am 20.11.2026). Die Fassungen
+  `vix_sprung_us` (`suche/VORAB_grosse_runde.yaml`, US500 und US100) und `vix_sprung_welt`
+  (`suche/VORAB_grosse_runde2.yaml`, DAX, FTSE 100 und Nikkei 225) unverändert auf Account 5, den er mit `pine-k5`
+  und dem Dow-Rücksetzer teilt. Die Kontonummer liest er nach dem Namen aus `journal/konten.json`. US nicht
+  bestanden, Kandidat (Gewinnfaktor 1,93, z 2,17, vor 2024 1,13), Welt durchgefallen (1,41, vor 2024 0,85). Zusammen
+  340 Trades an nur 68 Tagen, 2024 verloren. Der Bot läuft als Vorwärtstest auf Kirons Wunsch vom 20.11.2026
+  ("baue danach aber weiter aus"), Urteil nach 40 Trades. Im Test brachte ein Trade im Schnitt nur +0,049 R. Das
+  Schatten-Labor zählt beide Fassungen unverändert weiter.
+- Ist der VIX-Schluss vom letzten Handelstag mindestens 10 % über dem davor, kauft er ab 18:00 New York alle fünf
+  Märkte. Stop 3 ATR beim Broker, kein Ziel, Ausstieg im ersten Lauf ab 15:40 New York. Nur Käufe, höchstens ein Trade
+  je Markt, eine gescheiterte Order wird nie wiederholt. Liegt eine fremde Position auf seinem Markt, öffnet er dort
+  nichts.
+- Den VIX holt er von Cboe, der Quelle der FRED-Reihe des Tests. Ohne Sprung ist der Tag damit für alle fünf Märkte
+  erledigt, ohne Kerzen vom Broker (etwa 91 % der Tage). Fehlt im letzten Lauf der Frist der Wert vom Vortag, lässt
+  er den Tag aus und zählt das im Zustand unter `ausgelassen` (Grund `vix_alt`). Die Feiertage der Börse New York
+  stehen im Code bis Ende 2027.
+- Die Rechnung des Tests (`suche/grosse_runde.richtung_reihe`, `_tagestrades`) läuft auf Stundenkerzen des Brokers.
+  `tests/test_vix_sprung_bot.py` und `python -m suche.vix_sprung_gegenprobe <Datenordner>` prüfen, dass Bot und Test
+  dieselben Einstiege, Stops und Ausstiege sehen.
 
 ## Schatten-Labor und Kombinierer
 

@@ -1,0 +1,48 @@
+{
+ "bot": "vix-sprung",
+ "name": "Tag nach einem VIX-Sprung (US500, US100, DAX, FTSE, Nikkei)",
+ "konto": "Account 5",
+ "stand": null,
+ "start": null,
+ "pausiert": null,
+ "status": "startet nach Kirons Merge mit dem nächsten Lauf",
+ "regel": "Tag nach einem VIX-Sprung (Fassungen vix_sprung_us und vix_sprung_welt): Schließt der VIX mindestens 10 % über dem Vortag, kauft der Bot US500, US100, DAX, FTSE 100 und Nikkei 225 mit dem ersten Kurs ab 18:00 New York, Notstop 3 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
+ "backtest": "Test NICHT bestanden. US500 und US100 (vix_sprung_us, suche/ergebnis_grosse_runde.md): Kandidat, 136 Trades, Gewinnfaktor 1,93, 2026 2,45, z 2,17 statt 3, ohne Holm, vor 2024 1,13. DAX, FTSE und Nikkei (vix_sprung_welt, suche/ergebnis_grosse_runde2.md): durchgefallen, 204 Trades, Gewinnfaktor 1,41, erste Hälfte 0,96. Zusammen 340 Trades an 68 Tagen (2024 bis Oktober 2026), Gewinnfaktor 1,60. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 4,90 € im Monat. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
+ "vorab": "suche/VORAB_vix_sprung_bot.yaml",
+ "vorab_ok": true,
+ "maerkte": {
+  "SPXUSD": "US500",
+  "NSXUSD": "US100",
+  "GRXEUR": "DAX",
+  "UKXGBP": "FTSE 100",
+  "JPXJPY": "Nikkei 225"
+ },
+ "fassungen": {
+  "SPXUSD": "vix_sprung_us",
+  "NSXUSD": "vix_sprung_us",
+  "GRXEUR": "vix_sprung_welt",
+  "UKXGBP": "vix_sprung_welt",
+  "JPXJPY": "vix_sprung_welt"
+ },
+ "offen": [],
+ "ausgelassen": {
+  "SPXUSD": {},
+  "NSXUSD": {},
+  "GRXEUR": {},
+  "UKXGBP": {},
+  "JPXJPY": {}
+ },
+ "zusammenfassung": {
+  "trades": 0,
+  "tage": 0,
+  "je_fassung": {},
+  "pf_r": null,
+  "summe_r": 0.0,
+  "trefferquote": null,
+  "summe_eur": 0.0,
+  "je_markt": {},
+  "urteil": "läuft (0 von 40 Trades)"
+ },
+ "letzte_trades": [],
+ "blick": {}
+}

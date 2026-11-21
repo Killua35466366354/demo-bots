@@ -6,18 +6,18 @@
  "maerkte": {
   "GRXEUR": {
    "trade": null,
-   "letzte_grenze": "2026-11-20 23:00:00",
+   "letzte_grenze": "2026-11-21 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 23:00:00",
-    "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+    "grenze": "2026-11-21 03:00:00",
+    "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
    }
   },
   "UKXGBP": {
    "trade": null,
-   "letzte_grenze": "2026-11-20 23:00:00",
+   "letzte_grenze": "2026-11-21 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 23:00:00",
-    "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+    "grenze": "2026-11-21 03:00:00",
+    "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
    }
   },
   "JPXJPY": {
@@ -50,5 +50,5 @@
    }
   }
  },
- "stand": "2026-11-21T03:01:57"
+ "stand": "2026-11-21T03:31:51"
 }

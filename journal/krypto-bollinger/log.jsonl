@@ -2,3 +2,4 @@
 {"time": "2026-11-20T12:46:49", "event": "kein Konto", "markt": null, "konto": "Account 3"}
 {"time": "2026-11-20T16:03:16", "event": "Verkauf eröffnet", "markt": "BTCUSD", "id": "BTCUSD 2026-11-20T16:00", "dealId": "00000000-7534-693f-049c-701d0015549e", "size": 0.0048, "entry": 58937.85, "stop": 60069.22, "ziel": 56686.8, "dist": 1127.474501, "spaet_min": 3.3}
 {"time": "2026-11-20T16:03:16", "event": "Verkauf eröffnet", "markt": "ETHUSD", "id": "ETHUSD 2026-11-20T16:00", "dealId": "00000000-7534-696a-049c-701d0015549e", "size": 0.137, "entry": 1629.51, "stop": 1670.49, "ziel": 1550.49, "dist": 39.999797, "spaet_min": 3.3}
+{"time": "2026-11-21T03:47:01", "event": "Trade fertig", "markt": "BTCUSD", "trade": "BTCUSD 2026-11-20T16:00", "seite": "Verkauf", "grund": "ziel", "r": 1.969, "pnl_eur": 9.85}

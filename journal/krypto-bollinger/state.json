@@ -1,35 +1,17 @@
 {
  "format": 1,
  "start": "2026-11-20T12:33:05",
- "summe_r": 0.0,
- "trades": 0,
+ "summe_r": 1.969,
+ "trades": 1,
  "maerkte": {
   "BTCUSD": {
-   "trade": {
-    "id": "BTCUSD 2026-11-20T16:00",
-    "markt": "BTCUSD",
-    "epic": "BTCUSD",
-    "richtung": -1,
-    "grenze": "2026-11-20 16:00:00",
-    "dealId": "00000000-7534-693f-049c-701d0015549e",
-    "size": 0.0048,
-    "entry": 58937.85,
-    "stop": 60069.22,
-    "ziel": 56686.8,
-    "dist": 1127.474501,
-    "bid_ein": 58941.75,
-    "opened_utc": "2026-11-20T16:03:16",
-    "spaet_min": 3.3,
-    "bis_utc": "2026-11-21 16:00:00",
-    "satz_nacht": 0.2,
-    "lot": 1.0,
-    "eur_rate": 1.097935
-   },
+   "trade": null,
    "letzte_grenze": "2026-11-21 03:00:00",
    "letzte_pruefung": {
     "grenze": "2026-11-21 03:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
-   }
+   },
+   "letzter_schluss": "2026-11-21T03:44:22"
   },
   "ETHUSD": {
    "trade": {
@@ -59,5 +41,5 @@
    }
   }
  },
- "stand": "2026-11-21T03:01:59"
+ "stand": "2026-11-21T03:47:01"
 }

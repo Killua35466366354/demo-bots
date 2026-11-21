@@ -1,0 +1,40 @@
+# Strengere Hürde für den Aufstieg der drei Vortag-Bots zu echtem Geld (suche/vergleich.py). Nur Capital.com-DEMO.
+# Diese Datei macht die Regel nur strenger. Sie ändert keinen Bot, kein Konto und keine andere Hürde. Die Dateien
+# suche/VORAB_aufstieg_alle.yaml und suche/VORAB_aufstieg.yaml bleiben versiegelt und unverändert.
+#
+# Kirons Wahl vom 21.11.2026, 10:29 UTC auf der Karte "Sollen die drei Vortag-Bots für echtes Geld die strengere Hürde
+# 1,3 brauchen?": "Ja, strengere Hürde 1,3". Auf der Karte stand dazu: "Vortag EUR/USD, GBP/USD und GBP/JPY brauchen
+# dann nach 100 Trades Gewinnfaktor 1,3 statt 1,2. Sonst ändert sich nichts."
+#
+# Warum: VORAB_aufstieg_alle.yaml gibt den sechs Kern-Bots die mildere Hürde 1,2, weil sie ihren eigenen, vorab
+# versiegelten Test bestanden haben. Bei den drei Vortag-Bots trägt dieser Test nicht mehr. Ihr Stop (0,5 x ATR der
+# 15-Min.-Kerzen, live 2,6 bis 6,8 Pips) ist viel kleiner als die Einstiegskerze, und Kerzen zeigen nicht, ob in ihr zuerst
+# der Einstieg oder der Stop kam. Das Strategie-Komitee hat am 18.11.2026 nachgerechnet: Mit der strengen Lesart würden
+# rund 87 % der Trades schon in der Einstiegskerze gestoppt, eine Eichung auf Gold-Minutenkerzen zeigt denselben Fehler
+# in nur eine Richtung (/mnt/project-files/komitee-2026-11-18/pruefung/ und eichung/). Live wurden bis zum
+# 21.11.2026 alle 7 Vortag-Trades gestoppt (journal/r6-bots/trades.jsonl, der Mess-Bot mitgezählt). Mit Einzelkursen
+# lässt sich das im Projekt nicht prüfen (keine Devisen-Minuten- oder Tickdaten). Darum gilt für sie die Hürde aller
+# anderen Bots.
+#
+# Festgelegt am 21.11.2026, bevor einer der drei Bots nach dieser Regel geprüft wurde. Gesehen waren die Live-Trades
+# oben. Keiner der drei ist nah an 100 Trades (höchstens 4).
+
+format: 1
+aufstieg_vortag:
+  bots:                                      # fallen für den Aufstieg allein aus "kern" von VORAB_aufstieg_alle.yaml
+    - r6-vortag-eurusd
+    - r6-vortag-gbpusd
+    - r6-vortag-gbpjpy
+  huerde: >-
+    Jeder dieser Bots allein braucht für den Aufstieg den Abschnitt "einzeln" von VORAB_aufstieg_alle.yaml statt
+    "einzeln_kern": 100 Demo-Trades, mindestens 61 Tage, Summe der letzten 61 Tage über 0, Summe über 0, neuere Hälfte
+    mit Gewinnfaktor mindestens 1,0 und Gewinnfaktor mindestens 1,3.
+  bleibt: >-
+    Die Kombi der Kern-Bots (Mitglieder "behalten" in suche/auswahl.yaml, Hürde 1,2) und die feste Gruppe aller Bots
+    (Hürde 1,3) bleiben, wie sie sind. Die Prüfungen nach 15 und 40 Trades (VORAB_wechsel.yaml), die Bot-Regeln und die
+    Konten ändern sich nicht. Der Mess-Bot Vortag EUR/USD 1 x ATR steigt wie bisher nie auf.
+  gilt: >-
+    Solange die Prüfsumme dieser Datei im Protokoll steht. Fehlt sie, gilt VORAB_aufstieg_alle.yaml unverändert.
+  zurueck: >-
+    Die mildere Hürde bekommt ein Vortag-Bot nur über eine neue, vorab versiegelte Regeldatei nach einer Prüfung mit
+    Einzelkursen, die seine Regel besteht, und nur mit Kirons Wahl.

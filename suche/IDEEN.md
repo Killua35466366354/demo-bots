@@ -124,7 +124,9 @@ Seit dem 18.11.2026 steht die Regel vorab in `suche/VORAB_aufstieg_alle.yaml` (K
 Trades"). Jeder Bot allein, die Kombi der Kern-Strategien und eine feste Gruppe aller Bots brauchen 100 Demo-Trades,
 mindestens 61 Tage, in den letzten 61 Tagen eine Summe über 0, die neuere Hälfte der Trades nicht im Minus und
 Gewinnfaktor mindestens 1,2 (die sechs Kern-Bots und ihre Kombi) oder 1,3 (alle anderen und die Gruppe). Vorher galt
-`suche/VORAB_aufstieg.yaml` mit 40 Trades und Kombi 60. `journal/vergleich.md` zeigt nach jedem Lauf, wer reif ist.
+`suche/VORAB_aufstieg.yaml` mit 40 Trades und Kombi 60. Seit Kirons Wahl vom 21.11.2026 brauchen die drei Vortag-Bots
+allein auch 1,3 (`suche/VORAB_aufstieg_vortag.yaml`), weil ihr Rückblick an der Reihenfolge in der Einstiegskerze hängt
+und live alle 7 Trades gestoppt wurden. `journal/vergleich.md` zeigt nach jedem Lauf, wer reif ist.
 Dann entscheidet Kiron, und echtes Geld gibt es nur über einen PR im privaten Repo.
 
 Ehrlich: Auch so besteht ein Bot ohne Vorteil die Hürde mit Gewinnfaktor 1,3 noch in etwa einem von zehn Fällen. Beim

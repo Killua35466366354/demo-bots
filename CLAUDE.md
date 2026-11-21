@@ -20,8 +20,9 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
    1,2 (`suche/VORAB_wechsel.yaml`). **Aufstieg zu echtem Geld** (`suche/VORAB_aufstieg_alle.yaml`, Kirons Wahl vom
    18.11.2026 "2 Monate und 100 Trades", ersetzt dafür `suche/VORAB_aufstieg.yaml` mit 40 Trades und Kombi 60): jeder
    Bot allein, die Kombi der Kern-Bots und eine feste Gruppe aller Bots brauchen 100 Demo-Trades, mindestens 61 Tage,
-   in den letzten 61 Tagen eine Summe über 0 und eine neuere Hälfte ohne Verlust. Gewinnfaktor 1,2 für die sechs
-   Kern-Bots und ihre Kombi, 1,3 für alle anderen und die Gruppe. Mess-Bots und Zwillinge nie. Den Schritt zu echtem
+   in den letzten 61 Tagen eine Summe über 0 und eine neuere Hälfte ohne Verlust. Gewinnfaktor 1,2 für die Kern-Bots
+   und ihre Kombi, 1,3 für alle anderen und die Gruppe. Seit Kirons Wahl vom 21.11.2026 brauchen auch die drei
+   Vortag-Bots allein 1,3 (`suche/VORAB_aufstieg_vortag.yaml`). Mess-Bots und Zwillinge nie. Den Schritt zu echtem
    Geld entscheidet nur Kiron.
 7. **Eine Woche live** (`suche/VORAB_eine_woche.yaml`): 7 Tage ab Start, Kontoübergabe oder letzter Regeländerung
    keine Regeländerung und keine Abschaltung. Gilt nicht für `gold-cb`.

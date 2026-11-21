@@ -252,3 +252,32 @@ def test_ohne_siegel_der_neuen_datei_gilt_die_alte_regel(monkeypatch):
     assert v["kombi"]["aufstieg"]["status"] != "sammelt" or v["kombi"]["aufstieg"]["text"].endswith("von 60 Demo-Trades")
     assert all(b["aufstieg"]["status"] == "keine_regel" for b in v["wunsch"])
     assert "40 Trades, Kombi 60" in v["hinweis"]
+
+
+def test_vortag_bots_brauchen_seit_21_11_die_hoehere_huerde():
+    vt = vg.regel_vortag()
+    assert vt is not None, "Prüfsumme von VORAB_aufstieg_vortag.yaml fehlt im Protokoll oder ist veraltet"
+    assert set(vt["bots"]) == {"r6-vortag-eurusd", "r6-vortag-gbpusd", "r6-vortag-gbpjpy"}
+    assert set(vt["bots"]) <= set(ALLE["kern"])
+    assert vg.kern_bots(ALLE, vt) == {"us500-ruecksetzer", "r5-ruecksetzer-us100", "r7-nasdaq-noise-long"}
+    assert vg.kern_bots(ALLE, None) == set(ALLE["kern"])           # ohne Siegel bleibt alles wie vorher
+    assert vg.kern_bots(None, vt) == set()
+    v = vg.vergleich(datetime(2026, 11, 21, 12, 0, tzinfo=timezone.utc))
+    assert v["regel_aufstieg_vortag"] == "festgelegt" and "VORAB_aufstieg_vortag" in v["hinweis"]
+
+
+def test_vergleich_gibt_den_vortag_bots_die_huerde_1_3(monkeypatch):
+    gesehen = []
+    echt = vg.pruefe
+
+    def merke(trades, k, *a, **kw):
+        gesehen.append(k)
+        return echt(trades, k, *a, **kw)
+    monkeypatch.setattr(vg, "pruefe", merke)
+    monkeypatch.setattr(vg, "kern_bots", lambda rg_alle, rg_vortag: {"x"} if rg_vortag else set(rg_alle["kern"]))
+    vg.vergleich(datetime(2026, 11, 21, 12, 0, tzinfo=timezone.utc))
+    assert ALLE["einzeln_kern"] not in gesehen                     # kein Bot aus der Rangliste heißt "x"
+    gesehen.clear()
+    monkeypatch.setattr(vg, "regel_vortag", lambda: None)
+    vg.vergleich(datetime(2026, 11, 21, 12, 0, tzinfo=timezone.utc))
+    assert ALLE["einzeln_kern"] in gesehen                         # ohne das neue Siegel wieder 1,2 für die Kern-Bots

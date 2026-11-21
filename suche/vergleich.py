@@ -20,7 +20,8 @@ Repo. Dieses Modul liest nur Dateien (journal/, suche/*.yaml), spricht mit keine
 5. Aufstieg nach suche/VORAB_aufstieg_alle.yaml (Kirons Wahl vom 18.11.2026 "2 Monate und 100 Trades", nur wenn ihre
    Prüfsumme im Protokoll steht): jeder Bot allein, die Kombi und die feste Gruppe aller Bots brauchen 100 Trades,
    mindestens 61 Tage und in den letzten 61 Tagen eine Summe über 0. Gewinnfaktor 1,2 für die sechs Kern-Bots und ihre
-   Kombi, 1,3 für alle anderen und die Gruppe. Auch hier entscheidet immer Kiron.
+   Kombi, 1,3 für alle anderen und die Gruppe. Seit Kirons Wahl vom 21.11.2026 brauchen die drei Vortag-Bots allein
+   ebenfalls 1,3 (suche/VORAB_aufstieg_vortag.yaml, nur wenn versiegelt). Auch hier entscheidet immer Kiron.
 
     python -m suche.vergleich                # Text
     python -m suche.vergleich --schreiben    # dazu journal/vergleich.json und journal/vergleich.md
@@ -47,6 +48,8 @@ VORAB = ROOT / "suche" / "VORAB_aufstieg.yaml"
 KEY = "VORAB_aufstieg sha256 "
 VORAB_ALLE = ROOT / "suche" / "VORAB_aufstieg_alle.yaml"
 KEY_ALLE = "VORAB_aufstieg_alle sha256 "
+VORAB_VORTAG = ROOT / "suche" / "VORAB_aufstieg_vortag.yaml"
+KEY_VORTAG = "VORAB_aufstieg_vortag sha256 "
 AUSWAHL = ROOT / "suche" / "auswahl.yaml"
 WOCHEN_BEWERTUNG = (pd.Timestamp("2026-10-30") - pd.Timestamp("2025-01-01")).days / 7   # Fenster der Bewertung
 EUR_JE_R = 10.0                     # 1 % Risiko auf 1.000 €
@@ -77,6 +80,18 @@ def regel() -> dict | None:
 def regel_alle() -> dict | None:
     """Die Regel aus VORAB_aufstieg_alle.yaml (alle Bots, die Kombi und die Gruppe), nur wenn versiegelt."""
     return _versiegelt(VORAB_ALLE, KEY_ALLE, "aufstieg_alle")
+
+
+def regel_vortag() -> dict | None:
+    """Die strengere Hürde für die drei Vortag-Bots (VORAB_aufstieg_vortag.yaml, Kirons Wahl vom 21.11.2026), nur wenn
+    versiegelt."""
+    return _versiegelt(VORAB_VORTAG, KEY_VORTAG, "aufstieg_vortag")
+
+
+def kern_bots(rg_alle: dict | None, rg_vortag: dict | None) -> set[str]:
+    """Die Bots mit der milderen Hürde "einzeln_kern": "kern" aus VORAB_aufstieg_alle.yaml ohne die Bots aus
+    VORAB_aufstieg_vortag.yaml."""
+    return set((rg_alle or {}).get("kern") or []) - set((rg_vortag or {}).get("bots") or [])
 
 
 def kennzahlen(trades: list[dict], feld: str = "r") -> dict:
@@ -297,7 +312,8 @@ def vergleich(now: datetime | None = None, sammeln: dict | None = None) -> dict:
     tag = pd.Timestamp(now.astimezone(timezone.utc).date())
     rg = regel()
     rg_alle = regel_alle()
-    kern = set((rg_alle or {}).get("kern") or [])
+    rg_vortag = regel_vortag()
+    kern = kern_bots(rg_alle, rg_vortag)
     zeit = (rg_alle or {}).get("zeit")
     aus = (yaml.safe_load(AUSWAHL.read_text(encoding="utf-8")) or {}).get("auswahl") or {} if AUSWAHL.exists() else {}
     seit_aus = (aus.get("seit") or "2026-11-04")
@@ -419,13 +435,16 @@ def vergleich(now: datetime | None = None, sammeln: dict | None = None) -> dict:
     return {"format": 1, "tag": tag.date().isoformat(), "letzter_trade_utc": letzte,
             "regel_aufstieg": "festgelegt" if rg else "Prüfsumme fehlt",
             "regel_aufstieg_alle": "festgelegt" if rg_alle else "Prüfsumme fehlt",
+            "regel_aufstieg_vortag": "festgelegt" if rg_vortag else "Prüfsumme fehlt",
             "rangliste": zeilen, "kombi": kombi, "gruppe": gruppe, "wunsch": wunsch, "wunsch_fehler": wunsch_fehler,
             "hinweis": "Nur Demokonten (Spielgeld, kleinste Größen): verglichen wird in R. Soll = Schnitt der Bewertung "
                        "2025-2026 im selben Zeitraum (1 % Risiko auf 1.000 € = 10 € je R). Wenige Trades sagen fast "
                        "nichts; über echtes Geld entscheidet immer Kiron. " + (
                            "Aufstieg nach suche/VORAB_aufstieg_alle.yaml: 100 Trades und mindestens 61 Tage, die "
                            "letzten 61 Tage im Plus, Gewinnfaktor 1,2 für die Kern-Bots und ihre Kombi, 1,3 für alle "
-                           "anderen und die Gruppe." if rg_alle is not None else
+                           "anderen und die Gruppe." + (
+                               " Die drei Vortag-Bots brauchen allein 1,3 (suche/VORAB_aufstieg_vortag.yaml)."
+                               if rg_vortag is not None else "") if rg_alle is not None else
                            "Aufstieg nach suche/VORAB_aufstieg.yaml (40 Trades, Kombi 60).")}
 
 

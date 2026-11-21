@@ -2,10 +2,10 @@
  "bot": "krypto-ausbruch4h",
  "name": "4-Std.-Ausbruch Bitcoin, Ether",
  "konto": "Account 5",
- "stand": "2026-11-20T23:04:30",
+ "stand": "2026-11-21T03:02:10",
  "start": "2026-11-20T16:34:24",
  "pausiert": null,
- "status": "Bitcoin: Verkauf offen ab 58220.95, Stop 63501.47, kein Ziel, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 1). Ether: Verkauf offen ab 1607.82, Stop 1794.3, kein Ziel, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 1)",
+ "status": "Bitcoin: Verkauf offen ab 58220.95, Stop 63501.47, kein Ziel, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 2). Ether: Verkauf offen ab 1607.82, Stop 1794.3, kein Ziel, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 2)",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf Bitcoin und Ether (Fassung ausbruch4h_krypto): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, kein Ziel. Ausstieg nach 4 fertigen 4-Std.-Kerzen (16 Stunden). Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
  "vorab": "suche/VORAB_krypto_ausbruch4h_bot.yaml",
@@ -25,7 +25,7 @@
    "size": 0.001,
    "dist": 5284.016808,
    "opened_utc": "2026-11-20T19:02:41",
-   "kerzen": 1
+   "kerzen": 2
   },
   {
    "id": "ETHUSD 2026-11-20T19:00",
@@ -37,7 +37,7 @@
    "size": 0.029,
    "dist": 184.311409,
    "opened_utc": "2026-11-20T19:02:41",
-   "kerzen": 1
+   "kerzen": 2
   }
  ],
  "zusammenfassung": {
@@ -51,23 +51,23 @@
  },
  "letzte_trades": [],
  "blick": {
-  "naechste_4h_kerze_endet_utc": "2026-11-21 03:00:00",
+  "naechste_4h_kerze_endet_utc": "2026-11-21 07:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-20 23:00:00",
+     "grenze": "2026-11-21 03:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 59125.45
+    "kurs": 58426.5
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-20 23:00:00",
+     "grenze": "2026-11-21 03:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 1624.43
+    "kurs": 1616.33
    }
   }
  }

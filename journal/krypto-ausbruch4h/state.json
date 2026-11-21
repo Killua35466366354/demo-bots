@@ -19,7 +19,7 @@
     "bid_ein": 58217.45,
     "opened_utc": "2026-11-20T19:02:41",
     "spaet_min": 2.7,
-    "kerzen": 1,
+    "kerzen": 2,
     "halte_kerzen": 4,
     "bis_utc": "2026-12-04 19:00:00",
     "satz_nacht": 0.2,
@@ -27,9 +27,9 @@
     "eur_rate": 1.09692,
     "margin_eur": 26.54
    },
-   "letzte_grenze": "2026-11-20 23:00:00",
+   "letzte_grenze": "2026-11-21 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 23:00:00",
+    "grenze": "2026-11-21 03:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   },
@@ -48,7 +48,7 @@
     "bid_ein": 1609.99,
     "opened_utc": "2026-11-20T19:02:41",
     "spaet_min": 2.7,
-    "kerzen": 1,
+    "kerzen": 2,
     "halte_kerzen": 4,
     "bis_utc": "2026-12-04 19:00:00",
     "satz_nacht": 0.2,
@@ -56,12 +56,12 @@
     "eur_rate": 1.09692,
     "margin_eur": 21.28
    },
-   "letzte_grenze": "2026-11-20 23:00:00",
+   "letzte_grenze": "2026-11-21 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-20 23:00:00",
+    "grenze": "2026-11-21 03:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   }
  },
- "stand": "2026-11-20T23:04:30"
+ "stand": "2026-11-21T03:02:10"
 }

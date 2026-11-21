@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-21T02:16:41.868618",
+ "stand_utc": "2026-11-21T02:31:45.175894",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-21T02:16:41.868618",
+    "zeit": "2026-11-21T02:31:45.175894",
     "action": "none",
     "why": [
      "Wochenende"
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-21T02:16:41.868618",
+    "zeit": "2026-11-21T02:31:45.175894",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -954,7 +954,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-21T02:16:41.868618",
+    "zeit": "2026-11-21T02:31:45.175894",
     "action": "none",
     "why": [
      "Wochenende"
@@ -1178,7 +1178,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-21T02:16:41.868618",
+    "zeit": "2026-11-21T02:31:45.175894",
     "action": "none",
     "why": [
      "Wochenende"
@@ -1406,7 +1406,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4494",
    "konto_name": "Account 3",
-   "kontostand": 982.37,
+   "kontostand": 983.06,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
    "status": "wartet auf das nächste Signal",
@@ -1414,7 +1414,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-21T02:16:41.868618",
+    "zeit": "2026-11-21T02:31:45.175894",
     "action": "none",
     "why": [
      "Wochenende"
@@ -1749,7 +1749,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-21T02:16:41.868618",
+    "zeit": "2026-11-21T02:31:45.175894",
     "action": "none",
     "why": [
      "Wochenende"

@@ -288,6 +288,23 @@ def test_vortag_gbpjpy_gleiche_regel_und_nur_ueber_die_zuordnung():
     assert rb.pip("GBPJPY") == 0.01
 
 
+def test_vortag_gbpjpy_ist_seit_dem_22_11_beendet_und_gibt_sein_konto_frei():
+    """Kirons Wort vom 22.11.2026 13:40 UTC: die Bots mit dem größten Minus rausnehmen. GBP/JPY öffnet nichts Neues,
+    hat keinen Nachfolger, und Account 3 geht unter frei (die Prüfung vergibt es nie, dort handelt Bollinger Krypto)."""
+    from suche import demo_pruefung as dp
+    e = rb.ende_fuer("r6-vortag-gbpjpy", {})
+    assert e is not None and e["an"] is None and e["seit"] == "2026-11-22"
+    assert dp.kirons_wort(e["grund"]) and "22.11.2026" in e["status"]
+    assert dp._r6_beendet()["r6-vortag-gbpjpy"] == {"an": None}
+    kont = {"zuordnung": {"r6-vortag-gbpjpy": "111111110003", "krypto-bollinger": "111111110003"}}
+    ev = rb.uebergabe(kont, "r6-vortag-gbpjpy", None, [{"accountId": "111111110003", "accountName": "Account 3",
+                                                        "balance": {"balance": 1000.0}}], "2026-11-23T08:00:00")
+    assert ev and kont["uebergaben"][-1]["von"] == "r6-vortag-gbpjpy" and kont["uebergaben"][-1]["an"] is None
+    assert "r6-vortag-gbpjpy" not in kont["zuordnung"] and kont["zuordnung"]["krypto-bollinger"] == "111111110003"
+    assert kont["frei"] == ["111111110003"]
+    assert rb.ende_fuer("r6-vortag-gbpusd", {}) is None and rb.ende_fuer("r6-vortag-eurusd", {}) is None
+
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Zwilling
 

@@ -133,3 +133,4 @@
 {"time": "2026-11-21T03:46:41.373832", "bot": "r6-vortag-gbpjpy", "event": "andere Märkte auf dem Konto", "maerkte": ["ETHUSD"]}
 {"time": "2026-11-21T04:16:51.157261", "bot": "r6-vortag-gbpjpy", "event": "keine anderen Märkte mehr auf dem Konto"}
 {"time": "2026-11-22T23:16:37.308336", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "GOLD", "J225", "UK100", "US100", "US500"]}
+{"time": "2026-11-22T23:31:39.096999", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "J225", "UK100", "US100", "US500"]}

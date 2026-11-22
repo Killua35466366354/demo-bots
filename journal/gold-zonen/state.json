@@ -4,21 +4,21 @@
  "summe_r": -2.005,
  "trades": 2,
  "plan": {
-  "stunde": "2026-11-20 21:00:00",
-  "gerechnet_bis": "2026-11-20 21:00:00",
-  "kerzen_4h": 329,
-  "letzte_4h": "2026-11-20 19:00:00",
-  "atr_4h": 46.45,
+  "stunde": "2026-11-22 23:00:00",
+  "gerechnet_bis": "2026-11-20 22:00:00",
+  "kerzen_4h": 318,
+  "letzte_4h": "2026-11-20 22:00:00",
+  "atr_4h": 46.0,
   "kandidaten": [
    {
     "name": "U2026111700",
     "d": -1,
     "linie": 3832.2,
     "innen": 3851.47,
-    "stop": 3859.819666473522,
-    "atr_bruch": 33.39866589408779,
+    "stop": 3859.8196664739557,
+    "atr_bruch": 33.398665895823605,
     "bruch": "2026-11-18 02:00:00",
-    "rest": 14,
+    "rest": 13,
     "beruehrt": false
    }
   ],
@@ -36,7 +36,20 @@
    ]
   }
  },
- "orders": [],
+ "orders": [
+  {
+   "name": "U2026111700",
+   "d": -1,
+   "linie": 3832.2,
+   "innen": 3851.47,
+   "stop": 3859.82,
+   "ziel": 3556.0,
+   "size": 0.19,
+   "dealId": "00000000-75be-bf77-049c-701a0015549e",
+   "gelegt_utc": "2026-11-22T23:08:54",
+   "gilt_bis": "2026-11-27T21:45:00"
+  }
+ ],
  "trade": null,
  "verbraucht": {
   "U2026110404": {
@@ -53,12 +66,8 @@
   }
  },
  "versuche": {},
- "keine_order": [
-  "Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)",
-  "Plan älter als 4 Stunden",
-  "Markt gerade nicht handelbar"
- ],
- "stand": "2026-11-21T01:08:53",
+ "keine_order": [],
+ "stand": "2026-11-22T23:08:54",
  "letzte_deals": [
   "00000000-73b5-75fa-049c-701a0015549e",
   "00000000-72df-3ed0-049c-701a0015549e"

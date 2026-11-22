@@ -2,7 +2,7 @@
  "bot": "welt-ausbruch4h",
  "name": "4-Std.-Ausbruch DAX, FTSE, Nikkei",
  "konto": "Account 7",
- "stand": "2026-11-22T11:31:54",
+ "stand": "2026-11-22T15:01:55",
  "start": "2026-11-19T13:18:33",
  "pausiert": null,
  "status": "Nikkei 225: Verkauf offen ab 55372.8, Stop 59448.8, Ziel 51296.8, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 1)",
@@ -41,7 +41,7 @@
  },
  "letzte_trades": [],
  "blick": {
-  "naechste_4h_kerze_endet_utc": "2026-11-22 15:00:00",
+  "naechste_4h_kerze_endet_utc": "2026-11-22 19:00:00",
   "maerkte": {
    "GRXEUR": {
     "epic": "DE40",
@@ -49,6 +49,7 @@
      "grenze": "2026-11-22 11:00:00",
      "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
     },
+    "wartet": "Markt zu",
     "kurs": 24607.4
    },
    "UKXGBP": {
@@ -57,12 +58,13 @@
      "grenze": "2026-11-22 11:00:00",
      "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
     },
+    "wartet": "Markt zu",
     "kurs": 10287.4
    },
    "JPXJPY": {
     "epic": "J225",
     "letzte_pruefung": {
-     "grenze": "2026-11-22 11:00:00",
+     "grenze": "2026-11-22 15:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
     "kurs": 54769.6

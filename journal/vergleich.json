@@ -557,7 +557,7 @@
   "draussen": [
    {
     "id": "pine-tp3",
-    "warum": "Gewinnfaktor 0.52 nach 48 Trades"
+    "warum": "Gewinnfaktor 0.52 nach 49 Trades"
    }
   ],
   "ist": {
@@ -959,12 +959,12 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 48,
-    "gewonnen": 30,
-    "treffer_pct": 62.5,
-    "summe_r": -14.8,
+    "trades": 49,
+    "gewonnen": 31,
+    "treffer_pct": 63.3,
+    "summe_r": -14.63,
     "pf_r": 0.52,
-    "eur": -72.77,
+    "eur": -71.99,
     "rueckgang_r": 14.8
    },
    "einheit": "R",
@@ -973,7 +973,7 @@
    "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "48 von 100 Demo-Trades, 12 von 61 Tagen"
+    "text": "49 von 100 Demo-Trades, 12 von 61 Tagen"
    }
   }
  ],

@@ -25,7 +25,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 2026-11 | 6 | -6,12 | -61 € |
 
 **Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 66 Trades, +18,60 R, Gewinnfaktor 1,67. Aufstieg: 66 von 100 Demo-Trades, 19 von 61 Tagen.
-Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 48 Trades).
+Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
 
@@ -48,6 +48,6 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | 4-Std.-Ausbruch Bitcoin, Ether | Account 5 | 2026-11-20 | 2 | -0,11 R | 0,38 | -0,47 | läuft (2 von 40 Trades) | suche/VORAB_krypto_ausbruch4h_bot.yaml | 2 von 100 Demo-Trades, 2 von 61 Tagen |
 | Bündel aus 9 Bots | Vortag USDJPY | 2026-11-20 | 1 | -1,00 R | 0,00 | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_buendel9_bot.yaml | 1 von 100 Demo-Trades, 2 von 61 Tagen |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 28 | +13,25 R | 2,16 | +65,17 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 28 von 100 Demo-Trades, 12 von 61 Tagen |
-| Pine-Gold TP 3 € | US500 | 2026-11-10 | 48 | -14,80 R | 0,52 | -72,77 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 48 von 100 Demo-Trades, 12 von 61 Tagen |
+| Pine-Gold TP 3 € | US500 | 2026-11-10 | 49 | -14,63 R | 0,52 | -71,99 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 49 von 100 Demo-Trades, 12 von 61 Tagen |
 
 Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

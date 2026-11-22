@@ -5,20 +5,185 @@
  "trades": 0,
  "maerkte": {
   "SPXUSD": {
-   "trade": null
+   "trade": {
+    "id": "US500 2026-11-23",
+    "markt": "SPXUSD",
+    "epic": "US500",
+    "fassung": "vix_sprung_us",
+    "richtung": 1,
+    "tag": "2026-11-23",
+    "dealId": "00000000-75b3-f0b5-049c-701f0015549e",
+    "size": 0.01,
+    "entry": 6998.0,
+    "stop": 6432.0,
+    "dist": 565.542857,
+    "bid_ein": 6997.5,
+    "vix_aenderung": 0.261955,
+    "opened_utc": "2026-11-22T23:03:03",
+    "spaet_min": 3.1,
+    "nach_18_min": 3.1,
+    "bis_utc": "2026-11-23 20:55:00",
+    "satz_nacht": 0.065,
+    "lot": 1.0,
+    "eur_rate": 1.09715
+   },
+   "letzter_tag": "2026-11-23",
+   "letzte_pruefung": {
+    "tag": "2026-11-23",
+    "ergebnis": "Kauf eröffnet",
+    "richtung": 1,
+    "vix": 35.89,
+    "vix_vorher": 28.44,
+    "vix_aenderung": 0.261955,
+    "dist": 565.542857,
+    "atr": 188.514286,
+    "nach_18_min": 3.1
+   }
   },
   "NSXUSD": {
-   "trade": null
+   "trade": {
+    "id": "US100 2026-11-23",
+    "markt": "NSXUSD",
+    "epic": "US100",
+    "fassung": "vix_sprung_us",
+    "richtung": 1,
+    "tag": "2026-11-23",
+    "dealId": "00000000-75b3-f0d5-049c-701f0015549e",
+    "size": 0.001,
+    "entry": 25510.1,
+    "stop": 22337.2,
+    "dist": 3173.271429,
+    "bid_ein": 25510.5,
+    "vix_aenderung": 0.261955,
+    "opened_utc": "2026-11-22T23:03:03",
+    "spaet_min": 3.1,
+    "nach_18_min": 3.1,
+    "bis_utc": "2026-11-23 20:55:00",
+    "satz_nacht": 0.065,
+    "lot": 1.0,
+    "eur_rate": 1.09715
+   },
+   "letzter_tag": "2026-11-23",
+   "letzte_pruefung": {
+    "tag": "2026-11-23",
+    "ergebnis": "Kauf eröffnet",
+    "richtung": 1,
+    "vix": 35.89,
+    "vix_vorher": 28.44,
+    "vix_aenderung": 0.261955,
+    "dist": 3173.271429,
+    "atr": 1057.757143,
+    "nach_18_min": 3.1
+   }
   },
   "GRXEUR": {
-   "trade": null
+   "trade": {
+    "id": "DE40 2026-11-23",
+    "markt": "GRXEUR",
+    "epic": "DE40",
+    "fassung": "vix_sprung_welt",
+    "richtung": 1,
+    "tag": "2026-11-23",
+    "dealId": "00000000-75b3-f0e2-049c-701f0015549e",
+    "size": 0.003,
+    "entry": 24724.2,
+    "stop": 23070.8,
+    "dist": 1645.5,
+    "bid_ein": 24716.3,
+    "vix_aenderung": 0.261955,
+    "opened_utc": "2026-11-22T23:03:03",
+    "spaet_min": 3.1,
+    "nach_18_min": 3.1,
+    "bis_utc": "2026-11-23 20:55:00",
+    "satz_nacht": 0.065,
+    "lot": 1.0,
+    "eur_rate": 1.0
+   },
+   "letzter_tag": "2026-11-23",
+   "letzte_pruefung": {
+    "tag": "2026-11-23",
+    "ergebnis": "Kauf eröffnet",
+    "richtung": 1,
+    "vix": 35.89,
+    "vix_vorher": 28.44,
+    "vix_aenderung": 0.261955,
+    "dist": 1645.5,
+    "atr": 548.5,
+    "nach_18_min": 3.1
+   }
   },
   "UKXGBP": {
-   "trade": null
+   "trade": {
+    "id": "UK100 2026-11-23",
+    "markt": "UKXGBP",
+    "epic": "UK100",
+    "fassung": "vix_sprung_welt",
+    "richtung": 1,
+    "tag": "2026-11-23",
+    "dealId": "00000000-75b3-f0fc-049c-701f0015549e",
+    "size": 0.01,
+    "entry": 10331.2,
+    "stop": 9776.2,
+    "dist": 551.614286,
+    "bid_ein": 10327.8,
+    "vix_aenderung": 0.261955,
+    "opened_utc": "2026-11-22T23:03:03",
+    "spaet_min": 3.1,
+    "nach_18_min": 3.1,
+    "bis_utc": "2026-11-23 20:55:00",
+    "satz_nacht": 0.065,
+    "lot": 1.0,
+    "eur_rate": 0.83802
+   },
+   "letzter_tag": "2026-11-23",
+   "letzte_pruefung": {
+    "tag": "2026-11-23",
+    "ergebnis": "Kauf eröffnet",
+    "richtung": 1,
+    "vix": 35.89,
+    "vix_vorher": 28.44,
+    "vix_aenderung": 0.261955,
+    "dist": 551.614286,
+    "atr": 183.871429,
+    "nach_18_min": 3.1
+   }
   },
   "JPXJPY": {
-   "trade": null
+   "trade": {
+    "id": "J225 2026-11-23",
+    "markt": "JPXJPY",
+    "epic": "J225",
+    "fassung": "vix_sprung_welt",
+    "richtung": 1,
+    "tag": "2026-11-23",
+    "dealId": "00000000-75b3-f127-049c-701f0015549e",
+    "size": 0.11,
+    "entry": 55492.8,
+    "stop": 47749.8,
+    "dist": 7730.035714,
+    "bid_ein": 55479.8,
+    "vix_aenderung": 0.261955,
+    "opened_utc": "2026-11-22T23:03:03",
+    "spaet_min": 3.1,
+    "nach_18_min": 3.1,
+    "bis_utc": "2026-11-23 20:55:00",
+    "satz_nacht": 0.065,
+    "lot": 1.0,
+    "eur_rate": 174.07350000000002
+   },
+   "letzter_tag": "2026-11-23",
+   "letzte_pruefung": {
+    "tag": "2026-11-23",
+    "ergebnis": "Kauf eröffnet",
+    "richtung": 1,
+    "vix": 35.89,
+    "vix_vorher": 28.44,
+    "vix_aenderung": 0.261955,
+    "dist": 7730.035714,
+    "atr": 2576.678571,
+    "nach_18_min": 3.1
+   }
   }
  },
- "stand": "2026-11-20T13:48:56"
+ "stand": "2026-11-22T23:03:03"
 }

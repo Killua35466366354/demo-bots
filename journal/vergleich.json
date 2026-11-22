@@ -561,19 +561,19 @@
    }
   ],
   "ist": {
-   "trades": 65,
+   "trades": 66,
    "gewonnen": 32,
-   "treffer_pct": 49.2,
-   "summe_r": 19.6,
-   "pf_r": 1.73,
-   "eur": 165.04,
+   "treffer_pct": 48.5,
+   "summe_r": 18.6,
+   "pf_r": 1.67,
+   "eur": 160.25,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 65,
-    "summe_r": 19.61,
-    "eur": 165.04
+    "trades": 66,
+    "summe_r": 18.61,
+    "eur": 160.25
    }
   },
   "bestes": "gold",
@@ -588,7 +588,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "65 von 100 Demo-Trades, 19 von 61 Tagen"
+   "text": "66 von 100 Demo-Trades, 19 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -695,21 +695,21 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 8,
+    "trades": 9,
     "gewonnen": 5,
-    "treffer_pct": 62.5,
-    "summe_r": 8.65,
-    "pf_r": 3.87,
-    "eur": 37.73,
+    "treffer_pct": 55.6,
+    "summe_r": 7.64,
+    "pf_r": 2.9,
+    "eur": 32.94,
     "rueckgang_r": 3.02
    },
    "einheit": "R",
-   "urteil": "läuft (8 von 40 Trades)",
+   "urteil": "läuft (9 von 40 Trades)",
    "vorab": "suche/VORAB_gold_grossbox.yaml",
    "test": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "8 von 100 Demo-Trades, 12 von 61 Tagen"
+    "text": "9 von 100 Demo-Trades, 12 von 61 Tagen"
    }
   },
   {

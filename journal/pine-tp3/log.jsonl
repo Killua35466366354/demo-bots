@@ -168,3 +168,4 @@
 {"time": "2026-11-20T18:48:30", "bot": "pine-tp3", "event": "Trade zu", "dealId": "00000000-7534-0dc6-049c-a0c30015549e", "kurs": 3502.78, "r": -1.813, "eur": -8.75, "quelle": "SL"}
 {"time": "2026-11-20T18:48:30", "bot": "pine-tp3", "event": "Abfänger gesetzt", "dealId": "00000000-7534-1d0e-049c-a0c30015549e", "stopLevel": 3488.51, "profitLevel": 3554.16, "warum": "Fehltrade (0,5 R im Minus)"}
 {"time": "2026-11-20T18:48:30", "bot": "pine-tp3", "event": "Prüfer greift", "dealId": "00000000-7534-1d0e-049c-a0c30015549e", "stop": 3488.51, "ziel": 3554.16, "warum": "Fehltrade (0,5 R im Minus)"}
+{"time": "2026-11-22T23:03:23", "bot": "pine-tp3", "event": "Trade zu", "dealId": "00000000-7534-1d0e-049c-a0c30015549e", "kurs": 3559.48, "r": 0.164, "eur": 0.78, "quelle": "TP"}

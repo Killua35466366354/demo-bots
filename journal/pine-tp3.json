@@ -3,68 +3,20 @@
  "name": "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)",
  "konto": "…8878",
  "konto_name": "US500",
- "stand": "2026-11-22T22:53:36",
+ "stand": "2026-11-22T23:03:23",
  "start": "2026-11-10T03:48:53",
  "regel": "Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, nie gegen die Gegenrichtung. Take-Profit +3 €, kein Stop beim Einstieg. Prüfer: erst 3 Std. nichts, dann bei Fehltrade (0,5 R im Minus seit dem Einstieg) Stop 1 R und Ziel am Einstieg, nach 24 Std. im Plus raus. Äußerste Grenze: Notausstieg aller eigenen Trades bei zusammen -250 €.",
  "vorab": "suche/VORAB_pine5m.yaml",
  "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
- "offen": [
-  {
-   "dealId": "00000000-7534-1d0e-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.16,
-   "entry": 3554.16,
-   "dist": 32.37,
-   "einstieg_kerze": "2026-11-20 15:35:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-20T15:43:31",
-   "tp": 3554.16,
-   "stop": 3488.51,
-   "ziel": 3554.16,
-   "abfang": {
-    "zeit": "2026-11-20T18:48:30",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   },
-   "pruefer": {
-    "zeit": "2026-11-20T18:48:30",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   }
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 48,
-  "pf_r": 0.519,
-  "summe_r": -14.8,
-  "summe_eur": -72.77,
+  "trades": 49,
+  "pf_r": 0.524,
+  "summe_r": -14.63,
+  "summe_eur": -71.99,
   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
  },
  "letzte_trades": [
-  {
-   "dealId": "00000000-74ba-2c55-049c-a0c30015549e",
-   "richtung": 1,
-   "size": 0.42,
-   "entry": 3734.29,
-   "dist": 12.92,
-   "einstieg_kerze": "2026-11-19 10:35:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-19T10:43:28",
-   "tp": 3734.29,
-   "stop": 3705.98,
-   "ziel": 3734.29,
-   "abfang": {
-    "zeit": "2026-11-19T13:43:28",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   },
-   "pruefer": {
-    "zeit": "2026-11-19T13:43:28",
-    "warum": "Fehltrade (0,5 R im Minus)"
-   },
-   "exit": 3705.97,
-   "quelle": "SL",
-   "closed_utc": "2026-11-19T14:23:28",
-   "r": -2.192,
-   "pnl_eur": -10.81
-  },
   {
    "dealId": "00000000-74b9-dda0-049c-a0c30015549e",
    "richtung": 1,
@@ -288,6 +240,32 @@
    "closed_utc": "2026-11-20T18:48:30",
    "r": -1.813,
    "pnl_eur": -8.75
+  },
+  {
+   "dealId": "00000000-7534-1d0e-049c-a0c30015549e",
+   "richtung": 1,
+   "size": 0.16,
+   "entry": 3554.16,
+   "dist": 32.37,
+   "einstieg_kerze": "2026-11-20 15:35:00",
+   "strategie": "A Long",
+   "opened_utc": "2026-11-20T15:43:31",
+   "tp": 3554.16,
+   "stop": 3488.51,
+   "ziel": 3554.16,
+   "abfang": {
+    "zeit": "2026-11-20T18:48:30",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   },
+   "pruefer": {
+    "zeit": "2026-11-20T18:48:30",
+    "warum": "Fehltrade (0,5 R im Minus)"
+   },
+   "exit": 3559.48,
+   "quelle": "TP",
+   "closed_utc": "2026-11-22T23:03:23",
+   "r": 0.164,
+   "pnl_eur": 0.78
   }
  ]
 }

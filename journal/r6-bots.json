@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-23T09:16:37.571871",
+ "stand_utc": "2026-11-23T09:31:38.976772",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1043.97,
+   "kontostand": 1043.05,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T09:16:37.571871",
+    "zeit": "2026-11-23T09:31:38.976772",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -383,7 +383,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.64,
+   "kontostand": 1000.58,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T09:16:37.571871",
+    "zeit": "2026-11-23T09:31:38.976772",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.889 > 0,866): heute kein Trade"
@@ -954,12 +954,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T09:16:37.571871",
+    "zeit": "2026-11-23T09:31:38.976772",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 01:30 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-23 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1170,7 +1170,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 994.58,
+   "kontostand": 998.59,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1178,12 +1178,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T09:16:37.571871",
+    "zeit": "2026-11-23T09:31:38.976772",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 01:45 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-23 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1749,12 +1749,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T09:16:37.571871",
+    "zeit": "2026-11-23T09:31:38.976772",
     "action": "none",
     "why": [
-     "wartet bis 4:30 New York"
+     "schon um 01:30 New York ausgebrochen (vor 4:30): heute kein Trade"
     ],
-    "bar": null
+    "bar": "2026-11-23 09:15:00"
    },
    "zusammenfassung": {
     "trades": 1,

@@ -35,31 +35,32 @@
    "usd_oz": 8.68,
    "r": 0.333,
    "why": "ziel"
+  },
+  {
+   "side": "short",
+   "signal": "2026-11-23 08:00:00",
+   "in": "2026-11-23 09:00:00",
+   "out": "2026-11-23 13:00:00",
+   "in_px": 3614.17,
+   "out_px": 3653.77,
+   "stop_usd": 39.6,
+   "usd_oz": -39.6,
+   "r": -1.0,
+   "why": "stop"
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-23 12:00:00",
- "updated_utc": "2026-11-23T13:11:30+00:00",
- "open_detail": {
-  "side": "short",
-  "signal": "2026-11-23 08:00:00",
-  "atr": 26.4,
-  "in": "2026-11-23 09:00:00",
-  "in_px": 3614.17,
-  "stop": 3653.77,
-  "ziel": 3600.97,
-  "stunden": 4,
-  "jetzt_r": -0.08,
-  "stand": "offen"
- },
+ "cursor": "2026-11-23 13:00:00",
+ "updated_utc": "2026-11-23T14:11:30+00:00",
+ "open_detail": null,
  "richtung": -1,
  "summary": {
-  "trades": 3,
-  "win_pct": 100.0,
-  "sum_r": 0.98,
-  "pf_r": null,
-  "usd_oz": 26.04,
-  "konto_eur": 254.93,
+  "trades": 4,
+  "win_pct": 75.0,
+  "sum_r": -0.02,
+  "pf_r": 0.98,
+  "usd_oz": -13.56,
+  "konto_eur": 249.83,
   "konto_start_eur": 250.0,
   "vorwaerts_ziel": "Auswertung nach 30 Trades: Summe R über 0 und Gewinnfaktor mindestens 1,2"
  },
@@ -71,7 +72,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-23T13:11:30+00:00",
+  "abgerufen_utc": "2026-11-23T14:11:30+00:00",
   "naechste": [
    "2026-11-25 13:30 Core PCE Price Index m/m",
    "2026-11-25 13:30 Prelim GDP q/q"
@@ -91,8 +92,5 @@
   "richtung": true,
   "news": true
  },
- "open": {
-  "side": -1,
-  "t_sig": "2026-11-23 08:00:00"
- }
+ "open": null
 }

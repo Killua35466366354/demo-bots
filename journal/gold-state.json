@@ -1,10 +1,10 @@
 {
  "peak_eur": 1088.27,
- "day": "2026-11-20",
+ "day": "2026-11-23",
  "day_start_eur": 1088.22,
- "week": "2026-11-16",
- "week_start_eur": 974.54,
- "last_bar": "2026-11-20 21:00:00",
+ "week": "2026-11-23",
+ "week_start_eur": 1088.22,
+ "last_bar": "2026-11-22 23:00:00",
  "open_trade": null,
  "schalter_pause": null
 }

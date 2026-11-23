@@ -38,8 +38,8 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-20 21:00:00",
- "updated_utc": "2026-11-20T22:11:33+00:00",
+ "cursor": "2026-11-22 23:00:00",
+ "updated_utc": "2026-11-23T00:11:34+00:00",
  "open_detail": null,
  "richtung": -1,
  "summary": {
@@ -60,13 +60,14 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-20T22:11:33+00:00",
-  "naechste": [],
+  "abgerufen_utc": "2026-11-23T00:11:34+00:00",
+  "naechste": [
+   "2026-11-25 13:30 Core PCE Price Index m/m",
+   "2026-11-25 13:30 Prelim GDP q/q"
+  ],
   "nicht_in_termine_yaml": [
-   "2026-11-16 17:00 Fed Chairman Warsh Speaks",
-   "2026-11-17 13:30 Core Retail Sales m/m",
-   "2026-11-17 13:30 Retail Sales m/m",
-   "2026-11-18 19:00 FOMC Meeting Minutes"
+   "2026-11-25 13:30 Core PCE Price Index m/m",
+   "2026-11-25 13:30 Prelim GDP q/q"
   ],
   "hinweis": "nur mitgeschrieben, ändert keine Entscheidung"
  },

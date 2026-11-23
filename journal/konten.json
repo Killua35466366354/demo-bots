@@ -48,7 +48,7 @@
    "name": "Account 2",
    "waehrung": "EUR",
    "balance": 983.06,
-   "frei": 949.74,
+   "frei": 949.7,
    "bevorzugt": false,
    "fuer": "r6-vortag-eurusd-1atr"
   },
@@ -56,8 +56,8 @@
    "id": "…4494",
    "name": "Account 3",
    "waehrung": "EUR",
-   "balance": 995.83,
-   "frei": 685.57,
+   "balance": 995.31,
+   "frei": 684.96,
    "bevorzugt": false,
    "fuer": null
   },
@@ -74,8 +74,8 @@
    "id": "…9086",
    "name": "Account 5",
    "waehrung": "EUR",
-   "balance": 1050.6,
-   "frei": 945.21,
+   "balance": 1051.15,
+   "frei": 945.64,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us30"
   },
@@ -83,8 +83,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 1049.39,
-   "frei": 1029.65,
+   "balance": 1049.87,
+   "frei": 1030.1,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -92,8 +92,8 @@
    "id": "…6542",
    "name": "Account 7",
    "waehrung": "EUR",
-   "balance": 1002.36,
-   "frei": 997.83,
+   "balance": 1002.54,
+   "frei": 997.99,
    "bevorzugt": false,
    "fuer": "r6-noise-usdjpy"
   },
@@ -110,13 +110,13 @@
    "id": "…4094",
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
-   "balance": 984.05,
-   "frei": 979.01,
+   "balance": 984.09,
+   "frei": 979.04,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-23T15:01:30.428796",
+ "stand_utc": "2026-11-23T15:16:30.773133",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

@@ -2,10 +2,10 @@
  "bot": "modell-indizes",
  "name": "Vorhersage-Modell Indizes (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 6",
- "stand": "2026-11-22T23:01:55",
+ "stand": "2026-11-23T20:46:57",
  "start": "2026-11-20T13:18:01",
  "pausiert": null,
- "status": "US500: Kauf offen ab 6999.3, Stop 6630.6, Ausstieg vor 2026-11-23 20:55 UTC. US100: Kauf offen ab 25509.2, Stop 23406.3, Ausstieg vor 2026-11-23 20:55 UTC. DAX: Kauf offen ab 24718.1, Stop 23611.9, Ausstieg vor 2026-11-23 20:55 UTC. FTSE 100: Kauf offen ab 10332.3, Stop 9955.4, Ausstieg vor 2026-11-23 20:55 UTC. Nikkei 225: Kauf offen ab 55492.8, Stop 50326.4, Ausstieg vor 2026-11-23 20:55 UTC",
+ "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-23): Kauf eröffnet",
  "regel": "Vorhersage-Modell auf US500, US100, DAX, FTSE 100 und Nikkei 225 (Fassung modell_indizes): Eine logistische Regression schätzt aus Kursen des Vortags, VIX und US-Renditen, ob der Index bis 15:55 New York steigt. Ab 54 % Kauf, bis 46 % Verkauf, Einstieg ab 18:00 New York, Stop 2 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_modell_indizes_bot.yaml",
@@ -17,73 +17,7 @@
   "UKXGBP": "FTSE 100",
   "JPXJPY": "Nikkei 225"
  },
- "offen": [
-  {
-   "id": "US500 2026-11-23",
-   "markt": "SPXUSD",
-   "epic": "US500",
-   "richtung": 1,
-   "entry": 6999.3,
-   "stop": 6630.6,
-   "size": 0.01,
-   "dist": 377.028571,
-   "wahrscheinlichkeit": 0.671015,
-   "opened_utc": "2026-11-22T23:01:55",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "US100 2026-11-23",
-   "markt": "NSXUSD",
-   "epic": "US100",
-   "richtung": 1,
-   "entry": 25509.2,
-   "stop": 23406.3,
-   "size": 0.002,
-   "dist": 2115.514286,
-   "wahrscheinlichkeit": 0.667744,
-   "opened_utc": "2026-11-22T23:01:55",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "DE40 2026-11-23",
-   "markt": "GRXEUR",
-   "epic": "DE40",
-   "richtung": 1,
-   "entry": 24718.1,
-   "stop": 23611.9,
-   "size": 0.004,
-   "dist": 1097.0,
-   "wahrscheinlichkeit": 0.647686,
-   "opened_utc": "2026-11-22T23:01:55",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "UK100 2026-11-23",
-   "markt": "UKXGBP",
-   "epic": "UK100",
-   "richtung": 1,
-   "entry": 10332.3,
-   "stop": 9955.4,
-   "size": 0.01,
-   "dist": 367.742857,
-   "wahrscheinlichkeit": 0.650979,
-   "opened_utc": "2026-11-22T23:01:55",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "J225 2026-11-23",
-   "markt": "JPXJPY",
-   "epic": "J225",
-   "richtung": 1,
-   "entry": 55492.8,
-   "stop": 50326.4,
-   "size": 0.16,
-   "dist": 5153.357143,
-   "wahrscheinlichkeit": 0.64454,
-   "opened_utc": "2026-11-22T23:01:55",
-   "bis_utc": "2026-11-23 20:55:00"
-  }
- ],
+ "offen": [],
  "ausgelassen": {
   "SPXUSD": {},
   "NSXUSD": {},
@@ -92,15 +26,167 @@
   "JPXJPY": {}
  },
  "zusammenfassung": {
-  "trades": 0,
-  "pf_r": null,
-  "summe_r": 0.0,
-  "trefferquote": null,
-  "summe_eur": 0.0,
-  "je_markt": {},
-  "urteil": "läuft (0 von 40 Trades)"
+  "trades": 5,
+  "pf_r": 999.0,
+  "summe_r": 2.78,
+  "trefferquote": 1.0,
+  "summe_eur": 11.38,
+  "je_markt": {
+   "SPXUSD": {
+    "trades": 1,
+    "summe_r": 0.674
+   },
+   "NSXUSD": {
+    "trades": 1,
+    "summe_r": 0.616
+   },
+   "GRXEUR": {
+    "trades": 1,
+    "summe_r": 0.588
+   },
+   "UKXGBP": {
+    "trades": 1,
+    "summe_r": 0.442
+   },
+   "JPXJPY": {
+    "trades": 1,
+    "summe_r": 0.458
+   }
+  },
+  "urteil": "läuft (5 von 40 Trades)"
  },
- "letzte_trades": [],
+ "letzte_trades": [
+  {
+   "id": "US500 2026-11-23",
+   "markt": "SPXUSD",
+   "epic": "US500",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75cd-c303-049c-70210015549e",
+   "size": 0.01,
+   "entry": 6999.3,
+   "stop": 6630.6,
+   "dist": 377.028571,
+   "wahrscheinlichkeit": 0.671015,
+   "opened_utc": "2026-11-22T23:01:55",
+   "spaet_min": 1.9,
+   "nach_18_min": 1.9,
+   "seite": "Kauf",
+   "exit": 7253.6,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:46:57",
+   "naechte": 0,
+   "r_roh": 0.674,
+   "gebuehr_r": 0.0,
+   "r": 0.674,
+   "pnl_waehrung": 2.54,
+   "pnl_eur": 2.32
+  },
+  {
+   "id": "US100 2026-11-23",
+   "markt": "NSXUSD",
+   "epic": "US100",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75cd-c34c-049c-70210015549e",
+   "size": 0.002,
+   "entry": 25509.2,
+   "stop": 23406.3,
+   "dist": 2115.514286,
+   "wahrscheinlichkeit": 0.667744,
+   "opened_utc": "2026-11-22T23:01:55",
+   "spaet_min": 1.9,
+   "nach_18_min": 1.9,
+   "seite": "Kauf",
+   "exit": 26811.9,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:46:57",
+   "naechte": 0,
+   "r_roh": 0.616,
+   "gebuehr_r": 0.0,
+   "r": 0.616,
+   "pnl_waehrung": 2.61,
+   "pnl_eur": 2.37
+  },
+  {
+   "id": "DE40 2026-11-23",
+   "markt": "GRXEUR",
+   "epic": "DE40",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75cd-c36d-049c-70210015549e",
+   "size": 0.004,
+   "entry": 24718.1,
+   "stop": 23611.9,
+   "dist": 1097.0,
+   "wahrscheinlichkeit": 0.647686,
+   "opened_utc": "2026-11-22T23:01:55",
+   "spaet_min": 1.9,
+   "nach_18_min": 1.9,
+   "seite": "Kauf",
+   "exit": 25362.9,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:46:57",
+   "naechte": 0,
+   "r_roh": 0.588,
+   "gebuehr_r": 0.0,
+   "r": 0.588,
+   "pnl_waehrung": 2.58,
+   "pnl_eur": 2.58
+  },
+  {
+   "id": "UK100 2026-11-23",
+   "markt": "UKXGBP",
+   "epic": "UK100",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75cd-c3c3-049c-70210015549e",
+   "size": 0.01,
+   "entry": 10332.3,
+   "stop": 9955.4,
+   "dist": 367.742857,
+   "wahrscheinlichkeit": 0.650979,
+   "opened_utc": "2026-11-22T23:01:55",
+   "spaet_min": 1.9,
+   "nach_18_min": 1.9,
+   "seite": "Kauf",
+   "exit": 10494.8,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:46:57",
+   "naechte": 0,
+   "r_roh": 0.442,
+   "gebuehr_r": 0.0,
+   "r": 0.442,
+   "pnl_waehrung": 1.62,
+   "pnl_eur": 1.94
+  },
+  {
+   "id": "J225 2026-11-23",
+   "markt": "JPXJPY",
+   "epic": "J225",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75cd-c42a-049c-70210015549e",
+   "size": 0.16,
+   "entry": 55492.8,
+   "stop": 50326.4,
+   "dist": 5153.357143,
+   "wahrscheinlichkeit": 0.64454,
+   "opened_utc": "2026-11-22T23:01:55",
+   "spaet_min": 1.9,
+   "nach_18_min": 1.9,
+   "seite": "Kauf",
+   "exit": 57852.5,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:46:57",
+   "naechte": 0,
+   "r_roh": 0.458,
+   "gebuehr_r": 0.0,
+   "r": 0.458,
+   "pnl_waehrung": 377.55,
+   "pnl_eur": 2.17
+  }
+ ],
  "blick": {
   "naechster_einstieg_utc": "2026-11-23 23:00:00",
   "maerkte": {
@@ -115,49 +201,7 @@
      "atr": 188.514286,
      "nach_18_min": 1.9
     },
-    "signal": {
-     "markt": "SPXUSD",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:01:55.346462",
-     "richtung": 1,
-     "wahrscheinlichkeit": 0.671015,
-     "dist": 377.028571,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: 67.1% für steigt",
-     "tage": 298,
-     "fremd_datum": {
-      "VIXCLS": "2026-11-20",
-      "VXVCLS": "2026-11-20",
-      "DGS10": "2026-11-20",
-      "DGS2": "2026-11-20"
-     },
-     "atr": 188.514286,
-     "fremd": {
-      "VIXCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "VXVCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS10": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS2": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      }
-     }
-    },
-    "kurs": 7007.6
+    "kurs": 7253.4
    },
    "NSXUSD": {
     "epic": "US100",
@@ -170,49 +214,7 @@
      "atr": 1057.757143,
      "nach_18_min": 1.9
     },
-    "signal": {
-     "markt": "NSXUSD",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:01:55.346462",
-     "richtung": 1,
-     "wahrscheinlichkeit": 0.667744,
-     "dist": 2115.514286,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: 66.8% für steigt",
-     "tage": 298,
-     "fremd_datum": {
-      "VIXCLS": "2026-11-20",
-      "VXVCLS": "2026-11-20",
-      "DGS10": "2026-11-20",
-      "DGS2": "2026-11-20"
-     },
-     "atr": 1057.757143,
-     "fremd": {
-      "VIXCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "VXVCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS10": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS2": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      }
-     }
-    },
-    "kurs": 25521.8
+    "kurs": 26813.6
    },
    "GRXEUR": {
     "epic": "DE40",
@@ -225,49 +227,7 @@
      "atr": 548.5,
      "nach_18_min": 1.9
     },
-    "signal": {
-     "markt": "GRXEUR",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:01:55.346462",
-     "richtung": 1,
-     "wahrscheinlichkeit": 0.647686,
-     "dist": 1097.0,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: 64.8% für steigt",
-     "tage": 298,
-     "fremd_datum": {
-      "VIXCLS": "2026-11-20",
-      "VXVCLS": "2026-11-20",
-      "DGS10": "2026-11-20",
-      "DGS2": "2026-11-20"
-     },
-     "atr": 548.5,
-     "fremd": {
-      "VIXCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "VXVCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS10": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS2": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      }
-     }
-    },
-    "kurs": 24708.9
+    "kurs": 25362.9
    },
    "UKXGBP": {
     "epic": "UK100",
@@ -280,49 +240,7 @@
      "atr": 183.871429,
      "nach_18_min": 1.9
     },
-    "signal": {
-     "markt": "UKXGBP",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:01:55.346462",
-     "richtung": 1,
-     "wahrscheinlichkeit": 0.650979,
-     "dist": 367.742857,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: 65.1% für steigt",
-     "tage": 298,
-     "fremd_datum": {
-      "VIXCLS": "2026-11-20",
-      "VXVCLS": "2026-11-20",
-      "DGS10": "2026-11-20",
-      "DGS2": "2026-11-20"
-     },
-     "atr": 183.871429,
-     "fremd": {
-      "VIXCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "VXVCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS10": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS2": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      }
-     }
-    },
-    "kurs": 10323.1
+    "kurs": 10494.6
    },
    "JPXJPY": {
     "epic": "J225",
@@ -335,49 +253,7 @@
      "atr": 2576.678571,
      "nach_18_min": 1.9
     },
-    "signal": {
-     "markt": "JPXJPY",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:01:55.346462",
-     "richtung": 1,
-     "wahrscheinlichkeit": 0.64454,
-     "dist": 5153.357143,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: 64.5% für steigt",
-     "tage": 298,
-     "fremd_datum": {
-      "VIXCLS": "2026-11-20",
-      "VXVCLS": "2026-11-20",
-      "DGS10": "2026-11-20",
-      "DGS2": "2026-11-20"
-     },
-     "atr": 2576.678571,
-     "fremd": {
-      "VIXCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "VXVCLS": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS10": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      },
-      "DGS2": {
-       "datum": "2026-11-20",
-       "erwartet": "2026-11-20",
-       "frisch": true
-      }
-     }
-    },
-    "kurs": 55479.8
+    "kurs": 57855.0
    }
   }
  }

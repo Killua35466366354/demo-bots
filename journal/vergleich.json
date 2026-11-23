@@ -814,21 +814,21 @@
    "seit": "2026-11-20",
    "start": "2026-11-20",
    "ist": {
-    "trades": 0,
-    "gewonnen": 0,
-    "treffer_pct": null,
-    "summe_r": 0,
+    "trades": 5,
+    "gewonnen": 5,
+    "treffer_pct": 100.0,
+    "summe_r": 2.78,
     "pf_r": null,
-    "eur": 0,
+    "eur": 11.38,
     "rueckgang_r": 0.0
    },
    "einheit": "R",
-   "urteil": "läuft (0 von 40 Trades)",
+   "urteil": "läuft (5 von 40 Trades)",
    "vorab": "suche/VORAB_modell_indizes_bot.yaml",
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 3 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 3 von 61 Tagen"
    }
   },
   {
@@ -838,21 +838,21 @@
    "seit": "2026-11-20",
    "start": "2026-11-20",
    "ist": {
-    "trades": 0,
-    "gewonnen": 0,
-    "treffer_pct": null,
-    "summe_r": 0,
+    "trades": 5,
+    "gewonnen": 5,
+    "treffer_pct": 100.0,
+    "summe_r": 1.85,
     "pf_r": null,
-    "eur": 0,
+    "eur": 8.87,
     "rueckgang_r": 0.0
    },
    "einheit": "R",
-   "urteil": "läuft (0 von 40 Trades)",
+   "urteil": "läuft (5 von 40 Trades)",
    "vorab": "suche/VORAB_vix_sprung_bot.yaml",
    "test": "Test NICHT bestanden. US500 und US100 (vix_sprung_us, suche/ergebnis_grosse_runde.md): Kandidat, 136 Trades, Gewinnfaktor 1,93, 2026 2,45, z 2,17 statt 3, ohne Holm, vor 2024 1,13. DAX, FTSE und Nikkei (vix_sprung_welt, suche/ergebnis_grosse_runde2.md): durchgefallen, 204 Trades, Gewinnfaktor 1,41, erste Hälfte 0,96. Zusammen 340 Trades an 68 Tagen (2024 bis Oktober 2026), Gewinnfaktor 1,60. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 4,90 € im Monat. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 3 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 3 von 61 Tagen"
    }
   },
   {

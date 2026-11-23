@@ -3,3 +3,8 @@
 {"time": "2026-11-22T23:03:03", "event": "Kauf eröffnet", "markt": "GRXEUR", "id": "DE40 2026-11-23", "dealId": "00000000-75b3-f0e2-049c-701f0015549e", "size": 0.003, "entry": 24724.2, "stop": 23070.8, "dist": 1645.5, "vix_aenderung": 0.261955, "spaet_min": 3.1}
 {"time": "2026-11-22T23:03:03", "event": "Kauf eröffnet", "markt": "UKXGBP", "id": "UK100 2026-11-23", "dealId": "00000000-75b3-f0fc-049c-701f0015549e", "size": 0.01, "entry": 10331.2, "stop": 9776.2, "dist": 551.614286, "vix_aenderung": 0.261955, "spaet_min": 3.1}
 {"time": "2026-11-22T23:03:03", "event": "Kauf eröffnet", "markt": "JPXJPY", "id": "J225 2026-11-23", "dealId": "00000000-75b3-f127-049c-701f0015549e", "size": 0.11, "entry": 55492.8, "stop": 47749.8, "dist": 7730.035714, "vix_aenderung": 0.261955, "spaet_min": 3.1}
+{"time": "2026-11-23T20:47:02", "event": "Trade fertig", "markt": "SPXUSD", "trade": "US500 2026-11-23", "seite": "Kauf", "grund": "zeit", "r": 0.45, "pnl_eur": 2.32}
+{"time": "2026-11-23T20:47:02", "event": "Trade fertig", "markt": "NSXUSD", "trade": "US100 2026-11-23", "seite": "Kauf", "grund": "zeit", "r": 0.41, "pnl_eur": 1.19}
+{"time": "2026-11-23T20:47:02", "event": "Trade fertig", "markt": "GRXEUR", "trade": "DE40 2026-11-23", "seite": "Kauf", "grund": "zeit", "r": 0.389, "pnl_eur": 1.92}
+{"time": "2026-11-23T20:47:02", "event": "Trade fertig", "markt": "UKXGBP", "trade": "UK100 2026-11-23", "seite": "Kauf", "grund": "zeit", "r": 0.297, "pnl_eur": 1.95}
+{"time": "2026-11-23T20:47:02", "event": "Trade fertig", "markt": "JPXJPY", "trade": "J225 2026-11-23", "seite": "Kauf", "grund": "zeit", "r": 0.305, "pnl_eur": 1.49}

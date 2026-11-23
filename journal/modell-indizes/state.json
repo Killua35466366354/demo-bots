@@ -1,31 +1,11 @@
 {
  "format": 1,
  "start": "2026-11-20T13:18:01",
- "summe_r": 0.0,
- "trades": 0,
+ "summe_r": 2.778,
+ "trades": 5,
  "maerkte": {
   "SPXUSD": {
-   "trade": {
-    "id": "US500 2026-11-23",
-    "markt": "SPXUSD",
-    "epic": "US500",
-    "richtung": 1,
-    "tag": "2026-11-23",
-    "dealId": "00000000-75cd-c303-049c-70210015549e",
-    "size": 0.01,
-    "entry": 6999.3,
-    "stop": 6630.6,
-    "dist": 377.028571,
-    "bid_ein": 7007.6,
-    "wahrscheinlichkeit": 0.671015,
-    "opened_utc": "2026-11-22T23:01:55",
-    "spaet_min": 1.9,
-    "nach_18_min": 1.9,
-    "bis_utc": "2026-11-23 20:55:00",
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 1.0972
-   },
+   "trade": null,
    "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
     "tag": "2026-11-23",
@@ -35,30 +15,11 @@
     "dist": 377.028571,
     "atr": 188.514286,
     "nach_18_min": 1.9
-   }
+   },
+   "letzter_schluss": "2026-11-23T20:46:57"
   },
   "NSXUSD": {
-   "trade": {
-    "id": "US100 2026-11-23",
-    "markt": "NSXUSD",
-    "epic": "US100",
-    "richtung": 1,
-    "tag": "2026-11-23",
-    "dealId": "00000000-75cd-c34c-049c-70210015549e",
-    "size": 0.002,
-    "entry": 25509.2,
-    "stop": 23406.3,
-    "dist": 2115.514286,
-    "bid_ein": 25521.8,
-    "wahrscheinlichkeit": 0.667744,
-    "opened_utc": "2026-11-22T23:01:55",
-    "spaet_min": 1.9,
-    "nach_18_min": 1.9,
-    "bis_utc": "2026-11-23 20:55:00",
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 1.0972
-   },
+   "trade": null,
    "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
     "tag": "2026-11-23",
@@ -68,30 +29,11 @@
     "dist": 2115.514286,
     "atr": 1057.757143,
     "nach_18_min": 1.9
-   }
+   },
+   "letzter_schluss": "2026-11-23T20:46:57"
   },
   "GRXEUR": {
-   "trade": {
-    "id": "DE40 2026-11-23",
-    "markt": "GRXEUR",
-    "epic": "DE40",
-    "richtung": 1,
-    "tag": "2026-11-23",
-    "dealId": "00000000-75cd-c36d-049c-70210015549e",
-    "size": 0.004,
-    "entry": 24718.1,
-    "stop": 23611.9,
-    "dist": 1097.0,
-    "bid_ein": 24708.9,
-    "wahrscheinlichkeit": 0.647686,
-    "opened_utc": "2026-11-22T23:01:55",
-    "spaet_min": 1.9,
-    "nach_18_min": 1.9,
-    "bis_utc": "2026-11-23 20:55:00",
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 1.0
-   },
+   "trade": null,
    "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
     "tag": "2026-11-23",
@@ -101,30 +43,11 @@
     "dist": 1097.0,
     "atr": 548.5,
     "nach_18_min": 1.9
-   }
+   },
+   "letzter_schluss": "2026-11-23T20:46:57"
   },
   "UKXGBP": {
-   "trade": {
-    "id": "UK100 2026-11-23",
-    "markt": "UKXGBP",
-    "epic": "UK100",
-    "richtung": 1,
-    "tag": "2026-11-23",
-    "dealId": "00000000-75cd-c3c3-049c-70210015549e",
-    "size": 0.01,
-    "entry": 10332.3,
-    "stop": 9955.4,
-    "dist": 367.742857,
-    "bid_ein": 10323.1,
-    "wahrscheinlichkeit": 0.650979,
-    "opened_utc": "2026-11-22T23:01:55",
-    "spaet_min": 1.9,
-    "nach_18_min": 1.9,
-    "bis_utc": "2026-11-23 20:55:00",
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 0.83795
-   },
+   "trade": null,
    "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
     "tag": "2026-11-23",
@@ -134,30 +57,11 @@
     "dist": 367.742857,
     "atr": 183.871429,
     "nach_18_min": 1.9
-   }
+   },
+   "letzter_schluss": "2026-11-23T20:46:57"
   },
   "JPXJPY": {
-   "trade": {
-    "id": "J225 2026-11-23",
-    "markt": "JPXJPY",
-    "epic": "J225",
-    "richtung": 1,
-    "tag": "2026-11-23",
-    "dealId": "00000000-75cd-c42a-049c-70210015549e",
-    "size": 0.16,
-    "entry": 55492.8,
-    "stop": 50326.4,
-    "dist": 5153.357143,
-    "bid_ein": 55479.8,
-    "wahrscheinlichkeit": 0.64454,
-    "opened_utc": "2026-11-22T23:01:55",
-    "spaet_min": 1.9,
-    "nach_18_min": 1.9,
-    "bis_utc": "2026-11-23 20:55:00",
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 174.07100000000003
-   },
+   "trade": null,
    "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
     "tag": "2026-11-23",
@@ -167,8 +71,9 @@
     "dist": 5153.357143,
     "atr": 2576.678571,
     "nach_18_min": 1.9
-   }
+   },
+   "letzter_schluss": "2026-11-23T20:46:57"
   }
  },
- "stand": "2026-11-22T23:01:55"
+ "stand": "2026-11-23T20:46:57"
 }

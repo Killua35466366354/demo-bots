@@ -2,10 +2,10 @@
  "bot": "vix-sprung",
  "name": "Tag nach einem VIX-Sprung (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 5",
- "stand": "2026-11-22T23:03:03",
+ "stand": "2026-11-23T20:47:02",
  "start": "2026-11-20T13:48:56",
  "pausiert": null,
- "status": "US500: Kauf offen ab 6998.0, Stop 6432.0, Ausstieg vor 2026-11-23 20:55 UTC. US100: Kauf offen ab 25510.1, Stop 22337.2, Ausstieg vor 2026-11-23 20:55 UTC. DAX: Kauf offen ab 24724.2, Stop 23070.8, Ausstieg vor 2026-11-23 20:55 UTC. FTSE 100: Kauf offen ab 10331.2, Stop 9776.2, Ausstieg vor 2026-11-23 20:55 UTC. Nikkei 225: Kauf offen ab 55492.8, Stop 47749.8, Ausstieg vor 2026-11-23 20:55 UTC",
+ "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-23): Kauf eröffnet",
  "regel": "Tag nach einem VIX-Sprung (Fassungen vix_sprung_us und vix_sprung_welt): Schließt der VIX mindestens 10 % über dem Vortag, kauft der Bot US500, US100, DAX, FTSE 100 und Nikkei 225 mit dem ersten Kurs ab 18:00 New York, Notstop 3 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden. US500 und US100 (vix_sprung_us, suche/ergebnis_grosse_runde.md): Kandidat, 136 Trades, Gewinnfaktor 1,93, 2026 2,45, z 2,17 statt 3, ohne Holm, vor 2024 1,13. DAX, FTSE und Nikkei (vix_sprung_welt, suche/ergebnis_grosse_runde2.md): durchgefallen, 204 Trades, Gewinnfaktor 1,41, erste Hälfte 0,96. Zusammen 340 Trades an 68 Tagen (2024 bis Oktober 2026), Gewinnfaktor 1,60. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 4,90 € im Monat. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
  "vorab": "suche/VORAB_vix_sprung_bot.yaml",
@@ -24,78 +24,7 @@
   "UKXGBP": "vix_sprung_welt",
   "JPXJPY": "vix_sprung_welt"
  },
- "offen": [
-  {
-   "id": "US500 2026-11-23",
-   "markt": "SPXUSD",
-   "epic": "US500",
-   "fassung": "vix_sprung_us",
-   "richtung": 1,
-   "entry": 6998.0,
-   "stop": 6432.0,
-   "size": 0.01,
-   "dist": 565.542857,
-   "vix_aenderung": 0.261955,
-   "opened_utc": "2026-11-22T23:03:03",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "US100 2026-11-23",
-   "markt": "NSXUSD",
-   "epic": "US100",
-   "fassung": "vix_sprung_us",
-   "richtung": 1,
-   "entry": 25510.1,
-   "stop": 22337.2,
-   "size": 0.001,
-   "dist": 3173.271429,
-   "vix_aenderung": 0.261955,
-   "opened_utc": "2026-11-22T23:03:03",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "DE40 2026-11-23",
-   "markt": "GRXEUR",
-   "epic": "DE40",
-   "fassung": "vix_sprung_welt",
-   "richtung": 1,
-   "entry": 24724.2,
-   "stop": 23070.8,
-   "size": 0.003,
-   "dist": 1645.5,
-   "vix_aenderung": 0.261955,
-   "opened_utc": "2026-11-22T23:03:03",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "UK100 2026-11-23",
-   "markt": "UKXGBP",
-   "epic": "UK100",
-   "fassung": "vix_sprung_welt",
-   "richtung": 1,
-   "entry": 10331.2,
-   "stop": 9776.2,
-   "size": 0.01,
-   "dist": 551.614286,
-   "vix_aenderung": 0.261955,
-   "opened_utc": "2026-11-22T23:03:03",
-   "bis_utc": "2026-11-23 20:55:00"
-  },
-  {
-   "id": "J225 2026-11-23",
-   "markt": "JPXJPY",
-   "epic": "J225",
-   "fassung": "vix_sprung_welt",
-   "richtung": 1,
-   "entry": 55492.8,
-   "stop": 47749.8,
-   "size": 0.11,
-   "dist": 7730.035714,
-   "vix_aenderung": 0.261955,
-   "opened_utc": "2026-11-22T23:03:03",
-   "bis_utc": "2026-11-23 20:55:00"
-  }
- ],
+ "offen": [],
  "ausgelassen": {
   "SPXUSD": {},
   "NSXUSD": {},
@@ -104,17 +33,183 @@
   "JPXJPY": {}
  },
  "zusammenfassung": {
-  "trades": 0,
-  "tage": 0,
-  "je_fassung": {},
-  "pf_r": null,
-  "summe_r": 0.0,
-  "trefferquote": null,
-  "summe_eur": 0.0,
-  "je_markt": {},
-  "urteil": "läuft (0 von 40 Trades)"
+  "trades": 5,
+  "tage": 1,
+  "je_fassung": {
+   "vix_sprung_us": {
+    "trades": 2,
+    "summe_r": 0.86
+   },
+   "vix_sprung_welt": {
+    "trades": 3,
+    "summe_r": 0.991
+   }
+  },
+  "pf_r": 999.0,
+  "summe_r": 1.85,
+  "trefferquote": 1.0,
+  "summe_eur": 8.87,
+  "je_markt": {
+   "SPXUSD": {
+    "trades": 1,
+    "summe_r": 0.45
+   },
+   "NSXUSD": {
+    "trades": 1,
+    "summe_r": 0.41
+   },
+   "GRXEUR": {
+    "trades": 1,
+    "summe_r": 0.389
+   },
+   "UKXGBP": {
+    "trades": 1,
+    "summe_r": 0.297
+   },
+   "JPXJPY": {
+    "trades": 1,
+    "summe_r": 0.305
+   }
+  },
+  "urteil": "läuft (5 von 40 Trades)"
  },
- "letzte_trades": [],
+ "letzte_trades": [
+  {
+   "id": "US500 2026-11-23",
+   "markt": "SPXUSD",
+   "epic": "US500",
+   "fassung": "vix_sprung_us",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75b3-f0b5-049c-701f0015549e",
+   "size": 0.01,
+   "entry": 6998.0,
+   "stop": 6432.0,
+   "dist": 565.542857,
+   "vix_aenderung": 0.261955,
+   "opened_utc": "2026-11-22T23:03:03",
+   "spaet_min": 3.1,
+   "nach_18_min": 3.1,
+   "seite": "Kauf",
+   "exit": 7252.7,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:47:02",
+   "naechte": 0,
+   "r_roh": 0.45,
+   "gebuehr_r": 0.0,
+   "r": 0.45,
+   "pnl_waehrung": 2.55,
+   "pnl_eur": 2.32
+  },
+  {
+   "id": "US100 2026-11-23",
+   "markt": "NSXUSD",
+   "epic": "US100",
+   "fassung": "vix_sprung_us",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75b3-f0d5-049c-701f0015549e",
+   "size": 0.001,
+   "entry": 25510.1,
+   "stop": 22337.2,
+   "dist": 3173.271429,
+   "vix_aenderung": 0.261955,
+   "opened_utc": "2026-11-22T23:03:03",
+   "spaet_min": 3.1,
+   "nach_18_min": 3.1,
+   "seite": "Kauf",
+   "exit": 26812.3,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:47:02",
+   "naechte": 0,
+   "r_roh": 0.41,
+   "gebuehr_r": 0.0,
+   "r": 0.41,
+   "pnl_waehrung": 1.3,
+   "pnl_eur": 1.19
+  },
+  {
+   "id": "DE40 2026-11-23",
+   "markt": "GRXEUR",
+   "epic": "DE40",
+   "fassung": "vix_sprung_welt",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75b3-f0e2-049c-701f0015549e",
+   "size": 0.003,
+   "entry": 24724.2,
+   "stop": 23070.8,
+   "dist": 1645.5,
+   "vix_aenderung": 0.261955,
+   "opened_utc": "2026-11-22T23:03:03",
+   "spaet_min": 3.1,
+   "nach_18_min": 3.1,
+   "seite": "Kauf",
+   "exit": 25363.9,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:47:02",
+   "naechte": 0,
+   "r_roh": 0.389,
+   "gebuehr_r": 0.0,
+   "r": 0.389,
+   "pnl_waehrung": 1.92,
+   "pnl_eur": 1.92
+  },
+  {
+   "id": "UK100 2026-11-23",
+   "markt": "UKXGBP",
+   "epic": "UK100",
+   "fassung": "vix_sprung_welt",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75b3-f0fc-049c-701f0015549e",
+   "size": 0.01,
+   "entry": 10331.2,
+   "stop": 9776.2,
+   "dist": 551.614286,
+   "vix_aenderung": 0.261955,
+   "opened_utc": "2026-11-22T23:03:03",
+   "spaet_min": 3.1,
+   "nach_18_min": 3.1,
+   "seite": "Kauf",
+   "exit": 10494.8,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:47:02",
+   "naechte": 0,
+   "r_roh": 0.297,
+   "gebuehr_r": 0.0,
+   "r": 0.297,
+   "pnl_waehrung": 1.64,
+   "pnl_eur": 1.95
+  },
+  {
+   "id": "J225 2026-11-23",
+   "markt": "JPXJPY",
+   "epic": "J225",
+   "fassung": "vix_sprung_welt",
+   "richtung": 1,
+   "tag": "2026-11-23",
+   "dealId": "00000000-75b3-f127-049c-701f0015549e",
+   "size": 0.11,
+   "entry": 55492.8,
+   "stop": 47749.8,
+   "dist": 7730.035714,
+   "vix_aenderung": 0.261955,
+   "opened_utc": "2026-11-22T23:03:03",
+   "spaet_min": 3.1,
+   "nach_18_min": 3.1,
+   "seite": "Kauf",
+   "exit": 57852.5,
+   "grund": "zeit",
+   "closed_utc": "2026-11-23T20:47:02",
+   "naechte": 0,
+   "r_roh": 0.305,
+   "gebuehr_r": 0.0,
+   "r": 0.305,
+   "pnl_waehrung": 259.57,
+   "pnl_eur": 1.49
+  }
+ ],
  "blick": {
   "naechster_einstieg_utc": "2026-11-23 23:00:00",
   "maerkte": {
@@ -132,31 +227,7 @@
      "atr": 188.514286,
      "nach_18_min": 3.1
     },
-    "signal": {
-     "markt": "SPXUSD",
-     "fassung": "vix_sprung_us",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:03:03.067896",
-     "richtung": 1,
-     "vix_aenderung": 0.261955,
-     "dist": 565.542857,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: VIX +26.2%",
-     "tage": 42,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_datum": "2026-11-20",
-     "vix_vorher_datum": "2026-11-19",
-     "atr": 188.514286,
-     "vix_stand": {
-      "datum": "2026-11-20",
-      "erwartet": "2026-11-20",
-      "frisch": true
-     }
-    },
-    "kurs": 6997.5
+    "kurs": 7252.7
    },
    "NSXUSD": {
     "epic": "US100",
@@ -172,31 +243,7 @@
      "atr": 1057.757143,
      "nach_18_min": 3.1
     },
-    "signal": {
-     "markt": "NSXUSD",
-     "fassung": "vix_sprung_us",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:03:03.067896",
-     "richtung": 1,
-     "vix_aenderung": 0.261955,
-     "dist": 3173.271429,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: VIX +26.2%",
-     "tage": 42,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_datum": "2026-11-20",
-     "vix_vorher_datum": "2026-11-19",
-     "atr": 1057.757143,
-     "vix_stand": {
-      "datum": "2026-11-20",
-      "erwartet": "2026-11-20",
-      "frisch": true
-     }
-    },
-    "kurs": 25510.5
+    "kurs": 26811.4
    },
    "GRXEUR": {
     "epic": "DE40",
@@ -212,31 +259,7 @@
      "atr": 548.5,
      "nach_18_min": 3.1
     },
-    "signal": {
-     "markt": "GRXEUR",
-     "fassung": "vix_sprung_welt",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:03:03.067896",
-     "richtung": 1,
-     "vix_aenderung": 0.261955,
-     "dist": 1645.5,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: VIX +26.2%",
-     "tage": 42,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_datum": "2026-11-20",
-     "vix_vorher_datum": "2026-11-19",
-     "atr": 548.5,
-     "vix_stand": {
-      "datum": "2026-11-20",
-      "erwartet": "2026-11-20",
-      "frisch": true
-     }
-    },
-    "kurs": 24716.3
+    "kurs": 25363.9
    },
    "UKXGBP": {
     "epic": "UK100",
@@ -252,31 +275,7 @@
      "atr": 183.871429,
      "nach_18_min": 3.1
     },
-    "signal": {
-     "markt": "UKXGBP",
-     "fassung": "vix_sprung_welt",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:03:03.067896",
-     "richtung": 1,
-     "vix_aenderung": 0.261955,
-     "dist": 551.614286,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: VIX +26.2%",
-     "tage": 42,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_datum": "2026-11-20",
-     "vix_vorher_datum": "2026-11-19",
-     "atr": 183.871429,
-     "vix_stand": {
-      "datum": "2026-11-20",
-      "erwartet": "2026-11-20",
-      "frisch": true
-     }
-    },
-    "kurs": 10327.8
+    "kurs": 10494.8
    },
    "JPXJPY": {
     "epic": "J225",
@@ -292,31 +291,7 @@
      "atr": 2576.678571,
      "nach_18_min": 3.1
     },
-    "signal": {
-     "markt": "JPXJPY",
-     "fassung": "vix_sprung_welt",
-     "tag": "2026-11-23",
-     "einstieg_utc": "2026-11-22 23:03:03.067896",
-     "richtung": 1,
-     "vix_aenderung": 0.261955,
-     "dist": 7730.035714,
-     "bis_utc": "2026-11-23 20:55:00",
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: VIX +26.2%",
-     "tage": 42,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_datum": "2026-11-20",
-     "vix_vorher_datum": "2026-11-19",
-     "atr": 2576.678571,
-     "vix_stand": {
-      "datum": "2026-11-20",
-      "erwartet": "2026-11-20",
-      "frisch": true
-     }
-    },
-    "kurs": 55479.8
+    "kurs": 57852.5
    }
   }
  }

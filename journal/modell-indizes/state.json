@@ -6,74 +6,174 @@
  "maerkte": {
   "SPXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "wahrscheinlichkeit": 0.671015,
-    "dist": 377.028571,
-    "atr": 188.514286,
-    "nach_18_min": 1.9
+    "tag": "2026-11-24",
+    "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-23, kein Einstieg",
+    "fremd": {
+     "VIXCLS": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     },
+     "VXVCLS": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS10": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS2": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     }
+    }
    },
-   "letzter_schluss": "2026-11-23T20:46:57"
+   "letzter_schluss": "2026-11-23T20:46:57",
+   "ausgelassen": {
+    "fremd_alt": 1
+   }
   },
   "NSXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "wahrscheinlichkeit": 0.667744,
-    "dist": 2115.514286,
-    "atr": 1057.757143,
-    "nach_18_min": 1.9
+    "tag": "2026-11-24",
+    "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-23, kein Einstieg",
+    "fremd": {
+     "VIXCLS": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     },
+     "VXVCLS": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS10": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS2": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     }
+    }
    },
-   "letzter_schluss": "2026-11-23T20:46:57"
+   "letzter_schluss": "2026-11-23T20:46:57",
+   "ausgelassen": {
+    "fremd_alt": 1
+   }
   },
   "GRXEUR": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "wahrscheinlichkeit": 0.647686,
-    "dist": 1097.0,
-    "atr": 548.5,
-    "nach_18_min": 1.9
+    "tag": "2026-11-24",
+    "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-23, kein Einstieg",
+    "fremd": {
+     "VIXCLS": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     },
+     "VXVCLS": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS10": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS2": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     }
+    }
    },
-   "letzter_schluss": "2026-11-23T20:46:57"
+   "letzter_schluss": "2026-11-23T20:46:57",
+   "ausgelassen": {
+    "fremd_alt": 1
+   }
   },
   "UKXGBP": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "wahrscheinlichkeit": 0.650979,
-    "dist": 367.742857,
-    "atr": 183.871429,
-    "nach_18_min": 1.9
+    "tag": "2026-11-24",
+    "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-23, kein Einstieg",
+    "fremd": {
+     "VIXCLS": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     },
+     "VXVCLS": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS10": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS2": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     }
+    }
    },
-   "letzter_schluss": "2026-11-23T20:46:57"
+   "letzter_schluss": "2026-11-23T20:46:57",
+   "ausgelassen": {
+    "fremd_alt": 1
+   }
   },
   "JPXJPY": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "wahrscheinlichkeit": 0.64454,
-    "dist": 5153.357143,
-    "atr": 2576.678571,
-    "nach_18_min": 1.9
+    "tag": "2026-11-24",
+    "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-23, kein Einstieg",
+    "fremd": {
+     "VIXCLS": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     },
+     "VXVCLS": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS10": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     },
+     "DGS2": {
+      "datum": "2026-11-23",
+      "erwartet": "2026-11-23",
+      "frisch": true
+     }
+    }
    },
-   "letzter_schluss": "2026-11-23T20:46:57"
+   "letzter_schluss": "2026-11-23T20:46:57",
+   "ausgelassen": {
+    "fremd_alt": 1
+   }
   }
  },
- "stand": "2026-11-23T20:46:57"
+ "stand": "2026-11-23T23:17:04"
 }

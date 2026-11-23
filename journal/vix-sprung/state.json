@@ -6,84 +6,89 @@
  "maerkte": {
   "SPXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "vix": 35.89,
-    "vix_vorher": 28.44,
-    "vix_aenderung": 0.261955,
-    "dist": 565.542857,
-    "atr": 188.514286,
-    "nach_18_min": 3.1
+    "tag": "2026-11-24",
+    "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+    "vix_stand": {
+     "datum": "2026-11-20",
+     "erwartet": "2026-11-23",
+     "frisch": false
+    }
    },
-   "letzter_schluss": "2026-11-23T20:47:02"
+   "letzter_schluss": "2026-11-23T20:47:02",
+   "ausgelassen": {
+    "vix_alt": 1
+   }
   },
   "NSXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "vix": 35.89,
-    "vix_vorher": 28.44,
-    "vix_aenderung": 0.261955,
-    "dist": 3173.271429,
-    "atr": 1057.757143,
-    "nach_18_min": 3.1
+    "tag": "2026-11-24",
+    "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+    "vix_stand": {
+     "datum": "2026-11-20",
+     "erwartet": "2026-11-23",
+     "frisch": false
+    }
    },
-   "letzter_schluss": "2026-11-23T20:47:02"
+   "letzter_schluss": "2026-11-23T20:47:02",
+   "ausgelassen": {
+    "vix_alt": 1
+   }
   },
   "GRXEUR": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "vix": 35.89,
-    "vix_vorher": 28.44,
-    "vix_aenderung": 0.261955,
-    "dist": 1645.5,
-    "atr": 548.5,
-    "nach_18_min": 3.1
+    "tag": "2026-11-24",
+    "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+    "vix_stand": {
+     "datum": "2026-11-20",
+     "erwartet": "2026-11-23",
+     "frisch": false
+    }
    },
-   "letzter_schluss": "2026-11-23T20:47:02"
+   "letzter_schluss": "2026-11-23T20:47:02",
+   "ausgelassen": {
+    "vix_alt": 1
+   }
   },
   "UKXGBP": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "vix": 35.89,
-    "vix_vorher": 28.44,
-    "vix_aenderung": 0.261955,
-    "dist": 551.614286,
-    "atr": 183.871429,
-    "nach_18_min": 3.1
+    "tag": "2026-11-24",
+    "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+    "vix_stand": {
+     "datum": "2026-11-20",
+     "erwartet": "2026-11-23",
+     "frisch": false
+    }
    },
-   "letzter_schluss": "2026-11-23T20:47:02"
+   "letzter_schluss": "2026-11-23T20:47:02",
+   "ausgelassen": {
+    "vix_alt": 1
+   }
   },
   "JPXJPY": {
    "trade": null,
-   "letzter_tag": "2026-11-23",
+   "letzter_tag": "2026-11-24",
    "letzte_pruefung": {
-    "tag": "2026-11-23",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "vix": 35.89,
-    "vix_vorher": 28.44,
-    "vix_aenderung": 0.261955,
-    "dist": 7730.035714,
-    "atr": 2576.678571,
-    "nach_18_min": 3.1
+    "tag": "2026-11-24",
+    "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+    "vix_stand": {
+     "datum": "2026-11-20",
+     "erwartet": "2026-11-23",
+     "frisch": false
+    }
    },
-   "letzter_schluss": "2026-11-23T20:47:02"
+   "letzter_schluss": "2026-11-23T20:47:02",
+   "ausgelassen": {
+    "vix_alt": 1
+   }
   }
  },
- "stand": "2026-11-23T20:47:02"
+ "stand": "2026-11-23T23:17:44"
 }

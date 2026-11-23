@@ -2,10 +2,10 @@
  "bot": "vix-sprung",
  "name": "Tag nach einem VIX-Sprung (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 5",
- "stand": "2026-11-23T20:47:02",
+ "stand": "2026-11-23T23:17:44",
  "start": "2026-11-20T13:48:56",
  "pausiert": null,
- "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-23): Kauf eröffnet",
+ "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-24): VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
  "regel": "Tag nach einem VIX-Sprung (Fassungen vix_sprung_us und vix_sprung_welt): Schließt der VIX mindestens 10 % über dem Vortag, kauft der Bot US500, US100, DAX, FTSE 100 und Nikkei 225 mit dem ersten Kurs ab 18:00 New York, Notstop 3 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden. US500 und US100 (vix_sprung_us, suche/ergebnis_grosse_runde.md): Kandidat, 136 Trades, Gewinnfaktor 1,93, 2026 2,45, z 2,17 statt 3, ohne Holm, vor 2024 1,13. DAX, FTSE und Nikkei (vix_sprung_welt, suche/ergebnis_grosse_runde2.md): durchgefallen, 204 Trades, Gewinnfaktor 1,41, erste Hälfte 0,96. Zusammen 340 Trades an 68 Tagen (2024 bis Oktober 2026), Gewinnfaktor 1,60. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 4,90 € im Monat. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
  "vorab": "suche/VORAB_vix_sprung_bot.yaml",
@@ -26,11 +26,21 @@
  },
  "offen": [],
  "ausgelassen": {
-  "SPXUSD": {},
-  "NSXUSD": {},
-  "GRXEUR": {},
-  "UKXGBP": {},
-  "JPXJPY": {}
+  "SPXUSD": {
+   "vix_alt": 1
+  },
+  "NSXUSD": {
+   "vix_alt": 1
+  },
+  "GRXEUR": {
+   "vix_alt": 1
+  },
+  "UKXGBP": {
+   "vix_alt": 1
+  },
+  "JPXJPY": {
+   "vix_alt": 1
+  }
  },
  "zusammenfassung": {
   "trades": 5,
@@ -211,87 +221,77 @@
   }
  ],
  "blick": {
-  "naechster_einstieg_utc": "2026-11-23 23:00:00",
+  "naechster_einstieg_utc": "2026-11-24 23:00:00",
   "maerkte": {
    "SPXUSD": {
     "epic": "US500",
     "fassung": "vix_sprung_us",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_aenderung": 0.261955,
-     "dist": 565.542857,
-     "atr": 188.514286,
-     "nach_18_min": 3.1
+     "tag": "2026-11-24",
+     "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+     "vix_stand": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     }
     },
-    "kurs": 7252.7
+    "kurs": 7241.1
    },
    "NSXUSD": {
     "epic": "US100",
     "fassung": "vix_sprung_us",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_aenderung": 0.261955,
-     "dist": 3173.271429,
-     "atr": 1057.757143,
-     "nach_18_min": 3.1
+     "tag": "2026-11-24",
+     "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+     "vix_stand": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     }
     },
-    "kurs": 26811.4
+    "kurs": 26705.5
    },
    "GRXEUR": {
     "epic": "DE40",
     "fassung": "vix_sprung_welt",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_aenderung": 0.261955,
-     "dist": 1645.5,
-     "atr": 548.5,
-     "nach_18_min": 3.1
+     "tag": "2026-11-24",
+     "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+     "vix_stand": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     }
     },
-    "kurs": 25363.9
+    "kurs": 25374.8
    },
    "UKXGBP": {
     "epic": "UK100",
     "fassung": "vix_sprung_welt",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_aenderung": 0.261955,
-     "dist": 551.614286,
-     "atr": 183.871429,
-     "nach_18_min": 3.1
+     "tag": "2026-11-24",
+     "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+     "vix_stand": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     }
     },
-    "kurs": 10494.8
+    "kurs": 10498.2
    },
    "JPXJPY": {
     "epic": "J225",
     "fassung": "vix_sprung_welt",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "vix": 35.89,
-     "vix_vorher": 28.44,
-     "vix_aenderung": 0.261955,
-     "dist": 7730.035714,
-     "atr": 2576.678571,
-     "nach_18_min": 3.1
+     "tag": "2026-11-24",
+     "ergebnis": "VIX vom 2026-11-23 noch nicht veröffentlicht, kein Einstieg",
+     "vix_stand": {
+      "datum": "2026-11-20",
+      "erwartet": "2026-11-23",
+      "frisch": false
+     }
     },
-    "kurs": 57852.5
+    "kurs": 58014.5
    }
   }
  }

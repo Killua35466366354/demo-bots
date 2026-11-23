@@ -4,7 +4,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Gold-Bot C/B | verbessern | 2 | +6,12 | 7,06 | +94,00 | 4,1 Trades, +0,88 R | 2 von 100 Demo-Trades, 20 von 61 Tagen |
+| 1 | Gold-Bot C/B | verbessern | 3 | +5,12 | 3,55 | +72,23 | 4,1 Trades, +0,88 R | 3 von 100 Demo-Trades, 20 von 61 Tagen |
 | 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,16 R | 0 von 100 Demo-Trades, 19 von 61 Tagen |
 | 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,06 R | 0 von 100 Demo-Trades, 19 von 61 Tagen |
 | 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,06 R | 0 von 100 Demo-Trades, 19 von 61 Tagen |
@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 6 | -6,12 | -61 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 68 Trades, +17,06 R, Gewinnfaktor 1,58. Aufstieg: 68 von 100 Demo-Trades, 20 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 69 Trades, +16,06 R, Gewinnfaktor 1,53. Aufstieg: 69 von 100 Demo-Trades, 20 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades

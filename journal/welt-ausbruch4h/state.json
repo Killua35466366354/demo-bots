@@ -6,13 +6,13 @@
  "maerkte": {
   "GRXEUR": {
    "trade": null,
-   "letzte_grenze": "2026-11-23 03:00:00",
+   "letzte_grenze": "2026-11-23 07:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 03:00:00",
+    "grenze": "2026-11-23 07:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 24839.9,
-    "hoch_davor": 26274.5,
+    "schluss": 24891.9,
+    "hoch_davor": 26230.3,
     "tief_davor": 24520.5,
     "trend": null,
     "dist": null
@@ -20,13 +20,13 @@
   },
   "UKXGBP": {
    "trade": null,
-   "letzte_grenze": "2026-11-23 03:00:00",
+   "letzte_grenze": "2026-11-23 07:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 03:00:00",
+    "grenze": "2026-11-23 07:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 10326.2,
-    "hoch_davor": 10763.4,
+    "schluss": 10336.9,
+    "hoch_davor": 10726.7,
     "tief_davor": 10258.1,
     "trend": null,
     "dist": null
@@ -48,19 +48,19 @@
     "bid_ein": 55372.8,
     "opened_utc": "2026-11-20T19:02:00",
     "spaet_min": 2.0,
-    "kerzen": 2,
+    "kerzen": 3,
     "halte_kerzen": 4,
     "bis_utc": "2026-12-04 19:00:00",
     "satz_nacht": 0.02,
     "lot": 1.0,
     "eur_rate": 174.2135
    },
-   "letzte_grenze": "2026-11-23 03:00:00",
+   "letzte_grenze": "2026-11-23 07:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 03:00:00",
+    "grenze": "2026-11-23 07:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    }
   }
  },
- "stand": "2026-11-23T03:01:48"
+ "stand": "2026-11-23T07:02:00"
 }

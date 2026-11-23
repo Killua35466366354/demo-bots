@@ -2,7 +2,7 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-23T14:01:52",
+ "stand": "2026-11-23T15:02:24",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
  "status": "Bitcoin: Kauf offen ab 63343.6, Stop 62297.74, Ziel 65222.33, Ausstieg spätestens 2026-11-24 14:00 UTC. Ether: Kauf offen ab 1797.76, Stop 1766.04, Ziel 1855.47, Ausstieg spätestens 2026-11-24 14:00 UTC",
@@ -113,73 +113,23 @@
   }
  ],
  "blick": {
-  "naechste_stunde_endet_utc": "2026-11-23 15:00:00",
+  "naechste_stunde_endet_utc": "2026-11-23 16:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-23 14:00:00",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "schluss": 63762.4,
-     "mitte": 61220.1075,
-     "oben": 62529.621326,
-     "unten": 59910.593674,
-     "rsi": 78.61055,
-     "atr": 649.909937,
-     "dist": 974.864905
+     "grenze": "2026-11-23 15:00:00",
+     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "signal": {
-     "markt": "BTCUSD",
-     "grenze": "2026-11-23 14:00:00",
-     "richtung": 1,
-     "dist": 974.864905,
-     "ziel_abstand": 1949.729811,
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: Schluss über dem oberen Band, umgedreht",
-     "tage": 40,
-     "schluss": 63762.4,
-     "mitte": 61220.1075,
-     "oben": 62529.621326,
-     "unten": 59910.593674,
-     "rsi": 78.61055,
-     "atr": 649.909937
-    },
-    "kurs": 63272.6
+    "kurs": 63093.35
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-23 14:00:00",
-     "ergebnis": "Kauf eröffnet",
-     "richtung": 1,
-     "schluss": 1808.36,
-     "mitte": 1722.884,
-     "oben": 1764.109813,
-     "unten": 1681.658187,
-     "rsi": 80.255168,
-     "atr": 19.873596,
-     "dist": 29.810394
+     "grenze": "2026-11-23 15:00:00",
+     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "signal": {
-     "markt": "ETHUSD",
-     "grenze": "2026-11-23 14:00:00",
-     "richtung": 1,
-     "dist": 29.810394,
-     "ziel_abstand": 59.620789,
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Kauf: Schluss über dem oberen Band, umgedreht",
-     "tage": 40,
-     "schluss": 1808.36,
-     "mitte": 1722.884,
-     "oben": 1764.109813,
-     "unten": 1681.658187,
-     "rsi": 80.255168,
-     "atr": 19.873596
-    },
-    "kurs": 1795.85
+    "kurs": 1783.39
    }
   }
  }

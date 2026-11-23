@@ -25,18 +25,10 @@
     "lot": 1.0,
     "eur_rate": 1.0926200000000001
    },
-   "letzte_grenze": "2026-11-23 14:00:00",
+   "letzte_grenze": "2026-11-23 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 14:00:00",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "schluss": 63762.4,
-    "mitte": 61220.1075,
-    "oben": 62529.621326,
-    "unten": 59910.593674,
-    "rsi": 78.61055,
-    "atr": 649.909937,
-    "dist": 974.864905
+    "grenze": "2026-11-23 15:00:00",
+    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    },
    "letzter_schluss": "2026-11-21T03:44:22"
   },
@@ -61,21 +53,13 @@
     "lot": 1.0,
     "eur_rate": 1.0926200000000001
    },
-   "letzte_grenze": "2026-11-23 14:00:00",
+   "letzte_grenze": "2026-11-23 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 14:00:00",
-    "ergebnis": "Kauf eröffnet",
-    "richtung": 1,
-    "schluss": 1808.36,
-    "mitte": 1722.884,
-    "oben": 1764.109813,
-    "unten": 1681.658187,
-    "rsi": 80.255168,
-    "atr": 19.873596,
-    "dist": 29.810394
+    "grenze": "2026-11-23 15:00:00",
+    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    },
    "letzter_schluss": "2026-11-21T04:06:07"
   }
  },
- "stand": "2026-11-23T14:01:52"
+ "stand": "2026-11-23T15:02:24"
 }

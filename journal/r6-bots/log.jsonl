@@ -136,3 +136,4 @@
 {"time": "2026-11-22T23:31:39.096999", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "J225", "UK100", "US100", "US500"]}
 {"time": "2026-11-23T07:47:00.643375", "bot": "r6-vortag-gbpjpy", "event": "konto frei", "konto": "…4494", "name": "Account 3", "an": null, "kontostand": 1001.03}
 {"time": "2026-11-23T09:31:38.976772", "bot": "r6-vortag-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD", "J225"]}
+{"time": "2026-11-23T11:16:38.642571", "bot": "r6-noise-usdjpy", "event": "andere Märkte auf dem Konto", "maerkte": ["US100", "US500"]}

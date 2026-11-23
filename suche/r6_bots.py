@@ -167,6 +167,15 @@ BEENDET = {
     "r6-vortag-usdjpy": {"an": "r6-vortag-gbpusd", "seit": "2026-11-04",
                          "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, "
                                    "vor dem ersten Trade)"},
+    # Kirons Wort vom 22.11.2026 13:40 UTC (Katalog-Thread): "Tu den, der am meisten Minus macht, oder die zwei, die am
+    # meisten Minus machen, tu die sozusagen einfach rausnehmen und dann als fertig abgehakt." Nach Demo-Euro ist
+    # Vortag GBP/JPY Nummer 2 nach Pine-Gold TP 3 (4 Trades, alle am Stop, -18,09 Euro Spielgeld). Ohne Nachfolger:
+    # Account 3 behält der Mitnutzer Bollinger Krypto (suche/mitnutzer.py), die Prüfung vergibt ein Konto mit Mitnutzer
+    # nie. Seine Trades zählen in Kombi und Gruppe weiter (suche/auswahl.yaml und VORAB_aufstieg_alle.yaml bleiben).
+    "r6-vortag-gbpjpy": {"an": None, "seit": "2026-11-22",
+                         "grund": "Kirons Wort vom 22.11.2026 13:40 UTC: die Bots mit dem größten Minus rausnehmen",
+                         "status": "beendet am 22.11.2026 (Kirons Wort: größtes Minus nach Pine-Gold TP 3, 4 Trades "
+                                   "alle am Stop, -18,09 Euro Spielgeld)"},
 }
 
 

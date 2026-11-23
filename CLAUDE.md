@@ -85,7 +85,9 @@ handelten bis zum 20.11.2026 nie (Lauf meldet "kein Konto"). `tests/test_mitnutz
 
 Gruppen (Stand 11.11.2026, 20 Bots):
 
-- **Kern und Kombi** (Test bestanden): US500- und US100-Rücksetzer, Nasdaq Noise-Band, Vortag EUR/USD, GBP/USD, GBP/JPY.
+- **Kern und Kombi** (Test bestanden): US500- und US100-Rücksetzer, Nasdaq Noise-Band, Vortag EUR/USD, GBP/USD, GBP/JPY. Vortag
+  GBP/JPY ist seit dem 22.11.2026 beendet (Kirons Wort, größtes Minus, `BEENDET` in `suche/r6_bots.py`), seine Trades
+  zählen in Kombi und Gruppe weiter.
 - **Labor** (knapp durchgefallen, läuft auf Kirons Wunsch): Dow-Rücksetzer, London GBP/USD, Noise USD/JPY.
 - **Mess-Bot:** Vortag EUR/USD mit 1-ATR-Stop. Misst nur, wird nie verbessert.
 - **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`, `gold-zonen`, `gold-ausbruch4h`. Sieben Bots auf

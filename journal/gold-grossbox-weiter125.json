@@ -3,47 +3,29 @@
  "name": "Gold Groß-Box, Stop 1,25-fach (Schatten-Zwilling)",
  "konto": "Schatten (keine Order)",
  "original": "gold-grossbox",
- "stand": "2026-11-23T00:11:39+00:00",
+ "stand": "2026-11-23T01:11:39+00:00",
  "start": "2026-11-20T00:00:00",
  "status": "rechnet mit",
  "regel": "Wie die Groß-Box (große Box aus 1-Std.-SuperTrend und 4-Std.-Strukturbruch, Einstiege nur in Boxrichtung, höchstens 3 offen, ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box), nur der Stop ist 1,25-mal so weit weg. Schatten ohne Order.",
  "backtest": "Versiegelter Test 11/2024 bis 10/2026: 856 Trades, GF 1,25 statt 1,21, +93,6 R statt +93,4 R, tiefster Rückgang 63,5 R statt 76,7 R. Gleicher Gewinn, ruhigerer Verlauf.",
  "vorab": "suche/VORAB_gold_grossbox_weiter125.yaml",
  "vorab_ok": true,
- "offen": [
-  {
-   "signal": "2026-11-20 18:00:00",
-   "einstieg_zeit": "2026-11-20 18:00:00",
-   "richtung": -1,
-   "art": "a",
-   "einstieg": 3530.41,
-   "stop": 3599.75,
-   "tp1": 3461.07,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 69.34,
-   "teile": [],
-   "ergebnis_r": -0.794,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 1,
+  "trades": 2,
   "pf_r": 0.0,
-  "summe_r": -1.01,
+  "summe_r": -1.8,
   "trefferquote": 0.0,
   "summe_eur": null,
-  "urteil": "Zwilling: 1 von 40 Trades"
+  "urteil": "Zwilling: 2 von 40 Trades"
  },
  "zwilling": {
   "status": "sammelt",
-  "text": "Zwilling: 1 von 40 Trades",
+  "text": "Zwilling: 2 von 40 Trades",
   "zwilling": {
-   "trades": 1,
+   "trades": 2,
    "pf": 0.0,
-   "summe_r": -1.01
+   "summe_r": -1.8
   },
   "original": {
    "trades": 3,
@@ -75,6 +57,31 @@
    "grund": "stop",
    "closed_utc": "2026-11-22T23:15:00",
    "r": -1.011,
+   "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-20T18:00:00",
+   "art": "a",
+   "richtung": -1,
+   "seite": "Verkauf",
+   "signal": "2026-11-20 18:00:00",
+   "opened_utc": "2026-11-20T18:00:00",
+   "entry": 3530.41,
+   "stop": 3599.75,
+   "tp1": 3461.07,
+   "dist": 69.34,
+   "teile": [
+    {
+     "grund": "neue_box",
+     "px": 3584.74,
+     "zeit": "2026-11-23 00:00:00",
+     "anteil": 1.0
+    }
+   ],
+   "grund": "neue_box",
+   "closed_utc": "2026-11-23T00:00:00",
+   "r": -0.792,
    "schatten": true
   }
  ],

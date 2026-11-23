@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-23T11:31:40.389475",
+ "stand_utc": "2026-11-23T11:46:36.041735",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1043.41,
+   "kontostand": 1043.71,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T11:31:40.389475",
+    "zeit": "2026-11-23T11:46:36.041735",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.53,
+   "kontostand": 1000.63,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T11:31:40.389475",
+    "zeit": "2026-11-23T11:46:36.041735",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.889 > 0,866): heute kein Trade"
@@ -954,7 +954,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T11:31:40.389475",
+    "zeit": "2026-11-23T11:46:36.041735",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1170,7 +1170,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 996.56,
+   "kontostand": 995.37,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1178,7 +1178,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T11:31:40.389475",
+    "zeit": "2026-11-23T11:46:36.041735",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1749,7 +1749,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T11:31:40.389475",
+    "zeit": "2026-11-23T11:46:36.041735",
     "action": "none",
     "why": [
      "heute erledigt"

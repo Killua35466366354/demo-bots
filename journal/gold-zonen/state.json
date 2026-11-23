@@ -4,11 +4,11 @@
  "summe_r": -2.005,
  "trades": 2,
  "plan": {
-  "stunde": "2026-11-23 22:00:00",
+  "stunde": "2026-11-23 23:00:00",
   "gerechnet_bis": "2026-11-23 22:00:00",
-  "kerzen_4h": 317,
-  "letzte_4h": "2026-11-23 19:00:00",
-  "atr_4h": 48.87,
+  "kerzen_4h": 318,
+  "letzte_4h": "2026-11-23 22:00:00",
+  "atr_4h": 47.51,
   "kandidaten": [
    {
     "name": "U2026111700",
@@ -18,7 +18,7 @@
     "stop": 3859.819666474173,
     "atr_bruch": 33.398665896693984,
     "bruch": "2026-11-18 02:00:00",
-    "rest": 8,
+    "rest": 7,
     "beruehrt": false
    }
   ],
@@ -68,10 +68,8 @@
   }
  },
  "versuche": {},
- "keine_order": [
-  "Markt gerade nicht handelbar"
- ],
- "stand": "2026-11-23T22:08:52",
+ "keine_order": [],
+ "stand": "2026-11-23T23:03:44",
  "letzte_deals": [
   "00000000-73b5-75fa-049c-701a0015549e",
   "00000000-72df-3ed0-049c-701a0015549e"

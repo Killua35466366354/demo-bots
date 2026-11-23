@@ -9,14 +9,13 @@
   "r5-ruecksetzer-us30": "332263750966269086",
   "r6-london-gbpusd": "332263759556203678",
   "r6-noise-usdjpy": "332264120333456542",
-  "r6-vortag-gbpjpy": "332263742376334494",
   "r6-vortag-eurusd-1atr": "332263729491432606"
  },
  "start": {
   "332117868107093150": 995.17,
   "332263725196465310": 1000.0,
   "332263729491432606": 1000.0,
-  "332263742376334494": 999.79,
+  "332263742376334494": 1001.03,
   "332263746671301790": 1000.0,
   "332263750966269086": 1000.0,
   "332263759556203678": 1000.0,
@@ -60,7 +59,7 @@
    "balance": 1001.03,
    "frei": 1001.03,
    "bevorzugt": false,
-   "fuer": "r6-vortag-gbpjpy"
+   "fuer": null
   },
   {
    "id": "…1790",
@@ -75,8 +74,8 @@
    "id": "…9086",
    "name": "Account 5",
    "waehrung": "EUR",
-   "balance": 1062.71,
-   "frei": 1046.64,
+   "balance": 1062.76,
+   "frei": 1046.68,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us30"
   },
@@ -84,8 +83,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 1041.67,
-   "frei": 1022.37,
+   "balance": 1041.73,
+   "frei": 1022.43,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -93,8 +92,8 @@
    "id": "…6542",
    "name": "Account 7",
    "waehrung": "EUR",
-   "balance": 1000.44,
-   "frei": 992.68,
+   "balance": 1000.53,
+   "frei": 992.77,
    "bevorzugt": false,
    "fuer": "r6-noise-usdjpy"
   },
@@ -111,13 +110,13 @@
    "id": "…4094",
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
-   "balance": 995.22,
-   "frei": 990.4,
+   "balance": 995.29,
+   "frei": 990.47,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-23T07:31:30.891224",
+ "stand_utc": "2026-11-23T07:46:35.740253",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",
@@ -289,6 +288,15 @@
    "von": "oil-brent",
    "an": null,
    "kontostand": 1000.0
+  },
+  {
+   "zeit": "2026-11-23T07:47:00.643375",
+   "konto": "…4494",
+   "konto_id": "332263742376334494",
+   "name": "Account 3",
+   "von": "r6-vortag-gbpjpy",
+   "an": null,
+   "kontostand": 1001.03
   }
  ],
  "abgeloest": {
@@ -299,7 +307,8 @@
   }
  },
  "frei": [
-  "332263725196465310"
+  "332263725196465310",
+  "332263742376334494"
  ],
  "deals": {},
  "labor": {

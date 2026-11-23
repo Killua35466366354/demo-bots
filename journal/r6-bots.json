@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-23T07:31:36.988281",
+ "stand_utc": "2026-11-23T07:47:00.643375",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1041.68,
+   "kontostand": 1041.66,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T07:31:36.988281",
+    "zeit": "2026-11-23T07:47:00.643375",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -383,7 +383,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1000.43,
+   "kontostand": 1000.54,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T07:31:36.988281",
+    "zeit": "2026-11-23T07:47:00.643375",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -954,7 +954,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T07:31:36.988281",
+    "zeit": "2026-11-23T07:47:00.643375",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1170,7 +1170,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 995.23,
+   "kontostand": 995.34,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1178,7 +1178,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T07:31:36.988281",
+    "zeit": "2026-11-23T07:47:00.643375",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1404,12 +1404,12 @@
    "regel": "Ab 10:30 Uhr deutscher Zeit (4:30 New York): Kauf-Stop am Vortageshoch, Verkauf-Stop am Vortagestief. Stop 0,5 x ATR der Viertelstunden-Kerzen beim Legen der Orders (seit 04.11.2026, vorher 10 % der Vortagesspanne), Ziel 25 % der Vortagesspanne, raus spätestens 22:45 Uhr deutscher Zeit (16:45 New York). Bricht der Kurs schon vor 10:30 Uhr aus, gibt es an dem Tag keinen Trade. Verpasst der Bot einen Ausbruch, steigt er bis gut eine Stunde später per Marktorder ein, solange Stop und Ziel noch nicht erreicht sind.",
    "backtest": "Kirons Auswahl vom 04.11.2026 (verbessern: Vortag auf weiteren Paaren), vorab festgelegter Test vom 05.11.2026 (Prüfsumme 7e19dbe7 im Protokoll des privaten Repos): 9 Paare, gewählt auf 2015 bis 2024, geurteilt nur auf 2025 bis Oktober 2026, nur GBP/JPY bestanden. 2025 bis Oktober 2026 (1.000 Euro, 1 % Risiko, Stop 0,5 x ATR beim Legen): 94 Trades, 190 Euro, Gewinnfaktor 1,45, Treffer 25 %, besser als 99 % der Zufallsläufe. Aber 2026 nur +0,5 Euro und größter Rückgang 150 Euro (EUR/USD: 36 Euro). Mit 9 Paaren kann eines zufällig bestehen.",
    "konto_vorschlag": "Konto folgt",
-   "konto": "…4494",
-   "konto_name": "Account 3",
-   "kontostand": 1001.03,
+   "konto": null,
+   "konto_name": null,
+   "kontostand": null,
    "start_kontostand": 999.79,
    "start_utc": "2026-11-05T11:46:51.956368",
-   "status": "wartet auf das nächste Signal",
+   "status": "beendet am 22.11.2026 (Kirons Wort: größtes Minus nach Pine-Gold TP 3, 4 Trades alle am Stop, -18,09 Euro Spielgeld); Konto freigegeben",
    "offen": null,
    "orders": null,
    "position": null,
@@ -1749,7 +1749,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T07:31:36.988281",
+    "zeit": "2026-11-23T07:47:00.643375",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

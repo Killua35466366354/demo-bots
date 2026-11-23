@@ -465,8 +465,8 @@
    "name": "Vortag GBP/JPY",
    "markt": "GBPJPY",
    "gruppe": "behalten",
-   "aktiv": true,
-   "konto": "Account 3",
+   "aktiv": false,
+   "konto": null,
    "seit": "2026-11-05T11:46:30",
    "ist": {
     "trades": 4,
@@ -477,12 +477,8 @@
     "eur": -18.09,
     "rueckgang_r": 4.08
    },
-   "soll": {
-    "wochen": 2.5,
-    "trades": 2.5,
-    "summe_r": 0.5
-   },
-   "abweichung_r": -4.58,
+   "soll": null,
+   "abweichung_r": null,
    "bewertung": {
     "rang": 18,
     "pf": 1.451,
@@ -496,10 +492,7 @@
      "eur": -18.09
     }
    },
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "4 von 100 Demo-Trades, 18 von 61 Tagen"
-   },
+   "aufstieg": null,
    "rang": 13
   }
  ],
@@ -530,8 +523,8 @@
    }
   },
   "soll": {
-   "trades": 11.7,
-   "summe_r": 2.42
+   "trades": 9.2,
+   "summe_r": 1.92
   },
   "aufstieg": {
    "status": "sammelt",
@@ -956,30 +949,6 @@
    "aufstieg": {
     "status": "sammelt",
     "text": "28 von 100 Demo-Trades, 13 von 61 Tagen"
-   }
-  },
-  {
-   "id": "pine-tp3",
-   "name": "Pine-Gold TP 3 €",
-   "konto": "US500",
-   "seit": "2026-11-10",
-   "start": "2026-11-10",
-   "ist": {
-    "trades": 49,
-    "gewonnen": 31,
-    "treffer_pct": 63.3,
-    "summe_r": -14.63,
-    "pf_r": 0.52,
-    "eur": -71.99,
-    "rueckgang_r": 14.8
-   },
-   "einheit": "R",
-   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
-   "vorab": "suche/VORAB_pine5m.yaml",
-   "test": "nicht bestanden (Gold bester Markt, Gewinnfaktor 1,05 mit Abfänger, Kontrolle 2022-24 0,72)",
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "49 von 100 Demo-Trades, 13 von 61 Tagen"
    }
   }
  ],

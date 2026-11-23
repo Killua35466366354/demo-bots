@@ -16,9 +16,9 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 10 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 11 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 3,7 Trades, +1,18 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
 | 12 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 2 | -1,80 | 0,00 | +0,00 | – | Zwilling: 2 von 40 Trades |
-| 13 | Vortag GBP/JPY | behalten | 4 | -4,08 | 0,00 | -18,09 | 2,5 Trades, +0,50 R | 4 von 100 Demo-Trades, 18 von 61 Tagen |
+| 13 | Vortag GBP/JPY | behalten | 4 | -4,08 | 0,00 | -18,09 | – | – |
 
-**Kombi (6 Kern-Strategien auf einem Konto):** 6 Trades, -6,12 R, Gewinnfaktor 0,00, Soll bisher 11,7 Trades und +2,42 R. Aufstieg: 6 von 100 Demo-Trades, 19 von 61 Tagen.
+**Kombi (6 Kern-Strategien auf einem Konto):** 6 Trades, -6,12 R, Gewinnfaktor 0,00, Soll bisher 9,2 Trades und +1,92 R. Aufstieg: 6 von 100 Demo-Trades, 19 von 61 Tagen.
 
 | Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |
 |---|---|---|---|
@@ -48,6 +48,5 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | 4-Std.-Ausbruch Bitcoin, Ether | Account 5 | 2026-11-20 | 2 | -0,11 R | 0,38 | -0,47 | läuft (2 von 40 Trades) | suche/VORAB_krypto_ausbruch4h_bot.yaml | 2 von 100 Demo-Trades, 3 von 61 Tagen |
 | Bündel aus 9 Bots | Vortag USDJPY | 2026-11-20 | 1 | -1,00 R | 0,00 | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_buendel9_bot.yaml | 1 von 100 Demo-Trades, 3 von 61 Tagen |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 28 | +13,25 R | 2,16 | +65,17 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 28 von 100 Demo-Trades, 13 von 61 Tagen |
-| Pine-Gold TP 3 € | US500 | 2026-11-10 | 49 | -14,63 R | 0,52 | -71,99 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m.yaml | 49 von 100 Demo-Trades, 13 von 61 Tagen |
 
 Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

@@ -50,9 +50,14 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-23 16:00:00",
- "updated_utc": "2026-11-23T17:11:35+00:00",
- "open_detail": null,
+ "cursor": "2026-11-23 17:00:00",
+ "updated_utc": "2026-11-23T18:11:39+00:00",
+ "open_detail": {
+  "side": "short",
+  "signal": "2026-11-23 17:00:00",
+  "atr": 25.26,
+  "stand": "wartet auf die Füllung zur nächsten Eröffnung"
+ },
  "richtung": -1,
  "summary": {
   "trades": 4,
@@ -72,7 +77,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-23T17:11:35+00:00",
+  "abgerufen_utc": "2026-11-23T18:11:39+00:00",
   "naechste": [
    "2026-11-25 13:30 Core PCE Price Index m/m",
    "2026-11-25 13:30 Prelim GDP q/q"
@@ -92,5 +97,8 @@
   "richtung": true,
   "news": true
  },
- "open": null
+ "open": {
+  "side": -1,
+  "t_sig": "2026-11-23 17:00:00"
+ }
 }

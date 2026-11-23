@@ -1,11 +1,6 @@
 {
  "format": 1,
  "lauf": "demo-bots",
- "schritte": {
-  "krypto4h": {
-   "in_folge": 2,
-   "seit": "2026-11-23T07:49Z"
-  }
- },
+ "schritte": {},
  "siegel": []
 }

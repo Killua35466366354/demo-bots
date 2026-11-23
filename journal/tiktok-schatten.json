@@ -5115,8 +5115,15 @@
    "tp2": 3662.73,
    "tp3": 3705.95,
    "r_usd": 43.22,
-   "teile": [],
-   "ergebnis_r": -0.082,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3619.51,
+     "zeit": "2026-11-23 01:15:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.7,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5131,8 +5138,15 @@
    "tp2": 3654.4,
    "tp3": 3693.45,
    "r_usd": 39.05,
-   "teile": [],
-   "ergebnis_r": -0.091,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3615.34,
+     "zeit": "2026-11-23 01:00:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.739,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5148,7 +5162,7 @@
    "tp3": null,
    "r_usd": 71.15,
    "teile": [],
-   "ergebnis_r": -0.169,
+   "ergebnis_r": 0.215,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5163,8 +5177,15 @@
    "tp2": null,
    "tp3": null,
    "r_usd": 43.22,
-   "teile": [],
-   "ergebnis_r": -0.082,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3619.51,
+     "zeit": "2026-11-23 01:15:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.7,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5172,13 +5193,13 @@
  },
  "vorhersage": {
   "richtung": 1,
-  "linie": 3549.09,
+  "linie": 3584.36,
   "gerade_gedreht": false,
-  "kerze": "2026-11-23 01:00:00",
-  "kurs": 3572.74,
+  "kerze": "2026-11-23 02:00:00",
+  "kurs": 3600.06,
   "genauer_175": {
    "richtung": 1,
-   "linie": 3553.15,
+   "linie": 3588.7,
    "gerade_gedreht": false
   },
   "grosse_box": 0,
@@ -5238,8 +5259,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-23T01:11:37+00:00",
- "letzte_kerze": "2026-11-23 00:45:00",
+ "stand": "2026-11-23T02:11:31+00:00",
+ "letzte_kerze": "2026-11-23 01:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

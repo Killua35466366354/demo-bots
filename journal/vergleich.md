@@ -9,11 +9,11 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,06 R | 0 von 100 Demo-Trades, 19 von 61 Tagen |
 | 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,06 R | 0 von 100 Demo-Trades, 19 von 61 Tagen |
 | 5 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,4 Trades, +0,16 R | 0 von 100 Demo-Trades, 18 von 61 Tagen |
-| 6 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 0 | +0,00 | – | +0,00 | – | Zwilling: 0 von 40 Trades |
-| 7 | Noise USD/JPY | labor | 10 | -0,04 | 0,77 | -0,30 | 6,7 Trades, +0,13 R | 10 von 100 Demo-Trades, 18 von 61 Tagen |
-| 8 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,6 Trades, +0,05 R | 1 von 100 Demo-Trades, 18 von 61 Tagen |
-| 9 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 3,6 Trades, +0,46 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
-| 10 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 6 | Noise USD/JPY | labor | 10 | -0,04 | 0,77 | -0,30 | 6,7 Trades, +0,13 R | 10 von 100 Demo-Trades, 18 von 61 Tagen |
+| 7 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,6 Trades, +0,05 R | 1 von 100 Demo-Trades, 18 von 61 Tagen |
+| 8 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 3,6 Trades, +0,46 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
+| 9 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 10 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 1 | -1,01 | 0,00 | +0,00 | – | Zwilling: 1 von 40 Trades |
 | 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 12 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 3,7 Trades, +1,18 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
 | 13 | Vortag GBP/JPY | behalten | 4 | -4,08 | 0,00 | -18,09 | 2,5 Trades, +0,50 R | 4 von 100 Demo-Trades, 18 von 61 Tagen |

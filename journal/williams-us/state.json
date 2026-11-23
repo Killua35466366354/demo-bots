@@ -1,75 +1,39 @@
 {
  "format": 1,
  "start": "2026-11-20T14:18:10",
- "summe_r": 0.0,
- "trades": 0,
+ "summe_r": 1.136,
+ "trades": 2,
  "maerkte": {
   "SPXUSD": {
-   "trade": {
-    "id": "US500 2026-11-20",
-    "markt": "SPXUSD",
-    "epic": "US500",
-    "fassung": "williams_us",
-    "richtung": 1,
-    "tag": "2026-11-20",
-    "dealId": "00000000-754d-d2a5-049c-70750015549e",
-    "size": 0.01,
-    "entry": 6936.6,
-    "stop": 6411.7,
-    "dist": 523.971429,
-    "bid_ein": 6935.7,
-    "wr": -91.375117,
-    "opened_utc": "2026-11-20T21:01:56",
-    "spaet_min": 1.9,
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 1.0964450000000001
-   },
-   "letzter_tag": "2026-11-20",
+   "trade": null,
+   "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
-    "tag": "2026-11-20",
-    "ergebnis": "Kauf eröffnet",
-    "wr": -91.375117,
-    "schluss": 6928.4,
-    "hoch_vortag": 7416.8,
-    "dist": 523.971429,
-    "atr": 174.657143,
-    "sitzungen": null
-   }
+    "tag": "2026-11-23",
+    "ergebnis": "%R -13.2, Ausstieg: Schluss über dem Vortageshoch oder %R über -30. Gleiche Kerze wie ein neuer Einstieg: der Test kauft heute nicht",
+    "wr": -13.230324,
+    "schluss": 7241.7,
+    "hoch_vortag": 7198.9,
+    "dist": null,
+    "atr": 188.514286,
+    "sitzungen": 1
+   },
+   "letzter_schluss": "2026-11-23T21:02:03"
   },
   "NSXUSD": {
-   "trade": {
-    "id": "US100 2026-11-20",
-    "markt": "NSXUSD",
-    "epic": "US100",
-    "fassung": "williams_us",
-    "richtung": 1,
-    "tag": "2026-11-20",
-    "dealId": "00000000-754d-d2c8-049c-70750015549e",
-    "size": 0.001,
-    "entry": 25149.8,
-    "stop": 22150.3,
-    "dist": 2994.921429,
-    "bid_ein": 25145.2,
-    "wr": -94.08103,
-    "opened_utc": "2026-11-20T21:01:56",
-    "spaet_min": 1.9,
-    "satz_nacht": 0.065,
-    "lot": 1.0,
-    "eur_rate": 1.0964450000000001
-   },
-   "letzter_tag": "2026-11-20",
+   "trade": null,
+   "letzter_tag": "2026-11-23",
    "letzte_pruefung": {
-    "tag": "2026-11-20",
-    "ergebnis": "Kauf eröffnet",
-    "wr": -94.08103,
-    "schluss": 25075.3,
-    "hoch_vortag": 27750.4,
-    "dist": 2994.921429,
-    "atr": 998.307143,
-    "sitzungen": null
-   }
+    "tag": "2026-11-23",
+    "ergebnis": "%R -15.0, Ausstieg: Schluss über dem Vortageshoch oder %R über -30. Gleiche Kerze wie ein neuer Einstieg: der Test kauft heute nicht",
+    "wr": -14.996987,
+    "schluss": 26740.6,
+    "hoch_vortag": 26430.6,
+    "dist": null,
+    "atr": 1057.757143,
+    "sitzungen": 1
+   },
+   "letzter_schluss": "2026-11-23T21:02:03"
   }
  },
- "stand": "2026-11-20T21:01:56"
+ "stand": "2026-11-23T21:02:03"
 }

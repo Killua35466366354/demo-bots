@@ -13,3 +13,5 @@
 {"time": "2026-11-13T11:38:38", "bot": "gold-staffel", "event": "Abfänger zieht nach", "dealId": "00000000-72fe-2d54-049c-70190015549e", "stufe": 0, "stop": 3894.94, "wer": "Abfänger"}
 {"time": "2026-11-13T11:58:39", "bot": "gold-staffel", "event": "Trade zu", "dealId": "00000000-72fe-2d54-049c-70190015549e", "kurs": 3894.94, "r": 0.246, "eur": 3.6, "quelle": "Abfänger-Stop", "stufe": 0}
 {"time": "2026-11-23T09:13:47", "bot": "gold-staffel", "event": "eröffnet", "gold_deal": "00000000-75c3-f8ca-049b-eb710015549e", "richtung": -1, "size": 0.9, "stop": 3640.15, "tp": [3579.07, 3538.35, 3497.63], "dealId": "00000000-75a8-c0aa-049c-70190015549e", "entry": 3619.78}
+{"time": "2026-11-23T13:18:35", "bot": "gold-staffel", "event": "Abfänger übernimmt", "dealId": "00000000-75a8-c0aa-049c-70190015549e", "kurs": 3620.56}
+{"time": "2026-11-23T13:18:35", "bot": "gold-staffel", "event": "Abfänger zieht nach", "dealId": "00000000-75a8-c0aa-049c-70190015549e", "stufe": 0, "stop": 3630.74, "wer": "Abfänger"}

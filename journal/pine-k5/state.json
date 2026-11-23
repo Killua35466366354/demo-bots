@@ -21,7 +21,8 @@
     "warum": "4 Std. ohne Ausstieg"
    },
    "stop": 3654.93,
-   "ziel": null
+   "ziel": null,
+   "hinweis": "2026-11-23T20:13:26"
   }
  ],
  "trades": 29,
@@ -29,9 +30,9 @@
  "summe_eur": 52.18,
  "hedging_versuch": "2026-11-10T09:28:32",
  "hedging": true,
- "letzte_kerze": "2026-11-23 19:45:00",
- "letzter_kurs": 3640.96,
- "stand": "2026-11-23T19:53:28",
+ "letzte_kerze": "2026-11-23 20:05:00",
+ "letzter_kurs": 3640.59,
+ "stand": "2026-11-23T20:13:26",
  "ff": {
   "stand": "2026-11-23T14:38:33",
   "termine": [

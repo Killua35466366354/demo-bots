@@ -1,17 +1,17 @@
 {
  "format": 1,
  "start": "2026-11-19T13:18:33",
- "summe_r": 0.0,
- "trades": 0,
+ "summe_r": -0.284,
+ "trades": 1,
  "maerkte": {
   "GRXEUR": {
    "trade": null,
-   "letzte_grenze": "2026-11-23 07:00:00",
+   "letzte_grenze": "2026-11-23 11:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 07:00:00",
+    "grenze": "2026-11-23 11:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 24891.9,
+    "schluss": 25019.1,
     "hoch_davor": 26230.3,
     "tief_davor": 24520.5,
     "trend": null,
@@ -20,12 +20,12 @@
   },
   "UKXGBP": {
    "trade": null,
-   "letzte_grenze": "2026-11-23 07:00:00",
+   "letzte_grenze": "2026-11-23 11:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 07:00:00",
+    "grenze": "2026-11-23 11:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 10336.9,
+    "schluss": 10402.6,
     "hoch_davor": 10726.7,
     "tief_davor": 10258.1,
     "trend": null,
@@ -33,34 +33,14 @@
    }
   },
   "JPXJPY": {
-   "trade": {
-    "id": "J225 2026-11-20T19:00",
-    "markt": "JPXJPY",
-    "epic": "J225",
-    "richtung": -1,
-    "grenze": "2026-11-20 19:00:00",
-    "dealId": "00000000-74ff-e7f4-049c-70750015549e",
-    "size": 0.21,
-    "entry": 55372.8,
-    "stop": 59448.8,
-    "ziel": 51296.8,
-    "dist": 4075.989271,
-    "bid_ein": 55372.8,
-    "opened_utc": "2026-11-20T19:02:00",
-    "spaet_min": 2.0,
-    "kerzen": 3,
-    "halte_kerzen": 4,
-    "bis_utc": "2026-12-04 19:00:00",
-    "satz_nacht": 0.02,
-    "lot": 1.0,
-    "eur_rate": 174.2135
-   },
-   "letzte_grenze": "2026-11-23 07:00:00",
+   "trade": null,
+   "letzte_grenze": "2026-11-23 11:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-23 07:00:00",
-    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
-   }
+    "grenze": "2026-11-23 11:00:00",
+    "ergebnis": "der letzte Trade endete erst nach dem Schluss dieser Kerze"
+   },
+   "letzter_schluss": "2026-11-23T11:01:53"
   }
  },
- "stand": "2026-11-23T07:02:00"
+ "stand": "2026-11-23T11:01:53"
 }

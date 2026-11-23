@@ -95,3 +95,4 @@
 {"time": "2026-11-20T12:46:48", "event": "kein Konto", "markt": null, "konto": "Account 7"}
 {"time": "2026-11-20T19:02:00", "event": "Ausbruch ohne Einstieg", "markt": "GRXEUR", "grenze": "2026-11-20 19:00:00", "grund": "Verkauf-Ausbruch gegen den Tagestrend", "richtung": -1, "schluss": 24753.7, "hoch_davor": 26459.8, "tief_davor": 24814.6, "trend": false, "dist": null}
 {"time": "2026-11-20T19:02:00", "event": "Verkauf eröffnet", "markt": "JPXJPY", "id": "J225 2026-11-20T19:00", "dealId": "00000000-74ff-e7f4-049c-70750015549e", "size": 0.21, "entry": 55372.8, "stop": 59448.8, "ziel": 51296.8, "dist": 4075.989271, "spaet_min": 2.0}
+{"time": "2026-11-23T11:01:53", "event": "Trade fertig", "markt": "JPXJPY", "trade": "J225 2026-11-20T19:00", "seite": "Verkauf", "grund": "zeit", "r": -0.284, "pnl_eur": -1.39}

@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-23T18:16:39.089343",
+ "stand_utc": "2026-11-23T18:31:37.489295",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1050.33,
+   "kontostand": 1050.69,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -225,7 +225,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T18:16:39.089343",
+    "zeit": "2026-11-23T18:31:37.489295",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1002.55,
+   "kontostand": 1002.64,
    "start_kontostand": 999.96,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -391,7 +391,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T18:16:39.089343",
+    "zeit": "2026-11-23T18:31:37.489295",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -979,7 +979,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T18:16:39.089343",
+    "zeit": "2026-11-23T18:31:37.489295",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1195,7 +1195,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 984.81,
+   "kontostand": 984.94,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1203,7 +1203,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T18:16:39.089343",
+    "zeit": "2026-11-23T18:31:37.489295",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1774,7 +1774,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-23T18:16:39.089343",
+    "zeit": "2026-11-23T18:31:37.489295",
     "action": "none",
     "why": [
      "heute erledigt"

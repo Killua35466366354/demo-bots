@@ -18,6 +18,9 @@ ist trotzdem nicht bestanden, beide Bots laufen als reiner Demo-Vorwärtstest).
   dagegen vor 0,75 R dafür, setzt Stop 1 R und Ziel auf den Einstieg, Notbremse ab 1 R im Minus; Pine-Ausstiegshinweis).
 - Bot "pine-tp3" (Konto "US500" …8878): jeder Einstieg mit Take-Profit +3 € und ohne Stop. Notausstieg nur, wenn seine
   offenen Trades zusammen 250 € im Minus sind (schützt die anderen Bots auf dem Konto), sonst schließt er nie selbst.
+  Seit 22.11.2026 abgeschaltet (Kirons Wort: den Bot mit dem größten Minus rausnehmen, 48 Demo-Trades, -72,77 €,
+  Gewinnfaktor 0,52, eigene Regel: nach 40 Trades unter 1,0 aufhören). Er öffnet nichts Neues, seine offenen Trades
+  laufen mit Take-Profit, Prüfer und Notausstieg zu Ende.
 
 Beide: Einstieg auf dem Schluss jeder fertigen 5-Min.-Kerze von 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14) der 5-Min.-Kerzen,
 5 € je R, höchstens 1 oz je Trade, höchstens 4 Goldpositionen auf dem Konto, nie gegen eine offene Goldposition der
@@ -86,6 +89,7 @@ class Bot:
     art: str                           # "hand" oder "tp3"
     name: str
     neu: bool = True                   # False: keine neuen Einstiege, nur offene Trades betreuen
+    ende: str = ""                     # warum keine neuen Einstiege mehr (Text fürs Cockpit, nur wenn neu False)
     hedging: bool = False              # Long und Short gleichzeitig (Hedging-Modus des Kontos)
     gold_pruefer: bool = False         # Termin-Pause, Termin-Warnung und Hintergrund wie beim Gold-Hand-Bot
     abfang_4h: bool = False            # Abfänger erst nach 4 Std., dann Stop am besten Kurs nachziehen
@@ -96,10 +100,12 @@ BOTS = (
         "Pine-Gold Hand auf Account 5 (Kirons Long A und Short B auf 5 Min., Long und Short gleichzeitig, Kiron geht "
         "selbst raus)", hedging=True, gold_pruefer=True, abfang_4h=True),
     Bot("pine-tp3", "332317231899038878", "US500", "tp3",
-        "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)"),
+        "Pine-Gold TP 3 € (Kirons Long A und Short B auf 5 Min., Take-Profit +3 €, ohne Stop)",
+        neu=False, ende="Seit 22.11.2026 abgeschaltet (Kirons Wort, nach 48 Demo-Trades Gewinnfaktor 0,52), keine neuen "
+                        "Einstiege mehr, offene Trades laufen nach ihren Regeln zu Ende. "),
     Bot("pine-hand", "332325912027944094", "Vortag USDJPY", "hand",
         "Pine-Gold Hand auf Vortag USDJPY (seit 10.11.2026 auf Account 5 umgezogen, betreut nur noch offene Trades)",
-        neu=False),
+        neu=False, ende="Seit 10.11.2026 auf Account 5 umgezogen, hier keine neuen Einstiege mehr. "),
 )
 
 
@@ -793,7 +799,7 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
         regel += ("Gold-Prüfer: keine Einstiege 60 Min. vor bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach "
                   "Kurssprüngen), nichts gegen den Hintergrund (Tag über SMA 50 und 4 Std. über EMA 50). ")
     if not bot.neu:
-        regel = "Seit 10.11.2026 auf Account 5 umgezogen, hier keine neuen Einstiege mehr. " + regel
+        regel = bot.ende + regel
     regel += ("Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger (seit 10.11.2026): die ersten 4 Std. "
               "nichts, danach Stop 0,5 R hinter dem besten Kurs, nur nachgezogen (raus am nächsten Hoch bzw. Tief). "
               "Hinweis beim Pine-Ausstiegssignal."
@@ -814,7 +820,8 @@ def cockpit(bot: Bot, st: dict, alle: list[dict]) -> dict:
             "offen": st.get("offen", []),
             "zusammenfassung": {"trades": len(alle), "pf_r": sb.ts.pf(r) if r else None, "summe_r": round(sum(r), 2),
                                 "summe_eur": round(sum(float(t.get("pnl_eur") or 0) for t in alle), 2),
-                                "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"},
+                                "urteil": bot.ende.strip() if not bot.neu and bot.ende else
+                                "Demo-Vorwärtstest, Urteil nach 40 Trades"},
             "letzte_trades": alle[-10:]}
 
 

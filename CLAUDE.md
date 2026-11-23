@@ -90,8 +90,10 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   zählen in Kombi und Gruppe weiter.
 - **Labor** (knapp durchgefallen, läuft auf Kirons Wunsch): Dow-Rücksetzer, London GBP/USD, Noise USD/JPY.
 - **Mess-Bot:** Vortag EUR/USD mit 1-ATR-Stop. Misst nur, wird nie verbessert.
-- **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `pine-tp3`, `gold-zonen`, `gold-ausbruch4h`. Sieben Bots auf
-  einem Markt, sie verlieren oft gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten.
+- **Gold:** `gold-cb`, Gold-Staffel, Groß-Box, `pine-k5`, `gold-zonen`, `gold-ausbruch4h`. Sechs Bots auf einem Markt,
+  sie verlieren oft gemeinsam. Vor einem weiteren Gold-Bot erst diese auswerten. `pine-tp3` ist seit dem 22.11.2026
+  abgeschaltet (Kirons Wort, der Bot mit dem größten Minus, 48 Demo-Trades, Gewinnfaktor 0,52). Er öffnet nichts Neues,
+  ein offener Trade läuft nach seinen Regeln zu Ende. In der festen Gruppe aller Bots zählen seine Trades weiter.
   Dazu rechnet der Schatten-Zwilling `gold-grossbox-weiter125` mit (Groß-Box mit 1,25-fachem Stop, keine Order,
   `gold/grossbox_zwilling.py`, `suche/VORAB_gold_grossbox_weiter125.yaml`, Kirons Wahl vom 19.11.2026).
 - **Scalper** (Test durchgefallen, läuft auf Kirons Wunsch): Nasdaq, DAX, Nikkei.

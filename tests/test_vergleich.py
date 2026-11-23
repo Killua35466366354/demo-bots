@@ -75,7 +75,8 @@ def test_wunsch_bots_stehen_in_eigener_gruppe_und_nie_in_rangliste_oder_kombi():
     v = vg.vergleich(datetime(2026, 11, 11, 8, 0, tzinfo=timezone.utc))
     w = {b["id"]: b for b in v["wunsch"]}
     assert set(w) == {b["bot"] for b in mn.aktive()} and v["wunsch_fehler"] is None
-    assert {"pine-k5", "pine-tp3", "scalp-us100", "scalp-de40", "scalp-j225", "gold-staffel", "gold-grossbox"} <= set(w)
+    assert {"pine-k5", "scalp-us100", "scalp-de40", "scalp-j225", "gold-staffel", "gold-grossbox"} <= set(w)
+    assert "pine-tp3" not in w                  # seit 22.11.2026 abgeschaltet (Kirons Wort), zählt nur noch in der Gruppe
     assert not set(w) & {b["id"] for b in v["rangliste"]}
     assert not set(w) & (set(v["kombi"]["mitglieder"]) | {d["id"] for d in v["kombi"]["draussen"]})
     for bid, b in w.items():
@@ -83,7 +84,7 @@ def test_wunsch_bots_stehen_in_eigener_gruppe_und_nie_in_rangliste_oder_kombi():
         n = sum(1 for z in p.read_text(encoding="utf-8").splitlines() if z.strip()) if p.exists() else 0
         assert b["ist"]["trades"] <= n and b["konto"] and b["vorab"], bid
     t = vg.text(v)
-    assert "## Auf Kirons Wunsch" in t and "Pine-Gold TP 3 €" in t and "suche/VORAB_scalping_opens.yaml" in t
+    assert "## Auf Kirons Wunsch" in t and "Pine-Gold Hand auf Account 5" in t and "suche/VORAB_scalping_opens.yaml" in t
     assert "Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC" in t
     # die Dateien hängen weiter nur vom Tag und den Trades ab, nicht von der Uhrzeit des Laufs
     assert vg.vergleich(datetime(2026, 11, 11, 20, 0, tzinfo=timezone.utc)) == v

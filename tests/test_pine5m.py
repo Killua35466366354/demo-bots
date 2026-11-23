@@ -4,9 +4,12 @@ Bot Hand (pine-k5, Account 5): Marktorder ohne Stop und Ziel, Nachricht, Trade-A
 0,5 R hinter dem besten Kurs, nachgezogen), Hinweis beim Pine-Ausstieg, Hedging (Long und Short gleichzeitig),
 Termin-Pause, Hintergrund, Termin-Warnung.
 Bot pine-hand (Vortag USDJPY): ausgelaufen, betreut nur noch offene Trades (alter Abfänger: Fehltrade und Notbremse).
-Bot TP 3 €: Take-Profit +3 €, kein Stop, Notausstieg bei zusammen -250 €. Beide: nur 7 bis 20 Uhr UTC, frische Signale,
+Bot TP 3 €: Take-Profit +3 €, kein Stop, Notausstieg bei zusammen -250 €. Seit 22.11.2026 abgeschaltet (Kirons Wort):
+live öffnet er nichts Neues mehr. Die Tests seiner Einstiege laufen darum mit einer Kopie, die noch öffnet
+(TP3 = replace(TP3_LIVE, neu=True)), die Tests am Ende der Datei prüfen den abgeschalteten Bot selbst. Beide: nur 7 bis 20 Uhr UTC, frische Signale,
 höchstens 4 Goldpositionen, nie gegen die Gegenrichtung, Marge für die anderen Bots, nie das Hauptkonto, eigene Dateien."""
 import json
+from dataclasses import replace
 
 import numpy as np
 import pandas as pd
@@ -16,7 +19,13 @@ from gold import pine5m_bot as pb
 from gold.backtest import pine_port as pp
 
 HAUPT = "111111113150"
-HAND, TP3, ALT = pb.BOTS
+HAND, TP3_LIVE, ALT = pb.BOTS
+TP3 = replace(TP3_LIVE, neu=True)                 # Einstiegs-Logik des TP-Bots, wie sie bis 22.11.2026 lief
+
+
+@pytest.fixture(autouse=True)
+def tp3_mit_einstiegen(monkeypatch):
+    monkeypatch.setattr(pb, "BOTS", (HAND, TP3, ALT))
 NOW = pd.Timestamp("2026-03-04 15:17", tz="UTC").to_pydatetime()
 
 
@@ -162,7 +171,8 @@ def test_konten_und_nie_hauptkonto():
     assert {b.art for b in pb.BOTS} == {"hand", "tp3"}
     assert HAND.konto.endswith("9086") and HAND.konto == pb.hb.KONTO and HAND.bot_id == "pine-k5"
     assert HAND.hedging and HAND.gold_pruefer and HAND.neu
-    assert TP3.konto.endswith("8878") and not TP3.hedging and not TP3.gold_pruefer and TP3.neu
+    assert TP3.konto.endswith("8878") and not TP3.hedging and not TP3.gold_pruefer
+    assert pb.BOTS[1] is TP3 and not TP3_LIVE.neu and TP3_LIVE.ende.startswith("Seit 22.11.2026 abgeschaltet")
     assert ALT.bot_id == "pine-hand" and ALT.konto.endswith("4094") and not ALT.neu
     assert not any(b.konto.endswith(pb.HAUPT_ENDUNG) for b in pb.BOTS)
     assert len({b.konto for b in pb.BOTS}) == 3
@@ -782,3 +792,34 @@ def test_abfang4h_test_rechnet_den_nachgezogenen_stop():
     assert nachziehen(opn, fav, adv, 6, 5) is None                # Übernahme nach dem Ende: nichts
     gap = np.array([0.0, 1.0, 0.2])
     assert nachziehen(gap, np.array([0.0, 1.2, 0.3]), np.array([0.0, 0.9, 0.1]), 1, 2) == (2, 0.2)
+
+
+# ---- pine-tp3 seit 22.11.2026 abgeschaltet (Kirons Wort: den Bot mit dem größten Minus rausnehmen) ----
+
+def test_tp3_abgeschaltet_oeffnet_nichts(welt, monkeypatch):
+    monkeypatch.setattr(pb, "BOTS", (HAND, TP3_LIVE, ALT))
+    _setze(welt, "long")
+    k = Konto()
+    out = pb.run(k, {}, NOW, post=Post())
+    assert len(_orders(k, HAND.konto)) == 1                       # der Hand-Bot handelt weiter
+    assert not _orders(k, TP3.konto)
+    assert out["pine-tp3"][0].get("offen", []) == [] and out["pine-tp3"][1] == []
+
+
+def test_tp3_abgeschaltet_betreut_offenen_trade_zu_ende(welt, monkeypatch):
+    monkeypatch.setattr(pb, "BOTS", (HAND, TP3_LIVE, ALT))
+    _setze(welt, "long")
+    k = Konto(bid=3994.0, offer=3994.3)                          # 3 Std. 17 Min. offen, 0,67 R im Minus
+    st = _tp_pos(k, welt, "2026-03-04T12:00:00")
+    out = pb.run(k, {"pine-tp3": st}, NOW, post=Post())
+    assert [c for c in _orders(k, TP3.konto) if c[0] == "POST"] == []   # kein neuer Einstieg trotz Signal
+    p = k.pos[TP3.konto]["T"]
+    assert p["stopLevel"] == 3991.0 and p["profitLevel"] == 4000.0      # der Prüfer arbeitet weiter
+    assert out["pine-tp3"][0]["offen"][0]["dealId"] == "T"
+
+
+def test_tp3_abgeschaltet_im_cockpit():
+    c = pb.cockpit(TP3_LIVE, {}, [])
+    assert c["regel"].startswith("Seit 22.11.2026 abgeschaltet")
+    assert c["zusammenfassung"]["urteil"].startswith("Seit 22.11.2026 abgeschaltet")
+    assert pb.cockpit(ALT, {}, [])["regel"].startswith("Seit 10.11.2026 auf Account 5 umgezogen")

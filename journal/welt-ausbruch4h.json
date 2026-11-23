@@ -2,10 +2,10 @@
  "bot": "welt-ausbruch4h",
  "name": "4-Std.-Ausbruch DAX, FTSE, Nikkei",
  "konto": "Account 7",
- "stand": "2026-11-22T23:01:49",
+ "stand": "2026-11-23T03:01:48",
  "start": "2026-11-19T13:18:33",
  "pausiert": null,
- "status": "Nikkei 225: Verkauf offen ab 55372.8, Stop 59448.8, Ziel 51296.8, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 1)",
+ "status": "Nikkei 225: Verkauf offen ab 55372.8, Stop 59448.8, Ziel 51296.8, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 2)",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf DAX, FTSE 100 und Nikkei 225 (Fassung ausbruch4h_welt_ziel_1r): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, Ziel 1 R. Ausstieg spätestens nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_notizen_runde.md): 2024 bis 2026 393 Trades (etwa 2,7 je Woche), Gewinnfaktor 1,30, 2026 1,66, aber nur 2,26 statt 3 Standardabweichungen über dem Zufall. Dieselbe Regel ohne Ziel war am 18.11. mit 1,24 schon knapp (suche/ergebnis_rueckblick.md).",
  "vorab": "suche/VORAB_welt_ausbruch4h_bot.yaml",
@@ -27,7 +27,7 @@
    "size": 0.21,
    "dist": 4075.989271,
    "opened_utc": "2026-11-20T19:02:00",
-   "kerzen": 1
+   "kerzen": 2
   }
  ],
  "zusammenfassung": {
@@ -41,31 +41,79 @@
  },
  "letzte_trades": [],
  "blick": {
-  "naechste_4h_kerze_endet_utc": "2026-11-23 03:00:00",
+  "naechste_4h_kerze_endet_utc": "2026-11-23 07:00:00",
   "maerkte": {
    "GRXEUR": {
     "epic": "DE40",
     "letzte_pruefung": {
-     "grenze": "2026-11-22 23:00:00",
-     "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+     "grenze": "2026-11-23 03:00:00",
+     "ergebnis": "kein Ausbruch",
+     "richtung": 0,
+     "schluss": 24839.9,
+     "hoch_davor": 26274.5,
+     "tief_davor": 24520.5,
+     "trend": null,
+     "dist": null
     },
-    "kurs": 24607.4
+    "signal": {
+     "markt": "GRXEUR",
+     "grenze": "2026-11-23 03:00:00",
+     "richtung": 0,
+     "trend": null,
+     "dist": null,
+     "ziel_abstand": null,
+     "ok": false,
+     "warten": false,
+     "ergebnis": "kein Ausbruch",
+     "tageskerzen": 283,
+     "schluss": 24839.9,
+     "hoch_davor": 26274.5,
+     "tief_davor": 24520.5,
+     "tagestrend": -1,
+     "kerzen_5min": 48,
+     "gesperrt": false
+    },
+    "kurs": 24836.9
    },
    "UKXGBP": {
     "epic": "UK100",
     "letzte_pruefung": {
-     "grenze": "2026-11-22 23:00:00",
-     "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+     "grenze": "2026-11-23 03:00:00",
+     "ergebnis": "kein Ausbruch",
+     "richtung": 0,
+     "schluss": 10326.2,
+     "hoch_davor": 10763.4,
+     "tief_davor": 10258.1,
+     "trend": null,
+     "dist": null
     },
-    "kurs": 10287.4
+    "signal": {
+     "markt": "UKXGBP",
+     "grenze": "2026-11-23 03:00:00",
+     "richtung": 0,
+     "trend": null,
+     "dist": null,
+     "ziel_abstand": null,
+     "ok": false,
+     "warten": false,
+     "ergebnis": "kein Ausbruch",
+     "tageskerzen": 283,
+     "schluss": 10326.2,
+     "hoch_davor": 10763.4,
+     "tief_davor": 10258.1,
+     "tagestrend": -1,
+     "kerzen_5min": 48,
+     "gesperrt": false
+    },
+    "kurs": 10325.4
    },
    "JPXJPY": {
     "epic": "J225",
     "letzte_pruefung": {
-     "grenze": "2026-11-22 23:00:00",
+     "grenze": "2026-11-23 03:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 55444.8
+    "kurs": 55780.0
    }
   }
  }

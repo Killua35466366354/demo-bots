@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-23",
- "letzter_trade_utc": "2026-11-22T23:15:00",
+ "letzter_trade_utc": "2026-11-23T00:00:00",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -352,40 +352,6 @@
    "rang": 9
   },
   {
-   "id": "gold-grossbox-weiter125",
-   "name": "Gold Groß-Box, Stop 1,25-fach (Schatten)",
-   "markt": null,
-   "gruppe": "zwilling",
-   "aktiv": true,
-   "konto": "Schatten (keine Order)",
-   "seit": "2026-11-20T00:00:00",
-   "ist": {
-    "trades": 1,
-    "gewonnen": 0,
-    "treffer_pct": 0.0,
-    "summe_r": -1.01,
-    "pf_r": 0.0,
-    "eur": 0,
-    "rueckgang_r": 1.01
-   },
-   "soll": null,
-   "abweichung_r": null,
-   "bewertung": null,
-   "monate": {
-    "2026-11": {
-     "trades": 1,
-     "summe_r": -1.01,
-     "eur": 0.0
-    }
-   },
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "Zwilling: 1 von 40 Trades",
-    "original": "gold-grossbox"
-   },
-   "rang": 10
-  },
-  {
    "id": "gold-cb-long",
    "name": "Gold nur Long (Teil C)",
    "markt": "Gold",
@@ -416,7 +382,7 @@
     "status": "messung",
     "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
    },
-   "rang": 11
+   "rang": 10
   },
   {
    "id": "r6-vortag-eurusd",
@@ -457,6 +423,40 @@
    "aufstieg": {
     "status": "sammelt",
     "text": "1 von 100 Demo-Trades, 19 von 61 Tagen"
+   },
+   "rang": 11
+  },
+  {
+   "id": "gold-grossbox-weiter125",
+   "name": "Gold Groß-Box, Stop 1,25-fach (Schatten)",
+   "markt": null,
+   "gruppe": "zwilling",
+   "aktiv": true,
+   "konto": "Schatten (keine Order)",
+   "seit": "2026-11-20T00:00:00",
+   "ist": {
+    "trades": 2,
+    "gewonnen": 0,
+    "treffer_pct": 0.0,
+    "summe_r": -1.8,
+    "pf_r": 0.0,
+    "eur": 0,
+    "rueckgang_r": 1.8
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": null,
+   "monate": {
+    "2026-11": {
+     "trades": 2,
+     "summe_r": -1.8,
+     "eur": 0.0
+    }
+   },
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "Zwilling: 2 von 40 Trades",
+    "original": "gold-grossbox"
    },
    "rang": 12
   },

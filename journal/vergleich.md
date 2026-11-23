@@ -13,9 +13,9 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 7 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,6 Trades, +0,05 R | 1 von 100 Demo-Trades, 18 von 61 Tagen |
 | 8 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 3,6 Trades, +0,46 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
 | 9 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
-| 10 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 1 | -1,01 | 0,00 | +0,00 | – | Zwilling: 1 von 40 Trades |
-| 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
-| 12 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 3,7 Trades, +1,18 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
+| 10 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
+| 11 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 3,7 Trades, +1,18 R | 1 von 100 Demo-Trades, 19 von 61 Tagen |
+| 12 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 2 | -1,80 | 0,00 | +0,00 | – | Zwilling: 2 von 40 Trades |
 | 13 | Vortag GBP/JPY | behalten | 4 | -4,08 | 0,00 | -18,09 | 2,5 Trades, +0,50 R | 4 von 100 Demo-Trades, 18 von 61 Tagen |
 
 **Kombi (6 Kern-Strategien auf einem Konto):** 6 Trades, -6,12 R, Gewinnfaktor 0,00, Soll bisher 11,7 Trades und +2,42 R. Aufstieg: 6 von 100 Demo-Trades, 19 von 61 Tagen.

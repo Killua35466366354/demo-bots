@@ -244,9 +244,12 @@ def test_echtes_konto_steht_in_konten_json_und_kein_kern_bot_handelt_dort():
     assert k and not k.endswith(kb.HAUPT_ENDUNG) and k.isdigit() and len(k) > 5
     assert k == echt["zuordnung"]["r5-ruecksetzer-us30"] == vix_sprung_bot.konto_id(echt)
     assert k != krypto_bollinger_bot.konto_id(echt)            # Bitcoin und Ether des Bollinger-Bots: Account 3
+    from suche.r6_bots import BEENDET
     kern = ("us500-ruecksetzer", "r5-ruecksetzer-us100", "r7-nasdaq-noise-long", "r6-vortag-eurusd", "r6-vortag-gbpusd",
             "r6-vortag-gbpjpy")
-    assert k not in [echt["zuordnung"][b] for b in kern]       # kein Kern-Bot auf diesem Konto
+    # Ohne Konto darf nur ein beendeter Kern-Bot sein (Vortag GBP/JPY seit 22.11.2026), jeder laufende braucht eines
+    assert all(b in echt["zuordnung"] or b in BEENDET for b in kern)
+    assert k not in [echt["zuordnung"][b] for b in kern if b in echt["zuordnung"]]   # kein Kern-Bot auf diesem Konto
     andere = {b["bot"] for b in mitnutzer.bots() if b["konto"] == k and b["bot"] != kb.BOT_ID and b["neu"]}
     assert andere == {"pine-k5", "vix-sprung"}                 # Gold und Indizes, nie Krypto
 

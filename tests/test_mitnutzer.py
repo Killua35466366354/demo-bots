@@ -133,9 +133,12 @@ def test_liste_kommt_aus_dem_code_der_bots():
     # Account 5 teilt er mit pine-k5, dem Dow-Rücksetzer und dem VIX-Sprung: kein Kern-Bot und nie der Bollinger-Bot
     # auf Bitcoin und Ether (Account 3)
     assert krypto4h_bot.KONTO == vix_sprung_bot.KONTO == zuordnung["r5-ruecksetzer-us30"] != krypto_bollinger_bot.KONTO
-    assert krypto4h_bot.KONTO not in [zuordnung[b] for b in ("us500-ruecksetzer", "r5-ruecksetzer-us100",
-                                                             "r7-nasdaq-noise-long", "r6-vortag-eurusd",
-                                                             "r6-vortag-gbpusd", "r6-vortag-gbpjpy")]
+    from suche.r6_bots import BEENDET
+    kern = ("us500-ruecksetzer", "r5-ruecksetzer-us100", "r7-nasdaq-noise-long", "r6-vortag-eurusd", "r6-vortag-gbpusd",
+            "r6-vortag-gbpjpy")
+    # Ohne Konto darf nur ein beendeter Kern-Bot sein (Vortag GBP/JPY seit 22.11.2026), jeder laufende braucht eines
+    assert all(b in zuordnung or b in BEENDET for b in kern)
+    assert krypto4h_bot.KONTO not in [zuordnung[b] for b in kern if b in zuordnung]
     bu = alle["buendel9"]
     # Das Bündel kopiert die Trades von 9 Bots auf "Vortag USDJPY". Das Konto teilt es mit Vortag GBP/USD (GBPUSD, dort
     # kopiert es nie) und dem ruhenden pine-hand, nie mit einem seiner Mitglieder
@@ -167,8 +170,13 @@ def test_jeder_bot_aus_dem_5_minuten_lauf_steht_in_der_liste():
 def test_heute_ist_account_1_frei_gemeldet_und_bleibt_bei_scalpern_und_staffel():
     kont = konten.load(ROOT / "journal")
     mit = dp.mitnutzer_konten(kont)
+    from suche import krypto_bollinger_bot
     for aid in kont.get("frei") or []:
-        if str(aid) in mit:
+        if str(aid) == str(krypto_bollinger_bot.KONTO):
+            # Account 3 ist frei, seit Vortag GBP/JPY beendet ist (Kirons Wort vom 22.11.2026). Dort handelt nur noch
+            # der Bollinger-Krypto-Bot, und die Prüfung vergibt das Konto darum nie.
+            assert mit[str(aid)] == [krypto_bollinger_bot.BOT_ID]
+        elif str(aid) in mit:
             assert any(b.startswith("scalp-") or b == "gold-staffel" for b in mit[str(aid)])
     # kein Mitnutzer steht zugleich in der Zuordnung (dann gälte für ihn die Prüfung nach 15/40 Trades doppelt)
     assert not {b["bot"] for b in mn.bots()} & set(kont.get("zuordnung") or {})

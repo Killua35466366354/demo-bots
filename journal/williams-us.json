@@ -2,10 +2,10 @@
  "bot": "williams-us",
  "name": "Williams %R (US500, US100)",
  "konto": "Account 7",
- "stand": "2026-11-23T21:02:03",
+ "stand": "2026-11-24T21:01:57",
  "start": "2026-11-20T14:18:10",
  "pausiert": null,
- "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-23): %R -13.2, Ausstieg: Schluss über dem Vortageshoch oder %R über -30. Gleiche Kerze wie ein neuer Einstieg: der Test kauft heute nicht",
+ "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-24): %R -57.3, kein Kauf (nötig unter -90)",
  "regel": "Williams %R auf US500 und US100 (Fassung williams_us): Schließt Williams %R(2) der Kassa-Sitzung unter -90, kauft der Bot um 16:00 New York. Ausstieg um 16:00 New York am ersten Tag, an dem der Schluss über dem Hoch des Vortags liegt oder %R über -30 schließt, spätestens nach 10 Sitzungen. Notstop 3 Tages-ATR, kein Ziel. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 77 Trades (etwa 2 im Monat), Gewinnfaktor 2,66, mit 1,5-fachen Kosten 2,65, Hälften 2,39 und 3,28, 2026 1,75, 81 % Treffer, Holm erfüllt, aber unter 100 Trades und z 2,35 statt 3. US500 4,21 (41 Trades), US100 1,82 (36). Vor 2024 327 Trades, Gewinnfaktor 1,51. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 3,90 € im Monat. Bei 47 von 77 Trades kaufte auch der US500-Rücksetzer. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
  "vorab": "suche/VORAB_williams_bot.yaml",
@@ -92,69 +92,67 @@
   }
  ],
  "blick": {
-  "naechste_pruefung_utc": "2026-11-23 21:00:00",
+  "naechste_pruefung_utc": "2026-11-24 21:00:00",
   "maerkte": {
    "SPXUSD": {
     "epic": "US500",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "%R -13.2, Ausstieg: Schluss über dem Vortageshoch oder %R über -30. Gleiche Kerze wie ein neuer Einstieg: der Test kauft heute nicht",
-     "wr": -13.230324,
-     "schluss": 7241.7,
-     "hoch_vortag": 7198.9,
+     "tag": "2026-11-24",
+     "ergebnis": "%R -57.3, kein Kauf (nötig unter -90)",
+     "wr": -57.250946,
+     "schluss": 7205.7,
+     "hoch_vortag": 7296.5,
      "dist": null,
-     "atr": 188.514286,
-     "sitzungen": 1
+     "atr": 207.721429,
+     "sitzungen": null
     },
     "signal": {
      "markt": "SPXUSD",
-     "tag": "2026-11-23",
-     "zeit_utc": "2026-11-23 21:02:03.996123",
+     "tag": "2026-11-24",
+     "zeit_utc": "2026-11-24 21:01:57.699353",
      "kauf": false,
-     "raus": true,
-     "grund": "regel",
+     "raus": false,
+     "grund": null,
      "dist": null,
-     "wr": -13.230324,
+     "wr": -57.250946,
      "warten": false,
-     "ergebnis": "%R -13.2, Ausstieg: Schluss über dem Vortageshoch oder %R über -30",
+     "ergebnis": "%R -57.3, kein Kauf (nötig unter -90)",
      "tage": 41,
-     "schluss": 7241.7,
-     "hoch_vortag": 7198.9,
-     "atr": 188.514286,
-     "sitzungen": 1
+     "schluss": 7205.7,
+     "hoch_vortag": 7296.5,
+     "atr": 207.721429
     },
-    "kurs": 7252.6
+    "kurs": 7197.2
    },
    "NSXUSD": {
     "epic": "US100",
     "letzte_pruefung": {
-     "tag": "2026-11-23",
-     "ergebnis": "%R -15.0, Ausstieg: Schluss über dem Vortageshoch oder %R über -30. Gleiche Kerze wie ein neuer Einstieg: der Test kauft heute nicht",
-     "wr": -14.996987,
-     "schluss": 26740.6,
-     "hoch_vortag": 26430.6,
+     "tag": "2026-11-24",
+     "ergebnis": "%R -74.3, kein Kauf (nötig unter -90)",
+     "wr": -74.297331,
+     "schluss": 26223.5,
+     "hoch_vortag": 27064.1,
      "dist": null,
-     "atr": 1057.757143,
-     "sitzungen": 1
+     "atr": 1160.042857,
+     "sitzungen": null
     },
     "signal": {
      "markt": "NSXUSD",
-     "tag": "2026-11-23",
-     "zeit_utc": "2026-11-23 21:02:03.996123",
+     "tag": "2026-11-24",
+     "zeit_utc": "2026-11-24 21:01:57.699353",
      "kauf": false,
-     "raus": true,
-     "grund": "regel",
+     "raus": false,
+     "grund": null,
      "dist": null,
-     "wr": -14.996987,
+     "wr": -74.297331,
      "warten": false,
-     "ergebnis": "%R -15.0, Ausstieg: Schluss über dem Vortageshoch oder %R über -30",
+     "ergebnis": "%R -74.3, kein Kauf (nötig unter -90)",
      "tage": 41,
-     "schluss": 26740.6,
-     "hoch_vortag": 26430.6,
-     "atr": 1057.757143,
-     "sitzungen": 1
+     "schluss": 26223.5,
+     "hoch_vortag": 27064.1,
+     "atr": 1160.042857
     },
-    "kurs": 26776.2
+    "kurs": 26182.6
    }
   }
  }

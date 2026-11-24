@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-24T10:16:38.276251",
+ "stand_utc": "2026-11-24T10:31:33.732022",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -212,7 +212,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T10:16:38.276251",
+    "zeit": "2026-11-24T10:31:33.732022",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -378,7 +378,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T10:16:38.276251",
+    "zeit": "2026-11-24T10:31:33.732022",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -994,7 +994,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T10:16:38.276251",
+    "zeit": "2026-11-24T10:31:33.732022",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1209,7 +1209,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 991.57,
+   "kontostand": 992.01,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "Stop-Orders liegen",
@@ -1245,7 +1245,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T10:16:38.276251",
+    "zeit": "2026-11-24T10:31:33.732022",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1848,7 +1848,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T10:16:38.276251",
+    "zeit": "2026-11-24T10:31:33.732022",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

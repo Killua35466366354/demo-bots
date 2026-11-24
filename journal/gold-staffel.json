@@ -4,40 +4,19 @@
  "epic": "GOLD",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-23T23:53:35",
+ "stand": "2026-11-24T00:03:40",
  "start": "2026-11-10T17:08:37",
- "status": "Short offen, Abfänger hält den Stop bei 3633.87",
+ "status": "wartet auf den nächsten Trade des Gold-Bots",
  "regel": "Gleiche Einstiege, Größe und Stop wie der Gold-Bot C/B auf dem Hauptkonto, dazu Take-Profits verteilt: TP1 +2 R, TP2 +4 R, TP3 +6 R beim Broker. Wächter alle 5 Minuten: nach TP1 kommt der Stop auf TP1, nach TP2 auf TP2, so endet ein Trade, der +2 R erreicht hat, nie mehr im Minus. Abfänger wie Account 5: nach 4 Std. Stop 0,5 R hinter dem besten Kurs. Schließt der Gold-Bot, schließt er auch.",
  "vorab_abfang": "suche/VORAB_gold_staffel_abfang.yaml",
  "vorab": "suche/VORAB_gold_staffel.yaml",
  "test": "Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades).",
- "offen": {
-  "dealId": "00000000-7643-89d3-049c-70190015549e",
-  "gold_deal": "00000000-7615-e6e1-049b-eb710015549e",
-  "richtung": -1,
-  "size": 0.91,
-  "entry": 3656.24,
-  "stop": 3633.87,
-  "dist": 25.06,
-  "tp": [
-   3606.12,
-   3556.0,
-   3505.6
-  ],
-  "stufe": 0,
-  "opened_utc": "2026-11-23T18:13:39",
-  "bester": 3620.2,
-  "abfang": {
-   "zeit": "2026-11-23T22:18:36",
-   "beste": 3620.2
-  },
-  "stop_von": "Abfänger"
- },
+ "offen": null,
  "zusammenfassung": {
-  "trades": 2,
-  "pf_r": 0.46,
-  "summe_r": -0.292,
-  "summe_eur": -5.41,
+  "trades": 3,
+  "pf_r": 2.11,
+  "summe_r": 0.598,
+  "summe_eur": 13.19,
   "urteil": "Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades"
  },
  "letzte_trades": [
@@ -94,6 +73,33 @@
    "closed_utc": "2026-11-23T13:28:36",
    "r": -0.538,
    "pnl_eur": -9.01
+  },
+  {
+   "dealId": "00000000-7643-89d3-049c-70190015549e",
+   "gold_deal": "00000000-7615-e6e1-049b-eb710015549e",
+   "richtung": -1,
+   "size": 0.91,
+   "entry": 3656.24,
+   "stop": 3633.87,
+   "dist": 25.06,
+   "tp": [
+    3606.12,
+    3556.0,
+    3505.6
+   ],
+   "stufe": 0,
+   "opened_utc": "2026-11-23T18:13:39",
+   "bester": 3620.2,
+   "abfang": {
+    "zeit": "2026-11-23T22:18:36",
+    "beste": 3620.2
+   },
+   "stop_von": "Abfänger",
+   "exit": 3633.94,
+   "quelle": "Abfänger-Stop",
+   "closed_utc": "2026-11-24T00:03:40",
+   "r": 0.89,
+   "pnl_eur": 18.6
   }
  ]
 }

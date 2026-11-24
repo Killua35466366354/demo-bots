@@ -1,0 +1,68 @@
+# Vorab festgelegt am 2026-11-24, bevor gerechnet wurde. Wird nie geändert. Eine neue Regel bekommt eine neue Datei.
+format: 1
+buendel_max:
+  frage: >-
+    Kirons Wunsch vom 24.11.2026 11:04 UTC: Die Strategien so zusammenstellen, dass ein Konto mit 1.000 € die höchste
+    Rendite pro Monat bringt. Alle Strategien handeln gleichzeitig, der Einsatz je Trade darf höher sein, und was
+    nichts bringt, fliegt raus. Welche Bots und welcher Einsatz je Trade, und hält das in Monaten, die bei der Auswahl
+    nicht benutzt wurden?
+
+  trades:
+    datei: "Projektordner schatten-labor/alle_margin.csv"
+    sha256: f77cabede4a49abd320cead38dc1daa72633fd012d34e187a9c5d2d75ffcc9f0
+    inhalt: "Rückblick-Trades der 19 Bots mit Spread und Kosten, November 2024 bis Oktober 2026, R je Trade, Margin je 1 € Risiko"
+    fehlende_margin: >-
+      scalp-us100 und scalp-j225 haben keine Margin-Zahl. Für sie gilt der Median von margin_je_r von scalp-de40
+      (gleiche Regel, gleiche Haltedauer).
+    neue_bots: "Die sechs Bots vom 20.11.2026 haben keine Trades in der Datei und sind nicht dabei."
+    beendet: "pine-tp3 und r6-vortag-gbpjpy hat Kiron am 22.11.2026 beendet. Sie öffnen nichts mehr und sind nicht dabei."
+    zeitraum_eines_trades: "Ein Trade gehört zum Zeitraum seines Einstiegs."
+
+  konto:
+    start_eur: 1000
+    einsatz_stufen_prozent: [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0]
+    einsatz: "Fester Betrag je Trade = Stufe mal 1.000 € (1 % = 10 € Risiko je R), kein Zinseszins"
+    alle_gleichzeitig: "Jeder Trade jedes gewählten Bots wird genommen. Es gibt keine Grenze für offene Trades und keinen Markt-Filter."
+    kontostand: "1.000 € plus die Summe aller Trades, die vor dem Zeitpunkt geschlossen wurden. Offene Trades zählen nicht."
+    machbar_wenn:
+      - "Die Margin aller offenen Trades ist zu jedem Zeitpunkt höchstens 80 % des Kontostands (20 % Luft für offene Verluste)."
+      - "Der schlimmste Rückgang vom Höchststand des Kontostands ist höchstens 30 % des Höchststands (Bremse wie beim Bündel aus 9 Bots)."
+    margin: "Margin eines Trades = margin_je_r mal Einsatz in €"
+    gleiche_zeit: "Schließt ein Trade zur selben Minute, in der ein anderer öffnet, zählt zuerst der Schluss."
+    monat: "Euro im Monat = Summe in € geteilt durch die Zahl der Kalendermonate des Zeitraums (Wahl 14, Urteil 10). Rendite pro Monat = Euro im Monat geteilt durch 1.000 €."
+
+  wahl:
+    zeitraum: [2024-11-01, 2025-12-31]
+    nix_bringen: "Ein Bot fliegt raus, wenn er in der Wahl mit 10 € je R weniger als 2 € im Monat bringt (das schließt alle Bots im Minus ein)."
+    je_stufe: >-
+      Start mit allen übrigen Bots. Solange die Stufe nicht machbar ist, fliegt der Bot raus, der am wenigsten Euro je
+      Euro Margin bringt (Summe € in der Wahl geteilt durch seine Margin-Euro-Tage in der Wahl). Bleibt kein Bot übrig,
+      ist die Stufe nicht machbar.
+    gewaehlt: "Die machbare Stufe mit dem höchsten Euro im Monat in der Wahl, bei Gleichstand die kleinere Stufe."
+
+  urteil:
+    zeitraum: [2026-01-01, 2026-10-31]
+    gleich: "Dieselben Bots und dieselbe Stufe, neu gestartet mit 1.000 € am 01.01.2026"
+    bestanden_wenn:
+      - "Euro im Monat über 0"
+      - "machbar wie oben (Margin höchstens 80 %, Rückgang höchstens 30 %)"
+      - "Rendite pro Monat mindestens so hoch wie das heutige Bündel aus 9 Bots (seine 9 Mitglieder mit 1 % Einsatz, gleiche Rechnung) im selben Zeitraum"
+    vergleich: "Zum Vergleich ohne Urteil: alle 19 Bots mit 1 % und das heutige Bündel aus 9 Bots mit 1 %"
+
+  auskunft:
+    - "Für jede Stufe in der Wahl und im Urteil: Euro im Monat, Rendite pro Monat, schlimmster Rückgang, höchste Margin, Monate im Minus, gestrichene Bots"
+    - "Ganzer Zeitraum mit der gewählten Fassung"
+
+  ehrlich: >-
+    Die Bots selbst wurden an denselben Jahren gefunden. Auch das Urteil an 2026 ist darum kein sauberer Test der Bots,
+    nur der Auswahl und des Einsatzes. Live wird es weniger.
+
+  dann:
+    bestanden: >-
+      Kein Bot und kein Bündel ändert sich von allein. Claude bringt Kiron eine Karte: das Bündel aus 9 Bots nach seiner
+      Woche mit den gewählten Bots und dem gewählten Einsatz auf gedachte 1.000 € weiterlaufen lassen (neue Regeldatei,
+      PR, nur Kiron merged), oder alles lassen.
+    durchgefallen: "Kommt ins Archiv der verworfenen Ideen (suche/VERWORFEN.md) mit dem Ergebnis. Das Bündel bleibt, wie es ist."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron."
+
+  dateien: "Rechnung suche/buendel_max.py, Ergebnis suche/ergebnis_buendel_max.md"

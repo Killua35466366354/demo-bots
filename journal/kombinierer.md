@@ -1,4 +1,4 @@
-# Kombinierer, Stand 2026-11-23
+# Kombinierer, Stand 2026-11-24
 
 Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +134 € nach 70 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 31 davon genommen und +24 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 25 Trades und +72 € gewesen.
 

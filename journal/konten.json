@@ -29,8 +29,8 @@
    "id": "…3150",
    "name": "Account",
    "waehrung": "EUR",
-   "balance": 1085.81,
-   "frei": 934.29,
+   "balance": 1091.04,
+   "frei": 939.77,
    "bevorzugt": true,
    "fuer": "gold"
   },
@@ -110,13 +110,13 @@
    "id": "…4094",
    "name": "Vortag USDJPY",
    "waehrung": "EUR",
-   "balance": 988.61,
-   "frei": 940.25,
+   "balance": 990.12,
+   "frei": 941.83,
    "bevorzugt": false,
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-24T04:16:30.423451",
+ "stand_utc": "2026-11-24T04:31:37.398478",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

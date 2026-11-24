@@ -429,3 +429,6 @@
 {"zeit": "2026-11-24T15:11:32+00:00", "strategie": "gross_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-24 14:00:00", "richtung": -1, "einstieg": 3614.82, "stop": 3662.07, "tp1": 3567.57, "art": "a"}
 {"zeit": "2026-11-24T15:11:32+00:00", "strategie": "box_1h", "ereignis": "fertig", "einstieg_zeit": "2026-11-23 00:00:00", "richtung": 1, "einstieg": 3584.74, "grund": "gegensignal", "ergebnis_r": 0.609}
 {"zeit": "2026-11-24T15:11:32+00:00", "strategie": "box_1h", "ereignis": "einstieg", "einstieg_zeit": "2026-11-24 14:00:00", "richtung": -1, "einstieg": 3614.82, "stop": 3662.07, "tp1": 3567.57, "tp2": null, "tp3": null}
+{"zeit": "2026-11-24T16:11:32+00:00", "strategie": "box_175", "ereignis": "fertig", "einstieg_zeit": "2026-11-24 13:30:00", "richtung": -1, "einstieg": 3626.65, "grund": "tp3", "ergebnis_r": 2.0}
+{"zeit": "2026-11-24T16:11:32+00:00", "strategie": "gross_box_kerze", "ereignis": "einstieg", "einstieg_zeit": "2026-11-24 15:15:00", "richtung": -1, "einstieg": 3602.7, "stop": 3635.95, "tp1": 3569.45, "art": "c"}
+{"zeit": "2026-11-24T16:11:32+00:00", "strategie": "gross_box", "ereignis": "einstieg", "einstieg_zeit": "2026-11-24 15:15:00", "richtung": -1, "einstieg": 3602.7, "stop": 3635.95, "tp1": 3569.45, "art": "c"}

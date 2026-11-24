@@ -2,10 +2,10 @@
  "bot": "gold-grossbox",
  "name": "Gold Groß-Box (Runde 12d)",
  "konto": "Account 6 …3678",
- "stand": "2026-11-24T18:31:41",
+ "stand": "2026-11-24T18:46:53",
  "start": "2026-11-10T18:47:49",
  "pausiert": null,
- "status": "2 offen (Verkauf ab 3620.60, Verkauf ab 3593.87), große Box: Verkauf",
+ "status": "3 offen (Verkauf ab 3620.60, Verkauf ab 3593.87, Verkauf ab 3555.60), große Box: Verkauf",
  "regel": "Große Box aus Runde 12d: 1-Std.-SuperTrend 20/2 und 4-Std.-Strukturbruch gleich, Einstiege nur in Boxrichtung (Boxbeginn, 15-Min.-SuperTrend 20/1,75, 15-Min.-Strukturbruch), höchstens 3 offen. Ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box. 5 € Risiko je Trade.",
  "backtest": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
  "vorab": "suche/VORAB_gold_grossbox.yaml",
@@ -56,6 +56,31 @@
      "size": 0.1,
      "entry": 3593.92,
      "stop": 3593.92,
+     "ziel": null,
+     "offen": true
+    }
+   ]
+  },
+  {
+   "id": "2026-11-24T18:45",
+   "art": "c",
+   "richtung": -1,
+   "einstieg_zeit": "2026-11-24 18:45:00",
+   "dist": 31.58,
+   "tp1": false,
+   "einstand": null,
+   "teile": [
+    {
+     "size": 0.05,
+     "entry": 3555.6,
+     "stop": 3587.18,
+     "ziel": 3524.02,
+     "offen": true
+    },
+    {
+     "size": 0.11,
+     "entry": 3556.08,
+     "stop": 3587.66,
      "ziel": null,
      "offen": true
     }
@@ -425,9 +450,9 @@
   }
  ],
  "blick": {
-  "kerzen": 2098,
-  "letzte_kerze": "2026-11-24 18:15:00",
-  "kurs": 3562.65,
+  "kerzen": 2099,
+  "letzte_kerze": "2026-11-24 18:30:00",
+  "kurs": 3554.95,
   "grosse_box": "Verkauf",
   "modell_offen": [
    {
@@ -443,6 +468,13 @@
     "art": "c",
     "einstieg": 3602.7,
     "stop": 3635.95
+   },
+   {
+    "einstieg_zeit": "2026-11-24 18:45:00",
+    "richtung": -1,
+    "art": "c",
+    "einstieg": 3554.95,
+    "stop": 3586.53
    }
   ]
  }

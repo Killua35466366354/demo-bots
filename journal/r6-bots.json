@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-24T08:31:36.115335",
+ "stand_utc": "2026-11-24T08:46:35.584177",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -212,7 +212,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T08:31:36.115335",
+    "zeit": "2026-11-24T08:46:35.584177",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -378,7 +378,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T08:31:36.115335",
+    "zeit": "2026-11-24T08:46:35.584177",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -966,7 +966,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T08:31:36.115335",
+    "zeit": "2026-11-24T08:46:35.584177",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1182,7 +1182,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 992.34,
+   "kontostand": 989.55,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1190,7 +1190,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T08:31:36.115335",
+    "zeit": "2026-11-24T08:46:35.584177",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1766,7 +1766,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T08:31:36.115335",
+    "zeit": "2026-11-24T08:46:35.584177",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

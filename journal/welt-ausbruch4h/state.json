@@ -6,12 +6,12 @@
  "maerkte": {
   "GRXEUR": {
    "trade": null,
-   "letzte_grenze": "2026-11-24 11:00:00",
+   "letzte_grenze": "2026-11-24 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-24 11:00:00",
+    "grenze": "2026-11-24 15:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 25128.1,
+    "schluss": 25184.4,
     "hoch_davor": 25946.0,
     "tief_davor": 24520.5,
     "trend": null,
@@ -20,13 +20,13 @@
   },
   "UKXGBP": {
    "trade": null,
-   "letzte_grenze": "2026-11-24 11:00:00",
+   "letzte_grenze": "2026-11-24 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-24 11:00:00",
+    "grenze": "2026-11-24 15:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 10459.6,
-    "hoch_davor": 10583.3,
+    "schluss": 10495.4,
+    "hoch_davor": 10573.2,
     "tief_davor": 10258.1,
     "trend": null,
     "dist": null
@@ -34,12 +34,12 @@
   },
   "JPXJPY": {
    "trade": null,
-   "letzte_grenze": "2026-11-24 11:00:00",
+   "letzte_grenze": "2026-11-24 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-24 11:00:00",
+    "grenze": "2026-11-24 15:00:00",
     "ergebnis": "kein Ausbruch",
     "richtung": 0,
-    "schluss": 57760.8,
+    "schluss": 57858.3,
     "hoch_davor": 60205.0,
     "tief_davor": 54260.3,
     "trend": null,
@@ -48,5 +48,5 @@
    "letzter_schluss": "2026-11-23T11:01:53"
   }
  },
- "stand": "2026-11-24T11:01:50"
+ "stand": "2026-11-24T15:02:01"
 }

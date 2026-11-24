@@ -12,3 +12,4 @@
 {"time": "2026-11-20T06:03:38", "bot": "scalp-j225", "event": "kein Trade", "tag": "2026-11-20", "warum": "Filter: Kurs 56652.8 nicht auf der Long-Seite des woche-Opens 61226.6"}
 {"time": "2026-11-23T06:03:32", "bot": "scalp-j225", "event": "eröffnet", "tag": "2026-11-23", "richtung": 1, "size": 0.1, "stop": null, "ziel": null, "dealId": "00000000-75a7-05b8-049c-70190015549e", "entry": 56197.5}
 {"time": "2026-11-23T06:33:39", "bot": "scalp-j225", "event": "Trade zu", "dealId": "00000000-75a7-05b8-049c-70190015549e", "kurs": 56085.0, "r": null, "pct": -0.2002, "eur": -0.06, "quelle": "Zeit"}
+{"time": "2026-11-24T06:03:39", "bot": "scalp-j225", "event": "kein Trade", "tag": "2026-11-24", "warum": "Filter: Kurs 58688.3 nicht auf der Short-Seite des woche-Opens 55097.3"}

@@ -5589,8 +5589,15 @@
    "tp2": 3697.75,
    "tp3": 3723.59,
    "r_usd": 25.84,
-   "teile": [],
-   "ergebnis_r": 0.895,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3671.91,
+     "zeit": "2026-11-24 01:30:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.59,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5613,7 +5620,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 0.994,
+   "ergebnis_r": 0.617,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5636,7 +5643,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.119,
+   "ergebnis_r": 0.995,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5651,8 +5658,15 @@
    "tp2": null,
    "tp3": null,
    "r_usd": 25.84,
-   "teile": [],
-   "ergebnis_r": 0.895,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3671.91,
+     "zeit": "2026-11-24 01:30:00",
+     "anteil": 0.333
+    }
+   ],
+   "ergebnis_r": 0.59,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -5660,13 +5674,13 @@
  },
  "vorhersage": {
   "richtung": 1,
-  "linie": 3641.55,
+  "linie": 3647.5,
   "gerade_gedreht": false,
-  "kerze": "2026-11-24 01:00:00",
-  "kurs": 3669.19,
+  "kerze": "2026-11-24 02:00:00",
+  "kurs": 3656.01,
   "genauer_175": {
    "richtung": 1,
-   "linie": 3644.18,
+   "linie": 3650.3,
    "gerade_gedreht": false
   },
   "grosse_box": 0,
@@ -5726,8 +5740,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-24T01:11:36+00:00",
- "letzte_kerze": "2026-11-24 00:45:00",
+ "stand": "2026-11-24T02:11:36+00:00",
+ "letzte_kerze": "2026-11-24 01:45:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

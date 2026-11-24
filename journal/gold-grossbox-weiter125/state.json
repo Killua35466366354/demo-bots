@@ -58,9 +58,27 @@
    "schatten": true
   }
  ],
- "offen": [],
- "letzte_kerze": "2026-11-24 13:45:00",
- "stand": "2026-11-24T14:11:38+00:00",
+ "offen": [
+  {
+   "signal": "2026-11-24 14:00:00",
+   "einstieg_zeit": "2026-11-24 14:00:00",
+   "richtung": -1,
+   "art": "a",
+   "einstieg": 3614.82,
+   "stop": 3673.88,
+   "tp1": 3555.76,
+   "tp2": null,
+   "tp3": null,
+   "r_usd": 59.06,
+   "teile": [],
+   "ergebnis_r": -0.129,
+   "grund": "offen",
+   "ende": null,
+   "offen": true
+  }
+ ],
+ "letzte_kerze": "2026-11-24 14:45:00",
+ "stand": "2026-11-24T15:11:34+00:00",
  "summe_r": -1.803,
  "zwilling": {
   "status": "sammelt",

@@ -359,3 +359,13 @@ danach trennen. Versiegelt in `suche/VORAB_markt_regime.yaml`, gerechnet mit `py
 (Effizienz über 20 Tage, Trend ab 0,30). 0 von 14 Filtern bestanden das Urteil an 2026 (`suche/ergebnis_markt_regime.md`,
 Eintrag in `suche/VERWORFEN.md`). Trendphasen gab es an 24 bis 36 % der Tage, am meisten bei AUD/NZD, Gold, Silber und
 USD/JPY. Bei Gold, Silber und den Aktien-Indizes ging der Trend fast immer nach oben.
+
+**Super-Bündel für 1.000 € (24.11.2026).** Kirons Wunsch: alle Strategien gleichzeitig auf einem Konto mit 1.000 €,
+mehr Einsatz je Trade, streichen, was nichts bringt. Versiegelt in `suche/VORAB_buendel_max.yaml`, gerechnet mit
+`python -m suche.buendel_max <Projektordner>` auf den Rückblick-Trades ohne die beendeten pine-tp3 und Vortag GBP/JPY.
+Gewählt an November 2024 bis Dezember 2025 wurden 2,5 % Einsatz je Trade mit gold-ausbruch4h, gold-cb, scalp-de40 und
+scalp-us100. 2026 brachten sie 138 € im Monat (13,8 % Rendite pro Monat, das Bündel aus 9 Bots 9,1 %), hätten aber
+zeitweise 1.132 € Margin gebraucht, 104 % des Kontostands statt höchstens 80 %. Durchgefallen
+(`suche/ergebnis_buendel_max.md`, Eintrag in `suche/VERWORFEN.md`). Machbar blieb 2026 nur bis 1,5 % Einsatz, das
+brachte 8,3 %, weniger als das heutige Bündel. Nicht mit einer anderen Stufe oder Auswahl nachrechnen, das wäre
+Auswahl danach.

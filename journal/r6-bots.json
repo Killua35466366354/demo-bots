@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-24T09:31:48.934362",
+ "stand_utc": "2026-11-24T09:46:41.125069",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -212,7 +212,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T09:31:48.934362",
+    "zeit": "2026-11-24T09:46:41.125069",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -378,7 +378,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T09:31:48.934362",
+    "zeit": "2026-11-24T09:46:41.125069",
     "action": "none",
     "why": [
      "Markt nicht ruhiger als sonst (Schwankung 0.890 > 0,866): heute kein Trade"
@@ -994,12 +994,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T09:31:48.934362",
-    "action": "orders",
+    "zeit": "2026-11-24T09:46:41.125069",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.10055 und 1.08806"
-    ],
-    "bar": "2026-11-24 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1210,7 +1209,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 991.67,
+   "kontostand": 992.18,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "Stop-Orders liegen",
@@ -1246,12 +1245,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T09:31:48.934362",
-    "action": "orders",
+    "zeit": "2026-11-24T09:46:41.125069",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.3143 und 1.301"
-    ],
-    "bar": "2026-11-24 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 1,
@@ -1850,12 +1848,11 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-24T09:31:48.934362",
-    "action": "orders",
+    "zeit": "2026-11-24T09:46:41.125069",
+    "action": "none",
     "why": [
-     "kein Ausbruch bis jetzt, Stop-Orders an 1.10055 und 1.08806"
-    ],
-    "bar": "2026-11-24 09:15:00"
+     "Stop-Orders liegen"
+    ]
    },
    "zusammenfassung": {
     "trades": 1,

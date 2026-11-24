@@ -560,19 +560,19 @@
    }
   ],
   "ist": {
-   "trades": 72,
-   "gewonnen": 34,
-   "treffer_pct": 47.2,
-   "summe_r": 15.24,
-   "pf_r": 1.46,
-   "eur": 134.67,
+   "trades": 73,
+   "gewonnen": 35,
+   "treffer_pct": 47.9,
+   "summe_r": 19.62,
+   "pf_r": 1.59,
+   "eur": 156.46,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 72,
-    "summe_r": 15.24,
-    "eur": 134.67
+    "trades": 73,
+    "summe_r": 19.62,
+    "eur": 156.46
    }
   },
   "bestes": "gold",
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "72 von 100 Demo-Trades, 21 von 61 Tagen"
+   "text": "73 von 100 Demo-Trades, 21 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -934,12 +934,12 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 30,
-    "gewonnen": 17,
-    "treffer_pct": 56.7,
-    "summe_r": 11.53,
-    "pf_r": 1.82,
-    "eur": 56.59,
+    "trades": 31,
+    "gewonnen": 18,
+    "treffer_pct": 58.1,
+    "summe_r": 15.91,
+    "pf_r": 2.13,
+    "eur": 78.38,
     "rueckgang_r": 5.72
    },
    "einheit": "R",
@@ -948,7 +948,7 @@
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "30 von 100 Demo-Trades, 14 von 61 Tagen"
+    "text": "31 von 100 Demo-Trades, 14 von 61 Tagen"
    }
   }
  ],

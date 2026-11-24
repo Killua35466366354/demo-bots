@@ -344,3 +344,4 @@
 {"time": "2026-11-24T17:28:29", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-763b-bd2e-049c-701f0015549e", "stopLevel": 3569.57, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-24T17:43:27", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-763b-b456-049c-701f0015549e", "kurs": 3569.17, "r": 4.58, "eur": 22.49, "quelle": "SL"}
 {"time": "2026-11-24T17:43:27", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-24T18:28:36", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-763b-bd2e-049c-701f0015549e", "stopLevel": 3568.64, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}

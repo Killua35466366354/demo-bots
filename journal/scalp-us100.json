@@ -4,23 +4,12 @@
  "epic": "US100",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-25T14:48:38",
+ "stand": "2026-11-25T15:03:42",
  "start": "2026-11-10T12:43:38",
  "regel": "Erste 15-Min.-Kerze ab 09:30 Uhr New York: grün Long, rot Short, Einstieg danach, Stop am anderen Ende der Kerze, Ziel 10 R, sonst raus um 16:00 Uhr New York. Nur wenn der Kurs auf der Seite von Jahres-, Quartals-, Monats- und Wochen-Open liegt (Long darüber, Short darunter). 1 R = 5 €.",
  "vorab": "suche/VORAB_scalping_opens.yaml",
  "test": "PF 2,06, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,11, schlägt 99 % der Zufallsläufe",
- "offen": {
-  "dealId": "00000000-76bf-ab20-049c-70190015549e",
-  "richtung": -1,
-  "size": 0.022,
-  "entry": 25131.2,
-  "stop": 25380.0,
-  "ziel": 22656.400000000016,
-  "dist": 248.8,
-  "opened_utc": "2026-11-25T14:48:38",
-  "aus_utc": "2026-11-25T21:00:00",
-  "tag": "2026-11-25"
- },
+ "offen": null,
  "letzte_entscheidung": {
   "zeit": "2026-11-25T14:48:38",
   "tag": "2026-11-25",
@@ -35,12 +24,31 @@
   "kurs_filter": 25009.7
  },
  "zusammenfassung": {
-  "trades": 0,
-  "pf_r": null,
-  "summe_r": 0.0,
-  "summe_pct": 0.0,
-  "summe_eur": 0.0,
+  "trades": 1,
+  "pf_r": 0.0,
+  "summe_r": -1.009,
+  "summe_pct": -0.9988,
+  "summe_eur": -5.05,
   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
  },
- "letzte_trades": []
+ "letzte_trades": [
+  {
+   "dealId": "00000000-76bf-ab20-049c-70190015549e",
+   "richtung": -1,
+   "size": 0.022,
+   "entry": 25131.2,
+   "stop": 25380.0,
+   "ziel": 22656.400000000016,
+   "dist": 248.8,
+   "opened_utc": "2026-11-25T14:48:38",
+   "aus_utc": "2026-11-25T21:00:00",
+   "tag": "2026-11-25",
+   "exit": 25382.2,
+   "quelle": "SL",
+   "closed_utc": "2026-11-25T15:03:42",
+   "r": -1.009,
+   "pct": -0.9988,
+   "pnl_eur": -5.05
+  }
+ ]
 }

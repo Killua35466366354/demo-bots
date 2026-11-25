@@ -12,19 +12,19 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,6 Trades, +0,17 R | 0 von 100 Demo-Trades, 20 von 61 Tagen |
 | 7 | Noise USD/JPY | labor | 12 | -0,18 | 0,42 | -1,58 | 7,4 Trades, +0,14 R | 12 von 100 Demo-Trades, 20 von 61 Tagen |
 | 8 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,7 Trades, +0,06 R | 1 von 100 Demo-Trades, 20 von 61 Tagen |
-| 9 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 4,0 Trades, +0,51 R | 1 von 100 Demo-Trades, 21 von 61 Tagen |
-| 10 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
-| 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
-| 12 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 4,1 Trades, +1,31 R | 1 von 100 Demo-Trades, 21 von 61 Tagen |
+| 9 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 10 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
+| 11 | Vortag GBP/USD | behalten | 2 | -2,00 | 0,00 | -8,99 | 4,0 Trades, +0,51 R | 2 von 100 Demo-Trades, 21 von 61 Tagen |
+| 12 | Vortag EUR/USD | behalten | 2 | -2,04 | 0,00 | -8,85 | 4,1 Trades, +1,31 R | 2 von 100 Demo-Trades, 21 von 61 Tagen |
 | 13 | Vortag GBP/JPY | behalten | 4 | -4,08 | 0,00 | -18,09 | – | – |
 
-**Kombi (6 Kern-Strategien auf einem Konto):** 6 Trades, -6,12 R, Gewinnfaktor 0,00, Soll bisher 10,2 Trades und +2,13 R. Aufstieg: 6 von 100 Demo-Trades, 21 von 61 Tagen.
+**Kombi (6 Kern-Strategien auf einem Konto):** 8 Trades, -8,12 R, Gewinnfaktor 0,00, Soll bisher 10,2 Trades und +2,13 R. Aufstieg: 8 von 100 Demo-Trades, 21 von 61 Tagen.
 
 | Monat | Kombi-Trades | Summe R | mit 1.000 € bei 1 % |
 |---|---|---|---|
-| 2026-11 | 6 | -6,12 | -61 € |
+| 2026-11 | 8 | -8,12 | -81 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 84 Trades, +39,89 R, Gewinnfaktor 2,13. Aufstieg: 84 von 100 Demo-Trades, 22 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 86 Trades, +37,89 R, Gewinnfaktor 2,02. Aufstieg: 86 von 100 Demo-Trades, 22 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades

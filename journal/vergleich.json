@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-25",
- "letzter_trade_utc": "2026-11-25T18:00:00",
+ "letzter_trade_utc": "2026-11-25T20:46:35.771331",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -311,48 +311,6 @@
    "rang": 8
   },
   {
-   "id": "r6-vortag-gbpusd",
-   "name": "Vortag GBP/USD",
-   "markt": "GBPUSD",
-   "gruppe": "behalten",
-   "aktiv": true,
-   "konto": "Vortag USDJPY",
-   "seit": "2026-11-04T12:02:20.662505",
-   "ist": {
-    "trades": 1,
-    "gewonnen": 0,
-    "treffer_pct": 0.0,
-    "summe_r": -1.0,
-    "pf_r": 0.0,
-    "eur": -3.37,
-    "rueckgang_r": 1.0
-   },
-   "soll": {
-    "wochen": 2.9,
-    "trades": 4.0,
-    "summe_r": 0.51
-   },
-   "abweichung_r": -1.51,
-   "bewertung": {
-    "rang": 9,
-    "pf": 1.215,
-    "eur_1000": 165.0,
-    "bestanden": true
-   },
-   "monate": {
-    "2026-11": {
-     "trades": 1,
-     "summe_r": -1.0,
-     "eur": -3.37
-    }
-   },
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "1 von 100 Demo-Trades, 21 von 61 Tagen"
-   },
-   "rang": 9
-  },
-  {
    "id": "r6-vortag-eurusd-1atr",
    "name": "Vortag EUR/USD 1 x ATR (Mess-Bot)",
    "markt": "EURUSD",
@@ -383,7 +341,7 @@
     "status": "messung",
     "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
    },
-   "rang": 10
+   "rang": 9
   },
   {
    "id": "gold-cb-long",
@@ -416,6 +374,48 @@
     "status": "messung",
     "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
    },
+   "rang": 10
+  },
+  {
+   "id": "r6-vortag-gbpusd",
+   "name": "Vortag GBP/USD",
+   "markt": "GBPUSD",
+   "gruppe": "behalten",
+   "aktiv": true,
+   "konto": "Vortag USDJPY",
+   "seit": "2026-11-04T12:02:20.662505",
+   "ist": {
+    "trades": 2,
+    "gewonnen": 0,
+    "treffer_pct": 0.0,
+    "summe_r": -2.0,
+    "pf_r": 0.0,
+    "eur": -8.99,
+    "rueckgang_r": 2.0
+   },
+   "soll": {
+    "wochen": 2.9,
+    "trades": 4.0,
+    "summe_r": 0.51
+   },
+   "abweichung_r": -2.51,
+   "bewertung": {
+    "rang": 9,
+    "pf": 1.215,
+    "eur_1000": 165.0,
+    "bestanden": true
+   },
+   "monate": {
+    "2026-11": {
+     "trades": 2,
+     "summe_r": -2.0,
+     "eur": -8.99
+    }
+   },
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "2 von 100 Demo-Trades, 21 von 61 Tagen"
+   },
    "rang": 11
   },
   {
@@ -427,20 +427,20 @@
    "konto": "Account 4",
    "seit": "2026-11-04T11:46:39.499621",
    "ist": {
-    "trades": 1,
+    "trades": 2,
     "gewonnen": 0,
     "treffer_pct": 0.0,
-    "summe_r": -1.04,
+    "summe_r": -2.04,
     "pf_r": 0.0,
-    "eur": -3.66,
-    "rueckgang_r": 1.04
+    "eur": -8.85,
+    "rueckgang_r": 2.04
    },
    "soll": {
     "wochen": 2.9,
     "trades": 4.1,
     "summe_r": 1.31
    },
-   "abweichung_r": -2.35,
+   "abweichung_r": -3.35,
    "bewertung": {
     "rang": 4,
     "pf": 1.671,
@@ -449,14 +449,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 1,
-     "summe_r": -1.04,
-     "eur": -3.66
+     "trades": 2,
+     "summe_r": -2.04,
+     "eur": -8.85
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "1 von 100 Demo-Trades, 21 von 61 Tagen"
+    "text": "2 von 100 Demo-Trades, 21 von 61 Tagen"
    },
    "rang": 12
   },
@@ -507,19 +507,19 @@
   ],
   "draussen": [],
   "ist": {
-   "trades": 6,
+   "trades": 8,
    "gewonnen": 0,
    "treffer_pct": 0.0,
-   "summe_r": -6.12,
+   "summe_r": -8.12,
    "pf_r": 0.0,
-   "eur": -25.12,
-   "rueckgang_r": 6.12
+   "eur": -35.93,
+   "rueckgang_r": 8.12
   },
   "monate": {
    "2026-11": {
-    "trades": 6,
-    "summe_r": -6.12,
-    "eur": -25.12
+    "trades": 8,
+    "summe_r": -8.12,
+    "eur": -35.93
    }
   },
   "soll": {
@@ -528,7 +528,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "6 von 100 Demo-Trades, 21 von 61 Tagen"
+   "text": "8 von 100 Demo-Trades, 21 von 61 Tagen"
   }
  },
  "gruppe": {
@@ -560,34 +560,34 @@
    }
   ],
   "ist": {
-   "trades": 84,
+   "trades": 86,
    "gewonnen": 42,
-   "treffer_pct": 50.0,
-   "summe_r": 39.89,
-   "pf_r": 2.13,
-   "eur": 336.99,
+   "treffer_pct": 48.8,
+   "summe_r": 37.89,
+   "pf_r": 2.02,
+   "eur": 326.18,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 84,
-    "summe_r": 39.9,
-    "eur": 336.99
+    "trades": 86,
+    "summe_r": 37.9,
+    "eur": 326.18
    }
   },
   "bestes": "gold",
   "ohne_bestes": {
-   "trades": 23,
+   "trades": 25,
    "gewonnen": 6,
-   "treffer_pct": 26.1,
-   "summe_r": -10.0,
+   "treffer_pct": 24.0,
+   "summe_r": -12.0,
    "pf_r": 0.04,
-   "eur": -42.12,
-   "rueckgang_r": 10.05
+   "eur": -52.93,
+   "rueckgang_r": 12.05
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "84 von 100 Demo-Trades, 22 von 61 Tagen"
+   "text": "86 von 100 Demo-Trades, 22 von 61 Tagen"
   }
  },
  "wunsch": [

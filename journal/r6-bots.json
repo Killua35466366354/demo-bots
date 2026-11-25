@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-25T20:31:38.965024",
+ "stand_utc": "2026-11-25T20:46:35.771331",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T20:31:38.965024",
+    "zeit": "2026-11-25T20:46:35.771331",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T20:31:38.965024",
+    "zeit": "2026-11-25T20:46:35.771331",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -988,35 +988,13 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1002.04,
+   "kontostand": 998.26,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
-   "status": "Position offen",
-   "offen": {
-    "dealId": "00000000-76f0-107a-049c-701e0015549e",
-    "side": 1,
-    "tag": "2026-11-25",
-    "signal_bar": null,
-    "einstieg_kerze": "2026-11-25 17:00:00",
-    "entry": 1.09807,
-    "marke": 1.098,
-    "order_level": 1.09807,
-    "stop_level": 1.09769,
-    "ziel_level": 1.1001,
-    "size": 15000,
-    "lot": 1.0,
-    "currency": "USD",
-    "eur_rate": 1.097935,
-    "opened_utc": "2026-11-25 17:00:04.587000",
-    "konto_kurz": "…1790",
-    "rutschen_pips": 0.0
-   },
+   "status": "wartet auf das nächste Signal",
+   "offen": null,
    "orders": null,
-   "position": {
-    "upl": -1.37,
-    "stop": 1.09769,
-    "ziel": 1.1001
-   },
+   "position": null,
    "letzte_entscheidung": {
     "zeit": "2026-11-25T20:31:38.965024",
     "action": "none",
@@ -1025,11 +1003,11 @@
     ]
    },
    "zusammenfassung": {
-    "trades": 1,
+    "trades": 2,
     "treffer_pct": 0.0,
     "pf": 0.0,
-    "summe_pct": -0.024,
-    "pnl_eur": -3.66
+    "summe_pct": -0.059,
+    "pnl_eur": -8.85
    },
    "letzte_trades": [
     {
@@ -1061,6 +1039,35 @@
      "uebernommen": false,
      "nachgeholt": false,
      "einstieg_geschaetzt": true
+    },
+    {
+     "bot": "r6-vortag-eurusd",
+     "strategie": "vortag_stop_oco",
+     "epic": "EURUSD",
+     "side": "long",
+     "dealId": "00000000-76f0-107a-049c-701e0015549e",
+     "tag": "2026-11-25",
+     "einstieg_kerze": "2026-11-25 17:00:00",
+     "signal_bar": null,
+     "size": 15000,
+     "entry": 1.09807,
+     "exit": 1.09769,
+     "stop_level": 1.09769,
+     "ziel_level": 1.1001,
+     "notstop": false,
+     "opened_utc": "2026-11-25 17:00:04.587000",
+     "closed_utc": "2026-11-25T20:46:35.771331",
+     "reason": "Stop beim Broker",
+     "pct": -0.0346,
+     "r": -1.0,
+     "pnl": -5.7,
+     "waehrung": "USD",
+     "pnl_eur": -5.19,
+     "geschaetzt": false,
+     "rutschen_pips": 0.0,
+     "konto": "…1790",
+     "uebernommen": false,
+     "nachgeholt": false
     }
    ],
    "zwilling": {
@@ -1220,35 +1227,13 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 993.41,
+   "kontostand": 989.32,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
-   "status": "Position offen",
-   "offen": {
-    "dealId": "00000000-76b4-4e3a-049c-a8a80015549e",
-    "side": 1,
-    "tag": "2026-11-25",
-    "signal_bar": null,
-    "einstieg_kerze": "2026-11-25 18:15:00",
-    "entry": 1.31247,
-    "marke": 1.31234,
-    "order_level": 1.31247,
-    "stop_level": 1.31196,
-    "ziel_level": 1.31475,
-    "size": 12100,
-    "lot": 1.0,
-    "currency": "USD",
-    "eur_rate": 1.099025,
-    "opened_utc": "2026-11-25 18:16:06.144000",
-    "konto_kurz": "…4094",
-    "rutschen_pips": 0.0
-   },
+   "status": "wartet auf das nächste Signal",
+   "offen": null,
    "orders": null,
-   "position": {
-    "upl": -0.88,
-    "stop": 1.31196,
-    "ziel": 1.31475
-   },
+   "position": null,
    "letzte_entscheidung": {
     "zeit": "2026-11-25T20:31:38.965024",
     "action": "none",
@@ -1257,11 +1242,11 @@
     ]
    },
    "zusammenfassung": {
-    "trades": 1,
+    "trades": 2,
     "treffer_pct": 0.0,
     "pf": 0.0,
-    "summe_pct": -0.022,
-    "pnl_eur": -3.37
+    "summe_pct": -0.061,
+    "pnl_eur": -8.99
    },
    "letzte_trades": [
     {
@@ -1289,6 +1274,35 @@
      "pnl_eur": -3.37,
      "geschaetzt": false,
      "rutschen_pips": 0.1,
+     "konto": "…4094",
+     "uebernommen": false,
+     "nachgeholt": false
+    },
+    {
+     "bot": "r6-vortag-gbpusd",
+     "strategie": "vortag_stop_oco",
+     "epic": "GBPUSD",
+     "side": "long",
+     "dealId": "00000000-76b4-4e3a-049c-a8a80015549e",
+     "tag": "2026-11-25",
+     "einstieg_kerze": "2026-11-25 18:15:00",
+     "signal_bar": null,
+     "size": 12100,
+     "entry": 1.31247,
+     "exit": 1.31196,
+     "stop_level": 1.31196,
+     "ziel_level": 1.31475,
+     "notstop": false,
+     "opened_utc": "2026-11-25 18:16:06.144000",
+     "closed_utc": "2026-11-25T20:46:35.771331",
+     "reason": "Stop beim Broker",
+     "pct": -0.0389,
+     "r": -1.0,
+     "pnl": -6.171,
+     "waehrung": "USD",
+     "pnl_eur": -5.62,
+     "geschaetzt": false,
+     "rutschen_pips": 0.0,
      "konto": "…4094",
      "uebernommen": false,
      "nachgeholt": false
@@ -1804,7 +1818,7 @@
    "konto_vorschlag": "Account 2 (Mess-Bot)",
    "konto": "…2606",
    "konto_name": "Account 2",
-   "kontostand": 976.94,
+   "kontostand": 971.85,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-05T17:32:02.353890",
    "status": "Position offen",
@@ -1829,12 +1843,12 @@
    },
    "orders": null,
    "position": {
-    "upl": -1.07,
+    "upl": -6.29,
     "stop": 1.09739,
     "ziel": 1.1001
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T20:31:38.965024",
+    "zeit": "2026-11-25T20:46:35.771331",
     "action": "none",
     "why": [
      "Position offen"

@@ -39,3 +39,5 @@
 {"time": "2026-11-24T22:08:51", "event": "keine neue Order", "gruende": ["Markt gerade nicht handelbar"]}
 {"time": "2026-11-25T03:08:46", "event": "Plan neu", "kerzen_4h": 318, "atr_4h": 43.96, "wartend": []}
 {"time": "2026-11-25T03:08:46", "event": "Order gelöscht", "zone": "U2026111700", "seite": "Verkauf", "linie": 3832.2, "warum": "Zone gilt nicht mehr oder ist nicht mehr die nächste"}
+{"time": "2026-11-25T15:08:37", "event": "Plan neu", "kerzen_4h": 318, "atr_4h": 45.51, "wartend": [{"zone": "U2026112312", "seite": "Verkauf", "linie": 3502.68, "stop": 3546.4, "rest": 30, "beruehrt": false}]}
+{"time": "2026-11-25T15:08:37", "event": "Order gelegt", "zone": "U2026112312", "seite": "Verkauf", "linie": 3502.68, "stop": 3546.4, "ziel": 3065.48, "size": 0.12, "risiko_usd": 43.72, "dealId": "00000000-76ee-6f35-049c-701a0015549e", "gilt_bis": "2026-11-27T21:45:00"}

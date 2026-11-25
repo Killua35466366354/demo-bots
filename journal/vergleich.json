@@ -560,34 +560,34 @@
    }
   ],
   "ist": {
-   "trades": 79,
+   "trades": 80,
    "gewonnen": 39,
-   "treffer_pct": 49.4,
-   "summe_r": 37.1,
-   "pf_r": 2.12,
-   "eur": 324.98,
+   "treffer_pct": 48.8,
+   "summe_r": 36.09,
+   "pf_r": 2.06,
+   "eur": 319.93,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 79,
-    "summe_r": 37.11,
-    "eur": 324.98
+    "trades": 80,
+    "summe_r": 36.1,
+    "eur": 319.93
    }
   },
   "bestes": "gold",
   "ohne_bestes": {
-   "trades": 22,
+   "trades": 23,
    "gewonnen": 6,
-   "treffer_pct": 27.3,
-   "summe_r": -8.99,
-   "pf_r": 0.05,
-   "eur": -37.07,
-   "rueckgang_r": 9.05
+   "treffer_pct": 26.1,
+   "summe_r": -10.0,
+   "pf_r": 0.04,
+   "eur": -42.12,
+   "rueckgang_r": 10.05
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "79 von 100 Demo-Trades, 22 von 61 Tagen"
+   "text": "80 von 100 Demo-Trades, 22 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -598,13 +598,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 0,
+    "trades": 1,
     "gewonnen": 0,
-    "treffer_pct": null,
-    "summe_r": 0,
-    "pf_r": null,
-    "eur": 0,
-    "rueckgang_r": 0.0
+    "treffer_pct": 0.0,
+    "summe_r": -1.01,
+    "pf_r": 0.0,
+    "eur": -5.05,
+    "rueckgang_r": 1.01
    },
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
@@ -612,7 +612,7 @@
    "test": "PF 2,06, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,11, schlägt 99 % der Zufallsläufe",
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 15 von 61 Tagen"
+    "text": "1 von 100 Demo-Trades, 15 von 61 Tagen"
    }
   },
   {

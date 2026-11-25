@@ -1,20 +1,10 @@
 {
- "peak_eur": 1162.78,
+ "peak_eur": 1175.77,
  "day": "2026-11-25",
  "day_start_eur": 1066.9,
  "week": "2026-11-23",
  "week_start_eur": 1088.22,
- "last_bar": "2026-11-25 04:00:00",
- "open_trade": {
-  "side": "short",
-  "direction": "SELL",
-  "entry": 3656.03,
-  "size": 0.91,
-  "stop": 3681.3,
-  "dealId": "00000000-7615-e6e1-049b-eb710015549e",
-  "opened_utc": "2026-11-23T18:11:38.387",
-  "upl": 92.19,
-  "bar": "2026-11-23 17:00:00"
- },
+ "last_bar": "2026-11-25 05:00:00",
+ "open_trade": null,
  "schalter_pause": null
 }

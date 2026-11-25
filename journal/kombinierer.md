@@ -24,3 +24,15 @@ Ein Konto, ein Topf von 1.000 €, jeder Trade riskiert 10 € (1 R). Die Regeln
 | Kontoregeln mit Margin-Ampel 30 % | 0 von 6 | zu wenig Margin frei 6 | 0 € | 0 € | 0 € (0,0 %) | – |
 | mit Margin-Ampel 50 % (nur Vergleich) | 0 von 6 | zu wenig Margin frei 6 | 0 € | 0 € | 0 € (0,0 %) | – |
 
+## Gold-Duo doppelt (Zählung ohne Order)
+
+Das Gold-Duo mit doppeltem Einsatz wartet auf den ersten gezählten Trade seit dem 25.11.2026. Die Trades vom November davor zählen nicht.
+
+Gold-Bot C/B und Pine-K5 zusammen auf einem gedachten Konto mit 1.000 €, jeder Trade mit der doppelten Größe des Demo-Trades. Gezählt wird ab dem 25.11.2026 um 08.00 Uhr UTC. Ein Trade zählt nur, wenn sein Sicherheitsgeld noch auf das Konto passt. Liegt das Konto 30 % unter seinem Höchststand, ist die Zählung beendet. Die Regeln stehen in suche/VORAB_gold_duo_doppelt.yaml. Nur Demokonten, nur Auskunft, kein Bot liest diese Zahlen.
+
+| Trades gezählt | verpasst | noch offen | Summe | Kontostand | größter Rückgang | größtes Sicherheitsgeld | Gewinnfaktor | Tage | Urteil |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | – | 0 | 0 € | 1.000 € | 0 € | 0 € | – | 0 von 61 | sammelt |
+
+Stand des Urteils. 0 von 100 Trades, 0 von 61 Tagen.
+

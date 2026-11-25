@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-25T19:31:37.436350",
+ "stand_utc": "2026-11-25T19:46:35.629411",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T19:31:37.436350",
+    "zeit": "2026-11-25T19:46:35.629411",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T19:31:37.436350",
+    "zeit": "2026-11-25T19:46:35.629411",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -988,7 +988,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1010.02,
+   "kontostand": 1005.75,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "Position offen",
@@ -1013,12 +1013,12 @@
    },
    "orders": null,
    "position": {
-    "upl": 6.01,
+    "upl": 1.78,
     "stop": 1.09769,
     "ziel": 1.1001
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T19:31:37.436350",
+    "zeit": "2026-11-25T19:46:35.629411",
     "action": "none",
     "why": [
      "Position offen"
@@ -1220,7 +1220,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 1003.45,
+   "kontostand": 1004.17,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "Position offen",
@@ -1245,12 +1245,12 @@
    },
    "orders": null,
    "position": {
-    "upl": 3.97,
+    "upl": 0.11,
     "stop": 1.31196,
     "ziel": 1.31475
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T19:31:37.436350",
+    "zeit": "2026-11-25T19:46:35.629411",
     "action": "none",
     "why": [
      "Position offen"
@@ -1804,7 +1804,7 @@
    "konto_vorschlag": "Account 2 (Mess-Bot)",
    "konto": "…2606",
    "konto_name": "Account 2",
-   "kontostand": 984.03,
+   "kontostand": 979.62,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-05T17:32:02.353890",
    "status": "Position offen",
@@ -1829,12 +1829,12 @@
    },
    "orders": null,
    "position": {
-    "upl": 5.89,
+    "upl": 1.74,
     "stop": 1.09739,
     "ziel": 1.1001
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T19:31:37.436350",
+    "zeit": "2026-11-25T19:46:35.629411",
     "action": "none",
     "why": [
      "Position offen"

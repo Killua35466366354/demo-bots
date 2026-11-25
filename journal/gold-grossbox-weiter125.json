@@ -3,7 +3,7 @@
  "name": "Gold Groß-Box, Stop 1,25-fach (Schatten-Zwilling)",
  "konto": "Schatten (keine Order)",
  "original": "gold-grossbox",
- "stand": "2026-11-25T17:11:34+00:00",
+ "stand": "2026-11-25T18:11:35+00:00",
  "start": "2026-11-20T00:00:00",
  "status": "rechnet mit",
  "regel": "Wie die Groß-Box (große Box aus 1-Std.-SuperTrend und 4-Std.-Strukturbruch, Einstiege nur in Boxrichtung, höchstens 3 offen, ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box), nur der Stop ist 1,25-mal so weit weg. Schatten ohne Order.",
@@ -30,7 +30,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.986,
+   "ergebnis_r": 1.456,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -54,7 +54,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 2.488,
+   "ergebnis_r": 1.734,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -78,7 +78,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.815,
+   "ergebnis_r": 1.022,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -101,9 +101,9 @@
    "summe_r": -1.8
   },
   "original": {
-   "trades": 3,
-   "pf": 2.795,
-   "summe_r": 3.6
+   "trades": 6,
+   "pf": 5.188,
+   "summe_r": 8.4
   }
  },
  "letzte_trades": [

@@ -1,6 +1,6 @@
 # Kombinierer, Stand 2026-11-25
 
-Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +409 € nach 83 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 37 davon genommen und +76 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 31 Trades und +124 € gewesen.
+Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +399 € nach 84 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 37 davon genommen und +76 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 31 Trades und +124 € gewesen.
 
 Ein Konto, ein Topf von 1.000 €, jeder Trade riskiert 10 € (1 R). Die Regeln stehen in suche/VORAB_schatten.yaml und suche/VORAB_kombinierer_margin.yaml (Margin-Ampel). Margin ist das Sicherheitsgeld, das der Broker für offene Trades festhält. Nur Demokonten, nur Auskunft, kein Bot liest diese Datei.
 
@@ -8,11 +8,11 @@ Ein Konto, ein Topf von 1.000 €, jeder Trade riskiert 10 € (1 R). Die Regeln
 
 | Regeln | Trades genommen | verpasst | Summe | größter Rückgang | Schnitt je Monat | größte Margin |
 |---|---|---|---|---|---|---|
-| ohne Grenzen | 83 von 83 | – | +409 € | −135 € | +409 € (40,9 %) | 3.519 € |
-| Regeln eines echten Kontos | 37 von 83 | schon genug offen 2, Markt schon belegt 42, Tagesstopp 2 | +76 € | −87 € | +76 € (7,6 %) | 1.722 € |
-| weitere Kontoregeln (nur Vergleich) | 52 von 83 | Markt schon belegt 25, Tagesstopp 6 | +73 € | −105 € | +73 € (7,3 %) | 3.262 € |
-| Kontoregeln mit Margin-Ampel 30 % | 31 von 83 | Markt schon belegt 43, zu wenig Margin frei 7, Tagesstopp 2 | +124 € | −57 € | +124 € (12,4 %) | 260 € |
-| mit Margin-Ampel 50 % (nur Vergleich) | 32 von 83 | Markt schon belegt 43, zu wenig Margin frei 6, Tagesstopp 2 | +127 € | −57 € | +127 € (12,8 %) | 306 € |
+| ohne Grenzen | 84 von 84 | – | +399 € | −135 € | +399 € (39,9 %) | 3.519 € |
+| Regeln eines echten Kontos | 37 von 84 | schon genug offen 2, Markt schon belegt 43, Tagesstopp 2 | +76 € | −87 € | +76 € (7,6 %) | 1.722 € |
+| weitere Kontoregeln (nur Vergleich) | 53 von 84 | Markt schon belegt 25, Tagesstopp 6 | +63 € | −105 € | +63 € (6,3 %) | 3.262 € |
+| Kontoregeln mit Margin-Ampel 30 % | 31 von 84 | Markt schon belegt 44, zu wenig Margin frei 7, Tagesstopp 2 | +124 € | −57 € | +124 € (12,4 %) | 260 € |
+| mit Margin-Ampel 50 % (nur Vergleich) | 32 von 84 | Markt schon belegt 44, zu wenig Margin frei 6, Tagesstopp 2 | +127 € | −57 € | +127 € (12,8 %) | 306 € |
 
 ## Kern-Kombi
 

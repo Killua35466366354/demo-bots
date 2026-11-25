@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 6 | -6,12 | -61 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 83 Trades, +40,89 R, Gewinnfaktor 2,20. Aufstieg: 83 von 100 Demo-Trades, 22 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 84 Trades, +39,89 R, Gewinnfaktor 2,13. Aufstieg: 84 von 100 Demo-Trades, 22 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
@@ -38,7 +38,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Nikkei letzte halbe Stunde | Account 1 | 2026-11-10 | 5 | -0,55 % | 0,06 | -0,17 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_scalping_opens.yaml | 5 von 100 Demo-Trades, 15 von 61 Tagen |
 | Gold-Staffel | Account 1 | 2026-11-10 | 3 | +0,60 R | 2,11 | +13,19 | Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades | suche/VORAB_gold_staffel.yaml | 3 von 100 Demo-Trades, 15 von 61 Tagen |
 | Gold Groß-Box | Account 6 | 2026-11-10 | 13 | +11,44 R | 3,28 | +49,96 | läuft (13 von 40 Trades) | suche/VORAB_gold_grossbox.yaml | 13 von 100 Demo-Trades, 15 von 61 Tagen |
-| Gold-Zonen Bruch | Account 2 | 2026-11-11 | 2 | -2,00 R | 0,00 | -9,79 | läuft (2 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml | 2 von 100 Demo-Trades, 14 von 61 Tagen |
+| Gold-Zonen Bruch | Account 2 | 2026-11-11 | 3 | -3,01 R | 0,00 | -14,57 | läuft (3 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml | 3 von 100 Demo-Trades, 14 von 61 Tagen |
 | Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 4 | +2,20 R | 25,19 | +10,12 | läuft (4 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml | 4 von 100 Demo-Trades, 13 von 61 Tagen |
 | 4-Std.-Ausbruch DAX, FTSE, Nikkei | Account 7 | 2026-11-19 | 1 | -0,28 R | 0,00 | -1,39 | läuft (1 von 40 Trades) | suche/VORAB_welt_ausbruch4h_bot.yaml | 1 von 100 Demo-Trades, 6 von 61 Tagen |
 | Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 4 | +1,78 R | 1,83 | +9,03 | läuft (4 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 4 von 100 Demo-Trades, 5 von 61 Tagen |

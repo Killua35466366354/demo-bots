@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-25T21:16:37.332281",
+ "stand_utc": "2026-11-25T21:31:35.844603",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T21:16:37.332281",
+    "zeit": "2026-11-25T21:31:35.844603",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T21:16:37.332281",
+    "zeit": "2026-11-25T21:31:35.844603",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -988,7 +988,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 998.21,
+   "kontostand": 998.1,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -996,7 +996,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T21:16:37.332281",
+    "zeit": "2026-11-25T21:31:35.844603",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1228,7 +1228,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 988.66,
+   "kontostand": 987.45,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1236,7 +1236,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T21:16:37.332281",
+    "zeit": "2026-11-25T21:31:35.844603",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -1828,11 +1828,12 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T21:01:35.389774",
+    "zeit": "2026-11-25T21:31:35.844603",
     "action": "none",
     "why": [
-     "Position offen"
-    ]
+     "heute erledigt"
+    ],
+    "bar": null
    },
    "zusammenfassung": {
     "trades": 2,

@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-25T15:31:42.166060",
+ "stand_utc": "2026-11-25T16:01:37.555983",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -209,7 +209,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1092.23,
+   "kontostand": 1091.82,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T15:31:42.166060",
+    "zeit": "2026-11-25T16:01:37.555983",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T15:31:42.166060",
+    "zeit": "2026-11-25T16:01:37.555983",
     "action": "none",
     "why": [
      "kein Signal"
@@ -950,7 +950,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1006.94,
+   "kontostand": 1006.89,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "Stop-Orders liegen",
@@ -986,7 +986,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T15:31:42.166060",
+    "zeit": "2026-11-25T16:01:37.555983",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1188,7 +1188,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 1039.05,
+   "kontostand": 1038.73,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "Stop-Orders liegen",
@@ -1224,7 +1224,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T15:31:42.166060",
+    "zeit": "2026-11-25T16:01:37.555983",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1814,7 +1814,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T15:31:42.166060",
+    "zeit": "2026-11-25T16:01:37.555983",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

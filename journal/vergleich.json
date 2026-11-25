@@ -646,13 +646,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 4,
+    "trades": 5,
     "gewonnen": 1,
-    "treffer_pct": 25.0,
+    "treffer_pct": 20.0,
     "summe_r": -0.55,
     "pf_r": 0.06,
     "eur": -0.17,
-    "rueckgang_r": 0.58
+    "rueckgang_r": 0.59
    },
    "einheit": "%",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
@@ -660,7 +660,7 @@
    "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe",
    "aufstieg": {
     "status": "sammelt",
-    "text": "4 von 100 Demo-Trades, 15 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 15 von 61 Tagen"
    }
   },
   {

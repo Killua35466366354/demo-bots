@@ -158,3 +158,4 @@
 {"time": "2026-11-25T15:16:34.171581", "bot": "r6-vortag-eurusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
 {"time": "2026-11-25T17:01:50.341473", "bot": "r6-vortag-eurusd", "event": "Stop-Order ausgelöst", "side": "long", "entry": 1.09807, "order": 1.09807, "rutschen_pips": 0.0, "dealId": "00000000-76f0-107a-049c-701e0015549e"}
 {"time": "2026-11-25T17:01:50.341473", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Order ausgelöst", "side": "long", "entry": 1.09807, "order": 1.09807, "rutschen_pips": 0.0, "dealId": "00000000-76f0-1074-049c-701a0015549e"}
+{"time": "2026-11-25T17:16:45.253583", "bot": "r6-vortag-eurusd-1atr", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}

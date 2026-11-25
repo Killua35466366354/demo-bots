@@ -1,24 +1,13 @@
 {
  "format": 1,
- "offen": {
-  "dealId": "00000000-7683-7d9d-049c-70190015549e",
-  "richtung": 1,
-  "size": 0.1,
-  "entry": 57087.9,
-  "stop": null,
-  "ziel": null,
-  "dist": null,
-  "opened_utc": "2026-11-25T06:03:39",
-  "aus_utc": "2026-11-25T06:30:00",
-  "tag": "2026-11-25"
- },
+ "offen": null,
  "tag_erledigt": "2026-11-25",
  "opens": {
   "woche:2026W48": 55097.3
  },
- "trades": 4,
+ "trades": 5,
  "summe_r": 0.0,
- "summe_pct": -0.546,
+ "summe_pct": -0.5548,
  "summe_eur": -0.17,
  "letzte_entscheidung": {
   "zeit": "2026-11-25T06:03:39",
@@ -30,6 +19,6 @@
   },
   "kurs_filter": 57040.4
  },
- "stand": "2026-11-25T06:03:39",
+ "stand": "2026-11-25T06:33:36",
  "start": "2026-11-10T12:43:38"
 }

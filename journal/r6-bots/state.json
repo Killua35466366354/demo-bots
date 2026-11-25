@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,7 +24,7 @@
   },
   "r6-london-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "konto_id": "332263759556203678",
    "konto": "…3678",
    "konto_name": "Account 6",
@@ -33,7 +33,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T18:16:38.040717",
+    "zeit": "2026-11-25T18:31:38.293616",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -46,7 +46,7 @@
   },
   "r6-noise-usdjpy": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "konto_id": "332264120333456542",
    "konto": "…6542",
    "konto_name": "Account 7",
@@ -97,7 +97,7 @@
     "vortag_schluss": 159.147
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T18:16:38.040717",
+    "zeit": "2026-11-25T18:31:38.293616",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -116,16 +116,16 @@
   },
   "r6-vortag-eurusd": {
    "status": "Position offen",
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
-   "kontostand": 1017.03,
+   "kontostand": 1012.44,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T18:16:38.040717",
+    "zeit": "2026-11-25T18:31:38.293616",
     "action": "none",
     "why": [
      "Position offen"
@@ -133,7 +133,7 @@
    },
    "tag_erledigt": "2026-11-25",
    "position": {
-    "upl": 12.97,
+    "upl": 7.78,
     "stop": 1.09769,
     "ziel": 1.1001
    },
@@ -170,16 +170,16 @@
   },
   "r6-vortag-gbpusd": {
    "status": "Position offen",
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 1008.4,
+   "kontostand": 1008.58,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T18:16:38.040717",
+    "zeit": "2026-11-25T18:31:38.293616",
     "action": "none",
     "why": [
      "Position offen"
@@ -187,7 +187,7 @@
    },
    "tag_erledigt": "2026-11-25",
    "position": {
-    "upl": 1.65,
+    "upl": 2.64,
     "stop": 1.31196,
     "ziel": 1.31475
    },
@@ -249,7 +249,7 @@
    "orders": null,
    "status": "beendet am 22.11.2026 (Kirons Wort: größtes Minus nach Pine-Gold TP 3, 4 Trades alle am Stop, -18,09 Euro Spielgeld); Konto freigegeben",
    "position": null,
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "tag_erledigt": "2026-11-20",
    "nachgeprueft": [
     "2026-11-05"
@@ -261,12 +261,12 @@
    "konto_id": "332263729491432606",
    "konto": "…2606",
    "konto_name": "Account 2",
-   "kontostand": 991.87,
+   "kontostand": 987.09,
    "waehrung": "EUR",
    "start_utc": "2026-11-05T17:32:02.353890",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T18:16:38.040717",
+    "zeit": "2026-11-25T18:31:38.293616",
     "action": "none",
     "why": [
      "Position offen"
@@ -282,11 +282,11 @@
    "orders": null,
    "status": "Position offen",
    "position": {
-    "upl": 12.57,
+    "upl": 7.89,
     "stop": 1.09739,
     "ziel": 1.1001
    },
-   "stand_utc": "2026-11-25T18:16:38.040717",
+   "stand_utc": "2026-11-25T18:31:38.293616",
    "tag_erledigt": "2026-11-25",
    "fremd": [
     "GOLD"
@@ -451,5 +451,5 @@
    }
   }
  },
- "stand_utc": "2026-11-25T18:16:38.040717"
+ "stand_utc": "2026-11-25T18:31:38.293616"
 }

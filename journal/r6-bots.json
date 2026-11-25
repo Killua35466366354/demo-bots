@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-25T01:01:51.048398",
+ "stand_utc": "2026-11-25T01:16:40.846533",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -209,7 +209,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1062.39,
+   "kontostand": 1066.57,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -217,7 +217,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T01:01:51.048398",
+    "zeit": "2026-11-25T01:16:40.846533",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -383,7 +383,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T01:01:51.048398",
+    "zeit": "2026-11-25T01:16:40.846533",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -958,7 +958,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T01:01:51.048398",
+    "zeit": "2026-11-25T01:16:40.846533",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1161,7 +1161,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 1010.14,
+   "kontostand": 1013.55,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1169,7 +1169,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T01:01:51.048398",
+    "zeit": "2026-11-25T01:16:40.846533",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1732,7 +1732,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-25T01:01:51.048398",
+    "zeit": "2026-11-25T01:16:40.846533",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

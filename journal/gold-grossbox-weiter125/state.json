@@ -78,7 +78,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.044,
+   "ergebnis_r": 1.074,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -102,7 +102,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 1.149,
+   "ergebnis_r": 1.192,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -119,14 +119,14 @@
    "tp3": null,
    "r_usd": 39.48,
    "teile": [],
-   "ergebnis_r": 0.111,
+   "ergebnis_r": 0.179,
    "grund": "offen",
    "ende": null,
    "offen": true
   }
  ],
- "letzte_kerze": "2026-11-24 23:45:00",
- "stand": "2026-11-25T00:11:34+00:00",
+ "letzte_kerze": "2026-11-25 00:45:00",
+ "stand": "2026-11-25T01:11:43+00:00",
  "summe_r": -1.803,
  "zwilling": {
   "status": "sammelt",

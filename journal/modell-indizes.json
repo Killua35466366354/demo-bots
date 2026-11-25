@@ -2,10 +2,10 @@
  "bot": "modell-indizes",
  "name": "Vorhersage-Modell Indizes (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 6",
- "stand": "2026-11-24T23:16:56",
+ "stand": "2026-11-25T23:17:05",
  "start": "2026-11-20T13:18:01",
  "pausiert": null,
- "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-25): noch nicht veröffentlicht: VIXCLS vom 2026-11-24, kein Einstieg",
+ "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-26): noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
  "regel": "Vorhersage-Modell auf US500, US100, DAX, FTSE 100 und Nikkei 225 (Fassung modell_indizes): Eine logistische Regression schätzt aus Kursen des Vortags, VIX und US-Renditen, ob der Index bis 15:55 New York steigt. Ab 54 % Kauf, bis 46 % Verkauf, Einstieg ab 18:00 New York, Stop 2 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_modell_indizes_bot.yaml",
@@ -20,19 +20,19 @@
  "offen": [],
  "ausgelassen": {
   "SPXUSD": {
-   "fremd_alt": 2
+   "fremd_alt": 3
   },
   "NSXUSD": {
-   "fremd_alt": 2
+   "fremd_alt": 3
   },
   "GRXEUR": {
-   "fremd_alt": 2
+   "fremd_alt": 3
   },
   "UKXGBP": {
-   "fremd_alt": 2
+   "fremd_alt": 3
   },
   "JPXJPY": {
-   "fremd_alt": 2
+   "fremd_alt": 3
   }
  },
  "zusammenfassung": {
@@ -198,157 +198,157 @@
   }
  ],
  "blick": {
-  "naechster_einstieg_utc": "2026-11-25 23:00:00",
+  "naechster_einstieg_utc": "2026-11-26 23:00:00",
   "maerkte": {
    "SPXUSD": {
     "epic": "US500",
     "letzte_pruefung": {
-     "tag": "2026-11-25",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-24, kein Einstieg",
+     "tag": "2026-11-26",
+     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-23",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-24",
+       "erwartet": "2026-11-25",
        "frisch": false
       },
       "VXVCLS": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS10": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS2": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       }
      }
     },
-    "kurs": 7196.9
+    "kurs": 7183.5
    },
    "NSXUSD": {
     "epic": "US100",
     "letzte_pruefung": {
-     "tag": "2026-11-25",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-24, kein Einstieg",
+     "tag": "2026-11-26",
+     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-23",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-24",
+       "erwartet": "2026-11-25",
        "frisch": false
       },
       "VXVCLS": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS10": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS2": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       }
      }
     },
-    "kurs": 26203.0
+    "kurs": 25997.5
    },
    "GRXEUR": {
     "epic": "DE40",
     "letzte_pruefung": {
-     "tag": "2026-11-25",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-24, kein Einstieg",
+     "tag": "2026-11-26",
+     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-23",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-24",
+       "erwartet": "2026-11-25",
        "frisch": false
       },
       "VXVCLS": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS10": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS2": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       }
      }
     },
-    "kurs": 25178.2
+    "kurs": 25131.9
    },
    "UKXGBP": {
     "epic": "UK100",
     "letzte_pruefung": {
-     "tag": "2026-11-25",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-24, kein Einstieg",
+     "tag": "2026-11-26",
+     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-23",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-24",
+       "erwartet": "2026-11-25",
        "frisch": false
       },
       "VXVCLS": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS10": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS2": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       }
      }
     },
-    "kurs": 10505.8
+    "kurs": 10554.7
    },
    "JPXJPY": {
     "epic": "J225",
     "letzte_pruefung": {
-     "tag": "2026-11-25",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-24, kein Einstieg",
+     "tag": "2026-11-26",
+     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-23",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-24",
+       "erwartet": "2026-11-25",
        "frisch": false
       },
       "VXVCLS": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS10": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       },
       "DGS2": {
-       "datum": "2026-11-24",
-       "erwartet": "2026-11-24",
+       "datum": "2026-11-25",
+       "erwartet": "2026-11-25",
        "frisch": true
       }
      }
     },
-    "kurs": 57389.9
+    "kurs": 57287.4
    }
   }
  }

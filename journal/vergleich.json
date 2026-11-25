@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-25",
- "letzter_trade_utc": "2026-11-25T20:46:35.771331",
+ "letzter_trade_utc": "2026-11-25T21:16:37.332281",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -311,39 +311,6 @@
    "rang": 8
   },
   {
-   "id": "r6-vortag-eurusd-1atr",
-   "name": "Vortag EUR/USD 1 x ATR (Mess-Bot)",
-   "markt": "EURUSD",
-   "gruppe": "messung",
-   "aktiv": true,
-   "konto": "Account 2",
-   "seit": "2026-11-05T17:31:33",
-   "ist": {
-    "trades": 1,
-    "gewonnen": 0,
-    "treffer_pct": 0.0,
-    "summe_r": -1.0,
-    "pf_r": 0.0,
-    "eur": -7.01,
-    "rueckgang_r": 1.0
-   },
-   "soll": null,
-   "abweichung_r": null,
-   "bewertung": null,
-   "monate": {
-    "2026-11": {
-     "trades": 1,
-     "summe_r": -1.0,
-     "eur": -7.01
-    }
-   },
-   "aufstieg": {
-    "status": "messung",
-    "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
-   },
-   "rang": 9
-  },
-  {
    "id": "gold-cb-long",
    "name": "Gold nur Long (Teil C)",
    "markt": "Gold",
@@ -374,7 +341,7 @@
     "status": "messung",
     "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
    },
-   "rang": 10
+   "rang": 9
   },
   {
    "id": "r6-vortag-gbpusd",
@@ -415,6 +382,39 @@
    "aufstieg": {
     "status": "sammelt",
     "text": "2 von 100 Demo-Trades, 21 von 61 Tagen"
+   },
+   "rang": 10
+  },
+  {
+   "id": "r6-vortag-eurusd-1atr",
+   "name": "Vortag EUR/USD 1 x ATR (Mess-Bot)",
+   "markt": "EURUSD",
+   "gruppe": "messung",
+   "aktiv": true,
+   "konto": "Account 2",
+   "seit": "2026-11-05T17:31:33",
+   "ist": {
+    "trades": 2,
+    "gewonnen": 0,
+    "treffer_pct": 0.0,
+    "summe_r": -2.0,
+    "pf_r": 0.0,
+    "eur": -16.12,
+    "rueckgang_r": 2.0
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": null,
+   "monate": {
+    "2026-11": {
+     "trades": 2,
+     "summe_r": -2.0,
+     "eur": -16.12
+    }
+   },
+   "aufstieg": {
+    "status": "messung",
+    "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
    },
    "rang": 11
   },

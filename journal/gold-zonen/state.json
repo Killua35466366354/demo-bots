@@ -35,21 +35,29 @@
    ]
   }
  },
- "orders": [
-  {
-   "name": "U2026112312",
-   "d": -1,
-   "linie": 3502.68,
-   "innen": 3535.02,
-   "stop": 3546.4,
-   "ziel": 3065.48,
-   "size": 0.12,
-   "dealId": "00000000-76ee-6f35-049c-701a0015549e",
-   "gelegt_utc": "2026-11-25T15:08:37",
-   "gilt_bis": "2026-11-27T21:45:00"
-  }
- ],
- "trade": null,
+ "orders": [],
+ "trade": {
+  "id": "2026-11-25T17:15",
+  "zone": "U2026112312",
+  "richtung": -1,
+  "linie": 3502.68,
+  "innen": 3535.02,
+  "dealId": "00000000-76f0-6859-049c-701a0015549e",
+  "size": 0.12,
+  "entry": 3502.75,
+  "stop_plan": 3546.4,
+  "stop": 3546.4,
+  "ziel": 3066.25,
+  "ziel_broker": 3066.25,
+  "r_usd": 43.65,
+  "opened_utc": "2026-11-25T17:15:36",
+  "fuellkerze": "2026-11-25 17:15:00",
+  "bestes": 3502.44,
+  "einstand": null,
+  "luecke": false,
+  "ziel_r": 10.0,
+  "gesehen_bis": "2026-11-25T17:23:35"
+ },
  "verbraucht": {
   "U2026110404": {
    "zeit": "2026-11-13T01:18:37",
@@ -62,11 +70,17 @@
   "U2026110216": {
    "zeit": "2026-11-16T10:58:45",
    "grund": "gehandelt"
+  },
+  "U2026112312": {
+   "zeit": "2026-11-25T17:23:35",
+   "grund": "gehandelt"
   }
  },
  "versuche": {},
- "keine_order": [],
- "stand": "2026-11-25T17:08:45",
+ "keine_order": [
+  "ein Trade ist offen"
+ ],
+ "stand": "2026-11-25T17:23:35",
  "letzte_deals": [
   "00000000-73b5-75fa-049c-701a0015549e",
   "00000000-72df-3ed0-049c-701a0015549e"

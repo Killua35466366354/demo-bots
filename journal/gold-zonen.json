@@ -2,7 +2,7 @@
  "bot": "gold-zonen",
  "name": "Gold-Zonen Bruch (Rollenwechsel)",
  "konto": "Account 2 …2606",
- "stand": "2026-11-25T17:23:35",
+ "stand": "2026-11-25T17:28:52",
  "start": "2026-11-11T11:48:44",
  "pausiert": null,
  "status": "Verkauf offen ab 3502.75, Stop 3546.40, Ziel 3066.25",
@@ -22,7 +22,7 @@
    "size": 0.12,
    "r_usd": 43.65,
    "opened_utc": "2026-11-25T17:15:36",
-   "bestes": 3502.44,
+   "bestes": 3495.34,
    "einstand": null
   }
  ],
@@ -90,7 +90,7 @@
   }
  ],
  "blick": {
-  "kurs": 3502.2,
+  "kurs": 3502.37,
   "plan_von": "2026-11-25 17:00:00",
   "letzte_4h_kerze_bis": "2026-11-25 15:00:00",
   "atr_4h": 45.51,

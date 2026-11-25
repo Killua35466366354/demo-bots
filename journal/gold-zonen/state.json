@@ -52,11 +52,11 @@
   "r_usd": 43.65,
   "opened_utc": "2026-11-25T17:15:36",
   "fuellkerze": "2026-11-25 17:15:00",
-  "bestes": 3502.44,
+  "bestes": 3495.34,
   "einstand": null,
   "luecke": false,
   "ziel_r": 10.0,
-  "gesehen_bis": "2026-11-25T17:23:35"
+  "gesehen_bis": "2026-11-25T17:28:52"
  },
  "verbraucht": {
   "U2026110404": {
@@ -80,7 +80,7 @@
  "keine_order": [
   "ein Trade ist offen"
  ],
- "stand": "2026-11-25T17:23:35",
+ "stand": "2026-11-25T17:28:52",
  "letzte_deals": [
   "00000000-73b5-75fa-049c-701a0015549e",
   "00000000-72df-3ed0-049c-701a0015549e"

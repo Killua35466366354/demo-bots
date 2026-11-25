@@ -4,8 +4,8 @@
  "summe_r": -2.005,
  "trades": 2,
  "plan": {
-  "stunde": "2026-11-25 17:00:00",
-  "gerechnet_bis": "2026-11-25 17:00:00",
+  "stunde": "2026-11-25 18:00:00",
+  "gerechnet_bis": "2026-11-25 18:00:00",
   "kerzen_4h": 317,
   "letzte_4h": "2026-11-25 15:00:00",
   "atr_4h": 45.51,
@@ -15,11 +15,11 @@
     "d": -1,
     "linie": 3502.68,
     "innen": 3535.02,
-    "stop": 3546.3983623043423,
-    "atr_bruch": 45.51344921736974,
+    "stop": 3546.3983623043223,
+    "atr_bruch": 45.513449217289576,
     "bruch": "2026-11-25 14:00:00",
     "rest": 30,
-    "beruehrt": false
+    "beruehrt": true
    }
   ],
   "linien": {
@@ -56,7 +56,7 @@
   "einstand": null,
   "luecke": false,
   "ziel_r": 10.0,
-  "gesehen_bis": "2026-11-25T17:28:52"
+  "gesehen_bis": "2026-11-25T18:03:46"
  },
  "verbraucht": {
   "U2026110404": {
@@ -80,7 +80,7 @@
  "keine_order": [
   "ein Trade ist offen"
  ],
- "stand": "2026-11-25T17:28:52",
+ "stand": "2026-11-25T18:03:46",
  "letzte_deals": [
   "00000000-73b5-75fa-049c-701a0015549e",
   "00000000-72df-3ed0-049c-701a0015549e"

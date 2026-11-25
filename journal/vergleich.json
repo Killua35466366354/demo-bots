@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-25",
- "letzter_trade_utc": "2026-11-25T10:31:34.520988",
+ "letzter_trade_utc": "2026-11-25T18:00:00",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -49,6 +49,40 @@
    "rang": 1
   },
   {
+   "id": "gold-grossbox-weiter125",
+   "name": "Gold Groß-Box, Stop 1,25-fach (Schatten)",
+   "markt": null,
+   "gruppe": "zwilling",
+   "aktiv": true,
+   "konto": "Schatten (keine Order)",
+   "seit": "2026-11-20T00:00:00",
+   "ist": {
+    "trades": 5,
+    "gewonnen": 3,
+    "treffer_pct": 60.0,
+    "summe_r": 2.41,
+    "pf_r": 2.34,
+    "eur": 0,
+    "rueckgang_r": 1.8
+   },
+   "soll": null,
+   "abweichung_r": null,
+   "bewertung": null,
+   "monate": {
+    "2026-11": {
+     "trades": 5,
+     "summe_r": 2.42,
+     "eur": 0.0
+    }
+   },
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "Zwilling: 5 von 40 Trades",
+    "original": "gold-grossbox"
+   },
+   "rang": 2
+  },
+  {
    "id": "us500-ruecksetzer",
    "name": "Trend-Rücksetzer US500",
    "markt": "US500",
@@ -82,7 +116,7 @@
     "status": "sammelt",
     "text": "0 von 100 Demo-Trades, 21 von 61 Tagen"
    },
-   "rang": 2
+   "rang": 3
   },
   {
    "id": "r7-nasdaq-noise-long",
@@ -118,7 +152,7 @@
     "status": "sammelt",
     "text": "0 von 100 Demo-Trades, 21 von 61 Tagen"
    },
-   "rang": 3
+   "rang": 4
   },
   {
    "id": "r5-ruecksetzer-us100",
@@ -154,7 +188,7 @@
     "status": "sammelt",
     "text": "0 von 100 Demo-Trades, 21 von 61 Tagen"
    },
-   "rang": 4
+   "rang": 5
   },
   {
    "id": "r6-london-gbpusd",
@@ -190,7 +224,7 @@
     "status": "sammelt",
     "text": "0 von 100 Demo-Trades, 20 von 61 Tagen"
    },
-   "rang": 5
+   "rang": 6
   },
   {
    "id": "r6-noise-usdjpy",
@@ -232,7 +266,7 @@
     "status": "sammelt",
     "text": "12 von 100 Demo-Trades, 20 von 61 Tagen"
    },
-   "rang": 6
+   "rang": 7
   },
   {
    "id": "r5-ruecksetzer-us30",
@@ -274,7 +308,7 @@
     "status": "sammelt",
     "text": "1 von 100 Demo-Trades, 20 von 61 Tagen"
    },
-   "rang": 7
+   "rang": 8
   },
   {
    "id": "r6-vortag-gbpusd",
@@ -316,7 +350,7 @@
     "status": "sammelt",
     "text": "1 von 100 Demo-Trades, 21 von 61 Tagen"
    },
-   "rang": 8
+   "rang": 9
   },
   {
    "id": "r6-vortag-eurusd-1atr",
@@ -349,7 +383,7 @@
     "status": "messung",
     "text": "Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg"
    },
-   "rang": 9
+   "rang": 10
   },
   {
    "id": "gold-cb-long",
@@ -382,7 +416,7 @@
     "status": "messung",
     "text": "Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist)"
    },
-   "rang": 10
+   "rang": 11
   },
   {
    "id": "r6-vortag-eurusd",
@@ -423,40 +457,6 @@
    "aufstieg": {
     "status": "sammelt",
     "text": "1 von 100 Demo-Trades, 21 von 61 Tagen"
-   },
-   "rang": 11
-  },
-  {
-   "id": "gold-grossbox-weiter125",
-   "name": "Gold Groß-Box, Stop 1,25-fach (Schatten)",
-   "markt": null,
-   "gruppe": "zwilling",
-   "aktiv": true,
-   "konto": "Schatten (keine Order)",
-   "seit": "2026-11-20T00:00:00",
-   "ist": {
-    "trades": 2,
-    "gewonnen": 0,
-    "treffer_pct": 0.0,
-    "summe_r": -1.8,
-    "pf_r": 0.0,
-    "eur": 0,
-    "rueckgang_r": 1.8
-   },
-   "soll": null,
-   "abweichung_r": null,
-   "bewertung": null,
-   "monate": {
-    "2026-11": {
-     "trades": 2,
-     "summe_r": -1.8,
-     "eur": 0.0
-    }
-   },
-   "aufstieg": {
-    "status": "sammelt",
-    "text": "Zwilling: 2 von 40 Trades",
-    "original": "gold-grossbox"
    },
    "rang": 12
   },

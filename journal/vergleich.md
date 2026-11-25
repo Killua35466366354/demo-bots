@@ -5,17 +5,17 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Gold-Bot C/B | verbessern | 4 | +10,29 | 6,12 | +181,00 | 4,5 Trades, +0,97 R | 4 von 100 Demo-Trades, 22 von 61 Tagen |
-| 2 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,17 R | 0 von 100 Demo-Trades, 21 von 61 Tagen |
-| 3 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,07 R | 0 von 100 Demo-Trades, 21 von 61 Tagen |
-| 4 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,07 R | 0 von 100 Demo-Trades, 21 von 61 Tagen |
-| 5 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,6 Trades, +0,17 R | 0 von 100 Demo-Trades, 20 von 61 Tagen |
-| 6 | Noise USD/JPY | labor | 12 | -0,18 | 0,42 | -1,58 | 7,4 Trades, +0,14 R | 12 von 100 Demo-Trades, 20 von 61 Tagen |
-| 7 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,7 Trades, +0,06 R | 1 von 100 Demo-Trades, 20 von 61 Tagen |
-| 8 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 4,0 Trades, +0,51 R | 1 von 100 Demo-Trades, 21 von 61 Tagen |
-| 9 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
-| 10 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
-| 11 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 4,1 Trades, +1,31 R | 1 von 100 Demo-Trades, 21 von 61 Tagen |
-| 12 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 2 | -1,80 | 0,00 | +0,00 | – | Zwilling: 2 von 40 Trades |
+| 2 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 5 | +2,41 | 2,34 | +0,00 | – | Zwilling: 5 von 40 Trades |
+| 3 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,17 R | 0 von 100 Demo-Trades, 21 von 61 Tagen |
+| 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,07 R | 0 von 100 Demo-Trades, 21 von 61 Tagen |
+| 5 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,07 R | 0 von 100 Demo-Trades, 21 von 61 Tagen |
+| 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,6 Trades, +0,17 R | 0 von 100 Demo-Trades, 20 von 61 Tagen |
+| 7 | Noise USD/JPY | labor | 12 | -0,18 | 0,42 | -1,58 | 7,4 Trades, +0,14 R | 12 von 100 Demo-Trades, 20 von 61 Tagen |
+| 8 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,7 Trades, +0,06 R | 1 von 100 Demo-Trades, 20 von 61 Tagen |
+| 9 | Vortag GBP/USD | behalten | 1 | -1,00 | 0,00 | -3,37 | 4,0 Trades, +0,51 R | 1 von 100 Demo-Trades, 21 von 61 Tagen |
+| 10 | Vortag EUR/USD 1 x ATR (Mess-Bot) | messung | 1 | -1,00 | 0,00 | -7,01 | – | Mess-Bot: Vergleich mit Vortag EUR/USD, kein Aufstieg |
+| 11 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
+| 12 | Vortag EUR/USD | behalten | 1 | -1,04 | 0,00 | -3,66 | 4,1 Trades, +1,31 R | 1 von 100 Demo-Trades, 21 von 61 Tagen |
 | 13 | Vortag GBP/JPY | behalten | 4 | -4,08 | 0,00 | -18,09 | – | – |
 
 **Kombi (6 Kern-Strategien auf einem Konto):** 6 Trades, -6,12 R, Gewinnfaktor 0,00, Soll bisher 10,2 Trades und +2,13 R. Aufstieg: 6 von 100 Demo-Trades, 21 von 61 Tagen.

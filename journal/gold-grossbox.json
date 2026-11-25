@@ -2,208 +2,24 @@
  "bot": "gold-grossbox",
  "name": "Gold Groß-Box (Runde 12d)",
  "konto": "Account 6 …3678",
- "stand": "2026-11-25T17:46:52",
+ "stand": "2026-11-25T18:01:45",
  "start": "2026-11-10T18:47:49",
  "pausiert": null,
- "status": "3 offen (Verkauf ab 3620.60, Verkauf ab 3593.87, Verkauf ab 3555.60), große Box: Verkauf",
+ "status": "kein Trade offen, große Box: keine (1 Std. und 4 Std. uneinig)",
  "regel": "Große Box aus Runde 12d: 1-Std.-SuperTrend 20/2 und 4-Std.-Strukturbruch gleich, Einstiege nur in Boxrichtung (Boxbeginn, 15-Min.-SuperTrend 20/1,75, 15-Min.-Strukturbruch), höchstens 3 offen. Ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box. 5 € Risiko je Trade.",
  "backtest": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
  "vorab": "suche/VORAB_gold_grossbox.yaml",
  "vorab_ok": true,
- "offen": [
-  {
-   "id": "2026-11-24T14:00",
-   "art": "a",
-   "richtung": -1,
-   "einstieg_zeit": "2026-11-24 14:00:00",
-   "dist": 41.45,
-   "tp1": true,
-   "einstand": "2026-11-24T16:01:45",
-   "teile": [
-    {
-     "size": 0.04,
-     "entry": 3620.6,
-     "stop": 3662.05,
-     "ziel": 3579.15,
-     "offen": false
-    },
-    {
-     "size": 0.08,
-     "entry": 3620.49,
-     "stop": 3620.49,
-     "ziel": null,
-     "offen": true
-    }
-   ]
-  },
-  {
-   "id": "2026-11-24T15:15",
-   "art": "c",
-   "richtung": -1,
-   "einstieg_zeit": "2026-11-24 15:15:00",
-   "dist": 33.25,
-   "tp1": true,
-   "einstand": "2026-11-24T16:31:49",
-   "teile": [
-    {
-     "size": 0.05,
-     "entry": 3593.87,
-     "stop": 3627.12,
-     "ziel": 3560.62,
-     "offen": false
-    },
-    {
-     "size": 0.1,
-     "entry": 3593.92,
-     "stop": 3593.92,
-     "ziel": null,
-     "offen": true
-    }
-   ]
-  },
-  {
-   "id": "2026-11-24T18:45",
-   "art": "c",
-   "richtung": -1,
-   "einstieg_zeit": "2026-11-24 18:45:00",
-   "dist": 31.58,
-   "tp1": true,
-   "einstand": "2026-11-25T06:01:44",
-   "teile": [
-    {
-     "size": 0.05,
-     "entry": 3555.6,
-     "stop": 3587.18,
-     "ziel": 3524.02,
-     "offen": false
-    },
-    {
-     "size": 0.11,
-     "entry": 3556.08,
-     "stop": 3556.08,
-     "ziel": null,
-     "offen": true
-    }
-   ]
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 10,
-  "pf_r": 2.323,
-  "summe_r": 6.64,
-  "trefferquote": 0.5,
-  "summe_eur": 28.12,
-  "urteil": "läuft (10 von 40 Trades)"
+  "trades": 13,
+  "pf_r": 3.279,
+  "summe_r": 11.44,
+  "trefferquote": 0.615,
+  "summe_eur": 49.96,
+  "urteil": "läuft (13 von 40 Trades)"
  },
  "letzte_trades": [
-  {
-   "id": "2026-11-11T01:15",
-   "art": "b",
-   "signal": "2026-11-11 01:15:00",
-   "einstieg_zeit": "2026-11-11 01:15:00",
-   "opened_utc": "2026-11-11T01:16:52",
-   "dist": 12.01,
-   "richtung": -1,
-   "seite": "Verkauf",
-   "size": 0.45,
-   "entry": 4028.28,
-   "exit": 4040.37,
-   "closed_utc": "2026-11-11T01:31:43",
-   "r": -1.006,
-   "pnl_usd": -5.44,
-   "pnl_eur": -4.87,
-   "teile": [
-    {
-     "dealId": "00000000-7247-944a-049c-70210015549e",
-     "size": 0.15,
-     "entry": 4028.06,
-     "exit": 4040.14,
-     "grund": "stop",
-     "ziel_nr": 1
-    },
-    {
-     "dealId": "00000000-7247-9460-049c-70210015549e",
-     "size": 0.3,
-     "entry": 4028.39,
-     "exit": 4040.48,
-     "grund": "stop",
-     "ziel_nr": 2
-    }
-   ],
-   "erstes_ziel": false
-  },
-  {
-   "id": "2026-11-10T19:00",
-   "art": "a",
-   "signal": "2026-11-10 19:00:00",
-   "einstieg_zeit": "2026-11-10 19:00:00",
-   "opened_utc": "2026-11-10T19:01:44",
-   "dist": 28.2,
-   "richtung": -1,
-   "seite": "Verkauf",
-   "size": 0.19,
-   "entry": 4026.75,
-   "exit": 4054.96,
-   "closed_utc": "2026-11-11T05:16:51",
-   "r": -1.0,
-   "pnl_usd": -5.36,
-   "pnl_eur": -4.8,
-   "teile": [
-    {
-     "dealId": "00000000-7244-2ce7-049c-70210015549e",
-     "size": 0.06,
-     "entry": 4026.75,
-     "exit": 4054.96,
-     "grund": "stop",
-     "ziel_nr": 1
-    },
-    {
-     "dealId": "00000000-7244-2cf7-049c-70210015549e",
-     "size": 0.13,
-     "entry": 4026.75,
-     "exit": 4054.96,
-     "grund": "stop",
-     "ziel_nr": 2
-    }
-   ],
-   "erstes_ziel": false
-  },
-  {
-   "id": "2026-11-11T23:30",
-   "art": "c",
-   "signal": "2026-11-11 23:30:00",
-   "einstieg_zeit": "2026-11-11 23:30:00",
-   "opened_utc": "2026-11-11T23:31:51",
-   "dist": 15.16,
-   "richtung": -1,
-   "seite": "Verkauf",
-   "size": 0.36,
-   "entry": 3981.47,
-   "exit": 3996.76,
-   "closed_utc": "2026-11-12T01:16:44",
-   "r": -1.009,
-   "pnl_usd": -5.51,
-   "pnl_eur": -4.96,
-   "teile": [
-    {
-     "dealId": "00000000-72b3-789f-049c-70210015549e",
-     "size": 0.12,
-     "entry": 3981.46,
-     "exit": 3996.76,
-     "grund": "stop",
-     "ziel_nr": 1
-    },
-    {
-     "dealId": "00000000-72b3-78b5-049c-70210015549e",
-     "size": 0.24,
-     "entry": 3981.47,
-     "exit": 3996.76,
-     "grund": "stop",
-     "ziel_nr": 2
-    }
-   ],
-   "erstes_ziel": false
-  },
   {
    "id": "2026-11-12T02:00",
    "art": "b",
@@ -447,35 +263,121 @@
     }
    ],
    "erstes_ziel": false
+  },
+  {
+   "id": "2026-11-24T14:00",
+   "art": "a",
+   "signal": "2026-11-24 14:00:00",
+   "einstieg_zeit": "2026-11-24 14:00:00",
+   "opened_utc": "2026-11-24T14:01:49",
+   "dist": 41.45,
+   "richtung": -1,
+   "seite": "Verkauf",
+   "size": 0.12,
+   "entry": 3620.53,
+   "exit": 3540.36,
+   "closed_utc": "2026-11-25T18:01:45",
+   "r": 1.934,
+   "pnl_usd": 9.62,
+   "pnl_eur": 8.76,
+   "teile": [
+    {
+     "dealId": "00000000-762e-7da0-049c-70210015549e",
+     "size": 0.04,
+     "entry": 3620.6,
+     "exit": 3579.13,
+     "grund": "ziel",
+     "ziel_nr": 1
+    },
+    {
+     "dealId": "00000000-762e-7db4-049c-70210015549e",
+     "size": 0.08,
+     "entry": 3620.49,
+     "exit": 3520.98,
+     "grund": "neue_box",
+     "ziel_nr": 2
+    }
+   ],
+   "erstes_ziel": true
+  },
+  {
+   "id": "2026-11-24T15:15",
+   "art": "c",
+   "signal": "2026-11-24 15:15:00",
+   "einstieg_zeit": "2026-11-24 15:15:00",
+   "opened_utc": "2026-11-24T15:16:45",
+   "dist": 33.25,
+   "richtung": -1,
+   "seite": "Verkauf",
+   "size": 0.15,
+   "entry": 3593.9,
+   "exit": 3534.14,
+   "closed_utc": "2026-11-25T18:01:45",
+   "r": 1.797,
+   "pnl_usd": 8.96,
+   "pnl_eur": 8.16,
+   "teile": [
+    {
+     "dealId": "00000000-762f-c9a4-049c-70210015549e",
+     "size": 0.05,
+     "entry": 3593.87,
+     "exit": 3560.5,
+     "grund": "ziel",
+     "ziel_nr": 1
+    },
+    {
+     "dealId": "00000000-762f-c9b7-049c-70210015549e",
+     "size": 0.1,
+     "entry": 3593.92,
+     "exit": 3520.96,
+     "grund": "neue_box",
+     "ziel_nr": 2
+    }
+   ],
+   "erstes_ziel": true
+  },
+  {
+   "id": "2026-11-24T18:45",
+   "art": "c",
+   "signal": "2026-11-24 18:45:00",
+   "einstieg_zeit": "2026-11-24 18:45:00",
+   "opened_utc": "2026-11-24T18:46:53",
+   "dist": 31.58,
+   "richtung": -1,
+   "seite": "Verkauf",
+   "size": 0.16,
+   "entry": 3555.93,
+   "exit": 3522.16,
+   "closed_utc": "2026-11-25T18:01:45",
+   "r": 1.069,
+   "pnl_usd": 5.4,
+   "pnl_eur": 4.92,
+   "teile": [
+    {
+     "dealId": "00000000-766f-5255-049c-70210015549e",
+     "size": 0.05,
+     "entry": 3555.6,
+     "exit": 3524.0,
+     "grund": "ziel",
+     "ziel_nr": 1
+    },
+    {
+     "dealId": "00000000-766f-5270-049c-70210015549e",
+     "size": 0.11,
+     "entry": 3556.08,
+     "exit": 3521.33,
+     "grund": "neue_box",
+     "ziel_nr": 2
+    }
+   ],
+   "erstes_ziel": true
   }
  ],
  "blick": {
-  "kerzen": 2187,
-  "letzte_kerze": "2026-11-25 17:30:00",
-  "kurs": 3505.91,
-  "grosse_box": "Verkauf",
-  "modell_offen": [
-   {
-    "einstieg_zeit": "2026-11-24 14:00:00",
-    "richtung": -1,
-    "art": "a",
-    "einstieg": 3614.82,
-    "stop": 3662.07
-   },
-   {
-    "einstieg_zeit": "2026-11-24 15:15:00",
-    "richtung": -1,
-    "art": "c",
-    "einstieg": 3602.7,
-    "stop": 3635.95
-   },
-   {
-    "einstieg_zeit": "2026-11-24 18:45:00",
-    "richtung": -1,
-    "art": "c",
-    "einstieg": 3556.22,
-    "stop": 3587.8
-   }
-  ]
+  "kerzen": 2188,
+  "letzte_kerze": "2026-11-25 17:45:00",
+  "kurs": 3521.04,
+  "grosse_box": "keine (1 Std. und 4 Std. uneinig)",
+  "modell_offen": []
  }
 }

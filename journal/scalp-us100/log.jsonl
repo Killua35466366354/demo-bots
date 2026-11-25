@@ -10,3 +10,4 @@
 {"time": "2026-11-20T14:48:44", "bot": "scalp-us100", "event": "kein Trade", "tag": "2026-11-20", "warum": "Filter: Kurs 26101.9 nicht auf der Short-Seite des jahr-Opens 25259"}
 {"time": "2026-11-23T14:48:38", "bot": "scalp-us100", "event": "kein Trade", "tag": "2026-11-23", "warum": "Filter: Kurs 26530.8 nicht auf der Short-Seite des jahr-Opens 25259"}
 {"time": "2026-11-24T14:48:45", "bot": "scalp-us100", "event": "kein Trade", "tag": "2026-11-24", "warum": "Filter: Kurs 26293.3 nicht auf der Long-Seite des quartal-Opens 30441.9"}
+{"time": "2026-11-25T14:48:38", "bot": "scalp-us100", "event": "eröffnet", "tag": "2026-11-25", "richtung": -1, "size": 0.022, "stop": 25380.0, "ziel": 22656.4, "dealId": "00000000-76bf-ab20-049c-70190015549e", "entry": 25131.2}

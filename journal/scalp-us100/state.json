@@ -1,7 +1,18 @@
 {
  "format": 1,
- "offen": null,
- "tag_erledigt": "2026-11-24",
+ "offen": {
+  "dealId": "00000000-76bf-ab20-049c-70190015549e",
+  "richtung": -1,
+  "size": 0.022,
+  "entry": 25131.2,
+  "stop": 25380.0,
+  "ziel": 22656.400000000016,
+  "dist": 248.8,
+  "opened_utc": "2026-11-25T14:48:38",
+  "aus_utc": "2026-11-25T21:00:00",
+  "tag": "2026-11-25"
+ },
+ "tag_erledigt": "2026-11-25",
  "opens": {
   "jahr:2026": 25259.0,
   "quartal:2026Q4": 30441.9,
@@ -12,19 +23,19 @@
  "summe_r": 0.0,
  "summe_pct": 0.0,
  "summe_eur": 0.0,
- "stand": "2026-11-25T14:23:43",
+ "stand": "2026-11-25T14:48:38",
  "start": "2026-11-10T12:43:38",
  "letzte_entscheidung": {
-  "zeit": "2026-11-24T14:48:45",
-  "tag": "2026-11-24",
-  "action": "none",
-  "why": "Filter: Kurs 26293.3 nicht auf der Long-Seite des quartal-Opens 30441.9",
+  "zeit": "2026-11-25T14:48:38",
+  "tag": "2026-11-25",
+  "action": "open",
+  "why": "Signal",
   "opens": {
    "jahr": 25259.0,
    "quartal": 30441.9,
    "monat": 28504.5,
    "woche": 25511.4
   },
-  "kurs_filter": 26293.3
+  "kurs_filter": 25009.7
  }
 }

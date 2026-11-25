@@ -1,0 +1,77 @@
+# Gold-Duo doppelt: der Gold-Bot C/B und Pine-K5 zusammen auf EINEM gedachten Konto mit 1.000 € und doppeltem Einsatz.
+# Nur eine Zählung ohne Order (Vorschlag G11 des Gesamt-Komitees vom 24.11.2026). Rechnung: suche/gold_duo.py, Anzeige
+# als eigener Abschnitt in journal/kombinierer.md.
+#
+# Kirons Wort vom 24.11.2026 23:01 UTC: "die 2 Goldstrategien haben ja jetzt im November ... schon auf 2 verschiedenen
+# Accounts jeweils über 100 Euro gemacht und damit etwa 20% schon gemacht, wenn man die zusammen getradet hätte auf einem
+# Account und Trades jeweils doppelt genommen hätte ... Und ja, das Ganze soll halt auf einem 1000 Euro Account laufen
+# und da soll halt maximal rausgeholt werden".
+# Kirons Wahl vom 25.11.2026 07:35 UTC: "g11".
+#
+# Festgelegt, bevor ein Trade nach dieser Regel gezählt wurde. Gesehen waren da schon die Demo-Trades vom 02. bis
+# 24.11.2026: beide Bots zusammen +206,81 € mit ihrem heutigen Einsatz (gold-cb +67,40 € aus 4 Trades, pine-k5 +139,41 €
+# aus 34 Trades), mit doppeltem Einsatz +413,62 €. Der ganze Gewinn kam an zwei Tagen (18.11. und 24.11.), alle anderen
+# Tage zusammen lagen bei -21,84 €. Verkäufe brachten +254,45 €, Käufe -47,64 €, während Gold um rund 15 % fiel. Beide
+# Bots haben ihren eigenen Test nicht bestanden, und sie sind im Nachhinein aus acht Gold-Bots ausgesucht (pine-tp3 verlor
+# im selben Monat 71,99 €). Darum zählen diese Trades hier NICHT. Die Zählung beginnt erst nach dem Siegel, und nur sie
+# ist ein Urteil. Die Hürden kommen nicht aus den Zahlen vom November, sondern aus suche/VORAB_aufstieg_alle.yaml
+# (Kirons Wahl "2 Monate und 100 Trades", Gewinnfaktor 1,3 für Bots ohne bestandenen Test).
+
+format: 1
+gold_duo_doppelt:
+  was: >-
+    Nur eine Rechnung auf den Trade-Dateien der zwei Bots. Kein neuer Bot, kein neues Konto, keine Order. Kein Bot liest
+    das Ergebnis. Die zwei Bots handeln unverändert auf ihren Demokonten weiter, an ihren Regeln ändert sich nichts.
+  mitglieder:
+    gold-cb: journal/gold-trades.jsonl
+    pine-k5: journal/pine-k5/trades.jsonl
+  start_utc: "2026-11-25T08:00:00"         # nur Trades, die ab hier eröffnet wurden (opened_utc), zählen
+  konto:
+    topf_eur: 1000
+    einsatz_faktor: 2                      # jeder Trade mit der doppelten Größe des Demo-Trades
+    hebel: 20                              # Gold für Privatkunden in der EU
+    usd_je_eur: 1.10                       # fest, nur für das Sicherheitsgeld (die Trades im November lagen bei 1,097)
+    bremse_pct: 30                         # Kontostand 30 % unter seinem Höchststand: die Zählung ist beendet
+  rechnung:
+    trade: >-
+      Geschlossene Trades der zwei Dateien mit pnl_eur, opened_utc ab start_utc und closed_utc. Ergebnis je Trade =
+      einsatz_faktor mal pnl_eur des Demo-Trades. Kein Zinseszins, der Einsatz wächst nicht mit dem Kontostand.
+    reihenfolge: >-
+      Nach Eröffnung. Vor jeder Eröffnung werden alle Trades gebucht, die bis dahin geschlossen sind (Schluss genau zur
+      Eröffnung zählt als geschlossen). Der Kontostand ist topf_eur plus die Summe der gebuchten Trades.
+    sicherheitsgeld: >-
+      Margin eines Trades in Euro = einsatz_faktor mal Größe (size) mal Einstieg (entry) geteilt durch hebel geteilt
+      durch usd_je_eur. Ein neuer Trade zählt nur, wenn das Sicherheitsgeld aller offenen gezählten Trades mit ihm
+      zusammen höchstens so hoch ist wie der Kontostand. Sonst zählt er als verpasst ("kein Sicherheitsgeld frei"), so
+      wie ein Broker die Order ablehnen würde. Fehlt Größe oder Einstieg, zählt er als verpasst ("Margin unbekannt").
+    bremse: >-
+      Liegt der Kontostand vor einer Eröffnung um bremse_pct oder mehr unter seinem bisherigen Höchststand, ist die
+      Zählung beendet. Dieser und alle späteren Trades zählen nicht mehr (verpasst "Bremse"), schon offene Trades
+      laufen zu Ende und werden gebucht. Das Urteil heißt dann durchgefallen und bleibt so.
+    kennzahlen: >-
+      Summe in Euro, Rendite pro Monat (Summe je Kalendermonat geteilt durch topf_eur), größter Rückgang des
+      Kontostands, größtes gebundenes Sicherheitsgeld, Gewinnfaktor (Gewinne in Euro geteilt durch Verluste in Euro,
+      ohne Verlust-Trade gilt er als hoch), Tage seit start_utc in ganzen Tagen (UTC).
+    auskunft: >-
+      Dazu ohne Einfluss auf das Urteil: die Summe ohne die zwei besten Tage, Käufe und Verkäufe getrennt und die
+      Summe je Bot. So bleibt sichtbar, ob der Gewinn an wenigen Tagen oder nur an einer Richtung hängt.
+  urteil:                                    # wie "einzeln" und "zeit" in suche/VORAB_aufstieg_alle.yaml, in Euro
+    ab_trades: 100                           # gezählte Trades (verpasste zählen nicht)
+    mindestens_tage: 61
+    pf_mindestens: 1.3
+    summe_eur_ueber: 0
+    letzte_tage: 61                          # Summe der Trades mit Schluss in den letzten 61 Tagen
+    summe_letzte_tage_ueber: 0
+    zweite_haelfte_pf_mindestens: 1.0        # die neuere Hälfte der gezählten Trades darf nicht verlieren
+    status: >-
+      "sammelt" bis 100 gezählte Trades und 61 Tage erreicht sind. Danach "reif", wenn alle Hürden erfüllt sind und die
+      Bremse nie gegriffen hat, sonst "nicht reif". Nach der Bremse immer "durchgefallen".
+  ende: >-
+    Wird einer der zwei Bots abgeschaltet oder bekommt er eine neue Regel, endet die Zählung mit dem Stand von diesem
+    Tag. Eine neue Zählung braucht eine neue Regeldatei.
+  folge: >-
+    "reif" entscheidet nichts. Es heißt nur, dass Kiron eine Karte bekommt. Echtes Geld gibt es erst nach seinem Ja
+    auf dieser Karte und über einen PR mit den Grenzen des echten Kontos, den er selbst merged.
+  keine_nachbesserung: >-
+    Kein anderer Einsatz, kein anderer Start, keine anderen Mitglieder und keine andere Hürde nach dem Ergebnis.
+    Ein Monat mit fallendem Goldpreis ist kein Urteil.

@@ -301,6 +301,13 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   Kombinierer. Ein Trade zählt nur, wenn die Margin aller offenen Trades mit ihm höchstens 30 % (zum Vergleich 50 %)
   des Kontostands ist. Margin = 10 € mal Einstieg durch Stop-Abstand durch Hebel (30 Devisen, 20 Gold und Indizes).
   Ein Vortag-Trade mit 2 bis 3 Pips Stop bindet so über 1.000 €. Die alten Regeln bleiben unverändert daneben.
+- **Gold-Duo doppelt** (seit 25.11.2026, Kirons Wahl "g11", `suche/gold_duo.py`, `suche/VORAB_gold_duo_doppelt.yaml`):
+  eine Zählung ohne Order als eigener Abschnitt in `journal/kombinierer.md`. Gold-Bot C/B und Pine-K5 zusammen auf
+  einem gedachten Konto mit 1.000 €, jeder Trade mit der doppelten Größe des Demo-Trades. Es zählen nur Trades, die ab
+  dem 25.11.2026 08:00 UTC eröffnet wurden. Der November davor (+207 €, fast alles an zwei Tagen mit fallendem Gold)
+  zählt nicht. Ein Trade zählt nur, wenn sein Sicherheitsgeld bei Hebel 20 noch auf das Konto passt. Liegt das Konto
+  30 % unter seinem Höchststand, ist die Zählung beendet. Urteil nach 100 gezählten Trades und 61 Tagen mit
+  Gewinnfaktor 1,3. "reif" heißt nur eine Karte an Kiron. Kein neuer Bot, kein Konto, keine Zwillings-Regel berührt.
 
 ## Arbeiten im Repo
 

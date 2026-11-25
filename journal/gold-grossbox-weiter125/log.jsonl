@@ -5,3 +5,6 @@
 {"time": "2026-11-24T15:11:34+00:00", "event": "einstieg", "einstieg_zeit": "2026-11-24 14:00:00", "richtung": -1, "art": "a", "einstieg": 3614.82, "stop": 3673.88, "tp1": 3555.76, "r_usd": 59.06}
 {"time": "2026-11-24T16:11:34+00:00", "event": "einstieg", "einstieg_zeit": "2026-11-24 15:15:00", "richtung": -1, "art": "c", "einstieg": 3602.7, "stop": 3644.27, "tp1": 3561.13, "r_usd": 41.57}
 {"time": "2026-11-24T20:11:34+00:00", "event": "einstieg", "einstieg_zeit": "2026-11-24 18:45:00", "richtung": -1, "art": "c", "einstieg": 3556.22, "stop": 3595.7, "tp1": 3516.74, "r_usd": 39.48}
+{"time": "2026-11-25T19:11:32+00:00", "event": "fertig", "opened_utc": "2026-11-24T14:00:00", "richtung": -1, "entry": 3614.82, "grund": "neue_box", "closed_utc": "2026-11-25T18:00:00", "r": 1.456}
+{"time": "2026-11-25T19:11:32+00:00", "event": "fertig", "opened_utc": "2026-11-24T15:15:00", "richtung": -1, "entry": 3602.7, "grund": "neue_box", "closed_utc": "2026-11-25T18:00:00", "r": 1.735}
+{"time": "2026-11-25T19:11:32+00:00", "event": "fertig", "opened_utc": "2026-11-24T18:45:00", "richtung": -1, "entry": 3556.22, "grund": "neue_box", "closed_utc": "2026-11-25T18:00:00", "r": 1.022}

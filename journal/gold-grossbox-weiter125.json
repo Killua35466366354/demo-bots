@@ -3,102 +3,29 @@
  "name": "Gold Groß-Box, Stop 1,25-fach (Schatten-Zwilling)",
  "konto": "Schatten (keine Order)",
  "original": "gold-grossbox",
- "stand": "2026-11-25T18:11:35+00:00",
+ "stand": "2026-11-25T19:11:32+00:00",
  "start": "2026-11-20T00:00:00",
  "status": "rechnet mit",
  "regel": "Wie die Groß-Box (große Box aus 1-Std.-SuperTrend und 4-Std.-Strukturbruch, Einstiege nur in Boxrichtung, höchstens 3 offen, ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box), nur der Stop ist 1,25-mal so weit weg. Schatten ohne Order.",
  "backtest": "Versiegelter Test 11/2024 bis 10/2026: 856 Trades, GF 1,25 statt 1,21, +93,6 R statt +93,4 R, tiefster Rückgang 63,5 R statt 76,7 R. Gleicher Gewinn, ruhigerer Verlauf.",
  "vorab": "suche/VORAB_gold_grossbox_weiter125.yaml",
  "vorab_ok": true,
- "offen": [
-  {
-   "signal": "2026-11-24 14:00:00",
-   "einstieg_zeit": "2026-11-24 14:00:00",
-   "richtung": -1,
-   "art": "a",
-   "einstieg": 3614.82,
-   "stop": 3673.88,
-   "tp1": 3555.76,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 59.06,
-   "teile": [
-    {
-     "grund": "tp1",
-     "px": 3555.76,
-     "zeit": "2026-11-24 18:30:00",
-     "anteil": 0.333
-    }
-   ],
-   "ergebnis_r": 1.456,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  },
-  {
-   "signal": "2026-11-24 15:15:00",
-   "einstieg_zeit": "2026-11-24 15:15:00",
-   "richtung": -1,
-   "art": "c",
-   "einstieg": 3602.7,
-   "stop": 3644.27,
-   "tp1": 3561.13,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 41.57,
-   "teile": [
-    {
-     "grund": "tp1",
-     "px": 3561.13,
-     "zeit": "2026-11-24 16:15:00",
-     "anteil": 0.333
-    }
-   ],
-   "ergebnis_r": 1.734,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  },
-  {
-   "signal": "2026-11-24 18:45:00",
-   "einstieg_zeit": "2026-11-24 18:45:00",
-   "richtung": -1,
-   "art": "c",
-   "einstieg": 3556.22,
-   "stop": 3595.7,
-   "tp1": 3516.74,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 39.48,
-   "teile": [
-    {
-     "grund": "tp1",
-     "px": 3516.74,
-     "zeit": "2026-11-25 06:00:00",
-     "anteil": 0.333
-    }
-   ],
-   "ergebnis_r": 1.022,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 2,
-  "pf_r": 0.0,
-  "summe_r": -1.8,
-  "trefferquote": 0.0,
+  "trades": 5,
+  "pf_r": 2.337,
+  "summe_r": 2.41,
+  "trefferquote": 0.6,
   "summe_eur": null,
-  "urteil": "Zwilling: 2 von 40 Trades"
+  "urteil": "Zwilling: 5 von 40 Trades"
  },
  "zwilling": {
   "status": "sammelt",
-  "text": "Zwilling: 2 von 40 Trades",
+  "text": "Zwilling: 5 von 40 Trades",
   "zwilling": {
-   "trades": 2,
-   "pf": 0.0,
-   "summe_r": -1.8
+   "trades": 5,
+   "pf": 2.337,
+   "summe_r": 2.41
   },
   "original": {
    "trades": 6,
@@ -155,6 +82,99 @@
    "grund": "neue_box",
    "closed_utc": "2026-11-23T00:00:00",
    "r": -0.792,
+   "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-24T14:00:00",
+   "art": "a",
+   "richtung": -1,
+   "seite": "Verkauf",
+   "signal": "2026-11-24 14:00:00",
+   "opened_utc": "2026-11-24T14:00:00",
+   "entry": 3614.82,
+   "stop": 3673.88,
+   "tp1": 3555.76,
+   "dist": 59.06,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3555.76,
+     "zeit": "2026-11-24 18:30:00",
+     "anteil": 0.333
+    },
+    {
+     "grund": "neue_box",
+     "px": 3515.12,
+     "zeit": "2026-11-25 18:00:00",
+     "anteil": 0.667
+    }
+   ],
+   "grund": "neue_box",
+   "closed_utc": "2026-11-25T18:00:00",
+   "r": 1.456,
+   "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-24T15:15:00",
+   "art": "c",
+   "richtung": -1,
+   "seite": "Verkauf",
+   "signal": "2026-11-24 15:15:00",
+   "opened_utc": "2026-11-24T15:15:00",
+   "entry": 3602.7,
+   "stop": 3644.27,
+   "tp1": 3561.13,
+   "dist": 41.57,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3561.13,
+     "zeit": "2026-11-24 16:15:00",
+     "anteil": 0.333
+    },
+    {
+     "grund": "neue_box",
+     "px": 3515.12,
+     "zeit": "2026-11-25 18:00:00",
+     "anteil": 0.667
+    }
+   ],
+   "grund": "neue_box",
+   "closed_utc": "2026-11-25T18:00:00",
+   "r": 1.735,
+   "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-24T18:45:00",
+   "art": "c",
+   "richtung": -1,
+   "seite": "Verkauf",
+   "signal": "2026-11-24 18:45:00",
+   "opened_utc": "2026-11-24T18:45:00",
+   "entry": 3556.22,
+   "stop": 3595.7,
+   "tp1": 3516.74,
+   "dist": 39.48,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3516.74,
+     "zeit": "2026-11-25 06:00:00",
+     "anteil": 0.333
+    },
+    {
+     "grund": "neue_box",
+     "px": 3515.12,
+     "zeit": "2026-11-25 18:00:00",
+     "anteil": 0.667
+    }
+   ],
+   "grund": "neue_box",
+   "closed_utc": "2026-11-25T18:00:00",
+   "r": 1.022,
    "schatten": true
   }
  ],

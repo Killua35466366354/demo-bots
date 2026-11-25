@@ -17,6 +17,10 @@ Aufruf:
 Margin-Ampel (seit 20.11.2026, suche/VORAB_kombinierer_margin.yaml): zwei weitere Regeln, bei denen ein Trade nur
 genommen wird, wenn die Margin aller offenen Trades mit ihm zusammen höchstens 30 % (50 % zum Vergleich) des
 Kontostands ist. Margin = 10 € * Einstieg / Stop-Abstand / Hebel des Marktes.
+
+Gold-Duo doppelt (seit 25.11.2026, suche/gold_duo.py, suche/VORAB_gold_duo_doppelt.yaml): eine eigene Zählung ohne
+Order, Gold-Bot C/B und Pine-K5 mit doppeltem Einsatz auf einem gedachten Konto mit 1.000 €. Sie steht als eigener
+Abschnitt am Ende des Berichts und unter "gold_duo" in der JSON-Datei. Ein Fehler dort hält den Kombinierer nie auf.
 """
 from __future__ import annotations
 
@@ -249,6 +253,27 @@ def demo_gruppen(now: datetime | None = None, m: dict | None = None) -> tuple[di
 
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Gold-Duo doppelt (suche/gold_duo.py): eigene Regeldatei, eigene Rechnung, hier nur eingehängt
+
+def _gold_duo(now: datetime | None) -> dict | None:
+    """Stand der Zählung, None ohne gültiges Siegel. Ein Fehler dort hält den Kombinierer nie auf."""
+    try:
+        from suche import gold_duo
+        return gold_duo.stand(now)
+    except Exception as e:                              # noqa: BLE001
+        return {"fehler": type(e).__name__}
+
+
+def _gold_duo_text(s: dict | None) -> list[str]:
+    try:
+        from suche import gold_duo
+        return gold_duo.abschnitt(s)
+    except Exception as e:                              # noqa: BLE001
+        return ["## Gold-Duo doppelt (Zählung ohne Order)", "",
+                f"Der Abschnitt konnte nicht geschrieben werden ({type(e).__name__}).", ""]
+
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Bericht
 
 def _eur(x: float) -> str:
@@ -290,6 +315,7 @@ def bericht(stand: dict) -> str:
             z += ["", f"Bei {n[0]} von {n[1]} Trades fehlt der Stop-Abstand im Journal, ihre Margin ist der Median "
                       "desselben Bots oder Marktes."]
         z.append("")
+    z += _gold_duo_text(stand.get("gold_duo"))
     return "\n".join(z) + "\n"
 
 
@@ -308,6 +334,9 @@ def stand(now: datetime | None = None) -> dict | None:
         out["margin_geschaetzt"] = {g: [sum(1 for x in ts if x.get("margin_geschaetzt") or x.get("margin_je_r") is None),
                                         len(ts)] for g, ts in gruppen.items()}
     out["satz"] = satz(out)
+    duo = _gold_duo(now)
+    if duo is not None:
+        out["gold_duo"] = duo
     return out
 
 

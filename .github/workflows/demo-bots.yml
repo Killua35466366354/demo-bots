@@ -537,6 +537,9 @@ jobs:
       # nur das Journal über suche/vergleich.py, spricht mit keinem Broker, keine Order, kein Bot liest das Ergebnis.
       # Schreibt journal/kombinierer.json und journal/kombinierer.md, ohne neuen Trade höchstens einmal am Tag neu. Ein
       # Fehler hier hält die Bots und das Journal nie auf.
+      # Dazu seit 25.11.2026 das Gold-Duo doppelt (Kirons Wahl "g11", suche/gold_duo.py, suche/VORAB_gold_duo_doppelt.yaml):
+      # Gold-Bot C/B und Pine-K5 mit doppeltem Einsatz auf einem gedachten Konto mit 1.000 €, nur Trades ab dem Siegel.
+      # Eine Zählung ohne Order, als eigener Abschnitt im selben Bericht.
       - name: Kombinierer (alle Bots als ein Konto)
         id: kombinierer
         if: ${{ !cancelled() && inputs.dry_run != true }}
@@ -545,7 +548,7 @@ jobs:
           TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
         run: |
           if [ "$TESTS_OK" != "true" ]; then
-            python -m pytest -q tests/test_kombinierer.py
+            python -m pytest -q tests/test_kombinierer.py tests/test_gold_duo.py
           fi
           python -m suche.kombinierer --schreiben
 

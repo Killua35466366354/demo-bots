@@ -19,3 +19,5 @@
 {"time": "2026-11-26T02:31:59", "event": "Kopie zu", "quelle": "gold-cb", "dealId": "00000000-76b8-9385-049c-a8a80015549e", "kurs": 3598.85, "grund": "beim Broker zu, Schlusskurs geschätzt (Stop)", "r": -1.0, "eur": -6.9, "geschaetzt": true}
 {"time": "2026-11-26T02:31:59", "event": "nicht kopiert", "quelle": "gold-cb", "quelle_deal": "00000000-76f5-ea35-049b-eb710015549e", "grund": "älter als 30 Minuten"}
 {"time": "2026-11-26T07:17:08", "event": "kopiert", "dealId": "00000000-76ba-c012-049c-a8a80015549e", "entry": 3572.14, "quelle": "gold-cb", "quelle_deal": "00000000-76f8-d04d-049b-eb710015549e", "epic": "GOLD", "richtung": -1, "size": 0.32, "stop": 3595.85, "ziel": null, "margin_eur": 52.12, "risiko_eur": 6.91}
+{"time": "2026-11-26T08:47:17", "event": "Kopie zu", "quelle": "gold-cb", "dealId": "00000000-76ba-c012-049c-a8a80015549e", "kurs": 3595.85, "grund": "beim Broker zu, Schlusskurs geschätzt (Stop)", "r": -1.0, "eur": -6.92, "geschaetzt": true}
+{"time": "2026-11-26T08:47:17", "event": "nicht kopiert", "quelle": "gold-cb", "quelle_deal": "00000000-76f8-d04d-049b-eb710015549e", "grund": "älter als 30 Minuten"}

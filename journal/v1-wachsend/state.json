@@ -1,0 +1,22 @@
+{
+ "format": 1,
+ "start": "2026-11-26T14:32:22",
+ "kopien": {},
+ "gesehen": {
+  "00000000-76f8-d04d-049b-eb710015549e": {
+   "bot": "gold-cb",
+   "zeit": "2026-11-26T14:32:22",
+   "grund": "älter als 30 Minuten"
+  }
+ },
+ "summe_eur": 0.0,
+ "summe_r": 0.0,
+ "trades": 0,
+ "hoechst": 1000.0,
+ "vorab": "VORAB_v1_wachsend_bot.yaml",
+ "versuche": {},
+ "hedging_versuch": "2026-11-26T14:32:22",
+ "hedging": true,
+ "raus": {},
+ "stand": "2026-11-26T14:32:22"
+}

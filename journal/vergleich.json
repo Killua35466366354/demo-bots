@@ -955,8 +955,8 @@
    "id": "v1-wachsend",
    "name": "V1 mit wachsendem Einsatz",
    "konto": "Account 3",
-   "seit": null,
-   "start": null,
+   "seit": "2026-11-26",
+   "start": "2026-11-26",
    "ist": {
     "trades": 0,
     "gewonnen": 0,

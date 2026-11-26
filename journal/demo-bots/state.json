@@ -78,13 +78,13 @@
  "konto": {
   "waehrung": "EUR",
   "balance": 1153.47,
-  "frei": 1007.16
+  "frei": 1007.21
  },
  "trades_heute": {
   "tag": "2026-11-26",
   "r": 0.0
  },
- "stand_utc": "2026-11-26T22:31:27.933241",
+ "stand_utc": "2026-11-26T22:46:34.595594",
  "phase": "laeuft",
  "positionen": {},
  "konten": {

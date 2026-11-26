@@ -2,7 +2,7 @@
  "bot": "gold-zonen",
  "name": "Gold-Zonen Bruch (Rollenwechsel)",
  "konto": "Account 2 …2606",
- "stand": "2026-11-26T08:08:45",
+ "stand": "2026-11-26T09:08:53",
  "start": "2026-11-11T11:48:44",
  "pausiert": null,
  "status": "keine Order, wartet auf den nächsten Bruch einer Zone",
@@ -101,8 +101,8 @@
   }
  ],
  "blick": {
-  "kurs": 3569.0,
-  "plan_von": "2026-11-26 08:00:00",
+  "kurs": 3573.92,
+  "plan_von": "2026-11-26 09:00:00",
   "letzte_4h_kerze_bis": "2026-11-26 07:00:00",
   "atr_4h": 51.08,
   "zonen": [],

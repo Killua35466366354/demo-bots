@@ -6,34 +6,28 @@
  "maerkte": {
   "SPXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-25",
+   "letzter_tag": "2026-11-26",
    "letzte_pruefung": {
-    "tag": "2026-11-25",
-    "ergebnis": "%R -16.4, kein Kauf (nötig unter -90)",
-    "wr": -16.411464,
-    "schluss": 7182.8,
-    "hoch_vortag": 7224.6,
-    "dist": null,
-    "atr": 200.421429,
-    "sitzungen": null
+    "tag": "2026-11-26",
+    "ergebnis": "Markt um 16:00 New York zu"
    },
-   "letzter_schluss": "2026-11-23T21:02:03"
+   "letzter_schluss": "2026-11-23T21:02:03",
+   "ausgelassen": {
+    "markt_zu": 1
+   }
   },
   "NSXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-25",
+   "letzter_tag": "2026-11-26",
    "letzte_pruefung": {
-    "tag": "2026-11-25",
-    "ergebnis": "%R -26.6, kein Kauf (nötig unter -90)",
-    "wr": -26.609881,
-    "schluss": 26049.2,
-    "hoch_vortag": 26439.7,
-    "dist": null,
-    "atr": 1137.685714,
-    "sitzungen": null
+    "tag": "2026-11-26",
+    "ergebnis": "Markt um 16:00 New York zu"
    },
-   "letzter_schluss": "2026-11-23T21:02:03"
+   "letzter_schluss": "2026-11-23T21:02:03",
+   "ausgelassen": {
+    "markt_zu": 1
+   }
   }
  },
- "stand": "2026-11-25T21:01:55"
+ "stand": "2026-11-26T21:17:06"
 }

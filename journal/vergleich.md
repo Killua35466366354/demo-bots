@@ -4,7 +4,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Gold-Bot C/B | verbessern | 4 | +10,29 | 6,12 | +181,00 | 4,7 Trades, +1,01 R | 4 von 100 Demo-Trades, 23 von 61 Tagen |
+| 1 | Gold-Bot C/B | verbessern | 5 | +9,29 | 4,09 | +157,68 | 4,7 Trades, +1,01 R | 5 von 100 Demo-Trades, 23 von 61 Tagen |
 | 2 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 5 | +2,41 | 2,34 | +0,00 | – | Zwilling: 5 von 40 Trades |
 | 3 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,18 R | 0 von 100 Demo-Trades, 22 von 61 Tagen |
 | 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,6 Trades, +0,07 R | 0 von 100 Demo-Trades, 22 von 61 Tagen |
@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 8 | -8,12 | -81 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 89 Trades, +34,87 R, Gewinnfaktor 1,87. Aufstieg: 89 von 100 Demo-Trades, 23 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 90 Trades, +33,87 R, Gewinnfaktor 1,82. Aufstieg: 90 von 100 Demo-Trades, 23 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades

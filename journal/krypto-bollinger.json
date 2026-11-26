@@ -2,10 +2,10 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-26T16:01:57",
+ "stand": "2026-11-26T17:02:05",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
- "status": "kein Trade offen. Letzte Kerze (bis 2026-11-26 16:00 UTC): Schluss im Band oder RSI nicht extrem",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-26 17:00 UTC): Schluss im Band oder RSI nicht extrem",
  "regel": "Bollinger und RSI auf Bitcoin und Ether, umgedreht (Fassung bollinger_umkehr_krypto_weit): Schließt eine Stundenkerze unter dem unteren Bollinger-Band (20, 2) mit RSI 14 unter 30, verkauft der Bot, über dem oberen Band mit RSI über 70 kauft er. Stop 1,5 ATR der Stundenkerzen, Ziel 2 R, Ausstieg spätestens nach 24 Stunden. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
@@ -136,25 +136,25 @@
   }
  ],
  "blick": {
-  "naechste_stunde_endet_utc": "2026-11-26 17:00:00",
+  "naechste_stunde_endet_utc": "2026-11-26 18:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-26 16:00:00",
+     "grenze": "2026-11-26 17:00:00",
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "richtung": 0,
-     "schluss": 60521.6,
-     "mitte": 60544.095,
-     "oben": 61022.860611,
-     "unten": 60065.329389,
-     "rsi": 54.661551,
-     "atr": 489.311799,
+     "schluss": 60420.9,
+     "mitte": 60556.66,
+     "oben": 61007.848534,
+     "unten": 60105.471466,
+     "rsi": 52.610943,
+     "atr": 491.078813,
      "dist": null
     },
     "signal": {
      "markt": "BTCUSD",
-     "grenze": "2026-11-26 16:00:00",
+     "grenze": "2026-11-26 17:00:00",
      "richtung": 0,
      "dist": null,
      "ziel_abstand": null,
@@ -162,32 +162,32 @@
      "warten": false,
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "tage": 39,
-     "schluss": 60521.6,
-     "mitte": 60544.095,
-     "oben": 61022.860611,
-     "unten": 60065.329389,
-     "rsi": 54.661551,
-     "atr": 489.311799
+     "schluss": 60420.9,
+     "mitte": 60556.66,
+     "oben": 61007.848534,
+     "unten": 60105.471466,
+     "rsi": 52.610943,
+     "atr": 491.078813
     },
-    "kurs": 60700.85
+    "kurs": 60537.1
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-26 16:00:00",
+     "grenze": "2026-11-26 17:00:00",
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "richtung": 0,
-     "schluss": 1689.67,
-     "mitte": 1693.3825,
-     "oben": 1705.525165,
-     "unten": 1681.239835,
-     "rsi": 51.565049,
-     "atr": 15.384968,
+     "schluss": 1688.98,
+     "mitte": 1693.4705,
+     "oben": 1705.457762,
+     "unten": 1681.483238,
+     "rsi": 51.118912,
+     "atr": 15.356042,
      "dist": null
     },
     "signal": {
      "markt": "ETHUSD",
-     "grenze": "2026-11-26 16:00:00",
+     "grenze": "2026-11-26 17:00:00",
      "richtung": 0,
      "dist": null,
      "ziel_abstand": null,
@@ -195,14 +195,14 @@
      "warten": false,
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "tage": 39,
-     "schluss": 1689.67,
-     "mitte": 1693.3825,
-     "oben": 1705.525165,
-     "unten": 1681.239835,
-     "rsi": 51.565049,
-     "atr": 15.384968
+     "schluss": 1688.98,
+     "mitte": 1693.4705,
+     "oben": 1705.457762,
+     "unten": 1681.483238,
+     "rsi": 51.118912,
+     "atr": 15.356042
     },
-    "kurs": 1694.1
+    "kurs": 1691.9
    }
   }
  }

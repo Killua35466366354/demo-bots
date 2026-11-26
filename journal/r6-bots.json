@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-26T16:46:45.468795",
+ "stand_utc": "2026-11-26T17:01:43.667706",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -222,7 +222,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T16:46:45.468795",
+    "zeit": "2026-11-26T17:01:43.667706",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -237,7 +237,7 @@
    },
    "letzte_trades": [],
    "zwilling": {
-    "tage": 17,
+    "tage": 18,
     "abweichungen": 0,
     "zusammenfassung": {
      "trades": 0,
@@ -247,38 +247,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-19",
-      "strategie": "london_stunde_long",
-      "markt": "GBPUSD",
-      "schatten": false,
-      "schwankung": 1.1087118667814988,
-      "tag_gezaehlt": true,
-      "trades": [
-       {
-        "einstieg_kerze": "2026-11-19 11:00:00",
-        "side": "long",
-        "einstieg": 1.31697,
-        "pct": -0.3371,
-        "grund": "stop",
-        "ausstieg_kerze": "2026-11-19 15:00:00",
-        "uhrzeit": 660,
-        "bedingung": false,
-        "zaehlt": false,
-        "stop_abst": 0.00431
-       }
-      ],
-      "berechnet_utc": "2026-11-19T17:01:38.507731",
-      "bot_trades": [],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0,
-       "bot_pct": 0.0
-      }
-     },
      {
       "tag": "2026-11-20",
       "strategie": "london_stunde_long",
@@ -367,6 +335,38 @@
        "zwilling_pct": 0.0,
        "bot_pct": 0.0
       }
+     },
+     {
+      "tag": "2026-11-26",
+      "strategie": "london_stunde_long",
+      "markt": "GBPUSD",
+      "schatten": false,
+      "schwankung": 1.2354062231488745,
+      "tag_gezaehlt": true,
+      "trades": [
+       {
+        "einstieg_kerze": "2026-11-26 14:00:00",
+        "side": "long",
+        "einstieg": 1.31195,
+        "pct": -0.1166,
+        "grund": "zeit",
+        "ausstieg_kerze": "2026-11-26 16:45:00",
+        "uhrzeit": 840,
+        "bedingung": false,
+        "zaehlt": false,
+        "stop_abst": 0.00219
+       }
+      ],
+      "berechnet_utc": "2026-11-26T17:01:43.667706",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -388,10 +388,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T16:46:45.468795",
+    "zeit": "2026-11-26T17:01:43.667706",
     "action": "none",
     "why": [
-     "kein Signal"
+     "außerhalb 8:30 bis 17 Uhr London"
     ]
    },
    "zusammenfassung": {
@@ -694,7 +694,7 @@
     }
    ],
    "zwilling": {
-    "tage": 17,
+    "tage": 18,
     "abweichungen": 0,
     "zusammenfassung": {
      "trades": 14,
@@ -704,63 +704,6 @@
      "pnl_eur": 0.0
     },
     "letzte": [
-     {
-      "tag": "2026-11-19",
-      "strategie": "noise_band",
-      "markt": "USDJPY",
-      "schatten": false,
-      "schwankung": 0.8405928667446458,
-      "tag_gezaehlt": true,
-      "trades": [
-       {
-        "einstieg_kerze": "2026-11-19 09:30:00",
-        "side": "long",
-        "einstieg": 159.852,
-        "pct": 0.0294,
-        "grund": "zeit",
-        "ausstieg_kerze": "2026-11-19 11:30:00",
-        "uhrzeit": 570,
-        "bedingung": true,
-        "zaehlt": true,
-        "stop_abst": null
-       },
-       {
-        "einstieg_kerze": "2026-11-19 12:00:00",
-        "side": "long",
-        "einstieg": 159.908,
-        "pct": -0.0231,
-        "grund": "zeit",
-        "ausstieg_kerze": "2026-11-19 14:00:00",
-        "uhrzeit": 720,
-        "bedingung": true,
-        "zaehlt": true,
-        "stop_abst": null
-       }
-      ],
-      "berechnet_utc": "2026-11-19T17:01:38.507731",
-      "bot_trades": [
-       {
-        "einstieg_kerze": "2026-11-19 09:30:00",
-        "side": "long",
-        "pct": 0.0094,
-        "reason": "Gegensignal (Band/VWAP)"
-       },
-       {
-        "einstieg_kerze": "2026-11-19 12:00:00",
-        "side": "long",
-        "pct": -0.0119,
-        "reason": "Gegensignal (Band/VWAP)"
-       }
-      ],
-      "konto": true,
-      "vergleich": {
-       "gleich": true,
-       "nur_zwilling": [],
-       "nur_bot": [],
-       "zwilling_pct": 0.0063,
-       "bot_pct": -0.0025
-      }
-     },
      {
       "tag": "2026-11-20",
       "strategie": "noise_band",
@@ -980,6 +923,25 @@
        "zwilling_pct": -0.1794,
        "bot_pct": -0.1549
       }
+     },
+     {
+      "tag": "2026-11-26",
+      "strategie": "noise_band",
+      "markt": "USDJPY",
+      "schatten": false,
+      "schwankung": 0.8412969905273078,
+      "tag_gezaehlt": true,
+      "trades": [],
+      "berechnet_utc": "2026-11-26T17:01:43.667706",
+      "bot_trades": [],
+      "konto": true,
+      "vergleich": {
+       "gleich": true,
+       "nur_zwilling": [],
+       "nur_bot": [],
+       "zwilling_pct": 0.0,
+       "bot_pct": 0.0
+      }
      }
     ]
    }
@@ -1029,7 +991,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T16:46:45.468795",
+    "zeit": "2026-11-26T17:01:43.667706",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1267,7 +1229,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 981.36,
+   "kontostand": 981.56,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "Stop-Orders liegen",
@@ -1303,7 +1265,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T16:46:45.468795",
+    "zeit": "2026-11-26T17:01:43.667706",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -1916,7 +1878,7 @@
    },
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T16:46:45.468795",
+    "zeit": "2026-11-26T17:01:43.667706",
     "action": "none",
     "why": [
      "Stop-Orders liegen"

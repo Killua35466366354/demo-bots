@@ -931,8 +931,8 @@
    "id": "gold-buendel",
    "name": "Gold-Bündel aus 3 Bots",
    "konto": "Vortag USDJPY",
-   "seit": null,
-   "start": null,
+   "seit": "2026-11-26",
+   "start": "2026-11-26",
    "ist": {
     "trades": 0,
     "gewonnen": 0,

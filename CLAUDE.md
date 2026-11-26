@@ -281,6 +281,11 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   sah 10,9 % Rendite pro Monat, 47 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.
 - Läuft im 15-Minuten-Lauf nach den anderen Bots. Kopien der Scalper und der Gold-Zonen (5-Minuten-Lauf) kommen darum
   bis zu 15 Minuten später als die Quelle. Schreibt nur `journal/buendel9/` und `journal/buendel9.json`.
+- Bis zum 26.11.2026 merkte er sich die Deal-ID der Order statt der Position (`deal_aus_bestaetigung`). Er fand keine
+  seiner 7 Kopien unter seinen Positionen und buchte jede nach gut einer Stunde mit -1 R als "beim Broker zu", auch
+  die noch offenen. Seitdem sucht er eine fehlende Kopie erst nach Markt, Richtung, Größe und Eröffnungszeit
+  (`passende_position`). Eine als geschätzt gebuchte Kopie, die noch offen liegt, führt er wieder. Ihre falsche Buchung
+  steht danach in `journal/buendel9/storniert.jsonl`.
 
 ## Schatten-Labor und Kombinierer
 

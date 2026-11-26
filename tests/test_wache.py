@@ -41,7 +41,7 @@ def test_jede_regeldatei_der_laufenden_bots_wird_bewacht():
     from suche import buendel_bot, krypto4h_bot, vix_sprung_bot, welt4h_bot, williams_bot
     bewacht = {f"{p.stem} sha256 " for p in wache.vorab_dateien()}
     keys = {ausbruch4h_bot.KEY, welt4h_bot.KEY, krypto_bollinger_bot.KEY, modell_indizes_bot.KEY, vix_sprung_bot.KEY,
-            williams_bot.KEY, krypto4h_bot.KEY, buendel_bot.KEY, buendel_bot.KEY_OHNE_GOLD, buendel_bot.KEY_GOLD,
+            williams_bot.KEY, krypto4h_bot.KEY, buendel_bot.KEY, buendel_bot.KEY_OHNE_GOLD, buendel_bot.KEY_GOLD, buendel_bot.KEY_V1,
             grossbox_bot.KEY, hand_bot.KEY, zonen_bot.KEY, pine5m_bot.KEY, pine5m_bot.KEY_PRUEFER, pine5m_bot.KEY_K5, pine5m_bot.KEY_4H,
             schalter.KEY, gold_staffel_bot.KEY, gold_staffel_bot.KEY_ABFANG, scalper_bot.KEY, vergleich.KEY,
             demo_pruefung.KEY, demo_pruefung.LABOR_KEY, demo_pruefung.MESS_KEY, demo_pruefung.RUTSCH_KEY,

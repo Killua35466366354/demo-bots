@@ -544,6 +544,33 @@ jobs:
             python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml
           fi
 
+      # V1 mit wachsendem Einsatz (Kirons Wunsch vom 26.11.2026 13:07 UTC, "alles mal nach den echten Regeln", und seine
+      # Wahl 13:36 UTC "Eigener Demo-Bot auf Account 3"): derselbe Code wie die beiden Bündel, mit eigener Regeldatei
+      # suche/VORAB_v1_wachsend_bot.yaml. Er kopiert jeden neuen Trade der 9 Bots von V1 auf "Account 3", das er mit dem
+      # Bollinger-Bot Krypto teilt (Bitcoin und Ether nie), mit 2 % Risiko vom eigenen gedachten Kontostand (Start
+      # 1.000 €, Gewinne gehen zurück ins Konto), ohne Bremse, nur mit der Grenze des Brokers. Er schreibt nur
+      # journal/v1-wachsend/ und journal/v1-wachsend.json. Die Tests teilt er mit dem Schritt der Bündel (keine eigene
+      # Testgruppe). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: V1 mit wachsendem Einsatz (Account 3)
+        id: v1_wachsend
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ] && [ ! -f .tests-ok/buendel ]; then
+            python -m pytest -q tests/test_buendel_bot.py
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.buendel_bot --regel suche/VORAB_v1_wachsend_bot.yaml --dry-run
+          else
+            python -m suche.buendel_bot --regel suche/VORAB_v1_wachsend_bot.yaml
+          fi
+
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;
       # suche/vergleich.py, suche/VORAB_aufstieg.yaml). Liest nur das Journal, spricht mit keinem Broker, ein paar
       # Sekunden. Schreibt journal/vergleich.json und journal/vergleich.md; ohne neuen Trade ändern sie sich höchstens

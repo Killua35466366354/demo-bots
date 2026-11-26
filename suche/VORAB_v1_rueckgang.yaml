@@ -1,0 +1,94 @@
+# Rückgänge von V1: Gibt es einen Grund, den man live erkennt, und hilft es, dann Trades auszulassen?
+#
+# Kirons Wunsch vom 26.11.2026 13:07 UTC: "die starken Recessions, also da, wo es stark gefallen ist, kannst du das
+# versuchen zu ergründen ... versuche dann diesen Grund zu finden, im Sinne von, dass du den live auch finden könntest
+# ... und zwar so richtig, dass du auch wirklich merkst, wenn es sozusagen bringt, die Trades anders zu nehmen".
+# Diese Datei legt den Test fest, bevor gerechnet wird. Sie ist versiegelt, sobald ihre Prüfsumme im Protokoll steht
+# (journal/strategie-suche-protokoll.md, Schlüssel VORAB_v1_rueckgang). Eine neue Regel bekommt eine neue Datei.
+#
+# Ehrlich vorab:
+# - V1 und seine 9 Bots wurden an denselben Monaten ausgesucht. Darum wird nur an November 2024 bis Dezember 2025
+#   gewählt und nur an Januar bis Oktober 2026 geurteilt. An 2026 wurde vorher kein Ergebnis eines Filters angesehen.
+#   Angesehen wurde an 2026 nur, wie oft ein Merkmal auftritt (ohne Ergebnis der Trades): GVZ über 21,96 (80. Perzentil
+#   der Auswahlzeit) an 99 % der Tage von 2026. Darum ist der GVZ-Filter relativ zu seinen eigenen letzten 250 Tagen.
+# - Umdrehen statt auslassen wird nicht geprüft. Es ist dreimal durchgefallen (Archiv der verworfenen Ideen, Lehre
+#   "Verlierer umdrehen"), weil die Kosten in beide Richtungen anfallen. Es steht nur als Auskunft im besten Fall da.
+# - In der Auswahlzeit wurden mehr Merkmale angesehen als hier stehen: VIX-Anstieg über 5 Tage, Tagestrend
+#   (Schluss gegen Mittel aus 50 Tagen), 20-Tage-Rendite und Schwankung (ATR) gegen ihr Mittel. Der Tagestrend fiel
+#   schon dort durch (ausgelassene Trades +15,6 R), die anderen zeigten nichts Klares. Darum stehen sie nicht im Test.
+# - Ein Filter, der besteht, ist ein Kandidat für einen Demo-Bot, kein Beweis. Den Schritt zu echtem Geld entscheidet
+#   nur Kiron.
+
+v1_rueckgang:
+  frage: "Lassen sich die starken Rückgänge von V1 mit wachsendem Einsatz durch einen live erkennbaren Grund vermeiden, so dass das Konto am Ende mehr hat und weniger tief fällt?"
+
+  trades:
+    datei: "Projektordner schatten-labor/alle_margin.csv"
+    sha256: f77cabede4a49abd320cead38dc1daa72633fd012d34e187a9c5d2d75ffcc9f0
+    inhalt: "Rückblick-Trades der Bots der Konto-Rechnung vom 20.11.2026, Einstieg November 2024 bis Oktober 2026, Ergebnis in R je Trade, Margin je R"
+    bots: [gold-cb, gold-zonen, gold-ausbruch4h, r5-ruecksetzer-us500, r5-ruecksetzer-us100, r7-nasdaq-noise-long,
+           scalp-de40, scalp-us100, welt-ausbruch4h]
+    margin_fehlt: "scalp-us100 hat keine Margin je R. Sie wird wie in suche/buendel_max.py mit dem Median von scalp-de40 gefüllt."
+
+  kurse:
+    vix: {datei: "Projektordner strategie-suche/daten/fred/VIXCLS.csv", sha256: 638c383fa413a3dbed079eac295d392540ec6e25177b0e0da621510680a4ba6d}
+    gvz: {datei: "Projektordner strategie-suche/daten/fred/GVZCLS.csv", sha256: 61c812fcda689faf39fcda53d18e314a3f864b8bda8f8f8fd5a0e3c338ebc01c}
+    ohne_blick_nach_vorn: "Der Wert vom Tag D gilt erst ab D+1 00:00 UTC. Für einen Trade zählt der letzte Wert, der vor seinem Einstieg gilt. Live gibt es den Schluss von Cboe schon am Abend von D."
+
+  konto:
+    name: "V1 mit wachsendem Einsatz auf einem echten Konto, Fassung E2 aus echtes_konto_v1_vorab.md"
+    start: 1000.0
+    einsatz: "2 % des Kontostands bei der Eröffnung, Kontostand nur aus geschlossenen Trades"
+    reihenfolge: "nach Zeit in Minuten, bei gleicher Minute zuerst der Schluss, ein Trade mit Schluss gleich Eröffnung schließt direkt nach seiner Eröffnung"
+    grenze_broker: "Margin aller offenen Trades mit dem neuen höchstens 100 % des Kontostands, sonst fällt der Trade aus. Kontostand 0 € oder darunter heißt leer."
+    kurse_schlechter: 0.1           # jeder Trade 0,1 R schlechter als im Rückblick
+    bremse: keine
+    steuern: keine
+    filter_zuerst: "Ein Trade, den der Filter auslässt, prüft die Grenze des Brokers nicht mehr"
+
+  filter:
+    F1:
+      name: "Gold nervös gegen sich selbst"
+      regel: "Ein Trade auf GOLD fällt aus, wenn der letzte GVZ-Wert über dem 80. Perzentil (numpy quantile, linear) der 250 GVZ-Werte davor liegt. Gibt es keine 250 Werte davor, fällt er nicht aus."
+      topf: GOLD
+    F2:
+      name: "zu viele offen"
+      regel: "Ein Trade fällt aus, wenn im gerechneten Konto beim Einstieg schon 3 oder mehr Trades von V1 offen sind."
+      topf: alle
+    F3:
+      name: "Gold bei Angst an der Börse"
+      regel: "Ein Trade auf GOLD fällt aus, wenn der letzte VIX-Wert über 20,67 liegt (80. Perzentil der VIX-Werte vom 01.11.2024 bis 31.12.2025)."
+      topf: GOLD
+      ehrlich: "Gewählt, nachdem die Auswahlzeit zeigte, dass hoher VIX nur Gold-Trades schadete (43 Trades -16,2 R) und den anderen nicht (70 Trades +14,7 R)."
+
+  wahl:
+    zeitraum: ["2024-11-01", "2025-12-31"]   # Einstiege in diesem Zeitraum, Start 1.000 € am 01.11.2024
+    bedingung: "Ein Filter kommt nur ins Urteil, wenn er in der Auswahlzeit mindestens 20 Trades auslässt und deren Summe R (je Trade R minus 0,1) unter 0 liegt."
+
+  urteil:
+    zeitraum: ["2026-01-01", "2026-10-31"]   # Einstiege in diesem Zeitraum, Start 1.000 € am 01.01.2026
+    vergleich: "dasselbe Konto ohne Filter"
+    bestanden_wenn:
+      - "der Filter hat die Bedingung der Wahl erfüllt"
+      - "mindestens 20 ausgelassene Trades"
+      - "Summe R der ausgelassenen Trades (je Trade R minus 0,1) unter 0"
+      - "Kontostand am Ende höher als ohne Filter"
+      - "schlimmster Rückgang in % (vom Höchststand, Kontostand aus geschlossenen Trades) nicht tiefer als ohne Filter"
+      - "Zufallsvergleich nach Holm über F1, F2 und F3 auf Niveau 0,05"
+    zufall: "Aus dem Topf des Filters (2026) werden 2.000-mal genauso viele Trades zufällig ausgelassen, wie der Filter ausließ (Startwert 20261126), und das Konto ohne Filter gerechnet. p = (Anzahl Läufe mit Kontostand am Ende mindestens so hoch wie mit Filter + 1) geteilt durch 2.001."
+    holm: "über alle drei Filter, auch über die, die die Bedingung der Wahl nicht erfüllen"
+    probelauf: "Vorher wird geprüft, ob der Test Zufall bestehen lässt. Die R der Trades von 2026 werden 200-mal unter allen Trades von 2026 gemischt (Startwert 20261127, Margin bleibt beim Trade), dann laufen die Punkte 2 bis 6 mit 200 statt 2.000 Zufallsläufen. Besteht dabei in mehr als 10 % der Mischungen mindestens ein Filter, taugt der Test nicht, und kein Filter besteht."
+    kosten: "Die R des Rückblicks enthalten Spread und Kosten, dazu 0,1 R schlechter je Trade."
+
+  auskunft:
+    - "Die drei tiefsten Rückgänge von V1 mit wachsendem Einsatz vom 01.11.2024 bis 31.10.2026: Zeitraum, Tiefe, welche Bots wie viel R verloren, mittlerer GVZ und VIX dabei. Kein Urteil."
+    - "Jeder Filter auch über die ganze Zeit vom 01.11.2024 bis 31.10.2026 mit Start 1.000 €. Kein Urteil, weil die Auswahlzeit darin steckt."
+    - "Umdrehen statt auslassen im besten Fall: der ausgelassene Trade mit -R minus 0,1 R, ohne die zweiten Kosten des Gegentrades. Kein Urteil, weil die Kosten je Trade in der Trade-Datei fehlen und die Umkehr dreimal durchgefallen ist."
+    - "Kurve je Tag für das Bild, Euro je Monat 2026."
+
+  dann:
+    bestanden: "Ein Filter, der besteht, kommt nicht von allein in einen Bot. Claude bringt Kiron eine Karte für einen Demo-Bot V1 mit wachsendem Einsatz und diesem Filter, mit eigener Regeldatei und PR."
+    durchgefallen: "Kommt ins Archiv der verworfenen Ideen mit dem Ergebnis. Ein Demo-Bot V1 mit wachsendem Einsatz ohne Filter bleibt Kirons Wahl."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron. Die geltende Hürde ist suche/VORAB_aufstieg_alle.yaml (100 Demo-Trades, mindestens 61 Tage). Kirons 'nach einem Monat' ist kürzer und bräuchte seine eigene neue Regeldatei."
+
+  dateien: "Rechnung suche/v1_rueckgang.py, Ergebnis suche/ergebnis_v1_rueckgang.md, Zahlen für die Seite mit --json"

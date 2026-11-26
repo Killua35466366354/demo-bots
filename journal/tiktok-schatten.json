@@ -6702,7 +6702,7 @@
    "tp3": 3632.83,
    "r_usd": 17.82,
    "teile": [],
-   "ergebnis_r": -0.633,
+   "ergebnis_r": -0.734,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -6718,7 +6718,7 @@
    "tp3": 3627.75,
    "r_usd": 17.57,
    "teile": [],
-   "ergebnis_r": -0.396,
+   "ergebnis_r": -0.499,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -6741,7 +6741,7 @@
      "anteil": 0.333
     }
    ],
-   "ergebnis_r": 0.816,
+   "ergebnis_r": 0.799,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -6757,7 +6757,7 @@
    "tp3": null,
    "r_usd": 17.82,
    "teile": [],
-   "ergebnis_r": -0.633,
+   "ergebnis_r": -0.734,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -6767,8 +6767,8 @@
   "richtung": 1,
   "linie": 3561.54,
   "gerade_gedreht": false,
-  "kerze": "2026-11-26 19:00:00",
-  "kurs": 3568.08,
+  "kerze": "2026-11-26 19:30:00",
+  "kurs": 3566.27,
   "genauer_175": {
    "richtung": 1,
    "linie": 3563.73,
@@ -6831,8 +6831,8 @@
    "urteil": "nur Teil der Gesamt-Linie alle_sieben, kein eigenes Urteil"
   }
  },
- "stand": "2026-11-26T19:11:30+00:00",
- "letzte_kerze": "2026-11-26 18:45:00",
+ "stand": "2026-11-26T20:11:29+00:00",
+ "letzte_kerze": "2026-11-26 19:15:00",
  "hinweis": "Nur Schatten, keine Order. Keine der Strategien hat einen Backtest bestanden (portfolio-manager suche/VORAB_runde12b.yaml bis VORAB_runde12e.yaml). Urteil nach 40 fertigen Trades je Strategie, bei der Gesamt-Linie alle_sieben frühestens nach 4 Wochen und 200 Trades. gross_box, box_1h und box_laufen sind nur Teile der Gesamt-Linie.",
  "start_je": {
   "stream_box": "2026-11-06 08:00:00",

@@ -3,34 +3,12 @@
  "name": "Pine-Gold Hand auf Account 5 (Kirons Long A und Short B auf 5 Min., Long und Short gleichzeitig, Kiron geht selbst raus)",
  "konto": "…9086",
  "konto_name": "Account 5",
- "stand": "2026-11-26T14:03:29",
+ "stand": "2026-11-26T14:08:38",
  "start": "2026-11-10T09:28:32",
  "regel": "Kirons Pine A (Long) und B (Short) auf 5-Min.-Gold-Kerzen, Standardwerte, Einstiege 7 bis 20 Uhr UTC, 1 R = 3 x ATR(14), 5 € je R, höchstens 4 Goldpositionen, Long und Short gleichzeitig erlaubt (Hedging). Gold-Prüfer: keine Einstiege 60 Min. vor bis 30 Min. nach wichtigen US-Terminen (keine Sperre nach Kurssprüngen), nichts gegen den Hintergrund (Tag über SMA 50 und 4 Std. über EMA 50). Ohne Stop und Ziel, Kiron geht selbst raus. Trade-Abfänger (seit 10.11.2026): die ersten 4 Std. nichts, danach Stop 0,5 R hinter dem besten Kurs, nur nachgezogen (raus am nächsten Hoch bzw. Tief). Hinweis beim Pine-Ausstiegssignal.",
  "vorab": "suche/VORAB_pine5m_abfang4h.yaml",
  "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
  "offen": [
-  {
-   "dealId": "00000000-76d7-1adc-049c-701f0015549e",
-   "richtung": -1,
-   "size": 0.48,
-   "entry": 3572.57,
-   "dist": 11.26,
-   "einstieg_kerze": "2026-11-26 09:55:00",
-   "strategie": "B Short",
-   "opened_utc": "2026-11-26T10:03:29",
-   "hinweis": "2026-11-26T10:38:30",
-   "nachzieh": {
-    "seit": "2026-11-26T14:03:29",
-    "bestes": 3571.13,
-    "stop_seit": "2026-11-26T14:03:29"
-   },
-   "abfang": {
-    "zeit": "2026-11-26T14:03:29",
-    "warum": "4 Std. ohne Ausstieg"
-   },
-   "stop": 3576.76,
-   "ziel": null
-  },
   {
    "dealId": "00000000-76d7-219e-049c-701f0015549e",
    "richtung": -1,
@@ -40,7 +18,18 @@
    "einstieg_kerze": "2026-11-26 10:00:00",
    "strategie": "B Short",
    "opened_utc": "2026-11-26T10:08:27",
-   "hinweis": "2026-11-26T10:38:30"
+   "hinweis": "2026-11-26T10:38:30",
+   "nachzieh": {
+    "seit": "2026-11-26T14:08:38",
+    "bestes": 3574.69,
+    "stop_seit": "2026-11-26T14:08:38"
+   },
+   "abfang": {
+    "zeit": "2026-11-26T14:08:38",
+    "warum": "4 Std. ohne Ausstieg"
+   },
+   "stop": 3580.22,
+   "ziel": null
   },
   {
    "dealId": "00000000-76d8-25b4-049c-701f0015549e",
@@ -54,40 +43,13 @@
   }
  ],
  "zusammenfassung": {
-  "trades": 36,
-  "pf_r": 2.64,
-  "summe_r": 26.34,
-  "summe_eur": 129.54,
+  "trades": 37,
+  "pf_r": 2.579,
+  "summe_r": 25.97,
+  "summe_eur": 127.69,
   "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades"
  },
  "letzte_trades": [
-  {
-   "dealId": "00000000-7530-7b10-049c-701f0015549e",
-   "richtung": -1,
-   "size": 0.22,
-   "entry": 3581.91,
-   "dist": 23.92,
-   "einstieg_kerze": "2026-11-20 08:40:00",
-   "strategie": "B Short",
-   "opened_utc": "2026-11-20T08:48:26",
-   "hinweis": "2026-11-20T09:58:33",
-   "nachzieh": {
-    "seit": "2026-11-20T12:48:29",
-    "bestes": 3566.01,
-    "stop_seit": "2026-11-20T12:58:31"
-   },
-   "abfang": {
-    "zeit": "2026-11-20T12:48:29",
-    "warum": "4 Std. ohne Ausstieg"
-   },
-   "stop": 3577.97,
-   "ziel": null,
-   "exit": 3578.0,
-   "quelle": "SL",
-   "closed_utc": "2026-11-20T13:03:30",
-   "r": 0.163,
-   "pnl_eur": 0.78
-  },
   {
    "dealId": "00000000-7533-8240-049c-701f0015549e",
    "richtung": -1,
@@ -317,6 +279,33 @@
    "closed_utc": "2026-11-26T01:13:29",
    "r": -0.977,
    "pnl_eur": -4.72
+  },
+  {
+   "dealId": "00000000-76d7-1adc-049c-701f0015549e",
+   "richtung": -1,
+   "size": 0.48,
+   "entry": 3572.57,
+   "dist": 11.26,
+   "einstieg_kerze": "2026-11-26 09:55:00",
+   "strategie": "B Short",
+   "opened_utc": "2026-11-26T10:03:29",
+   "hinweis": "2026-11-26T10:38:30",
+   "nachzieh": {
+    "seit": "2026-11-26T14:03:29",
+    "bestes": 3571.13,
+    "stop_seit": "2026-11-26T14:03:29"
+   },
+   "abfang": {
+    "zeit": "2026-11-26T14:03:29",
+    "warum": "4 Std. ohne Ausstieg"
+   },
+   "stop": 3576.76,
+   "ziel": null,
+   "exit": 3576.81,
+   "quelle": "SL",
+   "closed_utc": "2026-11-26T14:08:38",
+   "r": -0.377,
+   "pnl_eur": -1.85
   }
  ]
 }

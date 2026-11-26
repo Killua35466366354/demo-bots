@@ -1,6 +1,6 @@
 {
  "status": "wartet auf einen Schluss über dem Band (10:00-15:00 New York)",
- "stand_utc": "2026-11-26T14:46:41.867996",
+ "stand_utc": "2026-11-26T15:01:40.671610",
  "konto_id": "332317231899038878",
  "konto": "…8878",
  "konto_name": "US500",
@@ -8,50 +8,19 @@
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:24.423150",
  "letzte_entscheidung": {
-  "zeit": "2026-11-26T14:46:41.867996",
+  "zeit": "2026-11-26T15:01:40.671610",
   "action": "none",
-  "why": "wartet auf den ersten Prüfpunkt (10:00 New York)",
+  "why": "US-Feiertag oder kurzer Börsentag: keine volle Sitzung, heute kein Einstieg",
   "bar": null
  },
  "position": null,
  "start_kontostand": 1000.0,
  "plan": {
-  "tag": "2026-11-25",
+  "tag": "2026-11-26",
   "ok": false,
-  "sig": [
-   0.0070394391578270975,
-   0.007694821265235899,
-   0.008995954417555827,
-   0.010040888650930677,
-   0.012634319567690828,
-   0.01314500987622588,
-   0.013051754648328282,
-   0.012553633921615555,
-   0.01383269556092214,
-   0.01467176090543205,
-   0.01470177798243669,
-   0.013737860093399652,
-   0.01518539855562243,
-   0.014967969515526305,
-   0.015767169114929005,
-   0.014942443696730876,
-   0.01542108316512589,
-   0.014762680169834452,
-   0.014665837314454826,
-   0.014770058286069294,
-   0.015209124574922175,
-   0.015539054758882422,
-   0.016533732604594453,
-   0.016944001079718145
-  ],
-  "vorschluss": 26223.5,
-  "letzte_sitzung": "2026-11-24",
-  "schwankung": 1.8348112336397264,
-  "atr14": 1137.6857142857145,
-  "atr_bis": "2026-11-24",
-  "why": "Markt nicht ruhiger als sonst (Schwankung 1.835 > 0,865): heute kein Trade",
+  "why": "US-Feiertag oder kurzer Börsentag: keine volle Sitzung, heute kein Einstieg",
   "stundenkerzen": 2898,
-  "kerzen_15": 3112
+  "kerzen_15": 3139
  },
- "tag_erledigt": "2026-11-25"
+ "tag_erledigt": "2026-11-26"
 }

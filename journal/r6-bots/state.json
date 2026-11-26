@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,7 +24,7 @@
   },
   "r6-london-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "konto_id": "332263759556203678",
    "konto": "…3678",
    "konto_name": "Account 6",
@@ -33,20 +33,20 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T09:46:50.207033",
+    "zeit": "2026-11-26T10:01:48.214243",
     "action": "none",
     "why": [
-     "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
+     "Markt nicht ruhiger als sonst (Schwankung 1.235 > 0,876): heute kein Trade"
     ]
    },
-   "tag_erledigt": "2026-11-25",
+   "tag_erledigt": "2026-11-26",
    "position": null,
    "uebergeben_an": null,
    "fremd": []
   },
   "r6-noise-usdjpy": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "konto_id": "332264120333456542",
    "konto": "…6542",
    "konto_name": "Account 7",
@@ -97,7 +97,7 @@
     "vortag_schluss": 158.707
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T09:46:50.207033",
+    "zeit": "2026-11-26T10:01:48.214243",
     "action": "none",
     "why": [
      "kein Signal"
@@ -116,7 +116,7 @@
   },
   "r6-vortag-eurusd": {
    "status": "Stop-Orders liegen",
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
@@ -125,7 +125,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T09:46:50.207033",
+    "zeit": "2026-11-26T10:01:48.214243",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -174,16 +174,16 @@
   },
   "r6-vortag-gbpusd": {
    "status": "Stop-Orders liegen",
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 979.71,
+   "kontostand": 981.13,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T09:46:50.207033",
+    "zeit": "2026-11-26T10:01:48.214243",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -259,7 +259,7 @@
    "orders": null,
    "status": "beendet am 22.11.2026 (Kirons Wort: größtes Minus nach Pine-Gold TP 3, 4 Trades alle am Stop, -18,09 Euro Spielgeld); Konto freigegeben",
    "position": null,
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "tag_erledigt": "2026-11-20",
    "nachgeprueft": [
     "2026-11-05"
@@ -276,7 +276,7 @@
    "start_utc": "2026-11-05T17:32:02.353890",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T09:46:50.207033",
+    "zeit": "2026-11-26T10:01:48.214243",
     "action": "none",
     "why": [
      "Stop-Orders liegen"
@@ -320,7 +320,7 @@
    },
    "status": "Stop-Orders liegen",
    "position": null,
-   "stand_utc": "2026-11-26T09:46:50.207033",
+   "stand_utc": "2026-11-26T10:01:48.214243",
    "tag_erledigt": "2026-11-25",
    "fremd": [],
    "open": null
@@ -338,12 +338,6 @@
  "maerkte": {
   "GBPUSD": {
    "tageswerte": {
-    "2026-11-12": {
-     "atr14": 0.007833571428571424,
-     "atr100": 0.0069814,
-     "schwankung": 1.1220631146433988,
-     "bis": "2026-11-11"
-    },
     "2026-11-13": {
      "atr14": 0.007938571428571415,
      "atr100": 0.0069723,
@@ -397,6 +391,12 @@
      "atr100": 0.007021299999999999,
      "schwankung": 1.2059223871851175,
      "bis": "2026-11-24"
+    },
+    "2026-11-26": {
+     "atr14": 0.008667857142857132,
+     "atr100": 0.007016199999999999,
+     "schwankung": 1.2354062231488745,
+     "bis": "2026-11-25"
     }
    }
   },
@@ -465,5 +465,5 @@
    }
   }
  },
- "stand_utc": "2026-11-26T09:46:50.207033"
+ "stand_utc": "2026-11-26T10:01:48.214243"
 }

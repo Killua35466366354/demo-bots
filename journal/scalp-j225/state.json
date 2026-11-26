@@ -1,7 +1,7 @@
 {
  "format": 1,
  "offen": null,
- "tag_erledigt": "2026-11-25",
+ "tag_erledigt": "2026-11-26",
  "opens": {
   "woche:2026W48": 55097.3
  },
@@ -10,15 +10,15 @@
  "summe_pct": -0.5548,
  "summe_eur": -0.17,
  "letzte_entscheidung": {
-  "zeit": "2026-11-25T06:03:39",
-  "tag": "2026-11-25",
-  "action": "open",
-  "why": "Signal",
+  "zeit": "2026-11-26T06:03:28",
+  "tag": "2026-11-26",
+  "action": "none",
+  "why": "Filter: Kurs 57770.4 nicht auf der Short-Seite des woche-Opens 55097.3",
   "opens": {
    "woche": 55097.3
   },
-  "kurs_filter": 57040.4
+  "kurs_filter": 57770.4
  },
- "stand": "2026-11-26T05:43:32",
+ "stand": "2026-11-26T06:03:28",
  "start": "2026-11-10T12:43:38"
 }

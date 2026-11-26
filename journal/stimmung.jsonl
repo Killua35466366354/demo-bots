@@ -727,3 +727,4 @@
 {"zeit":"2026-11-26T10:17Z","long":{"GOLD":68.59,"US500":76.28,"US100":68.16,"US30":66.56,"DE40":68.27,"J225":72.78,"EURUSD":60.5,"GBPUSD":64.54,"GBPJPY":64.96,"USDJPY":47.32},"fehlt":[],"fehler":null}
 {"zeit":"2026-11-26T10:35Z","long":{},"fehlt":["GOLD","US500","US100","US30","DE40","J225","EURUSD","GBPUSD","GBPJPY","USDJPY"],"fehler":"Rate-Limit erreicht für /session"}
 {"zeit":"2026-11-26T10:47Z","long":{"GOLD":67.73,"US500":76.2,"US100":68.0,"US30":66.49,"DE40":67.01,"J225":72.28,"EURUSD":60.86,"GBPUSD":64.4,"GBPJPY":65.83,"USDJPY":47.91},"fehlt":[],"fehler":null}
+{"zeit":"2026-11-26T11:03Z","long":{"GOLD":66.8,"US500":75.53,"US100":66.46,"US30":65.33,"DE40":65.19,"J225":71.53,"EURUSD":60.65,"GBPUSD":64.54,"GBPJPY":65.25,"USDJPY":47.79},"fehlt":[],"fehler":null}

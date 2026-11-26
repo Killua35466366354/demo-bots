@@ -74,8 +74,8 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-26 08:00:00",
- "updated_utc": "2026-11-26T09:11:37+00:00",
+ "cursor": "2026-11-26 09:00:00",
+ "updated_utc": "2026-11-26T10:11:29+00:00",
  "open_detail": {
   "side": "short",
   "signal": "2026-11-26 06:00:00",
@@ -84,8 +84,8 @@
   "in_px": 3569.08,
   "stop": 3611.1,
   "ziel": 3555.07,
-  "stunden": 2,
-  "jetzt_r": -0.08,
+  "stunden": 3,
+  "jetzt_r": -0.15,
   "stand": "offen"
  },
  "richtung": -1,
@@ -107,7 +107,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-26T09:11:37+00:00",
+  "abgerufen_utc": "2026-11-26T10:11:29+00:00",
   "naechste": [],
   "nicht_in_termine_yaml": [
    "2026-11-25 13:30 Core PCE Price Index m/m",

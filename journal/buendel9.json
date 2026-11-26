@@ -2,9 +2,9 @@
  "bot": "buendel9",
  "name": "Bündel aus 9 Bots",
  "konto": "Vortag USDJPY",
- "stand": "2026-11-26T02:31:59",
+ "stand": "2026-11-26T07:17:08",
  "start": "2026-11-20T18:03:32",
- "status": "0 Kopien offen, gedachter Kontostand 658.90 € nach 6 fertigen Kopien",
+ "status": "1 Kopie offen, gedachter Kontostand 658.90 € nach 6 fertigen Kopien",
  "regel": "Kopiert jeden neuen Trade von 9 Demo-Bots (Gold-Bot C/B, Gold-Zonen, Gold 4-Std.-Ausbruch, Rücksetzer US500 und US100, Noise-Band Nasdaq, Scalper DAX und Nasdaq, 4-Std.-Ausbruch DAX/FTSE/Nikkei) mit 7 € Risiko auf gedachte 700 €. Stop und Ziel wie die Quelle, raus, wenn die Quelle rausgeht. Konto-Wächter: Margin höchstens 50 % des Kontostands, Bremse ab 30 % Rückgang.",
  "backtest": "Backtest November 2024 bis Oktober 2026 (Auskunft): 993 von 996 Trades passen durch den Wächter, +76,5 € im Monat auf 700 € (10,9 % Rendite pro Monat), schlimmster Rückgang 149 €, 6 von 24 Monaten im Minus. Die 9 sind an denselben Monaten ausgesucht, live wird es weniger. 47 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
  "test": "Backtest November 2024 bis Oktober 2026 (Auskunft): 993 von 996 Trades passen durch den Wächter, +76,5 € im Monat auf 700 € (10,9 % Rendite pro Monat), schlimmster Rückgang 149 €, 6 von 24 Monaten im Minus. Die 9 sind an denselben Monaten ausgesucht, live wird es weniger. 47 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
@@ -25,7 +25,20 @@
  "kapital_eur": 700,
  "kontostand_gedacht_eur": 658.9,
  "hedging": true,
- "offen": [],
+ "offen": [
+  {
+   "quelle": "gold-cb",
+   "epic": "GOLD",
+   "richtung": -1,
+   "entry": 3572.14,
+   "stop": 3595.85,
+   "ziel": null,
+   "size": 0.32,
+   "risiko_eur": 6.91,
+   "margin_eur": 52.12,
+   "opened_utc": "2026-11-26T07:17:08"
+  }
+ ],
  "zusammenfassung": {
   "trades": 6,
   "summe_r": -6.0,

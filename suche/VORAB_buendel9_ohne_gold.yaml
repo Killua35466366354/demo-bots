@@ -1,0 +1,104 @@
+# Bündel aus 9 Bots ohne Gold: buendel9 kopiert ab jetzt nur noch die sechs Bots ohne Gold (nur Capital.com-DEMO)
+#
+# Kirons Wunsch vom 26.11.2026 09:53 UTC: "die gold bots von den anderen strategien aufspalten damit sie einzeln sind
+# als bot bundle". Kirons Wahl vom 26.11.2026 09:59 UTC auf der Karte "Wie soll ich die Gold-Bots vom Bündel trennen?":
+# "Zwei Bündel auf einem Konto". Die drei Gold-Bots kopiert ab dann das Gold-Bündel (suche/VORAB_gold_buendel_bot.yaml).
+# buendel9 bleibt derselbe Bot auf demselben Konto mit derselben Zählung, nur seine Mitglieder ändern sich. Diese Datei
+# löst suche/VORAB_buendel9_bot.yaml ab, die unverändert bleibt.
+#
+# Eine Woche live (suche/VORAB_eine_woche.yaml): buendel9 startete am 20.11.2026 18:03 UTC, seine Woche endet am
+# 27.11.2026 18:03 UTC. Kirons Wahl vom 26.11.2026 09:59 UTC nennt das Bündel und ist datiert, darum gilt der Wechsel
+# schon vorher. Ab dem ersten Lauf mit dieser Datei beginnt eine neue Woche ohne Regeländerung.
+#
+# Was sich ändert und was nicht:
+# - Neue Kopien nur noch von den sechs Mitgliedern unten. Gold-Bot C/B, Gold-Zonen und Gold 4-Std.-Ausbruch stehen unter
+#   "auslaufend": Ihre Dateien liest der Bot weiter, damit er seine noch offenen Gold-Kopien angleichen und schließen
+#   kann, wenn die Quelle schließt. Neue Kopien bekommen sie hier nie mehr.
+# - Geld, Wächter, Bremse, Kopier-Regeln und Urteil wie in suche/VORAB_buendel9_bot.yaml. Der gedachte Kontostand, der
+#   Höchststand und die Zählung laufen weiter. Das Urteil zählt nach suche/VORAB_aufstieg_alle.yaml alle Kopien in
+#   journal/buendel9/trades.jsonl seit dem Start am 20.11.2026, auch die Gold-Kopien aus der Zeit davor.
+#
+# Rechnung vor dem Siegel (Auskunft, nicht im Repo: Projektordner bot-rat/2026-11-26, gold_aufteilung_vorab.md vor dem
+# Rechnen festgelegt, gold_aufteilung.py auf schatten-labor/alle_margin.csv, Wächter 50 %, Bremse 30 %):
+# - 2026 (Januar bis Oktober) mit eigenen 700 €: +38,2 € im Monat (5,5 % Rendite pro Monat), schlimmster Rückgang 8 %,
+#   2 von 10 Monaten im Minus, kein Trade ausgelassen, Margin höchstens 37 % des Kontostands.
+# - November 2024 bis Oktober 2026: +42,0 € im Monat (6,0 %), schlimmster Rückgang 72 € (5,8 %), 633 Trades.
+# - Zum Vergleich das Bündel aus 9 Bots: 2026 +64,3 € im Monat (9,2 %). Die Trennung kostet also Rendite, dafür ist
+#   jedes Bündel einzeln zu sehen.
+#
+# Ehrlich dazu: Die sechs sind an denselben Monaten ausgesucht, an denen gerechnet wurde. Live wird es weniger. 84 % des
+# Gewinns (2026: 76 %) kamen von den Scalpern DAX und Nasdaq, deren Test durchgefallen ist. Nur die Rücksetzer US500
+# und US100 und das Noise-Band Nasdaq haben ihren Test bestanden, sie brachten zusammen 10 R in zwei Jahren.
+#
+# Diese Datei ist versiegelt, sobald ihre Prüfsumme im Protokoll steht (journal/strategie-suche-protokoll.md,
+# Schlüssel VORAB_buendel9_ohne_gold). Ohne passende Prüfsumme kopiert der Bot nichts Neues. Eine neue Regel bekommt
+# eine neue Datei.
+
+buendel9_ohne_gold:
+  bot_id: buendel9
+  name: "Bündel ohne Gold (6 Bots)"
+  konto_name: "Vortag USDJPY"     # geteilt mit gold-buendel, r6-vortag-gbpusd (GBPUSD) und pine-hand (ruht). Nummer nach dem Namen aus journal/konten.json
+  waehrung: EUR
+  wahl: "Kirons Wahl vom 26.11.2026 09:59 UTC, Karte 'Wie soll ich die Gold-Bots vom Bündel trennen?', Option 'Zwei Bündel auf einem Konto'"
+  ersetzt: suche/VORAB_buendel9_bot.yaml
+  text: >-
+    Kopiert jeden neuen Trade von 6 Demo-Bots ohne Gold (Rücksetzer US500 und US100, Noise-Band Nasdaq, Scalper DAX und
+    Nasdaq, 4-Std.-Ausbruch DAX/FTSE/Nikkei) mit 7 € Risiko auf gedachte 700 €. Kauf oder Verkauf, Stop und Ziel wie die
+    Quelle, raus, wenn die Quelle rausgeht. Die Gold-Bots kopiert seit dem 26.11.2026 das Gold-Bündel. Konto-Wächter:
+    Margin höchstens 50 % des Kontostands, Bremse ab 30 % Rückgang.
+  backtest_text: >-
+    Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +38,2 € im Monat (5,5 % Rendite pro
+    Monat), 2 von 10 Monaten im Minus. November 2024 bis Oktober 2026 6,0 % im Monat, schlimmster Rückgang 5,8 %.
+    84 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.
+
+  # Die 6 Mitglieder mit der Datei, in der sie ihren offenen Trade führen (wie in suche/VORAB_buendel9_bot.yaml).
+  mitglieder:
+    us500-ruecksetzer:    {datei: us500-bot/state.json,             feld: open,       konto: konto_id}
+    r5-ruecksetzer-us100: {datei: us100-ruecksetzer/state.json,     feld: open,       konto: konto_id}
+    r7-nasdaq-noise-long: {datei: r7-nasdaq-bot/state.json,         feld: open,       konto: konto_id}
+    scalp-de40:           {datei: scalp-de40/state.json,            feld: offen,      konto: suche.scalper_bot}
+    scalp-us100:          {datei: scalp-us100/state.json,           feld: offen,      konto: suche.scalper_bot}
+    welt-ausbruch4h:      {datei: welt-ausbruch4h/state.json,       feld: maerkte.*.trade, konto: suche.welt4h_bot}
+
+  # Keine neuen Kopien mehr. Der Bot liest ihre Dateien nur, damit seine offenen Kopien von ihnen zu Ende laufen.
+  auslaufend:
+    gold-cb:              {datei: gold-state.json,                  feld: open_trade, konto: haupt,                grund: "kopiert seit dem 26.11.2026 das Gold-Bündel"}
+    gold-zonen:           {datei: gold-zonen/state.json,            feld: trade,      konto: gold.zonen_bot,       grund: "kopiert seit dem 26.11.2026 das Gold-Bündel"}
+    gold-ausbruch4h:      {datei: gold-ausbruch4h/state.json,       feld: trade,      konto: gold.ausbruch4h_bot,  grund: "kopiert seit dem 26.11.2026 das Gold-Bündel"}
+
+  geld:
+    kapital_eur: 700              # gedachtes Konto, der echte Kontostand des Demokontos zählt nicht
+    risiko_eur: 7                 # 1 % von 700 €, fest, kein Zinseszins
+    max_risiko_faktor: 2.0        # Runden auf die kleinste Größe darf das Risiko höchstens verdoppeln, sonst keine Kopie
+
+  kopieren:
+    frist_minuten: 30             # nur Trades, die die Quelle vor höchstens 30 Minuten eröffnet hat
+    richtung: "Kauf oder Verkauf wie die Quelle. Keine eigene Richtungsregel."
+    stop: "Stop-Kurs der Quelle beim Broker. Ohne Stop der Quelle keine Kopie."
+    ziel: "Ziel-Kurs der Quelle, wenn sie eins hat"
+    folgen: "Ändert die Quelle Stop oder Ziel, gleicht der Bot die Kopie im nächsten Lauf an."
+    schliessen: "Ist der Trade der Quelle zu (nicht mehr in ihrer Datei oder nicht mehr beim Broker), schließt der Bot die Kopie zum Markt."
+    einmal: "Jeder Trade einer Quelle bekommt höchstens eine Kopie. Eine gescheiterte Order wird nie wiederholt. Hat das Gold-Bündel einen Trade schon kopiert, kopiert ihn buendel9 nicht noch einmal."
+    groesse: "7 € geteilt durch den Abstand vom aktuellen Kurs zum Stop der Quelle, abgerundet auf die Schrittweite des Brokers, mindestens die kleinste Größe."
+
+  waechter:
+    margin_anteil: 0.5            # Margin aller offenen Kopien plus der neuen höchstens 50 % des gedachten Kontostands
+    frei_danach_eur: 250          # nach jeder Kopie bleiben beim Broker mindestens 250 € frei (für Vortag GBP/USD)
+    hebel_hinweis: "Margin = Größe mal Kurs mal Margin-Faktor des Brokers, in Euro"
+    bremse_rueckgang: 0.3         # liegt der gedachte Kontostand 30 % unter seinem Höchststand, kopiert der Bot nichts Neues mehr
+    bremse_zurueck: "nur mit Kirons Entscheidung und einer neuen Regeldatei"
+    hedging: "Das Konto braucht den Hedging-Modus, damit jede Kopie eine eigene Position ist. Der Bot schaltet ihn ein (PUT /accounts/preferences). Ist er aus, höchstens eine Kopie je Markt, die Kopien des Gold-Bündels zählen dabei mit."
+    mitglied_raus:
+      trades: 40                  # Urteil nach suche/VORAB_wechsel.yaml
+      gewinnfaktor_unter: 1.2
+      quelle: "journal/vergleich.json (Rangliste und Bots mit festem Konto, Feld ist)"
+      text: "Hat ein Mitglied 40 eigene Demo-Trades und einen Gewinnfaktor unter 1,2, kopiert das Bündel von ihm nichts Neues mehr. Offene Kopien laufen zu Ende."
+    nachbar: "Das Gold-Bündel handelt auf demselben Konto. Seine Kopien (journal/gold-buendel/state.json) sind fremde Positionen. buendel9 fasst sie nie an, auch nicht beim Wiederfinden einer Kopie nach Markt, Richtung, Größe und Zeit."
+    nie: "Nie auf dem Hauptkonto, nie auf einem Konto eines Mitglieds. Nie eine fremde Position anfassen, nur die eigenen Kopien an ihrer Deal-ID. Nie auf den Märkten der anderen Bots des Kontos (GBPUSD)."
+
+  urteil:
+    regel: "suche/VORAB_aufstieg_alle.yaml, einzeln: 100 Demo-Trades, mindestens 61 Tage, Summe der letzten 61 Tage über 0, neuere Hälfte ohne Verlust, Gewinnfaktor 1,3. Gezählt in R aller Kopien in journal/buendel9/trades.jsonl seit dem Start am 20.11.2026."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron, auf einer Karte und über einen PR."
+    eine_woche: "suche/VORAB_eine_woche.yaml: 7 Tage ab dem ersten Lauf mit dieser Datei keine Regeländerung und keine Abschaltung."
+
+  dateien: "Schreibt nur journal/buendel9/ und journal/buendel9.json."

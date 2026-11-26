@@ -1,0 +1,91 @@
+# Gold-Bündel aus 3 Bots auf dem Demokonto "Vortag USDJPY" (nur Capital.com-DEMO, nie echtes Geld)
+#
+# Kirons Wunsch vom 26.11.2026 09:53 UTC: "die gold bots von den anderen strategien aufspalten damit sie einzeln sind
+# als bot bundle,... und gehe sicher das es nicht nur short sondern shorts und longs nimmt, je nach markt condition".
+# Kirons Wahl vom 26.11.2026 09:59 UTC auf der Karte "Wie soll ich die Gold-Bots vom Bündel trennen?": "Zwei Bündel
+# auf einem Konto". Das Gold-Bündel kopiert die drei Gold-Bots, die bis dahin im Bündel aus 9 Bots waren. Das Bündel
+# aus 9 Bots kopiert ab dann nur die sechs anderen (suche/VORAB_buendel9_ohne_gold.yaml).
+#
+# Der Bot erfindet kein Signal. Er ist derselbe Code wie das Bündel aus 9 Bots (suche/buendel_bot.py, aufgerufen mit
+# --regel suche/VORAB_gold_buendel_bot.yaml). Er kopiert jeden neuen Trade der drei Mitglieder mit 7 € Risiko auf ein
+# gedachtes Konto von 700 €. Kauf oder Verkauf, Stop und Ziel sind die der Quelle. Er nimmt also Käufe und Verkäufe,
+# so wie die Mitglieder sie nach ihren eigenen Regeln mit Trendfilter handeln. Eine eigene Richtungsregel hat er nicht,
+# die bräuchte einen eigenen versiegelten Test.
+#
+# Rechnung vor dem Siegel (Auskunft, nicht im Repo: Projektordner bot-rat/2026-11-26, gold_aufteilung_vorab.md vor dem
+# Rechnen festgelegt, gold_aufteilung.py auf schatten-labor/alle_margin.csv, Wächter 50 %, Bremse 30 %):
+# - 2026 (Januar bis Oktober) mit eigenen 700 €: +25,4 € im Monat (3,6 % Rendite pro Monat), schlimmster Rückgang 8,7 %,
+#   5 von 10 Monaten im Minus, kein Trade ausgelassen.
+# - November 2024 bis Oktober 2026: +33,7 € im Monat (4,8 %), schlimmster Rückgang 177 € (14,9 %), 363 Trades.
+# - Richtung: 198 Käufe zusammen +109 R, 159 Verkäufe zusammen +9 R, 6 unklar. Gold stieg bis März 2026 von 2.750 auf
+#   über 5.000 US-Dollar und fiel danach. Seit Juni 2026 verkaufen die Mitglieder meist. Im November 2026 waren fast
+#   alle Demo-Trades Verkäufe.
+# - Mit allen sechs Gold-Bots (dazu Groß-Box, Pine-K5, Gold-Staffel) fiel das Konto 30 % und bremste. Darum nur drei.
+#
+# Ehrlich dazu: Die drei sind an denselben Monaten ausgesucht, an denen gerechnet wurde. Live wird es weniger. Keiner
+# der drei hat seinen eigenen Test bestanden (Gold-Zonen durchgefallen, Gold 4-Std.-Ausbruch knapp nicht bestanden,
+# gold-cb läuft nach seinem eigenen Plan bis Januar 2027). Sechs Gold-Bots verlieren oft gemeinsam, das Gold-Bündel
+# ist kein neues Signal, aber eine weitere Kopie derselben Gold-Trades. Das Gold-Duo G11 (suche/gold_duo.py) zählt
+# davon unberührt weiter.
+#
+# Diese Datei ist versiegelt, sobald ihre Prüfsumme im Protokoll steht (journal/strategie-suche-protokoll.md,
+# Schlüssel VORAB_gold_buendel_bot). Ohne passende Prüfsumme kopiert der Bot nichts Neues. Eine neue Regel bekommt eine
+# neue Datei.
+
+gold_buendel_bot:
+  bot_id: gold-buendel
+  name: "Gold-Bündel aus 3 Bots"
+  konto_name: "Vortag USDJPY"     # geteilt mit buendel9, r6-vortag-gbpusd (GBPUSD) und pine-hand (ruht). Nummer nach dem Namen aus journal/konten.json
+  waehrung: EUR
+  wahl: "Kirons Wahl vom 26.11.2026 09:59 UTC, Karte 'Wie soll ich die Gold-Bots vom Bündel trennen?', Option 'Zwei Bündel auf einem Konto'"
+  text: >-
+    Kopiert jeden neuen Trade der drei Gold-Bots (Gold-Bot C/B, Gold-Zonen, Gold 4-Std.-Ausbruch) mit 7 € Risiko auf
+    gedachte 700 €. Kauf oder Verkauf, Stop und Ziel wie die Quelle, raus, wenn die Quelle rausgeht. Konto-Wächter:
+    Margin höchstens 50 % des Kontostands, Bremse ab 30 % Rückgang.
+  backtest_text: >-
+    Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +25,4 € im Monat (3,6 % Rendite pro
+    Monat), 5 von 10 Monaten im Minus. November 2024 bis Oktober 2026 4,8 % im Monat, schlimmster Rückgang 14,9 %.
+    198 Käufe brachten +109 R, 159 Verkäufe +9 R.
+
+  # Die 3 Mitglieder mit der Datei, in der sie ihren offenen Trade führen (wie in suche/VORAB_buendel9_bot.yaml).
+  mitglieder:
+    gold-cb:              {datei: gold-state.json,                  feld: open_trade, konto: haupt}
+    gold-zonen:           {datei: gold-zonen/state.json,            feld: trade,      konto: gold.zonen_bot}
+    gold-ausbruch4h:      {datei: gold-ausbruch4h/state.json,       feld: trade,      konto: gold.ausbruch4h_bot}
+
+  geld:
+    kapital_eur: 700              # gedachtes Konto, der echte Kontostand des Demokontos zählt nicht
+    risiko_eur: 7                 # 1 % von 700 €, fest, kein Zinseszins
+    max_risiko_faktor: 2.0        # Runden auf die kleinste Größe darf das Risiko höchstens verdoppeln, sonst keine Kopie
+
+  kopieren:
+    frist_minuten: 30             # nur Trades, die die Quelle vor höchstens 30 Minuten eröffnet hat
+    richtung: "Kauf oder Verkauf wie die Quelle. Keine eigene Richtungsregel."
+    stop: "Stop-Kurs der Quelle beim Broker. Ohne Stop der Quelle keine Kopie."
+    ziel: "Ziel-Kurs der Quelle, wenn sie eins hat"
+    folgen: "Ändert die Quelle Stop oder Ziel, gleicht der Bot die Kopie im nächsten Lauf an."
+    schliessen: "Ist der Trade der Quelle zu (nicht mehr in ihrer Datei oder nicht mehr beim Broker), schließt der Bot die Kopie zum Markt."
+    einmal: "Jeder Trade einer Quelle bekommt höchstens eine Kopie. Eine gescheiterte Order wird nie wiederholt. Hat buendel9 einen Trade schon kopiert (Übergang am 26.11.2026), kopiert ihn das Gold-Bündel nicht noch einmal."
+    groesse: "7 € geteilt durch den Abstand vom aktuellen Kurs zum Stop der Quelle, abgerundet auf die Schrittweite des Brokers, mindestens die kleinste Größe."
+
+  waechter:
+    margin_anteil: 0.5            # Margin aller offenen Kopien plus der neuen höchstens 50 % des gedachten Kontostands
+    frei_danach_eur: 250          # nach jeder Kopie bleiben beim Broker mindestens 250 € frei (für Vortag GBP/USD)
+    hebel_hinweis: "Margin = Größe mal Kurs mal Margin-Faktor des Brokers, in Euro"
+    bremse_rueckgang: 0.3         # liegt der gedachte Kontostand 30 % unter seinem Höchststand, kopiert der Bot nichts Neues mehr
+    bremse_zurueck: "nur mit Kirons Entscheidung und einer neuen Regeldatei"
+    hedging: "Das Konto braucht den Hedging-Modus, damit jede Kopie eine eigene Position ist. Der Bot schaltet ihn ein (PUT /accounts/preferences). Ist er aus, höchstens eine Kopie je Markt, die Kopien von buendel9 zählen dabei mit."
+    mitglied_raus:
+      trades: 40                  # Urteil nach suche/VORAB_wechsel.yaml
+      gewinnfaktor_unter: 1.2
+      quelle: "journal/vergleich.json (Rangliste und Bots mit festem Konto, Feld ist)"
+      text: "Hat ein Mitglied 40 eigene Demo-Trades und einen Gewinnfaktor unter 1,2, kopiert das Bündel von ihm nichts Neues mehr. Offene Kopien laufen zu Ende."
+    nachbar: "buendel9 handelt auf demselben Konto. Seine Kopien (journal/buendel9/state.json) sind fremde Positionen. Das Gold-Bündel fasst sie nie an, auch nicht beim Wiederfinden einer Kopie nach Markt, Richtung, Größe und Zeit."
+    nie: "Nie auf dem Hauptkonto, nie auf einem Konto eines Mitglieds. Nie eine fremde Position anfassen, nur die eigenen Kopien an ihrer Deal-ID. Nie auf den Märkten der anderen Bots des Kontos (GBPUSD)."
+
+  urteil:
+    regel: "suche/VORAB_aufstieg_alle.yaml, einzeln: 100 Demo-Trades, mindestens 61 Tage, Summe der letzten 61 Tage über 0, neuere Hälfte ohne Verlust, Gewinnfaktor 1,3. Gezählt in R der Kopien in journal/gold-buendel/trades.jsonl."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron, auf einer Karte und über einen PR."
+    eine_woche: "suche/VORAB_eine_woche.yaml: 7 Tage ab Start keine Regeländerung und keine Abschaltung."
+
+  dateien: "Schreibt nur journal/gold-buendel/ und journal/gold-buendel.json."

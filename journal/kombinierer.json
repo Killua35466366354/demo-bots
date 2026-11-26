@@ -40,116 +40,116 @@
  "gruppen": {
   "demo_gruppe": {
    "ohne_grenzen": {
-    "trades": 86,
-    "genommen": 86,
+    "trades": 88,
+    "genommen": 88,
     "verpasst": {},
-    "summe_eur": 378.87,
-    "endstand_eur": 1378.87,
+    "summe_eur": 358.68,
+    "endstand_eur": 1358.68,
     "groesster_rueckgang_eur": 134.88,
     "monate": {
      "2026-11": {
-      "trades": 86,
-      "eur": 378.87
+      "trades": 88,
+      "eur": 358.68
      }
     },
-    "schnitt_monat_eur": 378.87,
-    "schnitt_monat_pct": 37.89,
-    "schlechtester_monat_eur": 378.87,
+    "schnitt_monat_eur": 358.68,
+    "schnitt_monat_pct": 35.87,
+    "schlechtester_monat_eur": 358.68,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 3519.23
    },
    "konto": {
-    "trades": 86,
-    "genommen": 39,
+    "trades": 88,
+    "genommen": 40,
     "verpasst": {
-     "hoechstens_offen": 2,
+     "hoechstens_offen": 3,
      "je_markt": 43,
      "tagesstopp": 2
     },
-    "summe_eur": 56.32,
-    "endstand_eur": 1056.32,
+    "summe_eur": 45.9,
+    "endstand_eur": 1045.9,
     "groesster_rueckgang_eur": 87.32,
     "monate": {
      "2026-11": {
-      "trades": 39,
-      "eur": 56.32
+      "trades": 40,
+      "eur": 45.9
      }
     },
-    "schnitt_monat_eur": 56.32,
-    "schnitt_monat_pct": 5.63,
-    "schlechtester_monat_eur": 56.32,
+    "schnitt_monat_eur": 45.9,
+    "schnitt_monat_pct": 4.59,
+    "schlechtester_monat_eur": 45.9,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
-    "groesste_margin_eur": 1821.04
+    "groesste_margin_eur": 1868.0
    },
    "konto_weiter": {
-    "trades": 86,
-    "genommen": 55,
+    "trades": 88,
+    "genommen": 56,
     "verpasst": {
-     "je_markt": 25,
+     "je_markt": 26,
      "tagesstopp": 6
     },
-    "summe_eur": 43.01,
-    "endstand_eur": 1043.01,
+    "summe_eur": 32.59,
+    "endstand_eur": 1032.59,
     "groesster_rueckgang_eur": 105.22,
     "monate": {
      "2026-11": {
-      "trades": 55,
-      "eur": 43.01
+      "trades": 56,
+      "eur": 32.59
      }
     },
-    "schnitt_monat_eur": 43.01,
-    "schnitt_monat_pct": 4.3,
-    "schlechtester_monat_eur": 43.01,
+    "schnitt_monat_eur": 32.59,
+    "schnitt_monat_pct": 3.26,
+    "schlechtester_monat_eur": 32.59,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 3261.63
    },
    "konto_margin": {
-    "trades": 86,
-    "genommen": 31,
+    "trades": 88,
+    "genommen": 32,
     "verpasst": {
-     "je_markt": 44,
+     "je_markt": 45,
      "margin": 9,
      "tagesstopp": 2
     },
-    "summe_eur": 124.3,
-    "endstand_eur": 1124.3,
+    "summe_eur": 113.88,
+    "endstand_eur": 1113.88,
     "groesster_rueckgang_eur": 57.14,
     "monate": {
      "2026-11": {
-      "trades": 31,
-      "eur": 124.3
+      "trades": 32,
+      "eur": 113.88
      }
     },
-    "schnitt_monat_eur": 124.3,
-    "schnitt_monat_pct": 12.43,
-    "schlechtester_monat_eur": 124.3,
+    "schnitt_monat_eur": 113.88,
+    "schnitt_monat_pct": 11.39,
+    "schlechtester_monat_eur": 113.88,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 259.95
    },
    "konto_margin_50": {
-    "trades": 86,
-    "genommen": 32,
+    "trades": 88,
+    "genommen": 33,
     "verpasst": {
-     "je_markt": 44,
+     "je_markt": 45,
      "margin": 8,
      "tagesstopp": 2
     },
-    "summe_eur": 127.47,
-    "endstand_eur": 1127.47,
+    "summe_eur": 117.05,
+    "endstand_eur": 1117.05,
     "groesster_rueckgang_eur": 57.14,
     "monate": {
      "2026-11": {
-      "trades": 32,
-      "eur": 127.47
+      "trades": 33,
+      "eur": 117.05
      }
     },
-    "schnitt_monat_eur": 127.47,
-    "schnitt_monat_pct": 12.75,
-    "schlechtester_monat_eur": 127.47,
+    "schnitt_monat_eur": 117.05,
+    "schnitt_monat_pct": 11.71,
+    "schlechtester_monat_eur": 117.05,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 306.25
@@ -255,14 +255,14 @@
  "margin_geschaetzt": {
   "demo_gruppe": [
    0,
-   86
+   88
   ],
   "demo_kern": [
    0,
    8
   ]
  },
- "satz": "Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +379 € nach 86 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 39 davon genommen und +56 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 31 Trades und +124 € gewesen.",
+ "satz": "Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +359 € nach 88 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 40 davon genommen und +46 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 32 Trades und +114 € gewesen.",
  "gold_duo": {
   "format": 1,
   "start_utc": "2026-11-25T08:00:00",
@@ -274,18 +274,24 @@
    "mindestens_tage": 61,
    "pf_mindestens": 1.3
   },
-  "trades": 0,
+  "trades": 2,
   "gewonnen": 0,
-  "pf": null,
-  "monate": {},
+  "pf": 0.0,
+  "monate": {
+   "2026-11": {
+    "trades": 2,
+    "eur": -19.74,
+    "pct": -2.0
+   }
+  },
   "je_bot": {
    "gold-cb": {
     "trades": 0,
     "eur": 0.0
    },
    "pine-k5": {
-    "trades": 0,
-    "eur": 0.0
+    "trades": 2,
+    "eur": -19.74
    }
   },
   "richtung": {
@@ -294,23 +300,28 @@
     "eur": 0.0
    },
    "verkauf": {
-    "trades": 0,
-    "eur": 0.0
+    "trades": 2,
+    "eur": -19.74
    }
   },
-  "beste_tage": [],
+  "beste_tage": [
+   [
+    "2026-11-26",
+    -19.74
+   ]
+  ],
   "ohne_zwei_beste_tage_eur": null,
-  "offen": 2,
+  "offen": 1,
   "verpasst": {},
-  "summe_eur": 0.0,
-  "endstand_eur": 1000.0,
-  "groesster_rueckgang_eur": 0.0,
-  "groesste_margin_eur": 96.37,
+  "summe_eur": -19.74,
+  "endstand_eur": 980.26,
+  "groesster_rueckgang_eur": 19.74,
+  "groesste_margin_eur": 385.23,
   "bremse_seit": null,
   "urteil": {
    "status": "sammelt",
-   "text": "0 von 100 Trades, 1 von 61 Tagen"
+   "text": "2 von 100 Trades, 1 von 61 Tagen"
   },
-  "satz": "Das Gold-Duo mit doppeltem Einsatz wartet auf den ersten gezählten Trade seit dem 25.11.2026. Die Trades vom November davor zählen nicht."
+  "satz": "Das Gold-Duo mit doppeltem Einsatz steht nach 2 Trades und 1 Tag bei −20 € auf einem gedachten Konto mit 1.000 €. Der größte Rückgang war −20 €, das Urteil heißt sammelt."
  }
 }

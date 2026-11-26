@@ -401,3 +401,6 @@
 {"time": "2026-11-26T10:38:30", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Strategie würde SHORT schließen", "gesendet": true}
 {"time": "2026-11-26T12:53:33", "bot": "pine-k5", "event": "eröffnet", "richtung": -1, "kerze": "2026-11-26 12:45:00", "strategie": "B Short", "hintergrund": {"richtung": -1, "tag": 3576.04, "sma50": 3997.9, "h4": 3566.87, "ema50": 3661.89}, "lage": "Hintergrund: Gold fällt (Tag unter 50-Tage-Schnitt, 4 Std. unter EMA 50).", "dealId": "00000000-76d8-25b4-049c-701f0015549e", "size": 0.41, "entry": 3566.17, "tp": null}
 {"time": "2026-11-26T12:53:33", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT eröffnet", "gesendet": true}
+{"time": "2026-11-26T14:03:29", "bot": "pine-k5", "event": "Abfänger übernimmt", "dealId": "00000000-76d7-1adc-049c-701f0015549e", "kurs": 3571.13}
+{"time": "2026-11-26T14:03:29", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Abfänger übernimmt", "gesendet": true}
+{"time": "2026-11-26T14:03:29", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-76d7-1adc-049c-701f0015549e", "stopLevel": 3576.76, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}

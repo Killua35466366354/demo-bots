@@ -2,10 +2,10 @@
  "bot": "krypto-ausbruch4h",
  "name": "4-Std.-Ausbruch Bitcoin, Ether",
  "konto": "Account 5",
- "stand": "2026-11-26T03:02:12",
+ "stand": "2026-11-26T07:02:18",
  "start": "2026-11-20T16:34:24",
  "pausiert": null,
- "status": "Bitcoin: Verkauf offen ab 58381.8, Stop 61701.09, kein Ziel, Ausstieg nach 4 fertigen 4-Std.-Kerzen (bisher 3)",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-26 07:00 UTC): der letzte Trade endete erst nach dem Schluss dieser Kerze",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf Bitcoin und Ether (Fassung ausbruch4h_krypto): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, kein Ziel. Ausstieg nach 4 fertigen 4-Std.-Kerzen (16 Stunden). Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
  "vorab": "suche/VORAB_krypto_ausbruch4h_bot.yaml",
@@ -14,37 +14,24 @@
   "BTCUSD": "Bitcoin",
   "ETHUSD": "Ether"
  },
- "offen": [
-  {
-   "id": "BTCUSD 2026-11-25T15:00",
-   "markt": "BTCUSD",
-   "epic": "BTCUSD",
-   "richtung": -1,
-   "entry": 58381.8,
-   "stop": 61701.09,
-   "size": 0.0016,
-   "dist": 3412.194657,
-   "opened_utc": "2026-11-25T15:03:03",
-   "kerzen": 3
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 2,
-  "pf_r": 0.375,
-  "summe_r": -0.11,
-  "trefferquote": 0.5,
-  "summe_eur": -0.47,
+  "trades": 3,
+  "pf_r": 0.079,
+  "summe_r": -0.73,
+  "trefferquote": 0.333,
+  "summe_eur": -3.56,
   "je_markt": {
    "BTCUSD": {
-    "trades": 1,
-    "summe_r": 0.063
+    "trades": 2,
+    "summe_r": -0.566
    },
    "ETHUSD": {
     "trades": 1,
     "summe_r": -0.168
    }
   },
-  "urteil": "läuft (2 von 40 Trades)"
+  "urteil": "läuft (3 von 40 Trades)"
  },
  "letzte_trades": [
   {
@@ -96,26 +83,51 @@
    "r": -0.168,
    "pnl_waehrung": -0.87,
    "pnl_eur": -0.8
+  },
+  {
+   "id": "BTCUSD 2026-11-25T15:00",
+   "markt": "BTCUSD",
+   "epic": "BTCUSD",
+   "richtung": -1,
+   "grenze": "2026-11-25 15:00:00",
+   "dealId": "00000000-76ce-7214-049c-701f0015549e",
+   "size": 0.0016,
+   "entry": 58381.8,
+   "stop": 61701.09,
+   "dist": 3412.194657,
+   "opened_utc": "2026-11-25T15:03:03",
+   "spaet_min": 3.1,
+   "kerzen": 4,
+   "seite": "Verkauf",
+   "exit": 60496.05,
+   "grund": "zeit",
+   "closed_utc": "2026-11-26T07:02:18",
+   "naechte": 1,
+   "r_roh": -0.62,
+   "gebuehr_r": 0.009,
+   "r": -0.629,
+   "pnl_waehrung": -3.38,
+   "pnl_eur": -3.09
   }
  ],
  "blick": {
-  "naechste_4h_kerze_endet_utc": "2026-11-26 07:00:00",
+  "naechste_4h_kerze_endet_utc": "2026-11-26 11:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-26 03:00:00",
-     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
+     "grenze": "2026-11-26 07:00:00",
+     "ergebnis": "der letzte Trade endete erst nach dem Schluss dieser Kerze"
     },
-    "kurs": 60608.5
+    "kurs": 60446.05
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-26 03:00:00",
+     "grenze": "2026-11-26 07:00:00",
      "ergebnis": "kein Ausbruch",
      "richtung": 0,
-     "schluss": 1695.3,
+     "schluss": 1684.38,
      "hoch_davor": 1842.48,
      "tief_davor": 1605.65,
      "trend": null,
@@ -123,7 +135,7 @@
     },
     "signal": {
      "markt": "ETHUSD",
-     "grenze": "2026-11-26 03:00:00",
+     "grenze": "2026-11-26 07:00:00",
      "richtung": 0,
      "trend": null,
      "dist": null,
@@ -131,14 +143,14 @@
      "warten": false,
      "ergebnis": "kein Ausbruch",
      "tage": 400,
-     "schluss": 1695.3,
+     "schluss": 1684.38,
      "hoch_davor": 1842.48,
      "tief_davor": 1605.65,
      "tagestrend": -1,
      "kerzen_5min": 48,
      "gesperrt": false
     },
-    "kurs": 1695.4
+    "kurs": 1684.83
    }
   }
  }

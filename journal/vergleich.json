@@ -560,19 +560,19 @@
    }
   ],
   "ist": {
-   "trades": 90,
+   "trades": 91,
    "gewonnen": 42,
-   "treffer_pct": 46.7,
-   "summe_r": 33.87,
-   "pf_r": 1.82,
-   "eur": 270.9,
+   "treffer_pct": 46.2,
+   "summe_r": 33.29,
+   "pf_r": 1.8,
+   "eur": 268.04,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 90,
-    "summe_r": 33.88,
-    "eur": 270.9
+    "trades": 91,
+    "summe_r": 33.3,
+    "eur": 268.04
    }
   },
   "bestes": "gold",
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "90 von 100 Demo-Trades, 23 von 61 Tagen"
+   "text": "91 von 100 Demo-Trades, 23 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -742,21 +742,21 @@
    "seit": "2026-11-12",
    "start": "2026-11-12",
    "ist": {
-    "trades": 4,
+    "trades": 5,
     "gewonnen": 3,
-    "treffer_pct": 75.0,
-    "summe_r": 2.2,
-    "pf_r": 25.19,
-    "eur": 10.12,
-    "rueckgang_r": 0.09
+    "treffer_pct": 60.0,
+    "summe_r": 1.62,
+    "pf_r": 3.44,
+    "eur": 7.26,
+    "rueckgang_r": 0.58
    },
    "einheit": "R",
-   "urteil": "läuft (4 von 40 Trades)",
+   "urteil": "läuft (5 von 40 Trades)",
    "vorab": "suche/VORAB_gold_ausbruch4h_bot.yaml",
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "4 von 100 Demo-Trades, 14 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 14 von 61 Tagen"
    }
   },
   {
@@ -886,21 +886,21 @@
    "seit": "2026-11-20",
    "start": "2026-11-20",
    "ist": {
-    "trades": 2,
+    "trades": 3,
     "gewonnen": 1,
-    "treffer_pct": 50.0,
-    "summe_r": -0.11,
-    "pf_r": 0.38,
-    "eur": -0.47,
-    "rueckgang_r": 0.17
+    "treffer_pct": 33.3,
+    "summe_r": -0.73,
+    "pf_r": 0.08,
+    "eur": -3.56,
+    "rueckgang_r": 0.8
    },
    "einheit": "R",
-   "urteil": "läuft (2 von 40 Trades)",
+   "urteil": "läuft (3 von 40 Trades)",
    "vorab": "suche/VORAB_krypto_ausbruch4h_bot.yaml",
    "test": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "2 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "3 von 100 Demo-Trades, 6 von 61 Tagen"
    }
   },
   {

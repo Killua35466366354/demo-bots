@@ -28,3 +28,4 @@
 {"time": "2026-11-26T10:03:28", "event": "Kopie zu", "quelle": "welt-ausbruch4h", "dealId": "00000000-752c-4d38-049c-a8a80015549e", "kurs": 57710.4, "grund": "Quelle zu", "r": -0.5722, "eur": -3.99, "geschaetzt": false}
 {"time": "2026-11-26T10:03:28", "event": "Kopie zu", "quelle": "gold-cb", "dealId": "00000000-7652-ab77-049c-a8a80015549e", "kurs": 3573.06, "grund": "Quelle zu", "r": 2.8207, "eur": 18.94, "geschaetzt": false}
 {"time": "2026-11-26T10:03:28", "event": "Kopie zu", "quelle": "gold-ausbruch4h", "dealId": "00000000-76b1-14fe-049c-a8a80015549e", "kurs": 3573.06, "grund": "Quelle zu", "r": -0.5834, "eur": -3.83, "geschaetzt": false}
+{"time": "2026-11-26T10:34:43", "event": "neue Regel", "alt": "VORAB_buendel9_bot.yaml", "neu": "VORAB_buendel9_ohne_gold.yaml"}

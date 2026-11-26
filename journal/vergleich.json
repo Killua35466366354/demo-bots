@@ -905,7 +905,7 @@
   },
   {
    "id": "buendel9",
-   "name": "Bündel aus 9 Bots",
+   "name": "Bündel ohne Gold",
    "konto": "Vortag USDJPY",
    "seit": "2026-11-20",
    "start": "2026-11-20",
@@ -920,11 +920,35 @@
    },
    "einheit": "R",
    "urteil": "Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3",
-   "vorab": "suche/VORAB_buendel9_bot.yaml",
-   "test": "Backtest November 2024 bis Oktober 2026 (Auskunft): 993 von 996 Trades passen durch den Wächter, +76,5 € im Monat auf 700 € (10,9 % Rendite pro Monat), schlimmster Rückgang 149 €, 6 von 24 Monaten im Minus. Die 9 sind an denselben Monaten ausgesucht, live wird es weniger. 47 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
+   "vorab": "suche/VORAB_buendel9_ohne_gold.yaml",
+   "test": "Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +38,2 € im Monat (5,5 % Rendite pro Monat), 2 von 10 Monaten im Minus. November 2024 bis Oktober 2026 6,0 % im Monat, schlimmster Rückgang 5,8 %. 84 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
    "aufstieg": {
     "status": "sammelt",
     "text": "6 von 100 Demo-Trades, 6 von 61 Tagen"
+   }
+  },
+  {
+   "id": "gold-buendel",
+   "name": "Gold-Bündel aus 3 Bots",
+   "konto": "Vortag USDJPY",
+   "seit": null,
+   "start": null,
+   "ist": {
+    "trades": 0,
+    "gewonnen": 0,
+    "treffer_pct": null,
+    "summe_r": 0,
+    "pf_r": null,
+    "eur": 0,
+    "rueckgang_r": 0.0
+   },
+   "einheit": "R",
+   "urteil": "Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3",
+   "vorab": "suche/VORAB_gold_buendel_bot.yaml",
+   "test": "Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +25,4 € im Monat (3,6 % Rendite pro Monat), 5 von 10 Monaten im Minus. November 2024 bis Oktober 2026 4,8 % im Monat, schlimmster Rückgang 14,9 %. 198 Käufe brachten +109 R, 159 Verkäufe +9 R.",
+   "aufstieg": {
+    "status": "sammelt",
+    "text": "0 von 100 Demo-Trades, 0 von 61 Tagen"
    }
   },
   {

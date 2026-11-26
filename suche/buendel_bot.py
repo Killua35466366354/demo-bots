@@ -3,6 +3,7 @@
     python -m suche.buendel_bot              # ein Lauf: Kopien führen, neue Trades der Mitglieder kopieren
     python -m suche.buendel_bot --dry-run    # nur rechnen und zeigen, keine Order
     python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml   # ein anderes Bündel derselben Art
+    python -m suche.buendel_bot --regel A.yaml --regel B.yaml               # mehrere nacheinander, eine Anmeldung
 
 Welches Bündel ein Lauf führt, sagt seine Regeldatei (bot_id, Mitglieder). Seit Kirons Wahl vom 26.11.2026 09:59 UTC
 ("Zwei Bündel auf einem Konto") laufen zwei Bündel auf "Vortag USDJPY": das Gold-Bündel (gold-buendel, die drei
@@ -907,38 +908,70 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict], regel: dict, jdir:
     return True
 
 
+LAUFENDE_REGELN = (VORAB_OHNE_GOLD, VORAB_GOLD, VORAB_V1)   # buendel9 ohne Gold, Gold-Bündel, V1 mit wachsendem Einsatz
+
+
+def ein_kopierer(client, vorab: Path, dry_run: bool = False, now: datetime | None = None) -> dict:
+    """Ein Lauf eines Kopierers mit einer schon angemeldeten Sitzung: Zustand lesen, run, Ergebnis zeigen, schreiben."""
+    regel = lade_regel(vorab)
+    path = J / bot_id(regel) / "state.json"
+    state = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    st, log, fertige = run(client, state, now or datetime.now(timezone.utc), send_orders=not dry_run, regel=regel,
+                           vorab=vorab)
+    out = {"bot": bot_id(regel), "ereignisse": log, "fertig": fertige,
+           "status": status(st, regel["geld"]["kapital_eur"])}
+    print(json.dumps(out, ensure_ascii=False, default=str))
+    if not dry_run:
+        schreiben(st, log, fertige, regel, vorab=vorab)
+    return out
+
+
 def main(argv: list[str]) -> int:
+    """Alle Kopierer eines Laufs teilen EINE Anmeldung. Bis zum 26.11.2026 meldete sich jeder in einem eigenen Schritt
+    an. Im ersten Lauf mit V1 (26.11.2026 14:19 UTC) kamen drei Anmeldungen kurz hintereinander, Capital.com antwortete
+    gold-buendel, v1-wachsend und danach der Kunden-Stimmung mit "Rate-Limit erreicht für /session", auch nach drei
+    Versuchen in 12 s. Ein Fehler in einem Kopierer hält die anderen nie auf. Dann endet der Lauf mit 1, damit die
+    Wache den Schritt als gescheitert zählt."""
+    import traceback
+
     from gold.bot.capital import CapitalClient
     from gold.bot.runner import CRED_KEYS, clean_credentials
 
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--dry-run", action="store_true", help="nur rechnen, keine Order")
-    ap.add_argument("--regel", default=str(VORAB_OHNE_GOLD.relative_to(ROOT)),
-                    help="Regeldatei des Bündels (Standard: buendel9 ohne Gold)")
+    ap.add_argument("--regel", action="append", default=None,
+                    help="Regeldatei eines Kopierers, auch mehrmals in der Reihenfolge des Laufs (Standard: buendel9 "
+                         "ohne Gold)")
     args = ap.parse_args(argv)
-    vorab = ROOT / args.regel
-    if vorab.resolve() not in {x.resolve() for x in (VORAB_OHNE_GOLD, VORAB_GOLD, VORAB_V1)}:
-        raise SystemExit(f"{args.regel} ist keine Regeldatei eines laufenden Bündels")
+    erlaubt = {x.resolve() for x in LAUFENDE_REGELN}
+    vorabs: list[Path] = []
+    for r in args.regel or [str(VORAB_OHNE_GOLD.relative_to(ROOT))]:
+        vorab = ROOT / r
+        if vorab.resolve() not in erlaubt:
+            raise SystemExit(f"{r} ist keine Regeldatei eines laufenden Bündels")
+        if vorab.resolve() in {v.resolve() for v in vorabs}:
+            raise SystemExit(f"{r} steht zweimal da, jeder Kopierer läuft höchstens einmal je Lauf")
+        vorabs.append(vorab)
     creds = clean_credentials({k: os.environ.get(k, "") for k in CRED_KEYS})
     if not all(creds):
         print("Keine Capital.com-Zugangsdaten, Bündel übersprungen")
         return 0
-    regel = lade_regel(vorab)
-    path = J / bot_id(regel) / "state.json"
-    state = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     client = CapitalClient(*creds, environment="demo")
     client.login()
+    gescheitert = []
     try:
-        st, log, fertige = run(client, state, datetime.now(timezone.utc), send_orders=not args.dry_run, regel=regel,
-                               vorab=vorab)
+        for vorab in vorabs:
+            try:
+                ein_kopierer(client, vorab, args.dry_run)
+            except Exception as err:        # noqa: BLE001 - die anderen Kopierer laufen weiter
+                gescheitert.append(vorab.name)
+                print(json.dumps({"regel": f"suche/{vorab.name}", "fehler": f"{type(err).__name__}: {str(err)[:300]}"},
+                                 ensure_ascii=False))
+                traceback.print_exc()
     finally:
         with contextlib.suppress(Exception):
             client.logout()
-    print(json.dumps({"ereignisse": log, "fertig": fertige, "status": status(st, regel["geld"]["kapital_eur"])},
-                     ensure_ascii=False, default=str))
-    if not args.dry_run:
-        schreiben(st, log, fertige, regel, vorab=vorab)
-    return 0
+    return 1 if gescheitert else 0
 
 
 if __name__ == "__main__":

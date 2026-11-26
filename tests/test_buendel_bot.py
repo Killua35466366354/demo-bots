@@ -1,6 +1,7 @@
 """Bündel ohne Gold und Gold-Bündel (suche/buendel_bot.py): kopieren Trades der Mitglieder auf "Vortag USDJPY",
 nur mit erfundenen Kontonummern und einem erfundenen Broker."""
 import json
+from pathlib import Path
 from datetime import datetime, timedelta, timezone
 
 import pandas as pd
@@ -662,29 +663,81 @@ def test_main_nimmt_nur_die_regeln_der_laufenden_buendel(monkeypatch, capsys):
         bb.main(["--regel", "suche/VORAB_buendel9_bot.yaml"])
     with pytest.raises(SystemExit):
         bb.main(["--regel", "suche/VORAB_aufstieg_alle.yaml"])
+    with pytest.raises(SystemExit):                    # erlaubte Regel, aber eine verbotene dabei: nichts läuft
+        bb.main(["--regel", "suche/VORAB_gold_buendel_bot.yaml", "--regel", "suche/VORAB_buendel9_bot.yaml"])
+    with pytest.raises(SystemExit):                    # jeder Kopierer höchstens einmal je Lauf
+        bb.main(["--regel", "suche/VORAB_gold_buendel_bot.yaml", "--regel", "suche/VORAB_gold_buendel_bot.yaml"])
     for regel in ("suche/VORAB_gold_buendel_bot.yaml", "suche/VORAB_buendel9_ohne_gold.yaml",
                   "suche/VORAB_v1_wachsend_bot.yaml", None):
         assert bb.main(["--regel", regel] if regel else []) == 0
     assert capsys.readouterr().out.count("Keine Capital.com-Zugangsdaten") == 4
 
 
-def test_beide_buendel_laufen_im_15_minuten_lauf():
+class Sitzung:
+    """Zählt Anmeldungen. Steht für CapitalClient in main."""
+    angemeldet: list = []
+
+    def __init__(self, *creds, environment):
+        assert environment == "demo"
+        self.account_id = HAUPT
+
+    def login(self):
+        Sitzung.angemeldet.append("login")
+
+    def logout(self):
+        Sitzung.angemeldet.append("logout")
+
+
+def test_alle_kopierer_teilen_eine_anmeldung_und_ein_fehler_haelt_keinen_auf(monkeypatch, capsys):
+    """Seit dem 26.11.2026 14:19 UTC: drei Anmeldungen kurz hintereinander rissen das Limit von Capital.com für /session."""
+    from gold.bot import capital
+    from gold.bot.runner import CRED_KEYS
+    for k in CRED_KEYS:
+        monkeypatch.setenv(k, "erfunden")
+    Sitzung.angemeldet = []
+    monkeypatch.setattr(capital, "CapitalClient", Sitzung)
+    gelaufen, geschrieben = [], []
+
+    def run(client, state, now, send_orders=True, regel=None, vorab=None, **kw):
+        assert isinstance(client, Sitzung) and Sitzung.angemeldet == ["login"]
+        gelaufen.append(Path(vorab).name)
+        if Path(vorab) == bb.VORAB_GOLD:
+            raise RuntimeError("Rate-Limit erreicht für /positions")
+        return {"kopien": {}, "trades": 0}, [], []
+
+    monkeypatch.setattr(bb, "run", run)
+    monkeypatch.setattr(bb, "schreiben", lambda st, log, fertige, regel, **kw: geschrieben.append(regel["bot_id"]))
+    alle = ["--regel", "suche/VORAB_buendel9_ohne_gold.yaml", "--regel", "suche/VORAB_gold_buendel_bot.yaml",
+            "--regel", "suche/VORAB_v1_wachsend_bot.yaml"]
+    assert bb.main(alle) == 1                          # einer gescheitert: der Schritt zählt als gescheitert
+    assert Sitzung.angemeldet == ["login", "logout"]
+    assert gelaufen == ["VORAB_buendel9_ohne_gold.yaml", "VORAB_gold_buendel_bot.yaml", "VORAB_v1_wachsend_bot.yaml"]
+    assert geschrieben == ["buendel9", "v1-wachsend"]
+    out = capsys.readouterr().out
+    assert '"fehler": "RuntimeError: Rate-Limit erreicht für /positions"' in out and '"bot": "v1-wachsend"' in out
+    Sitzung.angemeldet, gelaufen[:], geschrieben[:] = [], [], []
+    assert bb.main(alle[:2] + alle[4:] + ["--dry-run"]) == 0
+    assert Sitzung.angemeldet == ["login", "logout"] and geschrieben == []
+    assert gelaufen == ["VORAB_buendel9_ohne_gold.yaml", "VORAB_v1_wachsend_bot.yaml"]
+
+
+def test_die_kopierer_laufen_in_einem_schritt_des_15_minuten_laufs():
     import yaml
     steps = yaml.safe_load((bb.ROOT / ".github" / "workflows" / "demo-bots.yml").read_text(encoding="utf-8"))
     steps = steps["jobs"]["run"]["steps"]
     pos = {s.get("id"): i for i, s in enumerate(steps) if s.get("id")}
-    b9, gb = steps[pos["buendel"]], steps[pos["gold_buendel"]]
-    assert "python -m suche.buendel_bot --regel suche/VORAB_buendel9_ohne_gold.yaml" in b9["run"]
-    assert "python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml" in gb["run"]
-    assert "--dry-run" in gb["run"] and "tests/test_buendel_bot.py" in gb["run"] and "touch" not in gb["run"]
-    assert gb["continue-on-error"] is True and "!cancelled()" in gb["if"]
-    v1 = steps[pos["v1_wachsend"]]                   # V1 mit wachsendem Einsatz auf "Account 3" seit 26.11.2026
-    assert "python -m suche.buendel_bot --regel suche/VORAB_v1_wachsend_bot.yaml" in v1["run"]
-    assert "--dry-run" in v1["run"] and "tests/test_buendel_bot.py" in v1["run"] and "touch" not in v1["run"]
-    assert v1["continue-on-error"] is True and "!cancelled()" in v1["if"]
-    assert pos["buendel"] < pos["gold_buendel"] < pos["v1_wachsend"] < pos["vergleich"]
-    # ohne --regel nähme der Bot buendel9 ohne Gold, nie die erste Regel mit 9 Mitgliedern
-    assert "--regel" in b9["run"].split("python -m suche.buendel_bot", 1)[1].split("\n")[0]
+    b = steps[pos["buendel"]]
+    assert "gold_buendel" not in pos and "v1_wachsend" not in pos
+    assert ("--regel suche/VORAB_buendel9_ohne_gold.yaml --regel suche/VORAB_gold_buendel_bot.yaml "
+            "--regel suche/VORAB_v1_wachsend_bot.yaml") in b["run"]
+    assert b["run"].count("python -m suche.buendel_bot $REGELN") == 2 and "--dry-run" in b["run"]
+    assert "tests/test_buendel_bot.py" in b["run"] and "touch .tests-ok/buendel" in b["run"]
+    assert b["continue-on-error"] is True and "!cancelled()" in b["if"]
+    assert pos["krypto4h"] < pos["buendel"] < pos["vergleich"]
+    # nie die erste Regel von buendel9 mit 9 Mitgliedern
+    assert "VORAB_buendel9_bot.yaml" not in b["run"]
+    assert {x.name for x in bb.LAUFENDE_REGELN} == {"VORAB_buendel9_ohne_gold.yaml", "VORAB_gold_buendel_bot.yaml",
+                                                    "VORAB_v1_wachsend_bot.yaml"}
 
 
 # ---------- V1 mit wachsendem Einsatz auf "Account 3" (Kirons Wahl vom 26.11.2026 13:36 UTC) ----------

@@ -560,19 +560,19 @@
    }
   ],
   "ist": {
-   "trades": 88,
+   "trades": 89,
    "gewonnen": 42,
-   "treffer_pct": 47.7,
-   "summe_r": 35.87,
-   "pf_r": 1.92,
-   "eur": 316.31,
+   "treffer_pct": 47.2,
+   "summe_r": 34.87,
+   "pf_r": 1.87,
+   "eur": 294.22,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 88,
-    "summe_r": 35.88,
-    "eur": 316.31
+    "trades": 89,
+    "summe_r": 34.88,
+    "eur": 294.22
    }
   },
   "bestes": "gold",
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "88 von 100 Demo-Trades, 23 von 61 Tagen"
+   "text": "89 von 100 Demo-Trades, 23 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -670,13 +670,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 3,
+    "trades": 4,
     "gewonnen": 2,
-    "treffer_pct": 66.7,
-    "summe_r": 0.6,
-    "pf_r": 2.11,
-    "eur": 13.19,
-    "rueckgang_r": 0.54
+    "treffer_pct": 50.0,
+    "summe_r": -0.4,
+    "pf_r": 0.74,
+    "eur": -8.9,
+    "rueckgang_r": 1.0
    },
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Vergleich mit dem Gold-Bot nach 40 Trades",
@@ -684,7 +684,7 @@
    "test": "Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades).",
    "aufstieg": {
     "status": "sammelt",
-    "text": "3 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "4 von 100 Demo-Trades, 16 von 61 Tagen"
    }
   },
   {

@@ -2,10 +2,10 @@
  "bot": "vix-sprung",
  "name": "Tag nach einem VIX-Sprung (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 5",
- "stand": "2026-11-25T23:17:46",
+ "stand": "2026-11-26T23:04:00",
  "start": "2026-11-20T13:48:56",
  "pausiert": null,
- "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-26): VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+ "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-27): kein Trade: VIX +7.3%, nötig mindestens +10%",
  "regel": "Tag nach einem VIX-Sprung (Fassungen vix_sprung_us und vix_sprung_welt): Schließt der VIX mindestens 10 % über dem Vortag, kauft der Bot US500, US100, DAX, FTSE 100 und Nikkei 225 mit dem ersten Kurs ab 18:00 New York, Notstop 3 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden. US500 und US100 (vix_sprung_us, suche/ergebnis_grosse_runde.md): Kandidat, 136 Trades, Gewinnfaktor 1,93, 2026 2,45, z 2,17 statt 3, ohne Holm, vor 2024 1,13. DAX, FTSE und Nikkei (vix_sprung_welt, suche/ergebnis_grosse_runde2.md): durchgefallen, 204 Trades, Gewinnfaktor 1,41, erste Hälfte 0,96. Zusammen 340 Trades an 68 Tagen (2024 bis Oktober 2026), Gewinnfaktor 1,60. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 4,90 € im Monat. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
  "vorab": "suche/VORAB_vix_sprung_bot.yaml",
@@ -221,77 +221,92 @@
   }
  ],
  "blick": {
-  "naechster_einstieg_utc": "2026-11-26 23:00:00",
+  "naechster_einstieg_utc": "2026-11-29 23:00:00",
   "maerkte": {
    "SPXUSD": {
     "epic": "US500",
     "fassung": "vix_sprung_us",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
      "vix_stand": {
-      "datum": "2026-11-24",
+      "datum": "2026-11-25",
       "erwartet": "2026-11-25",
-      "frisch": false
-     }
+      "frisch": true
+     },
+     "vix": 28.29,
+     "vix_vorher": 26.36,
+     "vix_aenderung": 0.073217
     },
-    "kurs": 7183.8
+    "kurs": 7231.3
    },
    "NSXUSD": {
     "epic": "US100",
     "fassung": "vix_sprung_us",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
      "vix_stand": {
-      "datum": "2026-11-24",
+      "datum": "2026-11-25",
       "erwartet": "2026-11-25",
-      "frisch": false
-     }
+      "frisch": true
+     },
+     "vix": 28.29,
+     "vix_vorher": 26.36,
+     "vix_aenderung": 0.073217
     },
-    "kurs": 25999.7
+    "kurs": 26219.5
    },
    "GRXEUR": {
     "epic": "DE40",
     "fassung": "vix_sprung_welt",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
      "vix_stand": {
-      "datum": "2026-11-24",
+      "datum": "2026-11-25",
       "erwartet": "2026-11-25",
-      "frisch": false
-     }
+      "frisch": true
+     },
+     "vix": 28.29,
+     "vix_vorher": 26.36,
+     "vix_aenderung": 0.073217
     },
-    "kurs": 25132.4
+    "kurs": 25233.1
    },
    "UKXGBP": {
     "epic": "UK100",
     "fassung": "vix_sprung_welt",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
      "vix_stand": {
-      "datum": "2026-11-24",
+      "datum": "2026-11-25",
       "erwartet": "2026-11-25",
-      "frisch": false
-     }
+      "frisch": true
+     },
+     "vix": 28.29,
+     "vix_vorher": 26.36,
+     "vix_aenderung": 0.073217
     },
-    "kurs": 10554.9
+    "kurs": 10622.4
    },
    "JPXJPY": {
     "epic": "J225",
     "fassung": "vix_sprung_welt",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
      "vix_stand": {
-      "datum": "2026-11-24",
+      "datum": "2026-11-25",
       "erwartet": "2026-11-25",
-      "frisch": false
-     }
+      "frisch": true
+     },
+     "vix": 28.29,
+     "vix_vorher": 26.36,
+     "vix_aenderung": 0.073217
     },
-    "kurs": 57287.4
+    "kurs": 57784.9
    }
   }
  }

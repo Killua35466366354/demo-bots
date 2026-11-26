@@ -6,15 +6,18 @@
  "maerkte": {
   "SPXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
-    "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+    "tag": "2026-11-27",
+    "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
     "vix_stand": {
-     "datum": "2026-11-24",
+     "datum": "2026-11-25",
      "erwartet": "2026-11-25",
-     "frisch": false
-    }
+     "frisch": true
+    },
+    "vix": 28.29,
+    "vix_vorher": 26.36,
+    "vix_aenderung": 0.073217
    },
    "letzter_schluss": "2026-11-23T20:47:02",
    "ausgelassen": {
@@ -23,15 +26,18 @@
   },
   "NSXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
-    "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+    "tag": "2026-11-27",
+    "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
     "vix_stand": {
-     "datum": "2026-11-24",
+     "datum": "2026-11-25",
      "erwartet": "2026-11-25",
-     "frisch": false
-    }
+     "frisch": true
+    },
+    "vix": 28.29,
+    "vix_vorher": 26.36,
+    "vix_aenderung": 0.073217
    },
    "letzter_schluss": "2026-11-23T20:47:02",
    "ausgelassen": {
@@ -40,15 +46,18 @@
   },
   "GRXEUR": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
-    "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+    "tag": "2026-11-27",
+    "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
     "vix_stand": {
-     "datum": "2026-11-24",
+     "datum": "2026-11-25",
      "erwartet": "2026-11-25",
-     "frisch": false
-    }
+     "frisch": true
+    },
+    "vix": 28.29,
+    "vix_vorher": 26.36,
+    "vix_aenderung": 0.073217
    },
    "letzter_schluss": "2026-11-23T20:47:02",
    "ausgelassen": {
@@ -57,15 +66,18 @@
   },
   "UKXGBP": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
-    "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+    "tag": "2026-11-27",
+    "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
     "vix_stand": {
-     "datum": "2026-11-24",
+     "datum": "2026-11-25",
      "erwartet": "2026-11-25",
-     "frisch": false
-    }
+     "frisch": true
+    },
+    "vix": 28.29,
+    "vix_vorher": 26.36,
+    "vix_aenderung": 0.073217
    },
    "letzter_schluss": "2026-11-23T20:47:02",
    "ausgelassen": {
@@ -74,15 +86,18 @@
   },
   "JPXJPY": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
-    "ergebnis": "VIX vom 2026-11-25 noch nicht veröffentlicht, kein Einstieg",
+    "tag": "2026-11-27",
+    "ergebnis": "kein Trade: VIX +7.3%, nötig mindestens +10%",
     "vix_stand": {
-     "datum": "2026-11-24",
+     "datum": "2026-11-25",
      "erwartet": "2026-11-25",
-     "frisch": false
-    }
+     "frisch": true
+    },
+    "vix": 28.29,
+    "vix_vorher": 26.36,
+    "vix_aenderung": 0.073217
    },
    "letzter_schluss": "2026-11-23T20:47:02",
    "ausgelassen": {
@@ -90,5 +105,5 @@
    }
   }
  },
- "stand": "2026-11-25T23:17:46"
+ "stand": "2026-11-26T23:04:00"
 }

@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-26T22:46:41.953698",
+ "stand_utc": "2026-11-26T23:01:38.323194",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -209,7 +209,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T22:46:41.953698",
+    "zeit": "2026-11-26T23:01:38.323194",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -375,7 +375,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T22:46:41.953698",
+    "zeit": "2026-11-26T23:01:38.323194",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -950,10 +950,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T22:46:41.953698",
+    "zeit": "2026-11-26T23:01:38.323194",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },
@@ -1176,7 +1176,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
-   "kontostand": 983.13,
+   "kontostand": 983.75,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T12:02:20.662505",
    "status": "wartet auf das nächste Signal",
@@ -1184,10 +1184,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T22:46:41.953698",
+    "zeit": "2026-11-26T23:01:38.323194",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },
@@ -1737,10 +1737,10 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-26T22:46:41.953698",
+    "zeit": "2026-11-26T23:01:38.323194",
     "action": "none",
     "why": [
-     "heute erledigt"
+     "wartet bis 4:30 New York"
     ],
     "bar": null
    },

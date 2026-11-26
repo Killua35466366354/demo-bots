@@ -2,10 +2,10 @@
  "bot": "modell-indizes",
  "name": "Vorhersage-Modell Indizes (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 6",
- "stand": "2026-11-25T23:17:05",
+ "stand": "2026-11-26T23:01:56",
  "start": "2026-11-20T13:18:01",
  "pausiert": null,
- "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-26): noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
+ "status": "US500: Kauf offen ab 7231.9, Stop 6863.5, Ausstieg vor 2026-11-27 20:55 UTC. US100: Kauf offen ab 26221.3, Stop 24142.6, Ausstieg vor 2026-11-27 20:55 UTC. DAX: Kauf offen ab 25242.8, Stop 24235.8, Ausstieg vor 2026-11-27 20:55 UTC. FTSE 100: Kauf offen ab 10624.9, Stop 10329.7, Ausstieg vor 2026-11-27 20:55 UTC. Nikkei 225: Kauf offen ab 57797.9, Stop 53178.5, Ausstieg vor 2026-11-27 20:55 UTC",
  "regel": "Vorhersage-Modell auf US500, US100, DAX, FTSE 100 und Nikkei 225 (Fassung modell_indizes): Eine logistische Regression schätzt aus Kursen des Vortags, VIX und US-Renditen, ob der Index bis 15:55 New York steigt. Ab 54 % Kauf, bis 46 % Verkauf, Einstieg ab 18:00 New York, Stop 2 Tages-ATR, kein Ziel, Ausstieg vor 15:55 New York. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_modell_indizes_bot.yaml",
@@ -17,7 +17,73 @@
   "UKXGBP": "FTSE 100",
   "JPXJPY": "Nikkei 225"
  },
- "offen": [],
+ "offen": [
+  {
+   "id": "US500 2026-11-27",
+   "markt": "SPXUSD",
+   "epic": "US500",
+   "richtung": 1,
+   "entry": 7231.9,
+   "stop": 6863.5,
+   "size": 0.01,
+   "dist": 367.271429,
+   "wahrscheinlichkeit": 0.597012,
+   "opened_utc": "2026-11-26T23:01:56",
+   "bis_utc": "2026-11-27 20:55:00"
+  },
+  {
+   "id": "US100 2026-11-27",
+   "markt": "NSXUSD",
+   "epic": "US100",
+   "richtung": 1,
+   "entry": 26221.3,
+   "stop": 24142.6,
+   "size": 0.002,
+   "dist": 2076.357143,
+   "wahrscheinlichkeit": 0.599809,
+   "opened_utc": "2026-11-26T23:01:56",
+   "bis_utc": "2026-11-27 20:55:00"
+  },
+  {
+   "id": "DE40 2026-11-27",
+   "markt": "GRXEUR",
+   "epic": "DE40",
+   "richtung": 1,
+   "entry": 25242.8,
+   "stop": 24235.8,
+   "size": 0.005,
+   "dist": 998.285714,
+   "wahrscheinlichkeit": 0.592514,
+   "opened_utc": "2026-11-26T23:01:56",
+   "bis_utc": "2026-11-27 20:55:00"
+  },
+  {
+   "id": "UK100 2026-11-27",
+   "markt": "UKXGBP",
+   "epic": "UK100",
+   "richtung": 1,
+   "entry": 10624.9,
+   "stop": 10329.7,
+   "size": 0.01,
+   "dist": 293.328571,
+   "wahrscheinlichkeit": 0.577221,
+   "opened_utc": "2026-11-26T23:01:56",
+   "bis_utc": "2026-11-27 20:55:00"
+  },
+  {
+   "id": "J225 2026-11-27",
+   "markt": "JPXJPY",
+   "epic": "J225",
+   "richtung": 1,
+   "entry": 57797.9,
+   "stop": 53178.5,
+   "size": 0.18,
+   "dist": 4606.357143,
+   "wahrscheinlichkeit": 0.57178,
+   "opened_utc": "2026-11-26T23:01:56",
+   "bis_utc": "2026-11-27 20:55:00"
+  }
+ ],
  "ausgelassen": {
   "SPXUSD": {
    "fremd_alt": 3
@@ -198,18 +264,43 @@
   }
  ],
  "blick": {
-  "naechster_einstieg_utc": "2026-11-26 23:00:00",
+  "naechster_einstieg_utc": "2026-11-29 23:00:00",
   "maerkte": {
    "SPXUSD": {
     "epic": "US500",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "Kauf eröffnet",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.597012,
+     "dist": 367.271429,
+     "atr": 183.635714,
+     "nach_18_min": 1.9
+    },
+    "signal": {
+     "markt": "SPXUSD",
+     "tag": "2026-11-27",
+     "einstieg_utc": "2026-11-26 23:01:56.117723",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.597012,
+     "dist": 367.271429,
+     "bis_utc": "2026-11-27 20:55:00",
+     "ok": true,
+     "warten": false,
+     "ergebnis": "Kauf: 59.7% für steigt",
+     "tage": 298,
+     "fremd_datum": {
+      "VIXCLS": "2026-11-25",
+      "VXVCLS": "2026-11-25",
+      "DGS10": "2026-11-25",
+      "DGS2": "2026-11-25"
+     },
+     "atr": 183.635714,
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-24",
+       "datum": "2026-11-25",
        "erwartet": "2026-11-25",
-       "frisch": false
+       "frisch": true
       },
       "VXVCLS": {
        "datum": "2026-11-25",
@@ -228,18 +319,43 @@
       }
      }
     },
-    "kurs": 7183.5
+    "kurs": 7230.8
    },
    "NSXUSD": {
     "epic": "US100",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "Kauf eröffnet",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.599809,
+     "dist": 2076.357143,
+     "atr": 1038.178571,
+     "nach_18_min": 1.9
+    },
+    "signal": {
+     "markt": "NSXUSD",
+     "tag": "2026-11-27",
+     "einstieg_utc": "2026-11-26 23:01:56.117723",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.599809,
+     "dist": 2076.357143,
+     "bis_utc": "2026-11-27 20:55:00",
+     "ok": true,
+     "warten": false,
+     "ergebnis": "Kauf: 60.0% für steigt",
+     "tage": 298,
+     "fremd_datum": {
+      "VIXCLS": "2026-11-25",
+      "VXVCLS": "2026-11-25",
+      "DGS10": "2026-11-25",
+      "DGS2": "2026-11-25"
+     },
+     "atr": 1038.178571,
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-24",
+       "datum": "2026-11-25",
        "erwartet": "2026-11-25",
-       "frisch": false
+       "frisch": true
       },
       "VXVCLS": {
        "datum": "2026-11-25",
@@ -258,18 +374,43 @@
       }
      }
     },
-    "kurs": 25997.5
+    "kurs": 26219.0
    },
    "GRXEUR": {
     "epic": "DE40",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "Kauf eröffnet",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.592514,
+     "dist": 998.285714,
+     "atr": 499.142857,
+     "nach_18_min": 1.9
+    },
+    "signal": {
+     "markt": "GRXEUR",
+     "tag": "2026-11-27",
+     "einstieg_utc": "2026-11-26 23:01:56.117723",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.592514,
+     "dist": 998.285714,
+     "bis_utc": "2026-11-27 20:55:00",
+     "ok": true,
+     "warten": false,
+     "ergebnis": "Kauf: 59.3% für steigt",
+     "tage": 298,
+     "fremd_datum": {
+      "VIXCLS": "2026-11-25",
+      "VXVCLS": "2026-11-25",
+      "DGS10": "2026-11-25",
+      "DGS2": "2026-11-25"
+     },
+     "atr": 499.142857,
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-24",
+       "datum": "2026-11-25",
        "erwartet": "2026-11-25",
-       "frisch": false
+       "frisch": true
       },
       "VXVCLS": {
        "datum": "2026-11-25",
@@ -288,18 +429,43 @@
       }
      }
     },
-    "kurs": 25131.9
+    "kurs": 25234.1
    },
    "UKXGBP": {
     "epic": "UK100",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "Kauf eröffnet",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.577221,
+     "dist": 293.328571,
+     "atr": 146.664286,
+     "nach_18_min": 1.9
+    },
+    "signal": {
+     "markt": "UKXGBP",
+     "tag": "2026-11-27",
+     "einstieg_utc": "2026-11-26 23:01:56.117723",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.577221,
+     "dist": 293.328571,
+     "bis_utc": "2026-11-27 20:55:00",
+     "ok": true,
+     "warten": false,
+     "ergebnis": "Kauf: 57.7% für steigt",
+     "tage": 298,
+     "fremd_datum": {
+      "VIXCLS": "2026-11-25",
+      "VXVCLS": "2026-11-25",
+      "DGS10": "2026-11-25",
+      "DGS2": "2026-11-25"
+     },
+     "atr": 146.664286,
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-24",
+       "datum": "2026-11-25",
        "erwartet": "2026-11-25",
-       "frisch": false
+       "frisch": true
       },
       "VXVCLS": {
        "datum": "2026-11-25",
@@ -318,18 +484,43 @@
       }
      }
     },
-    "kurs": 10554.7
+    "kurs": 10623.0
    },
    "JPXJPY": {
     "epic": "J225",
     "letzte_pruefung": {
-     "tag": "2026-11-26",
-     "ergebnis": "noch nicht veröffentlicht: VIXCLS vom 2026-11-25, kein Einstieg",
+     "tag": "2026-11-27",
+     "ergebnis": "Kauf eröffnet",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.57178,
+     "dist": 4606.357143,
+     "atr": 2303.178571,
+     "nach_18_min": 1.9
+    },
+    "signal": {
+     "markt": "JPXJPY",
+     "tag": "2026-11-27",
+     "einstieg_utc": "2026-11-26 23:01:56.117723",
+     "richtung": 1,
+     "wahrscheinlichkeit": 0.57178,
+     "dist": 4606.357143,
+     "bis_utc": "2026-11-27 20:55:00",
+     "ok": true,
+     "warten": false,
+     "ergebnis": "Kauf: 57.2% für steigt",
+     "tage": 298,
+     "fremd_datum": {
+      "VIXCLS": "2026-11-25",
+      "VXVCLS": "2026-11-25",
+      "DGS10": "2026-11-25",
+      "DGS2": "2026-11-25"
+     },
+     "atr": 2303.178571,
      "fremd": {
       "VIXCLS": {
-       "datum": "2026-11-24",
+       "datum": "2026-11-25",
        "erwartet": "2026-11-25",
-       "frisch": false
+       "frisch": true
       },
       "VXVCLS": {
        "datum": "2026-11-25",
@@ -348,7 +539,7 @@
       }
      }
     },
-    "kurs": 57287.4
+    "kurs": 57784.9
    }
   }
  }

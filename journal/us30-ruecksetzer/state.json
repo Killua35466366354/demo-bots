@@ -7,14 +7,14 @@
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-26T19:46:40.862200",
+  "zeit": "2026-11-26T20:01:50.518288",
   "action": "none",
-  "why": "wartet auf 15 Uhr New York",
-  "bar": null
+  "why": "kein Signal: {'schluss': 50420.6, 'sma200': 50814.78, 'sma5': 49722.7, 'rsi2': 86.0, 'atr20': 902.52}",
+  "bar": "2026-11-26 19:00:00"
  },
  "status": "wartet auf das nächste Signal (15 Uhr New York)",
  "position": null,
- "stand_utc": "2026-11-26T19:46:40.862200",
- "tag_erledigt": "2026-11-25",
+ "stand_utc": "2026-11-26T20:01:50.518288",
+ "tag_erledigt": "2026-11-26",
  "open": null
 }

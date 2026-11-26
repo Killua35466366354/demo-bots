@@ -4,7 +4,7 @@
  "day_start_eur": 1175.67,
  "week": "2026-11-23",
  "week_start_eur": 1088.22,
- "last_bar": "2026-11-26 15:00:00",
+ "last_bar": "2026-11-26 16:00:00",
  "open_trade": {
   "side": "short",
   "direction": "SELL",
@@ -13,7 +13,7 @@
   "stop": 3595.85,
   "dealId": "00000000-76f8-d04d-049b-eb710015549e",
   "opened_utc": "2026-11-26T07:11:32.378",
-  "upl": -6.86,
+  "upl": -3.29,
   "bar": "2026-11-26 06:00:00"
  },
  "schalter_pause": null

@@ -170,3 +170,6 @@
 {"time": "2026-11-26T09:31:38.985531", "bot": "r6-vortag-gbpusd", "event": "Stop-Orders gelegt", "ph": 1.31286, "pl": 1.30454, "long": 1.31299, "short": 1.30454, "stop_abstand": 0.00031207100682193123, "atr15": 0.0006241420136438625, "size": 11000.0, "risiko_eur": 4.43, "margin_eur": 437.95}
 {"time": "2026-11-26T09:31:38.985531", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders gelegt", "ph": 1.09925, "pl": 1.0931, "long": 1.09932, "short": 1.0931, "stop_abstand": 0.0005383047566496644, "atr15": 0.0005383047566496644, "size": 14500.0, "risiko_eur": 8.03, "margin_eur": 483.34}
 {"time": "2026-11-26T10:16:34.963547", "bot": "r6-vortag-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["GOLD"]}
+{"time": "2026-11-26T21:31:36.823093", "bot": "r6-vortag-eurusd", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-26T21:31:36.823093", "bot": "r6-vortag-gbpusd", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
+{"time": "2026-11-26T21:31:36.823093", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}

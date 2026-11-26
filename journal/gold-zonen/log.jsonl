@@ -49,3 +49,4 @@
 {"time": "2026-11-25T18:53:48", "event": "Trade fertig", "trade": "2026-11-25T17:15", "seite": "Verkauf", "grund": "stop", "r": -1.002, "pnl_eur": -4.78}
 {"time": "2026-11-25T19:08:46", "event": "Plan neu", "kerzen_4h": 318, "atr_4h": 51.09, "wartend": []}
 {"time": "2026-11-25T22:03:44", "event": "keine neue Order", "gruende": ["Markt gerade nicht handelbar"]}
+{"time": "2026-11-26T19:33:41", "event": "keine neue Order", "gruende": ["Markt gerade nicht handelbar"]}

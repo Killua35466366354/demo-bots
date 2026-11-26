@@ -46,8 +46,10 @@
   }
  },
  "versuche": {},
- "keine_order": [],
- "stand": "2026-11-26T19:08:40",
+ "keine_order": [
+  "Markt gerade nicht handelbar"
+ ],
+ "stand": "2026-11-26T19:33:41",
  "letzte_deals": [
   "00000000-76f0-6859-049c-701a0015549e",
   "00000000-73b5-75fa-049c-701a0015549e",

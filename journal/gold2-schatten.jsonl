@@ -16,3 +16,4 @@
 {"time": "2026-11-26T01:11:31+00:00", "event": "signal", "bar": "2026-11-26 00:00:00", "side": "short", "forexfactory_haette_gesperrt": []}
 {"time": "2026-11-26T03:11:26+00:00", "event": "ausstieg", "side": "short", "signal": "2026-11-26 00:00:00", "in": "2026-11-26 01:00:00", "out": "2026-11-26 02:00:00", "in_px": 3562.42, "out_px": 3605.52, "stop_usd": 43.1, "usd_oz": -43.1, "r": -1.0, "why": "stop"}
 {"time": "2026-11-26T07:11:33+00:00", "event": "signal", "bar": "2026-11-26 06:00:00", "side": "short", "forexfactory_haette_gesperrt": []}
+{"time": "2026-11-26T11:11:36+00:00", "event": "ausstieg", "side": "short", "signal": "2026-11-26 06:00:00", "in": "2026-11-26 07:00:00", "out": "2026-11-26 10:00:00", "in_px": 3569.08, "out_px": 3555.07, "stop_usd": 42.02, "usd_oz": 14.01, "r": 0.333, "why": "ziel"}

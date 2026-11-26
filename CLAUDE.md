@@ -294,9 +294,11 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   zählt. Backtest (Auskunft, an denselben Monaten ausgesucht, 2026 mit eigenen 700 €): Bündel aus 9 Bots 9,2 %
   Rendite pro Monat, ohne Gold 5,5 % (84 % des Gewinns über zwei Jahre von den Scalpern, deren Test durchgefallen ist),
   Gold-Bündel 3,6 % (5 von 10 Monaten im Minus, 198 Käufe +109 R, 159 Verkäufe +9 R).
-- Beide laufen im 15-Minuten-Lauf nach den anderen Bots, erst `buendel9`, dann `gold-buendel`. Kopien der Scalper und
-  der Gold-Zonen (5-Minuten-Lauf) kommen darum bis zu 15 Minuten später als die Quelle. Jedes schreibt nur
-  `journal/<bot>/` und `journal/<bot>.json`.
+- Beide laufen im 15-Minuten-Lauf nach den anderen Bots, erst `buendel9`, dann `gold-buendel`, danach `v1-wachsend`,
+  alle drei im Schritt `buendel` mit einer Anmeldung (`main` mit mehreren `--regel`). Drei Anmeldungen kurz
+  hintereinander rissen am 26.11.2026 14:19 UTC das Limit von Capital.com für `/session`. Ein Fehler in einem Kopierer
+  hält die anderen nicht auf. Kopien der Scalper und der Gold-Zonen (5-Minuten-Lauf) kommen bis zu 15 Minuten später
+  als die Quelle. Jedes schreibt nur `journal/<bot>/` und `journal/<bot>.json`.
 - Bis zum 26.11.2026 merkte sich `buendel9` die Deal-ID der Order statt der Position (`deal_aus_bestaetigung`). Er fand
   keine seiner 7 Kopien unter seinen Positionen und buchte jede nach gut einer Stunde mit -1 R als "beim Broker zu",
   auch die noch offenen. Seitdem sucht er eine fehlende Kopie erst nach Markt, Richtung, Größe und Eröffnungszeit
@@ -306,8 +308,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 ## V1 mit wachsendem Einsatz
 
 - Kirons Wunsch vom 26.11.2026 13:07 UTC ("alles mal nach den echten Regeln") und seine Wahl 13:36 UTC "Eigener
-  Demo-Bot auf Account 3". Derselbe Code `suche/buendel_bot.py`, Regeln `suche/VORAB_v1_wachsend_bot.yaml`, Schritt
-  `v1_wachsend` im 15-Minuten-Lauf nach `gold-buendel`. Er kopiert jeden neuen Trade der 9 Bots von V1 (die Mitglieder
+  Demo-Bot auf Account 3". Derselbe Code `suche/buendel_bot.py`, Regeln `suche/VORAB_v1_wachsend_bot.yaml`, im
+  Schritt `buendel` des 15-Minuten-Laufs nach `gold-buendel`, mit derselben Anmeldung. Er kopiert jeden neuen Trade der 9 Bots von V1 (die Mitglieder
   der ersten Regel von `buendel9`) auf Account 3, den er mit `krypto-bollinger` teilt.
 - Einsatz 2 % des eigenen gedachten Kontostands bei der Eröffnung, Start 1.000 €. Gewinne gehen zurück ins Konto, der
   Einsatz wächst mit, Verluste lassen ihn schrumpfen. Keine Bremse, nur die Grenze des Brokers: Margin aller Kopien

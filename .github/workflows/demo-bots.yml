@@ -485,18 +485,26 @@ jobs:
             python -m suche.krypto4h_bot
           fi
 
-      # Bündel aus 9 Bots, seit 26.11.2026 ohne Gold (Kirons Wahl vom 20.11.2026 16:20 UTC "Ein Konto mit 9 Bots" und
-      # vom 26.11.2026 09:59 UTC "Zwei Bündel auf einem Konto"): erfindet kein Signal. Er kopiert jeden neuen Trade der
-      # Rücksetzer US500 und US100, des Noise-Bands Nasdaq, der Scalper DAX und Nasdaq und des 4-Std.-Ausbruchs
-      # DAX/FTSE/Nikkei auf das Demokonto "Vortag USDJPY" (geteilt mit dem Gold-Bündel, Vortag GBP/USD und dem ruhenden
-      # pine-hand), mit 7 € Risiko auf gedachte 700 €. Seine offenen Gold-Kopien laufen zu Ende. Stop und Ziel sind die
-      # Kurse der Quelle, schließt die Quelle, schließt er die Kopie. Ein Konto-Wächter prüft vor jeder Kopie Margin und
-      # Bremse. Er läuft nach den Bots dieses Laufs, damit er ihre neuen Trades schon sieht. Kopien kommen bis zu 15
-      # Minuten nach der Quelle. Nur Demo, nie das Hauptkonto, nie ein Konto eines Mitglieds, nie eine fremde Position,
-      # auch keine Kopie des Gold-Bündels. Regeln in suche/VORAB_buendel9_ohne_gold.yaml, Code suche/buendel_bot.py. Er
-      # schreibt nur journal/buendel9/ und journal/buendel9.json. Ein Fehler hier hält die anderen Bots und das Journal
-      # nie auf.
-      - name: Bündel ohne Gold (Vortag USDJPY)
+      # Die drei Kopierer in einem Schritt mit EINER Anmeldung bei Capital.com (seit 26.11.2026: im ersten Lauf mit V1 um
+      # 14:19 UTC antwortete Capital.com den beiden letzten von drei Anmeldungen kurz hintereinander mit "Rate-Limit
+      # erreicht für /session"). Keiner erfindet ein Signal, jeder kopiert neue Trades seiner Mitglieder mit Stop und
+      # Ziel der Quelle und schließt die Kopie, wenn die Quelle schließt. Nur Demo, nie das Hauptkonto, nie ein Konto
+      # eines Mitglieds, nie eine fremde Position. Sie laufen nach den Bots dieses Laufs, damit sie deren neue Trades
+      # schon sehen, Kopien kommen bis zu 15 Minuten nach der Quelle. Ein Fehler in einem Kopierer hält die anderen nie
+      # auf, der Schritt gilt dann als gescheitert. Code suche/buendel_bot.py, jeder schreibt nur journal/<bot>/ und
+      # journal/<bot>.json.
+      # 1. buendel9 ohne Gold (Kirons Wahl vom 20.11.2026 16:20 UTC "Ein Konto mit 9 Bots" und vom 26.11.2026 09:59 UTC
+      #    "Zwei Bündel auf einem Konto"): Rücksetzer US500 und US100, Noise-Band Nasdaq, Scalper DAX und Nasdaq,
+      #    4-Std.-Ausbruch DAX/FTSE/Nikkei auf "Vortag USDJPY", 7 € Risiko auf gedachte 700 €, Margin- und
+      #    Bremsen-Wächter. Seine offenen Gold-Kopien laufen zu Ende. Regeln suche/VORAB_buendel9_ohne_gold.yaml.
+      # 2. Gold-Bündel (Kirons Wunsch vom 26.11.2026 09:53 UTC): Gold-Bot C/B, Gold-Zonen und Gold 4-Std.-Ausbruch auf
+      #    "Vortag USDJPY", 7 € Risiko auf eigene gedachte 700 €. Fasst die Kopien von buendel9 nie an und kopiert keinen
+      #    Trade, den buendel9 schon kopiert hat. Regeln suche/VORAB_gold_buendel_bot.yaml.
+      # 3. V1 mit wachsendem Einsatz (Kirons Wahl vom 26.11.2026 13:36 UTC "Eigener Demo-Bot auf Account 3"): alle 9 Bots
+      #    von V1 auf Account 3 neben dem Bollinger-Bot Krypto (Bitcoin und Ether nie), 2 % Risiko vom eigenen gedachten
+      #    Kontostand (Start 1.000 €), ohne Bremse, nur mit der Grenze des Brokers. Regeln
+      #    suche/VORAB_v1_wachsend_bot.yaml.
+      - name: Bündel ohne Gold, Gold-Bündel und V1 mit wachsendem Einsatz (eine Anmeldung)
         id: buendel
         if: ${{ !cancelled() }}
         continue-on-error: true
@@ -511,64 +519,11 @@ jobs:
             python -m pytest -q tests/test_buendel_bot.py
             touch .tests-ok/buendel
           fi
+          REGELN="--regel suche/VORAB_buendel9_ohne_gold.yaml --regel suche/VORAB_gold_buendel_bot.yaml --regel suche/VORAB_v1_wachsend_bot.yaml"
           if [ "$DRY_RUN" = "true" ]; then
-            python -m suche.buendel_bot --regel suche/VORAB_buendel9_ohne_gold.yaml --dry-run
+            python -m suche.buendel_bot $REGELN --dry-run
           else
-            python -m suche.buendel_bot --regel suche/VORAB_buendel9_ohne_gold.yaml
-          fi
-
-      # Gold-Bündel (Kirons Wunsch vom 26.11.2026 09:53 UTC, die Gold-Bots als eigenes Bündel zu trennen, und seine Wahl
-      # 09:59 UTC "Zwei Bündel auf einem Konto"): derselbe Code wie das Bündel ohne Gold, mit eigener Regeldatei. Er
-      # kopiert jeden neuen Trade von Gold-Bot C/B, Gold-Zonen und Gold 4-Std.-Ausbruch auf "Vortag USDJPY", Kauf oder
-      # Verkauf wie die Quelle, mit 7 € Risiko auf eigene gedachte 700 €. Er läuft nach buendel9, fasst dessen Kopien nie
-      # an und kopiert keinen Trade, den buendel9 schon kopiert hat. Regeln in suche/VORAB_gold_buendel_bot.yaml. Er
-      # schreibt nur journal/gold-buendel/ und journal/gold-buendel.json. Die Tests teilt er mit dem Schritt davor (keine
-      # eigene Testgruppe). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
-      - name: Gold-Bündel (Vortag USDJPY)
-        id: gold_buendel
-        if: ${{ !cancelled() }}
-        continue-on-error: true
-        env:
-          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
-          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
-          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
-          DRY_RUN: ${{ inputs.dry_run }}
-          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
-        run: |
-          if [ "$TESTS_OK" != "true" ] && [ ! -f .tests-ok/buendel ]; then
-            python -m pytest -q tests/test_buendel_bot.py
-          fi
-          if [ "$DRY_RUN" = "true" ]; then
-            python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml --dry-run
-          else
-            python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml
-          fi
-
-      # V1 mit wachsendem Einsatz (Kirons Wunsch vom 26.11.2026 13:07 UTC, "alles mal nach den echten Regeln", und seine
-      # Wahl 13:36 UTC "Eigener Demo-Bot auf Account 3"): derselbe Code wie die beiden Bündel, mit eigener Regeldatei
-      # suche/VORAB_v1_wachsend_bot.yaml. Er kopiert jeden neuen Trade der 9 Bots von V1 auf "Account 3", das er mit dem
-      # Bollinger-Bot Krypto teilt (Bitcoin und Ether nie), mit 2 % Risiko vom eigenen gedachten Kontostand (Start
-      # 1.000 €, Gewinne gehen zurück ins Konto), ohne Bremse, nur mit der Grenze des Brokers. Er schreibt nur
-      # journal/v1-wachsend/ und journal/v1-wachsend.json. Die Tests teilt er mit dem Schritt der Bündel (keine eigene
-      # Testgruppe). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
-      - name: V1 mit wachsendem Einsatz (Account 3)
-        id: v1_wachsend
-        if: ${{ !cancelled() }}
-        continue-on-error: true
-        env:
-          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
-          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
-          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
-          DRY_RUN: ${{ inputs.dry_run }}
-          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
-        run: |
-          if [ "$TESTS_OK" != "true" ] && [ ! -f .tests-ok/buendel ]; then
-            python -m pytest -q tests/test_buendel_bot.py
-          fi
-          if [ "$DRY_RUN" = "true" ]; then
-            python -m suche.buendel_bot --regel suche/VORAB_v1_wachsend_bot.yaml --dry-run
-          else
-            python -m suche.buendel_bot --regel suche/VORAB_v1_wachsend_bot.yaml
+            python -m suche.buendel_bot $REGELN
           fi
 
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;

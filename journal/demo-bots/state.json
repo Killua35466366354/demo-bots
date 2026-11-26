@@ -77,14 +77,14 @@
  "ende_utc": "2027-01-29T21:00:00",
  "konto": {
   "waehrung": "EUR",
-  "balance": 1149.86,
-  "frei": 1003.56
+  "balance": 1149.89,
+  "frei": 1003.61
  },
  "trades_heute": {
   "tag": "2026-11-26",
   "r": 0.0
  },
- "stand_utc": "2026-11-26T13:46:34.407436",
+ "stand_utc": "2026-11-26T14:01:41.241386",
  "phase": "laeuft",
  "positionen": {},
  "konten": {

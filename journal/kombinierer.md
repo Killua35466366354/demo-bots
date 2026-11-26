@@ -1,4 +1,4 @@
-# Kombinierer, Stand 2026-11-25
+# Kombinierer, Stand 2026-11-26
 
 Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +379 € nach 86 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 39 davon genommen und +56 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 31 Trades und +124 € gewesen.
 
@@ -32,7 +32,7 @@ Gold-Bot C/B und Pine-K5 zusammen auf einem gedachten Konto mit 1.000 €, jeder
 
 | Trades gezählt | verpasst | noch offen | Summe | Kontostand | größter Rückgang | größtes Sicherheitsgeld | Gewinnfaktor | Tage | Urteil |
 |---|---|---|---|---|---|---|---|---|---|
-| 0 | – | 2 | 0 € | 1.000 € | 0 € | 96 € | – | 0 von 61 | sammelt |
+| 0 | – | 2 | 0 € | 1.000 € | 0 € | 96 € | – | 1 von 61 | sammelt |
 
-Stand des Urteils. 0 von 100 Trades, 0 von 61 Tagen.
+Stand des Urteils. 0 von 100 Trades, 1 von 61 Tagen.
 

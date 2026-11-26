@@ -1,6 +1,6 @@
 {
  "format": 1,
- "tag": "2026-11-25",
+ "tag": "2026-11-26",
  "topf_eur": 1000,
  "eur_je_r": 10.0,
  "regeln": {
@@ -268,7 +268,7 @@
   "start_utc": "2026-11-25T08:00:00",
   "topf_eur": 1000,
   "einsatz_faktor": 2,
-  "tage": 0,
+  "tage": 1,
   "regel": {
    "ab_trades": 100,
    "mindestens_tage": 61,
@@ -309,7 +309,7 @@
   "bremse_seit": null,
   "urteil": {
    "status": "sammelt",
-   "text": "0 von 100 Trades, 0 von 61 Tagen"
+   "text": "0 von 100 Trades, 1 von 61 Tagen"
   },
   "satz": "Das Gold-Duo mit doppeltem Einsatz wartet auf den ersten gezählten Trade seit dem 25.11.2026. Die Trades vom November davor zählen nicht."
  }

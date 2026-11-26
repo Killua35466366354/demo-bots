@@ -1,10 +1,5 @@
 {
  "format": 1,
  "lauf": "pine5m",
- "schritte": {
-  "zonen": {
-   "in_folge": 1,
-   "seit": "2026-11-26T15:33Z"
-  }
- }
+ "schritte": {}
 }

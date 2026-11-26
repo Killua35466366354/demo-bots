@@ -391,3 +391,4 @@
 {"time": "2026-11-26T01:13:29", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
 {"time": "2026-11-26T01:13:29", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-76d1-098c-049c-701f0015549e", "kurs": 3569.62, "r": -0.977, "eur": -4.72, "quelle": "SL"}
 {"time": "2026-11-26T01:13:29", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
+{"time": "2026-11-26T07:08:34", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-26 07:00:00", "strategie": "A Long", "hintergrund": {"richtung": -1, "tag": 3576.04, "sma50": 3997.9, "h4": 3575.04, "ema50": 3670.14}, "lage": "Hintergrund: Gold fällt (Tag unter 50-Tage-Schnitt, 4 Std. unter EMA 50).", "gruende": ["gegen den Hintergrund (Gold fällt auf Tag und 4 Std.)"]}

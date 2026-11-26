@@ -48,7 +48,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | 4-Std.-Ausbruch Bitcoin, Ether | Account 5 | 2026-11-20 | 3 | -0,73 R | 0,08 | -3,56 | läuft (3 von 40 Trades) | suche/VORAB_krypto_ausbruch4h_bot.yaml | 3 von 100 Demo-Trades, 6 von 61 Tagen |
 | Bündel ohne Gold | Vortag USDJPY | 2026-11-20 | 6 | -1,33 R | 0,68 | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_buendel9_ohne_gold.yaml | 6 von 100 Demo-Trades, 6 von 61 Tagen |
 | Gold-Bündel aus 3 Bots | Vortag USDJPY | 2026-11-26 | 0 | +0,00 R | – | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_gold_buendel_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
-| V1 mit wachsendem Einsatz | Account 3 | – | 0 | +0,00 R | – | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_v1_wachsend_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
+| V1 mit wachsendem Einsatz | Account 3 | 2026-11-26 | 0 | +0,00 R | – | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_v1_wachsend_bot.yaml | 0 von 100 Demo-Trades, 0 von 61 Tagen |
 | Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 37 | +25,97 R | 2,58 | +127,69 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 37 von 100 Demo-Trades, 16 von 61 Tagen |
 
 Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

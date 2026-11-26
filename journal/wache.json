@@ -1,15 +1,6 @@
 {
  "format": 1,
  "lauf": "demo-bots",
- "schritte": {
-  "gold_buendel": {
-   "in_folge": 1,
-   "seit": "2026-11-26T14:19Z"
-  },
-  "v1_wachsend": {
-   "in_folge": 1,
-   "seit": "2026-11-26T14:19Z"
-  }
- },
+ "schritte": {},
  "siegel": []
 }

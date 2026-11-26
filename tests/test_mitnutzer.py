@@ -95,7 +95,7 @@ def test_liste_kommt_aus_dem_code_der_bots():
                 | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID, zonen_bot.BOT_ID,
                    ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID, modell_indizes_bot.BOT_ID,
                    vix_sprung_bot.BOT_ID, williams_bot.BOT_ID, krypto4h_bot.BOT_ID, buendel_bot.BOT_ID,
-                   buendel_bot.GOLD_ID})
+                   buendel_bot.GOLD_ID, buendel_bot.V1_ID})
     assert set(alle) == erwartet and len(mn.bots()) == len(erwartet)
     assert alle["gold-staffel"]["konto"] == gold_staffel_bot.KONTO == scalper_bot.KONTO
     assert alle["gold-grossbox"]["konto"] == grossbox_bot.KONTO
@@ -151,6 +151,15 @@ def test_liste_kommt_aus_dem_code_der_bots():
     gb = alle["gold-buendel"]
     assert gb["konto"] == bu["konto"] and gb["konto_name"] == "Vortag USDJPY" and gb["neu"] is True
     assert gb["konto"] not in [zonen_bot.KONTO, ausbruch4h_bot.KONTO, grossbox_bot.KONTO, gold_staffel_bot.KONTO]
+    # V1 mit wachsendem Einsatz (seit 26.11.2026) teilt "Account 3" nur mit dem Bollinger-Bot Krypto, nie mit einem der
+    # 9 Bots, die er kopiert, und nie mit den beiden Bündeln
+    v1 = alle["v1-wachsend"]
+    assert v1["konto"] == buendel_bot.V1_KONTO == krypto_bollinger_bot.KONTO and v1["konto_name"] == "Account 3"
+    assert v1["neu"] is True and v1["konto"] != bu["konto"]
+    assert v1["konto"] not in [scalper_bot.KONTO, zonen_bot.KONTO, ausbruch4h_bot.KONTO, welt4h_bot.KONTO,
+                               str(konten.load()["haupt"]), str(zuordnung["us500-ruecksetzer"]),
+                               str(zuordnung["r5-ruecksetzer-us100"]), str(zuordnung["r7-nasdaq-noise-long"])]
+    assert {b["bot"] for b in mn.bots() if b["konto"] == v1["konto"]} == {"krypto-bollinger", "v1-wachsend"}
     assert alle["gold-hand"]["neu"] is bool(hand_bot.NEUE_EINSTIEGE)
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG
@@ -178,9 +187,10 @@ def test_heute_ist_account_1_frei_gemeldet_und_bleibt_bei_scalpern_und_staffel()
     from suche import krypto_bollinger_bot
     for aid in kont.get("frei") or []:
         if str(aid) == str(krypto_bollinger_bot.KONTO):
-            # Account 3 ist frei, seit Vortag GBP/JPY beendet ist (Kirons Wort vom 22.11.2026). Dort handelt nur noch
-            # der Bollinger-Krypto-Bot, und die Prüfung vergibt das Konto darum nie.
-            assert mit[str(aid)] == [krypto_bollinger_bot.BOT_ID]
+            # Account 3 ist frei, seit Vortag GBP/JPY beendet ist (Kirons Wort vom 22.11.2026). Dort handeln der
+            # Bollinger-Krypto-Bot und seit dem 26.11.2026 V1 mit wachsendem Einsatz, und die Prüfung vergibt das Konto
+            # darum nie.
+            assert mit[str(aid)] == [krypto_bollinger_bot.BOT_ID, "v1-wachsend"]
         elif str(aid) in mit:
             assert any(b.startswith("scalp-") or b == "gold-staffel" for b in mit[str(aid)])
     # kein Mitnutzer steht zugleich in der Zuordnung (dann gälte für ihn die Prüfung nach 15/40 Trades doppelt)

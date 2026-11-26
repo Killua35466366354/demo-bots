@@ -1,0 +1,102 @@
+# V1 mit wachsendem Einsatz auf dem Demokonto "Account 3" (nur Capital.com-DEMO, nie echtes Geld)
+#
+# Kirons Wunsch vom 26.11.2026 13:07 UTC: "versuch genau diese Strategie, die Goldstrategie mit dem V1 und dem Geld, was
+# sich immer wieder reintut und wieder zusammenzählt und wieder halt reinkommt, in einem Live-Demo-Account auszuführen,
+# alles mal nach den echten Regeln". Kirons Wahl vom 26.11.2026 13:36 UTC auf der Karte "V1 mit wachsendem Einsatz
+# jetzt als eigenen Demo-Bot starten?": "Eigener Demo-Bot auf Account 3".
+#
+# Der Bot erfindet kein Signal. Er ist derselbe Code wie die beiden Bündel auf "Vortag USDJPY" (suche/buendel_bot.py,
+# aufgerufen mit --regel suche/VORAB_v1_wachsend_bot.yaml). Er kopiert jeden neuen Trade der 9 Bots von V1, so wie
+# buendel9 bis zum 26.11.2026 (suche/VORAB_buendel9_bot.yaml). Kauf oder Verkauf, Stop und Ziel sind die der Quelle.
+# Anders als die Bündel:
+# - Einsatz 2 % des eigenen gedachten Kontostands bei der Eröffnung. Der Kontostand beginnt bei 1.000 € und zählt nur
+#   fertige Kopien. Gewinne gehen zurück ins Konto, der Einsatz wächst mit, Verluste lassen ihn schrumpfen.
+# - Keine Bremse. Nur die Grenze des Brokers wie in der Fassung E2 des Rückblicks: Margin aller Kopien mit der neuen
+#   höchstens 100 % des gedachten Kontostands. Dazu bleiben beim Broker nach jeder Kopie mindestens 250 € frei, weil
+#   der Bollinger-Bot Krypto (Bitcoin und Ether) auf demselben Konto handelt.
+# - Er läuft auf einem anderen Konto als die beiden Bündel. Deren Kopien zählen für ihn nicht.
+#
+# Rechnung vor dem Siegel (Auskunft, an denselben Monaten ausgesucht, Projektordner bot-rat/2026-11-26,
+# echtes_konto_v1.py nach echtes_konto_v1_vorab.md, Fassung E2 mit jedem Trade 0,1 R schlechter):
+# - Start 01.01.2026 mit 1.000 €: Ende Oktober 2.309 €, schlimmster Rückgang 33 %.
+# - Start 01.11.2024 mit 1.000 €: Ende Oktober 2026 11.112 €, schlimmster Rückgang 50 % (Sommer 2025).
+# - Der versiegelte Test suche/VORAB_v1_rueckgang.yaml fand keinen live erkennbaren Grund für die Rückgänge, der hilft.
+#   Darum hat der Bot keinen Filter. Die tiefen Rückgänge kamen vor allem von Gold-Zonen.
+#
+# Ehrlich dazu: Wachsender Einsatz vervielfacht Gewinne und Verluste. Im Rückblick fiel das Konto einmal auf die Hälfte.
+# Account 3 hat etwa 990 € und teilt sie mit dem Bollinger-Bot. Ist das Geld beim Broker knapp, fällt eine Kopie aus,
+# wie auf einem echten Konto. Die kleinste Handelsgröße des Brokers kann das Risiko eines Trades erhöhen. Dieselben
+# Trades kopieren auch buendel9 und gold-buendel auf "Vortag USDJPY". Keins der drei steht in der festen Gruppe aller
+# Bots, damit kein Trade doppelt zählt.
+#
+# Diese Datei ist versiegelt, sobald ihre Prüfsumme im Protokoll steht (journal/strategie-suche-protokoll.md,
+# Schlüssel VORAB_v1_wachsend_bot). Ohne passende Prüfsumme kopiert der Bot nichts Neues. Eine neue Regel bekommt eine
+# neue Datei.
+
+v1_wachsend_bot:
+  bot_id: v1-wachsend
+  name: "V1 mit wachsendem Einsatz"
+  konto_name: "Account 3"         # geteilt mit krypto-bollinger (BTCUSD, ETHUSD). Nummer nach dem Namen aus journal/konten.json
+  waehrung: EUR
+  wahl: "Kirons Wahl vom 26.11.2026 13:36 UTC, Karte 'V1 mit wachsendem Einsatz jetzt als eigenen Demo-Bot starten?', Option 'Eigener Demo-Bot auf Account 3'"
+  text: >-
+    Kopiert jeden neuen Trade der 9 Bots von V1 (Gold-Bot C/B, Gold-Zonen, Gold 4-Std.-Ausbruch, Rücksetzer US500 und
+    US100, Noise-Band Nasdaq, Scalper DAX und Nasdaq, 4-Std.-Ausbruch DAX/FTSE/Nikkei) mit 2 % Risiko vom eigenen
+    gedachten Kontostand, Start 1.000 €. Gewinne gehen zurück ins Konto. Kauf oder Verkauf, Stop und Ziel wie die
+    Quelle, raus, wenn die Quelle rausgeht. Keine Bremse, nur die Grenze des Brokers.
+  backtest_text: >-
+    Rückblick (Auskunft, an denselben Monaten ausgesucht, jeder Trade 0,1 R schlechter): Start 01.01.2026 mit 1.000 €
+    Ende Oktober 2.309 €, schlimmster Rückgang 33 %. Start 01.11.2024 Ende Oktober 2026 11.112 €, Rückgang 50 %.
+
+  # Die 9 Mitglieder wie in suche/VORAB_buendel9_bot.yaml.
+  mitglieder:
+    gold-cb:              {datei: gold-state.json,                  feld: open_trade, konto: haupt}
+    gold-zonen:           {datei: gold-zonen/state.json,            feld: trade,      konto: gold.zonen_bot}
+    gold-ausbruch4h:      {datei: gold-ausbruch4h/state.json,       feld: trade,      konto: gold.ausbruch4h_bot}
+    us500-ruecksetzer:    {datei: us500-bot/state.json,             feld: open,       konto: konto_id}
+    r5-ruecksetzer-us100: {datei: us100-ruecksetzer/state.json,     feld: open,       konto: konto_id}
+    r7-nasdaq-noise-long: {datei: r7-nasdaq-bot/state.json,         feld: open,       konto: konto_id}
+    scalp-de40:           {datei: scalp-de40/state.json,            feld: offen,      konto: suche.scalper_bot}
+    scalp-us100:          {datei: scalp-us100/state.json,           feld: offen,      konto: suche.scalper_bot}
+    welt-ausbruch4h:      {datei: welt-ausbruch4h/state.json,       feld: maerkte.*.trade, konto: suche.welt4h_bot}
+
+  sperr_maerkte: [BTCUSD, ETHUSD]  # Märkte des Bollinger-Bots auf diesem Konto, hier nie eine Kopie
+  buendel_auf_konto: [v1-wachsend] # kein anderes Bündel auf Account 3, die Kopien der Bündel auf "Vortag USDJPY" sind nicht fremd
+
+  geld:
+    kapital_eur: 1000             # gedachtes Konto, Start 1.000 €. Der echte Kontostand des Demokontos zählt nur für die Grenze des Brokers
+    risiko_anteil: 0.02           # 2 % des gedachten Kontostands bei der Eröffnung (Zinseszins, "zurück ins Konto")
+    risiko_eur: 20                # nur der Start: 2 % von 1.000 €
+    max_risiko_faktor: 2.0        # Runden auf die kleinste Größe darf das Risiko höchstens verdoppeln, sonst keine Kopie
+
+  kopieren:
+    frist_minuten: 30             # nur Trades, die die Quelle vor höchstens 30 Minuten eröffnet hat
+    richtung: "Kauf oder Verkauf wie die Quelle. Keine eigene Richtungsregel."
+    stop: "Stop-Kurs der Quelle beim Broker. Ohne Stop der Quelle keine Kopie."
+    ziel: "Ziel-Kurs der Quelle, wenn sie eins hat"
+    folgen: "Ändert die Quelle Stop oder Ziel, gleicht der Bot die Kopie im nächsten Lauf an."
+    schliessen: "Ist der Trade der Quelle zu (nicht mehr in ihrer Datei oder nicht mehr beim Broker), schließt der Bot die Kopie zum Markt."
+    einmal: "Jeder Trade einer Quelle bekommt auf diesem Konto höchstens eine Kopie. Eine gescheiterte Order wird nie wiederholt."
+    groesse: "2 % des gedachten Kontostands geteilt durch den Abstand vom aktuellen Kurs zum Stop der Quelle, abgerundet auf die Schrittweite des Brokers, mindestens die kleinste Größe."
+
+  waechter:
+    margin_anteil: 1.0            # Grenze des Brokers wie E2: Margin aller offenen Kopien plus der neuen höchstens 100 % des gedachten Kontostands
+    frei_danach_eur: 250          # nach jeder Kopie bleiben beim Broker mindestens 250 € frei (für den Bollinger-Bot Krypto)
+    hebel_hinweis: "Margin = Größe mal Kurs mal Margin-Faktor des Brokers, in Euro"
+    bremse_rueckgang: null        # keine Bremse (Kirons Wunsch "regelfrei", nur die Grenze des Brokers)
+    leer: "Fällt der gedachte Kontostand auf 0 € oder darunter, kopiert der Bot nichts Neues mehr."
+    hedging: "Das Konto braucht den Hedging-Modus, damit jede Kopie eine eigene Position ist. Der Bot schaltet ihn ein (PUT /accounts/preferences). Ist er aus, höchstens eine Kopie je Markt."
+    mitglied_raus:
+      trades: 40                  # Urteil nach suche/VORAB_wechsel.yaml, wie in den Bündeln
+      gewinnfaktor_unter: 1.2
+      quelle: "journal/vergleich.json (Rangliste und Bots mit festem Konto, Feld ist)"
+      text: "Hat ein Mitglied 40 eigene Demo-Trades und einen Gewinnfaktor unter 1,2, kopiert der Bot von ihm nichts Neues mehr. Offene Kopien laufen zu Ende."
+    nachbar: "krypto-bollinger handelt auf demselben Konto (BTCUSD, ETHUSD). Seine Positionen fasst der Bot nie an, auch nicht beim Wiederfinden einer Kopie nach Markt, Richtung, Größe und Zeit."
+    nie: "Nie auf dem Hauptkonto, nie auf einem Konto eines Mitglieds. Nie eine fremde Position anfassen, nur die eigenen Kopien an ihrer Deal-ID. Nie auf BTCUSD oder ETHUSD."
+
+  urteil:
+    regel: "suche/VORAB_aufstieg_alle.yaml, einzeln: 100 Demo-Trades, mindestens 61 Tage, Summe der letzten 61 Tage über 0, neuere Hälfte ohne Verlust, Gewinnfaktor 1,3. Gezählt in R der Kopien in journal/v1-wachsend/trades.jsonl."
+    echtes_geld: "Den Schritt zu echtem Geld entscheidet nur Kiron, auf einer Karte und über einen PR. Kirons Wunsch 'nach einem Monat' ist kürzer als diese Hürde und bräuchte seine eigene neue Regeldatei."
+    eine_woche: "suche/VORAB_eine_woche.yaml: 7 Tage ab Start keine Regeländerung und keine Abschaltung."
+
+  dateien: "Schreibt nur journal/v1-wachsend/ und journal/v1-wachsend.json."

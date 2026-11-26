@@ -55,7 +55,7 @@ liest zuerst diese Datei. Sie beschreibt den Stand der Projekt-Prüfung vom 11.1
 | Workflow | Takt | Was |
 |---|---|---|
 | `gold-bot.yml` | jede Stunde zur Minute 11 | Gold-Bot C/B (`gold-cb`), dazu Gold-Bot 2.0 und TikTok-Box im Schatten (ohne Order) |
-| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, 4-Std.-Ausbruch Krypto, Bündel ohne Gold, Gold-Bündel, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
+| `demo-bots.yml` | alle 15 Minuten | Prüfung nach 15/40 Trades, Rücksetzer, Vortag-, London- und Noise-Bots, Gold-Hand, Groß-Box, Gold 4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung, Williams %R, 4-Std.-Ausbruch Krypto, Bündel ohne Gold, Gold-Bündel, V1 mit wachsendem Einsatz, Vergleich, Kunden-Stimmung (nur mitschreiben, `suche/stimmung.py`), Wache |
 | `pine5m.yml` | alle 5 Minuten | Pine-Gold-Bots, Scalper, Gold-Staffel, Gold-Zonen, Wache |
 | `tests.yml` | bei jedem PR | alle Tests |
 
@@ -72,7 +72,7 @@ Welcher Bot auf welchem Konto handelt, steht an zwei Stellen. Beide sind die Que
 - `journal/konten.json` unter `zuordnung`: Bots unter der Prüfung nach 15/40 Trades.
 - `python -m suche.mitnutzer`: Bots mit festem Konto im Code (Scalper, Gold-Staffel, Groß-Box, Gold-Zonen, Gold
   4-Std.-Ausbruch, 4-Std.-Ausbruch DAX/FTSE/Nikkei, Bollinger Krypto, Vorhersage-Modell Indizes, VIX-Sprung,
-  Williams %R, 4-Std.-Ausbruch Krypto, Bündel ohne Gold, Gold-Bündel, Pine-Bots, Gold-Hand).
+  Williams %R, 4-Std.-Ausbruch Krypto, Bündel ohne Gold, Gold-Bündel, V1 mit wachsendem Einsatz, Pine-Bots, Gold-Hand).
 
 Mehrere Bots teilen sich ein Konto. Ein Bot darf darum nie fremde Positionen als eigene zählen oder schließen. Die
 Prüfung vergibt kein Konto, auf dem ein Mitnutzer handelt. Ein neuer Bot mit festem Konto wird in `suche/mitnutzer.py`
@@ -107,7 +107,9 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   2026 im Minus, derselbe Wunsch). Dazu `buendel9`, das Bündel aus 9 Bots auf "Vortag USDJPY". Es hat kein eigenes
   Signal und kopiert die Trades von 9 anderen Bots (Kirons Wahl "Ein Konto mit 9 Bots").
 - **Seit 26.11.2026:** `gold-buendel`, das Gold-Bündel auf "Vortag USDJPY". Es kopiert die drei Gold-Bots aus
-  `buendel9`, der seitdem nur noch die sechs anderen kopiert (Kirons Wahl "Zwei Bündel auf einem Konto").
+  `buendel9`, der seitdem nur noch die sechs anderen kopiert (Kirons Wahl "Zwei Bündel auf einem Konto"). Dazu
+  `v1-wachsend`, V1 mit wachsendem Einsatz auf Account 3 neben dem Bollinger-Bot Krypto. Er kopiert alle 9 Bots von V1
+  mit 2 % des eigenen gedachten Kontostands (Kirons Wahl "Eigener Demo-Bot auf Account 3").
 
 ## Gold-Bot C/B
 
@@ -157,8 +159,8 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 
 - `suche/krypto_bollinger_bot.py`, Regeln `suche/VORAB_krypto_bollinger_bot.yaml` (versiegelt am 20.11.2026). Die
   Fassung `bollinger_umkehr_krypto_weit` der Runde "Kirons Notizen" auf Bitcoin und Ether (Epics BTCUSD, ETHUSD) auf
-  Account 3, den er mit dem Bot Vortag GBP/JPY teilt. Die Kontonummer liest er nach dem Namen aus
-  `journal/konten.json`. Der Test ist durchgefallen (`suche/ergebnis_notizen_runde.md`, Gewinnfaktor 1,07, neuere
+  Account 3, den er seit dem 26.11.2026 mit `v1-wachsend` teilt (Vortag GBP/JPY ist beendet). Die Kontonummer liest
+  er nach dem Namen aus `journal/konten.json`. Der Test ist durchgefallen (`suche/ergebnis_notizen_runde.md`, Gewinnfaktor 1,07, neuere
   Hälfte 0,98). Der Bot läuft als Vorwärtstest auf Kirons Wahl vom 20.11.2026 11:53 UTC, Urteil nach 40 Trades. Im
   Test brachte ein Trade im Schnitt nur +0,046 R. Das Schatten-Labor zählt dieselbe Fassung unverändert weiter.
 - Signal, Stop und Ziel rechnet die Funktion des Tests (`suche/notizen_runde.signale`) auf Stundenkerzen des Brokers.
@@ -300,6 +302,25 @@ Gruppen (Stand 11.11.2026, 20 Bots):
   auch die noch offenen. Seitdem sucht er eine fehlende Kopie erst nach Markt, Richtung, Größe und Eröffnungszeit
   (`passende_position`). Eine als geschätzt gebuchte Kopie, die noch offen liegt, führt er wieder. Ihre falsche Buchung
   steht danach in `journal/buendel9/storniert.jsonl`. Im ersten Lauf danach (26.11.2026 10:03 UTC) waren es 4 Kopien.
+
+## V1 mit wachsendem Einsatz
+
+- Kirons Wunsch vom 26.11.2026 13:07 UTC ("alles mal nach den echten Regeln") und seine Wahl 13:36 UTC "Eigener
+  Demo-Bot auf Account 3". Derselbe Code `suche/buendel_bot.py`, Regeln `suche/VORAB_v1_wachsend_bot.yaml`, Schritt
+  `v1_wachsend` im 15-Minuten-Lauf nach `gold-buendel`. Er kopiert jeden neuen Trade der 9 Bots von V1 (die Mitglieder
+  der ersten Regel von `buendel9`) auf Account 3, den er mit `krypto-bollinger` teilt.
+- Einsatz 2 % des eigenen gedachten Kontostands bei der Eröffnung, Start 1.000 €. Gewinne gehen zurück ins Konto, der
+  Einsatz wächst mit, Verluste lassen ihn schrumpfen. Keine Bremse, nur die Grenze des Brokers: Margin aller Kopien
+  höchstens 100 % des gedachten Kontostands, beim Broker bleiben 250 € frei für den Bollinger-Bot. Fällt der gedachte
+  Kontostand auf 0 €, kopiert er nichts mehr.
+- Nie BTCUSD oder ETHUSD, nie eine Position des Bollinger-Bots. Die Kopien der Bündel auf "Vortag USDJPY" sind für ihn
+  nicht fremd (anderes Konto), derselbe Trade kann dort und hier je eine Kopie bekommen. Er steht darum wie die Bündel
+  nicht in der festen Gruppe aller Bots.
+- Vorher geprüft und durchgefallen: drei live erkennbare Gründe für die tiefen Rückgänge von V1
+  (`suche/ergebnis_v1_rueckgang.md`, 0 von 3, umdrehen war überall schlechter). Darum hat er keinen Filter. Rückblick
+  (Auskunft, an denselben Monaten ausgesucht): Start 01.01.2026 mit 1.000 € Ende Oktober 2.309 €, Rückgang 33 %.
+  Urteil nach `suche/VORAB_aufstieg_alle.yaml` einzeln (100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3). Echtes Geld
+  entscheidet nur Kiron.
 
 ## Schatten-Labor und Kombinierer
 

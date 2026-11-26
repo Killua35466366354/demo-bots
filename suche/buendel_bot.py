@@ -9,6 +9,13 @@ Welches Bündel ein Lauf führt, sagt seine Regeldatei (bot_id, Mitglieder). Sei
 Gold-Bots, suche/VORAB_gold_buendel_bot.yaml) und buendel9 ohne Gold (die sechs anderen,
 suche/VORAB_buendel9_ohne_gold.yaml). Jedes hält die Kopien des anderen für fremd und fasst sie nie an.
 
+Seit Kirons Wahl vom 26.11.2026 13:36 UTC ("Eigener Demo-Bot auf Account 3") läuft derselbe Code ein drittes Mal als
+v1-wachsend (suche/VORAB_v1_wachsend_bot.yaml) auf "Account 3", das er mit krypto-bollinger (BTCUSD, ETHUSD) teilt. Er
+kopiert alle 9 Bots von V1 mit 2 % Risiko vom eigenen gedachten Kontostand (Start 1.000 €, Gewinne gehen zurück ins
+Konto), ohne Bremse, nur mit der Grenze des Brokers (Margin aller Kopien höchstens 100 % des gedachten Kontostands,
+beim Broker bleiben 250 € frei). Die Kopien der Bündel auf "Vortag USDJPY" liegen auf einem anderen Konto und sind
+für ihn nicht fremd.
+
 Kirons Wahl vom 20.11.2026 16:20 UTC auf der Karte "Wie soll das Bündel aller Strategien jetzt auf Demo laufen?": "Ein
 Konto mit 9 Bots". Davor sein Wunsch 15:57 UTC: ein Bot, der alle Strategien gleichzeitig mit demselben Geld handelt.
 Seit 16:27 UTC ist die Zahl der Demokonten voll, darum teilt das Bündel das Konto "Vortag USDJPY" mit dem Kern-Bot
@@ -63,6 +70,11 @@ VORAB_GOLD = ROOT / "suche" / "VORAB_gold_buendel_bot.yaml"          # das Gold-
 KEY_GOLD = "VORAB_gold_buendel_bot sha256 "
 GOLD_ID = "gold-buendel"
 BUENDEL = (BOT_ID, GOLD_ID)            # alle Bündel auf "Vortag USDJPY": jedes hält die Kopien der anderen für fremd
+VORAB_V1 = ROOT / "suche" / "VORAB_v1_wachsend_bot.yaml"             # V1 mit wachsendem Einsatz seit Kirons Wahl vom 26.11.2026
+KEY_V1 = "VORAB_v1_wachsend_bot sha256 "
+V1_ID = "v1-wachsend"
+V1_KONTO_NAME = "Account 3"            # geteilt mit krypto-bollinger (BTCUSD, ETHUSD), kein anderes Bündel
+ALLE_KOPIERER = (*BUENDEL, V1_ID)      # kein Kopierer schreibt je in die Dateien eines anderen
 JDIR = J / "buendel9"
 COCKPIT = J / "buendel9.json"
 FREMDE_DATEIEN = ("gold-trades.jsonl", "gold-state.json", "konten.json", "r6-bots.json", "vergleich.json")
@@ -106,12 +118,12 @@ def bot_id(regel: dict) -> str:
     return str(regel.get("bot_id") or BOT_ID)
 
 
-def fremde_kopien(eigen: str, jdir: Path = J) -> dict[str, dict]:
+def fremde_kopien(eigen: str, jdir: Path = J, buendel: tuple[str, ...] = BUENDEL) -> dict[str, dict]:
     """Die offenen Kopien der anderen Bündel auf demselben Konto (aus ihrem state.json), Trade der Quelle -> Kopie.
     Ihre Positionen fasst das Bündel nie an, auch nicht beim Wiederfinden einer Kopie (passende_position), ihre Trades
     kopiert es nicht ein zweites Mal, und ohne Hedging zählen ihre Märkte wie eigene Kopien."""
     out: dict[str, dict] = {}
-    for b in BUENDEL:
+    for b in buendel:
         if b == eigen:
             continue
         pfad = jdir / b / "state.json"
@@ -129,6 +141,24 @@ def konto_id(konten_daten: dict | None = None) -> str:
 
 
 KONTO = konto_id()
+
+
+def v1_konto_id(konten_daten: dict | None = None) -> str:
+    """Die volle Kontonummer von "Account 3" für V1 mit wachsendem Einsatz, gesucht nach dem Namen wie konto_id."""
+    from suche.mitnutzer import konto_nach_name
+    return konto_nach_name(V1_KONTO_NAME, konten_daten)
+
+
+V1_KONTO = v1_konto_id()
+
+
+def konto_fuer(name: str) -> str:
+    """Die Kontonummer zum Kontonamen einer Regeldatei. Nur die beiden Konten der Kopierer, sonst leer."""
+    if _norm(name) == _norm(KONTO_NAME):
+        return KONTO
+    if _norm(name) == _norm(V1_KONTO_NAME):
+        return V1_KONTO
+    return ""
 
 
 def _norm(text) -> str:
@@ -164,19 +194,19 @@ def deal_aus_bestaetigung(conf: dict | None) -> str:
     return str((conf.get("affectedDeals") or [{}])[0].get("dealId") or conf.get("dealId") or "")
 
 
-def passende_position(k: dict, eigene: dict, vergeben: set[str]) -> str | None:
+def passende_position(k: dict, eigene: dict, vergeben: set[str], sperr: tuple[str, ...] = SPERR_MAERKTE) -> str | None:
     """Die eigene Position zu einer Kopie, deren Deal-ID unter den Positionen fehlt: derselbe Markt, dieselbe Richtung,
     dieselbe Größe, beim Broker höchstens 5 Minuten neben der Uhrzeit der Kopie eröffnet, nie GBPUSD (Vortag GBP/USD)
     und keiner anderen Kopie zugeordnet. Nur bei genau einem Treffer die Deal-ID, sonst None."""
     auf = _zeit(k.get("opened_utc"))
-    if auf is None or k.get("epic") in SPERR_MAERKTE:
+    if auf is None or k.get("epic") in sperr:
         return None
     seite = "BUY" if int(k["richtung"]) > 0 else "SELL"
     treffer = []
     for did, p in eigene.items():
         pos, mk = p.get("position") or {}, p.get("market") or {}
         epic = str(mk.get("epic") or pos.get("epic") or "")
-        if did in vergeben or epic != k.get("epic") or epic in SPERR_MAERKTE:
+        if did in vergeben or epic != k.get("epic") or epic in sperr:
             continue
         size = _num(pos.get("size"))
         if str(pos.get("direction")).upper() != seite or size is None or abs(size - float(k["size"])) > 1e-9:
@@ -307,6 +337,10 @@ class Lauf:
         self.send = send_orders
         self.siegel = siegel
         self.bot_id = bot_id(regel)
+        self.konto_name = str(regel.get("konto_name") or KONTO_NAME)
+        self.konto = konto_fuer(self.konto_name)
+        self.sperr = tuple(regel.get("sperr_maerkte") or SPERR_MAERKTE)
+        self.nachbarn = tuple(regel.get("buendel_auf_konto") or BUENDEL)
         self.fremde: dict[str, dict] = {}   # offene Kopien der anderen Bündel auf diesem Konto (fremde_kopien)
         self.erster_lauf = not (state or {}).get("start")
         self.log: list[dict] = []
@@ -315,8 +349,10 @@ class Lauf:
         self.quotes: dict = {}
         g = regel["geld"]
         self.kapital, self.risiko, self.faktor = float(g["kapital_eur"]), float(g["risiko_eur"]), float(g["max_risiko_faktor"])
+        self.risiko_anteil = None if g.get("risiko_anteil") is None else float(g["risiko_anteil"])
         w = regel["waechter"]
-        self.margin_anteil, self.bremse = float(w["margin_anteil"]), float(w["bremse_rueckgang"])
+        self.margin_anteil = float(w["margin_anteil"])
+        self.bremse = None if w.get("bremse_rueckgang") is None else float(w["bremse_rueckgang"])   # None: keine Bremse
         self.frei_danach = float(w.get("frei_danach_eur", 0))
         self.frist = pd.Timedelta(minutes=int(regel["kopieren"]["frist_minuten"]))
         for k, v in (("format", 1), ("start", self.stamp), ("kopien", {}), ("gesehen", {}), ("summe_eur", 0.0),
@@ -333,8 +369,15 @@ class Lauf:
         self.log.append({"time": self.stamp, "event": event, **kw})
 
     def stand(self) -> float:
-        """Gedachter Kontostand: 700 € plus das Ergebnis aller fertigen Kopien seit dem Start."""
+        """Gedachter Kontostand: das Kapital der Regel (700 € oder 1.000 €) plus das Ergebnis aller fertigen Kopien."""
         return round(self.kapital + float(self.st.get("summe_eur") or 0), 2)
+
+    def risiko_jetzt(self) -> float:
+        """Risiko einer neuen Kopie in Euro: fest (7 € der Bündel) oder ein Anteil des gedachten Kontostands
+        (V1 mit wachsendem Einsatz: 2 %, Gewinne gehen zurück ins Konto)."""
+        if self.risiko_anteil is None:
+            return self.risiko
+        return round(self.risiko_anteil * self.stand(), 2)
 
     def neue_regel(self, name: str) -> None:
         """Merkt sich die Regeldatei des Laufs. Wechselt sie (Kirons Wahl vom 26.11.2026: buendel9 ohne Gold), steht
@@ -349,8 +392,8 @@ class Lauf:
         self.st["vorab"] = name
 
     def nur_mein_konto(self) -> None:
-        if not KONTO or str(self.client.account_id) != KONTO:
-            raise RuntimeError(f"aktives Konto ist nicht {KONTO_NAME}, nichts gesendet")
+        if not self.konto or str(self.client.account_id) != self.konto:
+            raise RuntimeError(f"aktives Konto ist nicht {self.konto_name}, nichts gesendet")
 
     def quote(self, epic: str):
         from suche.demo_bots import eur_rate, quote_from_market
@@ -420,7 +463,8 @@ class Lauf:
         self.st["summe_r"] = round(float(self.st["summe_r"]) + r, 4)
         self.st["trades"] = int(self.st["trades"]) + 1
         self.st["hoechst"] = max(float(self.st.get("hoechst") or self.kapital), self.stand())
-        if not self.st.get("gebremst") and self.stand() <= float(self.st["hoechst"]) * (1 - self.bremse):
+        if (self.bremse is not None and not self.st.get("gebremst")
+                and self.stand() <= float(self.st["hoechst"]) * (1 - self.bremse)):
             self.st["gebremst"] = {"zeit": self.stamp, "stand": self.stand(), "hoechst": self.st["hoechst"]}
             self.ev("Bremse", stand=self.stand(), hoechst=self.st["hoechst"])
 
@@ -474,7 +518,7 @@ class Lauf:
         vergeben = {k["dealId"] for k in self.st["kopien"].values() if k["dealId"] in eigene} | self.fremd
         for qd, k in list(self.st["kopien"].items()):
             if k["dealId"] not in eigene:
-                neu = passende_position(k, eigene, vergeben)
+                neu = passende_position(k, eigene, vergeben, self.sperr)
                 if neu is None:
                     self.weg(k)
                     continue
@@ -522,7 +566,7 @@ class Lauf:
             if (not t.get("geschaetzt") or t.get("grund") != GESCHAETZT or not qd or qd in self.st["kopien"]
                     or (t.get("dealId"), qd) in storniert or zu is None or self.now - zu > NACHPRUEFEN):
                 continue
-            did = passende_position(t, eigene, vergeben)
+            did = passende_position(t, eigene, vergeben, self.sperr)
             if did is None:
                 continue
             try:
@@ -584,10 +628,13 @@ class Lauf:
             if self.st.get("gebremst"):
                 self.merke(qd, bot, "Bremse: 30 % unter dem Höchststand")
                 continue
+            if self.stand() <= 0:
+                self.merke(qd, bot, "Konto leer: gedachter Kontostand 0 € oder darunter")
+                continue
             if bot in raus:
                 self.merke(qd, bot, "Mitglied raus: " + raus[bot])
                 continue
-            if not epic or epic in SPERR_MAERKTE:
+            if not epic or epic in self.sperr:
                 self.merke(qd, bot, f"Markt {epic or '?'} ist hier gesperrt")
                 continue
             if stop is None:
@@ -609,7 +656,7 @@ class Lauf:
             if dist <= max(q.min_dist, 0.0):
                 self.merke(qd, bot, "Kurs schon am oder hinter dem Stop der Quelle")
                 continue
-            size, warum = groesse(self.risiko, dist, q, self.faktor)
+            size, warum = groesse(self.risiko_jetzt(), dist, q, self.faktor)
             if size is None:
                 self.merke(qd, bot, warum)
                 continue
@@ -670,24 +717,25 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path
     regel = regel or lade_regel(vorab)
     siegel = vorab_ok(vorab)
     lauf = Lauf(client, state, now, regel, send_orders, siegel=siegel)
-    if _norm(regel.get("konto_name") or KONTO_NAME) != _norm(KONTO_NAME):
+    konto, konto_name = lauf.konto, lauf.konto_name
+    if _norm(konto_name) not in {_norm(KONTO_NAME), _norm(V1_KONTO_NAME)}:   # nur die Konten der Kopierer
         lauf.ev("kein Konto", konto=str(regel.get("konto_name")))
         lauf.st["stand"] = lauf.stamp
         return lauf.st, lauf.log, []
-    lauf.fremde = fremde_kopien(lauf.bot_id, jdir)
+    lauf.fremde = fremde_kopien(lauf.bot_id, jdir, lauf.nachbarn)
     lauf.neue_regel(Path(vorab).name)
     lauf.st.setdefault("versuche", {})
     for qd in list(lauf.st["versuche"]):          # Order ohne Antwort im letzten Lauf: nie ein zweites Mal senden
         lauf.merke(qd, "?", "Order im letzten Lauf ohne Antwort, nicht wiederholt")
         del lauf.st["versuche"][qd]
-    if not KONTO or KONTO.endswith(HAUPT_ENDUNG):
-        lauf.ev("kein Konto", konto=KONTO_NAME)
+    if not konto or konto.endswith(HAUPT_ENDUNG):
+        lauf.ev("kein Konto", konto=konto_name)
         lauf.st["stand"] = lauf.stamp
         return lauf.st, lauf.log, []
     konten = client.accounts()
-    acc = next((a for a in konten if str(a.get("accountId")) == KONTO), None)
-    if acc is None or _norm(acc.get("accountName") or KONTO_NAME) != _norm(KONTO_NAME):
-        lauf.ev("kein Konto", konto=KONTO_NAME)
+    acc = next((a for a in konten if str(a.get("accountId")) == konto), None)
+    if acc is None or _norm(acc.get("accountName") or konto_name) != _norm(konto_name):
+        lauf.ev("kein Konto", konto=konto_name)
         lauf.st["stand"] = lauf.stamp
         return lauf.st, lauf.log, []
     euro = str(acc.get("currency") or "EUR").upper() == str(regel.get("waehrung") or "EUR").upper()
@@ -696,9 +744,9 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path
     for f in fehler:
         lauf.ev("Mitglied nicht lesbar", fehler=f)
     mitglied_konten = {d["konto"] for d in deals}
-    if KONTO in mitglied_konten:                  # ein Mitglied auf diesem Konto: Quelle und Kopie wären nicht zu trennen
+    if konto in mitglied_konten:                  # ein Mitglied auf diesem Konto: Quelle und Kopie wären nicht zu trennen
         lauf.ev("Mitglied auf dem Bündel-Konto, nichts kopiert")
-        deals = [d for d in deals if d["konto"] != KONTO]
+        deals = [d for d in deals if d["konto"] != konto]
     try:
         vergleich = json.loads((jdir / "vergleich.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
@@ -707,18 +755,18 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path
     vorher = client.account_id
     quell_pos, konten_ok = {}, set()
     try:
-        for konto in sorted({d["konto"] for d in deals}):
+        for qk in sorted({d["konto"] for d in deals}):
             try:
-                client.switch_account(konto)
+                client.switch_account(qk)
                 for p in client.positions():
                     did = str((p.get("position") or {}).get("dealId") or "")
                     if did:
                         quell_pos[did] = p
-                konten_ok.add(konto)
+                konten_ok.add(qk)
             except Exception as err:        # noqa: BLE001 - dann bleibt alles dieses Kontos, wie es ist
                 lauf.ev("Quellkonto nicht lesbar", fehler=str(err)[:200])
         quell_pos = {d["dealId"]: quell_pos[d["dealId"]] for d in deals if d["dealId"] in quell_pos}
-        client.switch_account(KONTO)
+        client.switch_account(konto)
         eigene = {str((p.get("position") or {}).get("dealId")): p for p in client.positions()}
         if gebucht is None:
             gebucht = _lies_jsonl(jdir / lauf.bot_id / "trades.jsonl")
@@ -762,6 +810,14 @@ def status(st: dict, kapital: float = 700.0) -> str:
     return f"{teil}, gedachter Kontostand {stand:.2f} € nach {int(st.get('trades') or 0)} fertigen Kopien"
 
 
+def _risiko_naechste(st: dict, regel: dict) -> float:
+    """Risiko der nächsten Kopie in Euro: fest oder 2 % des gedachten Kontostands (V1 mit wachsendem Einsatz)."""
+    g = regel["geld"]
+    if g.get("risiko_anteil") is None:
+        return float(g["risiko_eur"])
+    return round(float(g["risiko_anteil"]) * (float(g["kapital_eur"]) + float(st.get("summe_eur") or 0)), 2)
+
+
 def cockpit(st: dict, alle: list[dict], regel: dict, vorab: Path = VORAB) -> dict:
     offen = [{k: v.get(k) for k in ("quelle", "epic", "richtung", "entry", "stop", "ziel", "size", "risiko_eur",
                                      "margin_eur", "opened_utc")} for v in (st.get("kopien") or {}).values()]
@@ -776,6 +832,7 @@ def cockpit(st: dict, alle: list[dict], regel: dict, vorab: Path = VORAB) -> dic
             "auslaufend": list((regel.get("auslaufend") or {}).keys()),
             "raus": st.get("raus") or {}, "kapital_eur": regel["geld"]["kapital_eur"],
             "kontostand_gedacht_eur": round(float(regel["geld"]["kapital_eur"]) + float(st.get("summe_eur") or 0), 2),
+            "risiko_naechste_kopie_eur": _risiko_naechste(st, regel),
             "hedging": st.get("hedging"), "offen": offen, "zusammenfassung": bewertung(alle),
             "regel_seit": ab, "regeln_vorher": st.get("regeln") or [],
             "seit_regel": bewertung([t for t in alle if str(t.get("opened_utc") or "") >= str(ab)]) if ab else None,
@@ -829,7 +886,7 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict], regel: dict, jdir:
     eigen = bot_id(regel)
     jdir = Path(jdir) if jdir is not None else J / eigen
     cockpit_pfad = Path(cockpit_pfad) if cockpit_pfad is not None else J / f"{eigen}.json"
-    andere = {n for b in BUENDEL if b != eigen for n in (b, f"{b}.json")}
+    andere = {n for b in ALLE_KOPIERER if b != eigen for n in (b, f"{b}.json")}
     for p in (jdir, cockpit_pfad):
         if p.name in FREMDE_DATEIEN or p.name in andere:
             raise RuntimeError(f"{p} gehört einem anderen Bot")
@@ -860,7 +917,7 @@ def main(argv: list[str]) -> int:
                     help="Regeldatei des Bündels (Standard: buendel9 ohne Gold)")
     args = ap.parse_args(argv)
     vorab = ROOT / args.regel
-    if vorab.resolve() not in {x.resolve() for x in (VORAB_OHNE_GOLD, VORAB_GOLD)}:
+    if vorab.resolve() not in {x.resolve() for x in (VORAB_OHNE_GOLD, VORAB_GOLD, VORAB_V1)}:
         raise SystemExit(f"{args.regel} ist keine Regeldatei eines laufenden Bündels")
     creds = clean_credentials({k: os.environ.get(k, "") for k in CRED_KEYS})
     if not all(creds):

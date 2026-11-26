@@ -662,9 +662,10 @@ def test_main_nimmt_nur_die_regeln_der_laufenden_buendel(monkeypatch, capsys):
         bb.main(["--regel", "suche/VORAB_buendel9_bot.yaml"])
     with pytest.raises(SystemExit):
         bb.main(["--regel", "suche/VORAB_aufstieg_alle.yaml"])
-    for regel in ("suche/VORAB_gold_buendel_bot.yaml", "suche/VORAB_buendel9_ohne_gold.yaml", None):
+    for regel in ("suche/VORAB_gold_buendel_bot.yaml", "suche/VORAB_buendel9_ohne_gold.yaml",
+                  "suche/VORAB_v1_wachsend_bot.yaml", None):
         assert bb.main(["--regel", regel] if regel else []) == 0
-    assert capsys.readouterr().out.count("Keine Capital.com-Zugangsdaten") == 3
+    assert capsys.readouterr().out.count("Keine Capital.com-Zugangsdaten") == 4
 
 
 def test_beide_buendel_laufen_im_15_minuten_lauf():
@@ -677,6 +678,203 @@ def test_beide_buendel_laufen_im_15_minuten_lauf():
     assert "python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml" in gb["run"]
     assert "--dry-run" in gb["run"] and "tests/test_buendel_bot.py" in gb["run"] and "touch" not in gb["run"]
     assert gb["continue-on-error"] is True and "!cancelled()" in gb["if"]
-    assert pos["buendel"] < pos["gold_buendel"] < pos["vergleich"]
+    v1 = steps[pos["v1_wachsend"]]                   # V1 mit wachsendem Einsatz auf "Account 3" seit 26.11.2026
+    assert "python -m suche.buendel_bot --regel suche/VORAB_v1_wachsend_bot.yaml" in v1["run"]
+    assert "--dry-run" in v1["run"] and "tests/test_buendel_bot.py" in v1["run"] and "touch" not in v1["run"]
+    assert v1["continue-on-error"] is True and "!cancelled()" in v1["if"]
+    assert pos["buendel"] < pos["gold_buendel"] < pos["v1_wachsend"] < pos["vergleich"]
     # ohne --regel nähme der Bot buendel9 ohne Gold, nie die erste Regel mit 9 Mitgliedern
     assert "--regel" in b9["run"].split("python -m suche.buendel_bot", 1)[1].split("\n")[0]
+
+
+# ---------- V1 mit wachsendem Einsatz auf "Account 3" (Kirons Wahl vom 26.11.2026 13:36 UTC) ----------
+
+V1 = bb.lade_regel(bb.VORAB_V1)
+
+
+class BrokerV1(Broker):
+    """Wie Broker, das Konto des Kopierers heißt aber "Account 3" (geteilt mit krypto-bollinger)."""
+
+    def accounts(self):
+        return [{**a, "accountName": "Account 3"} if a["accountId"] == BUENDEL else a for a in super().accounts()]
+
+
+@pytest.fixture
+def v1_konto(monkeypatch):
+    monkeypatch.setattr(bb, "V1_KONTO", BUENDEL)
+
+
+def v1_lauf(broker, tmp_path, state=None, now=JETZT, send=True):
+    return bb.run(broker, state or {}, now, send_orders=send, jdir=tmp_path, konten_daten={"haupt": HAUPT}, regel=V1,
+                  vorab=bb.VORAB_V1)
+
+
+def test_v1_regel_kopiert_die_9_bots_mit_2_prozent_und_ohne_bremse():
+    assert V1["bot_id"] == bb.V1_ID == "v1-wachsend" and V1["konto_name"] == bb.V1_KONTO_NAME == "Account 3"
+    assert V1["mitglieder"] == REGEL["mitglieder"]          # dieselben 9 wie die erste Regel von buendel9
+    assert V1["geld"] == {"kapital_eur": 1000, "risiko_anteil": 0.02, "risiko_eur": 20, "max_risiko_faktor": 2.0}
+    w = V1["waechter"]
+    assert w["margin_anteil"] == 1.0 and w["frei_danach_eur"] == 250 and w["bremse_rueckgang"] is None
+    ohne_text = lambda m: {k: v for k, v in m.items() if k != "text"}           # noqa: E731
+    assert ohne_text(w["mitglied_raus"]) == ohne_text(REGEL["waechter"]["mitglied_raus"])
+    assert V1["kopieren"]["frist_minuten"] == 30
+    assert V1["sperr_maerkte"] == ["BTCUSD", "ETHUSD"] and V1["buendel_auf_konto"] == ["v1-wachsend"]
+    assert "auslaufend" not in V1 and bb.ALLE_KOPIERER == ("buendel9", "gold-buendel", "v1-wachsend")
+
+
+def test_v1_echtes_konto_ist_account_3_wie_krypto_bollinger_und_keins_der_mitglieder():
+    """Mit dem echten journal/konten.json: "Account 3" teilt V1 nur mit dem Bollinger-Bot Krypto."""
+    from gold import ausbruch4h_bot, zonen_bot
+    from gold.bot import konten
+    from suche import krypto_bollinger_bot, mitnutzer, scalper_bot, welt4h_bot
+    k = konten.load()
+    echt = bb.v1_konto_id(k)
+    assert echt and echt == str(krypto_bollinger_bot.KONTO) and not echt.endswith(bb.HAUPT_ENDUNG)
+    assert echt != bb.konto_id(k)                             # nie das Konto der beiden Bündel
+    mitglieder = {str(k["haupt"]), scalper_bot.KONTO, zonen_bot.KONTO, ausbruch4h_bot.KONTO, welt4h_bot.KONTO,
+                  str(k["zuordnung"]["us500-ruecksetzer"]), str(k["zuordnung"]["r5-ruecksetzer-us100"]),
+                  str(k["zuordnung"]["r7-nasdaq-noise-long"])}
+    assert echt not in mitglieder
+    andere = {b for b, aid in k["zuordnung"].items() if str(aid) == echt}
+    andere |= {b["bot"] for b in mitnutzer.bots() if b["konto"] == echt}
+    assert andere == {"krypto-bollinger", "v1-wachsend"}
+    assert set(krypto_bollinger_bot.MAERKTE.values()) == set(V1["sperr_maerkte"])   # jeder Markt des Nachbarn gesperrt
+
+
+def test_v1_einsatz_waechst_mit_dem_gedachten_kontostand(tmp_path, v1_konto):
+    b = BrokerV1()
+    b.quelle("S1")
+    st, log, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}))
+    (post,) = b.posts()
+    assert post[2]["size"] == 0.39                           # 2 % von 1.000 € = 20 € / 51,2 Punkte = 0,39
+    assert st["kopien"]["S1"]["risiko_eur"] == pytest.approx(0.39 * 51.2, abs=0.01)
+    for summe, size in ((500.0, 0.58), (-500.0, 0.19)):     # 1.500 €: 30 €, 500 €: 10 €
+        b2 = BrokerV1()
+        b2.quelle("S2")
+        st2, _, _ = v1_lauf(b2, journal(tmp_path, scalp={"dealId": "S2"}), {"summe_eur": summe})
+        assert [p[2]["size"] for p in b2.posts()] == [size]
+    lv = bb.Lauf(BrokerV1(), {"summe_eur": 250.0}, JETZT, V1, True, siegel=True)
+    assert lv.risiko_jetzt() == 25.0 and lv.bremse is None and lv.konto == BUENDEL
+    assert lv.sperr == ("BTCUSD", "ETHUSD") and lv.nachbarn == ("v1-wachsend",)
+    lb = bb.Lauf(Broker(), {"summe_eur": 250.0}, JETZT, GOLD, True, siegel=True)
+    assert lb.risiko_jetzt() == 7.0 and lb.bremse == 0.3 and lb.sperr == ("GBPUSD",)
+
+
+def test_v1_ohne_bremse_auch_weit_unter_dem_hoechststand(tmp_path, v1_konto):
+    b = BrokerV1()
+    b.quelle("S1")
+    st0 = {"start": "2026-11-26T15:00:00", "summe_eur": -440.0, "hoechst": 1500.0, "trades": 20}
+    st, _, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}), st0)
+    assert [p[2]["size"] for p in b.posts()] == [0.21]       # 2 % von 560 € = 11,20 €
+    (tmp_path / "scalp-de40/state.json").write_text(json.dumps({"offen": None}), encoding="utf-8")
+    b.kurs["DE40"] = 19950.0
+    st2, log, fertig = v1_lauf(b, tmp_path, st, now=JETZT + timedelta(minutes=15))
+    assert len(fertig) == 1 and fertig[0]["eur"] < 0 and st2["trades"] == 21
+    assert not st2.get("gebremst") and not any(e["event"] == "Bremse" for e in log)
+    assert bb.status(st2, 1000).startswith("0 Kopien offen, gedachter Kontostand 5")
+    b.kurs["DE40"] = 20000.0
+    b.quelle("S9")
+    (tmp_path / "scalp-de40/state.json").write_text(json.dumps({"offen": {"dealId": "S9"}}), encoding="utf-8")
+    st3, _, _ = v1_lauf(b, tmp_path, st2, now=JETZT + timedelta(minutes=20))
+    assert [p[2]["size"] for p in b.posts()] == [0.21, 0.21] and "S9" in st3["kopien"]   # 2 % von 549 € = 10,99 €
+
+
+def test_v1_kopiert_nichts_wenn_das_gedachte_konto_leer_ist(tmp_path, v1_konto):
+    b = BrokerV1()
+    b.quelle("S1")
+    st, _, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}), {"summe_eur": -1000.0})
+    assert b.posts() == [] and st["gesehen"]["S1"]["grund"].startswith("Konto leer")
+
+
+def test_v1_grenze_des_brokers_100_prozent_und_250_euro_frei(tmp_path, v1_konto):
+    b = BrokerV1(margin=100.0)                       # Margin = ganzer Positionswert: 0,39 x 20.001 € = 7.800 €
+    b.quelle("S1")
+    st, _, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}))
+    assert b.posts() == [] and "über 100 % von 1000 €" in st["gesehen"]["S1"]["grund"]
+    b2 = BrokerV1(frei=600.0)                        # 390 € Margin, danach blieben nur 210 € für den Bollinger-Bot
+    b2.quelle("S2")
+    st2, _, _ = v1_lauf(b2, journal(tmp_path, scalp={"dealId": "S2"}))
+    assert b2.posts() == [] and "blieben nur 210 €" in st2["gesehen"]["S2"]["grund"]
+
+
+def test_v1_nie_bitcoin_oder_ether_des_bollinger_bots(tmp_path, v1_konto):
+    for epic in ("BTCUSD", "ETHUSD"):
+        b = BrokerV1()
+        b.quelle("S1", epic=epic, level=3000.0, stop=2900.0, ziel=None)
+        st, _, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}))
+        assert b.posts() == [] and "gesperrt" in st["gesehen"]["S1"]["grund"]
+    # beim Wiederfinden einer Kopie nach Markt, Richtung, Größe und Zeit nie eine Position des Bollinger-Bots
+    offen = JETZT - timedelta(minutes=30)
+    k = _kopie("Q1", "O1", "scalp-de40", offen, epic="BTCUSD", richtung=1, size=0.01)
+    eigene = {"B1": {"market": {"epic": "BTCUSD"},
+                     "position": _gold("B1", 0.01, offen + timedelta(seconds=20), richtung="BUY", epic="BTCUSD")}}
+    assert bb.passende_position(k, eigene, set(), ("BTCUSD", "ETHUSD")) is None
+    assert bb.passende_position(k, eigene, set(), ("GBPUSD",)) == "B1"     # nur die Sperre hält ihn ab
+
+
+def test_v1_und_die_buendel_halten_sich_nicht_fuer_fremd(tmp_path, v1_konto):
+    """Die Bündel kopieren auf "Vortag USDJPY", V1 auf "Account 3": Derselbe Trade bekommt auf jedem Konto eine Kopie."""
+    offen = JETZT - timedelta(minutes=5)
+    for b_id in ("buendel9", "v1-wachsend"):
+        (tmp_path / b_id).mkdir(exist_ok=True)
+        (tmp_path / b_id / "state.json").write_text(
+            json.dumps({"kopien": {"S1": _kopie("S1", "K7", "scalp-de40", offen, epic="DE40", richtung=1, size=0.13,
+                                               entry=20001.2, stop=19950.0, konto=QUELLE)}}), encoding="utf-8")
+    b = BrokerV1()
+    b.quelle("S1")
+    st, _, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}), {"start": "2026-11-26T15:00:00"})
+    assert len(b.posts()) == 1 and "S1" in st["kopien"]
+    (tmp_path / "v1-wachsend" / "state.json").write_text(
+        json.dumps({"kopien": {"S2": _kopie("S2", "K8", "scalp-de40", offen, epic="DE40", richtung=1, size=0.39,
+                                           entry=20001.2, stop=19950.0, konto=QUELLE)}}), encoding="utf-8")
+    (tmp_path / "buendel9" / "state.json").unlink()
+    b2 = Broker()
+    b2.quelle("S2")
+    st2, _, _ = lauf(b2, journal(tmp_path, scalp={"dealId": "S2"}))
+    assert len(b2.posts()) == 1 and "S2" in st2["kopien"]
+
+
+def test_v1_nur_auf_account_3(tmp_path, monkeypatch, v1_konto):
+    b = Broker()                                     # das Konto heißt beim Broker "Vortag USDJPY"
+    b.quelle("S1")
+    st, log, _ = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}))
+    assert log[-1] == {"time": JETZT.strftime(bb.FMT), "event": "kein Konto", "konto": "Account 3"}
+    assert b.posts() == [] and not [c for c in b.calls if c[0] == "konto"]
+    for konto in ("", HAUPT):
+        monkeypatch.setattr(bb, "V1_KONTO", konto)
+        b2 = BrokerV1()
+        b2.quelle("S1")
+        st2, log2, _ = v1_lauf(b2, journal(tmp_path, scalp={"dealId": "S1"}))
+        assert log2[-1]["event"] == "kein Konto" and b2.calls == []
+    assert bb.konto_fuer("Account 3") == bb.V1_KONTO and bb.konto_fuer("Vortag USDJPY") == bb.KONTO
+    assert bb.konto_fuer("Account 5") == ""
+
+
+def test_karte_und_dateien_von_v1(tmp_path, v1_konto):
+    b = BrokerV1()
+    b.quelle("S1")
+    st, log, fertig = v1_lauf(b, journal(tmp_path, scalp={"dealId": "S1"}))
+    jdir, karte = tmp_path / "v1-wachsend", tmp_path / "v1-wachsend.json"
+    assert bb.schreiben(st, log, fertig, V1, jdir, karte, vorab=bb.VORAB_V1)
+    k = json.loads(karte.read_text(encoding="utf-8"))
+    assert k["bot"] == "v1-wachsend" and k["konto"] == "Account 3" and k["vorab"] == "suche/VORAB_v1_wachsend_bot.yaml"
+    assert k["kapital_eur"] == 1000 and k["kontostand_gedacht_eur"] == 1000.0 and k["risiko_naechste_kopie_eur"] == 20.0
+    assert k["mitglieder"] == list(REGEL["mitglieder"]) and len(k["offen"]) == 1
+    assert bb._risiko_naechste({"summe_eur": 500.0}, V1) == 30.0 and bb._risiko_naechste({"summe_eur": 500.0}, GOLD) == 7.0
+    for fremd in (("buendel9", "x.json"), ("x", "gold-buendel.json"), ("x", "vergleich.json")):
+        with pytest.raises(RuntimeError):
+            bb.schreiben(st, log, fertig, V1, tmp_path / fremd[0], tmp_path / fremd[1], vorab=bb.VORAB_V1)
+    for r, v in ((GOLD, bb.VORAB_GOLD), (OHNE_GOLD, bb.VORAB_OHNE_GOLD)):   # kein Bündel schreibt in die Dateien von V1
+        with pytest.raises(RuntimeError):
+            bb.schreiben(st, log, fertig, r, jdir, tmp_path / "y.json", vorab=v)
+        with pytest.raises(RuntimeError):
+            bb.schreiben(st, log, fertig, r, tmp_path / "y", karte, vorab=v)
+
+
+def test_startkarte_von_v1_im_journal():
+    """Die Karte im echten Journal: bis zum ersten Lauf nach dem Merge die Startkarte, danach die des Bots."""
+    karte = json.loads((bb.J / "v1-wachsend.json").read_text(encoding="utf-8"))
+    assert karte["bot"] == bb.V1_ID and karte["konto"] == bb.V1_KONTO_NAME == "Account 3"
+    assert karte["vorab"] == "suche/VORAB_v1_wachsend_bot.yaml" and karte["name"] == V1["name"]
+    assert karte["kapital_eur"] == 1000 and karte["mitglieder"] == list(V1["mitglieder"])
+    assert karte["start"] is None or pd.Timestamp(karte["start"]) >= pd.Timestamp("2026-11-26")

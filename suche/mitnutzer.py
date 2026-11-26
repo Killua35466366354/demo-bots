@@ -96,6 +96,10 @@ def bots() -> list[dict]:
     # Das Gold-Bündel (Kirons Wahl vom 26.11.2026 "Zwei Bündel auf einem Konto"): derselbe Code, eigene Regeldatei.
     out.append({"bot": buendel_bot.GOLD_ID, "konto": buendel_bot.KONTO, "konto_name": buendel_bot.KONTO_NAME,
                 "neu": True, "quelle": "suche/buendel_bot.py"})
+    # V1 mit wachsendem Einsatz (Kirons Wahl vom 26.11.2026 13:36 UTC "Eigener Demo-Bot auf Account 3"): derselbe Code,
+    # eigene Regeldatei, auf "Account 3" neben dem Bollinger-Bot Krypto.
+    out.append({"bot": buendel_bot.V1_ID, "konto": buendel_bot.V1_KONTO, "konto_name": buendel_bot.V1_KONTO_NAME,
+                "neu": True, "quelle": "suche/buendel_bot.py"})
     out += [{"bot": b.bot_id, "konto": b.konto, "konto_name": b.konto_name, "neu": bool(b.neu),
              "quelle": "gold/pine5m_bot.py"} for b in pine5m_bot.BOTS]
     # Der Gold-Hand-Bot öffnet seit dem 10.11.2026 nichts mehr (NEUE_EINSTIEGE), betreut aber offene Trades weiter.

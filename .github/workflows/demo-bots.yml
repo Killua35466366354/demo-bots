@@ -8,8 +8,8 @@ name: Demo-Bots (Strategie-Suche, nur Demokonto)
 # 4-Std.-Ausbruch DAX, FTSE, Nikkei (suche/welt4h_bot.py), seit 20.11.2026 Bollinger Krypto umgedreht
 # (suche/krypto_bollinger_bot.py), das Vorhersage-Modell Indizes (suche/modell_indizes_bot.py), der Tag nach einem
 # VIX-Sprung (suche/vix_sprung_bot.py), Williams %R auf US500 und US100 (suche/williams_bot.py) und der
-# 4-Std.-Ausbruch auf Bitcoin und Ether (suche/krypto4h_bot.py), dazu das Bündel aus 9 Bots (suche/buendel_bot.py),
-# das Trades anderer Bots auf "Vortag USDJPY" kopiert. Gold-Short-Bot und Gold-Hand-Bot ruhen. Die alten
+# 4-Std.-Ausbruch auf Bitcoin und Ether (suche/krypto4h_bot.py), dazu zwei Bündel (suche/buendel_bot.py), die Trades
+# anderer Bots auf "Vortag USDJPY" kopieren: buendel9 ohne Gold und seit 26.11.2026 das Gold-Bündel. Gold-Short-Bot und Gold-Hand-Bot ruhen. Die alten
 # Runde-3-Bots in suche/demo_bots.py sind alle abgelöst und öffnen nichts mehr. Pine-Bots, Scalper und Gold-Staffel laufen im
 # 5-Minuten-Lauf (pine5m.yml). Welcher Bot auf welchem Konto handelt, steht in CLAUDE.md.
 #
@@ -485,16 +485,18 @@ jobs:
             python -m suche.krypto4h_bot
           fi
 
-      # Bündel aus 9 Bots (Kirons Wahl vom 20.11.2026 16:20 UTC, "Ein Konto mit 9 Bots"): erfindet kein Signal. Er
-      # kopiert jeden neuen Trade von Gold-Bot C/B, Gold-Zonen, Gold 4-Std.-Ausbruch, den Rücksetzern US500 und US100,
-      # dem Noise-Band Nasdaq, den Scalpern DAX und Nasdaq und dem 4-Std.-Ausbruch DAX/FTSE/Nikkei auf das Demokonto
-      # "Vortag USDJPY" (geteilt mit Vortag GBP/USD und dem ruhenden pine-hand), mit 7 € Risiko auf gedachte 700 €. Stop
-      # und Ziel sind die Kurse der Quelle, schließt die Quelle, schließt er die Kopie. Ein Konto-Wächter prüft vor jeder
-      # Kopie Margin und Bremse. Er läuft nach den Bots dieses Laufs, damit er ihre neuen Trades schon sieht. Kopien
-      # kommen bis zu 15 Minuten nach der Quelle. Nur Demo, nie das Hauptkonto, nie ein Konto eines Mitglieds, nie eine
-      # fremde Position. Regeln in suche/VORAB_buendel9_bot.yaml, Code suche/buendel_bot.py. Er schreibt nur
-      # journal/buendel9/ und journal/buendel9.json. Ein Fehler hier hält die anderen Bots und das Journal nie auf.
-      - name: Bündel aus 9 Bots (Vortag USDJPY)
+      # Bündel aus 9 Bots, seit 26.11.2026 ohne Gold (Kirons Wahl vom 20.11.2026 16:20 UTC "Ein Konto mit 9 Bots" und
+      # vom 26.11.2026 09:59 UTC "Zwei Bündel auf einem Konto"): erfindet kein Signal. Er kopiert jeden neuen Trade der
+      # Rücksetzer US500 und US100, des Noise-Bands Nasdaq, der Scalper DAX und Nasdaq und des 4-Std.-Ausbruchs
+      # DAX/FTSE/Nikkei auf das Demokonto "Vortag USDJPY" (geteilt mit dem Gold-Bündel, Vortag GBP/USD und dem ruhenden
+      # pine-hand), mit 7 € Risiko auf gedachte 700 €. Seine offenen Gold-Kopien laufen zu Ende. Stop und Ziel sind die
+      # Kurse der Quelle, schließt die Quelle, schließt er die Kopie. Ein Konto-Wächter prüft vor jeder Kopie Margin und
+      # Bremse. Er läuft nach den Bots dieses Laufs, damit er ihre neuen Trades schon sieht. Kopien kommen bis zu 15
+      # Minuten nach der Quelle. Nur Demo, nie das Hauptkonto, nie ein Konto eines Mitglieds, nie eine fremde Position,
+      # auch keine Kopie des Gold-Bündels. Regeln in suche/VORAB_buendel9_ohne_gold.yaml, Code suche/buendel_bot.py. Er
+      # schreibt nur journal/buendel9/ und journal/buendel9.json. Ein Fehler hier hält die anderen Bots und das Journal
+      # nie auf.
+      - name: Bündel ohne Gold (Vortag USDJPY)
         id: buendel
         if: ${{ !cancelled() }}
         continue-on-error: true
@@ -510,9 +512,36 @@ jobs:
             touch .tests-ok/buendel
           fi
           if [ "$DRY_RUN" = "true" ]; then
-            python -m suche.buendel_bot --dry-run
+            python -m suche.buendel_bot --regel suche/VORAB_buendel9_ohne_gold.yaml --dry-run
           else
-            python -m suche.buendel_bot
+            python -m suche.buendel_bot --regel suche/VORAB_buendel9_ohne_gold.yaml
+          fi
+
+      # Gold-Bündel (Kirons Wunsch vom 26.11.2026 09:53 UTC, die Gold-Bots als eigenes Bündel zu trennen, und seine Wahl
+      # 09:59 UTC "Zwei Bündel auf einem Konto"): derselbe Code wie das Bündel ohne Gold, mit eigener Regeldatei. Er
+      # kopiert jeden neuen Trade von Gold-Bot C/B, Gold-Zonen und Gold 4-Std.-Ausbruch auf "Vortag USDJPY", Kauf oder
+      # Verkauf wie die Quelle, mit 7 € Risiko auf eigene gedachte 700 €. Er läuft nach buendel9, fasst dessen Kopien nie
+      # an und kopiert keinen Trade, den buendel9 schon kopiert hat. Regeln in suche/VORAB_gold_buendel_bot.yaml. Er
+      # schreibt nur journal/gold-buendel/ und journal/gold-buendel.json. Die Tests teilt er mit dem Schritt davor (keine
+      # eigene Testgruppe). Ein Fehler hier hält die anderen Bots und das Journal nie auf.
+      - name: Gold-Bündel (Vortag USDJPY)
+        id: gold_buendel
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        env:
+          CAPITAL_API_KEY: ${{ secrets.CAPITAL_API_KEY }}
+          CAPITAL_IDENTIFIER: ${{ secrets.CAPITAL_IDENTIFIER }}
+          CAPITAL_API_PASSWORD: ${{ secrets.CAPITAL_API_PASSWORD }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          TESTS_OK: ${{ steps.tests_ok.outputs.cache-hit }}
+        run: |
+          if [ "$TESTS_OK" != "true" ] && [ ! -f .tests-ok/buendel ]; then
+            python -m pytest -q tests/test_buendel_bot.py
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml --dry-run
+          else
+            python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml
           fi
 
       # Demo-Vergleich aller Bots und Aufstiegs-Check (Kirons Wunsch vom 05.11.2026: Profite abgleichen und bewerten;

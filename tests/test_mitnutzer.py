@@ -94,7 +94,8 @@ def test_liste_kommt_aus_dem_code_der_bots():
     erwartet = ({b.bot_id for b in scalper_bot.BOTS} | {b.bot_id for b in pine5m_bot.BOTS}
                 | {gold_staffel_bot.BOT_ID, grossbox_bot.BOT_ID, hand_bot.BOT_ID, zonen_bot.BOT_ID,
                    ausbruch4h_bot.BOT_ID, welt4h_bot.BOT_ID, krypto_bollinger_bot.BOT_ID, modell_indizes_bot.BOT_ID,
-                   vix_sprung_bot.BOT_ID, williams_bot.BOT_ID, krypto4h_bot.BOT_ID, buendel_bot.BOT_ID})
+                   vix_sprung_bot.BOT_ID, williams_bot.BOT_ID, krypto4h_bot.BOT_ID, buendel_bot.BOT_ID,
+                   buendel_bot.GOLD_ID})
     assert set(alle) == erwartet and len(mn.bots()) == len(erwartet)
     assert alle["gold-staffel"]["konto"] == gold_staffel_bot.KONTO == scalper_bot.KONTO
     assert alle["gold-grossbox"]["konto"] == grossbox_bot.KONTO
@@ -146,6 +147,10 @@ def test_liste_kommt_aus_dem_code_der_bots():
     assert buendel_bot.KONTO not in [scalper_bot.KONTO, zonen_bot.KONTO, ausbruch4h_bot.KONTO, welt4h_bot.KONTO,
                                      str(zuordnung["us500-ruecksetzer"]), str(zuordnung["r5-ruecksetzer-us100"]),
                                      str(zuordnung["r7-nasdaq-noise-long"])]
+    # Das Gold-Bündel (seit 26.11.2026) teilt dasselbe Konto mit buendel9, nie mit einem Gold-Bot, den es kopiert
+    gb = alle["gold-buendel"]
+    assert gb["konto"] == bu["konto"] and gb["konto_name"] == "Vortag USDJPY" and gb["neu"] is True
+    assert gb["konto"] not in [zonen_bot.KONTO, ausbruch4h_bot.KONTO, grossbox_bot.KONTO, gold_staffel_bot.KONTO]
     assert alle["gold-hand"]["neu"] is bool(hand_bot.NEUE_EINSTIEGE)
     assert {b["bot"] for b in mn.aktive()} == {k for k, b in alle.items() if b["neu"]}
     haupt = konten.HAUPT_ENDUNG

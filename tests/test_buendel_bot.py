@@ -1,5 +1,5 @@
-"""Bündel aus 9 Bots (suche/buendel_bot.py): kopiert Trades der Mitglieder auf "Vortag USDJPY", nur mit erfundenen
-Kontonummern und einem erfundenen Broker."""
+"""Bündel ohne Gold und Gold-Bündel (suche/buendel_bot.py): kopieren Trades der Mitglieder auf "Vortag USDJPY",
+nur mit erfundenen Kontonummern und einem erfundenen Broker."""
 import json
 from datetime import datetime, timedelta, timezone
 
@@ -11,7 +11,9 @@ from suche.demo_bots import Quote
 
 HAUPT, QUELLE, BUENDEL = "9000003150", "9000001111", "9000002222"
 JETZT = datetime(2026, 11, 23, 15, 0, tzinfo=timezone.utc)
-REGEL = bb.lade_regel()
+REGEL = bb.lade_regel()                                  # die erste Regel von buendel9 (9 Mitglieder)
+OHNE_GOLD = bb.lade_regel(bb.VORAB_OHNE_GOLD)            # buendel9 seit 26.11.2026
+GOLD = bb.lade_regel(bb.VORAB_GOLD)                      # das Gold-Bündel seit 26.11.2026
 
 
 class Antwort:
@@ -121,7 +123,7 @@ class Broker:
 @pytest.fixture(autouse=True)
 def umgebung(monkeypatch):
     monkeypatch.setattr(bb, "KONTO", BUENDEL)
-    monkeypatch.setattr(bb, "vorab_ok", lambda: True)
+    monkeypatch.setattr(bb, "vorab_ok", lambda *a, **k: True)
     monkeypatch.setattr(bb, "_konto_aus_code", lambda modul: QUELLE)
 
 
@@ -175,7 +177,7 @@ def test_das_echte_konto_ist_vortag_usdjpy_und_keins_der_mitglieder(monkeypatch)
     assert echt not in mitglieder
     andere = {b for b, aid in k["zuordnung"].items() if str(aid) == echt}
     andere |= {b["bot"] for b in mitnutzer.bots() if b["konto"] == echt}
-    assert andere == {"r6-vortag-gbpusd", "pine-hand", "buendel9"}
+    assert andere == {"r6-vortag-gbpusd", "pine-hand", "buendel9", "gold-buendel"}
     assert bb.SPERR_MAERKTE == ("GBPUSD",)
 
 
@@ -448,7 +450,7 @@ def test_gesperrter_markt_ohne_stop_und_ohne_siegel(tmp_path, monkeypatch):
     b2.quelle("S2", stop=None)
     st2, _, _ = lauf(b2, journal(tmp_path, scalp={"dealId": "S2"}))
     assert b2.posts() == [] and st2["gesehen"]["S2"]["grund"] == "Quelle ohne Stop"
-    monkeypatch.setattr(bb, "vorab_ok", lambda: False)
+    monkeypatch.setattr(bb, "vorab_ok", lambda *a, **k: False)
     b3 = Broker()
     b3.quelle("S3")
     st3, _, _ = lauf(b3, journal(tmp_path, scalp={"dealId": "S3"}))
@@ -490,8 +492,191 @@ def test_schreibt_nur_eigene_dateien_und_nur_bei_aenderung(tmp_path):
 
 
 def test_die_karte_im_journal_passt_zum_vergleich():
-    karte = json.loads((bb.COCKPIT).read_text(encoding="utf-8"))
-    assert karte["bot"] == bb.BOT_ID and karte["name"] == bb.NAME and karte["konto"] == bb.KONTO_NAME
-    assert karte["vorab"] == "suche/VORAB_buendel9_bot.yaml"
-    assert karte["start"] is None or pd.Timestamp(karte["start"]) >= pd.Timestamp("2026-11-20")
-    assert karte["mitglieder"] == list(REGEL["mitglieder"]) and karte["kapital_eur"] == 700
+    """Die Karten im echten Journal. Bis zum ersten Lauf nach dem Merge nennt die von buendel9 noch die erste Regel,
+    die des Gold-Bündels gibt es erst nach seinem ersten Lauf."""
+    erlaubt = {"buendel9": ("VORAB_buendel9_bot.yaml", "VORAB_buendel9_ohne_gold.yaml"),
+               "gold-buendel": ("VORAB_gold_buendel_bot.yaml",)}
+    gelesen = 0
+    for bid, dateien in erlaubt.items():
+        pfad = bb.J / f"{bid}.json"
+        if not pfad.exists():
+            assert bid == bb.GOLD_ID
+            continue
+        karte = json.loads(pfad.read_text(encoding="utf-8"))
+        assert karte["vorab"] in {f"suche/{d}" for d in dateien}
+        regel = bb.lade_regel(bb.ROOT / karte["vorab"])
+        assert karte["bot"] == bid == regel["bot_id"] and karte["konto"] == bb.KONTO_NAME
+        assert karte["name"] == regel["name"] and karte["mitglieder"] == list(regel["mitglieder"])
+        assert karte["start"] is None or pd.Timestamp(karte["start"]) >= pd.Timestamp("2026-11-20")
+        assert karte["kapital_eur"] == 700
+        gelesen += 1
+    assert gelesen >= 1
+
+
+# ---------- Zwei Bündel auf einem Konto (Kirons Wahl vom 26.11.2026 09:59 UTC) ----------
+
+def _kopie(qd, deal, quelle, opened, epic="GOLD", richtung=-1, size=0.5, entry=4000.0, stop=4020.0, konto=HAUPT):
+    return {"quelle": quelle, "quelle_deal": qd, "epic": epic, "richtung": richtung, "size": size, "stop": stop,
+            "ziel": None, "margin_eur": 90.0, "risiko_eur": 7.0, "dealId": deal, "entry": entry, "stop_start": stop,
+            "stop_quelle": stop, "ziel_quelle": None, "quelle_konto": konto, "lot": 1.0, "eur_rate": 1.08,
+            "opened_utc": opened.strftime(bb.FMT)}
+
+
+def gold_lauf(broker, tmp_path, state=None, now=JETZT, regel=GOLD, vorab=bb.VORAB_GOLD):
+    return bb.run(broker, state or {}, now, jdir=tmp_path, konten_daten={"haupt": HAUPT}, regel=regel, vorab=vorab)
+
+
+def test_die_neunerliste_teilt_sich_in_gold_und_den_rest():
+    assert GOLD["bot_id"] == bb.GOLD_ID == "gold-buendel" and OHNE_GOLD["bot_id"] == bb.BOT_ID == "buendel9"
+    gold, rest = set(GOLD["mitglieder"]), set(OHNE_GOLD["mitglieder"])
+    assert gold == {"gold-cb", "gold-zonen", "gold-ausbruch4h"} and not gold & rest
+    assert gold | rest == set(REGEL["mitglieder"])
+    assert set(OHNE_GOLD["auslaufend"]) == gold and "auslaufend" not in GOLD
+    for bot in REGEL["mitglieder"]:                   # dieselben Dateien wie in der ersten Regel
+        neu = {**GOLD["mitglieder"], **OHNE_GOLD["mitglieder"]}[bot]
+        assert neu == REGEL["mitglieder"][bot]
+        if bot in gold:
+            assert {k: v for k, v in OHNE_GOLD["auslaufend"][bot].items() if k != "grund"} == REGEL["mitglieder"][bot]
+    for r in (GOLD, OHNE_GOLD):                       # Geld, Wächter und Frist wie in der ersten Regel
+        assert r["konto_name"] == "Vortag USDJPY" and r["geld"] == REGEL["geld"]
+        assert r["kopieren"]["frist_minuten"] == 30
+        for k in ("margin_anteil", "frei_danach_eur", "bremse_rueckgang", "mitglied_raus"):
+            assert r["waechter"][k] == REGEL["waechter"][k]
+    assert bb.BUENDEL == ("buendel9", "gold-buendel")
+
+
+def test_gold_buendel_kopiert_nur_gold_kauf_und_verkauf(tmp_path):
+    """Kauf oder Verkauf kommt allein von der Quelle (Kirons Wunsch: "nicht nur short sondern shorts und longs")."""
+    b = Broker()
+    b.pos[HAUPT]["G1"] = _gold("G1", 1.0, JETZT - timedelta(minutes=5), richtung="BUY", level=4000.0, stop=3980.0,
+                               ziel=4040.0)
+    b.quelle("S1")                                     # ein Scalper-Trade, kein Mitglied des Gold-Bündels
+    j = journal(tmp_path, scalp={"dealId": "S1"}, gold_cb={"dealId": "G1"})
+    st, log, _ = gold_lauf(b, j)
+    (post,) = b.posts()
+    assert post[2]["epic"] == "GOLD" and post[2]["direction"] == "BUY" and post[2]["stopLevel"] == 3980.0
+    assert set(st["kopien"]) == {"G1"} and "S1" not in st["gesehen"] and st["vorab"] == bb.VORAB_GOLD.name
+    assert not any(e["event"] == "neue Regel" for e in log) and st.get("regeln") is None
+    b.pos[QUELLE]["Z1"] = _gold("Z1", 1.0, JETZT + timedelta(minutes=10), richtung="SELL", level=4000.0, stop=4020.0)
+    (tmp_path / "gold-zonen/state.json").write_text(json.dumps({"trade": {"dealId": "Z1"}}), encoding="utf-8")
+    st2, _, _ = gold_lauf(b, tmp_path, st, now=JETZT + timedelta(minutes=15))
+    assert [p[2]["direction"] for p in b.posts()] == ["BUY", "SELL"] and set(st2["kopien"]) == {"G1", "Z1"}
+    assert st2["kopien"]["Z1"]["quelle"] == "gold-zonen" and st2["kopien"]["Z1"]["richtung"] == -1
+
+
+def test_jedes_buendel_fasst_die_kopien_des_anderen_nie_an(tmp_path):
+    b = Broker()
+    offen = JETZT - timedelta(minutes=50)
+    # buendel9 hält K9 (eine Gold-Kopie aus der Zeit mit 9 Mitgliedern), das Gold-Bündel hat eine Kopie mit falscher
+    # Deal-ID, die nach Markt, Richtung, Größe und Zeit genau auf K9 passen würde
+    b.pos[BUENDEL]["K9"] = _gold("K9", 0.5, offen + timedelta(seconds=20), level=4000.0, stop=4020.0)
+    (tmp_path / "buendel9").mkdir()
+    (tmp_path / "buendel9" / "state.json").write_text(
+        json.dumps({"kopien": {"G7": _kopie("G7", "K9", "gold-cb", offen)}}), encoding="utf-8")
+    j = journal(tmp_path, gold_cb={"dealId": "G7"})
+    b.pos[HAUPT]["G7"] = _gold("G7", 1.0, offen, level=4000.0, stop=4020.0)
+    st0 = {"start": "2026-11-23T14:00:00", "kopien": {"G8": _kopie("G8", "O1", "gold-cb", offen)}, "gesehen": {},
+           "summe_eur": 0.0, "summe_r": 0.0, "trades": 0, "hoechst": 700.0}
+    st, log, fertig = gold_lauf(b, j, st0)
+    assert not any(e["event"] == "Deal-ID berichtigt" for e in log) and fertig == []
+    assert st["kopien"]["G8"]["dealId"] == "O1" and st["kopien"]["G8"].get("weg_seit")
+    assert "K9" in b.pos[BUENDEL] and not any(c[:2] == ("DELETE", "K9") for c in b.calls)
+    # G7 hat buendel9 schon kopiert: das Gold-Bündel kopiert ihn nicht ein zweites Mal
+    b.pos[HAUPT]["G7"]["createdDateUTC"] = (JETZT - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%M:%S.000")
+    st2, _, _ = gold_lauf(b, j, {"start": "2026-11-23T14:00:00"})
+    assert b.posts() == [] and "anderen Bündel" in st2["gesehen"]["G7"]["grund"]
+    # und umgekehrt: buendel9 schließt die Kopie des Gold-Bündels nie, auch wenn er seine eigene sucht
+    (tmp_path / "gold-buendel").mkdir()
+    (tmp_path / "gold-buendel" / "state.json").write_text(
+        json.dumps({"kopien": {"G8": _kopie("G8", "K9", "gold-cb", offen)}}), encoding="utf-8")
+    (tmp_path / "buendel9" / "state.json").unlink()
+    st3, log3, _ = gold_lauf(b, j, {**st0, "kopien": {"G6": _kopie("G6", "O2", "gold-cb", offen)}}, regel=OHNE_GOLD,
+                             vorab=bb.VORAB_OHNE_GOLD)
+    assert not any(e["event"] == "Deal-ID berichtigt" for e in log3) and st3["kopien"]["G6"]["dealId"] == "O2"
+    assert "K9" in b.pos[BUENDEL]
+
+
+def test_ohne_hedging_zaehlen_die_maerkte_des_anderen_buendels(tmp_path):
+    b = Broker(hedging=False)
+    b.hedging_fehler = True
+    (tmp_path / "buendel9").mkdir()
+    (tmp_path / "buendel9" / "state.json").write_text(
+        json.dumps({"kopien": {"G7": _kopie("G7", "K9", "gold-cb", JETZT - timedelta(hours=2))}}), encoding="utf-8")
+    b.pos[HAUPT]["G1"] = _gold("G1", 1.0, JETZT - timedelta(minutes=5))
+    st, _, _ = gold_lauf(b, journal(tmp_path, gold_cb={"dealId": "G1"}))
+    assert b.posts() == [] and "eine Kopie je Markt" in st["gesehen"]["G1"]["grund"]
+
+
+def test_buendel9_ohne_gold_kopiert_kein_gold_mehr_und_fuehrt_offene_gold_kopien_zu_ende(tmp_path):
+    b = Broker()
+    offen = JETZT - timedelta(hours=3)
+    b.pos[BUENDEL]["K0"] = _gold("K0", 0.5, offen + timedelta(seconds=20), level=4000.0, stop=4020.0)
+    b.kurs["GOLD"] = 3990.0                            # die alte Gold-Kopie (Verkauf bei 4000) liegt 10 Punkte vorn
+    b.pos[HAUPT]["G1"] = _gold("G1", 1.0, JETZT - timedelta(minutes=5))   # ein neuer Trade von Gold-Bot C/B
+    b.quelle("S1")
+    j = journal(tmp_path, scalp={"dealId": "S1"}, gold_cb={"dealId": "G1"})   # G0 ist bei der Quelle zu
+    st0 = {"start": "2026-11-20T18:03:32", "kopien": {"G0": _kopie("G0", "K0", "gold-cb", offen)}, "gesehen": {},
+           "summe_eur": -9.62, "summe_r": -1.3349, "trades": 6, "hoechst": 700.0}
+    st, log, fertig = gold_lauf(b, j, st0, regel=OHNE_GOLD, vorab=bb.VORAB_OHNE_GOLD)
+    (t,) = fertig
+    assert t["quelle"] == "gold-cb" and t["grund"] == "Quelle zu" and ("DELETE", "K0") in b.calls
+    assert t["r"] == pytest.approx((4000.0 - 3991.2) / 20, abs=1e-4)
+    # Kontostand und Zählung laufen weiter (VORAB_aufstieg_alle: alle Kopien seit dem Start zählen)
+    assert st["trades"] == 7 and st["summe_eur"] == pytest.approx(-9.62 + t["eur"], abs=0.01)
+    assert st["start"] == "2026-11-20T18:03:32" and st["hoechst"] == 700.0
+    assert st["vorab"] == bb.VORAB_OHNE_GOLD.name and st["regel_seit"] == JETZT.strftime(bb.FMT)
+    assert st["regeln"] == [{"vorab": bb.VORAB.name, "bis": JETZT.strftime(bb.FMT)}]
+    assert [e for e in log if e["event"] == "neue Regel"] == [
+        {"time": JETZT.strftime(bb.FMT), "event": "neue Regel", "alt": bb.VORAB.name, "neu": bb.VORAB_OHNE_GOLD.name}]
+    # der neue Gold-Trade bekommt hier keine Kopie mehr, der Scalper-Trade schon
+    assert "Gold-Bündel" in st["gesehen"]["G1"]["grund"] and set(st["kopien"]) == {"S1"}
+    assert [p[2]["epic"] for p in b.posts()] == ["DE40"]
+    st2, log2, _ = gold_lauf(b, j, st, now=JETZT + timedelta(minutes=15), regel=OHNE_GOLD, vorab=bb.VORAB_OHNE_GOLD)
+    assert not any(e["event"] == "neue Regel" for e in log2) and st2["regeln"] == st["regeln"]
+
+
+def test_karte_und_dateien_des_gold_buendels(tmp_path):
+    b = Broker()
+    b.pos[HAUPT]["G1"] = _gold("G1", 1.0, JETZT - timedelta(minutes=5))
+    st, log, fertig = gold_lauf(b, journal(tmp_path, gold_cb={"dealId": "G1"}))
+    jdir, karte = tmp_path / "gold-buendel", tmp_path / "gold-buendel.json"
+    assert bb.schreiben(st, log, fertig, GOLD, jdir, karte, vorab=bb.VORAB_GOLD)
+    k = json.loads(karte.read_text(encoding="utf-8"))
+    assert k["bot"] == "gold-buendel" and k["name"] == GOLD["name"] and k["vorab"] == "suche/VORAB_gold_buendel_bot.yaml"
+    assert k["mitglieder"] == ["gold-cb", "gold-zonen", "gold-ausbruch4h"] and k["auslaufend"] == []
+    assert k["regel"] == " ".join(GOLD["text"].split()) and "Käufe" in k["backtest"] and len(k["offen"]) == 1
+    assert k["start"] == JETZT.strftime(bb.FMT) and k["regel_seit"] is None
+    assert json.loads((jdir / "state.json").read_text(encoding="utf-8"))["kopien"]["G1"]["quelle"] == "gold-cb"
+    for fremd in (("buendel9", "x.json"), ("x", "buendel9.json"), ("x", "gold-state.json")):
+        with pytest.raises(RuntimeError):
+            bb.schreiben(st, log, fertig, GOLD, tmp_path / fremd[0], tmp_path / fremd[1], vorab=bb.VORAB_GOLD)
+    with pytest.raises(RuntimeError):                  # und buendel9 schreibt nie in die Dateien des Gold-Bündels
+        bb.schreiben(st, log, fertig, OHNE_GOLD, jdir, tmp_path / "y.json", vorab=bb.VORAB_OHNE_GOLD)
+
+
+def test_main_nimmt_nur_die_regeln_der_laufenden_buendel(monkeypatch, capsys):
+    from gold.bot.runner import CRED_KEYS
+    for k in CRED_KEYS:
+        monkeypatch.delenv(k, raising=False)
+    with pytest.raises(SystemExit):
+        bb.main(["--regel", "suche/VORAB_buendel9_bot.yaml"])
+    with pytest.raises(SystemExit):
+        bb.main(["--regel", "suche/VORAB_aufstieg_alle.yaml"])
+    for regel in ("suche/VORAB_gold_buendel_bot.yaml", "suche/VORAB_buendel9_ohne_gold.yaml", None):
+        assert bb.main(["--regel", regel] if regel else []) == 0
+    assert capsys.readouterr().out.count("Keine Capital.com-Zugangsdaten") == 3
+
+
+def test_beide_buendel_laufen_im_15_minuten_lauf():
+    import yaml
+    steps = yaml.safe_load((bb.ROOT / ".github" / "workflows" / "demo-bots.yml").read_text(encoding="utf-8"))
+    steps = steps["jobs"]["run"]["steps"]
+    pos = {s.get("id"): i for i, s in enumerate(steps) if s.get("id")}
+    b9, gb = steps[pos["buendel"]], steps[pos["gold_buendel"]]
+    assert "python -m suche.buendel_bot --regel suche/VORAB_buendel9_ohne_gold.yaml" in b9["run"]
+    assert "python -m suche.buendel_bot --regel suche/VORAB_gold_buendel_bot.yaml" in gb["run"]
+    assert "--dry-run" in gb["run"] and "tests/test_buendel_bot.py" in gb["run"] and "touch" not in gb["run"]
+    assert gb["continue-on-error"] is True and "!cancelled()" in gb["if"]
+    assert pos["buendel"] < pos["gold_buendel"] < pos["vergleich"]
+    # ohne --regel nähme der Bot buendel9 ohne Gold, nie die erste Regel mit 9 Mitgliedern
+    assert "--regel" in b9["run"].split("python -m suche.buendel_bot", 1)[1].split("\n")[0]

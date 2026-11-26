@@ -20,7 +20,9 @@ Was ein Lauf tut (alle 15 Minuten im Lauf demo-bots.yml, nach den Bots dieses La
 - Konto-Wächter: Margin aller Kopien höchstens 50 % von gedachten 700 € plus Ergebnis, beim Broker bleiben nach jeder
   Kopie mindestens 250 € frei, ab 30 % unter dem Höchststand nichts Neues mehr. Ohne Hedging höchstens eine Kopie je
   Markt. Ein Mitglied mit 40 Demo-Trades und Gewinnfaktor unter 1,2 bekommt keine neuen Kopien mehr.
-- Er kennt seine Kopien an der Deal-ID und fasst nie eine fremde Position an.
+- Er kennt seine Kopien an der Deal-ID und fasst nie eine fremde Position an. Findet er eine Kopie unter ihrer Deal-ID
+  nicht, sucht er sie nach Markt, Richtung, Größe und Eröffnungszeit, bevor er sie als geschlossen bucht (Fehler bis
+  26.11.2026, siehe passende_position).
 - Er schreibt nur journal/buendel9/ und journal/buendel9.json.
 """
 from __future__ import annotations
@@ -52,6 +54,9 @@ JDIR = J / "buendel9"
 COCKPIT = J / "buendel9.json"
 FREMDE_DATEIEN = ("gold-trades.jsonl", "gold-state.json", "konten.json", "r6-bots.json", "vergleich.json")
 SCHLUSS_WARTEN = pd.Timedelta(hours=1)  # so lange sucht der Bot den Schlusskurs einer Kopie beim Broker, dann schätzt er
+GESCHAETZT = "beim Broker zu, Schlusskurs geschätzt (Stop)"
+ZUORDNUNG = pd.Timedelta(minutes=5)    # so weit darf die Eröffnung beim Broker neben der Uhrzeit der Kopie liegen
+NACHPRUEFEN = pd.Timedelta(days=30)    # so lange sucht er eine als geschätzt gebuchte Kopie noch unter seinen Positionen
 GESEHEN_TAGE = 3                       # so lange merkt er sich Trades, die er nicht kopiert hat
 HEDGING_WIEDER = pd.Timedelta(hours=1)
 FMT = "%Y-%m-%dT%H:%M:%S"
@@ -114,6 +119,38 @@ def _zeit(x) -> pd.Timestamp | None:
     except (TypeError, ValueError):
         return None
     return t.tz_convert("UTC").tz_localize(None) if t.tzinfo else t
+
+
+def deal_aus_bestaetigung(conf: dict | None) -> str:
+    """Die Deal-ID der Position aus der Bestätigung einer Order. Capital.com schreibt oben die Deal-ID der Order und
+    unter affectedDeals die der Position, die beiden sind verschieden. Bis zum 26.11.2026 nahm das Bündel die obere:
+    Unter ihr fand es keine seiner 7 Kopien unter seinen Positionen und buchte jede nach gut einer Stunde mit -1 R als
+    "beim Broker zu", obwohl vier davon noch offen lagen. Die anderen Bots nehmen wie hier zuerst affectedDeals."""
+    conf = conf or {}
+    return str((conf.get("affectedDeals") or [{}])[0].get("dealId") or conf.get("dealId") or "")
+
+
+def passende_position(k: dict, eigene: dict, vergeben: set[str]) -> str | None:
+    """Die eigene Position zu einer Kopie, deren Deal-ID unter den Positionen fehlt: derselbe Markt, dieselbe Richtung,
+    dieselbe Größe, beim Broker höchstens 5 Minuten neben der Uhrzeit der Kopie eröffnet, nie GBPUSD (Vortag GBP/USD)
+    und keiner anderen Kopie zugeordnet. Nur bei genau einem Treffer die Deal-ID, sonst None."""
+    auf = _zeit(k.get("opened_utc"))
+    if auf is None or k.get("epic") in SPERR_MAERKTE:
+        return None
+    seite = "BUY" if int(k["richtung"]) > 0 else "SELL"
+    treffer = []
+    for did, p in eigene.items():
+        pos, mk = p.get("position") or {}, p.get("market") or {}
+        epic = str(mk.get("epic") or pos.get("epic") or "")
+        if did in vergeben or epic != k.get("epic") or epic in SPERR_MAERKTE:
+            continue
+        size = _num(pos.get("size"))
+        if str(pos.get("direction")).upper() != seite or size is None or abs(size - float(k["size"])) > 1e-9:
+            continue
+        eroeffnet = _zeit(pos["createdDateUTC"]) if pos.get("createdDateUTC") else None   # nie die Ortszeit
+        if eroeffnet is not None and abs(eroeffnet - auf) <= ZUORDNUNG:
+            treffer.append(did)
+    return treffer[0] if len(treffer) == 1 else None
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -379,10 +416,16 @@ class Lauf:
                 eigene: dict) -> None:
         """Jede offene Kopie: beim Broker zu (buchen), Quelle zu (schließen) oder Stop und Ziel angleichen."""
         offen_quelle = {d["dealId"] for d in deals}
+        vergeben = {k["dealId"] for k in self.st["kopien"].values() if k["dealId"] in eigene}
         for qd, k in list(self.st["kopien"].items()):
             if k["dealId"] not in eigene:
-                self.weg(k)
-                continue
+                neu = passende_position(k, eigene, vergeben)
+                if neu is None:
+                    self.weg(k)
+                    continue
+                self.ev("Deal-ID berichtigt", quelle=k["quelle"], quelle_deal=qd, alt=k["dealId"], dealId=neu)
+                k["dealId"] = neu
+                vergeben.add(neu)
             k.pop("weg_seit", None)
             if k["quelle"] in gelesen and qd not in offen_quelle:
                 self.schliesse(k, "Quelle zu")
@@ -408,8 +451,50 @@ class Lauf:
             k["weg_seit"] = self.stamp
             return
         if self.now - seit >= SCHLUSS_WARTEN:
-            self.buche(k, float(k.get("stop") or k["stop_start"]), "beim Broker zu, Schlusskurs geschätzt (Stop)",
-                       self.now, geschaetzt=True)
+            self.buche(k, float(k.get("stop") or k["stop_start"]), GESCHAETZT, self.now, geschaetzt=True)
+
+    def nachpruefen(self, gebucht: list[dict], eigene: dict, deals: list[dict]) -> None:
+        """Als geschätzt gebuchte Kopien der letzten 30 Tage, deren Position noch offen liegt (Fehler der Deal-ID bis
+        26.11.2026, siehe deal_aus_bestaetigung): Er führt die Kopie wieder und nimmt die falsche Buchung zurück. Sie
+        kommt aus trades.jsonl nach storniert.jsonl (schreiben). Ist die Quelle schon zu, schließt fuehren die Kopie
+        danach wie jede andere zum Markt. Liegt keine passende Position mehr offen, bleibt die Buchung, wie sie ist."""
+        storniert = {(s["dealId"], s["quelle_deal"]) for s in self.st.get("storniert") or []}
+        vergeben = {k["dealId"] for k in self.st["kopien"].values()}
+        konto_von = {d["dealId"]: d["konto"] for d in deals}
+        for t in gebucht:
+            qd = t.get("quelle_deal")
+            zu = _zeit(t.get("closed_utc"))
+            if (not t.get("geschaetzt") or t.get("grund") != GESCHAETZT or not qd or qd in self.st["kopien"]
+                    or (t.get("dealId"), qd) in storniert or zu is None or self.now - zu > NACHPRUEFEN):
+                continue
+            did = passende_position(t, eigene, vergeben)
+            if did is None:
+                continue
+            try:
+                q = self.quote(t["epic"])
+            except Exception as err:        # noqa: BLE001 - der nächste Lauf versucht es wieder
+                self.ev("Kopie nicht wieder geführt", quelle_deal=qd, fehler=str(err)[:200])
+                continue
+            pos = eigene[did].get("position") or {}
+            stop, ziel = _num(pos.get("stopLevel")), _num(pos.get("profitLevel"))
+            self.st["kopien"][qd] = {
+                "quelle": t["quelle"], "quelle_deal": qd, "epic": t["epic"], "richtung": int(t["richtung"]),
+                "size": t["size"], "stop": stop, "ziel": ziel,
+                "margin_eur": round(margin_eur(float(t["size"]), float(t["entry"]), q), 2),
+                "risiko_eur": t.get("risiko_eur"), "dealId": did, "entry": t["entry"], "stop_start": t["stop_start"],
+                "stop_quelle": stop, "ziel_quelle": ziel, "quelle_konto": konto_von.get(qd), "lot": q.lot,
+                "eur_rate": q.eur_rate, "opened_utc": t["opened_utc"], "wieder_seit": self.stamp}
+            self.st["gesehen"].pop(qd, None)
+            vergeben.add(did)
+            self.st["summe_eur"] = round(float(self.st["summe_eur"]) - float(t.get("eur") or 0), 2)
+            self.st["summe_r"] = round(float(self.st["summe_r"]) - float(t.get("r") or 0), 4)
+            self.st["trades"] = int(self.st["trades"]) - 1
+            self.st["hoechst"] = max(float(self.st.get("hoechst") or self.kapital), self.stand())
+            self.st.setdefault("storniert", []).append(
+                {"dealId": t.get("dealId"), "quelle_deal": qd, "neu": did, "zeit": self.stamp, "r": t.get("r"),
+                 "eur": t.get("eur")})
+            self.ev("Kopie wieder geführt", quelle=t["quelle"], quelle_deal=qd, alt=t.get("dealId"), dealId=did,
+                    zurueck_r=t.get("r"), zurueck_eur=t.get("eur"))
 
     # ---- Neue Kopien ----
 
@@ -499,7 +584,7 @@ class Lauf:
             if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
                 self.merke(qd, bot, f"Order abgelehnt ({(conf or {}).get('reason')})")
                 continue
-            deal = str((conf or {}).get("dealId") or ((conf or {}).get("affectedDeals") or [{}])[0].get("dealId") or "")
+            deal = deal_aus_bestaetigung(conf)
             if not deal:
                 self.merke(qd, bot, "Order ohne Deal-ID in der Bestätigung, nachsehen")
                 continue
@@ -520,8 +605,10 @@ class Lauf:
 
 
 def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path = J,
-        konten_daten: dict | None = None, regel: dict | None = None) -> tuple[dict, list[dict], list[dict]]:
-    """Ein Lauf. Rückgabe: neuer Stand, Ereignisse, fertige Kopien."""
+        konten_daten: dict | None = None, regel: dict | None = None,
+        gebucht: list[dict] | None = None) -> tuple[dict, list[dict], list[dict]]:
+    """Ein Lauf. Rückgabe: neuer Stand, Ereignisse, fertige Kopien. `gebucht` sind die fertigen Kopien aus
+    trades.jsonl (ohne Angabe aus jdir/buendel9/trades.jsonl), für nachpruefen."""
     regel = regel or lade_regel()
     siegel = vorab_ok()
     lauf = Lauf(client, state, now, regel, send_orders, siegel=siegel)
@@ -569,6 +656,9 @@ def run(client, state: dict, now: datetime, send_orders: bool = True, jdir: Path
         quell_pos = {d["dealId"]: quell_pos[d["dealId"]] for d in deals if d["dealId"] in quell_pos}
         client.switch_account(KONTO)
         eigene = {str((p.get("position") or {}).get("dealId")): p for p in client.positions()}
+        if gebucht is None:
+            gebucht = _lies_jsonl(jdir / BOT_ID / "trades.jsonl")
+        lauf.nachpruefen(gebucht, eigene, deals)
         lauf.fuehren(deals, gelesen, quell_pos, konten_ok, eigene)
         neu = [d for d in deals if d["dealId"] not in lauf.st["kopien"] and d["dealId"] not in lauf.st["gesehen"]]
         if neu:
@@ -632,6 +722,33 @@ def _lies_jsonl(path: Path) -> list[dict]:
     return out
 
 
+def stornieren(st: dict, jdir: Path) -> int:
+    """Falsche Buchungen, die nachpruefen zurückgenommen hat, kommen aus trades.jsonl nach storniert.jsonl. Nichts geht
+    verloren, jede Zeile steht danach in storniert.jsonl mit Zeit und neuer Deal-ID. Rückgabe: Zahl der Zeilen."""
+    weg = {(s["dealId"], s["quelle_deal"]): s for s in st.get("storniert") or []}
+    pfad = jdir / "trades.jsonl"
+    if not weg or not pfad.exists():
+        return 0
+    bleiben, raus = [], []
+    for line in pfad.read_text(encoding="utf-8").splitlines():
+        try:
+            t = json.loads(line)
+        except ValueError:
+            bleiben.append(line)
+            continue
+        s = weg.get((t.get("dealId"), t.get("quelle_deal")))
+        if s is None:
+            bleiben.append(line)
+        else:
+            raus.append({**t, "storniert": s["zeit"], "neue_dealId": s["neu"],
+                         "warum": "Kopie lag noch offen, falsche Deal-ID bis 26.11.2026"})
+    if raus:
+        with open(jdir / "storniert.jsonl", "a", encoding="utf-8") as fh:
+            fh.writelines(json.dumps(row, ensure_ascii=False, default=str) + "\n" for row in raus)
+        pfad.write_text("".join(line + "\n" for line in bleiben), encoding="utf-8")
+    return len(raus)
+
+
 def schreiben(st: dict, log: list[dict], fertige: list[dict], regel: dict, jdir: Path = JDIR,
               cockpit_pfad: Path = COCKPIT) -> bool:
     """Schreibt Zustand, Log, Kopien und Cockpit. Hat sich außer der Uhrzeit nichts geändert, schreibt der Lauf nichts."""
@@ -644,6 +761,7 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict], regel: dict, jdir:
         return False
     jdir.mkdir(parents=True, exist_ok=True)
     pfad.write_text(json.dumps(st, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8")
+    stornieren(st, jdir)
     for name, rows in (("log.jsonl", log), ("trades.jsonl", fertige)):
         if rows:
             with open(jdir / name, "a", encoding="utf-8") as fh:

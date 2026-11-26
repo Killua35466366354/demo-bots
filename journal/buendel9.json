@@ -2,7 +2,7 @@
  "bot": "buendel9",
  "name": "Bündel aus 9 Bots",
  "konto": "Vortag USDJPY",
- "stand": "2026-11-26T07:17:08",
+ "stand": "2026-11-26T07:32:11",
  "start": "2026-11-20T18:03:32",
  "status": "1 Kopie offen, gedachter Kontostand 658.90 € nach 6 fertigen Kopien",
  "regel": "Kopiert jeden neuen Trade von 9 Demo-Bots (Gold-Bot C/B, Gold-Zonen, Gold 4-Std.-Ausbruch, Rücksetzer US500 und US100, Noise-Band Nasdaq, Scalper DAX und Nasdaq, 4-Std.-Ausbruch DAX/FTSE/Nikkei) mit 7 € Risiko auf gedachte 700 €. Stop und Ziel wie die Quelle, raus, wenn die Quelle rausgeht. Konto-Wächter: Margin höchstens 50 % des Kontostands, Bremse ab 30 % Rückgang.",

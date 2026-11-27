@@ -74,8 +74,8 @@
    "id": "…9086",
    "name": "Account 5",
    "waehrung": "EUR",
-   "balance": 1074.0,
-   "frei": 1032.51,
+   "balance": 1074.85,
+   "frei": 1033.31,
    "bevorzugt": false,
    "fuer": "r5-ruecksetzer-us30"
   },
@@ -83,8 +83,8 @@
    "id": "…3678",
    "name": "Account 6",
    "waehrung": "EUR",
-   "balance": 1072.48,
-   "frei": 1050.92,
+   "balance": 1072.61,
+   "frei": 1051.04,
    "bevorzugt": false,
    "fuer": "r6-london-gbpusd"
   },
@@ -116,7 +116,7 @@
    "fuer": "r6-vortag-gbpusd"
   }
  ],
- "stand_utc": "2026-11-27T16:46:32.404831",
+ "stand_utc": "2026-11-27T17:01:31.845238",
  "uebergaben": [
   {
    "zeit": "2026-11-04T11:46:39.499621",

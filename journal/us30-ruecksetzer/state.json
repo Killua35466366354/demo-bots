@@ -7,7 +7,7 @@
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-27T23:31:37.687847",
+  "zeit": "2026-11-27T23:46:35.775746",
   "action": "none",
   "why": "heute schon entschieden",
   "bar": null
@@ -18,7 +18,7 @@
   "stop": 53440.3,
   "ziel": null
  },
- "stand_utc": "2026-11-27T23:31:37.687847",
+ "stand_utc": "2026-11-27T23:46:35.775746",
  "tag_erledigt": "2026-11-27",
  "open": {
   "dealId": "00000000-773f-b1c8-049c-701f0015549e",

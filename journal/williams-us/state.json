@@ -6,28 +6,28 @@
  "maerkte": {
   "SPXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
+    "tag": "2026-11-27",
     "ergebnis": "Markt um 16:00 New York zu"
    },
    "letzter_schluss": "2026-11-23T21:02:03",
    "ausgelassen": {
-    "markt_zu": 1
+    "markt_zu": 2
    }
   },
   "NSXUSD": {
    "trade": null,
-   "letzter_tag": "2026-11-26",
+   "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
-    "tag": "2026-11-26",
+    "tag": "2026-11-27",
     "ergebnis": "Markt um 16:00 New York zu"
    },
    "letzter_schluss": "2026-11-23T21:02:03",
    "ausgelassen": {
-    "markt_zu": 1
+    "markt_zu": 2
    }
   }
  },
- "stand": "2026-11-26T21:17:06"
+ "stand": "2026-11-27T21:17:01"
 }

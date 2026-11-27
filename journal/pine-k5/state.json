@@ -3,48 +3,6 @@
  "start": "2026-11-10T09:28:32",
  "offen": [
   {
-   "dealId": "00000000-773b-6c68-049c-701f0015549e",
-   "richtung": 1,
-   "size": 0.43,
-   "entry": 3673.4,
-   "dist": 12.62,
-   "einstieg_kerze": "2026-11-27 10:15:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-27T10:23:27",
-   "nachzieh": {
-    "seit": "2026-11-27T14:23:30",
-    "bestes": 3639.76,
-    "stop_seit": "2026-11-27T14:33:27"
-   },
-   "abfang": {
-    "zeit": "2026-11-27T14:23:30",
-    "warum": "4 Std. ohne Ausstieg"
-   },
-   "stop": 3633.45,
-   "ziel": null
-  },
-  {
-   "dealId": "00000000-773b-7172-049c-701f0015549e",
-   "richtung": 1,
-   "size": 0.44,
-   "entry": 3673.04,
-   "dist": 12.35,
-   "einstieg_kerze": "2026-11-27 10:20:00",
-   "strategie": "A Long",
-   "opened_utc": "2026-11-27T10:28:28",
-   "nachzieh": {
-    "seit": "2026-11-27T14:28:32",
-    "bestes": 3638.38,
-    "stop_seit": "2026-11-27T14:33:27"
-   },
-   "abfang": {
-    "zeit": "2026-11-27T14:28:32",
-    "warum": "4 Std. ohne Ausstieg"
-   },
-   "stop": 3632.2,
-   "ziel": null
-  },
-  {
    "dealId": "00000000-773b-889e-049c-701f0015549e",
    "richtung": 1,
    "size": 0.44,
@@ -55,14 +13,14 @@
    "opened_utc": "2026-11-27T10:43:28"
   }
  ],
- "trades": 39,
- "summe_r": 24.783,
- "summe_eur": 121.85,
+ "trades": 41,
+ "summe_r": 18.298,
+ "summe_eur": 89.69,
  "hedging_versuch": "2026-11-10T09:28:32",
  "hedging": true,
- "letzte_kerze": "2026-11-27 14:25:00",
- "letzter_kurs": 3638.38,
- "stand": "2026-11-27T14:33:27",
+ "letzte_kerze": "2026-11-27 14:30:00",
+ "letzter_kurs": 3629.85,
+ "stand": "2026-11-27T14:38:31",
  "ff": {
   "stand": "2026-11-27T10:23:27",
   "termine": [

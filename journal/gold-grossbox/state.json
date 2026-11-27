@@ -61,17 +61,17 @@
      "stop": 3612.96,
      "ziel": 3665.1,
      "ziel_orig": 3665.1,
-     "offen": true,
-     "exit": null,
-     "grund": null,
-     "closed_utc": null
+     "offen": false,
+     "exit": 3665.19,
+     "grund": "ziel",
+     "closed_utc": "2026-11-27T05:31:42"
     },
     {
      "dealId": "00000000-772c-8c7a-049c-70210015549e",
      "size": 0.14,
      "entry": 3639.06,
      "ziel_nr": 2,
-     "stop": 3612.99,
+     "stop": 3639.06,
      "ziel": null,
      "ziel_orig": null,
      "offen": true,
@@ -80,13 +80,13 @@
      "closed_utc": null
     }
    ],
-   "tp1": false,
-   "einstand": null,
+   "tp1": true,
+   "einstand": "2026-11-27T05:31:42",
    "box_ende": null
   }
  ],
  "summe_r": 11.441,
  "trades": 13,
- "stand": "2026-11-27T05:16:46",
+ "stand": "2026-11-27T05:31:42",
  "letzte_kerze": "2026-11-27 05:15:00"
 }

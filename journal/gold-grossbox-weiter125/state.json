@@ -167,7 +167,7 @@
    "tp3": null,
    "r_usd": 63.43,
    "teile": [],
-   "ergebnis_r": 0.494,
+   "ergebnis_r": 0.55,
    "grund": "offen",
    "ende": null,
    "offen": true
@@ -184,14 +184,14 @@
    "tp3": null,
    "r_usd": 32.59,
    "teile": [],
-   "ergebnis_r": 0.476,
+   "ergebnis_r": 0.585,
    "grund": "offen",
    "ende": null,
    "offen": true
   }
  ],
- "letzte_kerze": "2026-11-27 06:45:00",
- "stand": "2026-11-27T07:11:36+00:00",
+ "letzte_kerze": "2026-11-27 07:45:00",
+ "stand": "2026-11-27T08:11:37+00:00",
  "summe_r": 2.41,
  "zwilling": {
   "status": "sammelt",

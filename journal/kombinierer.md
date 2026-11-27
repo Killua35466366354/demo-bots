@@ -32,7 +32,7 @@ Gold-Bot C/B und Pine-K5 zusammen auf einem gedachten Konto mit 1.000 €, jeder
 
 | Trades gezählt | verpasst | noch offen | Summe | Kontostand | größter Rückgang | größtes Sicherheitsgeld | Gewinnfaktor | Tage | Urteil |
 |---|---|---|---|---|---|---|---|---|---|
-| 7 | – | 2 | −128 € | 872 € | −128 € | 740 € | 0,00 | 2 von 61 | sammelt |
+| 7 | – | 3 | −128 € | 872 € | −128 € | 740 € | 0,00 | 2 von 61 | sammelt |
 
 Stand des Urteils. 7 von 100 Trades, 2 von 61 Tagen.
 

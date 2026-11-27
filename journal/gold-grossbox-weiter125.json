@@ -3,47 +3,29 @@
  "name": "Gold Groß-Box, Stop 1,25-fach (Schatten-Zwilling)",
  "konto": "Schatten (keine Order)",
  "original": "gold-grossbox",
- "stand": "2026-11-27T15:11:34+00:00",
+ "stand": "2026-11-27T16:11:34+00:00",
  "start": "2026-11-20T00:00:00",
  "status": "rechnet mit",
  "regel": "Wie die Groß-Box (große Box aus 1-Std.-SuperTrend und 4-Std.-Strukturbruch, Einstiege nur in Boxrichtung, höchstens 3 offen, ein Drittel bei 1 R, dann Einstand, der Rest bis zur neuen Box), nur der Stop ist 1,25-mal so weit weg. Schatten ohne Order.",
  "backtest": "Versiegelter Test 11/2024 bis 10/2026: 856 Trades, GF 1,25 statt 1,21, +93,6 R statt +93,4 R, tiefster Rückgang 63,5 R statt 76,7 R. Gleicher Gewinn, ruhigerer Verlauf.",
  "vorab": "suche/VORAB_gold_grossbox_weiter125.yaml",
  "vorab_ok": true,
- "offen": [
-  {
-   "signal": "2026-11-27 03:00:00",
-   "einstieg_zeit": "2026-11-27 03:00:00",
-   "richtung": 1,
-   "art": "a",
-   "einstieg": 3623.17,
-   "stop": 3559.74,
-   "tp1": 3686.6,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 63.43,
-   "teile": [],
-   "ergebnis_r": 0.215,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 7,
-  "pf_r": 1.622,
-  "summe_r": 1.74,
-  "trefferquote": 0.571,
+  "trades": 8,
+  "pf_r": 1.699,
+  "summe_r": 1.96,
+  "trefferquote": 0.625,
   "summe_eur": null,
-  "urteil": "Zwilling: 7 von 40 Trades"
+  "urteil": "Zwilling: 8 von 40 Trades"
  },
  "zwilling": {
   "status": "sammelt",
-  "text": "Zwilling: 7 von 40 Trades",
+  "text": "Zwilling: 8 von 40 Trades",
   "zwilling": {
-   "trades": 7,
-   "pf": 1.622,
-   "summe_r": 1.74
+   "trades": 8,
+   "pf": 1.699,
+   "summe_r": 1.96
   },
   "original": {
    "trades": 9,
@@ -249,6 +231,31 @@
    "grund": "stop",
    "closed_utc": "2026-11-27T14:45:00",
    "r": -1.0,
+   "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-27T03:00:00",
+   "art": "a",
+   "richtung": 1,
+   "seite": "Kauf",
+   "signal": "2026-11-27 03:00:00",
+   "opened_utc": "2026-11-27T03:00:00",
+   "entry": 3623.17,
+   "stop": 3559.74,
+   "tp1": 3686.6,
+   "dist": 63.43,
+   "teile": [
+    {
+     "grund": "neue_box",
+     "px": 3636.84,
+     "zeit": "2026-11-27 15:00:00",
+     "anteil": 1.0
+    }
+   ],
+   "grund": "neue_box",
+   "closed_utc": "2026-11-27T15:00:00",
+   "r": 0.216,
    "schatten": true
   }
  ],

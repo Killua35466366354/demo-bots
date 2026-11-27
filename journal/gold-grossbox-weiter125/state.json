@@ -8,6 +8,7 @@
   "2026-11-24 14:00:00",
   "2026-11-24 15:15:00",
   "2026-11-24 18:45:00",
+  "2026-11-27 03:00:00",
   "2026-11-27 05:15:00",
   "2026-11-27 08:15:00"
  ],
@@ -210,37 +211,44 @@
    "closed_utc": "2026-11-27T14:45:00",
    "r": -1.0,
    "schatten": true
-  }
- ],
- "offen": [
+  },
   {
-   "signal": "2026-11-27 03:00:00",
-   "einstieg_zeit": "2026-11-27 03:00:00",
-   "richtung": 1,
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-27T03:00:00",
    "art": "a",
-   "einstieg": 3623.17,
+   "richtung": 1,
+   "seite": "Kauf",
+   "signal": "2026-11-27 03:00:00",
+   "opened_utc": "2026-11-27T03:00:00",
+   "entry": 3623.17,
    "stop": 3559.74,
    "tp1": 3686.6,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 63.43,
-   "teile": [],
-   "ergebnis_r": 0.215,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
+   "dist": 63.43,
+   "teile": [
+    {
+     "grund": "neue_box",
+     "px": 3636.84,
+     "zeit": "2026-11-27 15:00:00",
+     "anteil": 1.0
+    }
+   ],
+   "grund": "neue_box",
+   "closed_utc": "2026-11-27T15:00:00",
+   "r": 0.216,
+   "schatten": true
   }
  ],
- "letzte_kerze": "2026-11-27 14:45:00",
- "stand": "2026-11-27T15:11:34+00:00",
- "summe_r": 1.743,
+ "offen": [],
+ "letzte_kerze": "2026-11-27 15:45:00",
+ "stand": "2026-11-27T16:11:34+00:00",
+ "summe_r": 1.959,
  "zwilling": {
   "status": "sammelt",
-  "text": "Zwilling: 7 von 40 Trades",
+  "text": "Zwilling: 8 von 40 Trades",
   "zwilling": {
-   "trades": 7,
-   "pf": 1.622,
-   "summe_r": 1.74
+   "trades": 8,
+   "pf": 1.699,
+   "summe_r": 1.96
   },
   "original": {
    "trades": 9,

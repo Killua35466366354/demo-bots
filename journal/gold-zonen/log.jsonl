@@ -53,3 +53,5 @@
 {"time": "2026-11-27T03:08:50", "event": "Plan neu", "kerzen_4h": 325, "atr_4h": 45.22, "wartend": [{"zone": "W2026112620", "seite": "Kauf", "linie": 3606.88, "stop": 3577.38, "rest": 30, "beruehrt": false}]}
 {"time": "2026-11-27T03:08:50", "event": "Order gelegt", "zone": "W2026112620", "seite": "Kauf", "linie": 3606.88, "stop": 3577.38, "ziel": 3865.3, "size": 0.18, "risiko_usd": 29.5, "dealId": "00000000-7701-d35c-049c-701a0015549e", "gilt_bis": "2026-11-27T21:45:00"}
 {"time": "2026-11-27T19:53:46", "event": "keine neue Order", "gruende": ["Markt gerade nicht handelbar"]}
+{"time": "2026-11-27T21:53:43", "event": "Order nicht mehr beim Broker (abgelaufen oder gelöscht)", "zone": "W2026112620", "seite": "Kauf"}
+{"time": "2026-11-27T21:53:43", "event": "keine neue Order", "gruende": ["Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)", "Markt gerade nicht handelbar"]}

@@ -37,20 +37,7 @@
    ]
   }
  },
- "orders": [
-  {
-   "name": "W2026112620",
-   "d": 1,
-   "linie": 3606.88,
-   "innen": 3588.68,
-   "stop": 3577.38,
-   "ziel": 3865.3,
-   "size": 0.18,
-   "dealId": "00000000-7701-d35c-049c-701a0015549e",
-   "gelegt_utc": "2026-11-27T03:08:50",
-   "gilt_bis": "2026-11-27T21:45:00"
-  }
- ],
+ "orders": [],
  "trade": null,
  "verbraucht": {
   "U2026110404": {
@@ -72,9 +59,10 @@
  },
  "versuche": {},
  "keine_order": [
+  "Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)",
   "Markt gerade nicht handelbar"
  ],
- "stand": "2026-11-27T21:08:37",
+ "stand": "2026-11-27T21:53:43",
  "letzte_deals": [
   "00000000-76f0-6859-049c-701a0015549e",
   "00000000-73b5-75fa-049c-701a0015549e",

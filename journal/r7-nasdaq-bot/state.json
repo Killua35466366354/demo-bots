@@ -1,6 +1,6 @@
 {
  "status": "wartet auf einen Schluss über dem Band (10:00-15:00 New York)",
- "stand_utc": "2026-11-27T14:46:41.745435",
+ "stand_utc": "2026-11-27T15:01:40.879118",
  "konto_id": "332317231899038878",
  "konto": "…8878",
  "konto_name": "US500",
@@ -8,19 +8,19 @@
  "waehrung": "EUR",
  "start_utc": "2026-11-04T11:47:24.423150",
  "letzte_entscheidung": {
-  "zeit": "2026-11-27T14:46:41.745435",
+  "zeit": "2026-11-27T15:01:40.879118",
   "action": "none",
-  "why": "wartet auf den ersten Prüfpunkt (10:00 New York)",
+  "why": "US-Feiertag oder kurzer Börsentag: keine volle Sitzung, heute kein Einstieg",
   "bar": null
  },
  "position": null,
  "start_kontostand": 1000.0,
  "plan": {
-  "tag": "2026-11-26",
+  "tag": "2026-11-27",
   "ok": false,
   "why": "US-Feiertag oder kurzer Börsentag: keine volle Sitzung, heute kein Einstieg",
-  "stundenkerzen": 2898,
-  "kerzen_15": 3139
+  "stundenkerzen": 2896,
+  "kerzen_15": 3131
  },
- "tag_erledigt": "2026-11-26"
+ "tag_erledigt": "2026-11-27"
 }

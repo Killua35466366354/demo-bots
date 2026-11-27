@@ -40,116 +40,116 @@
  "gruppen": {
   "demo_gruppe": {
    "ohne_grenzen": {
-    "trades": 102,
-    "genommen": 102,
+    "trades": 103,
+    "genommen": 103,
     "verpasst": {},
-    "summe_eur": 232.23,
-    "endstand_eur": 1232.23,
-    "groesster_rueckgang_eur": 176.66,
+    "summe_eur": 231.7,
+    "endstand_eur": 1231.7,
+    "groesster_rueckgang_eur": 177.19,
     "monate": {
      "2026-11": {
-      "trades": 102,
-      "eur": 232.23
+      "trades": 103,
+      "eur": 231.7
      }
     },
-    "schnitt_monat_eur": 232.23,
-    "schnitt_monat_pct": 23.22,
-    "schlechtester_monat_eur": 232.23,
+    "schnitt_monat_eur": 231.7,
+    "schnitt_monat_pct": 23.17,
+    "schlechtester_monat_eur": 231.7,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 3519.23
    },
    "konto": {
-    "trades": 102,
-    "genommen": 46,
+    "trades": 103,
+    "genommen": 45,
     "verpasst": {
      "hoechstens_offen": 3,
-     "je_markt": 51,
+     "je_markt": 53,
      "tagesstopp": 2
     },
-    "summe_eur": 18.59,
-    "endstand_eur": 1018.59,
+    "summe_eur": 24.74,
+    "endstand_eur": 1024.74,
     "groesster_rueckgang_eur": 87.32,
     "monate": {
      "2026-11": {
-      "trades": 46,
-      "eur": 18.59
+      "trades": 45,
+      "eur": 24.74
      }
     },
-    "schnitt_monat_eur": 18.59,
-    "schnitt_monat_pct": 1.86,
-    "schlechtester_monat_eur": 18.59,
+    "schnitt_monat_eur": 24.74,
+    "schnitt_monat_pct": 2.47,
+    "schlechtester_monat_eur": 24.74,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 1868.0
    },
    "konto_weiter": {
-    "trades": 102,
+    "trades": 103,
     "genommen": 64,
     "verpasst": {
-     "je_markt": 32,
+     "je_markt": 33,
      "tagesstopp": 6
     },
-    "summe_eur": -25.08,
-    "endstand_eur": 974.92,
+    "summe_eur": 6.09,
+    "endstand_eur": 1006.09,
     "groesster_rueckgang_eur": 105.22,
     "monate": {
      "2026-11": {
       "trades": 64,
-      "eur": -25.08
+      "eur": 6.09
      }
     },
-    "schnitt_monat_eur": -25.08,
-    "schnitt_monat_pct": -2.51,
-    "schlechtester_monat_eur": -25.08,
-    "monate_im_minus": 1,
+    "schnitt_monat_eur": 6.09,
+    "schnitt_monat_pct": 0.61,
+    "schlechtester_monat_eur": 6.09,
+    "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 3261.63
    },
    "konto_margin": {
-    "trades": 102,
-    "genommen": 38,
+    "trades": 103,
+    "genommen": 37,
     "verpasst": {
-     "je_markt": 53,
+     "je_markt": 55,
      "margin": 9,
      "tagesstopp": 2
     },
-    "summe_eur": 86.57,
-    "endstand_eur": 1086.57,
+    "summe_eur": 92.72,
+    "endstand_eur": 1092.72,
     "groesster_rueckgang_eur": 57.14,
     "monate": {
      "2026-11": {
-      "trades": 38,
-      "eur": 86.57
+      "trades": 37,
+      "eur": 92.72
      }
     },
-    "schnitt_monat_eur": 86.57,
-    "schnitt_monat_pct": 8.66,
-    "schlechtester_monat_eur": 86.57,
+    "schnitt_monat_eur": 92.72,
+    "schnitt_monat_pct": 9.27,
+    "schlechtester_monat_eur": 92.72,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 259.95
    },
    "konto_margin_50": {
-    "trades": 102,
-    "genommen": 39,
+    "trades": 103,
+    "genommen": 38,
     "verpasst": {
-     "je_markt": 53,
+     "je_markt": 55,
      "margin": 8,
      "tagesstopp": 2
     },
-    "summe_eur": 89.74,
-    "endstand_eur": 1089.74,
+    "summe_eur": 95.89,
+    "endstand_eur": 1095.89,
     "groesster_rueckgang_eur": 57.14,
     "monate": {
      "2026-11": {
-      "trades": 39,
-      "eur": 89.74
+      "trades": 38,
+      "eur": 95.89
      }
     },
-    "schnitt_monat_eur": 89.74,
-    "schnitt_monat_pct": 8.97,
-    "schlechtester_monat_eur": 89.74,
+    "schnitt_monat_eur": 95.89,
+    "schnitt_monat_pct": 9.59,
+    "schlechtester_monat_eur": 95.89,
     "monate_im_minus": 0,
     "gesamtbremse_seit": null,
     "groesste_margin_eur": 306.25
@@ -255,14 +255,14 @@
  "margin_geschaetzt": {
   "demo_gruppe": [
    0,
-   102
+   103
   ],
   "demo_kern": [
    0,
    8
   ]
  },
- "satz": "Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +232 € nach 102 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 46 davon genommen und +19 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 38 Trades und +87 € gewesen.",
+ "satz": "Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +232 € nach 103 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 45 davon genommen und +25 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 37 Trades und +93 € gewesen.",
  "gold_duo": {
   "format": 1,
   "start_utc": "2026-11-25T08:00:00",
@@ -315,7 +315,7 @@
    ]
   ],
   "ohne_zwei_beste_tage_eur": null,
-  "offen": 1,
+  "offen": 2,
   "verpasst": {},
   "summe_eur": -192.28,
   "endstand_eur": 807.72,

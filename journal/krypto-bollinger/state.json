@@ -5,31 +5,77 @@
  "trades": 6,
  "maerkte": {
   "BTCUSD": {
-   "trade": null,
-   "letzte_grenze": "2026-11-27 14:00:00",
+   "trade": {
+    "id": "BTCUSD 2026-11-27T15:00",
+    "markt": "BTCUSD",
+    "epic": "BTCUSD",
+    "richtung": -1,
+    "grenze": "2026-11-27 15:00:00",
+    "dealId": "00000000-773d-87c6-049c-701d0015549e",
+    "size": 0.0068,
+    "entry": 59035.5,
+    "stop": 59821.34,
+    "ziel": 57421.83,
+    "dist": 799.837005,
+    "bid_ein": 59021.5,
+    "opened_utc": "2026-11-27T15:02:38",
+    "spaet_min": 2.6,
+    "bis_utc": "2026-11-28 15:00:00",
+    "satz_nacht": 0.2,
+    "lot": 1.0,
+    "eur_rate": 1.094365
+   },
+   "letzte_grenze": "2026-11-27 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-27 14:00:00",
-    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
+    "grenze": "2026-11-27 15:00:00",
+    "ergebnis": "Verkauf eröffnet",
+    "richtung": -1,
+    "schluss": 59114.25,
+    "mitte": 61051.82,
+    "oben": 62298.791493,
+    "unten": 59804.848507,
+    "rsi": 24.989775,
+    "atr": 533.22467,
+    "dist": 799.837005
    },
    "letzter_schluss": "2026-11-27T14:30:29"
   },
   "ETHUSD": {
-   "trade": null,
-   "letzte_grenze": "2026-11-27 14:00:00",
+   "trade": {
+    "id": "ETHUSD 2026-11-27T15:00",
+    "markt": "ETHUSD",
+    "epic": "ETHUSD",
+    "richtung": -1,
+    "grenze": "2026-11-27 15:00:00",
+    "dealId": "00000000-773d-87dc-049c-701d0015549e",
+    "size": 0.21,
+    "entry": 1643.59,
+    "stop": 1669.07,
+    "ziel": 1591.26,
+    "dist": 25.936441,
+    "bid_ein": 1643.13,
+    "opened_utc": "2026-11-27T15:02:38",
+    "spaet_min": 2.6,
+    "bis_utc": "2026-11-28 15:00:00",
+    "satz_nacht": 0.2,
+    "lot": 1.0,
+    "eur_rate": 1.094365
+   },
+   "letzte_grenze": "2026-11-27 15:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-27 14:00:00",
-    "ergebnis": "Schluss im Band oder RSI nicht extrem",
-    "richtung": 0,
-    "schluss": 1721.39,
-    "mitte": 1714.827,
-    "oben": 1745.707437,
-    "unten": 1683.946563,
-    "rsi": 57.583285,
-    "atr": 12.918727,
-    "dist": null
+    "grenze": "2026-11-27 15:00:00",
+    "ergebnis": "Verkauf eröffnet",
+    "richtung": -1,
+    "schluss": 1652.14,
+    "mitte": 1712.577,
+    "oben": 1753.279793,
+    "unten": 1671.874207,
+    "rsi": 27.202064,
+    "atr": 17.290961,
+    "dist": 25.936441
    },
    "letzter_schluss": "2026-11-27T11:47:14"
   }
  },
- "stand": "2026-11-27T14:31:54"
+ "stand": "2026-11-27T15:02:38"
 }

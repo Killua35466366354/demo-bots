@@ -1,6 +1,6 @@
 # Kombinierer, Stand 2026-11-27
 
-Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +232 € nach 102 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 46 davon genommen und +19 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 38 Trades und +87 € gewesen.
+Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +232 € nach 103 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 45 davon genommen und +25 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 37 Trades und +93 € gewesen.
 
 Ein Konto, ein Topf von 1.000 €, jeder Trade riskiert 10 € (1 R). Die Regeln stehen in suche/VORAB_schatten.yaml und suche/VORAB_kombinierer_margin.yaml (Margin-Ampel). Margin ist das Sicherheitsgeld, das der Broker für offene Trades festhält. Nur Demokonten, nur Auskunft, kein Bot liest diese Datei.
 
@@ -8,11 +8,11 @@ Ein Konto, ein Topf von 1.000 €, jeder Trade riskiert 10 € (1 R). Die Regeln
 
 | Regeln | Trades genommen | verpasst | Summe | größter Rückgang | Schnitt je Monat | größte Margin |
 |---|---|---|---|---|---|---|
-| ohne Grenzen | 102 von 102 | – | +232 € | −177 € | +232 € (23,2 %) | 3.519 € |
-| Regeln eines echten Kontos | 46 von 102 | schon genug offen 3, Markt schon belegt 51, Tagesstopp 2 | +19 € | −87 € | +19 € (1,9 %) | 1.868 € |
-| weitere Kontoregeln (nur Vergleich) | 64 von 102 | Markt schon belegt 32, Tagesstopp 6 | −25 € | −105 € | −25 € (−2,5 %) | 3.262 € |
-| Kontoregeln mit Margin-Ampel 30 % | 38 von 102 | Markt schon belegt 53, zu wenig Margin frei 9, Tagesstopp 2 | +87 € | −57 € | +87 € (8,7 %) | 260 € |
-| mit Margin-Ampel 50 % (nur Vergleich) | 39 von 102 | Markt schon belegt 53, zu wenig Margin frei 8, Tagesstopp 2 | +90 € | −57 € | +90 € (9,0 %) | 306 € |
+| ohne Grenzen | 103 von 103 | – | +232 € | −177 € | +232 € (23,2 %) | 3.519 € |
+| Regeln eines echten Kontos | 45 von 103 | schon genug offen 3, Markt schon belegt 53, Tagesstopp 2 | +25 € | −87 € | +25 € (2,5 %) | 1.868 € |
+| weitere Kontoregeln (nur Vergleich) | 64 von 103 | Markt schon belegt 33, Tagesstopp 6 | +6 € | −105 € | +6 € (0,6 %) | 3.262 € |
+| Kontoregeln mit Margin-Ampel 30 % | 37 von 103 | Markt schon belegt 55, zu wenig Margin frei 9, Tagesstopp 2 | +93 € | −57 € | +93 € (9,3 %) | 260 € |
+| mit Margin-Ampel 50 % (nur Vergleich) | 38 von 103 | Markt schon belegt 55, zu wenig Margin frei 8, Tagesstopp 2 | +96 € | −57 € | +96 € (9,6 %) | 306 € |
 
 ## Kern-Kombi
 
@@ -32,7 +32,7 @@ Gold-Bot C/B und Pine-K5 zusammen auf einem gedachten Konto mit 1.000 €, jeder
 
 | Trades gezählt | verpasst | noch offen | Summe | Kontostand | größter Rückgang | größtes Sicherheitsgeld | Gewinnfaktor | Tage | Urteil |
 |---|---|---|---|---|---|---|---|---|---|
-| 9 | – | 1 | −192 € | 808 € | −192 € | 740 € | 0,00 | 2 von 61 | sammelt |
+| 9 | – | 2 | −192 € | 808 € | −192 € | 740 € | 0,00 | 2 von 61 | sammelt |
 
 Stand des Urteils. 9 von 100 Trades, 2 von 61 Tagen.
 

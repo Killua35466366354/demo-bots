@@ -2,7 +2,7 @@
  "bot": "modell-indizes",
  "name": "Vorhersage-Modell Indizes (US500, US100, DAX, FTSE, Nikkei)",
  "konto": "Account 6",
- "stand": "2026-11-27T20:46:51",
+ "stand": "2026-11-27T21:01:57",
  "start": "2026-11-20T13:18:01",
  "pausiert": null,
  "status": "kein Trade offen. Zuletzt (Handelstag 2026-11-27): Kauf eröffnet",
@@ -341,7 +341,7 @@
      "atr": 183.635714,
      "nach_18_min": 1.9
     },
-    "kurs": 7296.0
+    "kurs": 7296.5
    },
    "NSXUSD": {
     "epic": "US100",
@@ -354,7 +354,7 @@
      "atr": 1038.178571,
      "nach_18_min": 1.9
     },
-    "kurs": 26696.9
+    "kurs": 26705.3
    },
    "GRXEUR": {
     "epic": "DE40",
@@ -367,7 +367,7 @@
      "atr": 499.142857,
      "nach_18_min": 1.9
     },
-    "kurs": 25483.0
+    "kurs": 25487.5
    },
    "UKXGBP": {
     "epic": "UK100",
@@ -380,7 +380,7 @@
      "atr": 146.664286,
      "nach_18_min": 1.9
     },
-    "kurs": 10709.3
+    "kurs": 10713.6
    },
    "JPXJPY": {
     "epic": "J225",
@@ -393,7 +393,7 @@
      "atr": 2303.178571,
      "nach_18_min": 1.9
     },
-    "kurs": 58762.2
+    "kurs": 58872.2
    }
   }
  }

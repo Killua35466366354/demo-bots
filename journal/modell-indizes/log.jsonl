@@ -18,3 +18,4 @@
 {"time": "2026-11-27T20:46:51", "event": "Trade fertig", "markt": "GRXEUR", "trade": "DE40 2026-11-27", "seite": "Kauf", "grund": "zeit", "r": 0.241, "pnl_eur": 1.2}
 {"time": "2026-11-27T20:46:51", "event": "Trade fertig", "markt": "UKXGBP", "trade": "UK100 2026-11-27", "seite": "Kauf", "grund": "zeit", "r": 0.288, "pnl_eur": 1.01}
 {"time": "2026-11-27T20:46:51", "event": "Trade fertig", "markt": "JPXJPY", "trade": "J225 2026-11-27", "seite": "Kauf", "grund": "zeit", "r": 0.209, "pnl_eur": 0.99}
+{"time": "2026-11-27T21:01:57", "event": "fremde Position auf dem Markt", "markt": "SPXUSD", "deals": ["00000000-772a-9b9a-049c-70210015549e"]}

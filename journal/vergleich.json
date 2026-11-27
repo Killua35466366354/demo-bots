@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-27",
- "letzter_trade_utc": "2026-11-27T11:31:35.017678",
+ "letzter_trade_utc": "2026-11-27T14:31:38.032263",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -235,20 +235,20 @@
    "konto": "Account 7",
    "seit": "2026-11-05T11:16:36",
    "ist": {
-    "trades": 13,
+    "trades": 14,
     "gewonnen": 5,
-    "treffer_pct": 38.5,
-    "summe_r": -0.19,
-    "pf_r": 0.4,
-    "eur": -1.69,
-    "rueckgang_r": 0.24
+    "treffer_pct": 35.7,
+    "summe_r": -0.23,
+    "pf_r": 0.35,
+    "eur": -2.07,
+    "rueckgang_r": 0.29
    },
    "soll": {
     "wochen": 3.1,
     "trades": 8.2,
     "summe_r": 0.16
    },
-   "abweichung_r": -0.35,
+   "abweichung_r": -0.39,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -257,14 +257,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 13,
-     "summe_r": -0.19,
-     "eur": -1.69
+     "trades": 14,
+     "summe_r": -0.23,
+     "eur": -2.07
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "13 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "14 von 100 Demo-Trades, 22 von 61 Tagen"
    },
    "rang": 7
   },
@@ -560,34 +560,34 @@
    }
   ],
   "ist": {
-   "trades": 99,
+   "trades": 100,
    "gewonnen": 43,
-   "treffer_pct": 43.4,
-   "summe_r": 29.75,
+   "treffer_pct": 43.0,
+   "summe_r": 29.71,
    "pf_r": 1.65,
-   "eur": 227.49,
+   "eur": 227.11,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 99,
-    "summe_r": 29.76,
-    "eur": 227.49
+    "trades": 100,
+    "summe_r": 29.72,
+    "eur": 227.11
    }
   },
   "bestes": "gold",
   "ohne_bestes": {
-   "trades": 26,
+   "trades": 27,
    "gewonnen": 6,
-   "treffer_pct": 23.1,
-   "summe_r": -12.01,
+   "treffer_pct": 22.2,
+   "summe_r": -12.05,
    "pf_r": 0.04,
-   "eur": -53.04,
-   "rueckgang_r": 12.07
+   "eur": -53.42,
+   "rueckgang_r": 12.11
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "99 von 100 Demo-Trades, 24 von 61 Tagen"
+   "text": "100 von 100 Demo-Trades, 24 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -790,21 +790,21 @@
    "seit": "2026-11-20",
    "start": "2026-11-20",
    "ist": {
-    "trades": 5,
+    "trades": 6,
     "gewonnen": 2,
-    "treffer_pct": 40.0,
-    "summe_r": 0.71,
-    "pf_r": 1.22,
-    "eur": 3.68,
-    "rueckgang_r": 3.21
+    "treffer_pct": 33.3,
+    "summe_r": -0.38,
+    "pf_r": 0.91,
+    "eur": -1.7,
+    "rueckgang_r": 4.3
    },
    "einheit": "R",
-   "urteil": "läuft (5 von 40 Trades)",
+   "urteil": "läuft (6 von 40 Trades)",
    "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
    "test": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 7 von 61 Tagen"
+    "text": "6 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {

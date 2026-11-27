@@ -10,7 +10,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 5 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,7 Trades, +0,19 R | 0 von 100 Demo-Trades, 22 von 61 Tagen |
-| 7 | Noise USD/JPY | labor | 13 | -0,19 | 0,40 | -1,69 | 8,2 Trades, +0,16 R | 13 von 100 Demo-Trades, 22 von 61 Tagen |
+| 7 | Noise USD/JPY | labor | 14 | -0,23 | 0,35 | -2,07 | 8,2 Trades, +0,16 R | 14 von 100 Demo-Trades, 22 von 61 Tagen |
 | 8 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,7 Trades, +0,06 R | 1 von 100 Demo-Trades, 22 von 61 Tagen |
 | 9 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 10 | Vortag GBP/USD | behalten | 2 | -2,00 | 0,00 | -8,99 | 4,4 Trades, +0,56 R | 2 von 100 Demo-Trades, 23 von 61 Tagen |
@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 8 | -8,12 | -81 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 99 Trades, +29,75 R, Gewinnfaktor 1,65. Aufstieg: 99 von 100 Demo-Trades, 24 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 100 Trades, +29,71 R, Gewinnfaktor 1,65. Aufstieg: 100 von 100 Demo-Trades, 24 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
@@ -41,7 +41,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Gold-Zonen Bruch | Account 2 | 2026-11-11 | 3 | -3,01 R | 0,00 | -14,57 | läuft (3 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml | 3 von 100 Demo-Trades, 16 von 61 Tagen |
 | Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 5 | +1,62 R | 3,44 | +7,26 | läuft (5 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml | 5 von 100 Demo-Trades, 15 von 61 Tagen |
 | 4-Std.-Ausbruch DAX, FTSE, Nikkei | Account 7 | 2026-11-19 | 1 | -0,28 R | 0,00 | -1,39 | läuft (1 von 40 Trades) | suche/VORAB_welt_ausbruch4h_bot.yaml | 1 von 100 Demo-Trades, 8 von 61 Tagen |
-| Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 5 | +0,71 R | 1,22 | +3,68 | läuft (5 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 5 von 100 Demo-Trades, 7 von 61 Tagen |
+| Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 6 | -0,38 R | 0,91 | -1,70 | läuft (6 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 6 von 100 Demo-Trades, 7 von 61 Tagen |
 | Vorhersage-Modell Indizes | Account 6 | 2026-11-20 | 5 | +2,78 R | – | +11,38 | läuft (5 von 40 Trades) | suche/VORAB_modell_indizes_bot.yaml | 5 von 100 Demo-Trades, 7 von 61 Tagen |
 | Tag nach einem VIX-Sprung | Account 5 | 2026-11-20 | 5 | +1,85 R | – | +8,87 | läuft (5 von 40 Trades) | suche/VORAB_vix_sprung_bot.yaml | 5 von 100 Demo-Trades, 7 von 61 Tagen |
 | Williams %R | Account 7 | 2026-11-20 | 2 | +1,14 R | – | +4,37 | läuft (2 von 40 Trades) | suche/VORAB_williams_bot.yaml | 2 von 100 Demo-Trades, 7 von 61 Tagen |

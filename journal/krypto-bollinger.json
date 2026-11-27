@@ -2,10 +2,10 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-27T14:01:55",
+ "stand": "2026-11-27T14:31:54",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
- "status": "Bitcoin: Kauf offen ab 61733.6, Stop 61035.6, Ziel 62975.41, Ausstieg spätestens 2026-11-28 06:00 UTC",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-27 14:00 UTC): ein Trade ist offen, höchstens einer je Markt",
  "regel": "Bollinger und RSI auf Bitcoin und Ether, umgedreht (Fassung bollinger_umkehr_krypto_weit): Schließt eine Stundenkerze unter dem unteren Bollinger-Band (20, 2) mit RSI 14 unter 30, verkauft der Bot, über dem oberen Band mit RSI über 70 kauft er. Stop 1,5 ATR der Stundenkerzen, Ziel 2 R, Ausstieg spätestens nach 24 Stunden. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
@@ -14,38 +14,24 @@
   "BTCUSD": "Bitcoin",
   "ETHUSD": "Ether"
  },
- "offen": [
-  {
-   "id": "BTCUSD 2026-11-27T06:00",
-   "markt": "BTCUSD",
-   "epic": "BTCUSD",
-   "richtung": 1,
-   "entry": 61733.6,
-   "stop": 61035.6,
-   "ziel": 62975.41,
-   "size": 0.0084,
-   "dist": 646.603426,
-   "opened_utc": "2026-11-27T06:01:59",
-   "bis_utc": "2026-11-28 06:00:00"
-  }
- ],
+ "offen": [],
  "zusammenfassung": {
-  "trades": 5,
-  "pf_r": 1.221,
-  "summe_r": 0.71,
-  "trefferquote": 0.4,
-  "summe_eur": 3.68,
+  "trades": 6,
+  "pf_r": 0.912,
+  "summe_r": -0.38,
+  "trefferquote": 0.333,
+  "summe_eur": -1.7,
   "je_markt": {
    "BTCUSD": {
-    "trades": 2,
-    "summe_r": 0.894
+    "trades": 3,
+    "summe_r": -0.194
    },
    "ETHUSD": {
     "trades": 3,
     "summe_r": -0.184
    }
   },
-  "urteil": "läuft (5 von 40 Trades)"
+  "urteil": "läuft (6 von 40 Trades)"
  },
  "letzte_trades": [
   {
@@ -172,6 +158,31 @@
    "r": -1.073,
    "pnl_waehrung": -5.87,
    "pnl_eur": -5.35
+  },
+  {
+   "id": "BTCUSD 2026-11-27T06:00",
+   "markt": "BTCUSD",
+   "epic": "BTCUSD",
+   "richtung": 1,
+   "grenze": "2026-11-27 06:00:00",
+   "dealId": "00000000-773a-0593-049c-701d0015549e",
+   "size": 0.0084,
+   "entry": 61733.6,
+   "stop": 61035.6,
+   "ziel": 62975.41,
+   "dist": 646.603426,
+   "opened_utc": "2026-11-27T06:01:59",
+   "spaet_min": 2.0,
+   "seite": "Kauf",
+   "exit": 61029.85,
+   "grund": "stop",
+   "closed_utc": "2026-11-27T14:30:29",
+   "naechte": 0,
+   "r_roh": -1.088,
+   "gebuehr_r": 0.0,
+   "r": -1.088,
+   "pnl_waehrung": -5.91,
+   "pnl_eur": -5.38
   }
  ],
  "blick": {
@@ -183,7 +194,7 @@
      "grenze": "2026-11-27 14:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 61364.0
+    "kurs": 61010.7
    },
    "ETHUSD": {
     "epic": "ETHUSD",
@@ -199,24 +210,7 @@
      "atr": 12.918727,
      "dist": null
     },
-    "signal": {
-     "markt": "ETHUSD",
-     "grenze": "2026-11-27 14:00:00",
-     "richtung": 0,
-     "dist": null,
-     "ziel_abstand": null,
-     "ok": false,
-     "warten": false,
-     "ergebnis": "Schluss im Band oder RSI nicht extrem",
-     "tage": 40,
-     "schluss": 1721.39,
-     "mitte": 1714.827,
-     "oben": 1745.707437,
-     "unten": 1683.946563,
-     "rsi": 57.583285,
-     "atr": 12.918727
-    },
-    "kurs": 1721.81
+    "kurs": 1709.33
    }
   }
  }

@@ -2,7 +2,7 @@
  "bots": {
   "r6-vortag-usdjpy": {
    "status": "beendet am 04.11.2026 (Vergleich 2025 bis heute nicht bestanden: Gewinnfaktor 0,95, vor dem ersten Trade); Konto an r6-vortag-gbpusd übergeben",
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "konto_id": null,
    "konto": null,
    "konto_name": null,
@@ -24,16 +24,16 @@
   },
   "r6-london-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "konto_id": "332263759556203678",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1082.52,
+   "kontostand": 1082.04,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T11:01:46.225965",
+    "zeit": "2026-11-27T11:16:42.763434",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -53,11 +53,11 @@
   },
   "r6-noise-usdjpy": {
    "status": "Position offen",
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "konto_id": "332264120333456542",
    "konto": "…6542",
    "konto_name": "Account 7",
-   "kontostand": 1001.38,
+   "kontostand": 1001.26,
    "waehrung": "EUR",
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 999.96,
@@ -104,20 +104,20 @@
     "vortag_schluss": 159.289
    },
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T11:01:46.225965",
+    "zeit": "2026-11-27T11:16:42.763434",
     "action": "none",
     "why": [
      "Position bleibt"
     ]
    },
    "position": {
-    "upl": 0.05,
+    "upl": -0.06,
     "stop": 157.83,
     "ziel": null
    },
    "uebergeben_an": null,
    "linien": {
-    "zeit": "2026-11-27T11:01:46.225965",
+    "zeit": "2026-11-27T11:16:42.763434",
     "oben": 159.42963,
     "unten": 159.19539,
     "vwap": 159.39617
@@ -143,7 +143,7 @@
   },
   "r6-vortag-eurusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "konto_id": "332263746671301790",
    "konto": "…1790",
    "konto_name": "Account 4",
@@ -152,7 +152,7 @@
    "start_utc": "2026-11-04T11:47:05.194282",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T11:01:46.225965",
+    "zeit": "2026-11-27T11:16:42.763434",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -174,7 +174,7 @@
   },
   "r6-vortag-gbpusd": {
    "status": "wartet auf das nächste Signal",
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "konto_id": "332325912027944094",
    "konto": "…4094",
    "konto_name": "Vortag USDJPY",
@@ -183,7 +183,7 @@
    "start_utc": "2026-11-04T12:02:20.662505",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T11:01:46.225965",
+    "zeit": "2026-11-27T11:16:42.763434",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -229,7 +229,7 @@
    "orders": null,
    "status": "beendet am 22.11.2026 (Kirons Wort: größtes Minus nach Pine-Gold TP 3, 4 Trades alle am Stop, -18,09 Euro Spielgeld); Konto freigegeben",
    "position": null,
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "tag_erledigt": "2026-11-20",
    "nachgeprueft": [
     "2026-11-05"
@@ -246,7 +246,7 @@
    "start_utc": "2026-11-05T17:32:02.353890",
    "start_kontostand": 1000.0,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T11:01:46.225965",
+    "zeit": "2026-11-27T11:16:42.763434",
     "action": "none",
     "why": [
      "heute erledigt"
@@ -263,7 +263,7 @@
    "orders": null,
    "status": "wartet auf das nächste Signal",
    "position": null,
-   "stand_utc": "2026-11-27T11:01:46.225965",
+   "stand_utc": "2026-11-27T11:16:42.763434",
    "tag_erledigt": "2026-11-27",
    "fremd": [],
    "open": null
@@ -408,5 +408,5 @@
    }
   }
  },
- "stand_utc": "2026-11-27T11:01:46.225965"
+ "stand_utc": "2026-11-27T11:16:42.763434"
 }

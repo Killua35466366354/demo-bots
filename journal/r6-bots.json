@@ -1,5 +1,5 @@
 {
- "stand_utc": "2026-11-27T08:01:44.890256",
+ "stand_utc": "2026-11-27T08:16:36.511699",
  "titel": "Runde-6-Bots (Demo)",
  "bots": [
   {
@@ -201,7 +201,7 @@
    "konto_vorschlag": "Konto folgt",
    "konto": "…3678",
    "konto_name": "Account 6",
-   "kontostand": 1079.4,
+   "kontostand": 1080.61,
    "start_kontostand": 1000.0,
    "start_utc": "2026-11-04T11:47:05.194282",
    "status": "wartet auf das nächste Signal",
@@ -209,7 +209,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T08:01:44.890256",
+    "zeit": "2026-11-27T08:16:36.511699",
     "action": "none",
     "why": [
      "wartet bis 10 Uhr London (erste Signalkerze 9 bis 10 Uhr)"
@@ -375,7 +375,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T08:01:44.890256",
+    "zeit": "2026-11-27T08:16:36.511699",
     "action": "none",
     "why": [
      "außerhalb 8:30 bis 17 Uhr London"
@@ -950,7 +950,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T08:01:44.890256",
+    "zeit": "2026-11-27T08:16:36.511699",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1184,7 +1184,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T08:01:44.890256",
+    "zeit": "2026-11-27T08:16:36.511699",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"
@@ -1737,7 +1737,7 @@
    "orders": null,
    "position": null,
    "letzte_entscheidung": {
-    "zeit": "2026-11-27T08:01:44.890256",
+    "zeit": "2026-11-27T08:16:36.511699",
     "action": "none",
     "why": [
      "wartet bis 4:30 New York"

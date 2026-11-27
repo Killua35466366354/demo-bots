@@ -7,14 +7,34 @@
  "start_utc": "2026-11-05T11:17:01.629112",
  "start_kontostand": 1000.0,
  "letzte_entscheidung": {
-  "zeit": "2026-11-27T19:46:36.157705",
-  "action": "none",
-  "why": "wartet auf 15 Uhr New York",
-  "bar": null
+  "zeit": "2026-11-27T20:01:54.879021",
+  "action": "open",
+  "why": "Short: {'schluss': 50784.9, 'sma200': 50821.08, 'sma5': 50185.2, 'rsi2': 93.2, 'atr20': 885.18}",
+  "bar": "2026-11-27 19:00:00"
  },
- "status": "wartet auf das nächste Signal (15 Uhr New York)",
- "position": null,
- "stand_utc": "2026-11-27T19:46:36.157705",
- "tag_erledigt": "2026-11-26",
- "open": null
+ "status": "Position offen",
+ "position": {
+  "upl": -0.01,
+  "stop": 53440.3,
+  "ziel": null
+ },
+ "stand_utc": "2026-11-27T20:01:54.879021",
+ "tag_erledigt": "2026-11-27",
+ "open": {
+  "dealId": "00000000-773f-b1c8-049c-701f0015549e",
+  "side": -1,
+  "tag": "2026-11-27",
+  "signal_bar": "2026-11-27",
+  "entry": 50784.8,
+  "oben": null,
+  "unten": null,
+  "stop_dist": 2655.5,
+  "tp_dist": null,
+  "size": 0.001,
+  "lot": 1.0,
+  "currency": "USD",
+  "eur_rate": 1.093485,
+  "opened_utc": "2026-11-27T20:02:02.094",
+  "konto_kurz": "…9086"
+ }
 }

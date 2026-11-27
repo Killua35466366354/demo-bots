@@ -6,38 +6,38 @@
  "maerkte": {
   "BTCUSD": {
    "trade": null,
-   "letzte_grenze": "2026-11-27 19:00:00",
+   "letzte_grenze": "2026-11-27 20:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-27 19:00:00",
+    "grenze": "2026-11-27 20:00:00",
     "ergebnis": "Schluss im Band oder RSI nicht extrem",
     "richtung": 0,
-    "schluss": 59827.75,
-    "mitte": 60908.1175,
-    "oben": 62454.108752,
-    "unten": 59362.126248,
-    "rsi": 38.315482,
-    "atr": 573.789704,
+    "schluss": 59820.4,
+    "mitte": 60875.6,
+    "oben": 62483.153174,
+    "unten": 59268.046826,
+    "rsi": 38.235636,
+    "atr": 548.472582,
     "dist": null
    },
    "letzter_schluss": "2026-11-27T15:24:55"
   },
   "ETHUSD": {
    "trade": null,
-   "letzte_grenze": "2026-11-27 19:00:00",
+   "letzte_grenze": "2026-11-27 20:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-27 19:00:00",
+    "grenze": "2026-11-27 20:00:00",
     "ergebnis": "Schluss im Band oder RSI nicht extrem",
     "richtung": 0,
-    "schluss": 1668.95,
-    "mitte": 1706.5685,
-    "oben": 1760.196897,
-    "unten": 1652.940103,
-    "rsi": 36.827785,
-    "atr": 18.432306,
+    "schluss": 1668.53,
+    "mitte": 1705.656,
+    "oben": 1761.187459,
+    "unten": 1650.124541,
+    "rsi": 36.686784,
+    "atr": 17.547141,
     "dist": null
    },
    "letzter_schluss": "2026-11-27T15:35:40"
   }
  },
- "stand": "2026-11-27T19:02:16"
+ "stand": "2026-11-27T20:02:18"
 }

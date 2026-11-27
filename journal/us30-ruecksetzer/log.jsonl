@@ -1,2 +1,3 @@
 {"time": "2026-11-16T20:01:58.111657", "event": "eröffnet", "side": "long", "bar": "2026-11-16", "oben": null, "unten": null, "size": 0.001, "risiko_eur": 2.11, "entry": 51633.1, "dealId": "00000000-741f-8063-049c-701f0015549e"}
 {"time": "2026-11-19T17:16:34.677595", "event": "vom Broker geschlossen", "exit": 49311.3, "pct": -4.4967, "reason": "Stop beim Broker"}
+{"time": "2026-11-27T20:01:54.879021", "event": "eröffnet", "side": "short", "bar": "2026-11-27", "oben": null, "unten": null, "size": 0.001, "risiko_eur": 2.43, "entry": 50784.8, "dealId": "00000000-773f-b1c8-049c-701f0015549e"}

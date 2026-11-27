@@ -1,8 +1,8 @@
 {
  "format": 1,
  "start": "2026-11-20T12:33:05",
- "summe_r": 1.783,
- "trades": 4,
+ "summe_r": 0.71,
+ "trades": 5,
  "maerkte": {
   "BTCUSD": {
    "trade": {
@@ -25,41 +25,30 @@
     "lot": 1.0,
     "eur_rate": 1.097865
    },
-   "letzte_grenze": "2026-11-27 11:00:00",
+   "letzte_grenze": "2026-11-27 12:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-27 11:00:00",
+    "grenze": "2026-11-27 12:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    },
    "letzter_schluss": "2026-11-23T16:38:05"
   },
   "ETHUSD": {
-   "trade": {
-    "id": "ETHUSD 2026-11-27T06:00",
-    "markt": "ETHUSD",
-    "epic": "ETHUSD",
-    "richtung": 1,
-    "grenze": "2026-11-27 06:00:00",
-    "dealId": "00000000-773a-05cb-049c-701d0015549e",
-    "size": 0.246,
-    "entry": 1740.33,
-    "stop": 1716.62,
-    "ziel": 1783.38,
-    "dist": 22.252891,
-    "bid_ein": 1738.87,
-    "opened_utc": "2026-11-27T06:01:59",
-    "spaet_min": 2.0,
-    "bis_utc": "2026-11-28 06:00:00",
-    "satz_nacht": 0.2,
-    "lot": 1.0,
-    "eur_rate": 1.097865
-   },
-   "letzte_grenze": "2026-11-27 11:00:00",
+   "trade": null,
+   "letzte_grenze": "2026-11-27 12:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-27 11:00:00",
-    "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
+    "grenze": "2026-11-27 12:00:00",
+    "ergebnis": "Schluss im Band oder RSI nicht extrem",
+    "richtung": 0,
+    "schluss": 1720.77,
+    "mitte": 1711.677,
+    "oben": 1745.424635,
+    "unten": 1677.929365,
+    "rsi": 57.364757,
+    "atr": 13.377991,
+    "dist": null
    },
-   "letzter_schluss": "2026-11-23T15:46:29"
+   "letzter_schluss": "2026-11-27T11:47:14"
   }
  },
- "stand": "2026-11-27T11:02:34"
+ "stand": "2026-11-27T12:02:00"
 }

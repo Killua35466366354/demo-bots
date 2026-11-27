@@ -430,3 +430,5 @@
 {"time": "2026-11-26T23:43:24", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold SHORT geschlossen", "gesendet": true}
 {"time": "2026-11-27T10:23:27", "bot": "pine-k5", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-27 10:15:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 3567.66, "sma50": 3985.56, "h4": 3658.04, "ema50": 3650.36}, "lage": "Hintergrund: uneinig, Short und Long erlaubt.", "dealId": "00000000-773b-6c68-049c-701f0015549e", "size": 0.43, "entry": 3673.4, "tp": null}
 {"time": "2026-11-27T10:23:27", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}
+{"time": "2026-11-27T10:28:28", "bot": "pine-k5", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-27 10:20:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 3567.66, "sma50": 3985.56, "h4": 3658.04, "ema50": 3650.36}, "lage": "Hintergrund: uneinig, Short und Long erlaubt.", "dealId": "00000000-773b-7172-049c-701f0015549e", "size": 0.44, "entry": 3673.04, "tp": null}
+{"time": "2026-11-27T10:28:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}

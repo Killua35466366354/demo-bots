@@ -175,3 +175,4 @@
 {"time": "2026-11-26T21:31:36.823093", "bot": "r6-vortag-eurusd-1atr", "event": "Stop-Orders nicht mehr da (abgelaufen oder gelöscht)", "weg": ["long", "short"]}
 {"time": "2026-11-26T23:16:41.212374", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "J225", "UK100", "US100", "US500"]}
 {"time": "2026-11-27T02:01:32.887709", "bot": "r6-vortag-gbpusd", "event": "keine anderen Märkte mehr auf dem Konto"}
+{"time": "2026-11-27T03:16:48.259910", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "GOLD", "J225", "UK100", "US100", "US500"]}

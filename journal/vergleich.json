@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-27",
- "letzter_trade_utc": "2026-11-27T14:31:38.032263",
+ "letzter_trade_utc": "2026-11-27T14:45:00",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -57,11 +57,11 @@
    "konto": "Schatten (keine Order)",
    "seit": "2026-11-20T00:00:00",
    "ist": {
-    "trades": 5,
-    "gewonnen": 3,
-    "treffer_pct": 60.0,
-    "summe_r": 2.41,
-    "pf_r": 2.34,
+    "trades": 7,
+    "gewonnen": 4,
+    "treffer_pct": 57.1,
+    "summe_r": 1.74,
+    "pf_r": 1.62,
     "eur": 0,
     "rueckgang_r": 1.8
    },
@@ -70,14 +70,14 @@
    "bewertung": null,
    "monate": {
     "2026-11": {
-     "trades": 5,
-     "summe_r": 2.42,
+     "trades": 7,
+     "summe_r": 1.75,
      "eur": 0.0
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "Zwilling: 5 von 40 Trades",
+    "text": "Zwilling: 7 von 40 Trades",
     "original": "gold-grossbox"
    },
    "rang": 2
@@ -560,19 +560,19 @@
    }
   ],
   "ist": {
-   "trades": 103,
+   "trades": 104,
    "gewonnen": 43,
-   "treffer_pct": 41.7,
-   "summe_r": 23.17,
-   "pf_r": 1.44,
-   "eur": 194.69,
-   "rueckgang_r": 17.72
+   "treffer_pct": 41.3,
+   "summe_r": 20.06,
+   "pf_r": 1.36,
+   "eur": 179.31,
+   "rueckgang_r": 20.83
   },
   "monate": {
    "2026-11": {
-    "trades": 103,
-    "summe_r": 23.18,
-    "eur": 194.69
+    "trades": 104,
+    "summe_r": 20.07,
+    "eur": 179.31
    }
   },
   "bestes": "gold",
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "103 von 100 Demo-Trades, 24 von 61 Tagen"
+   "text": "104 von 100 Demo-Trades, 24 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -982,13 +982,13 @@
    "seit": "2026-11-10",
    "start": "2026-11-10",
    "ist": {
-    "trades": 41,
+    "trades": 42,
     "gewonnen": 21,
-    "treffer_pct": 51.2,
-    "summe_r": 18.3,
-    "pf_r": 1.76,
-    "eur": 89.69,
-    "rueckgang_r": 10.07
+    "treffer_pct": 50.0,
+    "summe_r": 15.19,
+    "pf_r": 1.56,
+    "eur": 74.31,
+    "rueckgang_r": 13.18
    },
    "einheit": "R",
    "urteil": "Demo-Vorwärtstest, Urteil nach 40 Trades",
@@ -996,7 +996,7 @@
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "41 von 100 Demo-Trades, 17 von 61 Tagen"
+    "text": "42 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   }
  ],

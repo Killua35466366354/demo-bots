@@ -5,7 +5,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Gold-Bot C/B | verbessern | 6 | +8,28 | 3,06 | +134,58 | 4,9 Trades, +1,06 R | 6 von 100 Demo-Trades, 24 von 61 Tagen |
-| 2 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 5 | +2,41 | 2,34 | +0,00 | – | Zwilling: 5 von 40 Trades |
+| 2 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 7 | +1,74 | 1,62 | +0,00 | – | Zwilling: 7 von 40 Trades |
 | 3 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,9 Trades, +0,19 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 5 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 8 | -8,12 | -81 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 103 Trades, +23,17 R, Gewinnfaktor 1,44. Aufstieg: 103 von 100 Demo-Trades, 24 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 104 Trades, +20,06 R, Gewinnfaktor 1,36. Aufstieg: 104 von 100 Demo-Trades, 24 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades
@@ -49,6 +49,6 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Bündel ohne Gold | Vortag USDJPY | 2026-11-20 | 7 | -2,34 R | 0,55 | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_buendel9_ohne_gold.yaml | 7 von 100 Demo-Trades, 7 von 61 Tagen |
 | Gold-Bündel aus 3 Bots | Vortag USDJPY | 2026-11-26 | 0 | +0,00 R | – | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_gold_buendel_bot.yaml | 0 von 100 Demo-Trades, 1 von 61 Tagen |
 | V1 mit wachsendem Einsatz | Account 3 | 2026-11-26 | 0 | +0,00 R | – | +0,00 | Urteil nach VORAB_aufstieg_alle.yaml (einzeln): 100 Demo-Trades, 61 Tage, Gewinnfaktor 1,3 | suche/VORAB_v1_wachsend_bot.yaml | 0 von 100 Demo-Trades, 1 von 61 Tagen |
-| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 41 | +18,30 R | 1,76 | +89,69 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 41 von 100 Demo-Trades, 17 von 61 Tagen |
+| Pine-Gold Hand auf Account 5 | Account 5 | 2026-11-10 | 42 | +15,19 R | 1,56 | +74,31 | Demo-Vorwärtstest, Urteil nach 40 Trades | suche/VORAB_pine5m_abfang4h.yaml | 42 von 100 Demo-Trades, 17 von 61 Tagen |
 
 Der Gold-Bot zählt hier ab 2026-11-03 09:05 UTC (seit dem Stop 1 x ATR). Der Wochenbericht zählt alle seine Demo-Trades seit dem 31.10.2026, darum kann dort ein Trade mehr stehen.

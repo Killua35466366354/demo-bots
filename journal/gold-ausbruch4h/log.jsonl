@@ -8,3 +8,4 @@
 {"time": "2026-11-20T11:01:44", "event": "Trade fertig", "trade": "2026-11-19T19:00", "seite": "Verkauf", "grund": "zeit", "r": 0.661, "pnl_eur": 3.15}
 {"time": "2026-11-25T15:01:55", "event": "Verkauf eröffnet", "id": "2026-11-25T15:00", "dealId": "00000000-76ee-4e79-049c-701e0015549e", "size": 0.03, "entry": 3466.12, "stop": 3648.17, "dist": 182.05, "spaet_min": 1.9}
 {"time": "2026-11-26T07:01:42", "event": "Trade fertig", "trade": "2026-11-25T15:00", "seite": "Verkauf", "grund": "zeit", "r": -0.576, "pnl_eur": -2.86}
+{"time": "2026-11-27T11:01:58", "event": "Ausbruch ohne Einstieg", "grenze": "2026-11-27 11:00:00", "grund": "Kauf-Ausbruch gegen den Tagestrend", "richtung": 1, "schluss": 3679.25, "hoch_davor": 3678.1, "tief_davor": 3426.37, "trend": false, "dist": 146.4991}

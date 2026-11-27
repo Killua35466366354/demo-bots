@@ -436,3 +436,5 @@
 {"time": "2026-11-27T10:43:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}
 {"time": "2026-11-27T13:03:28", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-27 12:55:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 3567.66, "sma50": 3985.56, "h4": 3673.44, "ema50": 3651.28}, "lage": "Hintergrund: uneinig, Short und Long erlaubt.", "gruende": ["mehr als 250 € Marge für diesen Bot"]}
 {"time": "2026-11-27T13:03:28", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG, nicht eröffnet", "gesendet": true}
+{"time": "2026-11-27T13:53:27", "bot": "pine-k5", "event": "ausgelassen", "richtung": 1, "kerze": "2026-11-27 13:45:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 3567.66, "sma50": 3985.56, "h4": 3673.44, "ema50": 3651.28}, "lage": "Hintergrund: uneinig, Short und Long erlaubt.", "gruende": ["mehr als 250 € Marge für diesen Bot"]}
+{"time": "2026-11-27T13:53:27", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG, nicht eröffnet", "gesendet": true}

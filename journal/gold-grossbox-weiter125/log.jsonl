@@ -8,3 +8,4 @@
 {"time": "2026-11-25T19:11:32+00:00", "event": "fertig", "opened_utc": "2026-11-24T14:00:00", "richtung": -1, "entry": 3614.82, "grund": "neue_box", "closed_utc": "2026-11-25T18:00:00", "r": 1.456}
 {"time": "2026-11-25T19:11:32+00:00", "event": "fertig", "opened_utc": "2026-11-24T15:15:00", "richtung": -1, "entry": 3602.7, "grund": "neue_box", "closed_utc": "2026-11-25T18:00:00", "r": 1.735}
 {"time": "2026-11-25T19:11:32+00:00", "event": "fertig", "opened_utc": "2026-11-24T18:45:00", "richtung": -1, "entry": 3556.22, "grund": "neue_box", "closed_utc": "2026-11-25T18:00:00", "r": 1.022}
+{"time": "2026-11-27T04:11:31+00:00", "event": "einstieg", "einstieg_zeit": "2026-11-27 03:00:00", "richtung": 1, "art": "a", "einstieg": 3623.17, "stop": 3559.74, "tp1": 3686.6, "r_usd": 63.43}

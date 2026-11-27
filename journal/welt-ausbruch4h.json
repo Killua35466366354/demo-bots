@@ -2,10 +2,10 @@
  "bot": "welt-ausbruch4h",
  "name": "4-Std.-Ausbruch DAX, FTSE, Nikkei",
  "konto": "Account 7",
- "stand": "2026-11-27T15:01:57",
+ "stand": "2026-11-27T19:01:50",
  "start": "2026-11-19T13:18:33",
  "pausiert": null,
- "status": "kein Trade offen. Letzte Kerze (bis 2026-11-27 15:00 UTC): kein Ausbruch",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-27 19:00 UTC): Kauf-Ausbruch gegen den Tagestrend",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf DAX, FTSE 100 und Nikkei 225 (Fassung ausbruch4h_welt_ziel_1r): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, Ziel 1 R. Ausstieg spätestens nach 4 fertigen 4-Std.-Kerzen. Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden, Kandidat (suche/ergebnis_notizen_runde.md): 2024 bis 2026 393 Trades (etwa 2,7 je Woche), Gewinnfaktor 1,30, 2026 1,66, aber nur 2,26 statt 3 Standardabweichungen über dem Zufall. Dieselbe Regel ohne Ziel war am 18.11. mit 1,24 schon knapp (suche/ergebnis_rueckblick.md).",
  "vorab": "suche/VORAB_welt_ausbruch4h_bot.yaml",
@@ -59,87 +59,87 @@
   }
  ],
  "blick": {
-  "naechste_4h_kerze_endet_utc": "2026-11-27 19:00:00",
+  "naechste_4h_kerze_endet_utc": "2026-11-27 23:00:00",
   "maerkte": {
    "GRXEUR": {
     "epic": "DE40",
     "letzte_pruefung": {
-     "grenze": "2026-11-27 15:00:00",
-     "ergebnis": "kein Ausbruch",
-     "richtung": 0,
-     "schluss": 25335.9,
+     "grenze": "2026-11-27 19:00:00",
+     "ergebnis": "Kauf-Ausbruch gegen den Tagestrend",
+     "richtung": 1,
+     "schluss": 25503.0,
      "hoch_davor": 25470.1,
      "tief_davor": 24679.1,
-     "trend": null,
+     "trend": false,
      "dist": null
     },
     "signal": {
      "markt": "GRXEUR",
-     "grenze": "2026-11-27 15:00:00",
-     "richtung": 0,
-     "trend": null,
+     "grenze": "2026-11-27 19:00:00",
+     "richtung": 1,
+     "trend": false,
      "dist": null,
      "ziel_abstand": null,
      "ok": false,
      "warten": false,
-     "ergebnis": "kein Ausbruch",
-     "tageskerzen": 284,
-     "schluss": 25335.9,
+     "ergebnis": "Kauf-Ausbruch gegen den Tagestrend",
+     "tageskerzen": 283,
+     "schluss": 25503.0,
      "hoch_davor": 25470.1,
      "tief_davor": 24679.1,
      "tagestrend": -1,
      "kerzen_5min": 48,
      "gesperrt": false
     },
-    "kurs": 25358.7
+    "kurs": 25503.0
    },
    "UKXGBP": {
     "epic": "UK100",
     "letzte_pruefung": {
-     "grenze": "2026-11-27 15:00:00",
-     "ergebnis": "kein Ausbruch",
-     "richtung": 0,
-     "schluss": 10680.1,
+     "grenze": "2026-11-27 19:00:00",
+     "ergebnis": "Kauf-Ausbruch gegen den Tagestrend",
+     "richtung": 1,
+     "schluss": 10724.6,
      "hoch_davor": 10699.5,
      "tief_davor": 10414.0,
-     "trend": null,
+     "trend": false,
      "dist": null
     },
     "signal": {
      "markt": "UKXGBP",
-     "grenze": "2026-11-27 15:00:00",
-     "richtung": 0,
-     "trend": null,
+     "grenze": "2026-11-27 19:00:00",
+     "richtung": 1,
+     "trend": false,
      "dist": null,
      "ziel_abstand": null,
      "ok": false,
      "warten": false,
-     "ergebnis": "kein Ausbruch",
-     "tageskerzen": 284,
-     "schluss": 10680.1,
+     "ergebnis": "Kauf-Ausbruch gegen den Tagestrend",
+     "tageskerzen": 283,
+     "schluss": 10724.6,
      "hoch_davor": 10699.5,
      "tief_davor": 10414.0,
      "tagestrend": -1,
      "kerzen_5min": 48,
      "gesperrt": false
     },
-    "kurs": 10688.3
+    "kurs": 10722.8
    },
    "JPXJPY": {
     "epic": "J225",
     "letzte_pruefung": {
-     "grenze": "2026-11-27 15:00:00",
+     "grenze": "2026-11-27 19:00:00",
      "ergebnis": "kein Ausbruch",
      "richtung": 0,
-     "schluss": 58114.7,
-     "hoch_davor": 58990.8,
+     "schluss": 58802.2,
+     "hoch_davor": 58980.8,
      "tief_davor": 55390.4,
      "trend": null,
      "dist": null
     },
     "signal": {
      "markt": "JPXJPY",
-     "grenze": "2026-11-27 15:00:00",
+     "grenze": "2026-11-27 19:00:00",
      "richtung": 0,
      "trend": null,
      "dist": null,
@@ -147,15 +147,15 @@
      "ok": false,
      "warten": false,
      "ergebnis": "kein Ausbruch",
-     "tageskerzen": 284,
-     "schluss": 58114.7,
-     "hoch_davor": 58990.8,
+     "tageskerzen": 283,
+     "schluss": 58802.2,
+     "hoch_davor": 58980.8,
      "tief_davor": 55390.4,
      "tagestrend": -1,
      "kerzen_5min": 48,
      "gesperrt": false
     },
-    "kurs": 58149.7
+    "kurs": 58779.7
    }
   }
  }

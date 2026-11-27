@@ -1,29 +1,7 @@
 {
  "format": 1,
  "start": "2026-11-20T18:03:32",
- "kopien": {
-  "00000000-76f8-d04d-049b-eb710015549e": {
-   "quelle": "gold-cb",
-   "quelle_deal": "00000000-76f8-d04d-049b-eb710015549e",
-   "epic": "GOLD",
-   "richtung": -1,
-   "size": 0.32,
-   "stop": 3595.85,
-   "ziel": null,
-   "margin_eur": 52.1,
-   "risiko_eur": 6.91,
-   "dealId": "00000000-76ba-c015-049c-a8a80015549e",
-   "entry": 3572.14,
-   "stop_start": 3595.85,
-   "stop_quelle": 3595.85,
-   "ziel_quelle": null,
-   "quelle_konto": "332117868107093150",
-   "lot": 1.0,
-   "eur_rate": 1.097095,
-   "opened_utc": "2026-11-26T07:17:08",
-   "wieder_seit": "2026-11-26T10:03:28"
-  }
- },
+ "kopien": {},
  "gesehen": {
   "00000000-76bf-ab20-049c-70190015549e": {
    "bot": "scalp-us100",
@@ -39,11 +17,16 @@
    "bot": "gold-cb",
    "zeit": "2026-11-26T02:31:59",
    "grund": "älter als 30 Minuten"
+  },
+  "00000000-76f8-d04d-049b-eb710015549e": {
+   "bot": "gold-cb",
+   "zeit": "2026-11-27T02:02:00",
+   "grund": "Quelle beim Broker schon zu"
   }
  },
- "summe_eur": -9.62,
- "summe_r": -1.3349,
- "trades": 6,
+ "summe_eur": -16.59,
+ "summe_r": -2.3425,
+ "trades": 7,
  "hoechst": 700.0,
  "versuche": {},
  "raus": {
@@ -51,7 +34,7 @@
   "gold-zonen": "kopiert seit dem 26.11.2026 das Gold-Bündel",
   "gold-ausbruch4h": "kopiert seit dem 26.11.2026 das Gold-Bündel"
  },
- "stand": "2026-11-26T10:34:43",
+ "stand": "2026-11-27T02:02:00",
  "hedging_versuch": "2026-11-20T19:03:01",
  "hedging": true,
  "storniert": [

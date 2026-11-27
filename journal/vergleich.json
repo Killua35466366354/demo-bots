@@ -910,11 +910,11 @@
    "seit": "2026-11-20",
    "start": "2026-11-20",
    "ist": {
-    "trades": 6,
+    "trades": 7,
     "gewonnen": 1,
-    "treffer_pct": 16.7,
-    "summe_r": -1.33,
-    "pf_r": 0.68,
+    "treffer_pct": 14.3,
+    "summe_r": -2.34,
+    "pf_r": 0.55,
     "eur": 0,
     "rueckgang_r": 3.57
    },
@@ -924,7 +924,7 @@
    "test": "Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +38,2 € im Monat (5,5 % Rendite pro Monat), 2 von 10 Monaten im Minus. November 2024 bis Oktober 2026 6,0 % im Monat, schlimmster Rückgang 5,8 %. 84 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "6 von 100 Demo-Trades, 7 von 61 Tagen"
+    "text": "7 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {

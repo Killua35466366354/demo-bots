@@ -458,3 +458,4 @@
 {"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG geschlossen", "gesendet": true}
 {"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-27 14:50:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 3567.66, "sma50": 3985.56, "h4": 3673.44, "ema50": 3651.28}, "lage": "Hintergrund: uneinig, Short und Long erlaubt.", "dealId": "00000000-773d-7556-049c-701f0015549e", "size": 0.25, "entry": 3638.49, "tp": null}
 {"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}
+{"time": "2026-11-27T15:03:25", "bot": "pine-k5", "event": "Trade zu", "dealId": "00000000-773b-889e-049c-701f0015549e", "kurs": 3638.32, "r": -3.112, "eur": -15.38, "quelle": "USER"}

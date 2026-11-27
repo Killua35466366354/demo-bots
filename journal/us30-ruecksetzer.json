@@ -1,12 +1,12 @@
 {
- "stand_utc": "2026-11-27T20:01:54.879021",
+ "stand_utc": "2026-11-27T20:16:38.766265",
  "status": "Position offen",
  "regel": "Trend-Rücksetzer Dow (US30) (Runde 5b/5c, gleiche Regel wie US500): einmal am Tag um 15 Uhr New York; über dem 200-Tage-Schnitt kaufen, wenn RSI(2) unter 10 schließt, darunter verkaufen bei RSI(2) über 90; raus über/unter dem 5-Tage-Schnitt, beim Gegensignal oder nach 5 Handelstagen; Notstop 3 x ATR(20), kein Ziel, kleinste Größe. Capital.com-Tageskerzen 2025 bis Oktober 2026: 23 Trades, Gewinnfaktor 1,48.",
  "bot": "r5-ruecksetzer-us30",
  "epic": "US30",
  "konto": "…9086",
  "konto_name": "Account 5",
- "kontostand": 1063.3,
+ "kontostand": 1063.29,
  "start_kontostand": 1000.0,
  "start_utc": "2026-11-05T11:17:01.629112",
  "offen": {
@@ -32,10 +32,10 @@
   "ziel": null
  },
  "letzte_entscheidung": {
-  "zeit": "2026-11-27T20:01:54.879021",
-  "action": "open",
-  "why": "Short: {'schluss': 50784.9, 'sma200': 50821.08, 'sma5': 50185.2, 'rsi2': 93.2, 'atr20': 885.18}",
-  "bar": "2026-11-27 19:00:00"
+  "zeit": "2026-11-27T20:16:38.766265",
+  "action": "none",
+  "why": "heute schon entschieden",
+  "bar": null
  },
  "zusammenfassung": {
   "trades": 1,

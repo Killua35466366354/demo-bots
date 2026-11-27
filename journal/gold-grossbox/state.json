@@ -42,10 +42,51 @@
    "tp1": false,
    "einstand": null,
    "box_ende": null
+  },
+  {
+   "id": "2026-11-27T05:15",
+   "art": "c",
+   "richtung": 1,
+   "signal": "2026-11-27 05:15:00",
+   "einstieg_zeit": "2026-11-27 05:15:00",
+   "opened_utc": "2026-11-27T05:16:46",
+   "dist": 26.07,
+   "sim_einstieg": 3639.29,
+   "teile": [
+    {
+     "dealId": "00000000-772c-8c6b-049c-70210015549e",
+     "size": 0.07,
+     "entry": 3639.03,
+     "ziel_nr": 1,
+     "stop": 3612.96,
+     "ziel": 3665.1,
+     "ziel_orig": 3665.1,
+     "offen": true,
+     "exit": null,
+     "grund": null,
+     "closed_utc": null
+    },
+    {
+     "dealId": "00000000-772c-8c7a-049c-70210015549e",
+     "size": 0.14,
+     "entry": 3639.06,
+     "ziel_nr": 2,
+     "stop": 3612.99,
+     "ziel": null,
+     "ziel_orig": null,
+     "offen": true,
+     "exit": null,
+     "grund": null,
+     "closed_utc": null
+    }
+   ],
+   "tp1": false,
+   "einstand": null,
+   "box_ende": null
   }
  ],
  "summe_r": 11.441,
  "trades": 13,
- "stand": "2026-11-27T05:01:41",
- "letzte_kerze": "2026-11-27 03:00:00"
+ "stand": "2026-11-27T05:16:46",
+ "letzte_kerze": "2026-11-27 05:15:00"
 }

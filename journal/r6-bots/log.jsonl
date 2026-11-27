@@ -176,3 +176,4 @@
 {"time": "2026-11-26T23:16:41.212374", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "J225", "UK100", "US100", "US500"]}
 {"time": "2026-11-27T02:01:32.887709", "bot": "r6-vortag-gbpusd", "event": "keine anderen Märkte mehr auf dem Konto"}
 {"time": "2026-11-27T03:16:48.259910", "bot": "r6-london-gbpusd", "event": "andere Märkte auf dem Konto", "maerkte": ["DE40", "GOLD", "J225", "UK100", "US100", "US500"]}
+{"time": "2026-11-27T09:01:39.114619", "bot": "r6-noise-usdjpy", "event": "eröffnet", "entry": 159.476, "dealId": "00000000-772e-2f1e-049c-70750015549e", "side": "long", "bar": "2026-11-27 08:45:00", "size": 1000.0, "risiko_eur": 9.41, "margin_eur": 30.41, "stop_level": null, "stop_dist": 1.646, "ziel_level": null}

@@ -790,21 +790,21 @@
    "seit": "2026-11-20",
    "start": "2026-11-20",
    "ist": {
-    "trades": 6,
+    "trades": 7,
     "gewonnen": 2,
-    "treffer_pct": 33.3,
-    "summe_r": -0.38,
-    "pf_r": 0.91,
-    "eur": -1.7,
-    "rueckgang_r": 4.3
+    "treffer_pct": 28.6,
+    "summe_r": -1.36,
+    "pf_r": 0.74,
+    "eur": -6.6,
+    "rueckgang_r": 5.29
    },
    "einheit": "R",
-   "urteil": "läuft (6 von 40 Trades)",
+   "urteil": "läuft (7 von 40 Trades)",
    "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
    "test": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "6 von 100 Demo-Trades, 7 von 61 Tagen"
+    "text": "7 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {

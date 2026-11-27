@@ -2,10 +2,10 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-27T15:02:38",
+ "stand": "2026-11-27T15:31:53",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
- "status": "Bitcoin: Verkauf offen ab 59035.5, Stop 59821.34, Ziel 57421.83, Ausstieg spätestens 2026-11-28 15:00 UTC. Ether: Verkauf offen ab 1643.59, Stop 1669.07, Ziel 1591.26, Ausstieg spätestens 2026-11-28 15:00 UTC",
+ "status": "Ether: Verkauf offen ab 1643.59, Stop 1669.07, Ziel 1591.26, Ausstieg spätestens 2026-11-28 15:00 UTC",
  "regel": "Bollinger und RSI auf Bitcoin und Ether, umgedreht (Fassung bollinger_umkehr_krypto_weit): Schließt eine Stundenkerze unter dem unteren Bollinger-Band (20, 2) mit RSI 14 unter 30, verkauft der Bot, über dem oberen Band mit RSI über 70 kauft er. Stop 1,5 ATR der Stundenkerzen, Ziel 2 R, Ausstieg spätestens nach 24 Stunden. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
@@ -15,19 +15,6 @@
   "ETHUSD": "Ether"
  },
  "offen": [
-  {
-   "id": "BTCUSD 2026-11-27T15:00",
-   "markt": "BTCUSD",
-   "epic": "BTCUSD",
-   "richtung": -1,
-   "entry": 59035.5,
-   "stop": 59821.34,
-   "ziel": 57421.83,
-   "size": 0.0068,
-   "dist": 799.837005,
-   "opened_utc": "2026-11-27T15:02:38",
-   "bis_utc": "2026-11-28 15:00:00"
-  },
   {
    "id": "ETHUSD 2026-11-27T15:00",
    "markt": "ETHUSD",
@@ -43,22 +30,22 @@
   }
  ],
  "zusammenfassung": {
-  "trades": 6,
-  "pf_r": 0.912,
-  "summe_r": -0.38,
-  "trefferquote": 0.333,
-  "summe_eur": -1.7,
+  "trades": 7,
+  "pf_r": 0.742,
+  "summe_r": -1.36,
+  "trefferquote": 0.286,
+  "summe_eur": -6.6,
   "je_markt": {
    "BTCUSD": {
-    "trades": 3,
-    "summe_r": -0.194
+    "trades": 4,
+    "summe_r": -1.181
    },
    "ETHUSD": {
     "trades": 3,
     "summe_r": -0.184
    }
   },
-  "urteil": "läuft (6 von 40 Trades)"
+  "urteil": "läuft (7 von 40 Trades)"
  },
  "letzte_trades": [
   {
@@ -210,6 +197,31 @@
    "r": -1.088,
    "pnl_waehrung": -5.91,
    "pnl_eur": -5.38
+  },
+  {
+   "id": "BTCUSD 2026-11-27T15:00",
+   "markt": "BTCUSD",
+   "epic": "BTCUSD",
+   "richtung": -1,
+   "grenze": "2026-11-27 15:00:00",
+   "dealId": "00000000-773d-87c6-049c-701d0015549e",
+   "size": 0.0068,
+   "entry": 59035.5,
+   "stop": 59821.34,
+   "ziel": 57421.83,
+   "dist": 799.837005,
+   "opened_utc": "2026-11-27T15:02:38",
+   "spaet_min": 2.6,
+   "seite": "Verkauf",
+   "exit": 59824.55,
+   "grund": "stop",
+   "closed_utc": "2026-11-27T15:24:55",
+   "naechte": 0,
+   "r_roh": -0.987,
+   "gebuehr_r": 0.0,
+   "r": -0.987,
+   "pnl_waehrung": -5.37,
+   "pnl_eur": -4.9
   }
  ],
  "blick": {
@@ -229,24 +241,7 @@
      "atr": 533.22467,
      "dist": 799.837005
     },
-    "signal": {
-     "markt": "BTCUSD",
-     "grenze": "2026-11-27 15:00:00",
-     "richtung": -1,
-     "dist": 799.837005,
-     "ziel_abstand": 1599.67401,
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Verkauf: Schluss unter dem unteren Band, umgedreht",
-     "tage": 40,
-     "schluss": 59114.25,
-     "mitte": 61051.82,
-     "oben": 62298.791493,
-     "unten": 59804.848507,
-     "rsi": 24.989775,
-     "atr": 533.22467
-    },
-    "kurs": 59021.5
+    "kurs": 59704.7
    },
    "ETHUSD": {
     "epic": "ETHUSD",
@@ -262,24 +257,7 @@
      "atr": 17.290961,
      "dist": 25.936441
     },
-    "signal": {
-     "markt": "ETHUSD",
-     "grenze": "2026-11-27 15:00:00",
-     "richtung": -1,
-     "dist": 25.936441,
-     "ziel_abstand": 51.872883,
-     "ok": true,
-     "warten": false,
-     "ergebnis": "Verkauf: Schluss unter dem unteren Band, umgedreht",
-     "tage": 40,
-     "schluss": 1652.14,
-     "mitte": 1712.577,
-     "oben": 1753.279793,
-     "unten": 1671.874207,
-     "rsi": 27.202064,
-     "atr": 17.290961
-    },
-    "kurs": 1643.13
+    "kurs": 1660.02
    }
   }
  }

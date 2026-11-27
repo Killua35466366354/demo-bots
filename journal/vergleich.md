@@ -41,7 +41,7 @@ Diese Bots haben ein festes Konto (suche/mitnutzer.py). Sie stehen nicht in der 
 | Gold-Zonen Bruch | Account 2 | 2026-11-11 | 3 | -3,01 R | 0,00 | -14,57 | läuft (3 von 40 Trades) | suche/VORAB_gold_zonen_bot.yaml | 3 von 100 Demo-Trades, 16 von 61 Tagen |
 | Gold 4-Std.-Ausbruch mit Tagestrend | Account 4 | 2026-11-12 | 5 | +1,62 R | 3,44 | +7,26 | läuft (5 von 40 Trades) | suche/VORAB_gold_ausbruch4h_bot.yaml | 5 von 100 Demo-Trades, 15 von 61 Tagen |
 | 4-Std.-Ausbruch DAX, FTSE, Nikkei | Account 7 | 2026-11-19 | 1 | -0,28 R | 0,00 | -1,39 | läuft (1 von 40 Trades) | suche/VORAB_welt_ausbruch4h_bot.yaml | 1 von 100 Demo-Trades, 8 von 61 Tagen |
-| Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 6 | -0,38 R | 0,91 | -1,70 | läuft (6 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 6 von 100 Demo-Trades, 7 von 61 Tagen |
+| Bollinger Krypto umgedreht | Account 3 | 2026-11-20 | 7 | -1,36 R | 0,74 | -6,60 | läuft (7 von 40 Trades) | suche/VORAB_krypto_bollinger_bot.yaml | 7 von 100 Demo-Trades, 7 von 61 Tagen |
 | Vorhersage-Modell Indizes | Account 6 | 2026-11-20 | 5 | +2,78 R | – | +11,38 | läuft (5 von 40 Trades) | suche/VORAB_modell_indizes_bot.yaml | 5 von 100 Demo-Trades, 7 von 61 Tagen |
 | Tag nach einem VIX-Sprung | Account 5 | 2026-11-20 | 5 | +1,85 R | – | +8,87 | läuft (5 von 40 Trades) | suche/VORAB_vix_sprung_bot.yaml | 5 von 100 Demo-Trades, 7 von 61 Tagen |
 | Williams %R | Account 7 | 2026-11-20 | 2 | +1,14 R | – | +4,37 | läuft (2 von 40 Trades) | suche/VORAB_williams_bot.yaml | 2 von 100 Demo-Trades, 7 von 61 Tagen |

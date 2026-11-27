@@ -14,3 +14,4 @@
 {"time": "2026-11-27T14:31:54", "event": "Trade fertig", "markt": "BTCUSD", "trade": "BTCUSD 2026-11-27T06:00", "seite": "Kauf", "grund": "stop", "r": -1.088, "pnl_eur": -5.38}
 {"time": "2026-11-27T15:02:38", "event": "Verkauf eröffnet", "markt": "BTCUSD", "id": "BTCUSD 2026-11-27T15:00", "dealId": "00000000-773d-87c6-049c-701d0015549e", "size": 0.0068, "entry": 59035.5, "stop": 59821.34, "ziel": 57421.83, "dist": 799.837005, "spaet_min": 2.6}
 {"time": "2026-11-27T15:02:38", "event": "Verkauf eröffnet", "markt": "ETHUSD", "id": "ETHUSD 2026-11-27T15:00", "dealId": "00000000-773d-87dc-049c-701d0015549e", "size": 0.21, "entry": 1643.59, "stop": 1669.07, "ziel": 1591.26, "dist": 25.936441, "spaet_min": 2.6}
+{"time": "2026-11-27T15:31:53", "event": "Trade fertig", "markt": "BTCUSD", "trade": "BTCUSD 2026-11-27T15:00", "seite": "Verkauf", "grund": "stop", "r": -0.987, "pnl_eur": -4.9}

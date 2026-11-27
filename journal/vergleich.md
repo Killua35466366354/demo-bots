@@ -5,7 +5,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | # | Strategie | Gruppe | Demo-Trades | Summe R | Gewinnfaktor | Demo-€ | Soll bisher | Aufstieg |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Gold-Bot C/B | verbessern | 6 | +8,28 | 3,06 | +134,58 | 4,9 Trades, +1,06 R | 6 von 100 Demo-Trades, 24 von 61 Tagen |
-| 2 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 7 | +1,74 | 1,62 | +0,00 | – | Zwilling: 7 von 40 Trades |
+| 2 | Gold Groß-Box, Stop 1,25-fach (Schatten) | zwilling | 8 | +1,96 | 1,70 | +0,00 | – | Zwilling: 8 von 40 Trades |
 | 3 | Trend-Rücksetzer US500 | behalten | 0 | +0,00 | – | +0,00 | 0,9 Trades, +0,19 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 5 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |

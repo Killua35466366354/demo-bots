@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-27",
- "letzter_trade_utc": "2026-11-27T14:45:00",
+ "letzter_trade_utc": "2026-11-27T15:00:00",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -57,11 +57,11 @@
    "konto": "Schatten (keine Order)",
    "seit": "2026-11-20T00:00:00",
    "ist": {
-    "trades": 7,
-    "gewonnen": 4,
-    "treffer_pct": 57.1,
-    "summe_r": 1.74,
-    "pf_r": 1.62,
+    "trades": 8,
+    "gewonnen": 5,
+    "treffer_pct": 62.5,
+    "summe_r": 1.96,
+    "pf_r": 1.7,
     "eur": 0,
     "rueckgang_r": 1.8
    },
@@ -70,14 +70,14 @@
    "bewertung": null,
    "monate": {
     "2026-11": {
-     "trades": 7,
-     "summe_r": 1.75,
+     "trades": 8,
+     "summe_r": 1.97,
      "eur": 0.0
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "Zwilling: 7 von 40 Trades",
+    "text": "Zwilling: 8 von 40 Trades",
     "original": "gold-grossbox"
    },
    "rang": 2

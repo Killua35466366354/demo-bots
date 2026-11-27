@@ -86,10 +86,10 @@
   }
  ],
  "start": "2026-11-02 12:00:00",
- "cursor": "2026-11-27 08:00:00",
- "updated_utc": "2026-11-27T09:11:33+00:00",
+ "cursor": "2026-11-27 09:00:00",
+ "updated_utc": "2026-11-27T10:11:32+00:00",
  "open_detail": null,
- "richtung": -1,
+ "richtung": 0,
  "summary": {
   "trades": 7,
   "win_pct": 71.4,
@@ -108,7 +108,7 @@
  "termine_bis": "2027-12-10 13:30:00",
  "warnungen": [],
  "forexfactory": {
-  "abgerufen_utc": "2026-11-27T09:11:33+00:00",
+  "abgerufen_utc": "2026-11-27T10:11:32+00:00",
   "naechste": [],
   "nicht_in_termine_yaml": [
    "2026-11-25 13:30 Core PCE Price Index m/m",

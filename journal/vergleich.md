@@ -10,7 +10,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 | 4 | Nasdaq Noise Long | behalten | 0 | +0,00 | – | +0,00 | 0,7 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 5 | Trend-Rücksetzer US100 | behalten | 0 | +0,00 | – | +0,00 | 0,8 Trades, +0,08 R | 0 von 100 Demo-Trades, 23 von 61 Tagen |
 | 6 | London GBP/USD | labor | 0 | +0,00 | – | +0,00 | 1,7 Trades, +0,19 R | 0 von 100 Demo-Trades, 22 von 61 Tagen |
-| 7 | Noise USD/JPY | labor | 12 | -0,18 | 0,42 | -1,58 | 8,2 Trades, +0,16 R | 12 von 100 Demo-Trades, 22 von 61 Tagen |
+| 7 | Noise USD/JPY | labor | 13 | -0,19 | 0,40 | -1,69 | 8,2 Trades, +0,16 R | 13 von 100 Demo-Trades, 22 von 61 Tagen |
 | 8 | Trend-Rücksetzer Dow | labor | 1 | -1,00 | 0,00 | -2,12 | 0,7 Trades, +0,06 R | 1 von 100 Demo-Trades, 22 von 61 Tagen |
 | 9 | Gold nur Long (Teil C) | messung | 1 | -1,01 | 0,00 | -19,16 | – | Mess-Zeile: C allein gegen C und B, Urteil mit dem Gold-Bot Ende Januar 2027 (verpasst C-Signale, solange B offen ist) |
 | 10 | Vortag GBP/USD | behalten | 2 | -2,00 | 0,00 | -8,99 | 4,4 Trades, +0,56 R | 2 von 100 Demo-Trades, 23 von 61 Tagen |
@@ -24,7 +24,7 @@ Nur Demokonten. Verglichen wird in R (1 R = Risiko bis zum Stop). Soll = Schnitt
 |---|---|---|---|
 | 2026-11 | 8 | -8,12 | -81 € |
 
-**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 97 Trades, +30,76 R, Gewinnfaktor 1,69. Aufstieg: 97 von 100 Demo-Trades, 24 von 61 Tagen.
+**Gruppe aller Bots (19 feste Mitglieder, davon 1 herausgefallen, suche/VORAB_aufstieg_alle.yaml):** 98 Trades, +30,75 R, Gewinnfaktor 1,69. Aufstieg: 98 von 100 Demo-Trades, 24 von 61 Tagen.
 Aus der Gruppe gefallen: pine-tp3 (Gewinnfaktor 0.52 nach 49 Trades).
 
 ## Auf Kirons Wunsch, außerhalb der Prüfung nach 15 und 40 Trades

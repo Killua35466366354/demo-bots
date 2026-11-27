@@ -1,7 +1,7 @@
 {
  "format": 1,
  "tag": "2026-11-27",
- "letzter_trade_utc": "2026-11-27T02:11:30+00:00",
+ "letzter_trade_utc": "2026-11-27T11:31:35.017678",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
  "regel_aufstieg_vortag": "festgelegt",
@@ -235,20 +235,20 @@
    "konto": "Account 7",
    "seit": "2026-11-05T11:16:36",
    "ist": {
-    "trades": 12,
+    "trades": 13,
     "gewonnen": 5,
-    "treffer_pct": 41.7,
-    "summe_r": -0.18,
-    "pf_r": 0.42,
-    "eur": -1.58,
-    "rueckgang_r": 0.23
+    "treffer_pct": 38.5,
+    "summe_r": -0.19,
+    "pf_r": 0.4,
+    "eur": -1.69,
+    "rueckgang_r": 0.24
    },
    "soll": {
     "wochen": 3.1,
     "trades": 8.2,
     "summe_r": 0.16
    },
-   "abweichung_r": -0.34,
+   "abweichung_r": -0.35,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -257,14 +257,14 @@
    },
    "monate": {
     "2026-11": {
-     "trades": 12,
-     "summe_r": -0.18,
-     "eur": -1.58
+     "trades": 13,
+     "summe_r": -0.19,
+     "eur": -1.69
     }
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "12 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "13 von 100 Demo-Trades, 22 von 61 Tagen"
    },
    "rang": 7
   },
@@ -560,34 +560,34 @@
    }
   ],
   "ist": {
-   "trades": 97,
+   "trades": 98,
    "gewonnen": 43,
-   "treffer_pct": 44.3,
-   "summe_r": 30.76,
+   "treffer_pct": 43.9,
+   "summe_r": 30.75,
    "pf_r": 1.69,
-   "eur": 232.6,
+   "eur": 232.49,
    "rueckgang_r": 13.49
   },
   "monate": {
    "2026-11": {
-    "trades": 97,
-    "summe_r": 30.77,
-    "eur": 232.6
+    "trades": 98,
+    "summe_r": 30.76,
+    "eur": 232.49
    }
   },
   "bestes": "gold",
   "ohne_bestes": {
-   "trades": 25,
+   "trades": 26,
    "gewonnen": 6,
-   "treffer_pct": 24.0,
-   "summe_r": -12.0,
+   "treffer_pct": 23.1,
+   "summe_r": -12.01,
    "pf_r": 0.04,
-   "eur": -52.93,
-   "rueckgang_r": 12.05
+   "eur": -53.04,
+   "rueckgang_r": 12.07
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "97 von 100 Demo-Trades, 24 von 61 Tagen"
+   "text": "98 von 100 Demo-Trades, 24 von 61 Tagen"
   }
  },
  "wunsch": [

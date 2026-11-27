@@ -4,21 +4,21 @@
  "epic": "J225",
  "konto": "…5310",
  "konto_name": "Account 1",
- "stand": "2026-11-27T05:58:40",
+ "stand": "2026-11-27T06:03:38",
  "start": "2026-11-10T12:43:38",
  "regel": "30 Min. vor Schluss (15:00 Uhr Tokio) gegen die Bewegung seit dem Vortagsschluss, ohne Stop, raus um 15:30 Uhr Tokio. Nur wenn der Kurs auf der Seite des Wochen-Opens liegt (Long darüber, Short darunter). Kleinste Größe.",
  "vorab": "suche/VORAB_scalping_opens.yaml",
  "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe",
  "offen": null,
  "letzte_entscheidung": {
-  "zeit": "2026-11-26T06:03:28",
-  "tag": "2026-11-26",
+  "zeit": "2026-11-27T06:03:38",
+  "tag": "2026-11-27",
   "action": "none",
-  "why": "Filter: Kurs 57770.4 nicht auf der Short-Seite des woche-Opens 55097.3",
+  "why": "Filter: Kurs 58674.7 nicht auf der Short-Seite des woche-Opens 55097.3",
   "opens": {
    "woche": 55097.3
   },
-  "kurs_filter": 57770.4
+  "kurs_filter": 58674.7
  },
  "zusammenfassung": {
   "trades": 5,

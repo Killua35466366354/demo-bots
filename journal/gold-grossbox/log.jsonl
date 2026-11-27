@@ -546,3 +546,4 @@
 {"time": "2026-11-25T18:01:45", "event": "Trade fertig", "trade": "2026-11-24T14:00", "seite": "Verkauf", "r": 1.934, "pnl_eur": 8.76}
 {"time": "2026-11-25T18:01:45", "event": "Trade fertig", "trade": "2026-11-24T15:15", "seite": "Verkauf", "r": 1.797, "pnl_eur": 8.16}
 {"time": "2026-11-25T18:01:45", "event": "Trade fertig", "trade": "2026-11-24T18:45", "seite": "Verkauf", "r": 1.069, "pnl_eur": 4.92}
+{"time": "2026-11-27T03:01:44", "event": "Kauf eröffnet", "seite": "Kauf", "art": "a", "kerze": "2026-11-27 03:00:00", "signal": "2026-11-27 03:00:00", "dist": 59.8, "teile": [{"dealId": "00000000-772b-de07-049c-70210015549e", "size": 0.03, "entry": 3636.12, "stop": 3576.32, "ziel": 3695.92}, {"dealId": "00000000-772b-de17-049c-70210015549e", "size": 0.06, "entry": 3636.07, "stop": 3576.27, "ziel": null}]}

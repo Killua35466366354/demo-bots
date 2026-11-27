@@ -6,29 +6,47 @@
  "maerkte": {
   "GRXEUR": {
    "trade": null,
-   "letzte_grenze": "2026-11-26 23:00:00",
+   "letzte_grenze": "2026-11-27 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-26 23:00:00",
-    "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+    "grenze": "2026-11-27 03:00:00",
+    "ergebnis": "kein Ausbruch",
+    "richtung": 0,
+    "schluss": 25360.2,
+    "hoch_davor": 25458.1,
+    "tief_davor": 24679.1,
+    "trend": null,
+    "dist": null
    }
   },
   "UKXGBP": {
    "trade": null,
-   "letzte_grenze": "2026-11-26 23:00:00",
+   "letzte_grenze": "2026-11-27 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-26 23:00:00",
-    "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+    "grenze": "2026-11-27 03:00:00",
+    "ergebnis": "Kauf-Ausbruch gegen den Tagestrend",
+    "richtung": 1,
+    "schluss": 10641.9,
+    "hoch_davor": 10636.2,
+    "tief_davor": 10414.0,
+    "trend": false,
+    "dist": null
    }
   },
   "JPXJPY": {
    "trade": null,
-   "letzte_grenze": "2026-11-26 23:00:00",
+   "letzte_grenze": "2026-11-27 03:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-26 23:00:00",
-    "ergebnis": "Sperre zur ersten Minute nach der Kerze (Handelspause oder Termin)"
+    "grenze": "2026-11-27 03:00:00",
+    "ergebnis": "kein Ausbruch",
+    "richtung": 0,
+    "schluss": 58274.7,
+    "hoch_davor": 59283.3,
+    "tief_davor": 55390.4,
+    "trend": null,
+    "dist": null
    },
    "letzter_schluss": "2026-11-23T11:01:53"
   }
  },
- "stand": "2026-11-26T23:01:50"
+ "stand": "2026-11-27T03:01:53"
 }

@@ -7,7 +7,9 @@
   "2026-11-20 18:15:00",
   "2026-11-24 14:00:00",
   "2026-11-24 15:15:00",
-  "2026-11-24 18:45:00"
+  "2026-11-24 18:45:00",
+  "2026-11-27 05:15:00",
+  "2026-11-27 08:15:00"
  ],
  "trades": [
   {
@@ -152,6 +154,62 @@
    "closed_utc": "2026-11-25T18:00:00",
    "r": 1.022,
    "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-27T05:15:00",
+   "art": "c",
+   "richtung": 1,
+   "seite": "Kauf",
+   "signal": "2026-11-27 05:15:00",
+   "opened_utc": "2026-11-27T05:15:00",
+   "entry": 3638.96,
+   "stop": 3606.37,
+   "tp1": 3671.55,
+   "dist": 32.59,
+   "teile": [
+    {
+     "grund": "tp1",
+     "px": 3671.55,
+     "zeit": "2026-11-27 08:15:00",
+     "anteil": 0.333
+    },
+    {
+     "grund": "einstand",
+     "px": 3638.96,
+     "zeit": "2026-11-27 14:00:00",
+     "anteil": 0.667
+    }
+   ],
+   "grund": "einstand",
+   "closed_utc": "2026-11-27T14:15:00",
+   "r": 0.333,
+   "schatten": true
+  },
+  {
+   "bot": "gold-grossbox-weiter125",
+   "id": "2026-11-27T08:15:00",
+   "art": "c",
+   "richtung": 1,
+   "seite": "Kauf",
+   "signal": "2026-11-27 08:15:00",
+   "opened_utc": "2026-11-27T08:15:00",
+   "entry": 3670.05,
+   "stop": 3632.07,
+   "tp1": 3708.03,
+   "dist": 37.98,
+   "teile": [
+    {
+     "grund": "stop",
+     "px": 3632.07,
+     "zeit": "2026-11-27 14:30:00",
+     "anteil": 1.0
+    }
+   ],
+   "grund": "stop",
+   "closed_utc": "2026-11-27T14:45:00",
+   "r": -1.0,
+   "schatten": true
   }
  ],
  "offen": [
@@ -167,68 +225,27 @@
    "tp3": null,
    "r_usd": 63.43,
    "teile": [],
-   "ergebnis_r": 0.328,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  },
-  {
-   "signal": "2026-11-27 05:15:00",
-   "einstieg_zeit": "2026-11-27 05:15:00",
-   "richtung": 1,
-   "art": "c",
-   "einstieg": 3638.96,
-   "stop": 3606.37,
-   "tp1": 3671.55,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 32.59,
-   "teile": [
-    {
-     "grund": "tp1",
-     "px": 3671.55,
-     "zeit": "2026-11-27 08:15:00",
-     "anteil": 0.333
-    }
-   ],
-   "ergebnis_r": 0.436,
-   "grund": "offen",
-   "ende": null,
-   "offen": true
-  },
-  {
-   "signal": "2026-11-27 08:15:00",
-   "einstieg_zeit": "2026-11-27 08:15:00",
-   "richtung": 1,
-   "art": "c",
-   "einstieg": 3670.05,
-   "stop": 3632.07,
-   "tp1": 3708.03,
-   "tp2": null,
-   "tp3": null,
-   "r_usd": 37.98,
-   "teile": [],
-   "ergebnis_r": -0.687,
+   "ergebnis_r": 0.215,
    "grund": "offen",
    "ende": null,
    "offen": true
   }
  ],
- "letzte_kerze": "2026-11-27 13:45:00",
- "stand": "2026-11-27T14:11:33+00:00",
- "summe_r": 2.41,
+ "letzte_kerze": "2026-11-27 14:45:00",
+ "stand": "2026-11-27T15:11:34+00:00",
+ "summe_r": 1.743,
  "zwilling": {
   "status": "sammelt",
-  "text": "Zwilling: 5 von 40 Trades",
+  "text": "Zwilling: 7 von 40 Trades",
   "zwilling": {
-   "trades": 5,
-   "pf": 2.337,
-   "summe_r": 2.41
+   "trades": 7,
+   "pf": 1.622,
+   "summe_r": 1.74
   },
   "original": {
-   "trades": 8,
-   "pf": 3.572,
-   "summe_r": 7.73
+   "trades": 9,
+   "pf": 3.51,
+   "summe_r": 7.68
   }
  },
  "neue_trades": true

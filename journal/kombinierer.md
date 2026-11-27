@@ -1,4 +1,4 @@
-# Kombinierer, Stand 2026-11-26
+# Kombinierer, Stand 2026-11-27
 
 Alle Demo-Bots zusammen als ein Konto mit 1.000 € und 10 € Risiko je Trade stehen bei +314 € nach 95 Trades. Mit den Regeln eines echten Kontos (höchstens 3 offene Trades, einer je Markt) hätte es 42 davon genommen und +33 € gebracht. Mit Margin-Ampel (höchstens 30 % des Kontos als Sicherheitsgeld gebunden) wären es 34 Trades und +101 € gewesen.
 
@@ -26,15 +26,15 @@ Ein Konto, ein Topf von 1.000 €, jeder Trade riskiert 10 € (1 R). Die Regeln
 
 ## Gold-Duo doppelt (Zählung ohne Order)
 
-Das Gold-Duo mit doppeltem Einsatz steht nach 6 Trades und 1 Tag bei −82 € auf einem gedachten Konto mit 1.000 €. Der größte Rückgang war −82 €, das Urteil heißt sammelt.
+Das Gold-Duo mit doppeltem Einsatz steht nach 6 Trades und 2 Tagen bei −82 € auf einem gedachten Konto mit 1.000 €. Der größte Rückgang war −82 €, das Urteil heißt sammelt.
 
 Gold-Bot C/B und Pine-K5 zusammen auf einem gedachten Konto mit 1.000 €, jeder Trade mit der doppelten Größe des Demo-Trades. Gezählt wird ab dem 25.11.2026 um 08.00 Uhr UTC. Ein Trade zählt nur, wenn sein Sicherheitsgeld noch auf das Konto passt. Liegt das Konto 30 % unter seinem Höchststand, ist die Zählung beendet. Die Regeln stehen in suche/VORAB_gold_duo_doppelt.yaml. Nur Demokonten, nur Auskunft, kein Bot liest diese Zahlen.
 
 | Trades gezählt | verpasst | noch offen | Summe | Kontostand | größter Rückgang | größtes Sicherheitsgeld | Gewinnfaktor | Tage | Urteil |
 |---|---|---|---|---|---|---|---|---|---|
-| 6 | – | 1 | −82 € | 918 € | −82 € | 740 € | 0,00 | 1 von 61 | sammelt |
+| 6 | – | 1 | −82 € | 918 € | −82 € | 740 € | 0,00 | 2 von 61 | sammelt |
 
-Stand des Urteils. 6 von 100 Trades, 1 von 61 Tagen.
+Stand des Urteils. 6 von 100 Trades, 2 von 61 Tagen.
 
 | Monat | Trades | Summe | Rendite pro Monat |
 |---|---|---|---|

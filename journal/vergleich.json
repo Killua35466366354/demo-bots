@@ -1,6 +1,6 @@
 {
  "format": 1,
- "tag": "2026-11-26",
+ "tag": "2026-11-27",
  "letzter_trade_utc": "2026-11-26T03:11:24+00:00",
  "regel_aufstieg": "festgelegt",
  "regel_aufstieg_alle": "festgelegt",
@@ -24,11 +24,11 @@
     "rueckgang_r": 1.01
    },
    "soll": {
-    "wochen": 3.2,
-    "trades": 4.7,
-    "summe_r": 1.01
+    "wochen": 3.4,
+    "trades": 4.9,
+    "summe_r": 1.06
    },
-   "abweichung_r": 8.28,
+   "abweichung_r": 8.23,
    "bewertung": {
     "rang": 12,
     "pf": 1.171,
@@ -44,7 +44,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 23 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 24 von 61 Tagen"
    },
    "rang": 1
   },
@@ -100,11 +100,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 3.1,
-    "trades": 0.8,
-    "summe_r": 0.18
+    "wochen": 3.3,
+    "trades": 0.9,
+    "summe_r": 0.19
    },
-   "abweichung_r": -0.18,
+   "abweichung_r": -0.19,
    "bewertung": {
     "rang": 1,
     "pf": 5.821,
@@ -114,7 +114,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "0 von 100 Demo-Trades, 23 von 61 Tagen"
    },
    "rang": 3
   },
@@ -136,11 +136,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 3.1,
-    "trades": 0.6,
-    "summe_r": 0.07
+    "wochen": 3.2,
+    "trades": 0.7,
+    "summe_r": 0.08
    },
-   "abweichung_r": -0.07,
+   "abweichung_r": -0.08,
    "bewertung": {
     "rang": 2,
     "pf": 3.537,
@@ -150,7 +150,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "0 von 100 Demo-Trades, 23 von 61 Tagen"
    },
    "rang": 4
   },
@@ -172,11 +172,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 3.1,
-    "trades": 0.7,
-    "summe_r": 0.07
+    "wochen": 3.2,
+    "trades": 0.8,
+    "summe_r": 0.08
    },
-   "abweichung_r": -0.07,
+   "abweichung_r": -0.08,
    "bewertung": {
     "rang": 3,
     "pf": 1.91,
@@ -186,7 +186,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "0 von 100 Demo-Trades, 23 von 61 Tagen"
    },
    "rang": 5
   },
@@ -208,11 +208,11 @@
     "rueckgang_r": 0.0
    },
    "soll": {
-    "wochen": 2.9,
-    "trades": 1.6,
-    "summe_r": 0.18
+    "wochen": 3.1,
+    "trades": 1.7,
+    "summe_r": 0.19
    },
-   "abweichung_r": -0.18,
+   "abweichung_r": -0.19,
    "bewertung": {
     "rang": 7,
     "pf": 1.448,
@@ -222,7 +222,7 @@
    "monate": {},
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 21 von 61 Tagen"
+    "text": "0 von 100 Demo-Trades, 22 von 61 Tagen"
    },
    "rang": 6
   },
@@ -244,11 +244,11 @@
     "rueckgang_r": 0.23
    },
    "soll": {
-    "wochen": 2.9,
-    "trades": 7.8,
-    "summe_r": 0.15
+    "wochen": 3.1,
+    "trades": 8.2,
+    "summe_r": 0.16
    },
-   "abweichung_r": -0.33,
+   "abweichung_r": -0.34,
    "bewertung": {
     "rang": 8,
     "pf": 1.389,
@@ -264,7 +264,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "12 von 100 Demo-Trades, 21 von 61 Tagen"
+    "text": "12 von 100 Demo-Trades, 22 von 61 Tagen"
    },
    "rang": 7
   },
@@ -286,7 +286,7 @@
     "rueckgang_r": 1.0
    },
    "soll": {
-    "wochen": 2.9,
+    "wochen": 3.1,
     "trades": 0.7,
     "summe_r": 0.06
    },
@@ -306,7 +306,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "1 von 100 Demo-Trades, 21 von 61 Tagen"
+    "text": "1 von 100 Demo-Trades, 22 von 61 Tagen"
    },
    "rang": 8
   },
@@ -361,11 +361,11 @@
     "rueckgang_r": 2.0
    },
    "soll": {
-    "wochen": 3.1,
-    "trades": 4.2,
-    "summe_r": 0.53
+    "wochen": 3.2,
+    "trades": 4.4,
+    "summe_r": 0.56
    },
-   "abweichung_r": -2.53,
+   "abweichung_r": -2.56,
    "bewertung": {
     "rang": 9,
     "pf": 1.215,
@@ -381,7 +381,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "2 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "2 von 100 Demo-Trades, 23 von 61 Tagen"
    },
    "rang": 10
   },
@@ -436,11 +436,11 @@
     "rueckgang_r": 2.04
    },
    "soll": {
-    "wochen": 3.1,
-    "trades": 4.3,
-    "summe_r": 1.37
+    "wochen": 3.2,
+    "trades": 4.5,
+    "summe_r": 1.44
    },
-   "abweichung_r": -3.41,
+   "abweichung_r": -3.48,
    "bewertung": {
     "rang": 4,
     "pf": 1.671,
@@ -456,7 +456,7 @@
    },
    "aufstieg": {
     "status": "sammelt",
-    "text": "2 von 100 Demo-Trades, 22 von 61 Tagen"
+    "text": "2 von 100 Demo-Trades, 23 von 61 Tagen"
    },
    "rang": 12
   },
@@ -523,12 +523,12 @@
    }
   },
   "soll": {
-   "trades": 10.6,
-   "summe_r": 2.22
+   "trades": 11.3,
+   "summe_r": 2.35
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "8 von 100 Demo-Trades, 22 von 61 Tagen"
+   "text": "8 von 100 Demo-Trades, 23 von 61 Tagen"
   }
  },
  "gruppe": {
@@ -587,7 +587,7 @@
   },
   "aufstieg": {
    "status": "sammelt",
-   "text": "95 von 100 Demo-Trades, 23 von 61 Tagen"
+   "text": "95 von 100 Demo-Trades, 24 von 61 Tagen"
   }
  },
  "wunsch": [
@@ -612,7 +612,7 @@
    "test": "PF 2,06, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,11, schlägt 99 % der Zufallsläufe",
    "aufstieg": {
     "status": "sammelt",
-    "text": "1 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "1 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   },
   {
@@ -636,7 +636,7 @@
    "test": "PF 1,63, 123 Trades in 2 Jahren (1,2 je Woche), Kontrolle 2022-24 1,13, schlägt 90,5 % der Zufallsläufe",
    "aufstieg": {
     "status": "sammelt",
-    "text": "3 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "3 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   },
   {
@@ -660,7 +660,7 @@
    "test": "PF 1,53, 174 Trades in 2 Jahren (1,7 je Woche), Kontrolle 2022-24 nur 0,69, schlägt 100 % der Zufallsläufe",
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   },
   {
@@ -684,7 +684,7 @@
    "test": "Rechnung 2023-25 nur als Auskunft: +32,1 R statt +109,7 R beim Gold-Bot (GF 1,25 statt 1,69), 2026 -7,8 R statt +8,0 R, 2015-22 -99,6 R statt -199,5 R. Mit Abfänger 2023-25 +6,8 R (GF 1,07), 2026 -7,4 R. Geht auf Kirons Wunsch trotzdem live (Vergleich nach 40 Trades).",
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   },
   {
@@ -708,7 +708,7 @@
    "test": "Bewertung 2024-26: 11/2024 bis 10/2026 945 Trades (9,1 je Woche), GF 1,21, +93 R, 1,5x Spread 1,15, Zufall 95,5 %. Größter Rückgang 76,7 R, 53 % der Wochen im Minus. 2024-26 war ein starker Gold-Aufwärtstrend.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "13 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "13 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   },
   {
@@ -732,7 +732,7 @@
    "test": "Test DURCHGEFALLEN (suche/ergebnis_gold_zonen.md): 2024 bis 2026 182 Trades (1,23 je Woche), GF 1,51, +68,0 R, Zufall nur 78,2 % (nötig 95 %). Trefferquote etwa 15 %, größter Rückgang 33,2 R, Shorts im Minus (GF 0,81). 2015 bis 2023 GF 0,90. Läuft auf Kirons Wunsch als Vorwärtstest.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "3 von 100 Demo-Trades, 15 von 61 Tagen"
+    "text": "3 von 100 Demo-Trades, 16 von 61 Tagen"
    }
   },
   {
@@ -756,7 +756,7 @@
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_gold_matrix.md): 2024 bis 2026 153 Trades (1,04 je Woche), GF 2,35, +22,9 R, Trefferquote 62 %, beide Hälften über 2, alle 306 Zufallsläufe geschlagen, aber nur 2,93 statt 3 Standardabweichungen über dem Zufall. 2016 bis 2023 GF 0,83. Im Schnitt +0,15 R je Trade.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 14 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 15 von 61 Tagen"
    }
   },
   {
@@ -780,7 +780,7 @@
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_notizen_runde.md): 2024 bis 2026 393 Trades (etwa 2,7 je Woche), Gewinnfaktor 1,30, 2026 1,66, aber nur 2,26 statt 3 Standardabweichungen über dem Zufall. Dieselbe Regel ohne Ziel war am 18.11. mit 1,24 schon knapp (suche/ergebnis_rueckblick.md).",
    "aufstieg": {
     "status": "sammelt",
-    "text": "1 von 100 Demo-Trades, 7 von 61 Tagen"
+    "text": "1 von 100 Demo-Trades, 8 von 61 Tagen"
    }
   },
   {
@@ -804,7 +804,7 @@
    "test": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "4 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "4 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {
@@ -828,7 +828,7 @@
    "test": "Test NICHT bestanden, Kandidat (suche/ergebnis_grosse_runde.md): 2024 bis 2026 1.874 Trades (etwa 12,7 je Woche), Gewinnfaktor 1,21, mit 1,5-fachen Kosten 1,16, Hälften 1,09 und 1,34, 2026 1,27, aber z 1,89 statt 3 und ohne Holm. Vor 2024 Gewinnfaktor 0,94. Fast nur Käufe. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 13 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {
@@ -852,7 +852,7 @@
    "test": "Test NICHT bestanden. US500 und US100 (vix_sprung_us, suche/ergebnis_grosse_runde.md): Kandidat, 136 Trades, Gewinnfaktor 1,93, 2026 2,45, z 2,17 statt 3, ohne Holm, vor 2024 1,13. DAX, FTSE und Nikkei (vix_sprung_welt, suche/ergebnis_grosse_runde2.md): durchgefallen, 204 Trades, Gewinnfaktor 1,41, erste Hälfte 0,96. Zusammen 340 Trades an 68 Tagen (2024 bis Oktober 2026), Gewinnfaktor 1,60. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 4,90 € im Monat. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "5 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "5 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {
@@ -876,7 +876,7 @@
    "test": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 77 Trades (etwa 2 im Monat), Gewinnfaktor 2,66, mit 1,5-fachen Kosten 2,65, Hälften 2,39 und 3,28, 2026 1,75, 81 % Treffer, Holm erfüllt, aber unter 100 Trades und z 2,35 statt 3. US500 4,21 (41 Trades), US100 1,82 (36). Vor 2024 327 Trades, Gewinnfaktor 1,51. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 3,90 € im Monat. Bei 47 von 77 Trades kaufte auch der US500-Rücksetzer. Kirons Wunsch vom 20.11.2026: weitere Fassungen mit etwas mehr Gewinn live testen.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "2 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "2 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {
@@ -900,7 +900,7 @@
    "test": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "3 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "3 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {
@@ -924,7 +924,7 @@
    "test": "Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +38,2 € im Monat (5,5 % Rendite pro Monat), 2 von 10 Monaten im Minus. November 2024 bis Oktober 2026 6,0 % im Monat, schlimmster Rückgang 5,8 %. 84 % des Gewinns kamen von den Scalpern, deren Test durchgefallen ist.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "6 von 100 Demo-Trades, 6 von 61 Tagen"
+    "text": "6 von 100 Demo-Trades, 7 von 61 Tagen"
    }
   },
   {
@@ -948,7 +948,7 @@
    "test": "Backtest (Auskunft, an denselben Monaten ausgesucht): 2026 mit eigenen 700 € +25,4 € im Monat (3,6 % Rendite pro Monat), 5 von 10 Monaten im Minus. November 2024 bis Oktober 2026 4,8 % im Monat, schlimmster Rückgang 14,9 %. 198 Käufe brachten +109 R, 159 Verkäufe +9 R.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 0 von 61 Tagen"
+    "text": "0 von 100 Demo-Trades, 1 von 61 Tagen"
    }
   },
   {
@@ -972,7 +972,7 @@
    "test": "Rückblick (Auskunft, an denselben Monaten ausgesucht, jeder Trade 0,1 R schlechter): Start 01.01.2026 mit 1.000 € Ende Oktober 2.309 €, schlimmster Rückgang 33 %. Start 01.11.2024 Ende Oktober 2026 11.112 €, Rückgang 50 %.",
    "aufstieg": {
     "status": "sammelt",
-    "text": "0 von 100 Demo-Trades, 0 von 61 Tagen"
+    "text": "0 von 100 Demo-Trades, 1 von 61 Tagen"
    }
   },
   {
@@ -996,7 +996,7 @@
    "test": "nicht bestanden (Gewinnfaktor 1,09 mit Hedging, Termin-Pause und Hintergrund, Kontrolle 2022-24 0,76)",
    "aufstieg": {
     "status": "sammelt",
-    "text": "39 von 100 Demo-Trades, 16 von 61 Tagen"
+    "text": "39 von 100 Demo-Trades, 17 von 61 Tagen"
    }
   }
  ],

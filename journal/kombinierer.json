@@ -1,6 +1,6 @@
 {
  "format": 1,
- "tag": "2026-11-26",
+ "tag": "2026-11-27",
  "topf_eur": 1000,
  "eur_je_r": 10.0,
  "regeln": {
@@ -268,7 +268,7 @@
   "start_utc": "2026-11-25T08:00:00",
   "topf_eur": 1000,
   "einsatz_faktor": 2,
-  "tage": 1,
+  "tage": 2,
   "regel": {
    "ab_trades": 100,
    "mindestens_tage": 61,
@@ -320,8 +320,8 @@
   "bremse_seit": null,
   "urteil": {
    "status": "sammelt",
-   "text": "6 von 100 Trades, 1 von 61 Tagen"
+   "text": "6 von 100 Trades, 2 von 61 Tagen"
   },
-  "satz": "Das Gold-Duo mit doppeltem Einsatz steht nach 6 Trades und 1 Tag bei −82 € auf einem gedachten Konto mit 1.000 €. Der größte Rückgang war −82 €, das Urteil heißt sammelt."
+  "satz": "Das Gold-Duo mit doppeltem Einsatz steht nach 6 Trades und 2 Tagen bei −82 € auf einem gedachten Konto mit 1.000 €. Der größte Rückgang war −82 €, das Urteil heißt sammelt."
  }
 }

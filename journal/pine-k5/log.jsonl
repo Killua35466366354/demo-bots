@@ -454,3 +454,7 @@
 {"time": "2026-11-27T14:48:33", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold: Abfänger übernimmt", "gesendet": true}
 {"time": "2026-11-27T14:48:33", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-773b-889e-049c-701f0015549e", "stopLevel": 3624.66, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
 {"time": "2026-11-27T14:53:29", "bot": "pine-k5", "event": "Abfänger gesetzt", "dealId": "00000000-773b-889e-049c-701f0015549e", "stopLevel": 3635.93, "warum": "nachziehen (0,5 R hinter dem besten Kurs)"}
+{"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "Abfänger schließt", "dealId": "00000000-773b-889e-049c-701f0015549e", "kurs": 3638.59, "bestes": 3645.51}
+{"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG geschlossen", "gesendet": true}
+{"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "eröffnet", "richtung": 1, "kerze": "2026-11-27 14:50:00", "strategie": "A Long", "hintergrund": {"richtung": 0, "tag": 3567.66, "sma50": 3985.56, "h4": 3673.44, "ema50": 3651.28}, "lage": "Hintergrund: uneinig, Short und Long erlaubt.", "dealId": "00000000-773d-7556-049c-701f0015549e", "size": 0.25, "entry": 3638.49, "tp": null}
+{"time": "2026-11-27T14:58:26", "bot": "pine-k5", "event": "Nachricht", "titel": "Pine-Gold LONG eröffnet", "gesendet": true}

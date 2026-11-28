@@ -56,6 +56,7 @@ from pathlib import Path
 import pandas as pd
 
 from gold.bot.konten import HAUPT_ENDUNG  # Hauptkonto des Gold-Bots, hier nie handeln
+from suche import schluss as belegt_pruefung
 
 ROOT = Path(__file__).resolve().parents[1]
 J = ROOT / "journal"
@@ -482,10 +483,17 @@ class Lauf:
         if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
             self.ev("schließen abgelehnt", dealId=k["dealId"], warum=warum, grund=(conf or {}).get("reason"))
             return
-        level = _num((conf or {}).get("level"))
-        if level is None:
+        try:
             q = self.quote(k["epic"])
-            level = q.bid if int(k["richtung"]) > 0 else q.offer
+            kurs = q.bid if int(k["richtung"]) > 0 else q.offer
+        except Exception as err:            # noqa: BLE001 - dann zählt nur, ob die Position weg ist
+            print(f"Kurs {k['epic']} nach dem Schluss nicht lesbar: {err}")
+            kurs = None
+        abstand = abs(float(k["entry"]) - float(k["stop_start"])) if k.get("stop_start") is not None else None
+        level, offen = belegt_pruefung.belegt(self.client, conf, k["dealId"], kurs, abstand)
+        if level is None:                   # nichts buchen: der nächste Lauf schließt wieder oder liest den Schlusskurs
+            self.ev("Schluss nicht belegt", dealId=k["dealId"], warum=warum, **offen)
+            return
         self.buche(k, level, warum, self.now)
 
     def angleichen(self, k: dict, stop: float | None, ziel: float | None) -> None:

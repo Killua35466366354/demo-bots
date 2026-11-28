@@ -193,6 +193,10 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 - Einstieg ab 18:00 New York höchstens 20 Minuten nach dem ersten Kurs des Brokers, Stop 2 ATR beim Broker, kein Ziel,
   Ausstieg im ersten Lauf ab 15:40 New York. Höchstens ein Trade je Markt, eine gescheiterte Order wird nie
   wiederholt. Liegt eine fremde Position auf seinem Markt, öffnet er dort nichts.
+- Am 27.11.2026 20:46 UTC bestätigte Capital.com den Zeitausstieg von US500 mit dem Kurs 0,24, die Position blieb
+  offen. Der Bot buchte -19,69 R und hielt sie danach für fremd. Seitdem führt er eine gebuchte Position, die noch offen
+  liegt, wieder als seinen Trade (`wieder_fuehren`) und schließt sie im ersten Lauf mit offenem Markt. Die falsche
+  Buchung steht danach in `journal/modell-indizes/storniert.jsonl`.
 
 ## Tag nach einem VIX-Sprung
 
@@ -354,6 +358,10 @@ Gruppen (Stand 11.11.2026, 20 Bots):
 ## Arbeiten im Repo
 
 - Tests: `python -m pytest -p no:warnings`. Vor jedem Push lokal grün.
+- Ein Schluss zum Markt wird nur mit Beleg gebucht (`suche/schluss.py`): Die Position steht nicht mehr in der
+  Liste des Kontos, und der bestätigte Kurs liegt höchstens einen Stop-Abstand vom Kurs des Laufs. Sonst bucht der
+  Bot nichts und schließt im nächsten Lauf wieder oder liest den Kurs aus der Kontoaktivität. So arbeiten die Bots
+  mit Zeit-Ausstieg seit 19.11.2026 und die drei Kopierer.
 - PR als Entwurf, bis der letzte Push drin ist. Möglichst ein gebündelter PR.
 - Kiron merged erst, wenn der grüne Haken da ist. Zeigt GitHub "Resolve conflicts", wartet er und schreibt dem Thread.
 - Kursdaten liegen nicht im Repo, sondern im Projektordner `strategie-suche/daten/` (5-Minuten-Kerzen, Bid, UTC).

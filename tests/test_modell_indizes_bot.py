@@ -484,6 +484,99 @@ def test_stop_beim_broker_wird_gebucht_und_sonst_nach_einer_stunde_geschaetzt(w)
     assert fertig[0]["grund"] == "stop" and fertig[0]["exit_geschaetzt"] and us(st3)["trade"] is None
 
 
+def test_schluss_ohne_beleg_wird_nicht_gebucht_und_im_naechsten_lauf_wiederholt(w):
+    """27.11.2026: Capital.com bestätigte den Zeitausstieg von US500 mit dem Kurs 0,24, die Position blieb offen."""
+    tag = w.lang[0]
+    t_e = einstieg(w, tag)
+    k = Konto(w, bid=kurs_um(w, t_e))
+    st, _, _, _ = lauf(w, k, {}, t_e + MIN)
+    tr = us(st)["trade"]
+    bis = pd.Timestamp(tr["bis_utc"])
+    echt = k.close_position
+    k.close_position = lambda deal_id: (k.calls.append(("DELETE", deal_id)) or {"dealStatus": "ACCEPTED", "level": 0.24})
+    st, log, fertig, _ = lauf(w, k, st, bis - 14 * MIN)
+    assert not fertig and st["trades"] == 0 and us(st)["trade"]["dealId"] == tr["dealId"]
+    ev = [e for e in log if e["event"] == "Schluss nicht belegt"][0]
+    assert ev["kurs_bestaetigt"] == 0.24 and ev["noch_offen"] is True and ev["kurs_lauf"] == k.bid
+    assert not us(st).get("fremd")                                                # bleibt sein eigener Trade
+    k.close_position = echt
+    st, _, fertig, _ = lauf(w, k, st, bis - MIN)                                  # nächster Lauf schließt wieder
+    assert fertig[0]["grund"] == "zeit" and fertig[0]["exit"] == k.bid and us(st)["trade"] is None
+    assert fertig[0]["r_roh"] == pytest.approx((k.bid - tr["entry"]) / tr["dist"], abs=1e-3)
+
+
+def test_schluss_mit_falschem_kurs_liest_den_kurs_aus_der_kontoaktivitaet(w):
+    tag = w.lang[0]
+    t_e = einstieg(w, tag)
+    k = Konto(w, bid=kurs_um(w, t_e))
+    st, _, _, _ = lauf(w, k, {}, t_e + MIN)
+    tr = us(st)["trade"]
+    bis = pd.Timestamp(tr["bis_utc"])
+    k.close_position = lambda deal_id: (k.pos.pop(deal_id) and {"dealStatus": "ACCEPTED", "level": 0.24})
+    st, log, fertig, _ = lauf(w, k, st, bis - 14 * MIN)                           # zu, aber mit falschem Kurs
+    assert not fertig and [e for e in log if e["event"] == "Schluss nicht belegt"][0]["noch_offen"] is False
+    k.acts[tr["dealId"]] = [{"dateUTC": (bis - 14 * MIN).strftime("%Y-%m-%dT%H:%M:%S"), "source": "USER",
+                             "type": "POSITION", "status": "ACCEPTED",
+                             "details": {"level": k.bid, "actions": [{"actionType": "POSITION_CLOSED"}]}}]
+    st, _, fertig, _ = lauf(w, k, st, bis + MIN)
+    assert fertig[0]["grund"] == "zeit" and fertig[0]["exit"] == k.bid and "exit_geschaetzt" not in fertig[0]
+
+
+def test_falsch_gebuchte_offene_position_wird_wieder_gefuehrt_und_storniert(w, tmp_path):
+    tag = w.lang[0]
+    t_e = einstieg(w, tag)
+    k = Konto(w, bid=kurs_um(w, t_e))
+    st, log0, _, blick0 = lauf(w, k, {}, t_e + MIN)
+    tr = us(st)["trade"]
+    bis = pd.Timestamp(tr["bis_utc"])
+    # so stand es nach dem 27.11.2026: gebucht mit dem Kurs 0,24, die Position liegt weiter beim Broker
+    falsch = {**{x: tr[x] for x in ("id", "markt", "epic", "richtung", "tag", "dealId", "size", "entry", "stop",
+                                    "dist", "wahrscheinlichkeit", "opened_utc", "spaet_min", "nach_18_min")},
+              "seite": "Kauf", "exit": 0.24, "grund": "zeit", "closed_utc": (bis - 14 * MIN).isoformat(),
+              "naechte": 0, "r_roh": -19.69, "gebuehr_r": 0.0, "r": -19.69, "pnl_waehrung": -72.32, "pnl_eur": -65.92}
+    alt = {**st, "summe_r": -19.69, "trades": 1}
+    alt["maerkte"] = {**st["maerkte"], SYM: {**us(st), "trade": None, "fremd": [tr["dealId"]]}}
+    j, c = tmp_path / "modell-indizes", tmp_path / "modell-indizes.json"
+    j.mkdir()
+    (j / "trades.jsonl").write_text(json.dumps(falsch) + "\n", encoding="utf-8")
+    k.markt_auf = False                                                           # Wochenende: Markt zu
+    st2, log, fertig, _ = lauf(w, k, alt, bis + pd.Timedelta(hours=2), gebucht=[falsch])
+    neu = us(st2)["trade"]
+    assert not fertig and neu["dealId"] == tr["dealId"] and neu["bis_utc"] == tr["bis_utc"]
+    assert neu["satz_nacht"] == tr["satz_nacht"] and neu["entry"] == tr["entry"] and neu["wieder_seit"]
+    assert st2["summe_r"] == 0.0 and st2["trades"] == 0 and us(st2)["fremd"] == []
+    assert [e["event"] for e in log if e["markt"] == SYM][0] == "Trade wieder geführt"
+    assert st2["storniert"][0]["closed_utc"] == falsch["closed_utc"] and st2["storniert"][0]["r"] == -19.69
+    assert not [x for x in k.calls if x[0] == "DELETE"]                           # Markt zu: noch kein Schluss
+    st3, _, _, _ = lauf(w, k, st2, bis + pd.Timedelta(hours=2, minutes=15), gebucht=[falsch])
+    assert len(st3["storniert"]) == 1 and us(st3)["trade"]["dealId"] == tr["dealId"]    # nur einmal
+    k.markt_auf = True
+    st4, _, fertig, blick = lauf(w, k, st3, bis + pd.Timedelta(hours=3), gebucht=[falsch])
+    assert fertig[0]["dealId"] == tr["dealId"] and fertig[0]["exit"] == k.bid and fertig[0]["wieder_seit"]
+    assert us(st4)["trade"] is None and st4["trades"] == 1 and st4["summe_r"] == fertig[0]["r"]
+    assert mb.schreiben(st4, log, fertig, blick, j, c)
+    zeilen = [json.loads(x) for x in (j / "trades.jsonl").read_text(encoding="utf-8").splitlines()]
+    weg = [json.loads(x) for x in (j / "storniert.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert [z["exit"] for z in zeilen] == [k.bid] and [z["exit"] for z in weg] == [0.24] and weg[0]["storniert"]
+    assert mb.stornieren(st4, j) == 0                                             # zweiter Aufruf ändert nichts
+    st5, log5, _, _ = lauf(w, k, st4, bis + pd.Timedelta(hours=4), gebucht=zeilen + weg)
+    assert not [e for e in log5 if e["event"] == "Trade wieder geführt"]          # die Position ist jetzt zu
+
+
+def test_fremde_position_wird_nie_wieder_gefuehrt(w):
+    tag = w.lang[0]
+    t_e = einstieg(w, tag)
+    k = Konto(w, bid=kurs_um(w, t_e))
+    k.fremd = [{"market": {"epic": EPIC}, "position": {"dealId": "FREMD", "level": 5000.0, "size": 0.1}}]
+    gebucht = [{"id": "US500 x", "markt": SYM, "dealId": "ANDERS", "closed_utc": t_e.isoformat(), "r": -1.0,
+                "richtung": 1, "tag": tag}]
+    st, log, _, _ = lauf(w, k, {}, t_e + MIN, gebucht=gebucht)
+    assert us(st)["trade"] is None and us(st)["fremd"] == ["FREMD"] and "storniert" not in st
+    alt = [{**gebucht[0], "dealId": "FREMD", "closed_utc": (t_e - pd.Timedelta(days=31)).isoformat()}]
+    st, log, _, _ = lauf(w, k, {}, t_e + MIN, gebucht=alt)                        # älter als 30 Tage
+    assert us(st)["trade"] is None and "storniert" not in st
+
+
 def test_sperren(w, monkeypatch):
     tag = w.lang[0]
     t_e = einstieg(w, tag)

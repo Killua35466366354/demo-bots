@@ -2,7 +2,7 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-28T16:02:03",
+ "stand": "2026-11-28T17:01:54",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
  "status": "Ether: Verkauf offen ab 1641.37, Stop 1658.72, Ziel 1606.67, Ausstieg spätestens 2026-11-29 14:00 UTC",
@@ -250,25 +250,25 @@
   }
  ],
  "blick": {
-  "naechste_stunde_endet_utc": "2026-11-28 17:00:00",
+  "naechste_stunde_endet_utc": "2026-11-28 18:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 16:00:00",
+     "grenze": "2026-11-28 17:00:00",
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "richtung": 0,
-     "schluss": 59424.55,
-     "mitte": 59598.875,
-     "oben": 60211.40764,
-     "unten": 58986.34236,
-     "rsi": 41.840582,
-     "atr": 357.293663,
+     "schluss": 59513.0,
+     "mitte": 59583.1375,
+     "oben": 60187.458367,
+     "unten": 58978.816633,
+     "rsi": 44.146015,
+     "atr": 351.490544,
      "dist": null
     },
     "signal": {
      "markt": "BTCUSD",
-     "grenze": "2026-11-28 16:00:00",
+     "grenze": "2026-11-28 17:00:00",
      "richtung": 0,
      "dist": null,
      "ziel_abstand": null,
@@ -276,22 +276,22 @@
      "warten": false,
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "tage": 39,
-     "schluss": 59424.55,
-     "mitte": 59598.875,
-     "oben": 60211.40764,
-     "unten": 58986.34236,
-     "rsi": 41.840582,
-     "atr": 357.293663
+     "schluss": 59513.0,
+     "mitte": 59583.1375,
+     "oben": 60187.458367,
+     "unten": 58978.816633,
+     "rsi": 44.146015,
+     "atr": 351.490544
     },
-    "kurs": 59407.3
+    "kurs": 59524.95
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 16:00:00",
+     "grenze": "2026-11-28 17:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 1647.94
+    "kurs": 1652.77
    }
   }
  }

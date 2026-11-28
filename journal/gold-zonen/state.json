@@ -60,10 +60,10 @@
  "versuche": {},
  "keine_order": [
   "Wochenende (Freitag 16:45 bis Sonntag 18:05 Uhr New York)",
-  "Plan nicht aus dieser Stunde",
+  "Plan älter als 4 Stunden",
   "Markt gerade nicht handelbar"
  ],
- "stand": "2026-11-27T22:08:41",
+ "stand": "2026-11-28T01:08:50",
  "letzte_deals": [
   "00000000-76f0-6859-049c-701a0015549e",
   "00000000-73b5-75fa-049c-701a0015549e",

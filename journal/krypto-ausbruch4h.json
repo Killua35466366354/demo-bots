@@ -2,10 +2,10 @@
  "bot": "krypto-ausbruch4h",
  "name": "4-Std.-Ausbruch Bitcoin, Ether",
  "konto": "Account 5",
- "stand": "2026-11-28T07:47:13",
+ "stand": "2026-11-28T11:17:02",
  "start": "2026-11-20T16:34:24",
  "pausiert": null,
- "status": "kein Trade offen. Letzte Kerze (bis 2026-11-28 07:00 UTC): verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-28 11:00 UTC): kein Ausbruch",
  "regel": "4-Std.-Ausbruch mit Tagestrend auf Bitcoin und Ether (Fassung ausbruch4h_krypto): Schluss einer 4-Std.-Kerze über dem Hoch der 20 Kerzen davor, nur mit dem Trend des Tages (Schluss über EMA 50, EMA 50 steigt). Stop hinter dem Tief der letzten 10 Kerzen, kein Ziel. Ausstieg nach 4 fertigen 4-Std.-Kerzen (16 Stunden). Verkauf spiegelbildlich. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_youtube_runde.md): 2024 bis Oktober 2026 319 Trades (etwa 2,2 je Woche), Gewinnfaktor 1,23, mit 1,5-fachen Kosten 1,19, Hälften 1,32 und 1,13, aber 2026 allein 0,91 und nur 2,35 statt 3 Standardabweichungen über dem Zufall. Bitcoin 1,42, Ether 1,06. Ohne die 5 besten Trades 0,98.",
  "vorab": "suche/VORAB_krypto_ausbruch4h_bot.yaml",
@@ -111,23 +111,69 @@
   }
  ],
  "blick": {
-  "naechste_4h_kerze_endet_utc": "2026-11-28 11:00:00",
+  "naechste_4h_kerze_endet_utc": "2026-11-28 15:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 07:00:00",
-     "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
+     "grenze": "2026-11-28 11:00:00",
+     "ergebnis": "kein Ausbruch",
+     "richtung": 0,
+     "schluss": 59172.0,
+     "hoch_davor": 62101.2,
+     "tief_davor": 57185.95,
+     "trend": null,
+     "dist": null
     },
-    "kurs": 59647.9
+    "signal": {
+     "markt": "BTCUSD",
+     "grenze": "2026-11-28 11:00:00",
+     "richtung": 0,
+     "trend": null,
+     "dist": null,
+     "ok": false,
+     "warten": false,
+     "ergebnis": "kein Ausbruch",
+     "tage": 400,
+     "schluss": 59172.0,
+     "hoch_davor": 62101.2,
+     "tief_davor": 57185.95,
+     "tagestrend": -1,
+     "kerzen_5min": 36,
+     "gesperrt": false
+    },
+    "kurs": 59192.4
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 07:00:00",
-     "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
+     "grenze": "2026-11-28 11:00:00",
+     "ergebnis": "kein Ausbruch",
+     "richtung": 0,
+     "schluss": 1644.33,
+     "hoch_davor": 1751.46,
+     "tief_davor": 1605.65,
+     "trend": null,
+     "dist": null
     },
-    "kurs": 1653.52
+    "signal": {
+     "markt": "ETHUSD",
+     "grenze": "2026-11-28 11:00:00",
+     "richtung": 0,
+     "trend": null,
+     "dist": null,
+     "ok": false,
+     "warten": false,
+     "ergebnis": "kein Ausbruch",
+     "tage": 400,
+     "schluss": 1644.33,
+     "hoch_davor": 1751.46,
+     "tief_davor": 1605.65,
+     "tagestrend": -1,
+     "kerzen_5min": 36,
+     "gesperrt": false
+    },
+    "kurs": 1645.46
    }
   }
  }

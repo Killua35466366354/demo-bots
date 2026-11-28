@@ -29,6 +29,7 @@ import pandas as pd
 
 from suche import scalping as sc
 from suche import scalping2 as s2
+from suche import schluss as belegt_pruefung
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 VORAB = ROOT / "suche" / "VORAB_scalping_opens.yaml"
@@ -293,7 +294,11 @@ class Lauf:
         if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
             self.ev("schließen abgelehnt", dealId=tr["dealId"], grund=(conf or {}).get("reason"))
             return
-        level = _num((conf or {}).get("level")) or (q.bid if tr["richtung"] > 0 else q.offer)
+        level, offen = belegt_pruefung.belegt(self.client, conf, tr["dealId"],
+                                              q.bid if tr["richtung"] > 0 else q.offer, tr.get("dist"))
+        if level is None:                   # nichts buchen: der nächste Lauf schließt wieder oder liest den Schlusskurs
+            self.ev("Schluss nicht belegt", dealId=tr["dealId"], **offen)
+            return
         self.buche(tr, level, "Zeit", q)
 
     def opens(self, tag: pd.Timestamp) -> dict:

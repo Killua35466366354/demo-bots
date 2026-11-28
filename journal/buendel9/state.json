@@ -3,11 +3,6 @@
  "start": "2026-11-20T18:03:32",
  "kopien": {},
  "gesehen": {
-  "00000000-76bf-ab20-049c-70190015549e": {
-   "bot": "scalp-us100",
-   "zeit": "2026-11-25T15:03:29",
-   "grund": "Quelle beim Broker schon zu"
-  },
   "00000000-76f0-6859-049c-701a0015549e": {
    "bot": "gold-zonen",
    "zeit": "2026-11-25T18:47:15",
@@ -34,7 +29,7 @@
   "gold-zonen": "kopiert seit dem 26.11.2026 das Gold-Bündel",
   "gold-ausbruch4h": "kopiert seit dem 26.11.2026 das Gold-Bündel"
  },
- "stand": "2026-11-27T02:02:00",
+ "stand": "2026-11-28T15:17:16",
  "hedging_versuch": "2026-11-20T19:03:01",
  "hedging": true,
  "storniert": [

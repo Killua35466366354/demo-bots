@@ -2,7 +2,7 @@
  "bot": "buendel9",
  "name": "Bündel ohne Gold (6 Bots)",
  "konto": "Vortag USDJPY",
- "stand": "2026-11-27T02:02:00",
+ "stand": "2026-11-28T15:17:16",
  "start": "2026-11-20T18:03:32",
  "status": "0 Kopien offen, gedachter Kontostand 683.41 € nach 7 fertigen Kopien",
  "regel": "Kopiert jeden neuen Trade von 6 Demo-Bots ohne Gold (Rücksetzer US500 und US100, Noise-Band Nasdaq, Scalper DAX und Nasdaq, 4-Std.-Ausbruch DAX/FTSE/Nikkei) mit 7 € Risiko auf gedachte 700 €. Kauf oder Verkauf, Stop und Ziel wie die Quelle, raus, wenn die Quelle rausgeht. Die Gold-Bots kopiert seit dem 26.11.2026 das Gold-Bündel. Konto-Wächter: Margin höchstens 50 % des Kontostands, Bremse ab 30 % Rückgang.",

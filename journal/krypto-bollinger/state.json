@@ -6,17 +6,17 @@
  "maerkte": {
   "BTCUSD": {
    "trade": null,
-   "letzte_grenze": "2026-11-28 15:00:00",
+   "letzte_grenze": "2026-11-28 16:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-28 15:00:00",
+    "grenze": "2026-11-28 16:00:00",
     "ergebnis": "Schluss im Band oder RSI nicht extrem",
     "richtung": 0,
-    "schluss": 59241.75,
-    "mitte": 59619.9775,
-    "oben": 60236.103029,
-    "unten": 59003.851971,
-    "rsi": 36.837328,
-    "atr": 357.523944,
+    "schluss": 59424.55,
+    "mitte": 59598.875,
+    "oben": 60211.40764,
+    "unten": 58986.34236,
+    "rsi": 41.840582,
+    "atr": 357.293663,
     "dist": null
    },
    "letzter_schluss": "2026-11-27T15:24:55"
@@ -42,13 +42,13 @@
     "lot": 1.0,
     "eur_rate": 1.093525
    },
-   "letzte_grenze": "2026-11-28 15:00:00",
+   "letzte_grenze": "2026-11-28 16:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-28 15:00:00",
+    "grenze": "2026-11-28 16:00:00",
     "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
    },
    "letzter_schluss": "2026-11-27T15:35:40"
   }
  },
- "stand": "2026-11-28T15:01:48"
+ "stand": "2026-11-28T16:02:03"
 }

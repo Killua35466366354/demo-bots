@@ -2,7 +2,7 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-28T15:01:48",
+ "stand": "2026-11-28T16:02:03",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
  "status": "Ether: Verkauf offen ab 1641.37, Stop 1658.72, Ziel 1606.67, Ausstieg spätestens 2026-11-29 14:00 UTC",
@@ -250,48 +250,48 @@
   }
  ],
  "blick": {
-  "naechste_stunde_endet_utc": "2026-11-28 16:00:00",
+  "naechste_stunde_endet_utc": "2026-11-28 17:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 15:00:00",
+     "grenze": "2026-11-28 16:00:00",
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
      "richtung": 0,
-     "schluss": 59241.75,
-     "mitte": 59619.9775,
-     "oben": 60236.103029,
-     "unten": 59003.851971,
-     "rsi": 36.837328,
-     "atr": 357.523944,
+     "schluss": 59424.55,
+     "mitte": 59598.875,
+     "oben": 60211.40764,
+     "unten": 58986.34236,
+     "rsi": 41.840582,
+     "atr": 357.293663,
      "dist": null
     },
     "signal": {
      "markt": "BTCUSD",
-     "grenze": "2026-11-28 15:00:00",
+     "grenze": "2026-11-28 16:00:00",
      "richtung": 0,
      "dist": null,
      "ziel_abstand": null,
      "ok": false,
      "warten": false,
      "ergebnis": "Schluss im Band oder RSI nicht extrem",
-     "tage": 40,
-     "schluss": 59241.75,
-     "mitte": 59619.9775,
-     "oben": 60236.103029,
-     "unten": 59003.851971,
-     "rsi": 36.837328,
-     "atr": 357.523944
+     "tage": 39,
+     "schluss": 59424.55,
+     "mitte": 59598.875,
+     "oben": 60211.40764,
+     "unten": 58986.34236,
+     "rsi": 41.840582,
+     "atr": 357.293663
     },
-    "kurs": 59290.75
+    "kurs": 59407.3
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 15:00:00",
+     "grenze": "2026-11-28 16:00:00",
      "ergebnis": "ein Trade ist offen, höchstens einer je Markt"
     },
-    "kurs": 1646.72
+    "kurs": 1647.94
    }
   }
  }

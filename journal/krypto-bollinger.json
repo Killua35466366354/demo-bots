@@ -2,10 +2,10 @@
  "bot": "krypto-bollinger",
  "name": "Bollinger Krypto umgedreht (Bitcoin, Ether)",
  "konto": "Account 3",
- "stand": "2026-11-28T07:47:03",
+ "stand": "2026-11-28T08:31:48",
  "start": "2026-11-20T12:33:05",
  "pausiert": null,
- "status": "kein Trade offen. Letzte Kerze (bis 2026-11-28 07:00 UTC): verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)",
+ "status": "kein Trade offen. Letzte Kerze (bis 2026-11-28 08:00 UTC): verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)",
  "regel": "Bollinger und RSI auf Bitcoin und Ether, umgedreht (Fassung bollinger_umkehr_krypto_weit): Schließt eine Stundenkerze unter dem unteren Bollinger-Band (20, 2) mit RSI 14 unter 30, verkauft der Bot, über dem oberen Band mit RSI über 70 kauft er. Stop 1,5 ATR der Stundenkerzen, Ziel 2 R, Ausstieg spätestens nach 24 Stunden. Höchstens ein Trade je Markt, 5 € Risiko.",
  "backtest": "Test NICHT bestanden (suche/ergebnis_notizen_runde.md): 2024 bis 2026 1.150 Trades (etwa 7,8 je Woche), Gewinnfaktor 1,07, neuere Hälfte 0,98, 2026 1,00, Bitcoin 0,97 und Ether 1,18. Auf 1.000 € mit 10 € je Trade im Rückblick etwa 16 € im Monat. Kirons Wahl vom 20.11.2026: eine der zwei stärksten Fassungen live testen.",
  "vorab": "suche/VORAB_krypto_bollinger_bot.yaml",
@@ -236,23 +236,23 @@
   }
  ],
  "blick": {
-  "naechste_stunde_endet_utc": "2026-11-28 08:00:00",
+  "naechste_stunde_endet_utc": "2026-11-28 09:00:00",
   "maerkte": {
    "BTCUSD": {
     "epic": "BTCUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 07:00:00",
+     "grenze": "2026-11-28 08:00:00",
      "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
     },
-    "kurs": 59647.9
+    "kurs": 59521.7
    },
    "ETHUSD": {
     "epic": "ETHUSD",
     "letzte_pruefung": {
-     "grenze": "2026-11-28 07:00:00",
+     "grenze": "2026-11-28 08:00:00",
      "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
     },
-    "kurs": 1653.52
+    "kurs": 1651.54
    }
   }
  }

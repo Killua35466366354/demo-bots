@@ -6,38 +6,57 @@
  "maerkte": {
   "BTCUSD": {
    "trade": null,
-   "letzte_grenze": "2026-11-28 13:00:00",
+   "letzte_grenze": "2026-11-28 14:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-28 13:00:00",
+    "grenze": "2026-11-28 14:00:00",
     "ergebnis": "Schluss im Band oder RSI nicht extrem",
     "richtung": 0,
-    "schluss": 59128.85,
-    "mitte": 59701.265,
-    "oben": 60247.864557,
-    "unten": 59154.665443,
-    "rsi": 31.685871,
-    "atr": 353.289308,
+    "schluss": 59024.05,
+    "mitte": 59651.0175,
+    "oben": 60250.111663,
+    "unten": 59051.923337,
+    "rsi": 30.196753,
+    "atr": 357.925786,
     "dist": null
    },
    "letzter_schluss": "2026-11-27T15:24:55"
   },
   "ETHUSD": {
-   "trade": null,
-   "letzte_grenze": "2026-11-28 13:00:00",
+   "trade": {
+    "id": "ETHUSD 2026-11-28T14:00",
+    "markt": "ETHUSD",
+    "epic": "ETHUSD",
+    "richtung": -1,
+    "grenze": "2026-11-28 14:00:00",
+    "dealId": "00000000-7742-555d-049c-701d0015549e",
+    "size": 0.315,
+    "entry": 1641.37,
+    "stop": 1658.72,
+    "ziel": 1606.67,
+    "dist": 17.351577,
+    "bid_ein": 1641.37,
+    "opened_utc": "2026-11-28T14:01:54",
+    "spaet_min": 1.9,
+    "bis_utc": "2026-11-29 14:00:00",
+    "satz_nacht": 0.2,
+    "lot": 1.0,
+    "eur_rate": 1.093525
+   },
+   "letzte_grenze": "2026-11-28 14:00:00",
    "letzte_pruefung": {
-    "grenze": "2026-11-28 13:00:00",
-    "ergebnis": "Schluss im Band oder RSI nicht extrem",
-    "richtung": 0,
-    "schluss": 1644.67,
-    "mitte": 1659.2725,
-    "oben": 1676.018802,
-    "unten": 1642.526198,
-    "rsi": 32.332993,
-    "atr": 11.295234,
-    "dist": null
+    "grenze": "2026-11-28 14:00:00",
+    "ergebnis": "Verkauf eröffnet",
+    "richtung": -1,
+    "schluss": 1639.07,
+    "mitte": 1657.74,
+    "oben": 1675.929078,
+    "unten": 1639.550922,
+    "rsi": 29.788125,
+    "atr": 11.567718,
+    "dist": 17.351577
    },
    "letzter_schluss": "2026-11-27T15:35:40"
   }
  },
- "stand": "2026-11-28T13:02:02"
+ "stand": "2026-11-28T14:01:54"
 }

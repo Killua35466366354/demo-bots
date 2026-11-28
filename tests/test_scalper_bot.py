@@ -169,6 +169,8 @@ class Broker:
         self.closed: list[str] = []
         self.now = None
         self.n = 0
+        self.schluss_kurs = 20030.0           # bestätigter Kurs beim Schließen, weniger als 1 R vom Kurs des Laufs
+        self.bleibt_offen = False             # wie das Vorhersage-Modell am 27.11.2026: bestätigt, aber noch offen
 
     def accounts(self):
         return [{"accountId": "111111113150", "balance": {"available": 900}},
@@ -225,8 +227,9 @@ class Broker:
 
     def close_position(self, deal):
         self.closed.append(deal)
-        self.pos.pop(deal)
-        return {"dealStatus": "ACCEPTED", "level": 20100.0}
+        if not self.bleibt_offen:
+            self.pos.pop(deal)
+        return {"dealStatus": "ACCEPTED", "level": self.schluss_kurs}
 
     def activity(self, *a, **k):
         return []
@@ -272,7 +275,23 @@ def test_lauf_us100_oeffnet_mit_stop_und_ziel_und_schliesst_zur_zeit():
     out = sb.run(br, {"scalp-us100": out["scalp-us100"].st}, br.now.tz_localize("UTC").to_pydatetime())
     l = out["scalp-us100"]
     assert br.closed == ["D1"] and l.st["offen"] is None and l.st["trades"] == 1
-    assert l.fertige[0]["quelle"] == "Zeit" and l.fertige[0]["r"] == pytest.approx(99.0 / dist, abs=0.01)
+    assert l.fertige[0]["quelle"] == "Zeit" and l.fertige[0]["r"] == pytest.approx(29.0 / dist, abs=0.01)
+
+
+def test_zeit_ausstieg_ohne_beleg_bucht_nichts_und_schliesst_im_naechsten_lauf():
+    """Wie beim Vorhersage-Modell am 27.11.2026: Schluss bestätigt mit Kurs 0,24, die Position liegt weiter offen."""
+    br = Broker(_markt_us100())
+    br.now = pd.Timestamp("2026-11-10 14:48")
+    st = sb.run(br, {}, br.now.tz_localize("UTC").to_pydatetime())["scalp-us100"].st
+    br.now, br.schluss_kurs, br.bleibt_offen = pd.Timestamp("2026-11-10 21:03"), 0.24, True
+    l = sb.run(br, {"scalp-us100": st}, br.now.tz_localize("UTC").to_pydatetime())["scalp-us100"]
+    assert br.closed == ["D1"] and not l.fertige and l.st["offen"]["dealId"] == "D1" and l.st["trades"] == 0
+    ev = [e for e in l.log if e["event"] == "Schluss nicht belegt"][0]
+    assert ev["noch_offen"] is True and ev["kurs_bestaetigt"] == 0.24
+    br.now, br.schluss_kurs, br.bleibt_offen = pd.Timestamp("2026-11-10 21:08"), 20030.0, False
+    l = sb.run(br, {"scalp-us100": l.st}, br.now.tz_localize("UTC").to_pydatetime())["scalp-us100"]
+    assert br.closed == ["D1", "D1"] and l.st["offen"] is None and l.st["trades"] == 1
+    assert l.fertige[0]["quelle"] == "Zeit" and l.fertige[0]["exit"] == 20030.0
 
 
 def test_lauf_filter_verhindert_den_trade():

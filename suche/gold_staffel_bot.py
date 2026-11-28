@@ -34,6 +34,8 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
+from suche import schluss as belegt_pruefung
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 VORAB = ROOT / "suche" / "VORAB_gold_staffel.yaml"
 KEY = "VORAB_gold_staffel sha256 "
@@ -183,7 +185,11 @@ class Lauf:
         if str((conf or {}).get("dealStatus") or "").upper() == "REJECTED":
             self.ev("schließen abgelehnt", dealId=tr["dealId"], quelle=quelle, grund=(conf or {}).get("reason"))
             return False
-        level = _num((conf or {}).get("level")) or (q.bid if tr["richtung"] > 0 else q.offer)
+        level, offen = belegt_pruefung.belegt(self.client, conf, tr["dealId"],
+                                              q.bid if tr["richtung"] > 0 else q.offer, tr.get("dist"))
+        if level is None:                   # nichts buchen: der nächste Lauf schließt wieder oder liest den Schlusskurs
+            self.ev("Schluss nicht belegt", dealId=tr["dealId"], quelle=quelle, **offen)
+            return False
         self.buche(tr, level, quelle, q)
         return True
 

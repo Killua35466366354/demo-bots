@@ -344,6 +344,24 @@ def test_gold_bot_zu_schliesst_auch():
     assert lf.fertige[0]["r"] == pytest.approx((4060.0 - 4050.8) / 20.8, abs=1e-3)
 
 
+def test_schluss_ohne_beleg_bucht_nichts_und_schliesst_im_naechsten_lauf():
+    """Wie beim Vorhersage-Modell am 27.11.2026: Schluss bestätigt mit Kurs 0,24, die Position liegt weiter offen."""
+    br = Broker()
+    st = offen(br)
+    echt = br.close_position
+    br.close_position = lambda deal: (br.closed.append(deal) or {"dealStatus": "ACCEPTED", "level": 0.24})
+    br.bid = 4060.0
+    zu = {"stand": "2026-11-11T11:11:30+00:00", "position": None}
+    lf = gs.run(br, st, _utc("2026-11-11 11:13"), gold=zu)
+    assert br.closed == ["S1"] and not lf.fertige and lf.st["offen"]["dealId"] == "S1"
+    ev = [e for e in lf.log if e["event"] == "Schluss nicht belegt"][0]
+    assert ev["noch_offen"] is True and ev["kurs_bestaetigt"] == 0.24 and ev["quelle"] == "Gold-Bot zu"
+    br.close_position = echt
+    lf = gs.run(br, lf.st, _utc("2026-11-11 11:18"), gold=zu)                 # nächster Lauf schließt wieder
+    assert br.closed == ["S1", "S1"] and lf.st["offen"] is None and lf.fertige[0]["quelle"] == "Gold-Bot zu"
+    assert lf.fertige[0]["r"] == pytest.approx((4060.0 - 4050.8) / 20.8, abs=1e-3)
+
+
 def test_broker_schliesst_mit_tp3_oder_stop():
     br = Broker()
     st = offen(br)

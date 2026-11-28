@@ -352,6 +352,23 @@ def test_quelle_zu_schliesst_die_kopie_und_bucht_r(tmp_path):
     assert st2["summe_eur"] == pytest.approx(6.5, abs=0.01) and t["closed_utc"] and t["opened_utc"]
 
 
+def test_schluss_ohne_beleg_bucht_keine_kopie(tmp_path):
+    """Wie beim Vorhersage-Modell am 27.11.2026: bestätigt mit Kurs 0,24, die Kopie liegt weiter offen."""
+    b = Broker()
+    b.quelle("S1")
+    st, _, _ = lauf(b, journal(tmp_path, scalp={"dealId": "S1"}))
+    (tmp_path / "scalp-de40/state.json").write_text(json.dumps({"offen": None}), encoding="utf-8")
+    echt = b.close_position
+    b.close_position = lambda deal_id: (b.calls.append(("DELETE", deal_id)) or {"dealStatus": "ACCEPTED", "level": 0.24})
+    st2, log, fertig = lauf(b, tmp_path, st, now=JETZT + timedelta(minutes=15))
+    assert ("DELETE", "K1") in b.calls and not fertig and "S1" in st2["kopien"] and st2["trades"] == 0
+    ev = [e for e in log if e["event"] == "Schluss nicht belegt"][0]
+    assert ev["noch_offen"] is True and ev["kurs_bestaetigt"] == 0.24
+    b.close_position = echt
+    st3, _, fertig = lauf(b, tmp_path, st2, now=JETZT + timedelta(minutes=30))   # nächster Lauf schließt wieder
+    assert fertig[0]["grund"] == "Quelle zu" and st3["kopien"] == {} and st3["trades"] == 1
+
+
 def test_quelle_beim_broker_zu_schliesst_die_kopie(tmp_path):
     b = Broker()
     b.quelle("S1")

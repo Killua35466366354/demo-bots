@@ -64,6 +64,7 @@ import pandas as pd
 from gold import short_bot as sb
 from suche import grosse_runde as gr
 from suche import rueckblick as rb
+from suche import schluss as belegt_pruefung
 from suche import youtube_runde as yr
 from suche import youtube_runde2 as y2
 from suche.rueckblick_daten import MAERKTE as _EPICS
@@ -87,6 +88,7 @@ FRIST = pd.Timedelta(minutes=20)      # so lange nach dem ersten Kurs des Handel
 TAKT = pd.Timedelta(minutes=15)       # Abstand der Läufe
 AUS_VORLAUF = pd.Timedelta(minutes=15)     # Ausstieg im ersten Lauf ab 15:55 New York minus diese Zeit
 SCHLUSS_WARTEN = pd.Timedelta(hours=1)     # so lange sucht der Bot den Schlusskurs beim Broker, dann schätzt er
+NACHPRUEFEN = pd.Timedelta(days=30)        # so alte Buchungen prüft wieder_fuehren, ob ihre Position noch offen liegt
 STUNDE = pd.Timedelta(hours=1)
 FUENF = np.timedelta64(5, "m")
 FMT = "%Y-%m-%dT%H:%M:%S"
@@ -614,8 +616,13 @@ class Lauf:
             tr["schliessen_versucht"] = warum
             self.ev("schließen abgelehnt", dealId=tr["dealId"], warum=warum, grund=(conf or {}).get("reason"))
             return False
-        level = _num((conf or {}).get("level")) or self.kurs_raus(tr["richtung"])
-        self.abschluss(tr, float(level), warum, self.now)
+        level, offen = belegt_pruefung.belegt(self.client, conf, tr["dealId"], self.kurs_raus(tr["richtung"]),
+                                              float(tr["dist"]))
+        if level is None:                   # nichts buchen: der nächste Lauf schließt wieder oder liest den Schlusskurs
+            tr["schliessen_versucht"] = warum
+            self.ev("Schluss nicht belegt", dealId=tr["dealId"], warum=warum, **offen)
+            return False
+        self.abschluss(tr, level, warum, self.now)
         return True
 
     def schluss_beim_broker(self, tr: dict) -> tuple[float | None, str, pd.Timestamp]:
@@ -656,7 +663,8 @@ class Lauf:
                "seite": SEITE[d], "exit": round(level, 4), "grund": grund,
                "closed_utc": pd.Timestamp(wann).isoformat(timespec="seconds"), "naechte": naechte,
                "r_roh": round(r_roh, 3), "gebuehr_r": round(gebuehr_r, 3), "r": round(r_roh - gebuehr_r, 3),
-               "pnl_waehrung": round(pnl, 2), "pnl_eur": round(pnl / rate, 2) if rate else None, **mehr}
+               "pnl_waehrung": round(pnl, 2), "pnl_eur": round(pnl / rate, 2) if rate else None,
+               **({"wieder_seit": tr["wieder_seit"]} if tr.get("wieder_seit") else {}), **mehr}
         self.fertige.append(rec)
         self.eigene_zu.add(str(tr.get("dealId")))
         self.mst["letzter_schluss"] = rec["closed_utc"]
@@ -722,6 +730,39 @@ class Lauf:
             "lot": plan["lot"], "eur_rate": plan["eur_rate"]}
         self.ev(SEITE[d] + " eröffnet", **{k: self.mst["trade"][k] for k in ("id", "dealId", "size", "entry", "stop",
                                                                             "dist", "wahrscheinlichkeit", "spaet_min")})
+
+    def wieder_fuehren(self, hier: list[dict], gebucht: list[dict]) -> None:
+        """Eine gebuchte Position dieses Markts, die beim Broker noch offen liegt, war nie zu. So ging es am 27.11.2026
+        mit US500: Capital.com bestätigte den Zeitausstieg mit dem Kurs 0,24, die Position blieb offen, der Bot buchte
+        -19,69 R und hielt sie danach für fremd. Er führt sie wieder als seinen Trade und nimmt die falsche Buchung
+        zurück. Sie kommt aus trades.jsonl nach storniert.jsonl (stornieren). Ist der Ausstieg fällig, schließt fuehren
+        die Position im selben Lauf, sobald der Markt offen ist. Nur Deal-IDs, die der Bot selbst gebucht hat, nie eine
+        fremde Position."""
+        if self.mst.get("trade") or not self.cfg:
+            return
+        offen = {str(x["position"].get("dealId")): x["position"] for x in hier}
+        storniert = {(s.get("dealId"), s.get("closed_utc")) for s in self.st.get("storniert") or []}
+        for t in reversed(gebucht):
+            did, zu = str(t.get("dealId")), t.get("closed_utc")
+            if (t.get("markt") != self.sym or did not in offen or zu is None or (did, zu) in storniert
+                    or self.now - _zeit(zu, self.now) > NACHPRUEFEN):
+                continue
+            d, p = int(t["richtung"]), offen[did]
+            satz = self.cfg["kosten"]["nacht_pro_jahr"]["index"]["long" if d > 0 else "short"]
+            self.mst["trade"] = {
+                **{k: t.get(k) for k in ("id", "markt", "epic", "richtung", "tag", "dealId", "size", "entry", "dist",
+                                         "wahrscheinlichkeit", "opened_utc", "spaet_min", "nach_18_min")},
+                "stop": _num(p.get("stopLevel")) or t.get("stop"), "bid_ein": None,
+                "bis_utc": str(ausstieg(pd.Timestamp(t["tag"]), self.cfg)), "satz_nacht": float(satz),
+                "lot": self.q.lot or 1.0, "eur_rate": self.q.eur_rate, "wieder_seit": self.stamp}
+            self.st["summe_r"] = round(float(self.st["summe_r"]) - float(t.get("r") or 0), 3)
+            self.st["trades"] = int(self.st["trades"]) - 1
+            self.st.setdefault("storniert", []).append(
+                {"dealId": did, "id": t.get("id"), "closed_utc": zu, "exit": t.get("exit"), "r": t.get("r"),
+                 "pnl_eur": t.get("pnl_eur"), "zeit": self.stamp})
+            self.ev("Trade wieder geführt", trade=t.get("id"), dealId=did, zurueck_r=t.get("r"),
+                    zurueck_eur=t.get("pnl_eur"), falscher_kurs=t.get("exit"))
+            return
 
     # ---- Führung des offenen Trades ----
 
@@ -880,8 +921,9 @@ class Lauf:
 
 
 def run(client, state: dict, now: datetime, send_orders: bool = True,
-        fremd_get=None) -> tuple[dict, list[dict], list[dict], dict]:
-    """Ein Lauf. Rückgabe: neuer Stand, Ereignisse, fertige Trades, Blick (für das Cockpit)."""
+        fremd_get=None, gebucht: list[dict] | None = None) -> tuple[dict, list[dict], list[dict], dict]:
+    """Ein Lauf. Rückgabe: neuer Stand, Ereignisse, fertige Trades, Blick (für das Cockpit). `gebucht` sind die Zeilen
+    aus trades.jsonl (für wieder_fuehren)."""
     from suche.demo_bots import eur_rate, quote_from_market
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -905,6 +947,7 @@ def run(client, state: dict, now: datetime, send_orders: bool = True,
                 lauf.q = q = quote_from_market(client.market(epic), None)
                 q.eur_rate = eur_rate(client, q.currency, kurse)
                 hier = [x for x in alle if (x.get("market") or {}).get("epic") == epic]
+                lauf.wieder_fuehren(hier, gebucht or [])
                 tr = lauf.mst.get("trade")
                 meine = {tr["dealId"]} if tr else set()
                 if lauf.mst.get("ungeklaert"):
@@ -988,6 +1031,34 @@ def _ohne_zeit(st: dict) -> dict:
     return {k: v for k, v in (st or {}).items() if k != "stand"}
 
 
+def stornieren(st: dict, jdir: Path) -> int:
+    """Falsche Buchungen, die wieder_fuehren zurückgenommen hat, kommen aus trades.jsonl nach storniert.jsonl. Gesucht
+    wird nach Deal-ID und Schlusszeit, so bleibt die spätere richtige Buchung derselben Position stehen. Nichts geht
+    verloren, jede Zeile steht danach in storniert.jsonl mit Zeit und Grund. Rückgabe: Zahl der Zeilen."""
+    weg = {(s.get("dealId"), s.get("closed_utc")): s for s in st.get("storniert") or []}
+    pfad = jdir / "trades.jsonl"
+    if not weg or not pfad.exists():
+        return 0
+    bleiben, raus = [], []
+    for line in pfad.read_text(encoding="utf-8").splitlines():
+        try:
+            t = json.loads(line)
+        except ValueError:
+            bleiben.append(line)
+            continue
+        s = weg.get((t.get("dealId"), t.get("closed_utc")))
+        if s is None:
+            bleiben.append(line)
+        else:
+            raus.append({**t, "storniert": s["zeit"],
+                         "warum": "Position lag noch offen, Schluss ohne Beleg gebucht (bis 28.11.2026)"})
+    if raus:
+        with open(jdir / "storniert.jsonl", "a", encoding="utf-8") as fh:
+            fh.writelines(json.dumps(row, ensure_ascii=False, default=str) + "\n" for row in raus)
+        pfad.write_text("".join(line + "\n" for line in bleiben), encoding="utf-8")
+    return len(raus)
+
+
 def schreiben(st: dict, log: list[dict], fertige: list[dict], blick: dict, jdir: Path = JDIR,
               cockpit_pfad: Path = COCKPIT) -> bool:
     """Schreibt Zustand, Log, Trades und Cockpit. Hat sich außer der Uhrzeit nichts geändert, schreibt der Lauf nichts."""
@@ -1004,6 +1075,7 @@ def schreiben(st: dict, log: list[dict], fertige: list[dict], blick: dict, jdir:
         if rows:
             with open(jdir / name, "a", encoding="utf-8") as fh:
                 fh.writelines(json.dumps(row, ensure_ascii=False, default=str) + "\n" for row in rows)
+    stornieren(st, jdir)
     alle = sb._lies_jsonl(jdir / "trades.jsonl")
     cockpit_pfad.write_text(json.dumps(cockpit(st, alle, blick), ensure_ascii=False, indent=1, default=str) + "\n",
                             encoding="utf-8")
@@ -1047,7 +1119,8 @@ def main(argv: list[str]) -> int:
     client = CapitalClient(*creds, environment="demo")
     anmelden(client)
     try:
-        st, log, fertige, blick = run(client, state, datetime.now(timezone.utc), send_orders=not args.dry_run)
+        st, log, fertige, blick = run(client, state, datetime.now(timezone.utc), send_orders=not args.dry_run,
+                                      gebucht=sb._lies_jsonl(JDIR / "trades.jsonl"))
     finally:
         with contextlib.suppress(Exception):
             client.logout()

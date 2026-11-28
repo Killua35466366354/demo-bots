@@ -51,6 +51,7 @@ import pandas as pd
 from gold import short_bot as sb
 from suche import notizen_runde as nr
 from suche import rueckblick as rb
+from suche import schluss as belegt_pruefung
 from suche import youtube_runde2 as y2
 from suche.rueckblick_daten import MAERKTE as _EPICS
 
@@ -429,8 +430,13 @@ class Lauf:
             tr["schliessen_versucht"] = warum
             self.ev("schließen abgelehnt", dealId=tr["dealId"], warum=warum, grund=(conf or {}).get("reason"))
             return False
-        level = _num((conf or {}).get("level")) or self.kurs_raus(tr["richtung"])
-        self.abschluss(tr, float(level), warum, self.now)
+        level, offen = belegt_pruefung.belegt(self.client, conf, tr["dealId"], self.kurs_raus(tr["richtung"]),
+                                              float(tr["dist"]))
+        if level is None:                   # nichts buchen: der nächste Lauf schließt wieder oder liest den Schlusskurs
+            tr["schliessen_versucht"] = warum
+            self.ev("Schluss nicht belegt", dealId=tr["dealId"], warum=warum, **offen)
+            return False
+        self.abschluss(tr, level, warum, self.now)
         return True
 
     def schluss_beim_broker(self, tr: dict) -> tuple[float | None, str, pd.Timestamp]:

@@ -1,63 +1,6 @@
 {
  "format": 1,
  "lauf": "demo-bots",
- "schritte": {
-  "ausbruch4h": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "buendel": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "demo_bots": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "gold_hand": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "grossbox": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "krypto4h": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "krypto_bollinger": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "modell_indizes": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "r6": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "r7": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "us500": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "vix_sprung": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "welt4h": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  },
-  "williams": {
-   "in_folge": 1,
-   "seit": "2026-11-28T07:37Z"
-  }
- },
+ "schritte": {},
  "siegel": []
 }

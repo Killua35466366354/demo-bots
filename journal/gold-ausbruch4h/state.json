@@ -4,11 +4,11 @@
  "trade": null,
  "summe_r": 1.625,
  "trades": 5,
- "letzte_grenze": "2026-11-28 03:00:00",
+ "letzte_grenze": "2026-11-28 07:00:00",
  "letzte_pruefung": {
-  "grenze": "2026-11-28 03:00:00",
+  "grenze": "2026-11-28 07:00:00",
   "ergebnis": "verfallen: In der Frist kam kein Lauf zum Zug (Markt zu, Stundenkerze fehlte oder Lauf fiel aus)"
  },
- "stand": "2026-11-28T03:31:49",
+ "stand": "2026-11-28T07:46:58",
  "letzter_schluss": "2026-11-26T07:01:42"
 }

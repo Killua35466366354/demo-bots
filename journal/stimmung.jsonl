@@ -906,3 +906,4 @@
 {"zeit":"2026-11-28T07:02Z","long":{"GOLD":71.85,"US500":77.6,"US100":66.78,"US30":67.76,"DE40":65.21,"J225":72.21,"EURUSD":62.35,"GBPUSD":69.83,"GBPJPY":68.33,"USDJPY":47.72},"fehlt":[],"fehler":null}
 {"zeit":"2026-11-28T07:17Z","long":{"GOLD":71.85,"US500":77.6,"US100":66.78,"US30":67.76,"DE40":65.21,"J225":72.21,"EURUSD":62.35,"GBPUSD":69.83,"GBPJPY":68.33,"USDJPY":47.72},"fehlt":[],"fehler":null}
 {"zeit":"2026-11-28T07:36Z","long":{},"fehlt":["GOLD","US500","US100","US30","DE40","J225","EURUSD","GBPUSD","GBPJPY","USDJPY"],"fehler":"POST /session -> 504: <html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"}
+{"zeit":"2026-11-28T07:47Z","long":{"GOLD":71.85,"US500":77.6,"US100":66.78,"US30":67.76,"DE40":65.21,"J225":72.21,"EURUSD":62.35,"GBPUSD":69.83,"GBPJPY":68.33,"USDJPY":47.72},"fehlt":[],"fehler":null}

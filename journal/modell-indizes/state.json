@@ -1,11 +1,32 @@
 {
  "format": 1,
  "start": "2026-11-20T13:18:01",
- "summe_r": -15.945,
- "trades": 10,
+ "summe_r": 3.745,
+ "trades": 9,
  "maerkte": {
   "SPXUSD": {
-   "trade": null,
+   "trade": {
+    "id": "US500 2026-11-27",
+    "markt": "SPXUSD",
+    "epic": "US500",
+    "richtung": 1,
+    "tag": "2026-11-27",
+    "dealId": "00000000-772a-9b9a-049c-70210015549e",
+    "size": 0.01,
+    "entry": 7231.9,
+    "dist": 367.271429,
+    "wahrscheinlichkeit": 0.597012,
+    "opened_utc": "2026-11-26T23:01:56",
+    "spaet_min": 1.9,
+    "nach_18_min": 1.9,
+    "stop": 6863.5,
+    "bid_ein": null,
+    "bis_utc": "2026-11-27 20:55:00",
+    "satz_nacht": 0.065,
+    "lot": 1.0,
+    "eur_rate": 1.093525,
+    "wieder_seit": "2026-11-28T09:48:17"
+   },
    "letzter_tag": "2026-11-27",
    "letzte_pruefung": {
     "tag": "2026-11-27",
@@ -20,9 +41,7 @@
    "ausgelassen": {
     "fremd_alt": 3
    },
-   "fremd": [
-    "00000000-772a-9b9a-049c-70210015549e"
-   ]
+   "fremd": []
   },
   "NSXUSD": {
    "trade": null,
@@ -93,5 +112,16 @@
    }
   }
  },
- "stand": "2026-11-27T21:01:57"
+ "stand": "2026-11-28T09:48:17",
+ "storniert": [
+  {
+   "dealId": "00000000-772a-9b9a-049c-70210015549e",
+   "id": "US500 2026-11-27",
+   "closed_utc": "2026-11-27T20:46:51",
+   "exit": 0.24,
+   "r": -19.69,
+   "pnl_eur": -65.92,
+   "zeit": "2026-11-28T09:48:17"
+  }
+ ]
 }

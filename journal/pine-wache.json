@@ -2,8 +2,20 @@
  "format": 1,
  "lauf": "pine5m",
  "schritte": {
-  "zonen": {
+  "pine": {
    "in_folge": 1,
+   "seit": "2026-11-28T07:25Z"
+  },
+  "scalper": {
+   "in_folge": 1,
+   "seit": "2026-11-28T07:25Z"
+  },
+  "staffel": {
+   "in_folge": 1,
+   "seit": "2026-11-28T07:25Z"
+  },
+  "zonen": {
+   "in_folge": 2,
    "seit": "2026-11-28T07:18Z"
   }
  }
